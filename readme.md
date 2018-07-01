@@ -14,5 +14,3 @@ or https://www.facebook.com/HeartRhythmBox
 I created this page just mainly for educational purpose. I believe that presentations should be more interactive and easily
 accessible. All pages are mobile-friendly, tablet-friendly, and of course, notebook and desktop-friendly.
 
-# About Us
-I am an american-board certified full-time cardiologist and electrophysiologist, a graphic design enthusiast, and a newbie in front-end web page editor.
