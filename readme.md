@@ -11,6 +11,6 @@ https://heartrhythmbox.github.io/main/
 or https://www.facebook.com/HeartRhythmBox
 
 # Main Purpose
-I created this page just mainly for educational purpose. I believe that presentations should be more interactive and easily
+This page is created mainly for educational purpose. I believe that presentations should be more interactive and easily
 accessible. All pages are mobile-friendly, tablet-friendly, and of course, notebook and desktop-friendly.
 
