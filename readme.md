@@ -1,6 +1,6 @@
 # Project Title
 
-Heart Rhythm Box is a collection of web-pageds style presentations in clinical cardiac electrophysiology topics.
+Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
 ## keywords
 electrophysiology, cardiology, heart rhythm device, sudden cardiac arrest, pacemaker, defibrillator, CRT,
 atrial fibrillation, SVT, VT
@@ -10,7 +10,7 @@ atrial fibrillation, SVT, VT
 https://heartrhythmbox.github.io/main/
 or https://www.facebook.com/HeartRhythmBox
 
-# Main Purpose
-This page is created mainly for educational purpose. I believe that presentations should be more interactive and easily
+# About the webpage
+This webpage is created mainly for educational purpose. I believe that presentations should be more interactive and easily
 accessible. All pages are mobile-friendly, tablet-friendly, and of course, notebook and desktop-friendly.
 
