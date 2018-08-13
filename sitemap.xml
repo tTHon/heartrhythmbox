@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      
+
+<url>
+  <loc>https://heartrhythmbox.github.io/main/</loc>
+  <lastmod>2018-07-03</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/EP-QA-0518/</loc>
+  <lastmod>2018-07-03</lastmod>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/AF-Ablation-2018/</loc>
+  <lastmod>2018-06-01</lastmod>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/SCA-Myths-Facts/</loc>
+  <lastmod>2018-06-15</lastmod>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/IBHRE/</loc>
+  <lastmod>2018-07-01</lastmod>
+  <priority>0.7</priority>
+</url>
+
+
+</urlset>
