@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      
+
+<url>
+  <loc>https://heartrhythmbox.github.io/main/</loc>
+  <lastmod>2019-05-13</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/GdLines2019/</loc>
+  <lastmod>2019-05-13</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/basicPPMQA/</loc>
+  <lastmod>2019-05-13</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/afRiskMg/</loc>
+  <lastmod>2019-05-13</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/HBP/"</loc>
+  <lastmod>2019-05-13</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/syncope-guidelines-2018/</loc>
+  <lastmod>2018-08-13</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/SCA-Myths-Facts/</loc>
+  <lastmod>2018-06-15</lastmod>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://heartrhythmbox.github.io/IBHRE/</loc>
+  <lastmod>2018-07-01</lastmod>
+  <priority>0.7</priority>
+</url>
+
+
+</urlset>
