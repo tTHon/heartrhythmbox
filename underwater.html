@@ -22,15 +22,41 @@ background-image: radial-gradient(farthest-side at 55% 0%, #1DE3FA, #0aaee6, #0e
 
 <body>
 <div class="gradient">
-    <div class="sans w3-container" style="font-size:4.5vmax;padding:30vh 8vw 1vh 20vw;
-    color: #def5fe;line-height: 110%;text-align: left">
+    <div class="sans w3-container" style="font-size:4.5vmax;padding:20vh 8vw 1vh 8vw;
+    color: #def5fe;line-height: 115%;text-align: center">
         <span style="font-weight: 200">Optimal</span>
         <span style="font-weight: 600;"> Candidates</span>
         <span style="font-weight:400;font-size: 3vmax;color:#def5fe;">for </span><br>
         <span style="font-weight: 600;font-size:5vmax;color: white"> Cardiac Rhythm Devices</span><br>
         <span style="font-weight: 200;font-size: 3vmax;color:#def5fe;">in </span>
         <span style="color:#cbf0fd;font-weight: 600;">heart failure</span>
+        <div id='info' style="line-height: 120%;font-size:2vmax;color:#cbf0fd;padding-top: 7vh;
+        font-weight: 200;display: none;" class="w3-wide">
+        SIRIN APIYASAWAT, MD <br><span style="font-size:1.8vmax">RAMATHIBODI &nbsp;&nbsp;HOSPITAL</span>
+        </div>
+        
     </div>
+    <div style="font-size:2vmax;color:#fee7de;font-weight: 200;padding-bottom: 2vh" class="w3-bottom w3-center w3-wide sans">
+            <a href="https://heartrhythmbox.com/" target="_blank" style="text-decoration: none;cursor:pointer">
+            heart<span style="font-weight:600">rhythm</span>box.com</a>
+        </div>
 </div>
 </body>
+
+<script>
+
+//f9
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===120) {
+            showInfo()
+        }
+    })
+
+function showInfo(){
+  document.getElementById('info').style.display = "block"
+}
+
+</script>
+
 </html>
