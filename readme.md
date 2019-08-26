@@ -7,7 +7,7 @@ atrial fibrillation, SVT, VT
 
 # Link to the main landing page
 
-https://heartrhythmbox.github.io/main/
+https://heartrhythmbox.com
 or https://www.facebook.com/HeartRhythmBox
 
 # About the webpage
