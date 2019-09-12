@@ -51,5 +51,11 @@
   <priority>1.0</priority>
 </url>
 
+<url>
+  <loc>https://devicehf2019.heartrhythmbox.com/</loc>
+  <lastmod>2019-09-09</lastmod>
+  <priority>1.0</priority>
+</url>
+
 
 </urlset>
