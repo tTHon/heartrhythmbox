@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,700&display=swap" rel="stylesheet">
+
+</head>
+<style>
+.tab {font-size: 1.7vmax;color:black;cursor: pointer;padding: 0.5vmax;}
+.tabMobile {font-size: 3vmax;color:#888;line-height: 100%;}
+.row {display: flex; justify-content:space-around;background-color: #fafaf7;}
+.box {width:100%;font-size: 5vmax;text-align: center;margin-left: auto;margin-right: auto;
+		padding-top: 15vh;}
+.innerBox {height: 85vh;width: 100%;}
+
+/*https://greetabl.com/*/
+.grey {background-color: #fafaf7;}
+.blue {background-color: #D6EDE7;}
+.pink {background-color:#fcdcd1;}
+.orange {background-color: #f46a4f;}
+.lemon {background-color: #f2d847;}
+
+a {text-decoration: none;color: inherit;}
+
+.mobileOnly {display: none;} 
+@media only screen and (max-width:600px){
+	.mobileOnly {display:flex}
+	.noMobile {display: none;}
+	.row {flex-direction: row;justify-content: center;background-color: white;}
+	.box {padding-top: 5vh;}
+}
+
+</style>
+
+<body style='font-family: Titillium Web, sans-serif;'>
+
+<!--sticky head-->
+<div style="position: sticky;display: block;top: 0;
+background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
+<!--home tab-->
+<div style="font-size: 2.2vmax;text-align: center;">
+	<span><b>CHESS</b></span>
+	<a href="index.html" style="float: left;" title="back to home page">
+	<i class="fas fa-home"></i></span>
+	</a>
+</div>
+<!--selector tab-->
+<div class="row noMobile">
+	<a href="#box1">
+		<div class="tab">WHAT IS IT?</div>
+	</a>
+	<a href="#box2">
+			<div class="tab">WHY DO WE CARE?</div>
+	</a>
+	<a href="#box3">
+			<div class="tab">RESULTS</div>
+	</a>
+	<a href="#box4">
+			<div class="tab">KEY MESSAGES</div>
+	</a>
+</div>
+
+<div class="row mobileOnly">
+		<a href="#box1">
+			<div class="tabMobile">&nbsp;&nbsp;&bull;&nbsp;</div>
+		</a>
+		<a href="#box2">
+				<div class="tabMobile">&bull;&nbsp;</div>
+		</a>
+		<a href="#box3">
+				<div class="tabMobile">&bull;&nbsp;</div>
+		</a>
+		<a href="#box4">
+				<div class="tabMobile">&bull;</div>
+		</a>
+</div>
+
+</div>
+
+<!--content-->
+
+<div id='box1' class="box">
+	<div class="innerBox blue">Box1</div>
+</div>
+<div id='box2' class="box">
+		<div class="innerBox pink">Box2</div>
+</div>
+<div id='box3' class="box">
+		<div class="innerBox orange">Box3</div>
+</div>
+<div id='box4' class="box">
+		<div class="innerBox lemon">Box4</div>
+</div>
+
+<script>
+
+window.onscroll = function(){
+	checkWhoIsOn('box','tab','tabMobile')
+}
+
+function checkWhoIsOn(check,effect,effectM){
+	var box = document.getElementsByClassName(check);
+	var tab = document.getElementsByClassName(effect);
+	var tabM = document.getElementsByClassName(effectM);
+	let hMargin = 0.5*window.innerHeight;
+
+	//check top of each box
+	for (let i=0;i<box.length;i++){
+		let boxTop = box[i].getBoundingClientRect().top;
+		let boxBottom = box[i].getBoundingClientRect().bottom;
+		
+		if (boxTop<=hMargin && boxTop>0) {
+			let n=i;
+			activateTab(n);
+		} else if (boxBottom>=hMargin && boxTop<0) {
+			let n=i;
+			activateTab(n);
+		}
+	}
+
+	function activateTab(n){
+		for (let j=0;j<tab.length;j++){
+			tab[j].style.color = 'black'
+			tab[j].style.fontWeight = "400"
+			tabM[j].style.color = "black"
+			tabM[j].style.fontWeight = "400"
+		}
+		tab[n].style.color = '#f46a4f'
+		tabM[n].style.color = '#f46a4f'
+		tab[n].style.fontWeight = "700"
+		tabM[n].style.fontWeight = "700"
+	}
+	
+}
+</script>	
+
+</body>
+</html>
