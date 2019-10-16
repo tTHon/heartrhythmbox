@@ -8,12 +8,14 @@
 
 </head>
 <style>
-.tab {font-size: 1.7vmax;color:black;cursor: pointer;padding: 0.5vmax;}
+.tab {font-size: 1.6vmax;color:#afafac;cursor: pointer;padding: 0.5vmax;}
 .tabMobile {font-size: 3vmax;color:#888;line-height: 100%;}
 .row {display: flex; justify-content:space-around;background-color: #fafaf7;}
-.box {width:100%;font-size: 5vmax;text-align: center;margin-left: auto;margin-right: auto;
-		padding-top: 15vh;}
+.box {width:100%;text-align: center;margin-left: auto;margin-right: auto;padding-top: 13vh;}
 .innerBox {height: 85vh;width: 100%;}
+.flex {display: flex;}
+.pad {padding: 1vmax;}
+.ref {color:#888;font-size: 1.4vmax;font-weight: 400;padding: 1.5vmax;}
 
 /*https://greetabl.com/*/
 .grey {background-color: #fafaf7;}
@@ -29,7 +31,14 @@ a {text-decoration: none;color: inherit;}
 	.mobileOnly {display:flex}
 	.noMobile {display: none;}
 	.row {flex-direction: row;justify-content: center;background-color: white;}
-	.box {padding-top: 5vh;}
+	.box {padding-top: 5vh;height: fit-content;}
+	.innerBox {height: fit-content;}
+	.flex {flex-direction: column;}
+}
+
+@media only screen and (max-width:1200px){
+	.box {height: fit-content;}
+	.innerBox {height: fit-content;}
 }
 
 </style>
@@ -40,8 +49,9 @@ a {text-decoration: none;color: inherit;}
 <div style="position: sticky;display: block;top: 0;
 background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 <!--home tab-->
-<div style="font-size: 2.2vmax;text-align: center;">
-	<span><b>CHESS</b></span>
+<div style="font-size: 2vmax;text-align: center;color: #afafac;">
+	<a href="https://doi.org/10.1093/eurheartj/ehz585" target="_blank">
+	<span><b>CHESS</b></span></a>
 	<a href="index.html" style="float: left;" title="back to home page">
 	<i class="fas fa-home"></i></span>
 	</a>
@@ -81,8 +91,47 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 
 <!--content-->
 
+<!--what is it-->
 <div id='box1' class="box">
-	<div class="innerBox blue">Box1</div>
+	<div class="innerBox blue">
+		<div style="font-size: 2.8vmax;padding: 3vmax 1vw 0 1vw;color: #555;">
+			Comparison of High vs. Escalating Shocks (CHESS) trial</div>
+		<div style="font-size: 1.8vmax;font-weight: 700;color: #69bda7;
+			padding:0 1vw;">
+			SINGLE-CENTER, SINGLE-BLINDED, RANDOMIZED TRIAL
+		</div>
+		<br><br>
+		<div class="flex" style="font-size: 2vmax;letter-spacing: 0.2vmax;text-align: center;
+		justify-content: center;align-items: center;color: black;">
+			<div>
+				<span style="padding: 1vmax;background-color: white;">
+				<i class="fas fa-bars"></i> Fixed (360-360-360J)</span>		
+			</div>
+			<div style="padding: 1vmax;font-weight: 700;">VS.</div>
+			<div>
+				<span style="padding: 1vmax;background-color: white;">
+					<i class="fas fa-sort-amount-up"></i> Escalating (125-150-200J)
+				</span>		
+			</div>
+		</div>
+		<div style="font-size: 1.8vmax;font-weight: 600;color: #69bda7;text-align: justify;
+			padding:1vmax;margin-left: auto;margin-right: auto;width: fit-content;">
+			elective cardioversion for AF
+		</div>
+		<br>
+		<div style="font-size: 1.8vmax;font-weight: 400;color:#555;text-align: justify;
+		padding:1vmax 3vmax;margin-left: auto;margin-right: auto;width: fit-content;letter-spacing: 0.2vmax;">
+		<b>1&deg; Endpoint:</b> Sinus rhythm at 1 min after cardioversion.<br>
+		<b>2&deg; Endpoints:</b> Any Arrhythmia at 4 hr, Myocardial Injury by TnI, and Skin Discomfort 
+		</div>
+		<br>
+		<div class="ref">
+			<a href="https://doi.org/10.1093/eurheartj/ehz585" target="_blank">
+			Schmidt et al. Eur Heart J 2019.
+			</a>
+		</div>
+		
+	</div>
 </div>
 <div id='box2' class="box">
 		<div class="innerBox pink">Box2</div>
@@ -122,7 +171,7 @@ function checkWhoIsOn(check,effect,effectM){
 
 	function activateTab(n){
 		for (let j=0;j<tab.length;j++){
-			tab[j].style.color = 'black'
+			tab[j].style.color = '#afafac'
 			tab[j].style.fontWeight = "400"
 			tabM[j].style.color = "black"
 			tabM[j].style.fontWeight = "400"
