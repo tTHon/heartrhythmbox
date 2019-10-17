@@ -20,6 +20,15 @@
 .list div {border-bottom: #fcdcd1 solid 0.5vmax;background-color: #fafaf7;padding:0.5vmax 2vmax;
 		letter-spacing: 2px;}
 
+.resultTable {padding-top: 5vh;margin-left: auto;margin-right: auto;}
+.tableH {font-size: 2.2vmax;color: white;padding: 2.5vmax;line-height: 100%;
+border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;
+border-collapse:collapse}
+.tableRow {font-size: 2vmax;font-weight: 400;padding: 1vmax;color: white;border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;
+border-collapse:collapse}
+.col1 {font-size: 1.9vmax;font-weight: 700;text-transform: uppercase;padding: 1vmax;color:#fafaf7;border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;
+border-collapse:collapse}
+
 
 /*https://greetabl.com/*/
 .grey {background-color: #fafaf7;}
@@ -182,7 +191,32 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 
 <div id='box3' class="box">
 	<div class="innerBox orange">
-		Box3
+		<table class="resultTable">
+			<tr>
+				<th class="tableH">&nbsp;</th>
+				<th  class="tableH">
+					<i class="fas fa-bars"></i> Max Fixed<br>
+					<span style="font-size:1.8vmax;font-weight:400;color: #fcdcd1;">(N=129)</span>
+				</th>
+				<th class="tableH">
+					<i class="fas fa-sort-amount-up"></i> Low-Escalating<br>
+					<span style="font-size:1.8vmax;font-weight:400;color: #fcdcd1;">(N=147)</span>
+				</th>
+			</tr>	
+			<tr>
+				<td class="col1">1st shock success</td>
+				<td class="tableRow">88%</td>
+				<td class="tableRow">66%</td>
+			</tr>
+			<tr>
+				<td class="col1">Max cumulative Energy (J)</td>
+				<td class="tableRow">360J</td>
+				<td class="tableRow">275J</td>
+			</tr>
+			
+				
+			
+		</table>
 	</div>
 </div>
 <div id='box4' class="box">
