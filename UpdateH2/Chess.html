@@ -29,9 +29,12 @@ border-collapse:collapse}
 .col1 {font-size: 1.9vmax;font-weight: 700;text-transform: uppercase;padding: 1vmax;background-color:#fafaf7;
 border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;border-left: #ddd solid 0.1vmin;
 border-collapse:collapse;text-align: left;color:#555}
+.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+.sectionH {padding-top: 0.5vmax;cursor: pointer;
+        background-color: transparent;color:#a5a5a2;font-size: 1.9vmax;border: none;}
+.sectionT {
+        font-size: 1.9vmax;color:#a5a5a2;padding: 0.5vmax 1vmax;}
 
-
-/*https://greetabl.com/*/
 .grey {background-color: #fafaf7;}
 .blue {background-color: #D6EDE7;}
 .pink {background-color:#fcdcd1;}
@@ -42,7 +45,9 @@ border-collapse:collapse;text-align: left;color:#555}
 
 a {text-decoration: none;color: inherit;}
 
-.mobileOnly {display: none;} 
+.mobileOnly {display: none;}
+.mHead {display: none;} 
+#page, #author {display: none;}
 @media only screen and (max-width:600px){
 	.mobileOnly {display:flex}
 	.noMobile {display: none;}
@@ -53,7 +58,7 @@ a {text-decoration: none;color: inherit;}
 	.flex {flex-direction: column;}
 	.tableH {padding: 1vmax;}
 	.tableRow, .col1 {padding: 0.5vmax;}
-	.mHead {color: white;font-weight: 700;font-size: 2vmax;}
+	.mHead {color: white;font-weight: 700;font-size: 2vmax;display: block;}
 }
 
 @media only screen and (max-width:1200px){
@@ -163,7 +168,7 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 	<div class="innerBox pink">
 		<!--title-->
 		<div class="orangeTxt" style="font-size: 3vmax;padding: 3vmax 1vw 0 1vw;font-weight: 700;text-align: center;">
-			<span class="mobileOnly mHead" style="display: block;">WHY DO WE CARE?</span>
+			<span class="mHead">WHY DO WE CARE?</span>
 			Optimal Energy for DC Cardioversion is Unknown.
 		</div>
 
@@ -251,7 +256,7 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 	<div class="innerBox lemon">
 		<div style="max-width: 800px;margin-left: auto;margin-right: auto;text-align: left;padding: 0.5vmax 3vmax;">
 			<div style="padding-top: 5vmax;color: #555;font-weight: 700;font-size: 3.5vmax;">
-				<div class="mobileOnly mHead" style="display: block;">
+				<div class="mHead">
 					KEY MESSAGES
 				</div>
 				Maximum-Fixed Energy Shocks
@@ -266,6 +271,52 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 		</div>
 	</div>
 </div>
+
+<!--footer-->
+<div style="background-color: #fafaf7;font-size: 1.9vmax;padding: 5vh 3vh;color: #a5a5a2;">
+		<div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
+		
+		  <div class="rowF">
+		  <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+		  style="text-decoration:none;color: #a5a5a2;">
+		  <b>follow</b> us at
+		  <i class="fab fa-facebook-square"></i>
+		  </a>
+		  </div>
+  
+		  
+		  <div class="rowF">
+		  <a href="#top" target="_blank" 
+		  style="text-decoration:none;color:#a5a5a2;">
+		  <b>Top</b> of the page</a>
+		  </div>
+  
+		  <div class="rowF" style="text-align: left;">
+			<h2 class="sectionH" onclick="show('page')">About the page</h2>
+					<p id="page" class="sectionT">Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+					  The page is created mainly for educational purpose. 
+					  We believe that presentations should be more interactive and easily accessible. All pages are mobile-friendly, tablet-friendly, and of course, notebook and desktop-friendly.
+					</p>
+		  </div>
+		  <div class="rowF" style="text-align: left;">	 
+			<h2 class="sectionH" onclick="show('author')">About the author</h2>
+				<p id='author' class="sectionT">
+					  <i>t'</i> Thon, the screen name of the author, is a novice web developer,
+					  a wine enthusiast, and a cardiac eletrophysiologist by training.
+					</p>
+				  
+		  </div>
+  
+		  <div class="rowF" style="border-bottom: none;">
+			  <a href="https://github.com/HeartRhythmBox" target="_blank" 
+			  style="text-decoration:none;color:#a5a5a2">
+			  Know more about us: &nbsp;<i class="fab fa-github"></i>
+			  
+			  </a>
+		  </div>
+  
+		</div>
+	  </div>
 
 <script>
 
@@ -306,6 +357,10 @@ function checkWhoIsOn(check,effect,effectM){
 		tabM[n].style.fontWeight = "700"
 	}
 	
+}
+
+function show(id){
+	document.getElementById(id).style.display = 'block'
 }
 </script>	
 
