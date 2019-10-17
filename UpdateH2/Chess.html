@@ -8,7 +8,7 @@
 
 </head>
 <style>
-.tab {font-size: 1.6vmax;color:#afafac;cursor: pointer;padding: 0.5vmax;}
+.tab {font-size: 1.6vmax;color:#a5a5a2;cursor: pointer;padding: 0.5vmax;}
 .tabMobile {font-size: 3vmax;color:#888;line-height: 100%;}
 .row {display: flex; justify-content:space-around;background-color: #fafaf7;}
 .box {width:100%;text-align: center;margin-left: auto;margin-right: auto;padding-top: 13vh;}
@@ -16,6 +16,10 @@
 .flex {display: flex;}
 .pad {padding: 1vmax;}
 .ref {color:#888;font-size: 1.4vmax;font-weight: 400;padding: 1.5vmax;}
+.list {font-size:2vmax;text-align: left;color: #555;margin-top: 1vmax;}
+.list div {border-bottom: #fcdcd1 solid 0.5vmax;background-color: #fafaf7;padding:0.5vmax 2vmax;
+		letter-spacing: 2px;}
+
 
 /*https://greetabl.com/*/
 .grey {background-color: #fafaf7;}
@@ -23,6 +27,8 @@
 .pink {background-color:#fcdcd1;}
 .orange {background-color: #f46a4f;}
 .lemon {background-color: #f2d847;}
+.blueTxt {color: #69bda7}
+.orangeTxt {color:#f46a4f}
 
 a {text-decoration: none;color: inherit;}
 
@@ -31,14 +37,16 @@ a {text-decoration: none;color: inherit;}
 	.mobileOnly {display:flex}
 	.noMobile {display: none;}
 	.row {flex-direction: row;justify-content: center;background-color: white;}
+	.tab {font-size: 1.9vmax;}
 	.box {padding-top: 5vh;height: fit-content;}
 	.innerBox {height: fit-content;}
 	.flex {flex-direction: column;}
 }
 
 @media only screen and (max-width:1200px){
-	.box {height: fit-content;}
+	.box {height: fit-content;padding-top: 5vh;}
 	.innerBox {height: fit-content;}
+	.tab {font-size: 1.9vmax;}
 }
 
 </style>
@@ -49,11 +57,11 @@ a {text-decoration: none;color: inherit;}
 <div style="position: sticky;display: block;top: 0;
 background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 <!--home tab-->
-<div style="font-size: 2vmax;text-align: center;color: #afafac;">
+<div style="font-size: 2.1vmax;text-align: center;color: #a5a5a2;">
 	<a href="https://doi.org/10.1093/eurheartj/ehz585" target="_blank">
 	<span><b>CHESS</b></span></a>
 	<a href="index.html" style="float: left;" title="back to home page">
-	<i class="fas fa-home"></i></span>
+	<i class="fas fa-home" style="font-size: 2.1vmax;"></i></span>
 	</a>
 </div>
 <!--selector tab-->
@@ -94,37 +102,39 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 <!--what is it-->
 <div id='box1' class="box">
 	<div class="innerBox blue">
+		<!--name-->
 		<div style="font-size: 2.8vmax;padding: 3vmax 1vw 0 1vw;color: #555;">
 			Comparison of High vs. Escalating Shocks (CHESS) trial</div>
-		<div style="font-size: 1.8vmax;font-weight: 700;color: #69bda7;
-			padding:0 1vw;">
+		<!--design-->
+		<div class="blueTxt" style="font-size: 1.9vmax;font-weight: 700;padding:0 1vw;">
 			SINGLE-CENTER, SINGLE-BLINDED, RANDOMIZED TRIAL
 		</div>
 		<br><br>
+		<!--vs-->
 		<div class="flex" style="font-size: 2vmax;letter-spacing: 0.2vmax;text-align: center;
 		justify-content: center;align-items: center;color: black;">
-			<div>
-				<span style="padding: 1vmax;background-color: white;">
-				<i class="fas fa-bars"></i> Fixed (360-360-360J)</span>		
+			<div style="padding: 1vmax;background-color: white;">
+				<i class="fas fa-bars"></i> Maximum Fixed (360-360-360J)	
 			</div>
 			<div style="padding: 1vmax;font-weight: 700;">VS.</div>
-			<div>
-				<span style="padding: 1vmax;background-color: white;">
-					<i class="fas fa-sort-amount-up"></i> Escalating (125-150-200J)
-				</span>		
-			</div>
+			<div style="padding: 1vmax;background-color: white;">
+				<i class="fas fa-sort-amount-up"></i> Low-Escalating (125-150-200J)</div>
 		</div>
-		<div style="font-size: 1.8vmax;font-weight: 600;color: #69bda7;text-align: justify;
+		<div class="blueTxt" style="font-size: 1.9vmax;font-weight: 600;text-align: justify;
 			padding:1vmax;margin-left: auto;margin-right: auto;width: fit-content;">
 			elective cardioversion for AF
 		</div>
 		<br>
-		<div style="font-size: 1.8vmax;font-weight: 400;color:#555;text-align: justify;
+
+		<!--endpoints-->
+		<div style="font-size: 1.9vmax;font-weight: 400;color:#555;text-align: justify;
 		padding:1vmax 3vmax;margin-left: auto;margin-right: auto;width: fit-content;letter-spacing: 0.2vmax;">
-		<b>1&deg; Endpoint:</b> Sinus rhythm at 1 min after cardioversion.<br>
-		<b>2&deg; Endpoints:</b> Any Arrhythmia at 4 hr, Myocardial Injury by TnI, and Skin Discomfort 
+		<b>1&deg; endpoint:</b> sinus rhythm at 1 min after cardioversion<br>
+		<b>2&deg; endpoints:</b> any Arrhythmia at 4 hr, myocardial injury by TnI, and skin discomfort 
 		</div>
 		<br>
+
+		<!--ref-->
 		<div class="ref">
 			<a href="https://doi.org/10.1093/eurheartj/ehz585" target="_blank">
 			Schmidt et al. Eur Heart J 2019.
@@ -133,11 +143,47 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 		
 	</div>
 </div>
+
+<!--why-->
 <div id='box2' class="box">
-		<div class="innerBox pink">Box2</div>
+	<div class="innerBox pink">
+		<!--title-->
+		<div class="orangeTxt" style="font-size: 3vmax;padding: 3vmax 1vw 0 1vw;font-weight: 700;">
+			Optimal Energy for DC Cardioversion is Unknown.
+		</div>
+
+		<!--comparison Table-->
+		<div class="flex" style="padding: 2vmax;justify-content:space-around;text-align: left;">
+			<div class="pad">
+				<div class="orange" style="color:white;font-size:2.2vmax;padding:0.5vmax 1.5vmax;">
+					<i class="fas fa-bars"></i> Maximum Energy</div>
+				<div class="list">
+					<div>more effective.</div>
+					<div>less time in sedation.</div>
+					<div>higher chance of myocardial & skin injury.</div>
+					<div>potentially cause post shock arrhythmias.</div>
+				</div>
+			</div>
+			<div class="pad">
+				<div class="orange" style="color:white;font-size:2.2vmax;padding:0.5vmax 1.5vmax;">
+					<i class="fas fa-sort-amount-up"></i> Low-Escalating Energy</div>
+				<div class="list">
+					<div>less effective.</div>
+					<div>more time in sedation.</div>
+					<div>less injury.</div>
+					<div>potentially induce another arrhythmia.</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>
+
+
 <div id='box3' class="box">
-		<div class="innerBox orange">Box3</div>
+	<div class="innerBox orange">
+		Box3
+	</div>
 </div>
 <div id='box4' class="box">
 		<div class="innerBox lemon">Box4</div>
