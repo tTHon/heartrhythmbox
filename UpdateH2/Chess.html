@@ -20,7 +20,7 @@
 .list div {border-bottom: #fcdcd1 solid 0.5vmax;background-color: #fafaf7;padding:0.5vmax 2vmax;
 		letter-spacing: 2px;}
 
-.resultTable {padding-top: 5vh;margin-left: auto;margin-right: auto;}
+.resultTable {padding-top: 5vh;margin-left: auto;margin-right: auto;padding-bottom: 5vh;}
 .tableH {font-size: 2.2vmax;color: white;padding: 2.5vmax;line-height: 100%;
 border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;
 border-collapse:collapse}
@@ -53,6 +53,7 @@ a {text-decoration: none;color: inherit;}
 	.flex {flex-direction: column;}
 	.tableH {padding: 1vmax;}
 	.tableRow, .col1 {padding: 0.5vmax;}
+	.mHead {color: white;font-weight: 700;font-size: 2vmax;}
 }
 
 @media only screen and (max-width:1200px){
@@ -116,7 +117,8 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 	<div class="innerBox blue">
 		<!--name-->
 		<div style="font-size: 2.8vmax;padding: 3vmax 1vw 0 1vw;color: #555;">
-			Comparison of High vs. Escalating Shocks (CHESS) trial</div>
+			Comparison of High vs. Escalating Shocks (CHESS) trial
+		</div>
 		<!--design-->
 		<div class="blueTxt" style="font-size: 1.9vmax;font-weight: 700;padding:0 1vw;">
 			SINGLE-CENTER, SINGLE-BLINDED, RANDOMIZED TRIAL
@@ -160,7 +162,8 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 <div id='box2' class="box">
 	<div class="innerBox pink">
 		<!--title-->
-		<div class="orangeTxt" style="font-size: 3vmax;padding: 3vmax 1vw 0 1vw;font-weight: 700;">
+		<div class="orangeTxt" style="font-size: 3vmax;padding: 3vmax 1vw 0 1vw;font-weight: 700;text-align: center;">
+			<span class="mobileOnly mHead" style="display: block;">WHY DO WE CARE?</span>
 			Optimal Energy for DC Cardioversion is Unknown.
 		</div>
 
@@ -191,7 +194,7 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 	</div>
 </div>
 
-
+<!--results-->
 <div id='box3' class="box">
 	<div class="innerBox orange">
 		<table class="resultTable">
@@ -242,8 +245,26 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 		</table>
 	</div>
 </div>
+
+<!--conclusion-->
 <div id='box4' class="box">
-		<div class="innerBox lemon">Box4</div>
+	<div class="innerBox lemon">
+		<div style="max-width: 800px;margin-left: auto;margin-right: auto;text-align: left;padding: 0.5vmax 3vmax;">
+			<div style="padding-top: 5vmax;color: #555;font-weight: 700;font-size: 3.5vmax;">
+				<div class="mobileOnly mHead" style="display: block;">
+					KEY MESSAGES
+				</div>
+				Maximum-Fixed Energy Shocks
+			</div>
+			<div style="padding-top: 5vmax;color: #555;font-size: 2.5vmax;line-height: 110%;">
+		were <b>more efficient</b> compared with low-escalating energy shocks for 
+		cardioversion of atrial fibrillation.
+			</div>
+			<div style="padding: 5vmax 0;color: #555;font-size: 2.5vmax;line-height: 110%;">
+				There was no difference in safety endpoints.
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
