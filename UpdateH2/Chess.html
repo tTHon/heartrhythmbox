@@ -26,9 +26,9 @@ border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;
 border-collapse:collapse}
 .tableRow {font-size: 2vmax;font-weight: 400;padding: 1vmax;color: white;border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;
 border-collapse:collapse}
-.col1 {font-size: 1.9vmax;font-weight: 700;text-transform: uppercase;padding: 1vmax;color:#fafaf7;
+.col1 {font-size: 1.9vmax;font-weight: 700;text-transform: uppercase;padding: 1vmax;background-color:#fafaf7;
 border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;border-left: #ddd solid 0.1vmin;
-border-collapse:collapse;text-align: left;}
+border-collapse:collapse;text-align: left;color:#555}
 
 
 /*https://greetabl.com/*/
@@ -51,6 +51,8 @@ a {text-decoration: none;color: inherit;}
 	.box {padding-top: 5vh;height: fit-content;}
 	.innerBox {height: fit-content;}
 	.flex {flex-direction: column;}
+	.tableH {padding: 1vmax;}
+	.tableRow, .col1 {padding: 0.5vmax;}
 }
 
 @media only screen and (max-width:1200px){
@@ -195,11 +197,11 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 		<table class="resultTable">
 			<tr>
 				<th class="tableH">&nbsp;</th>
-				<th  class="tableH">
+				<th  class="tableH" style="border-top:#ddd solid 0.1vmin;">
 					<i class="fas fa-bars"></i> Max Fixed<br>
 					<span style="font-size:1.8vmax;font-weight:400;color: #fcdcd1;">(N=129)</span>
 				</th>
-				<th class="tableH">
+				<th class="tableH" style="border-top:#ddd solid 0.1vmin;">
 					<i class="fas fa-sort-amount-up"></i> Low-Escalating<br>
 					<span style="font-size:1.8vmax;font-weight:400;color: #fcdcd1;">(N=147)</span>
 				</th>
@@ -210,9 +212,29 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 				<td class="tableRow">66%</td>
 			</tr>
 			<tr>
-				<td class="col1">Max cumulative Energy (J)</td>
-				<td class="tableRow">360J</td>
-				<td class="tableRow">275J</td>
+				<td class="col1">Cumulative Energy (J)</td>
+				<td class="tableRow">360</td>
+				<td class="tableRow">275</td>
+			</tr>
+			<tr>
+				<td class="col1">Procedure Time (min)</td>
+				<td class="tableRow">1.9 (1.5-2.7)</td>
+				<td class="tableRow">2.2 (1.7-3.0)</td>
+			</tr>
+			<tr>
+				<td class="col1">Arrhythmia Complications</td>
+				<td class="tableRow">5%</td>
+				<td class="tableRow">5%</td>
+			</tr>
+			<tr>
+				<td class="col1">Skin redness beneath anterior pad</td>
+				<td class="tableRow">33%</td>
+				<td class="tableRow">31%</td>
+			</tr>
+			<tr>
+				<td class="col1" style="text-transform:none">CHANGE in hs-TnI (ng/L)</td>
+				<td class="tableRow">0 (0 to 0)</td>
+				<td class="tableRow">0 (-1 to 0)</td>
 			</tr>
 			
 				
