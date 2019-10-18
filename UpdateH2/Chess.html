@@ -12,7 +12,7 @@
 .tabMobile {font-size: 3vmax;color:#888;line-height: 100%;}
 .row {display: flex; justify-content:space-around;background-color: #fafaf7;}
 .box {width:100%;text-align: center;margin-left: auto;margin-right: auto;padding-top: 13vh;}
-.innerBox {height: 85vh;width: 100%;}
+.innerBox {min-height: 85vh;width: 100%;}
 .flex {display: flex;}
 .pad {padding: 1vmax;}
 .ref {color:#888;font-size: 1.4vmax;font-weight: 400;padding: 1.5vmax;}
@@ -30,10 +30,9 @@ border-collapse:collapse}
 border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;border-left: #ddd solid 0.1vmin;
 border-collapse:collapse;text-align: left;color:#555}
 .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
-.sectionH {padding-top: 0.5vmax;cursor: pointer;
+.sectionH {padding-top: 0.5vmax;cursor: pointer;vertical-align: top;
         background-color: transparent;color:#a5a5a2;font-size: 1.9vmax;border: none;}
-.sectionT {
-        font-size: 1.9vmax;color:#a5a5a2;padding: 0.5vmax 1vmax;}
+.sectionT {font-size: 1.9vmax;color:#a5a5a2;padding: 0.5vmax 1vmax 0 1.5vmax;vertical-align: top;}
 
 .grey {background-color: #fafaf7;}
 .blue {background-color: #D6EDE7;}
@@ -54,7 +53,7 @@ a {text-decoration: none;color: inherit;}
 	.row {flex-direction: row;justify-content: center;background-color: white;}
 	.tab {font-size: 1.9vmax;}
 	.box {padding-top: 5vh;height: fit-content;}
-	.innerBox {height: fit-content;}
+	.innerBox {height: fit-content;min-height: fit-content;}
 	.flex {flex-direction: column;}
 	.tableH {padding: 1vmax;}
 	.tableRow, .col1 {padding: 0.5vmax;}
@@ -63,7 +62,7 @@ a {text-decoration: none;color: inherit;}
 
 @media only screen and (max-width:1200px){
 	.box {height: fit-content;padding-top: 5vh;}
-	.innerBox {height: fit-content;}
+	.innerBox {height: fit-content;min-height: fit-content;}
 	.tab {font-size: 1.9vmax;}
 }
 
@@ -273,7 +272,7 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 </div>
 
 <!--footer-->
-<div style="background-color: #fafaf7;font-size: 1.9vmax;padding: 5vh 3vh;color: #a5a5a2;">
+<div style="background-color: #fafaf7;font-size: 1.9vmax;padding: 5vh 3vh;color: #a5a5a2;margin-top: 5vmax;">
 		<div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
 		
 		  <div class="rowF">
