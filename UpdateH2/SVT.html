@@ -16,19 +16,7 @@
 .flex {display: flex;}
 .pad {padding: 1vmax;}
 .ref {color:#888;font-size: 1.4vmax;font-weight: 400;padding: 1.5vmax;}
-.list {font-size:2vmax;text-align: left;color: #555;margin-top: 1vmax;}
-.list div {border-bottom: #fcdcd1 solid 0.5vmax;background-color: #fafaf7;padding:0.5vmax 2vmax;
-		letter-spacing: 2px;}
 
-.resultTable {padding-top: 5vh;margin-left: auto;margin-right: auto;padding-bottom: 5vh;}
-.tableH {font-size: 2.2vmax;color: white;padding: 2.5vmax;line-height: 100%;
-border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;
-border-collapse:collapse}
-.tableRow {font-size: 2vmax;font-weight: 400;padding: 1vmax;color: white;border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;
-border-collapse:collapse}
-.col1 {font-size: 1.9vmax;font-weight: 700;text-transform: uppercase;padding: 1vmax;background-color:#fafaf7;
-border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;border-left: #ddd solid 0.1vmin;
-border-collapse:collapse;text-align: left;color:#555}
 .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
 .sectionH {padding-top: 0.5vmax;cursor: pointer;vertical-align: top;
         background-color: transparent;color:#a5a5a2;font-size: 1.9vmax;border: none;}
@@ -51,7 +39,8 @@ a {text-decoration: none;color: inherit;}
 @media only screen and (max-width:600px){
 	.mobileOnly {display:flex}
 	.noMobile {display: none;}
-	.row {flex-direction: row;justify-content: center;background-color: white;}
+	.rowM {flex-direction: row;justify-content: center;background-color: white;}
+    .row {flex-direction: column;}
 	.tab {font-size: 1.9vmax;}
 	.box {padding-top: 5vh;height: fit-content;}
 	.innerBox {height: fit-content;min-height: fit-content;}
@@ -77,8 +66,8 @@ a {text-decoration: none;color: inherit;}
 background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 <!--home tab-->
 <div id="home">
-	<a href="https://doi.org/10.1093/eurheartj/ehz585" target="_blank">
-	<span><b>CHESS</b></span></a>
+	<a href="https://doi.org/10.1093/eurheartj/ehz467" target="_blank">
+	<span><b>SVT Guidelines</b></span></a>
 	<a href="updateH2.html" style="float: left;" title="back to home page">
 	<i class="fas fa-home"></i></span>
 	</a>
@@ -86,22 +75,40 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 <!--selector tab-->
 <div class="row noMobile">
 	<a href="#box1">
-		<div class="tab">WHAT IS IT?</div>
+		<div class="tab">1</div>
 	</a>
 	<a href="#box2">
-			<div class="tab">WHY DO WE CARE?</div>
+			<div class="tab">2</div>
 	</a>
 	<a href="#box3">
-			<div class="tab">RESULTS</div>
+			<div class="tab">3</div>
 	</a>
 	<a href="#box4">
-			<div class="tab">KEY MESSAGES</div>
-	</a>
+			<div class="tab">4</div>
+    </a>
+    <a href="#box5">
+        <div class="tab">5</div>
+    </a>
+    <a href="#box6">
+        <div class="tab">6</div>
+    </a>
+    <a href="#box7">
+        <div class="tab">7</div>
+    </a>
+    <a href="#box8">
+        <div class="tab">8</div>
+    </a>
+    <a href="#box9">
+        <div class="tab">9</div>
+    </a>
+    <a href="#box10">
+        <div class="tab">10</div>
+    </a>
 </div>
 
-<div class="row mobileOnly">
+<div class="rowM mobileOnly">
 		<a href="#box1">
-			<div class="tabMobile">&nbsp;&nbsp;&bull;&nbsp;</div>
+			<div class="tabMobile">&nbsp;&nbsp;&nbsp;&bull;&nbsp;</div>
 		</a>
 		<a href="#box2">
 				<div class="tabMobile">&bull;&nbsp;</div>
@@ -110,166 +117,145 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 				<div class="tabMobile">&bull;&nbsp;</div>
 		</a>
 		<a href="#box4">
-				<div class="tabMobile">&bull;</div>
-		</a>
+				<div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box5">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box6">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box7">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box8">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box9">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box10">
+            <div class="tabMobile">&bull;</div>
+        </a>
 </div>
 
 </div>
 
 <!--content-->
 
-<!--what is it-->
+<!--Acute Mx Narrow Tachy-->
 <div id='box1' class="box">
 	<div class="innerBox blue">
-		<!--name-->
-		<div style="font-size: 2.8vmax;padding: 3vmax 1vw 0 1vw;color: #555;">
-			Comparison of High vs. Escalating Shocks (CHESS) trial
-		</div>
-		<!--design-->
-		<div class="blueTxt" style="font-size: 1.9vmax;font-weight: 700;padding:0 1vw;">
-			SINGLE-CENTER, SINGLE-BLINDED, RANDOMIZED TRIAL
-		</div>
-		<br><br>
-		<!--vs-->
-		<div class="flex" style="font-size: 2vmax;letter-spacing: 0.2vmax;text-align: center;
-		justify-content: center;align-items: center;color: black;">
-			<div style="padding: 1vmax;background-color: white;">
-				<i class="fas fa-bars"></i> Maximum Fixed (360-360-360J)	
-			</div>
-			<div style="padding: 1vmax;font-weight: 700;">VS.</div>
-			<div style="padding: 1vmax;background-color: white;">
-				<i class="fas fa-sort-amount-up"></i> Low-Escalating (125-150-200J)</div>
-		</div>
-		<div class="blueTxt" style="font-size: 1.9vmax;font-weight: 600;text-align: justify;
-			padding:1vmax;margin-left: auto;margin-right: auto;width: fit-content;">
-			elective cardioversion for AF
-		</div>
-		<br>
-
-		<!--endpoints-->
-		<div style="font-size: 1.9vmax;font-weight: 400;color:#555;text-align: justify;
-		padding:1vmax 3vmax;margin-left: auto;margin-right: auto;width: fit-content;letter-spacing: 0.2vmax;">
-		<b>1&deg; endpoint:</b> sinus rhythm at 1 min after cardioversion<br>
-		<b>2&deg; endpoints:</b> any Arrhythmia at 4 hr, myocardial injury by TnI, and skin discomfort 
-		</div>
-		<br>
-
-		<!--ref-->
-		<div class="ref">
-			<a href="https://doi.org/10.1093/eurheartj/ehz585" target="_blank">
-			Schmidt et al. Eur Heart J 2019.
-			</a>
-		</div>
 		
+					
+		<div class="row blue" style="font-size: 2.5vmax;letter-spacing: 0.2vmax;text-align: center;
+		justify-content: center;align-items: center;color: black;">
+            
+            <div style="padding: 1vmax;flex: 1;">
+                <!--name-->
+		        <div style="font-size: 2.8vmax;padding:2vmax;color: #555;font-weight: 700;
+                letter-spacing: 0;text-align: justify;">
+			    Acute Management of Narrow Complex Tachycardia
+                </div>
+                <div style="padding: 0vmax 2vmax;text-align: justify;">                
+                &bull; Vagal manuever, Adenosine, CV <br>
+                &bull; BB, CCB <br><br>
+                <span style="font-weight: 700;" class="orangeTxt">
+                &bull; NO AMIODARONE OR DIGOXIN
+                </span>
+                </div>
+                <div class="ref" style="padding: 2vmax;letter-spacing: 0;">
+                    <a href="https://doi.org/10.1093/eurheartj/ehz467" target="_blank">
+                    2019 ESC Guidelines for SVT
+                    </a>
+                </div>
+			</div>
+			
+			<div style="padding: 1vmax;flex: 1;">
+                <img src="media/narrow tachy.png" style="max-width:100%;max-height: 80vh;height: auto;width: auto;">
+            </div>
+		</div>
+						
 	</div>
 </div>
 
-<!--why-->
+<!--Abl-->
 <div id='box2' class="box">
 	<div class="innerBox pink">
-		<!--title-->
-		<div class="orangeTxt" style="font-size: 3vmax;padding: 3vmax 1vw 0 1vw;font-weight: 700;text-align: center;">
-			<span class="mHead">WHY DO WE CARE?</span>
-			Optimal Energy for DC Cardioversion is Unknown.
-		</div>
-
-		<!--comparison Table-->
+		
+		
 		<div class="flex" style="padding: 2vmax;justify-content:space-around;text-align: left;">
-			<div class="pad">
-				<div class="orange" style="color:white;font-size:2.2vmax;padding:0.5vmax 1.5vmax;">
-					<i class="fas fa-bars"></i> Maximum Energy</div>
-				<div class="list">
-					<div>more effective.</div>
-					<div>less time in sedation.</div>
-					<div>higher chance of myocardial & skin injury.</div>
-					<div>potentially cause post shock arrhythmias.</div>
-				</div>
-			</div>
-			<div class="pad">
-				<div class="orange" style="color:white;font-size:2.2vmax;padding:0.5vmax 1.5vmax;">
-					<i class="fas fa-sort-amount-up"></i> Low-Escalating Energy</div>
-				<div class="list">
-					<div>less effective.</div>
-					<div>more time in sedation.</div>
-					<div>less injury.</div>
-					<div>potentially induce another arrhythmia.</div>
-				</div>
+			
+            <div class="orangeTxt" 
+            style="font-size: 3vmax;padding: 3vmax 1vw 0 1vw;font-weight: 700;text-align: center;flex: 1;">
+			    Catheter Ablation over Drugs
+                in most SVT
+                
+		    </div>
+			
+			<div class="pad" style="flex: 1;">
+				Because ablation is safe & effective
 			</div>
 		</div>
 
 	</div>
 </div>
 
-<!--results-->
+<!--no Txs in mild SVT-->
 <div id='box3' class="box">
 	<div class="innerBox orange">
-		<table class="resultTable">
-			<tr>
-				<th class="tableH">&nbsp;</th>
-				<th  class="tableH" style="border-top:#ddd solid 0.1vmin;">
-					<i class="fas fa-bars"></i> Max Fixed<br>
-					<span style="font-size:1.8vmax;font-weight:400;color: #fcdcd1;">(N=129)</span>
-				</th>
-				<th class="tableH" style="border-top:#ddd solid 0.1vmin;">
-					<i class="fas fa-sort-amount-up"></i> Low-Escalating<br>
-					<span style="font-size:1.8vmax;font-weight:400;color: #fcdcd1;">(N=147)</span>
-				</th>
-			</tr>	
-			<tr>
-				<td class="col1">1st shock success</td>
-				<td class="tableRow">88%</td>
-				<td class="tableRow">66%</td>
-			</tr>
-			<tr>
-				<td class="col1">Cumulative Energy (J)</td>
-				<td class="tableRow">360</td>
-				<td class="tableRow">275</td>
-			</tr>
-			<tr>
-				<td class="col1">Procedure Time (min)</td>
-				<td class="tableRow">1.9 (1.5-2.7)</td>
-				<td class="tableRow">2.2 (1.7-3.0)</td>
-			</tr>
-			<tr>
-				<td class="col1">Arrhythmia Complications</td>
-				<td class="tableRow">5%</td>
-				<td class="tableRow">5%</td>
-			</tr>
-			<tr>
-				<td class="col1">Skin redness beneath anterior pad</td>
-				<td class="tableRow">33%</td>
-				<td class="tableRow">31%</td>
-			</tr>
-			<tr>
-				<td class="col1" style="text-transform:none">CHANGE in hs-TnI (ng/L)</td>
-				<td class="tableRow">0 (0 to 0)</td>
-				<td class="tableRow">0 (-1 to 0)</td>
-			</tr>
-			
-				
-			
-		</table>
+		No treatment in minimal or brief SVT
 	</div>
 </div>
 
-<!--conclusion-->
+<!--IST-->
 <div id='box4' class="box">
 	<div class="innerBox lemon">
-		<div style="max-width: 800px;margin-left: auto;margin-right: auto;text-align: left;padding: 0.5vmax 3vmax;">
-			<div style="padding-top: 5vmax;color: #555;font-weight: 700;font-size: 3.5vmax;">
-				<div class="mHead">
-					KEY MESSAGES
-				</div>
-				Maximum-Fixed Energy Shocks
-			</div>
-			<div style="padding-top: 5vmax;color: #555;font-size: 2.5vmax;line-height: 110%;">
-		were <b>more efficient</b> compared with low-escalating energy shocks for 
-		cardioversion of atrial fibrillation.
-			</div>
-			<div style="padding: 5vmax 0;color: #555;font-size: 2.5vmax;line-height: 110%;">
-				There was no difference in safety endpoints.
-			</div>
-		</div>
+		IST: BB and/or Ivabradine
+	</div>
+</div>
+
+<!--EPS in Asymp WPW-->
+<div id='box5' class="box">
+	<div class="innerBox blue">
+		Indication for EPS and Ablation in Asymp WPW
+	</div>
+</div>
+
+<!--Asymp WPW w dyssynchrony-->
+<div id='box6' class="box">
+	<div class="innerBox pink">
+		WPW with dyssynchrony--
+	</div>
+</div>
+
+<!--Meds during pregnancy-->
+<div id='box7' class="box">
+	<div class="innerBox orange">
+        BB except atenolol
+        IC
+	</div>
+</div>
+
+<!--Digoxin-->
+<div id='box8' class="box">
+	<div class="innerBox lemon">
+        No more Digoxin for long term Tx
+	</div>
+</div>
+
+<!--TIM-->
+<div id='box9' class="box">
+	<div class="innerBox blue">
+        Ablation in TIM 
+	</div>
+</div>
+
+<!--class III-->
+<div id='box10' class="box">
+	<div class="innerBox pink">
+        Amiodarone in pre-excited AF
+        IC in AFL 
 	</div>
 </div>
 
