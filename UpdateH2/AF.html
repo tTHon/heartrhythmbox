@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script asyn src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,700&display=swap" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-1');
+</script>
+
+</head>
+<style>
+.tab {font-size: 1.6vmax;color:#a5a5a2;cursor: pointer;padding: 0.5vmax;}
+.tabMobile {font-size: 3vmax;color:#888;line-height: 100%;}
+.row {display: flex; justify-content:space-around;background-color: #fafaf7;}
+.box {width:100%;text-align: center;margin-left: auto;margin-right: auto;padding-top: 13vh;}
+.innerBox {min-height: 85vh;width: 100%;}
+.flex {display: flex;}
+.pad {padding: 1vmax;}
+.ref {color:#888;font-size: 1.4vmax;font-weight: 400;padding: 1.5vmax;}
+
+.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+
+.grey {background-color: #fafaf7;}
+.blue {background-color: #D6EDE7;}
+.pink {background-color:#fcdcd1;}
+.orange {background-color: #f46a4f;}
+.lemon {background-color: #f2d847;}
+.blueTxt {color: #69bda7}
+.orangeTxt {color:#f46a4f}
+
+a {text-decoration: none;color: inherit;}
+
+.mobileOnly {display: none;}
+.mHead {display: none;} 
+
+#home {font-size: 2.1vmax;text-align: center;color: #a5a5a2;}
+@media only screen and (max-width:600px){
+	.mobileOnly {display:flex}
+	.noMobile {display: none;}
+	.rowM {flex-direction: row;justify-content: center;background-color: white;}
+    .row {flex-direction: column;}
+	.tab {font-size: 1.9vmax;}
+	.box {padding-top: 5vh;height: fit-content;}
+	.innerBox {height: fit-content;min-height: fit-content;}
+	.flex {flex-direction: column;}
+	.tableH {padding: 1vmax;}
+	.tableRow, .col1 {padding: 0.5vmax;}
+	.mHead {color: white;font-weight: 700;font-size: 2vmax;display: block;}
+	#home {font-size: 2.5vmax;}
+}
+
+@media only screen and (max-width:1200px){
+	.box {height: fit-content;padding-top: 5vh;}
+	.innerBox {height: fit-content;min-height: fit-content;}
+	.tab {font-size: 1.9vmax;}
+}
+
+</style>
+
+<body style='font-family: Titillium Web, sans-serif;'>
+
+<!--sticky head-->
+<div style="position: sticky;display: block;top: 0;
+background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
+<!--home tab-->
+<div id="home">
+	<a href="https://doi.org/10.1093/eurheartj/ehz467" target="_blank">
+	<span><b>SVT Guidelines</b></span></a>
+	<a href="SVT.html" style="float: left;" title="back to home page">
+	<i class="fas fa-home"></i></span>
+	</a>
+	
+</div>
+<!--selector tab-->
+<div class="row noMobile">
+	<a href="#box1">
+		<div class="tab">1</div>
+	</a>
+	<a href="#box2">
+			<div class="tab">2</div>
+	</a>
+	<a href="#box3">
+			<div class="tab">3</div>
+	</a>
+	<a href="#box4">
+			<div class="tab">4</div>
+    </a>
+    <a href="#box5">
+        <div class="tab">5</div>
+    </a>
+    <a href="#box6">
+        <div class="tab">6</div>
+    </a>
+    <a href="#box7">
+        <div class="tab">7</div>
+    </a>
+    <a href="#box8">
+        <div class="tab">8</div>
+    </a>
+    <a href="#box9">
+        <div class="tab">9</div>
+    </a>
+    <a href="#box10">
+        <div class="tab">10</div>
+    </a>
+</div>
+
+<div class="rowM mobileOnly">
+		<a href="#box1">
+			<div class="tabMobile">&nbsp;&nbsp;&nbsp;&bull;&nbsp;</div>
+		</a>
+		<a href="#box2">
+				<div class="tabMobile">&bull;&nbsp;</div>
+		</a>
+		<a href="#box3">
+				<div class="tabMobile">&bull;&nbsp;</div>
+		</a>
+		<a href="#box4">
+				<div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box5">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box6">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box7">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box8">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box9">
+            <div class="tabMobile">&bull;&nbsp;</div>
+        </a>
+        <a href="#box10">
+            <div class="tabMobile">&bull;</div>
+        </a>
+</div>
+
+</div>
+
+<!--content-->
+
+<!--Acute Mx Narrow Tachy-->
+<div id='box1' class="box">
+	<div class="innerBox blue">
+		
+					
+		<div class="row blue" style="font-size: 2.5vmax;letter-spacing: 0.2vmax;text-align: center;
+		justify-content: center;align-items: center;color: black;">
+            
+            <div style="padding: 1vmax;flex: 1;">
+                <!--name-->
+		        <div style="font-size: 2.8vmax;padding:2vmax;color: #555;font-weight: 700;
+                letter-spacing: 0;text-align: justify;">
+			    Acute Management of Narrow Complex Tachycardia
+                </div>
+                <div style="padding: 0vmax 2vmax;text-align: justify;">                
+                &bull; Vagal manuever, Adenosine, CV <br>
+                &bull; BB, CCB <br><br>
+                <span style="font-weight: 700;" class="orangeTxt">
+                &bull; NO AMIODARONE OR DIGOXIN
+                </span>
+                </div>
+                <div class="ref" style="padding: 2vmax;letter-spacing: 0;">
+                    <a href="https://doi.org/10.1093/eurheartj/ehz467" target="_blank">
+                    2019 ESC Guidelines for SVT
+                    </a>
+                </div>
+			</div>
+			
+			<div style="padding: 1vmax;flex: 1;">
+                <img src="media/narrow tachy.png" style="max-width:100%;max-height: 80vh;height: auto;width: auto;">
+            </div>
+		</div>
+						
+	</div>
+</div>
+
+<!--Abl-->
+<div id='box2' class="box">
+	<div class="innerBox pink">
+		
+		
+		<div class="row pink" 
+		style="padding: 2vmax;">
+			
+            <div class="orangeTxt" 
+            style="font-size: 4vmax;padding: 2vmax 1vmax;
+			font-weight: 700;text-align: left;align-self: center;;line-height: 100%;">
+			    Catheter Ablation over Drugs
+                in most SVT
+                
+		    </div>
+			
+			<div class="pad" style="align-self: center;;text-align: center;">
+				<img src="media/Ablation Success Rate.png"
+				style="max-width:100%;max-height: 90vh;height: auto;width: auto;vertical-align: middle;">
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!--no Txs in mild SVT-->
+<div id='box3' class="box">
+	<div class="innerBox orange">
+		<div class="pad">
+			<img src="media/Asymp.jpg" style="max-width:100%;max-height: 70vh;height: auto;width: auto;">
+		</div>
+
+		
+		<div style="font-size: 3vmax;padding: 2vmax 4vmax;line-height: 120%;color: white;">
+				Approximately <span style="font-weight: 700;font-size: 5vmax;">45%</span>
+				of the patients with infrequent and shorter duration of SVT episodes (ie.&lt; 5 mins)
+				stayed asymptomatic over the next decade.
+			</div>
+		<div class="ref">
+			<a href="https://doi.org/10.1016/j.ijcard.2006.04.035" target="_blank" style="color: #ddd;">
+			D'Este et al. Int J Cardiol 2007.
+			</a>
+		</div>				
+	</div>
+</div>
+
+
+<!--IST-->
+<div id='box4' class="box">
+	<div class="innerBox lemon">
+		<div class="row lemon">
+			<div style="align-self: center;font-size: 3vmax;padding: 3vmax;flex: 1;text-align: justify;line-height: 120%;">
+				For <span style="font-weight: 700;">INAPPROPRIATE SINUS TACHYCARDIA</span>,<br> 
+				consider Ivabradine and/or Beta-blockers and titrate to perfection.
+			</div>
+			<div class="pad" style="flex: 1;">
+				<img src="media/IST.png" style="max-width: 100%;max-height: 85vh;height: auto;width: auto;">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--EPS in Asymp WPW-->
+<div id='box5' class="box">
+	<div class="innerBox blue row">
+			<div style="padding: 2vmax;font-size: 2vmax;align-self: center;flex: 1;text-align: left;color: #333;">
+					<span style="font-size: 3vmax;font-weight: 700;" class="orangeTxt">
+					Asymptomatic WPW
+					</span><br>
+					&bull; 1/5 will develop arrrhythmias related to accessory pathway.<br>
+					&bull; Risk of VF occurred in 2 in 1000 person-years.<br>
+					&bull; Consider EP study in pilots, professional drivers, or competitive athletes (I).<br>
+					&bull; May consider EP study in other asymptomatic WPW (IIa). 
+					
+				</div>
+				<div class="pad" style="align-self:center;flex: 1;">
+					<img src="media/antegrade ERP of WPW.jpg" style="max-width: 100%;width: auto;max-height: 85vh;height: auto;">
+					<div style="color: #555;font-size: 2vmax;text-align: center;">
+					Antegrade ERP of Pathway = 300ms = not high-risk
+					</div>
+				</div>
+	</div>
+</div>
+
+<!--Asymp WPW w dyssynchrony-->
+<div id='box6' class="box">
+	<div class="innerBox row pink">
+		<div style="align-self: center;flex: 1;" class="pad">
+			<img src="media/R lat pw.jpg" style="max-width: 100%;width: auto;max-height: 85vh;height: auto;">
+		</div>
+		<div style="font-size: 2vmax;align-self: center;flex: 1;padding: 2vmax;">
+			<span style="font-size: 2.5vmax;font-weight: 700;" class="orangeTxt">
+			Electrical Dyssynchrony
+			</span>
+			esp. from right sided accessory pathways in septum or free wall may cause LV dysfunction.
+			<br>
+			<span style="font-weight: 700;">
+			Catheter ablation</span> should therefore be considered (IIa).
+		</div>
+	</div>
+</div>
+
+<!--Meds during pregnancy-->
+<div id='box7' class="box">
+	<div class="innerBox orange">
+		<div style="font-size: 4vmax;font-weight: 700;color: #fafaf7;padding: 3vmax;">
+			<img src="media/pregnant.png" style="width: 7vmax;vertical-align: center;letter-spacing: 1px;">
+			For prevention of SVT in pregnant women,
+		</div>
+		<div style="text-align: left;background-color:#D6EDE7;margin: 1vmax 2vmax;">
+		<div style="padding:1vmax;font-size: 2.5vmax;color: #333333;">
+		BB except atenolol or verapamil for prevention of SVT w/o pre-excitation (IIa).</div>
+		<div style="padding:1vmax;font-size: 2.5vmax;color: #333333;">
+		Flecainide or Propafenone for prevention of SVT w/ pre-excitation w/o structural heart disease (IIa).
+		</div>
+		</div>
+		<br>
+	</div>
+</div>
+
+<!--amiodarone in preexcited AF-->
+<div id='box8' class="box">
+	<div class="innerBox lemon row">
+		<div class="pad" style="align-self: center;">
+		<img src="media/preexcited af.jpg"
+		 style="max-width: 100%;max-height: 75vh;width: auto;height: auto;">
+		</div> 
+		<div style="font-size: 3vmax;letter-spacing: 1px;line-height: 100%;padding: 1vmax;
+		align-self: center;text-align: left;">
+		<b>NO AMIODARONE</b><br> in preexcited AF.<br><br>
+		<span style="font-size: 2vmax;color: #555;">BB, CCB, and digoxin are not recommended either. </span>
+		</div>
+	</div>
+</div>
+
+<!--verapamil in WCT-->
+<div id='box9' class="box">
+	<div class="innerBox blue">
+		<img src="media/VT.jpg" style="max-width: 100%;max-height: 75vh;width: auto;height: auto;">
+		<div style="font-size: 3vmax;color: #555;">
+			<span class="orangeTxt" style="font-weight: 700;letter-spacing: 1.5px;">
+			VERAPAMIL
+			</span>
+			is not recommended in WCT of unknown etiology.
+		</div> 
+	</div>
+</div>
+
+<!--IC in AFL-->
+<div id='box10' class="box">
+	<div class="innerBox pink">
+		<img src="media/AFL.jpg" style="max-width: 100%;max-height: 75vh;width: auto;height: auto;">
+		<div style="font-size: 3vmax;color: #555;line-height: 120%;" class="pad">
+			<span class="orangeTxt" style="font-weight: 700;letter-spacing: 1px;">
+			Flecainide/Propafenone
+			</span>
+			are not recommended for acute treatment of atrial flutter.
+		</div> 
+	</div>
+</div>
+
+
+<script>
+
+window.onscroll = function(){
+	checkWhoIsOn('box','tab','tabMobile')
+}
+
+function checkWhoIsOn(check,effect,effectM){
+	var box = document.getElementsByClassName(check);
+	var tab = document.getElementsByClassName(effect);
+	var tabM = document.getElementsByClassName(effectM);
+	let hMargin = 0.5*window.innerHeight;
+
+	//check top of each box
+	for (let i=0;i<box.length;i++){
+		let boxTop = box[i].getBoundingClientRect().top;
+		let boxBottom = box[i].getBoundingClientRect().bottom;
+		
+		if (boxTop<=hMargin && boxTop>0) {
+			let n=i;
+			activateTab(n);
+		} else if (boxBottom>=hMargin && boxTop<0) {
+			let n=i;
+			activateTab(n);
+		}
+	}
+
+	function activateTab(n){
+		for (let j=0;j<tab.length;j++){
+			tab[j].style.color = '#afafac'
+			tab[j].style.fontWeight = "400"
+			tabM[j].style.color = "black"
+			tabM[j].style.fontWeight = "400"
+		}
+		tab[n].style.color = '#f46a4f'
+		tabM[n].style.color = '#f46a4f'
+		tab[n].style.fontWeight = "700"
+		tabM[n].style.fontWeight = "700"
+	}
+	
+}
+
+
+</script>	
+
+</body>
+</html>
