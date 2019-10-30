@@ -18,9 +18,6 @@
 .ref {color:#888;font-size: 1.4vmax;font-weight: 400;padding: 1.5vmax;}
 
 .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
-.sectionH {padding-top: 0.5vmax;cursor: pointer;vertical-align: top;
-        background-color: transparent;color:#a5a5a2;font-size: 1.9vmax;border: none;}
-.sectionT {font-size: 1.9vmax;color:#a5a5a2;padding: 0.5vmax 1vmax 0 1.5vmax;vertical-align: top;}
 
 .grey {background-color: #fafaf7;}
 .blue {background-color: #D6EDE7;}
@@ -34,7 +31,7 @@ a {text-decoration: none;color: inherit;}
 
 .mobileOnly {display: none;}
 .mHead {display: none;} 
-#page, #author {display: none;}
+
 #home {font-size: 2.1vmax;text-align: center;color: #a5a5a2;}
 @media only screen and (max-width:600px){
 	.mobileOnly {display:flex}
@@ -70,6 +67,9 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 	<span><b>SVT Guidelines</b></span></a>
 	<a href="updateH2.html" style="float: left;" title="back to home page">
 	<i class="fas fa-home"></i></span>
+	</a>
+	<a href="" style="float: right;" title="next topic">
+		<i class="fas fa-chevron-right"></i>
 	</a>
 </div>
 <!--selector tab-->
@@ -288,85 +288,58 @@ background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
 			<img src="media/pregnant.png" style="width: 7vmax;vertical-align: center;letter-spacing: 1px;">
 			For prevention of SVT in pregnant women,
 		</div>
-		<div style="text-align: left;background-color:#D6EDE7;margin: 2vmax;">
+		<div style="text-align: left;background-color:#D6EDE7;margin: 1vmax 2vmax;">
 		<div style="padding:1vmax;font-size: 2.5vmax;color: #333333;">
 		BB except atenolol or verapamil for prevention of SVT w/o pre-excitation (IIa).</div>
 		<div style="padding:1vmax;font-size: 2.5vmax;color: #333333;">
 		Flecainide or Propafenone for prevention of SVT w/ pre-excitation w/o structural heart disease (IIa).
 		</div>
 		</div>
+		<br>
 	</div>
 </div>
 
-<!--Digoxin-->
+<!--amiodarone in preexcited AF-->
 <div id='box8' class="box">
-	<div class="innerBox lemon">
-		No more Digoxin for long term Tx
-		Dig is only for pregnant women with AT without pre-excitation.
+	<div class="innerBox lemon row">
+		<div class="pad" style="align-self: center;">
+		<img src="media/preexcited af.jpg"
+		 style="max-width: 100%;max-height: 75vh;width: auto;height: auto;">
+		</div> 
+		<div style="font-size: 3vmax;letter-spacing: 1px;line-height: 100%;padding: 1vmax;
+		align-self: center;text-align: left;">
+		<b>NO AMIODARONE</b><br> in preexcited AF.<br><br>
+		<span style="font-size: 2vmax;color: #555;">BB, CCB, and digoxin are not recommended either. </span>
+		</div>
 	</div>
 </div>
 
-<!--TIM-->
+<!--verapamil in WCT-->
 <div id='box9' class="box">
 	<div class="innerBox blue">
-        Ablation in TIM 
+		<img src="media/VT.jpg" style="max-width: 100%;max-height: 75vh;width: auto;height: auto;">
+		<div style="font-size: 3vmax;color: #555;">
+			<span class="orangeTxt" style="font-weight: 700;letter-spacing: 1.5px;">
+			VERAPAMIL
+			</span>
+			is not recommended in WCT of unknown etiology.
+		</div> 
 	</div>
 </div>
 
-<!--class III-->
+<!--IC in AFL-->
 <div id='box10' class="box">
 	<div class="innerBox pink">
-        Amiodarone in pre-excited AF
-        Verapamil in WCT of unknown origin
-        IC in AFL 
+		<img src="media/AFL.jpg" style="max-width: 100%;max-height: 75vh;width: auto;height: auto;">
+		<div style="font-size: 3vmax;color: #555;line-height: 120%;" class="pad">
+			<span class="orangeTxt" style="font-weight: 700;letter-spacing: 1px;">
+			Flecainide/Propafenone
+			</span>
+			are not recommended for acute treatment of atrial flutter.
+		</div> 
 	</div>
 </div>
 
-<!--footer-->
-<div style="background-color: #fafaf7;font-size: 1.9vmax;padding: 5vh 3vh;color: #a5a5a2;margin-top: 5vmax;">
-		<div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
-		
-		  <div class="rowF">
-		  <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
-		  style="text-decoration:none;color: #a5a5a2;">
-		  <b>follow</b> us at
-		  <i class="fab fa-facebook-square"></i>
-		  </a>
-		  </div>
-  
-		  
-		  <div class="rowF">
-		  <a href="#top" target="_blank" 
-		  style="text-decoration:none;color:#a5a5a2;">
-		  <b>Top</b> of the page</a>
-		  </div>
-  
-		  <div class="rowF" style="text-align: left;">
-			<h2 class="sectionH" onclick="show('page')">About the page</h2>
-					<p id="page" class="sectionT">Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
-					  The page is created mainly for educational purpose. 
-					  We believe that presentations should be more interactive and easily accessible. All pages are mobile-friendly, tablet-friendly, and of course, notebook and desktop-friendly.
-					</p>
-		  </div>
-		  <div class="rowF" style="text-align: left;">	 
-			<h2 class="sectionH" onclick="show('author')">About the author</h2>
-				<p id='author' class="sectionT">
-					  <i>t'</i> Thon, the screen name of the author, is a novice web developer,
-					  a wine enthusiast, and a cardiac eletrophysiologist by training.
-					</p>
-				  
-		  </div>
-  
-		  <div class="rowF" style="border-bottom: none;">
-			  <a href="https://github.com/HeartRhythmBox" target="_blank" 
-			  style="text-decoration:none;color:#a5a5a2">
-			  Know more about us: &nbsp;<i class="fab fa-github"></i>
-			  
-			  </a>
-		  </div>
-  
-		</div>
-	  </div>
 
 <script>
 
@@ -409,12 +382,7 @@ function checkWhoIsOn(check,effect,effectM){
 	
 }
 
-function show(id){
-	if (document.getElementById(id).style.display === 'none') {
-		document.getElementById(id).style.display = 'block'
-	} else {document.getElementById(id).style.display = 'none'}
-	 
-}
+
 </script>	
 
 </body>

@@ -50,7 +50,11 @@
 .col{padding: 1vmax 2vmax;vertical-align: middle;margin: 1%;background-color: #fafaf7;}
 .title {font-weight: 700;line-height: 80%;font-size: 2.5vmax;}
 .text {font-weight: 400;font-size: 2vmax;line-height: 110%;color: #555;}
-
+.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+.sectionH {padding-top: 0.5vmax;cursor: pointer;vertical-align: top;
+        background-color: transparent;color:#a5a5a2;font-size: 1.9vmax;border: none;}
+.sectionT {font-size: 1.9vmax;color:#a5a5a2;padding: 0.5vmax 1vmax 0 1.5vmax;vertical-align: top;}
+#page, #author {display: none;}
 
 </style>
 
@@ -77,36 +81,102 @@
             
         </div>
         <div class="col">
-            
+            <a href="SVT.html" target="_blank" style="text-decoration: none;color: black">
                 <i class="fas fa-mobile-alt" style="font-size: 5vmax;color:#69bda7;"></i><br>
                 <h2 class="title">HUAWEI HEART STUDY</h2>
                 <p class="text">Maximum-Fixed Energy Shocks
                 were more efficient compared with low-escalating energy shocks for cardioversion of atrial fibrillation.
                 </p>
-            
+            </a>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            
+            <a href="SVT.html" target="_blank" style="text-decoration: none;color: black">
                     <i class="fas fa-heartbeat" style="font-size: 5vmax;color:#69bda7;"></i><br>
                     <h2 class="title">AF: Trials & Guidelines</h2>
                     <p class="text">Maximum-Fixed Energy Shocks
                     were more efficient compared with low-escalating energy shocks for cardioversion of atrial fibrillation.
                     </p>
+            </a>
                 
         </div>
         <div class="col">
-            
+            <a href="SVT.html" target="_blank" style="text-decoration: none;color: black">
                 <i class="fas fa-list-ol" style="font-size: 5vmax;color:#69bda7;"></i><br>
                 <h2 class="title">SVT GUIDELINES</h2>
                 <p class="text">Maximum-Fixed Energy Shocks
                 were more efficient compared with low-escalating energy shocks for cardioversion of atrial fibrillation.
                 </p>
-            
+            </a>
         </div>
     </div>
+
+    <!--footer-->
+<div style="background-color: #fafaf7;font-size: 1.9vmax;padding: 5vh 3vh;color: #a5a5a2;margin-top: 5vmax;">
+    <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
     
-    
+        <div class="rowF">
+            <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+            style="text-decoration:none;color: #a5a5a2;">
+            
+            <img src="box transparent.png" style="width: 3vmax;">
+            Our <b>Home Page</b> - HeartRhythmBox.com
+            </a>
+            </div>	
+
+
+      <div class="rowF">
+      <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+      style="text-decoration:none;color: #a5a5a2;">
+      <b>follow</b> us at
+      <i class="fab fa-facebook-square"></i>
+      </a>
+      </div>
+
+      
+      <div class="rowF">
+      <a href="#top" target="_blank" 
+      style="text-decoration:none;color:#a5a5a2;">
+      <b>Top</b> of the page</a>
+      </div>
+
+      <div class="rowF" style="text-align: left;">
+        <h2 class="sectionH" onclick="show('page')">About the page</h2>
+                <p id="page" class="sectionT">Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+                  The page is created mainly for educational purpose. 
+                  We believe that presentations should be more interactive and easily accessible. All pages are mobile-friendly, tablet-friendly, and of course, notebook and desktop-friendly.
+                </p>
+      </div>
+      <div class="rowF" style="text-align: left;">	 
+        <h2 class="sectionH" onclick="show('author')">About the author</h2>
+            <p id='author' class="sectionT">
+                  <i>t'</i> Thon, the screen name of the author, is a novice web developer,
+                  a wine enthusiast, and a cardiac eletrophysiologist by training.
+                </p>
+              
+      </div>
+
+      <div class="rowF" style="border-bottom: none;">
+          <a href="https://github.com/HeartRhythmBox" target="_blank" 
+          style="text-decoration:none;color:#a5a5a2">
+          Know more about us: &nbsp;<i class="fab fa-github"></i>
+          
+          </a>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+function show(id){
+	if (document.getElementById(id).style.display === 'none') {
+		document.getElementById(id).style.display = 'block'
+	} else {document.getElementById(id).style.display = 'none'}
+	 
+}
+</script>
+
+
 </body>
 </html>

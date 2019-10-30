@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script asyn src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,700&display=swap" rel="stylesheet">
+
+</head>
+<style>
+.tab {font-size: 1.6vmax;color:#a5a5a2;cursor: pointer;padding: 0.5vmax;}
+.tabMobile {font-size: 3vmax;color:#888;line-height: 100%;}
+.row {display: flex; justify-content:space-around;background-color: #fafaf7;}
+.box {width:100%;text-align: center;margin-left: auto;margin-right: auto;padding-top: 13vh;}
+.innerBox {min-height: 85vh;width: 100%;}
+.flex {display: flex;}
+.pad {padding: 1vmax;}
+.ref {color:#888;font-size: 1.4vmax;font-weight: 400;padding: 1.5vmax;}
+.list {font-size:2vmax;text-align: left;color: #555;margin-top: 1vmax;}
+.list div {border-bottom: #fcdcd1 solid 0.5vmax;background-color: #fafaf7;padding:0.5vmax 2vmax;
+		letter-spacing: 2px;}
+.col1 {font-size: 1.9vmax;font-weight: 700;text-transform: uppercase;padding: 1vmax;background-color:#fafaf7;
+border-bottom:#ddd solid 0.1vmin;border-right: #ddd solid 0.1vmin;border-left: #ddd solid 0.1vmin;
+border-collapse:collapse;text-align: left;color:#555}
+.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+
+.grey {background-color: #fafaf7;}
+.blue {background-color: #D6EDE7;}
+.pink {background-color:#fcdcd1;}
+.orange {background-color: #f46a4f;}
+.lemon {background-color: #f2d847;}
+.blueTxt {color: #69bda7}
+.orangeTxt {color:#f46a4f}
+
+a {text-decoration: none;color: inherit;}
+
+.mobileOnly {display: none;}
+.mHead {display: none;} 
+
+#home {font-size: 2.1vmax;text-align: center;color: #a5a5a2;}
+@media only screen and (max-width:600px){
+	.mobileOnly {display:flex}
+	.noMobile {display: none;}
+	.row {flex-direction: row;justify-content: center;background-color: white;}
+	.tab {font-size: 1.9vmax;}
+	.box {padding-top: 5vh;height: fit-content;}
+	.innerBox {height: fit-content;min-height: fit-content;}
+	.flex {flex-direction: column;}
+	.tableH {padding: 1vmax;}
+	.tableRow, .col1 {padding: 0.5vmax;}
+	.mHead {color: white;font-weight: 700;font-size: 2vmax;display: block;}
+	#home {font-size: 2.5vmax;}
+}
+
+@media only screen and (max-width:1200px){
+	.box {height: fit-content;padding-top: 5vh;}
+	.innerBox {height: fit-content;min-height: fit-content;}
+	.tab {font-size: 1.9vmax;}
+}
+
+</style>
+
+<body style='font-family: Titillium Web, sans-serif;'>
+
+<!--sticky head-->
+<div style="position: sticky;display: block;top: 0;
+background-color: white;border-bottom: #fafaf7 solid 0.1vmax;">
+<!--home tab-->
+<div id="home">
+	<a href="https://doi.org/10.1016/j.jacc.2019.08.019" target="_blank">
+	<span><b>HUAWEI Heart Study</b></span></a>
+	<a href="updateH2.html" style="float: left;" title="back to home page">
+	<i class="fas fa-home"></i></span>
+	</a>
+	<a href="" style="float: right;" title="next topic">
+		<i class="fas fa-chevron-right"></i>
+	</a>
+</div>
+<!--selector tab-->
+<div class="row noMobile">
+	<a href="#box1">
+		<div class="tab">WHAT IS IT?</div>
+	</a>
+	<a href="#box2">
+			<div class="tab">HOW DID THEY DO IT?</div>
+	</a>
+	<a href="#box3">
+			<div class="tab">RESULTS</div>
+	</a>
+	<a href="#box4">
+			<div class="tab">KEY MESSAGES</div>
+	</a>
+</div>
+
+<div class="row mobileOnly">
+		<a href="#box1">
+			<div class="tabMobile">&nbsp;&nbsp;&bull;&nbsp;</div>
+		</a>
+		<a href="#box2">
+				<div class="tabMobile">&bull;&nbsp;</div>
+		</a>
+		<a href="#box3">
+				<div class="tabMobile">&bull;&nbsp;</div>
+		</a>
+		<a href="#box4">
+				<div class="tabMobile">&bull;</div>
+		</a>
+</div>
+
+</div>
+
+<!--content-->
+
+<!--what is it-->
+<div id='box1' class="box">
+	<div class="innerBox blue">
+		<!--name-->
+		<div style="font-size: 2.8vmax;padding: 1vmax 1vw 0 1vw;color: #555;">
+			Mobile Health Technology for AF Screening in China
+		</div>
+		<!--design-->
+		<div class="blueTxt" style="font-size: 1.9vmax;font-weight: 700;padding:0 1vw;">
+			USING Photopletysmography (PPG) - based devices from HUAWEI
+		</div>
+		<br>
+		<!--pop-->
+		<img src="media/Huawei Method.png" style="max-height: 70vh;max-width: 100%;width: auto;height: auto;">
+		<!--ref-->
+		<div class="ref" style="padding: 0.5vmax;">
+			<a href="https://doi.org/10.1016/j.jacc.2019.08.019" target="_blank">
+			Guo et al. JACC 2019.
+			</a>
+		</div>
+		
+	</div>
+</div>
+
+<!--How-->
+<div id='box2' class="box">
+	<div class="innerBox pink">
+		<!--title-->
+		<div style="color:#f46a4f;font-size: 3vmax;padding: 3vmax 1vw 0 1vw;font-weight: 700;text-align: center;">
+			Confirmation and Follow-up of individuals with 'SUSPECTED AF'
+		</div>
+
+        <img src="media/Huawai method2.png" 
+        style="max-height: 70vh;max-width: 100%;width: auto;height: auto;">
+	</div>
+</div>
+
+<!--results-->
+<div id='box3' class="box">
+	<div class="innerBox orange">
+		<table class="resultTable">
+			<tr>
+				<th class="tableH">&nbsp;</th>
+				<th  class="tableH" style="border-top:#ddd solid 0.1vmin;">
+					<i class="fas fa-bars"></i> Max Fixed<br>
+					<span style="font-size:1.8vmax;font-weight:400;color: #fcdcd1;">(N=129)</span>
+				</th>
+				<th class="tableH" style="border-top:#ddd solid 0.1vmin;">
+					<i class="fas fa-sort-amount-up"></i> Low-Escalating<br>
+					<span style="font-size:1.8vmax;font-weight:400;color: #fcdcd1;">(N=147)</span>
+				</th>
+			</tr>	
+			<tr>
+				<td class="col1">1st shock success</td>
+				<td class="tableRow">88%</td>
+				<td class="tableRow">66%</td>
+			</tr>
+			<tr>
+				<td class="col1">Cumulative Energy (J)</td>
+				<td class="tableRow">360</td>
+				<td class="tableRow">275</td>
+			</tr>
+			<tr>
+				<td class="col1">Procedure Time (min)</td>
+				<td class="tableRow">1.9 (1.5-2.7)</td>
+				<td class="tableRow">2.2 (1.7-3.0)</td>
+			</tr>
+			<tr>
+				<td class="col1">Arrhythmia Complications</td>
+				<td class="tableRow">5%</td>
+				<td class="tableRow">5%</td>
+			</tr>
+			<tr>
+				<td class="col1">Skin redness beneath anterior pad</td>
+				<td class="tableRow">33%</td>
+				<td class="tableRow">31%</td>
+			</tr>
+			<tr>
+				<td class="col1" style="text-transform:none">CHANGE in hs-TnI (ng/L)</td>
+				<td class="tableRow">0 (0 to 0)</td>
+				<td class="tableRow">0 (-1 to 0)</td>
+			</tr>
+			
+				
+			
+		</table>
+	</div>
+</div>
+
+<!--conclusion-->
+<div id='box4' class="box">
+	<div class="innerBox lemon">
+		<div style="max-width: 800px;margin-left: auto;margin-right: auto;text-align: left;padding: 0.5vmax 3vmax;">
+			<div style="padding-top: 5vmax;color: #555;font-weight: 700;font-size: 3.5vmax;">
+				<div class="mHead">
+					KEY MESSAGES
+				</div>
+				Maximum-Fixed Energy Shocks
+			</div>
+			<div style="padding-top: 5vmax;color: #555;font-size: 2.5vmax;line-height: 110%;">
+		were <b>more efficient</b> compared with low-escalating energy shocks for 
+		cardioversion of atrial fibrillation.
+			</div>
+			<div style="padding: 5vmax 0;color: #555;font-size: 2.5vmax;line-height: 110%;">
+				There was no difference in safety endpoints.
+			</div>
+		</div>
+	</div>
+</div>
+	
+</div>
+
+<script>
+
+window.onscroll = function(){
+	checkWhoIsOn('box','tab','tabMobile')
+}
+
+function checkWhoIsOn(check,effect,effectM){
+	var box = document.getElementsByClassName(check);
+	var tab = document.getElementsByClassName(effect);
+	var tabM = document.getElementsByClassName(effectM);
+	let hMargin = 0.5*window.innerHeight;
+
+	//check top of each box
+	for (let i=0;i<box.length;i++){
+		let boxTop = box[i].getBoundingClientRect().top;
+		let boxBottom = box[i].getBoundingClientRect().bottom;
+		
+		if (boxTop<=hMargin && boxTop>0) {
+			let n=i;
+			activateTab(n);
+		} else if (boxBottom>=hMargin && boxTop<0) {
+			let n=i;
+			activateTab(n);
+		}
+	}
+
+	function activateTab(n){
+		for (let j=0;j<tab.length;j++){
+			tab[j].style.color = '#afafac'
+			tab[j].style.fontWeight = "400"
+			tabM[j].style.color = "black"
+			tabM[j].style.fontWeight = "400"
+		}
+		tab[n].style.color = '#f46a4f'
+		tabM[n].style.color = '#f46a4f'
+		tab[n].style.fontWeight = "700"
+		tabM[n].style.fontWeight = "700"
+	}
+	
+}
+
+
+</script>	
+
+</body>
+</html>
