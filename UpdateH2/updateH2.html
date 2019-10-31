@@ -65,7 +65,7 @@
 .sectionH {padding-top: 0.5vmax;cursor: pointer;vertical-align: top;
         background-color: transparent;color:#a5a5a2;font-size: 1.9vmax;border: none;}
 .sectionT {font-size: 1.9vmax;color:#a5a5a2;padding: 0.5vmax 1vmax 0 1.5vmax;vertical-align: top;}
-#page, #author {display: none;}
+#page, #author, #info {display: none;}
 
 </style>
 
@@ -78,6 +78,20 @@
         <span class="black-button-large-pad">
             H2 - 2019
         </span>
+        </div>
+    </div>
+
+    <div id="info" class="row">
+        <div class="col" style="flex:0.3">
+            <img src="qr-code.png" style="width: 100%;">
+        </div>
+        <div class="col" style="align-self: center;text-align: left;">
+            <div class="title">SIRIN APIYASAWAT, MD</div>
+            <div class="text">Associate Professor
+                <br>
+                Electrophysiology Lab <br>
+                Ramathibodi Hospital
+            </div>
         </div>
     </div>
     
@@ -187,6 +201,18 @@
   </div>
 
 <script>
+
+//f9
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===120) {
+            showInfo()
+        }
+    })
+
+function showInfo(){
+  document.getElementById('info').style.display = "flex"
+}
 function show(id){
 	if (document.getElementById(id).style.display === 'none') {
 		document.getElementById(id).style.display = 'block'
