@@ -27,25 +27,25 @@
 
 <!--cause-->
 <question>
-    <index>cause</index>
+    <index>Etiologies</index>
     <clinical>NA</clinical>
-           
+    
     <qImage>NA</qImage>
     <mainQ>What is the most common cause of sudden cardiac death in a 40 year-old man?
         </mainQ>
     <choices>
-        <a>AAI</a>
-        <b>DDI</b>
-        <c>DDD</c>
-        <d>VDD</d>
-        <e>VVI</e>
+        <a>Anomalous of Coronary Artery</a>
+        <b>Brugada Syndrome</b>
+        <c>Commotio Cordis</c>
+        <d>Coronary Artery Disease</d>
+        <e>Hypertrophic Cardiomyopathy</e>
         </choices>
-    <answer>A</answer>
-    <exp>Tracing = high grade AV block. Ventricular pacing is required. AAI is contraindicated.
+    <answer>D</answer>
+    <exp>CAD is a major cause of SCD esp. in patients aged over 40. Three out of 4 SCDs are caused by CAD with or without MI.
         </exp>
-    <aImage>media/ppmCode.jpg
+    <aImage>mediaSCD\Q1_cause.png
         </aImage>
-    <ref>NA</ref>
+    <ref>https://academic.oup.com/eurheartj/article/29/11/1418/637134</ref>
 </question>
 
 
