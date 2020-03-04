@@ -34,18 +34,41 @@
     <mainQ>What is the most common cause of sudden cardiac death in a 40 year-old man?
         </mainQ>
     <choices>
-        <a>Anomalous of Coronary Artery</a>
+        <a>Valvular Heart Disease</a>
         <b>Brugada Syndrome</b>
         <c>Commotio Cordis</c>
         <d>Coronary Artery Disease</d>
         <e>Hypertrophic Cardiomyopathy</e>
         </choices>
     <answer>D</answer>
-    <exp>CAD is a major cause of SCD esp. in patients aged over 40. Three out of 4 SCDs are caused by CAD with or without MI.
+    <exp>CAD is a major cause of SCD in patients aged over 35. In the youngs, 40% of SCDs remained unexplained.
         </exp>
     <aImage>mediaSCD\Q1_cause.png
         </aImage>
-    <ref>https://academic.oup.com/eurheartj/article/29/11/1418/637134</ref>
+    <ref>https://onlinelibrary.wiley.com/doi/full/10.1111/imj.14359</ref>
+</question>
+
+<!--SCD post MI-->
+<question>
+    <index>Post MI</index>
+    <clinical>NA</clinical>
+    
+    <qImage>NA</qImage>
+    <mainQ>After an acute myocardial infarction, the risk of SCD is highest during: 
+        </mainQ>
+    <choices>
+        <a>The first 30 days.</a>
+        <b>Between 1-3 months.</b>
+        <c>After 3 months.</c>
+        <d>Relatively the same at any time after MI.</d>
+        <e>Unpredictable</e>
+        </choices>
+    <answer>A</answer>
+    <exp>CAD is a major cause of SCD in patients aged over 35. In the youngs, 40% of SCDs remained unexplained.
+        </exp>
+    <aImage>mediaSCD\Q1_cause.png
+        </aImage>
+    <ref>https://onlinelibrary.wiley.com/doi/full/10.1111/imj.14359</ref>
 </question>
 
 
