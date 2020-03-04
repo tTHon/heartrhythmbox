@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<qXML>
+<!--frame>
+<question>
+    <index></index>
+    <clinical>
+        </clinical>
+           
+    <qImage></qImage>
+    <mainQ>
+        </mainQ>
+    <choices>
+        <a></a>
+        <b></b>
+        <c></c>
+        <d></d>
+        <e></e>
+        </choices>
+    <answer></answer>
+    <exp>
+        </exp>
+    <aImage>
+        </aImage>
+    <ref></ref>
+</question-->
+
+<!--cause-->
+<question>
+    <index>cause</index>
+    <clinical>NA</clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>What is the most common cause of sudden cardiac death in a 40 year-old man?
+        </mainQ>
+    <choices>
+        <a>AAI</a>
+        <b>DDI</b>
+        <c>DDD</c>
+        <d>VDD</d>
+        <e>VVI</e>
+        </choices>
+    <answer>A</answer>
+    <exp>Tracing = high grade AV block. Ventricular pacing is required. AAI is contraindicated.
+        </exp>
+    <aImage>media/ppmCode.jpg
+        </aImage>
+    <ref>NA</ref>
+</question>
+
+
+
+</qXML>
