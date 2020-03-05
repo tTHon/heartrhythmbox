@@ -48,23 +48,23 @@
     <ref>https://onlinelibrary.wiley.com/doi/full/10.1111/imj.14359</ref>
 </question>
 
-<!--SCD post MI-->
+<!--ICD in stable CAD-->
 <question>
-    <index>Post MI</index>
-    <clinical>NA</clinical>
+    <index>Stable CAD</index>
+    <clinical>A 61-year-old woman is admitted to the hospital following a cardiac arrest. She suddenly collapsed and lost consciousness while walking through the airport. An automatic external defibrillator (AED) was applied and after ventricular fibrillation (VF) was demonstrated, she was converted to sinus rhythm with a single shock. She is currently awake and alert. She has no significant prior medical history and uses no medications. Serum electrolytes and cardiac enzymes were normal in the emergency department. An ECG after resuscitation showed nonspecific repolarization abnormalities. An echocardiogram revealed diffuse global hypokinesis with an LV ejection fraction (EF) of 44%. Cardiac catheterization showed a 60% right coronary artery (RCA) stenosis.</clinical>
     
     <qImage>NA</qImage>
-    <mainQ>After an acute myocardial infarction, the risk of SCD is highest during: 
+    <mainQ>Which of the following should you recommend?
         </mainQ>
     <choices>
-        <a>The first 30 days.</a>
-        <b>Between 1-3 months.</b>
-        <c>After 3 months.</c>
-        <d>Relatively the same at any time after MI.</d>
-        <e>Unpredictable</e>
+        <a>Initiation of Amiodarone</a>
+        <b>PCI of RCA</b>
+        <c>Genetic Testing for Cardiac Channel Mutation</c>
+        <d>Implantation of ICD</d>
+        <e>Train Family Member to Use AED</e>
         </choices>
-    <answer>A</answer>
-    <exp>CAD is a major cause of SCD in patients aged over 35. In the youngs, 40% of SCDs remained unexplained.
+    <answer>D</answer>
+    <exp>
         </exp>
     <aImage>mediaSCD\Q1_cause.png
         </aImage>
