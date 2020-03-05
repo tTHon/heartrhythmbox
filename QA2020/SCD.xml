@@ -52,9 +52,9 @@
 <question>
     <index>Stable CAD</index>
     <clinical>A 61-year-old woman is admitted to the hospital following a cardiac arrest. She suddenly collapsed and lost consciousness while walking through the airport. An automatic external defibrillator (AED) was applied and after ventricular fibrillation (VF) was demonstrated, she was converted to sinus rhythm with a single shock. 
-    She is currently awake and alert. She has no significant prior medical history and uses no medications. Serum electrolytes and cardiac enzymes were normal in the emergency department. 
+    She is currently awake and alert. She has no significant prior medical history and uses no medications. Serum electrolytes and cardiac markers were normal in the emergency department. 
     An ECG after resuscitation showed nonspecific repolarization abnormalities. An echocardiogram revealed diffuse global hypokinesis with an LV ejection fraction (EF) of 44%. 
-    Cardiac catheterization showed a 60% right coronary artery (RCA) stenosis.</clinical>
+    Cardiac catheterization showed a total occlusion of right coronary artery (RCA) with collaterals.</clinical>
     
     <qImage>NA</qImage>
     <mainQ>Which of the following should you recommend?
@@ -67,11 +67,13 @@
         <e>Train Family Member to Use AED</e>
         </choices>
     <answer>D</answer>
-    <exp>
-        </exp>
-    <aImage>mediaSCD\Q1_cause.png
+    <exp>Sudden cardiac arrest in this patient was likely caused by scar related ventricular arrhythmias from prior MI. Patient had no evidence of acute ischemia by cardiac markers and coronary angiogram. ICD is therefore recommended.
+    In CASH trial (Kuck et al. Circulation 2000.), an RCT in survivors of SCA, ICD reduced SCD and all-cause mortality when compared to amiodarone or metoprolol. In this trial, patients with reversible causes of SCA including acute MI were excluded. CAD was recorded in more than 70% of the patients. Mean LVEF was 46%.
+    In the current guidelines from all societies, ICD is recommended for a survivor of SCA not from reversible causes. Also, ICD is recommended in a survivor of SCA in stable CAD regardless of LVEF.
+    </exp>
+    <aImage>mediaSCD\Q2_stableCAD.png
         </aImage>
-    <ref>https://onlinelibrary.wiley.com/doi/full/10.1111/imj.14359</ref>
+    <ref>http://www.onlinejacc.org/content/61/12/1318</ref>
 </question>
 
 
