@@ -51,7 +51,10 @@
 <!--ICD in stable CAD-->
 <question>
     <index>Stable CAD</index>
-    <clinical>A 61-year-old woman is admitted to the hospital following a cardiac arrest. She suddenly collapsed and lost consciousness while walking through the airport. An automatic external defibrillator (AED) was applied and after ventricular fibrillation (VF) was demonstrated, she was converted to sinus rhythm with a single shock. She is currently awake and alert. She has no significant prior medical history and uses no medications. Serum electrolytes and cardiac enzymes were normal in the emergency department. An ECG after resuscitation showed nonspecific repolarization abnormalities. An echocardiogram revealed diffuse global hypokinesis with an LV ejection fraction (EF) of 44%. Cardiac catheterization showed a 60% right coronary artery (RCA) stenosis.</clinical>
+    <clinical>A 61-year-old woman is admitted to the hospital following a cardiac arrest. She suddenly collapsed and lost consciousness while walking through the airport. An automatic external defibrillator (AED) was applied and after ventricular fibrillation (VF) was demonstrated, she was converted to sinus rhythm with a single shock. 
+    She is currently awake and alert. She has no significant prior medical history and uses no medications. Serum electrolytes and cardiac enzymes were normal in the emergency department. 
+    An ECG after resuscitation showed nonspecific repolarization abnormalities. An echocardiogram revealed diffuse global hypokinesis with an LV ejection fraction (EF) of 44%. 
+    Cardiac catheterization showed a 60% right coronary artery (RCA) stenosis.</clinical>
     
     <qImage>NA</qImage>
     <mainQ>Which of the following should you recommend?
