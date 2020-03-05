@@ -76,6 +76,30 @@
     <ref>http://www.onlinejacc.org/content/61/12/1318</ref>
 </question>
 
+<!--ICD in early MI-->
+<question>
+    <index>Early MI</index>
+    <clinical>A 45 year-old physician was admitted to CCU 3 days ago with cardiac arrest and acute massive anterior wall MI. He was successfully resuscitated and underwent a PCI of proximal LAD. Echocardiogram done 1 day after the PCI revealed severe LV dysfunction with LVEF 20-25%. During the admission, the telemetry showed no ventricular arrhythmias. 
+    The patient recovers very well and would like to go home today. His current medical regimen includes ASA 81 mg OD, Ticagrelor 90 mg BID, Atorvastatin 40 mg OD, Carvedilol 6.25 mg BID, Enalapril 5 mg OD, and Omeprazole 20 mg OD.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>What is the next appropriate management?
+        </mainQ>
+    <choices>
+        <a>Perform an exercise stress test using submaximal protocol prior to discharge.</a>
+        <b>Offer an implantable defibrillator-cardioverter.</b>
+        <c>Offer an electrophysiogic study to stratify risk of sudden cardiac death.</c>
+        <d>Initiate Amiodarone.</d>
+        <e>Repeat an echocardiogram in 4-6 weeks.</e>
+        </choices>
+    <answer>E</answer>
+    <exp>Even though the risk of SCD is highest during the first 30 days after MI, ICD implantation has never been shown to improve mortality. The reason is likely that
+        </exp>
+    <aImage>
+        </aImage>
+    <ref></ref>
+</question>
 
 
 </qXML>
