@@ -230,4 +230,105 @@
     <ref>NA</ref>
 </question>
 
+<!--Q9 Brugada ECG-->
+<question>
+    <index>Fever</index>
+    <clinical>A 42 y/o male presents to the Emergency room with a 2-day history of flank pain and fever with minor pleuritic chest pain prompting the emergency room physician to request the ECG shown. He is febrile (38.8°C) and has leukocytosis and likely pyelonephritis. He has no personal or family history of sudden death or related concerning events.
+        </clinical>
+           
+    <qImage>mediaSCD\Q9_ECG.png</qImage>
+    <mainQ>Which of the following actions is preferred?
+        </mainQ>
+    <choices>
+        <a>Administer antipyretics</a>
+        <b>Schedule for electrophysiogic testing</b>
+        <c>Flecainide drug challenge when fever resolves</c>
+        <d>Schedule for ICD implantation</d>
+        <e>Initiate Quinidine</e>
+        </choices>
+    <answer>A</answer>
+    <exp>The ECG shows a type 1 Brugada pattern. Fever is a known trigger for both clinical events and worsening ECG findings in Brugada Syndrome patients, and represents a medical emergency that should be treated with urgent antipyretics.
+        Active/recurrent ventricular arrhythmia in Brugada Syndrome is best treated with isoproterenol acutely and quinidine on a chronic basis, but this patient is asymptomatic and without arrhythmias. 
+        EP testing is a 2B recommendation in the guidelines and generally discouraged. 
+        ICDs are generally not indicated in asymptomatic Brugada Syndrome patients (Class 3 recommendation in the guidelines). 
+        Genetic testing and screening of all first degree relatives is indicated.
+    </exp>
+    <aImage>mediaSCD\Q9_answer.png</aImage>
+    <ref>https://doi.org/10.1161/CIRCULATIONAHA.116.021174</ref>
+</question>
+
+<!--Q10 ARVC-->
+<question>
+    <index>ARVC</index>
+    <clinical>A 32-year-old man who is a proband is found to have arrhythmogenic right ventricular dysplasia/cardiomyopathy (ARVD/C) during evaluation of abnormal electrocardiographic findings. He runs daily, and he has completed ten marathons.
+    Ambulatory electrocardiographic monitoring records 3000 ventricular premature complexes during a 24-hour period. An implantable cardioverter-defibrillator is placed. 
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>In this patient, which of the following strategies is most likely to lower his risk of receiving an appropriate ICD shock and to prevent progression of his ARVD/C ?
+        </mainQ>
+    <choices>
+        <a>Initiation of Amiodarone Therapy</a>
+        <b>Initiation of Beta Blocker Therapy</b>
+        <c>Avoidance of Certain Drugs, i.e. Macrolide, Antihistamines, and etc.</c>
+        <d>Weight control</d>
+        <e>Dramatic exercise reduction, including no further training for or participation in marathons</e>
+        </choices>
+    <answer>E</answer>
+    <exp>Competitive sport was associated with a two-fold increased risk of VTA/death, and earlier presentation of symptoms.
+        </exp>
+    <aImage>mediaSCD\Q10_exercise.png</aImage>
+    <ref>https://academic.oup.com/eurheartj/article/36/27/1735/2398055</ref>
+</question>
+
+<!--Q11 HCM-->
+<question>
+    <index></index>
+    <clinical>A 36-year-old man who has hypertrophic cardiomyopathy is referred to you for possible implantation of a cardioverter-defibrillator (ICD). He reports no family history of sudden cardiac death or syncope.
+        Recent 24-hour ambulatory electrocardiographic monitoring recorded 10,000 PVCs, 355 couplets, and 10 episodes of NSVTs were documented. An echocardiogram revealed septal thickness of 2.8 cm.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Which of the following additional test findings would most strongly indicate that this patient should receive an ICD?
+        </mainQ>
+    <choices>
+        <a>Inducible polymorphic VT on programmed electrical stimulation</a>
+        <b>Late potentials on signal averaged ECG</b>
+        <c>Late Gadolinium enhancement of >15% on MRI</c>
+        <d>Low heart rate variability on 24-hour ambulatory ECG monitoring</d>
+        <e>Septal hypoperfusion on SPECT perfusion imaging</e>
+        </choices>
+    <answer>C</answer>
+    <exp>Late gadolinium enhancement by CMR has prognostic value in predicting adverse cardiovascular events among HCM patients.
+    EP study is not useful in HCM.
+        </exp>
+    <aImage>mediaSCD\Q11_HCM.jpg</aImage>
+    <ref>https://www.ahajournals.org/doi/10.1161/CIR.0000000000000549</ref>
+</question>
+
+<!--Q12 LQT1-->
+<question>
+    <index>Genetics</index>
+    <clinical>A 26 year-old woman with congenital deafness and seizure disorder presents with recurrent syncope 1 week after the birth of her 3rd child. Her ECG is as shown.
+        </clinical>
+           
+    <qImage>mediaSCD\Q12_ECG.png</qImage>
+    <mainQ>Assuming she is unrelated to the father of her children, which of the followings is correct?
+        </mainQ>
+    <choices>
+        <a>50% of her children will be deaf.</a>
+        <b>50% of her children will be LQTS mutation carriers.</b>
+        <c>One of her parents is an LQTS mutation carrier.</c>
+        <d>Both of her parents are LQTS mutation carriers.</d>
+        <e>She will not be able to carry a child.</e>
+        </choices>
+    <answer>D</answer>
+    <exp>The ECG shows typical long QT 1 ECG. With her clinical symptoms of deafness and syncope, she is likely to have Jervell and Lange-Nielsen syndrome.
+    Jervell and Lange-Nielsen syndrome is caused by mutations in the KCNE1 and KCNQ1 genes.The movement of potassium ions through these channels is critical for maintaining the normal functions of inner ear structures and cardiac muscle.
+    This condition is inherited in an autosomal recessive pattern, which means both of her parents are carriers.
+        </exp>
+    <aImage>mediaSCD\Q12_A.jpeg</aImage>
+    <ref>https://www.nejm.org/doi/full/10.1056/nejmcp0706513</ref>
+</question>
+
 </qXML>
