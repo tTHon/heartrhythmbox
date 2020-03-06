@@ -207,4 +207,27 @@
     <ref>https://www.ahajournals.org/doi/10.1161/CIR.0000000000000549</ref>
 </question>
 
+<!--Q8 Artifacts-->
+<question>
+    <index>FamHx</index>
+    <clinical>A 15 y/o girl is referred to you for evaluation of complaints of exertional palpitations associated with dizziness and near syncope. She had a normal echocardiogram. Her family history is positive for an uncle who died during his sleep at age 50. She has no prior history of syncope and an EKG which is normal with a QTc of 430 ms. The following strip is recorded from her Holter monitor.
+        </clinical>
+           
+    <qImage>mediaSCD\Q8 ECG.png</qImage>
+    <mainQ>What is the most appropriate next step?
+        </mainQ>
+    <choices>
+        <a>Routine follow-up</a>
+        <b>Implant an ICD</b>
+        <c>EP study with epinephrine infusion</c>
+        <d>Exercise treadmill test</d>
+        <e>Genetic testing</e>
+        </choices>
+    <answer>D</answer>
+    <exp>The tracing shows artifact mimicking polymorphic VT (normal QRS complexes continuing throughout [*]) and is therefore immaterial to the case discussed. Given her family history and exertional symptoms, the most reasonable next step is to perform ETT looking for evidence of exertional arrhythmia, such as CPVT. Genetic testing and invasive testing are reasonable but are best as future steps should the ETT results be unrevealing.
+        </exp>
+    <aImage>mediaSCD\Q8_answer.png</aImage>
+    <ref>NA</ref>
+</question>
+
 </qXML>
