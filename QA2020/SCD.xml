@@ -334,8 +334,9 @@
 <!--Q13 Fontan-->
 <question>
     <index>Fontan</index>
-    <clinical>A 30-year-old man is evaluated because he has had recurrent syncope for the past four months. He underwent a Fontan operation (atriopulmonary artery connection) in early childhood. At age 19, he underwent a Fontan conversion (extracardiac conduit).
-    Echocardiogram revealed severely impaired systemic ventricular function
+    <clinical>A 30-year-old man is being evaluated because of rapid heart rate. He underwent a Fontan operation (atriopulmonary artery connection) in early childhood. At age 19, he underwent a Fontan conversion (extracardiac conduit).
+    His ECG shows ventricular tachycardia at 150 bpm. He feels severely lightheaded. SBP was 70mmHg prompting a cardioversion.
+    Electrolytes and cardiac markers are within normal range. His only medication is metoprolol 100 mg BID.
         </clinical>
            
     <qImage></qImage>
