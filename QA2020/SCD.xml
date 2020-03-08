@@ -336,25 +336,27 @@
     <index>Fontan</index>
     <clinical>A 30-year-old man is being evaluated because of rapid heart rate. He underwent a Fontan operation (atriopulmonary artery connection) in early childhood. At age 19, he underwent a Fontan conversion (extracardiac conduit).
     His ECG shows ventricular tachycardia at 150 bpm. He feels severely lightheaded. SBP was 70mmHg prompting a cardioversion.
-    Electrolytes and cardiac markers are within normal range. His only medication is metoprolol 100 mg BID.
+    After successfully cardioverted back to sinus rhythm, he is fully awake and oriented. ECG is as shown.
+    Electrolytes and cardiac markers are within normal range. His only medication is metoprolol 100 mg BID. 
         </clinical>
            
-    <qImage></qImage>
-    <mainQ>
+    <qImage>mediaSCD\Q13_fontan.png</qImage>
+    <mainQ>Which of the following is the most appropriate treatment for this patient's arrhythmia?
         </mainQ>
     <choices>
-        <a></a>
-        <b></b>
-        <c></c>
-        <d></d>
-        <e></e>
+        <a>Initiation of Flecainide</a>
+        <b>Implantation of transvenous ICD</b>
+        <c>Implantation of totally subcutaneous ICD</c>
+        <d>Implantation of epicardial ICD</d>
+        <e>Electrophysiologic study</e>
         </choices>
-    <answer></answer>
-    <exp>
+    <answer>C</answer>
+    <exp>ICD is indicated in this patient due to symptomatic VT. However, the venous access is the major issue in this patient.
+    Extracardiac Fontan conversion has been shown to significantly improve hemodynamics and decrease atrial arrhythmias in patients with a single ventricle. However, since the procedure bypasses the right atrium, it makes transvenous atrial access extremely difficult in the future. As a result, transvenous ablation and implantation of a cardiac rhythmi device are typically not feasible in such patients.
+    The risk of reoperation with sternotomy for epicardial ICD implantation may outweigh the potential benefits. Since he does not require pacing support, subcutaneous implantable cardioverter-defibrillator implantation is the best option for this patient.
         </exp>
-    <aImage>
-        </aImage>
-    <ref></ref>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
 </question>
 
 </qXML>
