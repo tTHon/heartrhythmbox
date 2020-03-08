@@ -331,4 +331,29 @@
     <ref>https://www.nejm.org/doi/full/10.1056/nejmcp0706513</ref>
 </question>
 
+<!--Q13 Fontan-->
+<question>
+    <index>Fontan</index>
+    <clinical>A 30-year-old man is evaluated because he has had recurrent syncope for the past four months. He underwent a Fontan operation (atriopulmonary artery connection) in early childhood. At age 19, he underwent a Fontan conversion (extracardiac conduit).
+    Echocardiogram revealed severely impaired systemic ventricular function
+        </clinical>
+           
+    <qImage></qImage>
+    <mainQ>
+        </mainQ>
+    <choices>
+        <a></a>
+        <b></b>
+        <c></c>
+        <d></d>
+        <e></e>
+        </choices>
+    <answer></answer>
+    <exp>
+        </exp>
+    <aImage>
+        </aImage>
+    <ref></ref>
+</question>
+
 </qXML>
