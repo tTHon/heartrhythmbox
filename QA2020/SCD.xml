@@ -283,7 +283,7 @@
 
 <!--Q11 HCM-->
 <question>
-    <index></index>
+    <index>HCM</index>
     <clinical>A 36-year-old man who has hypertrophic cardiomyopathy is referred to you for possible implantation of a cardioverter-defibrillator (ICD). He reports no family history of sudden cardiac death or syncope.
         Recent 24-hour ambulatory electrocardiographic monitoring recorded 10,000 PVCs, 355 couplets, and 10 episodes of NSVTs were documented. An echocardiogram revealed septal thickness of 2.8 cm.
         </clinical>
@@ -367,7 +367,7 @@
     When you see the patient, he appears to be a healthy young man. He denies any other medical problem and never uses any illicit drugs. He works as a salesman and exercises regularly. You decides to order a cardiac MRI. The result is as shown. 
         </clinical>
            
-    <qImage></qImage>
+    <qImage>mediaSCD\Q14_Q.png</qImage>
     <mainQ>What is the next most appropriate management?
         </mainQ>
     <choices>
@@ -380,10 +380,35 @@
     <answer>E</answer>
     <exp>1. In a patient with ventricular arrhythmia who are suspecting of having structural heart disease, cardiac MRI or CT is recommended as IIa. Cardiac CT and cardiac MRI allow for evaluation of structural heart disease and assessment of LV and RV function including quantification of LVEF, LV mass and volume, valvular structure and coronary anatomy including anomalous coronary origins. Cardiac MRI can be useful in the evaluation for myocardial scar and infiltrative processes evident as late gadolinium enhancement. Cardiac MRI also provides high-quality assessment of LV and RV function, size, and degree of fibrosis and is particularly useful in arrhythmogenic right ventricular cardiomyopathy and HCM.
     2. Cardiac MRI in this patient shows anomalous of RCA from the left sinus of Valsalva with inter-arterial route which is likely to be the cause of SCA in him. Coronary repair is recommended (class I).
-    3. ACAOS is the top-three most common causes of SCA in young athletes; HCM and commotio cordis being the other two. 
+    3. ACAOS is one of the top-three most common causes of SCA in young athletes; HCM and commotio cordis being the other two. 
         </exp>
-    <aImage>
-        </aImage>
+    <aImage>mediaSCD\Q14_A.png</aImage>
     <ref>https://www.nejm.org/doi/full/10.1056/NEJMra022783</ref>
 </question>
+
+<!--Q15 EP Study-->
+<question>
+    <index>EPS</index>
+    <clinical>A 45 year-old man is referred to you for evaluation of recurrent cardiac syncopes. There was no documented sustained ventricular arrhythmias. 
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Regarding the decision to implant an ICD, inducible ventricular arrhythmia by programmed ventricular stimulation would be most beneficial if the patient sufferes from which of the following condition?
+        </mainQ>
+    <choices>
+        <a>Brugada syndrome</a>
+        <b>Early repolarization syndrome</b>
+        <c>Hypertrophic cardiomyopathy</c>
+        <d>Long QT syndrome</d>
+        <e>Tetralogy of Fallot</e>
+        </choices>
+    <answer>E</answer>
+    <exp>1. EP study is useful (IIa) in ICM, NICM, or ACHD + syncope or symptomatic VA who do not meets criteria for primary prevention ICD.
+    2. EP study has no role in HCM or channelopathy.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>https://www.ahajournals.org/doi/10.1161/CIR.0000000000000549</ref>
+</question>
+
+
 </qXML>
