@@ -434,4 +434,29 @@
     <ref>https://doi.org/10.1016/j.hrthm.2013.10.033</ref>
 </question>
 
+<!--Q17 HCM AF-->
+<question>
+    <index>AF HCM</index>
+    <clinical>A 40-year-old man who has hypertrophic cardiomyopathy receives the diagnosis of paroxysmal atrial fibrillation (AF) after having three AF episodes, lasting from four to eight hours, over the past six months. He has no history of diabetes, hypertension, ischemic heart disease, stroke, transient ischemic attacks, or heart failure. He has not received an implantable cardioverter-defibrillator. 
+    The patient's beta-adrenergic antagonist therapy has been increased in order to control his symptoms and heart rate during AF.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Which of the following is the most appropriate action regarding stroke prevention in this patient?
+        </mainQ>
+    <choices>
+        <a>Continue current medications.</a>
+        <b>Start Aspirin.</b>
+        <c>Start Aspirin and Clopidogrel.</c>
+        <d>Start Warfarin.</d>
+        <e>Prescribe low-molecular-weight heparin to be taken only when an AF episode extends beyond 12 hours.</e>
+        </choices>
+    <answer>D</answer>
+    <exp>1. In light of the high risk of thromboembolism in hypertrophic cardiomyopathy (HCM), even a patient with a short episode of atrial fibrillation (AF) should be under consideration for anticoagulation. Anticoagulation should be considered after one episode of AF because the likelihood of recurrent AF is high.
+    2. Data from a registry, the risk of stroke in NVAF with HCM without any CHA2DS2-VASc stroke risk factors was similar to that of those patients without HCM with CHA2DS2-VASc score of 3.
+    3. NOACs had similar or lower risks of thromboembolic and bleeding events in patients with HCM and AF when compared with warfarin.
+        </exp>
+    <aImage>mediaSCD\Q17_AF HCM Stroke.png</aImage>
+    <ref>https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0038-1676818</ref>
+</question>
 </qXML>
