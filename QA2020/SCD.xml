@@ -378,7 +378,9 @@
         <e>Cardiothoracic surgery service consultation.</e>
         </choices>
     <answer>E</answer>
-    <exp>1. In a patient with ventricular arrhythmia who are suspecting of having structural heart disease, cardiac MRI or CT is recommended as IIa. Cardiac CT and cardiac MRI allow for evaluation of structural heart disease and assessment of LV and RV function including quantification of LVEF, LV mass and volume, valvular structure and coronary anatomy including anomalous coronary origins. Cardiac MRI can be useful in the evaluation for myocardial scar and infiltrative processes evident as late gadolinium enhancement. Cardiac MRI also provides high-quality assessment of LV and RV function, size, and degree of fibrosis and is particularly useful in arrhythmogenic right ventricular cardiomyopathy and HCM.
+    <exp>1. In a patient with ventricular arrhythmia who are suspecting of having structural heart disease, cardiac MRI or CT is recommended as IIa. 
+    Cardiac CT and cardiac MRI allow for evaluation of structural heart disease and assessment of LV and RV function including quantification of LVEF, LV mass and volume, valvular structure and coronary anatomy including anomalous coronary origins. 
+    Cardiac MRI can be useful in the evaluation for myocardial scar and infiltrative processes evident as late gadolinium enhancement. Cardiac MRI also provides high-quality assessment of LV and RV function, size, and degree of fibrosis and is particularly useful in arrhythmogenic right ventricular cardiomyopathy and HCM.
     2. Cardiac MRI in this patient shows anomalous of RCA from the left sinus of Valsalva with inter-arterial route which is likely to be the cause of SCA in him. Coronary repair is recommended (class I).
     3. ACAOS is one of the top-three most common causes of SCA in young athletes; HCM and commotio cordis being the other two. 
         </exp>
