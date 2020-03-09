@@ -396,7 +396,7 @@
     <mainQ>Regarding the decision to implant an ICD, inducible ventricular arrhythmia by programmed ventricular stimulation would be most beneficial if the patient sufferes from which of the following condition?
         </mainQ>
     <choices>
-        <a>Brugada syndrome</a>
+        <a>Catecholaminergic polymorphic VT</a>
         <b>Early repolarization syndrome</b>
         <c>Hypertrophic cardiomyopathy</c>
         <d>Long QT syndrome</d>
@@ -404,11 +404,34 @@
         </choices>
     <answer>E</answer>
     <exp>1. EP study is useful (IIa) in ICM, NICM, or ACHD + syncope or symptomatic VA who do not meets criteria for primary prevention ICD.
-    2. EP study has no role in HCM or channelopathy.
-        </exp>
+    2. EP study does not have prognostic values in HCM or cardiac channelopathy.</exp>
     <aImage>NA</aImage>
     <ref>https://www.ahajournals.org/doi/10.1161/CIR.0000000000000549</ref>
 </question>
 
+<!--Q16 PVC-->
+<question>
+    <index>PVC</index>
+    <clinical>A 56-year-old woman who has bronchial asthma that is well controlled with inhaled bronchodilators is evaluated because she has had palpitations for the past six months.
+    The patient's electrocardiogram is shown. Echocardiography reveals a left ventricular ejection fraction of 45%. Subsequent ambulatory electrocardiographic monitoring discloses a ventricular premature complex (VPC) burden of 21%.
+        </clinical>
+           
+    <qImage>mediaSCD\Q16_ECG.png</qImage>
+    <mainQ>Which of the following is the most likely to result in normalization of this patient's LVEF?</mainQ>
+    <choices>
+        <a>Initiation of metroprolol succinate 50 mg daily</a>
+        <b>Initiation of flecainide 50 mg twice daily</b>
+        <c>Initiation of verapamil 240 mg daily</c>
+        <d>Catheter ablation of PVCs</d>
+        <e>Implantation of cardiac resynchronization therapy</e>
+        </choices>
+    <answer>D</answer>
+    <exp>Frequent PVCs (usually >15% of the total number of beats) may produce a reversible form of LV dysfunction.
+    In a prospective study of catheter ablation for PVC-induced cardiomyopathy, ablation was completely successful in 80% of patients. LV function normalized within 6 months in 82% of the 22 patients who had depressed ventricular dysfunction at baseline. Thus, frequent PVCs may be a reversible cause of LV dysfunction that can be effectively treated with catheter ablation. It is often difficult to determine if apparent LV dysfunction reflects impaired LV function or inability to accurately assess LV function due to the frequent ectopic activity. 
+    In patients who have a high density of PVCs with normal ventricular function, optimal treatment and surveillance for prevention and detection of decline in ventricular function have not been established.
+    </exp>
+    <aImage>mediaSCD\Q16_PVC Abl.png</aImage>
+    <ref>https://doi.org/10.1016/j.hrthm.2013.10.033</ref>
+</question>
 
 </qXML>
