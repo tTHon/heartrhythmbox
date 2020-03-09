@@ -461,4 +461,29 @@
     <aImage>mediaSCD\Q17_AF HCM Stroke.png</aImage>
     <ref>https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0038-1676818</ref>
 </question>
+
+<!--Q18 Bidirectional VT-->
+<question>
+    <index></index>
+    <clinical>
+        </clinical>
+           
+    <qImage></qImage>
+    <mainQ>
+        </mainQ>
+    <choices>
+        <a></a>
+        <b></b>
+        <c></c>
+        <d></d>
+        <e></e>
+        </choices>
+    <answer></answer>
+    <exp>
+        </exp>
+    <aImage>
+        </aImage>
+    <ref></ref>
+</question>
+
 </qXML>
