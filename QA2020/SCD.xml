@@ -462,28 +462,61 @@
     <ref>https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0038-1676818</ref>
 </question>
 
-<!--Q18 Bidirectional VT-->
+<!--Q18 Brugada drug challenge-->
 <question>
-    <index></index>
-    <clinical>
+    <index>?Brugada</index>
+    <clinical>A 47 year old man with a history relevant for two prior syncopal events comes to you after his 38 year old brother was resuscitated following a cardiac arrest. 
+    His brother was diagnosed with Brugada syndrome and an ICD was placed. ECG of the patient is as shown.
         </clinical>
            
-    <qImage></qImage>
-    <mainQ>
-        </mainQ>
+    <qImage>mediaSCD\Q18 ECG.jpg</qImage>
+    <mainQ>What is the next appropriate step?</mainQ>
     <choices>
-        <a></a>
-        <b></b>
-        <c></c>
-        <d></d>
-        <e></e>
+        <a>Implantation of an ICD</a>
+        <b>Genetic testing of the patient</b>
+        <c>Reassurance as your patient is beyond the age at which he is at risk for Brugada syndrome</c>
+        <d>IV Procainamide challenge</d>
+        <e>EP testing with Programmed Electrical Stimulation looking for inducible VF</e>
         </choices>
-    <answer></answer>
-    <exp>
+    <answer>D</answer>
+    <exp>The ECG is not typical type 1 Brugada. But with the highly suspicious clinical manifestation, administration of procainamide, flecainide, or ajmaline may be useful to provoke type 1 ST elevation.
+    In this patient, flecainide challenge was performed and was able to provoke type 1 Brugada ECG.
+    The yield of genetic testing in phenotype positive patient is approximately 20-30% in Brugada syndrome.
         </exp>
-    <aImage>
-        </aImage>
-    <ref></ref>
+    <aImage>mediaSCD\Q18_answer.png</aImage>
+    <ref>https://doi.org/10.1161/01.CIR.101.5.510</ref>
+</question>
+
+<!--Q19 drug induced long QT-->
+
+<!--Q20 SCD w/u-->
+<question>
+    <index>SCD W/U 2</index>
+    <clinical>A 21 year old man comes to you because he is concerned that he might be at risk for sudden death. His identical twin brother died suddenly 1 month ago. An autopsy was unremarkable. No tissue or blood samples are available.
+    Neither he nor his brother have any medical history or symptoms. They did have a sister who died at 4 months of age from SIDS.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>All of the following tests are appropriate except:</mainQ>
+    <choices>
+        <a>ECG</a>
+        <b>Echocardiogram</b>
+        <c>Electrophysiologic Study with Programmed Ventricular Stimulation</c>
+        <d>Exercise Testing</d>
+        <e>Genetic testing that is targeted based on the results of the clinical exam and testing</e>
+        </choices>
+    <answer>C</answer>
+    <exp>General evaluation of patients with documented or suspected ventricular arrhythmias:
+        • History (syncope, palpitations, aborted SCD): All
+        • Family History (Sudden death, pacers, CHF): All
+        • EKG: Long QT, Short QT, Brugada, ARVC
+        • Echo/MRI: Hypertrophic CM, Dilated CM, ARVC
+        • Stress Test: CPVT, Long QT
+        • Drug Test: Brugada, CPVT
+        • EP Test (Programmed Stimulation): ??Brugada
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
 </question>
 
 </qXML>
