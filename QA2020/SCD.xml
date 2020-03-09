@@ -355,8 +355,35 @@
     Extracardiac Fontan conversion has been shown to significantly improve hemodynamics and decrease atrial arrhythmias in patients with a single ventricle. However, since the procedure bypasses the right atrium, it makes transvenous atrial access extremely difficult in the future. As a result, transvenous ablation and implantation of a cardiac rhythm device are typically not feasible in such patients.
     The risk of reoperation with sternotomy for epicardial ICD implantation may outweigh the potential benefits. Since he does not require pacing support, subcutaneous implantable cardioverter-defibrillator implantation is the best option for this patient.
         </exp>
-    <aImage>NA</aImage>
-    <ref>NA</ref>
+    <aImage>mediaSCD\Q13_FontanConversion.png</aImage>
+    <ref>https://www.ahajournals.org/doi/10.1161/CIR.0000000000000549</ref>
 </question>
 
+<!--Q14 ACAOS-->
+<question>
+    <index>SCA W/U</index>
+    <clinical>A 32 year-old man, a survivor of sudden cardiac arrest, asks you for a second opinion regarding the need for an ICD implantation. Two weeks ago, while playing badminton, he suddenly collapsed on the floor. AED was applied by his friend. He was defibrillated and quickly recovered.
+    Later, he was brought to the nearby hospital. Blood chemistry was within normal range. ECG is as shown. Echocardiogram showed normal study. ICD implantation was recommended.
+    When you see the patient, he appears to be a healthy young man. He denies any other medical problem and never uses any illicit drugs. He works as a salesman and exercises regularly. You decides to order a cardiac MRI. The result is as shown. 
+        </clinical>
+           
+    <qImage></qImage>
+    <mainQ>What is the next most appropriate management?
+        </mainQ>
+    <choices>
+        <a>Implantation of a transvenous ICD.</a>
+        <b>Implantation of a totally subcutaneous ICD.</b>
+        <c>Electrophysiologic study.</c>
+        <d>Exercise restriction.</d>
+        <e>Cardiothoracic surgery service consultation.</e>
+        </choices>
+    <answer>E</answer>
+    <exp>1. In a patient with ventricular arrhythmia who are suspecting of having structural heart disease, cardiac MRI or CT is recommended as IIa. Cardiac CT and cardiac MRI allow for evaluation of structural heart disease and assessment of LV and RV function including quantification of LVEF, LV mass and volume, valvular structure and coronary anatomy including anomalous coronary origins. Cardiac MRI can be useful in the evaluation for myocardial scar and infiltrative processes evident as late gadolinium enhancement. Cardiac MRI also provides high-quality assessment of LV and RV function, size, and degree of fibrosis and is particularly useful in arrhythmogenic right ventricular cardiomyopathy and HCM.
+    2. Cardiac MRI in this patient shows anomalous of RCA from the left sinus of Valsalva with inter-arterial route which is likely to be the cause of SCA in him. Coronary repair is recommended (class I).
+    3. ACAOS is the top-three most common causes of SCA in young athletes; HCM and commotio cordis being the other two. 
+        </exp>
+    <aImage>
+        </aImage>
+    <ref>https://www.nejm.org/doi/full/10.1056/NEJMra022783</ref>
+</question>
 </qXML>
