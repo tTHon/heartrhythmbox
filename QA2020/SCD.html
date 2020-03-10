@@ -25,15 +25,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="heart rhythm, electrophysiology, sudden cardiac death, electrogram, ICD, long QT, inherited, ventricular arrhythmias">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Exo+2|Satisfy|Average+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Exo+2|Satisfy|Lato" rel="stylesheet">
 
 </head>
 
 <style>
 
 .exo {font-family: 'Exo 2', sans-serif;}
-.san2 {font-family: 'Average Sans', sans-serif;}
+.san2 {font-family: 'Lato', sans-serif;}
 .cursive {font-family: 'Satisfy', cursive;}
 
 .dkGrey {background-color: #0B0C10}
@@ -46,15 +45,15 @@
         transform: skewY(-15deg);transform-origin: top left}
 .titleTxt {transform: skewY(15deg);transform-origin: top left}
 .titlePad {padding: 15vh 10vw 10vh 10vw;cursor: pointer;}
-.fbPos {top: 90vh;right: 1vw;position: absolute;font-size:2vmax;line-height: 120%;text-align: right}
-#title {font-size:2vmax;color:#f1f2f3;font-family: 'Average Sans', sans-serif;line-height: 100%}
+.fbPos {top: 90vh;right: 1vw;position: absolute;font-size:1.7vmax;line-height: 120%;text-align: right}
+#title {font-size:2vmax;color:#f1f2f3;font-family: 'Lato', sans-serif;line-height: 100%}
 
 
 .sectionH {font-family: 'Exo 2', sans-serif;color: #f1f2f3;font-size:2.2vmax;
             padding:0.5vmax 1vmax;letter-spacing: -0.1vmin;}
-.sectionD {font-family: 'Average Sans', sans-serif;font-size:2vmax;letter-spacing: -0.1vmin;color:white;
+.sectionD {font-family: 'Lato', sans-serif;font-size:2vmax;letter-spacing: -0.1vmin;color:white;
 line-height: 130%;display: none;padding:1vmax;border-top:0.1vmax groove #f1f2f3 }
-.popUpFormat{font-family: 'Average Sans', sans-serif;font-size:2vmax;padding:1vmax 2.5vmax;letter-spacing: -0.1vmin;
+.popUpFormat{font-family: 'Lato', sans-serif;font-size:2vmax;padding:1vmax 2.5vmax;letter-spacing: -0.1vmin;
 line-height: 130%;background-color: rgba(256, 256, 256,0.8);}
 .arrowD {display: none;cursor: pointer;}
 .arrowR {cursor: pointer;}
@@ -122,7 +121,7 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
 <body>
 
 <!--front page-->
-<div id="frontP" style="max-height: 100vh;overflow: hidden;" class="red">
+<div id="frontP" class="red">
     <div class="title">
       <div class="titleTxt">
         <div class="w3-container titlePad" style="font-size: 6vmax;line-height: 90%" onclick="showQPage(0)"
@@ -142,21 +141,24 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
                    Answers</span>
                 </span>
             </div>
-            <div id="author"></div>
-            <div id="title"></div>
         </div>
         <div id="info"><sup>for the link to this page, visit</sup>
           <span style="font-size:4vmax;"><sub>&#x2938;</sub></span>
         </div>
-        <div class="w3-container san2 fbPos" style="color:#c5c6c7">
-            <a href="https://www.heartrhythmbox.com" target="_blank" style="text-decoration:none;">
-                <img src="box transparent.png" style="width:2vmax;">
-                heartRhythmBox.com
-          </a>
+        <div class="w3-container exo fbPos" style="color:#c5c6c7">
+          Sudden Cardiac Death Qs&As is a part of 
+            <a href="https://heartrhythmbox.com/qa2020/" target="_blank">
+            EP Q&A 2020 Series
+            </a><br> and a part of
+            <a href="https://heartrhythmbox.com/" target="_blank" style="text-decoration:none;">
+                  <img src="box transparent.png" style="width:1.5vmax;">
+                  heartRhythmBox.com
+            </a>
         </div>
       </div>
     </div>
   </div>
+  
 
 <!--questions-->
 <div id="q" style="background-color:#1F2833;display: none;min-height: 100vh">

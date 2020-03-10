@@ -26,14 +26,14 @@
 <meta name="keywords" content="heart rhythm, CIED, pacemaker, leads, bradycardia, AV block, sick sinus syndrome, electrophysiology, sudden cardiac death, electrogram">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css?family=Exo+2|Satisfy|Average+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Exo+2|Satisfy|Oswald" rel="stylesheet">
 
 </head>
 
 <style>
 
 .exo {font-family: 'Exo 2', sans-serif;}
-.san2 {font-family: 'Average Sans', sans-serif;}
+.san2 {font-family: 'Oswald', sans-serif;}
 .cursive {font-family: 'Satisfy', cursive;}
 
 .dkGrey {background-color: #0B0C10}
@@ -41,580 +41,48 @@
 .ltGrey {background-color: #c5c6c7}
 .cyan {background-color: #66FCF1}
 .blue {background-color: #45A29E}
-
-.title {width:100vw;height: 100vh;background: linear-gradient(to right,#0B0C10, #1F2833);
-        transform: skewY(-15deg);transform-origin: top left}
-.titleTxt {transform: skewY(15deg);transform-origin: top left}
-.titlePad {padding: 15vh 10vw 10vh 10vw;cursor: pointer;}
-.fbPos {top: 90vh;right: 1vw;position: absolute;font-size:2vmax;line-height: 120%;text-align: right}
-#author {font-size:2.2vmax;color:#ff639c;font-family: 'Exo 2', sans-serif;}
-#title {font-size:2vmax;color:#f1f2f3;font-family: 'Average Sans', sans-serif;line-height: 100%}
-#info {top: 82vh;right:8vw;position: absolute;font-family: 'Satisfy', cursive;font-size:3vmax;color: #ff639c;
-      display:none;}
-
-.sectionH {font-family: 'Exo 2', sans-serif;color: #66fcf1;font-size:2.2vmax;
-            padding:0.5vmax 1vmax;letter-spacing: -0.1vmin;}
-.sectionD {font-family: 'Average Sans', sans-serif;font-size:2vmax;letter-spacing: -0.1vmin;color:white;
-line-height: 130%;display: none;padding:1vmax;border-top:0.1vmax groove #45a29e }
-.popUpFormat{font-family: 'Average Sans', sans-serif;font-size:2vmax;padding:1vmax 2.5vmax;letter-spacing: -0.1vmin;
-line-height: 130%;background-color: rgba(256, 256, 256,0.8);}
-.arrowD {display: none;cursor: pointer;}
-.arrowR {cursor: pointer;}
-.topCurve {border-top-left-radius: 1vmax;border-top-right-radius: 1vmax}
-.imageSetup {max-width:100%;max-height: 80vh;padding: 0.5vmax}
-
-@media only screen and (max-width: 600px){
-  .titlePad {padding-top:30vh}
-  .title {transform: skewY(-30deg)}
-  .titleTxt {transform: skewY(30deg)}
-}
-@media only screen and (max-width: 800px){
-  .fbPos {top:95vh;right:2vw}
-  .imageSetup {width:100%;max-height:auto;}
-}
-
-#clinical {white-space:pre-line}
-#exp {white-space:pre-line}
-.navBtn {box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
-#aImage {cursor: pointer}
-#indexList {position: fixed;max-height:50vh;max-width:50vw;display: none;
-overflow-x: hidden;overflow-y:scroll;z-index: 2;background-color:rgba(241, 241, 241,0.95);
-box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
-
-.pointer {
-    cursor: pointer;
-    height: 0.5em;
-    width: 0.5em;
-    background-color: #fc553d;
-    border-radius: 50%;
-    position: fixed;
-    z-index: 1;
-    animation: blink 1.5s linear infinite;
-    }
-    @keyframes blink{
-    0%{opacity: 0;}
-    50%{opacity: 0.7}
-    100%{opacity: 1;}
-    }
-
-#loader {
-  margin-left: 42vw;margin-top:5vw;
-  border: 1.5vw solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 1.5vw solid #ff639c;
-  width: 8vw;
-  height: 8vw;
-  -webkit-animation: spin 3s linear infinite; /* Safari */
-  animation: spin 3s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+.red {background-color: #d1001c}
+.gd {background: linear-gradient(to right,#0B0C10, #1F2833)}
 
 </style>
 
-<body>
+<body class="gd">
 
-<!--front page-->
-<div id="frontP" style="max-height: 100vh;overflow: hidden;" class="cyan">
-    <div class="title">
-      <div class="titleTxt">
-        <div class="w3-container titlePad" style="font-size: 6vmax;line-height: 90%" onclick="showQPage(0)"
-          title="click here to continue">
-            <div class="w3-row">
-              <span class="exo" style="color:white">&nbsp; Basic </span><br>
-              <span class="cursive" style="color:#66FCF1;z-index: 2;position: relative">
-                Pacing Concept</span>
-            </div>
-            <div class="w3-row exo" style="font-size: 3.5vmax;line-height: 150%">
-
-                <span style="border:#c5c6c7 0.1vmax solid;padding: 0">
-                  <span style="background-color:#c5c6c7;color:#1F2833;padding:0vmax 0.4vmax">
-                  Questions</span>
-                  <span style="padding:0;color:#c5c6c7">&</span>
-                  <span style="background-color:#c5c6c7;color:#1F2833;padding:0vmax 0.4vmax">
-                   Answers</span>
-                </span>
-            </div>
-            <div id="author"></div>
-            <div id="title"></div>
-        </div>
-        <div id="info"><sup>for the link to this page, visit</sup>
-          <span style="font-size:4vmax;"><sub>&#x2938;</sub></span>
-        </div>
-        <div class="w3-container san2 fbPos" style="color:#1f2833">
-          <a href="SCD.html" target="_blank">
-          SCD
-          </a>
-        </div>
-      </div>
+<div class="w3-container w3-center" style="font-size: 6vmax;line-height: 90%" >
+    <div class="w3-row" style="padding-top: 10vh;">
+      <span class="exo" style="color:white">&nbsp; Cardiac </span><br>
+      <span class="cursive" style="color:#f1f1f1;z-index: 2;position: relative">
+        Electrophysiology</span>
     </div>
-  </div>
+    <div class="w3-row exo" style="font-size: 3.5vmax;line-height: 150%">
 
-<!--questions-->
-<div id="q" style="background-color:#1F2833;display: none;min-height: 100vh">
-  <!--start pointer-->
-  <div onclick="pointer()">
-    <span class="pointer" style="display: none"></span>
-
-  <!--number-->
-  <div id="qNo" class="w3-row cyan cursive w3-center" style="font-size:4vmax;padding: 0.5vmax">
-      Question
-  </div>
-  <div id="demo" style="color:white"></div>
-  <!--clinical detail-->
-  <div id="clinicalH" class="w3-row sectionH">
-        <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-        Clinical Detail
-      <div id="clinical" class="w3-container sectionD">
-
-      </div>
-  </div>
-
-  <!--Qimage-->
-  <div id="qImageH" class="w3-row sectionH">
-      <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-      Figure
-      <div id="qImageP" class="w3-container w3-center sectionD" ondblclick="popUp()">
-        <div id="loader"></div>
-        <!--img id="qImage" style="max-width:100%;max-height: 80vh;padding: 0.5vmax"-->
-      </div>
-  </div>
-
-  <!--mainQ-->
-  <div id="mainQH" class="w3-row sectionH">
-      <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-      The question is...
-      <div id="mainQ" class="w3-container sectionD">
-          </div>
-  </div>
-
-  <!--choices-->
-  <div id="choicesH" class="w3-row sectionH">
-      <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-      Answer Options
-      <div id="choices" class="w3-container sectionD" style="padding-left:2vmax">
-        choices</div>
-  </div>
-
-  <!--popup page-->
-  <div id="popUp" class="w3-modal">
-    <div class="w3-modal-content" style="width:100%">
-      <div class="w3-row">
-      <div id="qImageHolder" class="w3-col s8 popUpFormat">
-        <img id="qImage2" style="width:100%;">
-      </div>
-      <div class="w3-col s4 popUpFormat">
-        <div id="mainQ2">
-        </div>
-        <div id="choices2">
-          choices</div>
-      </div>
-      </div>
+        <span style="border:#c5c6c7 0.1vmax solid;padding: 0">
+          <span style="background-color:#c5c6c7;color:#1F2833;padding:0vmax 0.4vmax">
+          Questions</span>
+          <span style="padding:0;color:#c5c6c7">&</span>
+          <span style="background-color:#c5c6c7;color:#1F2833;padding:0vmax 0.4vmax">
+           Answers</span>
+        </span>
     </div>
-  </div>
-
-  <!--answer-->
-  <div style="padding:2vmax" class="w3-row sectionH">
-      <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-      The answer is...
-      <div class="w3-container sectionD w3-padding">
-        <div id="answer" class="w3-container w3-padding exo topCurve blue"
-        style="color:white;font-size:2.5vmax;">
-        Answer:
-        </div>
-        <div id="exp" class="w3-container w3-padding w3-white san2" style="font-size:2vmax;color:#1F2833">
-        Explaination
-        </div>
-        <div id="aImageHolder">
-          <img id="aImage" style="max-width:100%;max-height:75vh;padding-top:0.5vmax;padding-bottom: 0.5vmax">
-        </div>
-        <div>
-          <a href="" id='ref' target="_blank" style="font-size:1.2vmax;color:#878787;overflow: hidden;padding:0.5vmax">
-          </a>
-        </div>
-      </div>
-  </div>
-
-
-  <div class="w3-row exo" style="font-size:1vmax;color:#878787;
-  padding: 1.5vmax 1vmax 5vmax 1vmax;text-align: right; border-top: #273240 solid 0.1vh">
-    Basic Pacing Concept Qs&As
-    <br>
-
-    <a href="https://heartrhythmbox.github.io/main/" target="_blank" style="text-decoration:none;">
-          <img src="box transparent.png" style="width:1.3vmax;">
-          HeartRhythmBox: Main Page
-    </a>
-    &#9679;
-    <a href="https://www.facebook.com/HeartRhythmBox" style="text-decoration:none;" target="_blank">
-          <i class="fab fa-facebook-square" style="color:#2E80EC;font-size: 1.2vmax;"></i>
-          FB: @HeartRhythmBox
-      </a>
-
-  </div>
-
-  <!--nav bar-->
-  <div class="w3-bottom w3-center w3-mobile">
-    <!--index-->
-    <ul id="indexList" class="w3-ul san2 w3-padding-small w3-center">
-    </ul>
-    <div id="navBar" class="w3-bar exo w3-mobile w3-medium" style="opacity: 0.9;padding: 1vmax;">
-      <div class="w3-bar-item w3-button w3-round ltGrey w3-padding-small navBtn">Home</div>
-      <div class="w3-bar-item w3-button w3-round ltGrey w3-padding-small navBtn">&nbsp;&LeftAngleBracket;&nbsp;</div>
-      <div id="currentQ" class="w3-bar-item w3-button w3-round ltGrey w3-padding-small navBtn"></div>
-      <div class="w3-bar-item w3-button w3-round ltGrey w3-padding-small navBtn">&nbsp;&RightAngleBracket;&nbsp;</div>
-    </div>
-  </div>
-
-
-
-<!--end pointer--></div>
 </div>
 
+<div class="w3-row w3-mobile" style="padding:5vmax 1vmax;font-size: 3vmax;line-height: 90%;">
+    <div class="w3-col s4 w3-center cyan" style="padding: 5vmax 1vmax;">
+      <span class="exo" style="color:#0B0C10">&nbsp; Basic </span><br>
+      <span class="cursive" style="color:black;z-index: 2;position: relative">
+        Pacing Concept</span>
+    </div>
+    <div class="w3-col s4 w3-center red" style="padding:5vmax 1vmax;">
+      <span class="exo" style="color:#0B0C10">&nbsp; Sudden </span><br>
+      <span class="cursive" style="color:black;z-index: 2;position: relative">
+        Cardiac Death</span>
+    </div>
+
+</div>
 
 
 </body>
 
-<script src="pointer.js" ></script>
-<script>
-
-var xmlData;var qNo=0;var zoom;
-window.onload = function() {
-  enableNavBtn();
-  sectionClickable();
-  loadXMLDoc();
-}
-
-var pSwitch = 0;
-window.addEventListener("keydown", function(event) {
-        event.preventDefault();
-        if (event.keyCode===80) {
-        pSwitch=pointerSwitch(pSwitch)
-        }
-    })
-
-//f9
-window.addEventListener("keydown", function(event) {
-        event.preventDefault();
-        if (event.keyCode===120) {
-            showInfo(true)
-        }
-    })
-
-function showInfo(boolean){
-  //check if frontPage is being shown
-  var shown = document.getElementById('frontP').style.display;
-  if (boolean && shown!="none"){
-    document.getElementById('author').innerHTML = "Sirin Apiyasawat, MD"
-    document.getElementById('title').innerHTML = "Associate Professor" + '</br>' + "Electrophysiology Laboratory"
-    + '</br>'+'Ramathibodi Hospital'
-    document.getElementById('info').style.display = "block"
-  }
-}
-
-// Get the modal
-var modal = document.getElementById('popUp');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-function popUp(){
-  if (screen.width>800){
-  document.getElementById('popUp').style.display='block'}
-}
-
-//get xml file and generate indexList
-function loadXMLDoc() {
-  var xml = new XMLHttpRequest();
-  xml.open ('GET','QsAs.xml',false)
-  xml.send();
-  xmlData= xml.responseXML;
-}
-
-function enableNavBtn(){
-  var btn = document.getElementsByClassName('navBtn');
-  btn[0].onclick = function(){frontPage()};
-  btn[1].onclick = function(){qNav(-1)};
-  btn[3].onclick = function(){qNav(1)};
-
-  //show Qindex
-  btn[2].onclick = function(){
-    showIndex()}
-}
-
-//cleanup
-function cleanList(){
-    var list = document.getElementById('indexList')
-    list.style.display = "none"
-    var old = list.getElementsByTagName('li').length
-    if (old!=0){
-      list.innerHTML = ""}
-      
-}
-
-
-function showIndex(){
-    var index = xmlData.getElementsByTagName('index')
-    var list = document.getElementById('indexList')
-
-    //check nav bar position
-    var bar = document.getElementById('navBar')
-    var rect = bar.getBoundingClientRect();
-    x = rect.left;h = rect.height;w =rect.width;
-
-    //check display status
-    if (list.style.display == "inline-block"){
-      cleanList()
-    } else {
-      list.style.display = "inline-block"
-
-    }
-
-    //generate list
-    list.style.bottom = h + 'px';
-    list.style.left = x + 'px';list.style.width = w + 'px'
-    for (var i=0;i<index.length;i++){
-      var text = index[i].childNodes[0].nodeValue;
-      generateList(text)
-    }
-
-    function generateList(text){
-      var newLi = document.createElement("li");
-      var node = document.createTextNode(text)
-      newLi.appendChild(node)
-      list.appendChild(newLi)
-      newLi.style.cursor = "pointer"
-      newLi.onclick = function(){
-        var n = matchIndex(text);cleanList();
-        showQPage(n);qNo = n;
-      }
-    }
-
-}
-
-function matchIndex(node){
-  var index = xmlData.getElementsByTagName('index')
-  for (var i =0;i<index.length;i++){
-    var text = index[i].childNodes[0].nodeValue
-    if (node==text){
-      var n=i;break;
-    }
-  }
-  return n;
-}
-
-function qNav(x){
-  //get total questions
-  var qTotal = xmlData.getElementsByTagName('question').length
-  var nextQ = qNo+x;
-
-  if (nextQ<0){
-    nextQ=qTotal-1
-  } else if(nextQ==qTotal){
-    nextQ=0;
-  }
-  qNo = nextQ
-
-  showQPage(nextQ);cleanList();
-}
-
-var sectionStatus = [0,0,0,0,0]
-function sectionClickable(){
-  var aR = document.getElementsByClassName('arrowR')
-  var aD = document.getElementsByClassName('arrowD')
-  aR[0].onclick = function(){toggleSectionD(0)}
-  aR[1].onclick = function(){toggleSectionD(1)}
-  aR[2].onclick = function(){toggleSectionD(2)}
-  aR[3].onclick = function(){toggleSectionD(3)}
-  aR[4].onclick = function(){toggleSectionD(4)}
-  aD[0].onclick = function(){toggleSectionD(0)}
-  aD[1].onclick = function(){toggleSectionD(1)}
-  aD[2].onclick = function(){toggleSectionD(2)}
-  aD[3].onclick = function(){toggleSectionD(3)}
-  aD[4].onclick = function(){toggleSectionD(4)}
-}
-
-function toggleSectionD(n){
-    var D = document.getElementsByClassName('sectionD')
-    var arrowR = document.getElementsByClassName('arrowR')
-    var arrowD = document.getElementsByClassName('arrowD')
-    if (sectionStatus[n]==0){
-      D[n].style.display = "block";
-      arrowR[n].style.display="none"; arrowD[n].style.display = "inline"
-      sectionStatus[n]=1;
-      if (n==3||n==4){
-        D[n].scrollIntoView({behavior: "smooth", block: "start"})
-        if (screen.width>800){hCenter('aImageHolder')}
-      }
-    } else {
-      D[n].style.display = "none";
-      arrowD[n].style.display="none"; arrowR[n].style.display = "inline"
-      sectionStatus[n]=0
-      }
-}
-
-
-
-function frontPage(){
-  document.getElementById('q').style.display="none"
-  document.getElementById('frontP').style.display="block"
-  qNo=0;
-}
-
-function showQPage(n){
-  //scroll to top
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-  
-  //hide front page
-  document.getElementById('q').style.display="block"
-  document.getElementById('frontP').style.display="none"
-
-  //reset section status
-  for (var i=0;i<sectionStatus.length;i++){
-    if (sectionStatus[i]==1) {
-      toggleSectionD(i)
-    }
-  }
-
-
-  //check page
-  var page = n+1;
-  var totalP = xmlData.getElementsByTagName('question').length
-
-  //show current Q in qNav and qHeader
-  document.getElementById('currentQ').innerHTML = '\xa0' +'Q'+ page +'\xa0' + '/' + totalP ;
-  document.getElementById('qNo').innerHTML = "Question" + '\xa0' + page + '\xa0'
-
-  //initially show some sections
-  toggleSectionD(0);toggleSectionD(1);toggleSectionD(2)
-
-  //create new element
-
-  //create tags from XML
-  var clinical = xmlData.getElementsByTagName("clinical")
-  var qImage = xmlData.getElementsByTagName("qImage")
-  var mainQ = xmlData.getElementsByTagName("mainQ")
-  var choices = xmlData.getElementsByTagName("choices")
-  var a = xmlData.getElementsByTagName("a");var b = xmlData.getElementsByTagName("b");
-  var c = xmlData.getElementsByTagName("c");var d = xmlData.getElementsByTagName("d");
-  var e = xmlData.getElementsByTagName("e");
-  var answer = xmlData.getElementsByTagName("answer")
-  var exp = xmlData.getElementsByTagName("exp")
-  var aImage = xmlData.getElementsByTagName("aImage")
-  var ref = xmlData.getElementsByTagName("ref")
-
-  //check if there is a clinical detail
-    if (clinical[n].childNodes[0].nodeValue=="NA"){
-      document.getElementById('clinicalH').style.display = "none"
-    } else {
-      document.getElementById('clinicalH').style.display = "block"
-    document.getElementById('clinical').innerHTML = clinical[n].childNodes[0].nodeValue}
-
-  //clear old figure and reset loader
-  document.getElementById('loader').style.display = "block"
-  var parent = document.getElementById('qImageP')
-  var child = document.getElementById('qImage')
-      if (typeof(child) != 'undefined' && child != null){
-      parent.removeChild(child)}
-
-  //check if there is an image
-    if (qImage[n].childNodes[0].nodeValue=="NA")
-      {document.getElementById('qImageH').style.display = "none"}
-    else {
-      document.getElementById('qImageH').style.display = "block"
-      
-      //create element
-      var qImg = document.createElement('img')
-      qImg.setAttribute("src",qImage[n].childNodes[0].nodeValue)
-      qImg.setAttribute("id", "qImage");qImg.setAttribute("class","imageSetup")
-      document.getElementById('qImageP').appendChild(qImg)
-      qImg.onload = function() {
-        document.getElementById('loader').style.display = "none"
-      }
-      document.getElementById('qImage2').src = qImage[n].childNodes[0].nodeValue;
-    }
-
-  //
-  document.getElementById('mainQ').innerHTML = mainQ[n].childNodes[0].nodeValue;
-  document.getElementById('mainQ2').innerHTML = mainQ[n].childNodes[0].nodeValue;
-
-  document.getElementById('choices').innerHTML = (
-    "a) " + a[n].childNodes[0].nodeValue + "<br/>"+
-    "b) " + b[n].childNodes[0].nodeValue + "<br/>"+
-    "c) " + c[n].childNodes[0].nodeValue + "<br/>"+
-    "d) " + d[n].childNodes[0].nodeValue + "<br/>"+
-    "e) " + e[n].childNodes[0].nodeValue)
-  document.getElementById('choices2').innerHTML = (
-    "a) " + a[n].childNodes[0].nodeValue + "<br/>"+
-    "b) " + b[n].childNodes[0].nodeValue + "<br/>"+
-    "c) " + c[n].childNodes[0].nodeValue + "<br/>"+
-    "d) " + d[n].childNodes[0].nodeValue + "<br/>"+
-    "e) " + e[n].childNodes[0].nodeValue)
-  document.getElementById('answer').innerHTML = answer[n].childNodes[0].nodeValue;
-  document.getElementById('exp').innerHTML = exp[n].childNodes[0].nodeValue;
-
-  //answer image
-    if (aImage[n].childNodes[0].nodeValue=="NA"){
-      document.getElementById('aImage').style.display = "none"
-    } else {
-      aImageZoom(1)
-      document.getElementById('aImage').style.display = "block"
-      document.getElementById('aImage').src = aImage[n].childNodes[0].nodeValue;
-    }
-  //zoom
-  function aImageZoom(zoom){
-    var img = document.getElementById('aImage')
-    img.title = "double-click to zoom in/out"
-    if (zoom==0){
-      zoom=1;
-      img.style.width = "100%";img.style.maxHeight = "fit-content";img.style.height = "auto"
-      document.getElementById('aImageHolder').style.paddingLeft = 0;
-            img.scrollIntoView({behavior: "smooth", block: "start"})
-      img.ondblclick = function(){aImageZoom(zoom)}
-      } else {
-      zoom=0;img.ondblclick= function(){aImageZoom(zoom)}
-      img.style.maxHeight = "75vh";img.style.width = "auto";
-      if (screen.width>800){hCenter('aImageHolder')}
-      document.getElementById('answer').scrollIntoView({behavior: "smooth", block: "start"})
-    }
-  }
-
-
-  //ref
-  if (ref[n].childNodes[0].nodeValue=="NA"){
-    document.getElementById('ref').style.display = "none"
-  } else {
-    document.getElementById('ref').style.display = "block"
-    document.getElementById('ref').innerHTML = "Ref: " + ref[n].childNodes[0].nodeValue;
-    document.getElementById('ref').href = ref[n].childNodes[0].nodeValue;
-  }
-
-}
-
-function hCenter(id){
-  var i = document.getElementById(id)
-  var iWidth = i.offsetWidth
-  var width = window.innerWidth;
-  var pad = (width-iWidth)/2;
-  i.style.paddingLeft = pad + 'px'
-}
-
-
-</script>
 
 </body>
 </html>
