@@ -550,7 +550,35 @@
     <ref>http://dx.doi.org/10.1016/j.jacc.2015.12.063</ref>
 </question>
 
-<!--Q21 SCD w/u-->
+<!--LQT1 standing ECG-->
+<question>
+    <index>Standing ECG</index>
+    <clinical>35 year-old man had a cardiac arrest while shopping at the grocery.
+    His 4 out of 7 siblings dies in their 30's of a "heart attack". His brother drowned at the age of 13.
+    ECGs at rest and standing are as shown.
+    CAG: normal, Echo: normal.
+        </clinical>
+           
+    <qImage>mediaSCD\Q21_ECG.png</qImage>
+    <mainQ>What is the most likely diagnosis?</mainQ>
+    <choices>
+        <a>ARVC</a>
+        <b>Brugada</b>
+        <c>CPVT</c>
+        <d>Early stage of HCM</d>
+        <e>LQT1</e>
+        </choices>
+    <answer>E</answer>
+    <exp>Baseline ECG shows essentially normal ECG with QTc of less than 440ms. The patient has a strong family history of sudden cardiac arrest with one particularly drowned.
+    Long QT syndrome 1 is highly suspected; Romano-ward syndrome in particular as it is autosomal dominant inheritance.
+    Postural change and exercise are known to unmask the phenotypic ECG in LQT1 and LQT2. In this case, QTc was more than 500msc during standing.
+    The KVLQT1-encoded IKs potassium channel is phosphorylated during sympathetic activation. Patients with LQTS who have KVLQT1 mutations are more prone to experience cardiac events under physically or mentally stressful situations and benefit the most from β-blocker therapy.
+    </exp>
+    <aImage>mediaSCD\Q21_A.png</aImage>
+    <ref>https://doi.org/10.1161/CIRCEP.109.907865</ref>
+</question>
+
+<!--Q22 SCD w/u-->
 <question>
     <index>SCD W/U 2</index>
     <clinical>A 21 year old man comes to you because he is concerned that he might be at risk for sudden death. His identical twin brother died suddenly 1 month ago. An autopsy was unremarkable. No tissue or blood samples are available.
