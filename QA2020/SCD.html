@@ -25,14 +25,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="heart rhythm, electrophysiology, sudden cardiac death, electrogram, ICD, long QT, inherited, ventricular arrhythmias">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="https://fonts.googleapis.com/css?family=Exo+2|Satisfy|Lato" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Exo+2|Satisfy|Roboto" rel="stylesheet">
 
 </head>
 
 <style>
 
 .exo {font-family: 'Exo 2', sans-serif;}
-.san2 {font-family: 'Lato', sans-serif;}
+.san2 {font-family: 'Roboto', sans-serif;}
 .cursive {font-family: 'Satisfy', cursive;}
 
 .dkGrey {background-color: #0B0C10}
@@ -45,16 +45,14 @@
         transform: skewY(-15deg);transform-origin: top left}
 .titleTxt {transform: skewY(15deg);transform-origin: top left}
 .titlePad {padding: 15vh 10vw 10vh 10vw;cursor: pointer;}
-.fbPos {top: 90vh;right: 1vw;position: absolute;font-size:1.7vmax;line-height: 120%;text-align: right}
-#title {font-size:2vmax;color:#f1f2f3;font-family: 'Lato', sans-serif;line-height: 100%}
+.fbPos {top: 85vh;right: 1vw;position: absolute;font-size:1.7vmax;line-height: 120%;text-align: right}
+#title {font-size:2vmax;color:#c5c6c7;font-family: 'Roboto', sans-serif;line-height: 100%}
 
 
-.sectionH {font-family: 'Exo 2', sans-serif;color: #f1f2f3;font-size:2.2vmax;
-            padding:0.5vmax 1vmax;letter-spacing: -0.1vmin;}
-.sectionD {font-family: 'Lato', sans-serif;font-size:2vmax;letter-spacing: -0.1vmin;color:white;
-line-height: 130%;display: none;padding:1vmax;border-top:0.1vmax groove #f1f2f3 }
-.popUpFormat{font-family: 'Lato', sans-serif;font-size:2vmax;padding:1vmax 2.5vmax;letter-spacing: -0.1vmin;
-line-height: 130%;background-color: rgba(256, 256, 256,0.8);}
+.sectionH {font-family: 'Exo 2', sans-serif;color: #c5c6c7;font-size:2.2vmax;
+            padding:0.5vmax 1vmax;}
+.sectionD {font-family: 'Roboto', sans-serif;font-size:2vmax;color:white;display: none;padding:1vmax;border-top:0.1vmax groove #f1f2f3 }
+.popUpFormat{font-family: 'Roboto', sans-serif;font-size:2vmax;padding:1vmax 2.5vmax;background-color: rgba(256, 256, 256,0.8);}
 .arrowD {display: none;cursor: pointer;}
 .arrowR {cursor: pointer;}
 .topCurve {border-top-left-radius: 1vmax;border-top-right-radius: 1vmax}
@@ -66,7 +64,7 @@ line-height: 130%;background-color: rgba(256, 256, 256,0.8);}
   .titleTxt {transform: skewY(30deg)}
 }
 @media only screen and (max-width: 800px){
-  .fbPos {top:95vh;right:2vw}
+  .fbPos {top:92vh;right:2vw}
   .imageSetup {width:100%;max-height:auto;}
 }
 
@@ -143,7 +141,7 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
             </div>
         </div>
         <div class="w3-container exo fbPos" style="color:#c5c6c7">
-          Sudden Cardiac Death Qs&As is a part of 
+          Sudden Cardiac Death Qs&As<br> is a part of 
             <a href="https://heartrhythmbox.com/qa2020/" target="_blank">
             EP Q&A 2020 Series
             </a><br> and a part of
@@ -157,7 +155,7 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
   </div>
   
 <!--footer-->
-<div class="san2" style="background: #c5c6c7;font-size: 1.7vmax;padding:3vmax 3vmax;text-align: center;
+<div id="footer" class="san2" style="background: #c5c6c7;font-size: 1.7vmax;padding:3vmax 3vmax;text-align: center;
 color:#555;font-weight: 600;line-height: 200%;">
   
   <span style="font-weight: 400;">
@@ -261,7 +259,7 @@ color:#555;font-weight: 600;line-height: 200%;">
   </div>
 
 
-  <div class="w3-row exo" style="font-size:1.5vmax;color:#878787;
+  <div class="w3-row san2" style="font-size:1.5vmax;color:#878787;
   padding: 1.5vmax 1vmax 5vmax 1vmax;text-align: right; border-top: #777 solid 0.1vh">
     Sudden Cardiac Death Qs&As is a part of 
     <a href="https://heartrhythmbox.com/qa2020/" target="_blank" style="color: white;">
@@ -465,6 +463,7 @@ function toggleSectionD(n){
 function frontPage(){
   document.getElementById('q').style.display="none"
   document.getElementById('frontP').style.display="block"
+  document.getElementById('footer').style.display="block"
   qNo=0;
 }
 
@@ -476,6 +475,7 @@ function showQPage(n){
   //hide front page
   document.getElementById('q').style.display="block"
   document.getElementById('frontP').style.display="none"
+  document.getElementById('footer').style.display="none"
 
   //reset section status
   for (var i=0;i<sectionStatus.length;i++){
