@@ -323,12 +323,14 @@
         <e>She will not be able to carry a child.</e>
         </choices>
     <answer>D</answer>
-    <exp>The ECG shows typical long QT 1 ECG. With her clinical symptoms of deafness and syncope, she is likely to have Jervell and Lange-Nielsen syndrome.
-    Jervell and Lange-Nielsen syndrome is caused by mutations in the KCNE1 and KCNQ1 genes.The movement of potassium ions through these channels is critical for maintaining the normal functions of inner ear structures and cardiac muscle.
-    This condition is inherited in an autosomal recessive pattern, which means both of her parents are carriers.
-        </exp>
+    <exp>The ECG shows typical long QT 1 ECG. With her clinical symptoms of deafness and syncope, she is likely to have Jervell and Lange-Nielsen syndrome (JLN).
+    Jervell and Lange-Nielsen syndrome is caused by mutations in the KCNQ1 genes. This condition is inherited in an autosomal recessive pattern, which means both of her parents are carriers.
+    KCNQ1 encodes the α-subunit of the K+ channel Kv7.1, generating IKs, which, being physiologically increased by sympathetic activation, is essential for QT adaptation when heart rate increases. When IKs is defective, the QT interval fails to shorten appropriately during tachycardia, thus creating a highly arrhythmogenic condition.
+    Heterozygous KCNQ1 mutations cause the dominant Romano Ward LQT1 syndrome and account for the majority of disease-causing variants. 
+    Homozygous mutations in KCNQ1, or compound heterozygous mutations, cause the recessive JLN variant, characterized by deafness because of the reduced IKs in the inner ear.
+    </exp>
     <aImage>mediaSCD\Q12_A.jpeg</aImage>
-    <ref>https://www.nejm.org/doi/full/10.1056/nejmcp0706513</ref>
+    <ref>https://www.nature.com/articles/s41569-019-0266-2</ref>
 </question>
 
 <!--Q13 Fontan-->
