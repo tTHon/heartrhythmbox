@@ -45,7 +45,7 @@
         transform: skewY(-15deg);transform-origin: top left}
 .titleTxt {transform: skewY(15deg);transform-origin: top left}
 .titlePad {padding: 15vh 10vw 10vh 10vw;cursor: pointer;}
-.fbPos {top: 85vh;right: 1vw;position: absolute;font-size:1.2vmax;line-height: 150%;text-align: right}
+.fbPos {top: 85vh;right: 2vw;position: absolute;font-size:1.2vmax;line-height: 150%;text-align: right}
 #title {font-size:2vmax;color:#c5c6c7;font-family: 'Roboto', sans-serif;line-height: 100%}
 
 
@@ -64,13 +64,14 @@
   .titleTxt {transform: skewY(30deg)}
 }
 @media only screen and (max-width: 800px){
-  .fbPos {top:92vh;right:2vw}
+  .fbPos {top:92vh;right:3vw}
   .imageSetup {width:100%;max-height:auto;}
 }
 
 #clinical {white-space:pre-line}
 #exp {white-space:pre-line}
-.navBtn {box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
+.navBtn {box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;border-radius: 0.2vmax;padding: 0.3vh 0.3vw;
+background-color: #c5c6c7;display: block;text-align: center;cursor: pointer;float: left;}
 #aImage {cursor: pointer}
 #indexList {position: fixed;max-height:50vh;max-width:50vw;display: none;
 overflow-x: hidden;overflow-y:scroll;z-index: 2;background-color:rgba(241, 241, 241,0.95);
@@ -122,14 +123,14 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
 <div id="frontP" class="red">
     <div class="title">
       <div class="titleTxt">
-        <div class="w3-container titlePad" style="font-size: 6vmax;line-height: 90%" onclick="showQPage(0)"
+        <div class="titlePad" style="font-size: 6vmax;line-height: 90%" onclick="showQPage(0)"
           title="click here to continue">
-            <div class="w3-row">
+            <div>
               <span class="exo" style="color:white">&nbsp; Sudden </span><br>
               <span class="cursive" style="color:#d1001c;z-index: 2;position: relative">
                 Cardiac Death</span>
             </div>
-            <div class="w3-row exo" style="font-size: 3.5vmax;line-height: 150%">
+            <div class="exo" style="font-size: 3.5vmax;line-height: 150%">
 
                 <span style="border:#c5c6c7 0.1vmax solid;padding: 0">
                   <span style="background-color:#c5c6c7;color:#1F2833;padding:0vmax 0.4vmax">
@@ -140,7 +141,7 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
                 </span>
             </div>
         </div>
-        <div class="w3-container exo fbPos" style="color:#c5c6c7">
+        <div class="exo fbPos" style="color:#c5c6c7">
           Sudden Cardiac Death Qs&As is a part of <br>
             <a href="https://heartrhythmbox.com/qa2020/" target="_blank" style="font-size: 1.4vmax;">
             EP Q&A 2020 Series
@@ -180,7 +181,7 @@ color:#555;font-weight: 600;line-height: 200%;">
     <span class="pointer" style="display: none"></span>
 
   <!--number-->
-  <div id="qNo" class="w3-row red cursive w3-center" style="font-size:4vmax;padding: 0.5vmax">
+  <div id="qNo" class="red cursive" style="font-size:4vmax;padding: 0.5vmax;text-align: center;">
       Question
   </div>
   <div id="demo" style="color:white"></div>
@@ -194,28 +195,28 @@ color:#555;font-weight: 600;line-height: 200%;">
   </div>
 
   <!--Qimage-->
-  <div id="qImageH" class="w3-row sectionH">
+  <div id="qImageH" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
       Figure
-      <div id="qImageP" class="w3-container w3-center sectionD" ondblclick="popUp()">
+      <div id="qImageP" class="sectionD" ondblclick="popUp()">
         <div id="loader"></div>
         <!--img id="qImage" style="max-width:100%;max-height: 80vh;padding: 0.5vmax"-->
       </div>
   </div>
 
   <!--mainQ-->
-  <div id="mainQH" class="w3-row sectionH">
+  <div id="mainQH" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
       The question is...
-      <div id="mainQ" class="w3-container sectionD">
+      <div id="mainQ" class="sectionD">
           </div>
   </div>
 
   <!--choices-->
-  <div id="choicesH" class="w3-row sectionH">
+  <div id="choicesH" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
       Answer Options
-      <div id="choices" class="w3-container sectionD" style="padding-left:2vmax">
+      <div id="choices" class="sectionD" style="padding-left:2vmax">
         choices</div>
   </div>
 
@@ -237,15 +238,15 @@ color:#555;font-weight: 600;line-height: 200%;">
   </div>
 
   <!--answer-->
-  <div style="padding:2vmax" class="w3-row sectionH">
+  <div style="padding:2vmax" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
       The answer is...
-      <div class="w3-container sectionD w3-padding">
-        <div id="answer" class="w3-container w3-padding exo topCurve blood"
+      <div class="sectionD">
+        <div id="answer" class="exo topCurve blood"
         style="color:white;font-size:2.5vmax;">
         Answer:
         </div>
-        <div id="exp" class="w3-container w3-padding w3-white san2" style="font-size:2vmax;color:#1F2833">
+        <div id="exp" class="san2" style="font-size:2vmax;color:#1F2833;background-color: white;padding: 1vmax;">
         Explaination
         </div>
         <div id="aImageHolder">
@@ -259,7 +260,7 @@ color:#555;font-weight: 600;line-height: 200%;">
   </div>
 
 
-  <div class="w3-row exo" style="font-size:1vmax;color:#878787;
+  <div class="exo" style="font-size:1vmax;color:#878787;
   padding: 1.5vmax 1vmax 5vmax 1vmax;text-align: right; border-top: #273240 solid 0.1vh">
     SCD Qs&As is a part of
     <br>
@@ -274,16 +275,17 @@ color:#555;font-weight: 600;line-height: 200%;">
   </div>
 
   <!--nav bar-->
-  <div class="w3-bottom w3-center w3-mobile">
+  <div style="position: fixed;margin-left: auto;margin-right: auto;bottom: 1vh;font-size: 1.2vmax;text-align: center;width: 100%;">
     <!--index-->
-    <ul id="indexList" class="w3-ul san2 w3-padding-small w3-center">
+    <ul id="indexList" class="san2" style="list-style-type:decimal;text-align: justify;">
     </ul>
-    <div id="navBar" class="w3-bar exo w3-mobile w3-medium" style="opacity: 0.9;padding: 1vmax;">
-      <div class="w3-bar-item w3-button w3-round ltGrey w3-padding-small navBtn">Home</div>
-      <div class="w3-bar-item w3-button w3-round ltGrey w3-padding-small navBtn">&nbsp;&LeftAngleBracket;&nbsp;</div>
-      <div id="currentQ" class="w3-bar-item w3-button w3-round ltGrey w3-padding-small navBtn"></div>
-      <div class="w3-bar-item w3-button w3-round ltGrey w3-padding-small navBtn">&nbsp;&RightAngleBracket;&nbsp;</div>
-    </div>
+    <ul id="navBar" class="exo" style="opacity: 0.9;padding: 1vmax;margin-right: auto;margin-left: auto;
+    text-align: center;list-style-type: none;display: inline-block;">
+      <li class="navBtn">Home</li>
+      <li class="navBtn">&nbsp;&LeftAngleBracket;&nbsp;</li>
+      <li id="currentQ" class=" navBtn"></li>
+      <li class="navBtn">&nbsp;&RightAngleBracket;&nbsp;</li>
+    </ul>
   </div>
 
 
