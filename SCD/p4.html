@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-4');
+</script>
+
+<title>SCA Myths vs Facts #4</title>
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="myCSS.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+<style>
+  .smallHolder {height:25vh; padding: 2vw; overflow: hidden;margin: 0.2vw; color: #634043;cursor: pointer;}
+  .smallHolder:hover {opacity:0.8}
+  .largeHolder {display: none; width: 70vw; margin:auto}
+  .rBlk {display: none; border-left: #fedbd0 solid 0.4vw}
+  .tip {display: none; background-color: #feeae6}
+  .tipBox {background-color: #fedbd0}
+  .tipBox:hover {border: #634043 solid 0.3vw}
+  
+
+@media screen and (max-width: 600px) {
+    .largeHolder, .rBlk {display: block; border-left: none; border-top: #fedbd0 solid 0.3vh;
+    padding: 2vh 0 2vh 0}
+}
+
+button {cursor: pointer;}
+</style>
+
+<body>
+
+    <div id="top" class="container header"> 
+        <!--topBlk-->        
+        <!--slide4-->        
+        <div class="w3-row slide">
+            <div class="w3-col s6 w3-center w3-mobile leftCol" style="font-size: 6vh">
+                <div class="smallT w3-text-grey">Myths|Facts #4</div>
+                <div class="mediumT">
+                Implantable Cardioverter-Defibrillator (ICD)</div>
+                <div class="smallT">is the best treatment for sudden cardiac arrest.</div>
+                
+            
+            </div>
+            <div class="w3-col s6 largeT w3-mobile rightCol" style="text-align: center">
+                Are you sure? <br>
+                <div>
+                <a href="p4.html#1Blk" title="Myth&Fact#4" class="w3-btn w3-round pink2 text smallerT">
+                    Tell me more</a></div>
+            </div>
+            
+        </div>
+    </div>
+
+<div onclick="pointer()"><span class="pointer" style="display: none"></span>  
+        
+    <!--1Block ICD is-->
+    <div id="1Blk" class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(1)"></div>
+        <div class="w3-row w3-black">            
+            <div class="w3-col s5 w3-center w3-mobile text mediumT"
+            style="padding: 3vh 1vw 3vw 1vw">
+                Implantable Cardioverter-Defibrillator (ICD) is ...
+            </div>
+            <div class="w3-col s7 w3-padding w3-center w3-mobile">
+                <div style="cursor: pointer;">
+                    <img id="img1" onclick="flip(2,1)"  src="figures/p4/dICD.png">
+                    <div id="img2" onclick="flip(1,2)" style="display: none; padding-top: 3vh" >
+                    <video autoplay loop muted="muted"  style="width: 100%" >
+                        <source src="figures/p4/ICD clip.mp4" type="video/mp4">
+                    </video>
+                    <div class="w3-content w3-center tinyT w3-text-white">courtesy: Medmovie.com</div></div>    
+                </div>
+                </div>
+        </div>
+        </div>
+    
+    <!--2Block VF ICD shock-->
+    <div class="w3-row block">
+            <div class="w3-btn next" onmouseover="next(2)"></div>
+            <div class="w3-container w3-cell w3-cell-middle w3-padding w3-center w3-mobile brownBG header mediumT">
+            ICD is extremely effective in terminating ventricular arrhythmias.
+
+
+            </div>
+            <div class="w3-container w3-cell w3-cell-middle w3-padding w3-center brownBG w3-mobile">
+            
+                <img id="img1" src="figures/p4/ICD shock.png">
+               
+            </div>
+            </div>
+    
+    <!--3Block ICD indications-->
+    <div class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(3)"></div>
+        <div class="w3-row w3-padding w3-center w3-mobile w3-border w3-mobile" style="min-height: 95vh">
+          <div class="w3-row w3-center w3-text-grey w3-wide text smallT w3-mobile" style="padding-top: 20vh;line-height: 120%"> 
+            ICD</div>
+          <div class="w3-row w3-center header mediumT w3-wide w3-mobile">MAIN INDICATIONS</div>
+          <div class="w3-row w3-center tinyT w3-mobile noMobile">(click images below for more info or click here to 
+              <button onclick="showContent(-1)" class="w3-border w3-center w3-round">show all</button>
+              )</div>
+          <div class="w3-row smallerT header w3-mobile noMobile" style="padding-top: 2vh; padding-bottom: 2vh">
+            <div class="w3-col s1 smallHolder w3-mobile"></div>
+            <div class="w3-col s2 smallHolder pink2 w3-mobile" onclick="showContent(0)"><img src="figures/p4/VF.png">
+                Post arrest
+            </div>
+            <div class="w3-col s2 smallHolder pink2 w3-mobile" onclick="showContent(1)"><img src="figures/p4/CAD.png">
+                ICM</div>
+            <div class="w3-col s2 smallHolder pink2 w3-mobile" onclick="showContent(2)">
+                <video autoplay loop muted="muted"  style="width: 100%" >
+                        <source src="figures/p4/DCM.mp4" type="video/mp4">
+                    </video>
+                DCM</div>
+            <div class="w3-col s2 smallHolder pink2 w3-mobile" onclick="showContent(3)">
+                    <video autoplay loop muted="muted"  style="width: 100%" >
+                        <source src="figures/p4/HCM.mp4" type="video/mp4">
+                        </video>
+                HCM</div>
+            <div class="w3-col s2 smallHolder pink2 w3-mobile" onclick="showContent(4)">
+                <img src="figures/p4/brugada.png">
+                Brugada</div>
+            
+          </div>
+          
+            <div class="w3-row w3-center largeHolder pink1 w3-mobile" style="margin-top: 4vh">
+                <div class="w3-col s4 w3-mobile w3-padding">
+                <img src="figures/p4/VF.png" class="w3-padding"></div>
+                <div class="w3-col s8 w3-mobile w3-padding">
+                <div class="w3-row header mediumT brownTxt w3-padding w3-wide w3-mobile"  
+                style="line-height: 70%; 
+                text-align: justify; padding-top: 2vh">
+                    Survivor of SCA</div>   
+                <div class="w3-row header smallT w3-text-grey w3-padding w3-mobile w3-wide" style="text-align: justify">
+                    from non-reversible causes </div> 
+                </div>                       
+            </div>
+
+            <div class="w3-row w3-center largeHolder pink1 w3-mobile" style="margin-top: 4vh">
+                <div class="w3-col s4 w3-mobile w3-padding">
+                <img src="figures/p4/CAD.png" class="w3-padding">
+                </div>
+                <div class="w3-col s8 w3-mobile w3-padding">
+                    <div class="w3-row w3-padding header mediumT brownTxt w3-wide w3-mobile"  style="line-height: 90%; text-align: justify">
+                        Ischemic Cardiomyopathy</div>   
+                    <div class="w3-row header smallT w3-text-grey w3-padding w3-mobile w3-wide" style="text-align: justify">
+                        LVEF ≤35%, NYHAII+ 
+                    </div>                       
+                </div>
+            </div>
+
+            <div class="w3-row w3-center largeHolder pink1 w3-mobile" style="margin-top: 4vh">
+                    <div class="w3-col s4 w3-mobile w3-padding">
+                    <video autoplay loop muted="muted"  style="width: 100%" >
+                            <source src="figures/p4/DCM.mp4" type="video/mp4" class="w3-padding">
+                        </video>
+                    </div>
+                    <div class="w3-col s8 w3-mobile w3-padding">
+                        <div class="w3-row w3-padding header mediumT brownTxt w3-wide w3-mobile"  style="line-height: 90%; text-align: justify">
+                            Dilated Cardiomyopathy</div>   
+                        <div class="w3-row header smallT w3-text-grey w3-padding w3-mobile w3-wide" style="text-align: justify">
+                            LVEF ≤35%, NYHAII+ 
+                        </div>                       
+                    </div>
+                </div>
+                <div class="w3-row w3-center largeHolder pink1 w3-mobile" style="margin-top: 4vh">
+                    <div class="w3-col s4 w3-mobile w3-padding">
+                    <video autoplay loop muted="muted"  style="width: 100%" class="w3-padding" >
+                            <source src="figures/p4/HCM.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="w3-col s8 w3-mobile w3-padding">
+                        <div class="w3-row w3-padding header mediumT brownTxt w3-wide w3-mobile"  style="line-height: 90%; text-align: justify">
+                            Hypertrophic Cardiomyopathy</div>   
+                        <div class="w3-row header smallT w3-text-grey w3-padding w3-mobile" style="text-align: justify">
+                            LV wall thickness >30mm, syncope, NSVT, Family Hx, LGE+ on MRI 
+                        </div>                       
+                    </div>
+                </div>
+                <div class="w3-row w3-center largeHolder pink1 w3-mobile" style="margin-top: 4vh">
+                    <div class="w3-col s4 w3-mobile w3-padding">
+                    <img src="figures/p4/brugada.png" class="w3-padding">
+                    </div>
+                    <div class="w3-col s8 w3-mobile w3-padding">
+                        <div class="w3-row w3-padding header mediumT brownTxt w3-wide w3-mobile"  style="line-height: 90%; text-align: justify">
+                            Brugada Syndrome</div>   
+                        <div class="w3-row header smallT w3-text-grey w3-padding w3-mobile" style="text-align: justify">
+                            Syncope, spontaneous type I ECG
+                        </div>                       
+                    </div>
+                </div>
+        <div class="ref w3-center">
+            <a href="http://circ.ahajournals.org/content/early/2017/10/30/CIR.0000000000000549">
+            2017 ACC VA/SCD Guidelines</a>
+        </div>        
+        </div>
+   
+    </div>
+
+    <!--4Block ICD population-->
+    <div id="4Blk" class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(4)"></div>
+        <div class="w3-row blueBG">            
+            <div class="w3-col s6 w3-mobile header mediumT"
+            style="padding: 3vh 1.5vw 3vw 1.5vw; text-align: left">
+            <span class="dropCap">Y </span>    
+            <span style="text-align: left">es, ICD is effective.
+                But it's only beneficial in a small group of SCD populations.</span>
+            </div>
+            <div class="w3-col s6 w3-padding w3-center w3-mobile">
+                <img src="figures/p4/SCD proportion.png">
+                <a href="http://circ.ahajournals.org/content/125/8/1043" class="ref">
+                    Ref: Myerberg and Junttilia. Circulation 2015.</a>   
+                </div>
+        </div>
+        </div>
+
+<!--5Block prevention-->
+<div id="5Blk" class="w3-row block">
+    <div class="w3-btn next" onmouseover="next(5)"></div>
+    <div class="w3-cell-row w3-padding w3-center w3-mobile w3-border w3-mobile" style="min-height: 95vh">
+        <div class="w3-container w3-cell w3-cell-middle w3-mobile">
+            <span class="text largeT pinkTxt w3-wide" style="font-weight: bold">SCD</span>
+            <span class="text largeT w3-text-grey" onclick="showrBlk(-1)">prevention</span>  <br>
+            <div class="w3-row w3-round w3-center w3-btn w3-border w3-tiny tinyT w3-hide-medium w3-hide-large" 
+                onclick="location.reload()">refresh</div>  
+            <div class="header smallerT noMobile" style="cursor: pointer;">
+                <span onclick="showrBlk(0)">Cigarettes</span> <span> | </span>
+                <span onclick="showrBlk(1)">Medications</span> <span> | </span>
+                <span onclick="showrBlk(2)">Fish Oil</span>
+            </div>
+        </div>
+        <div class="w3-container w3-cell w3-cell-middle w3-mobile">
+            <div class="rBlk w3-animate-right header mediumT">
+                <div class="w3-row w3-mobile">
+                    <div class="w3-container w3-cell w3-cell-middle w3-mobile">
+                        <img src="figures/p4/cig.png">
+                    </div>
+                    <div class="w3-container w3-cell w3-cell-middle w3-mobile header smallT">
+                        <div class="w3-row w3-border-bottom">
+                            Smoking increases risk of SCD by 2.4 times.
+                        </div>
+                        <div class="w3-row">
+                            Risk of SCD is unrelated to the amount and duration of smoking. 
+                            The risk is normalized immediately after quitting.
+                        </div>
+                        <div class="ref">
+                            <a href="https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/216207">
+                            Goldenberg et al. Arch Intern Med 2003.</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rBlk w3-animate-right text smallerT">
+                <table class="w3-table w3-padding w3-bordered w3-centered w3-hoverable" style="margin: 0.5vw">
+                    <tr class="brownTxt" style="border-bottom: black solid 0.4vh">
+                        <th>Drugs</th>  <th>Possible Mechanisms</th>    <th>%SCD reduction</th>
+                    </tr>
+                    <tr>
+                        <td>Beta Blockers</td>  <td>decrease sympathetic tone, stabilize myocardium</td>
+                        <td>44% in <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(98)11181-9/fulltext">
+                            CIBIS-II</a></td>
+                    </tr>
+                    <tr>
+                        <td>Aldosterone Antagonist</td>  <td>reduce inflammation</td>
+                        <td>29% in <a href="https://www.nejm.org/doi/full/10.1056/nejm199909023411001">
+                            RALES</a></td>
+                    </tr>
+                    <tr>
+                        <td>ACEI/ARB</td>  <td>reduce electrical irritability</td>
+                        <td>20% in <a href="https://www.sciencedirect.com/science/article/pii/S0735109798006093?via%3Dihub">
+                            Meta-analysis</a></td>
+                    </tr>
+                    <tr>
+                        <td>Statin</td>  <td>stabilize plaques</td>
+                        <td>40% in <a href="https://www.sciencedirect.com/science/article/pii/S0735109703004984?via%3Dihub">
+                            AVID</a></td>
+                    </tr>
+                    <tr>
+                    <td>Amiodarone</td>  <td>-</td>
+                    <td>similar events with placebo in<a href="https://www.nejm.org/doi/full/10.1056/NEJMoa043399">
+                        SCD-HeFT</a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="rBlk w3-animate-right">
+                <div class="w3-row">
+                <div class="w3-container w3-cell w3-cell-middle w3-mobile w3-padding">
+                    <img src="figures/p4/Fish Oil.jpg">
+                </div>
+                <div class="w3-container w3-cell w3-cell-middle w3-mobile w3-padding header smallT"
+                style="text-align: justify; line-height: 120%">
+                Treatment with omega-3 PUFA supplements is reasonable for the secondary prevention 
+                of CHD death, possibly through a reduction in ischemia induced SCD.(IIb-IIa)<br>
+                <div class="ref">
+                <a href="http://circ.ahajournals.org/content/early/2017/03/13/CIR.0000000000000482">
+                AHA Advisory</a> and
+                <a href="http://circ.ahajournals.org/content/early/2017/10/30/CIR.0000000000000549">
+                    2017 ACC VA/SCD Guidelines</a></div>
+                </div></div>
+            </div>
+        </div>
+    </div>
+</div>
+                
+<!--6Block diagram prevention-->
+<div id="5Blk" class="w3-row block" style="background: linear-gradient(to bottom, #d3d3d3 0%, #ffffff 100%);">
+    <div class="w3-btn next" onmouseover="next(5)"></div>
+    <div class="w3-panel w3-center w3-padding w3-mobile text mediumT">Strategy to Prevent SCD</div>
+    <div class="w3-content w3-center w3-padding w3-mobile header mediumT tipBox w3-wide"
+    style="margin-top: 4vh; cursor: pointer;" onmouseover="showTip(0)" onmouseout="hideTip(0)">
+        Identify Substrate
+        <span class="tip smallT header">LVEF, NYHA</span>
+    </div>
+    <div class="w3-row w3-center w3-padding smallT brownTxt">
+        <i class="fas fa-arrow-down" style="border: transparent"></i>
+    </div>
+    <div class="w3-content w3-center w3-padding w3-mobile header mediumT tipBox w3-wide"
+    style="margin-top: 4vh; cursor: pointer;" onmouseover="showTip(1)" onmouseout="hideTip(1)">
+        Stabilize Triggers
+        <span class="tip smallT header">Smoking cessation, BB, ACEI, Statin, Aldosterone antagonist,
+            Normalize electrolytes, Reduce ischemia
+        </span>
+    </div>
+    <div class="w3-row w3-center w3-padding smallT brownTxt">
+        <i class="fas fa-arrow-down" style="border: transparent"></i>
+    </div>
+    <div class="w3-content w3-center w3-padding w3-mobile header mediumT tipBox w3-wide"
+    style="margin-top: 4vh; cursor: pointer; margin-bottom: 4vh" onmouseover="showTip(2)" onmouseout="hideTip(2)">
+        Intervene SCA
+        <span class="tip smallT header">ICD, AED, Increase public awareness of CPR
+        </span>
+    </div>
+</div>      
+
+<!--xBlock-->
+<!--div class="w3-row block">
+    <div class="w3-btn next" onmouseover="next(3)"></div>
+    <div class="w3-container tanBG w3-center w3-mobile header">
+       <span class="smallT brownTxt">2 most predictive RISKS for SCA are </span>
+       <span class="mediumT"><b>LVEF and NYHA. </b></span>
+    </div>
+    <div class="w3-container w3-padding tanBG w3-cell w3-cell-middle w3-center w3-mobile">
+        <img src="figures/p2/VALIANT.png">
+        <div class="ref">
+            Ref: <a href="https://www.nejm.org/doi/pdf/10.1056/NEJMoa043938">
+                Solomon et al. NEJM 2005.</a>
+        </div>
+        </div>
+    <div class="w3-container w3-padding tanBG w3-cell w3-cell-middle w3-center w3-mobile">
+        <img src="figures/p2/NYHA.jpg">
+        <div class="ref">
+            Ref: <a href="https://www.ahjonline.com/article/S0002-8703(17)30174-6/fulltext">
+                Friedman et al. AHJ 2017.</a>
+        </div>
+        </div>
+    </div-->
+
+    
+    <!--end div pointer-->
+    </div>
+
+<!--before bottom-->
+<div class="w3-row w3-center block header w3-mobile">
+    <a href="#top"><i title="to the TOP" class="fas fa-arrow-circle-up w3-hover-opacity 
+    smallT" style="color: #e5e5e5; border: transparent;text-align: center"></i></a>
+    <div class="w3-center w3-mobile tinyT">        
+    <a href="https://www.facebook.com/HeartRhythmBox/" style="text-decoration: none;">
+        <i title="@HeartRhythmBox" class="fab fa-facebook w3-hover-opacity" 
+        style="color:  #3B5998; border: transparent;"></i>
+        <span class="tinyT">HeartRhythmBox</span></a><br> 
+        <a href="https://heartrhythmbox.com" style="text-decoration: none;" target="_blank">
+            <img src="boxPink.png" style="width: 2vmax;text-decoration: none;" 
+            title="Heart Rhythm Box - Main Page">
+            <b>heartRhythmBox.com</b></a>
+    </div>
+</div>
+
+
+
+<!--bottom-->
+    <div class="w3-bar w3-center w3-card-4 w3-bottom w3-border-top header brownTxt tinyT">
+        <a href="index.html" title="homepage" class="w3-btn fas fa-home brownTxt tinyT w3-btn"
+        style="border: transparent;"></a>
+        <a href="p3.html" title="back" class="w3-btn fas fa-angle-left brownTxt tinyT w3-btn"></a>
+        <a href="p1.html" title="#1" class="w3-btn noMobile">1</a>
+        <a href="p2.html" title="#2" class="w3-btn noMobile">2</a>
+        <a href="p3.html" title="#3" class="w3-btn noMobile">3</a>
+        <a href="p4.html" title="#4" class="w3-btn activeBtn">4</a>
+        <a href="p5.html" title="#5" class="w3-btn noMobile">5</a>
+        <a href="p6.html" title="#6" class="w3-btn noMobile">6</a>
+        <a href="p7.html" title="#7" class="w3-btn noMobile">7</a>
+        <a href="p5.html" title="next" class="w3-btn fas fa-angle-right brownTxt tinyT w3-btn"></a>
+  
+    </div>
+    
+
+<script src="littleJF.js"></script>
+<script>
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===32) {
+        var p = document.getElementsByClassName("pointer");
+        p[0].style.display = "none";}
+    })
+//nav and pointer
+//up arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===38) {
+    blockNav(-1);
+    }
+})
+
+//down arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===40) {
+    blockNav(1);
+    }
+})
+function flip(show, hide) {
+
+    document.getElementById("img"+show).style.display = "block";
+    document.getElementById("img"+hide).style.display = "none";
+}
+
+/*indication*/
+function showContent(n) {
+    var i;
+    var holder = document.getElementsByClassName("largeHolder");
+    if (n<0) {
+        for (i=0;i<holder.length;i++){
+            holder[i].style.display = "block";
+        holder[0].scrollIntoView({behavior: "smooth", block: "start"})
+        }
+    } else {
+        for (i=0;i<holder.length;i++){
+            holder[i].style.display = "none";
+        }
+        holder[n].style.display = "block"
+        holder[n].scrollIntoView({behavior: "smooth", block: "center"})
+    }
+}
+
+/*prevention*/
+function showrBlk(n) {
+    var i;
+    var blk = document.getElementsByClassName("rBlk");
+
+    if (n<0) {
+        for (i=0;i<blk.length;i++){
+            blk[i].style.display = "none";} 
+        }
+  
+    else {
+    for (i=0;i<blk.length;i++){
+            blk[i].style.display = "none";
+        }
+        blk[n].style.display = "block"}
+
+}
+
+function showTip(n) {
+    var t = document.getElementsByClassName("tip");
+    t[n].style.display = "block";
+    t[n].scrollIntoView({behavior: "smooth", block: "center"})
+    
+}
+
+function hideTip(n) {
+    
+    var t = document.getElementsByClassName("tip");
+    t[n].style.display = "none";
+    }
+</script>
+
+    
+            
+       
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-4');
+</script>
+
+<title>SCA Myths vs Facts #1</title>
+
+
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+  // Load the Visualization API and the corechart package.
+  google.charts.load('current', {'packages':['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Callback that creates and populates a data table,
+  // instantiates the pie chart, passes in the data and
+  // draws it.
+  function drawChart() {
+
+    // Create the data table.
+    var data = google.visualization.arrayToDataTable(
+    [
+      ['Rhythms', 'percentage'],  
+      ['VT followed by VF', 62.4],
+      ['Primary VF', 8.3],
+      ['Torsades de Pointes', 12.7],
+      ['Bradycardia', 16.5],
+      
+    ]);
+
+    // Set chart options
+    var options = {height: 500, chartArea: {height: '80%', width: '100%'},
+        titleTextStyle: {color: 'black', fontName: 'Abel', fontSize: '32'},
+        fontName: 'Open Sans', fontSize: "22",
+        legend: {position: 'bottom', textStyle: {fontSize: 16}}, 
+        pieSliceText: 'label', pieStartAngle: '170',
+        pieSliceTextStyle: {fontName: 'Abel', fontSize: '18'},
+        tooltip: {text: 'percentage'}
+        
+        };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
+    chart.draw(data, options);
+  }
+window.addEventListener("resize", function(){drawChart()});
+
+</script>
+
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="myCSS.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<style>
+
+</style>
+
+<body>
+
+    <div class="container header"> 
+        <!--topBlk-->        
+        <div id="top" class="w3-row slide">
+                <div class="w3-col s6 w3-center w3-mobile leftCol" style="font-size: 6vh">
+                    <div class="smallT w3-text-grey">Myths|Facts #1</div>
+                    <div class="mediumT" style="padding: 1vw; font-weight: 700">
+                        Sudden Cardiac Arrest</div>
+                    <div class="mediumT"> is not the same as Heart Attack.</div>
+                  
+                </div>
+                <div class="w3-col s6 largeT w3-mobile rightCol" style="text-align: center">
+                    I know...but <br>
+                    <div> <a href="#1Blk" 
+                    class="w3-btn w3-round pink2 text smallerT">Tell me more</a></div>
+                </div>
+                   
+            </div>
+    </div>
+
+<div onclick="pointer()"><span class="pointer" style="display: none"></span>  
+        
+    <!--1Block-->
+    <div id="1Blk" class="w3-cell-row block greyBorder w3-mobile" style="background-color: #fedbd0">
+        <div class="w3-content w3-btn next" onmouseover="next(1)"></div>
+        <div class="w3-col w3-container s1"></div>
+            <div class="w3-col s4 w3-center w3-mobile w3-padding">
+            <img src="figures/p1/apple_orange_poster.jpg" style="width: 100%">
+            </div>
+            
+            <div class="w3-col s6 w3-mobile w3-padding" 
+            style="padding: 0vh 2vw 0vw 2vw">
+                <div class="header largeT brownTxt w3-mobile" style="text-align: center; 
+                line-height: 110%; padding-bottom: 3vh">
+                    Sudden Cardiac Arrest<br> (SCA)</div>
+                <div class="text smallerT w3-border-top w3-mobile" style="text-align: justify; 
+                margin: auto">
+                is a condition in which the heart suddenly and unexpectedly stops beating. 
+                If this happens, blood stops flowing to the brain and other vital organs.
+                SCA usually causes death if it's not treated within minutes.
+                
+                <span class="ref w3-mobile">
+                    <a class="ref" href="https://www.nhlbi.nih.gov/health-topics/sudden-cardiac-arrest">
+                    (NHLBI - Sudden Cardiac Arrest Health Topics)
+                </a>
+            </span></div>
+            </div>
+        
+        </div>
+    
+
+
+    <!--2Block-->
+    <div class="w3-row block w3-mobile">
+        
+        <div class="w3-display-container w3-mobile brownBG brownBorder">
+        <div class="w3-content w3-btn next" onmouseover="next(2)"></div>
+        <img src="figures/p1/PVT.png">
+        <div class="w3-display-bottomleft brownBG darkPTxt w3-mobile header smallT" style="text-align: center" >
+            Typical event begins with VT which later turns to VF,
+            and, if not treated, asystole and death.
+        </div></div>
+    </div>    
+
+
+
+    <!--3Block-->
+    <div class="w3-cell-row block">
+            <div class="w3-btn next" onmouseover="next(3)"></div>
+            <div class="w3-container w3-cell w3-center w3-cell-middle w3-mobile blueBG header">
+                <span class="smallT">More than</span> <br>
+                <span class="largeT">80% </span><br>
+                <span class="smallT">of sudden cardiac death <br>
+                    started with ventricular arrhythmias.</span>
+            </div>
+            <div class="w3-container w3-cell w3-cell-middle w3-padding w3-mobile w3-center header smallT blueBorder" >
+                <div class="w3-content w3-border-bottom" style="line-height: 120%">Mechanisms of production of fatal arrhythmia</div>
+                <div class="w3-content smallerT">Data from 157 ambulatory patients who died while
+                        wearing holter monitoring devices. </div>  
+                <div class="w3-row w3-left w3-round w3-btn w3-border tinyT" onclick="location.reload()">refresh</div>
+                <div id="pieChart" class="w3-padding chartWrap w3-center">
+                    
+                </div>
+                 
+                <a href="https://www.ncbi.nlm.nih.gov/pubmed/2911968" class="ref">
+                    Ref: de Luna A, et al. Am Heart J. 1989.</a>    
+                   
+            </div>
+                
+            </div>
+   
+
+    <!--4Block-->
+    <div class="w3-cell-row block">
+            <div class="w3-btn next" onmouseover="next(4)"></div>
+            <div class="w3-container w3-cell w3-cell-middle w3-padding w3-mobile pink2 header">
+                <div class="mediumT w3-center">3 millions </div>
+                <div class="smallT w3-center w3-border-bottom">people around the world <br>
+                    died each year of SCD. </div>
+                <br>                 
+                <div class="smallerT text w3-center">In USA, SCD accounts for
+                        more deaths each year<br> than the total number of deaths from<br>
+                        AIDS, breast cancer, lung cancer, and stroke.</div><br>
+                <a href="http://circ.ahajournals.org/cgi/content/full/109/22/2685" class="ref">
+                    Ref: Josephson and Wellens. Circulation 2004.</a>   
+                
+            </div>
+            <div class="w3-container w3-cell w3-cell-middle w3-mobile w3-center header smallT pink2" >
+                
+                <video autoplay loop style="width: 100%">
+                        <source src="figures/p1/VF.mp4" type="video/mp4">
+                        
+                </video>
+                <div class="w3-content w3-center tinyT w3-text-dark-grey">courtesy: Medmovie.com</div>
+ 
+            </div>
+                
+    </div>
+    
+
+    <!--5Block-->
+    <div class="w3-cell-row block"> 
+            <div class="w3-btn next" onmouseover="next(5)"></div>
+            <div class="w3-container w3-cell w3-cell-middle w3-padding tanBG w3-mobile header">
+                <div class="largeT w3-center">3 out of 4 </div>
+                <div class="smallT w3-center w3-border-bottom">SCDs are caused by coronary artery 
+                    with and without acute MI.
+                </div>
+                <div class="smallerT text w3-padding" style="text-align: justify">
+                In an autopsy series of 1575 sudden unexpected deaths in Thailand, CAD was responsible for 44.7% of cases.
+                </div><br>
+                <a href="https://academic.oup.com/eurheartj/article/29/11/1418/637134" class="ref">
+                    Ref: Byrne et al. Eur H Journal 2008 &</a>
+                <a href="https://www.ncbi.nlm.nih.gov/pubmed/19323049" class="ref">
+                Udnoon et al. Southeast Asian J Trop Med Public Health. 2009.</a> 
+                
+            </div>
+            <div class="w3-container w3-cell w3-cell-middle w3-padding w3-mobile w3-center tanBG" >
+                <img src="figures/p1/CAD in SCD.png">
+                              
+                </div>
+                   
+            </div>
+                
+                
+
+    <!--6Block-->
+    <div class="w3-cell-row block"> 
+            <div class="w3-btn next" onmouseover="next(6)"></div>
+                        
+            <div class="w3-container w3-cell w3-cell-middle w3-padding w3-mobile 
+            w3-center header smallT brownBG" >
+            Pathophysiology of life-threatening ventricular arrhythmias caused 
+            by coronary heart disease.<br>
+            <img src="figures/p1/pathophysiology.png" style="width: 80%"><br>
+            <a href="http://circ.ahajournals.org/content/125/8/1043" class="ref">
+                Ref: Myerberg and Junttilia. Circulation 2015.</a>              
+            </div>
+                    
+            </div>
+                    
+
+<!--end pointer div-->
+</div>
+
+    
+    <!--before bottom-->
+    <div class="w3-row w3-center block header w3-mobile">
+        <a href="#top"><i title="to the TOP" class="fas fa-arrow-circle-up w3-hover-opacity 
+        smallT" style="color: #e5e5e5; border: transparent;text-align: center"></i></a>
+        <div class="w3-center w3-mobile tinyT">        
+        <a href="https://www.facebook.com/HeartRhythmBox/" style="text-decoration: none;">
+            <i title="@HeartRhythmBox" class="fab fa-facebook w3-hover-opacity" 
+            style="color:  #3B5998; border: transparent;"></i>
+            <span class="tinyT">HeartRhythmBox</span></a><br> 
+            <a href="https://heartrhythmbox.com" style="text-decoration: none;" target="_blank">
+                <img src="boxPink.png" style="width: 2vmax;text-decoration: none;" 
+                title="Heart Rhythm Box - Main Page">
+                <b>heartRhythmBox.com</b></a>
+        </div>
+    </div>
+
+<!--bottom-->
+    <div class="w3-bar w3-center w3-card-4 w3-bottom w3-border-top header brownTxt tinyT">
+        
+        <a href="index.html" title="homepage" class="w3-btn fas fa-home brownTxt tinyT w3-btn"
+        style="border: transparent;"></a>
+        <a href="p7.html" title="back" class="w3-btn fas fa-angle-left brownTxt tinyT w3-btn"></a>
+        <a href="p1.html" title="#1" class="w3-btn activeBtn">1</a>
+        <a href="p2.html" title="#2" class="w3-btn noMobile">2</a>
+        <a href="p3.html" title="#3" class="w3-btn noMobile">3</a>
+        <a href="p4.html" title="#4" class="w3-btn noMobile">4</a>
+        <a href="p5.html" title="#5" class="w3-btn noMobile">5</a>
+        <a href="p6.html" title="#6" class="w3-btn noMobile">6</a>
+        <a href="p7.html" title="#7" class="w3-btn noMobile">7</a>
+        <a href="p2.html" title="next" class="w3-btn fas fa-angle-right brownTxt tinyT w3-btn"></a>
+                        
+    </div>
+    
+
+<script src="littleJF.js"></script>
+
+<script>
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===32) {
+        var p = document.getElementsByClassName("pointer");
+        p[0].style.display = "none";}
+    })
+
+//nav and pointer
+//up arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===38) {
+    blockNav(-1);
+    }
+})
+
+//down arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===40) {
+    blockNav(1);
+    }
+})
+    
+</script>
+
+
+
+    
+            
+       
+
+
+
+
+
+
+
+
+</body>
+</html>

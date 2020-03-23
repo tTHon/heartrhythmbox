@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-4');
+</script>
+
+<title>SCA Myths vs Facts #3</title>
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="myCSS.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+<style>
+
+.shake:hover {
+  animation: shake 0.4s;
+  animation-iteration-count: 0.4s;
+}
+.gvBorder {
+    border-bottom: 0.4vh rgb(87, 56, 59) groove;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -1px) rotate(-1deg); }
+  20% { transform: translate(-1px, 0px) rotate(1deg); }
+  30% { transform: translate(2px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-1px, 1px) rotate(0deg); }
+  70% { transform: translate(1px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+</style>
+
+<body>
+
+    <div id="top" class="container header"> 
+        <!--topBlk-->        
+    <div class="w3-row slide">
+            <div class="w3-col s6 w3-center w3-mobile leftCol" style="font-size: 6vh">
+                <div class="smallT w3-text-grey">Myths|Facts #3</div>
+                <div class="mediumT" style="padding: 1vw;">
+                    Few patients survived from sudden cardiac arrest.</div>
+               
+            
+            </div>
+            <div class="w3-col s6 largeT w3-mobile rightCol" style="text-align: center">
+                Really?<br>
+                <div>
+                <a href="p3.html#1Blk" title="Myth&Fact#3" class="w3-btn w3-round pink2 text smallerT">
+                    Tell me more</a></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div onclick="pointer()"><span class="pointer" style="display: none"></span>  
+      
+    <!--1Block OHCA -->
+    <div id="1Blk" class="w3-row block" style="background-color: #442C2E">
+        <div class="w3-btn next" onmouseover="next(1)"></div>
+        <div class="w3-panel w3-center header mediumT darkPTxt">
+            Outcomes of Out-of-Hospital Cardiac Arrest (OHCA)               
+        </div>
+
+        <div class="w3-row w3-center text tinyT">
+            <div class="w3-button w3-round w3-padding w3-center greyTxt liBrown" onclick="showData('NA')">
+                <sup>1&thinsp;</sup>North America Series</div>
+            <div class="w3-button w3-round w3-padding w3-center greyTxt liBrown" onclick="showData('Th')">
+                <sup>2&thinsp;</sup>Thailand</div>
+            <div class="w3-button w3-round w3-padding w3-center greyTxt liBrown" onclick="showData('LV')">
+                <sup>3&thinsp;</sup>Las Vegas Casino</div>
+        </div>
+
+        <div class="w3-row" style="padding: 2.5vh 1vw 2.5vh 1vw">
+        <div class="w3-col s6 w3-center ">
+                                 
+            <i class="fas fa-heartbeat shake" style="color: red;font-size: 9vw; 
+            border: transparent"></i>
+        </div>
+        <div class="w3-col s3 w3-center">
+            
+            <i class="fas fa-hospital shake" style="color:green;font-size: 9vw; 
+            border: transparent"></i>
+            
+            
+        </div>
+        <div class="w3-col s3 w3-center">
+            
+            <i class="fas fa-home shake" style="color:dodgerblue;font-size: 9vw; 
+            border: transparent"></i>
+            
+            
+            </div>
+        </div>
+        <div class="w3-row header smallT pinkTxt" style="padding: 2.5vh 1vw 2.5vh 1vw">
+            <div class="w3-col s3 w3-center">
+                Time to first ACLS
+            </div>
+            <div class="w3-col s3 w3-center">
+                Bystander CPR
+                </div>
+            <div class="w3-col s3 w3-center">
+                    Survival to hospital
+                </div>
+            <div class="w3-col s3 w3-center">
+                    Survival to home
+                </div>
+        </div>
+
+        <div id="NA" class="w3-row header smallerT" style="color: darkgrey; padding: 2.5vh 1vw 1vh 1vw">
+                <div class="w3-col s3 w3-center gvBorder ">
+                    5.9 mins (time to EMS arrival)
+                </div>
+                <div class="w3-col s3 w3-center gvBorder">
+                    40.1%
+                    </div>
+                
+                <div class="w3-col s3 w3-center gvBorder">
+                    62.8%
+                    </div>
+                <div class="w3-col s3 w3-center gvBorder">
+                    10.4% <sup class="tinyT">&thinsp;1</sup></div>
+        </div>
+            
+        <div id="Th" class="w3-row header smallerT" style="color: darkgrey; padding: 1vh 1vw 1vh 1vw">
+                <div class="w3-col s3 w3-center gvBorder">
+                    12mins (time to EMS arrival)
+                </div>
+                <div class="w3-col s3 w3-center gvBorder">
+                    27.4%
+                    </div>
+                
+                <div class="w3-col s3 w3-center gvBorder">
+                    61.5%
+                    </div>
+                <div class="w3-col s3 w3-center gvBorder">
+                    7.7% <sup class="tinyT">&thinsp;2</sup>
+                </div>
+            </div>
+        
+        <div id="LV" class="w3-row header smallerT" style="color: darkgrey; padding: 1vh 1vw 1vh 1vw">
+                <div class="w3-col s3 w3-center gvBorder">
+                    4.4 mins (time to 1st defib) <br>
+                    9.8 mins (time to EMS arrival)
+                </div>
+                <div class="w3-col s3 w3-center gvBorder">
+                    43%
+                    </div>
+                
+                <div class="w3-col s3 w3-center gvBorder">
+                    89%
+                    </div>
+                <div class="w3-col s3 w3-center gvBorder">
+                    38% <sup class="tinyT">&thinsp;3</sup>
+                </div>
+            </div>
+        <div class="w3-row w3-center header ref">
+            Ref:
+            <a class="ref" href="https://www.sciencedirect.com/science/article/pii/S0300957215000635?via%3Dihub">
+            1. Daya et al Resuscitation 2005,</a>
+            <a class="ref" href="http://aph.sagepub.com/content/23/4/601">
+            2. Yeeheng U. Asia Pac J Public Health 2011, </a>
+            <a class="ref" href="https://www.nejm.org/doi/full/10.1056/NEJM200010263431701">
+                3. Valenzuela et al. NEJM 2010. </a>
+        </div>
+    </div>  
+
+
+    <!--2Block-->
+    <div class="w3-row block">
+            <div class="w3-btn next" onmouseover="next(2)"></div>
+            <div class="w3-row w3-mobile w3-padding">
+                <div class="w3-col s4 w3-mobile" style="padding: 1% 5% 1% 5%">
+                <div class="header w3-center largeT" style="border-bottom: #fedbd0 1vh solid">
+                11.3% </div> 
+                <div class="header smallerT" style="color: darkgray; text-align: justify;
+                letter-spacing: 0.4vw">
+                    of all OHCA victims who survived to the hospital </div>
+                <div class="header smallT brownTxt" style="text-align: justify"> 
+                survived after 1 year.</div>
+                </div>
+                
+                <div class="w3-col s4 w3-mobile" style="padding: 1% 5% 1% 5%">
+                <div class="header w3-center largeT" style="border-bottom: #e7e5d5 1vh solid">
+                       57% </div> 
+                <div class="header smallerT" style="color: darkgray; text-align: justify; 
+                letter-spacing: 0.7vw">
+                    of all survivors </div>
+                <div class="header smallT brownTxt" style="text-align: justify"> 
+                remained with severe neurological disability at 1 month.</div>
+                </div>
+
+                <div class="w3-col s4 w3-mobile" style="padding: 1% 5% 1% 5%">
+                <div class="header w3-center largeT" style="border-bottom: #e3f4fa 1vh solid">
+                    4% </div> 
+                <div class="header smallerT" style="color: darkgray; text-align: justify; 
+                letter-spacing: 0.1vw">
+                    of survivors with severe neurological disability </div>
+                <div class="header smallT brownTxt" style="text-align: justify"> 
+                showed some improvement at 6 months; none at 1 year.</div>
+                </div>
+            
+                
+            </div> <br>
+            <div class="w3-row w3-padding w3-center header ref">
+                <a href="http://circ.ahajournals.org/content/130/21/1883.long">
+                Wong et al. Circulation 2014 and
+                </a>
+                <a href="https://www.sciencedirect.com/science/article/pii/S0300957216000289?via%3Dihub">
+                Kim et al. Resuscitation 2016.</a>
+            </div>    
+            </div>
+            </div>
+
+<!--end div pointer-->
+</div>
+
+<!--before bottom-->
+<div class="w3-row w3-center block header w3-mobile">
+    <a href="#top"><i title="to the TOP" class="fas fa-arrow-circle-up w3-hover-opacity 
+    smallT" style="color: #e5e5e5; border: transparent;text-align: center"></i></a>
+    <div class="w3-center w3-mobile tinyT">        
+    <a href="https://www.facebook.com/HeartRhythmBox/" style="text-decoration: none;">
+        <i title="@HeartRhythmBox" class="fab fa-facebook w3-hover-opacity" 
+        style="color:  #3B5998; border: transparent;"></i>
+        <span class="tinyT">HeartRhythmBox</span></a><br> 
+        <a href="https://heartrhythmbox.com" style="text-decoration: none;" target="_blank">
+            <img src="boxPink.png" style="width: 2vmax;text-decoration: none;" 
+            title="Heart Rhythm Box - Main Page">
+            <b>heartRhythmBox.com</b></a>
+    </div>
+</div>
+
+
+
+<!--bottom-->
+    <div class="w3-bar w3-center w3-card-4 w3-bottom w3-border-top header brownTxt tinyT">
+        <a href="index.html" title="homepage" class="w3-btn fas fa-home brownTxt tinyT w3-btn"
+            style="border: transparent;"></a>
+        <a href="p2.html" title="back" class="w3-btn fas fa-angle-left brownTxt tinyT w3-btn"></a>
+        <a href="p1.html" title="#1" class="w3-btn noMobile">1</a>
+        <a href="p2.html" title="#2" class="w3-btn noMobile">2</a>
+        <a href="p3.html" title="#3" class="w3-btn activeBtn">3</a>
+        <a href="p4.html" title="#4" class="w3-btn noMobile">4</a>
+        <a href="p5.html" title="#5" class="w3-btn noMobile">5</a>
+        <a href="p6.html" title="#6" class="w3-btn noMobile">6</a>
+        <a href="p7.html" title="#7" class="w3-btn noMobile">7</a>
+        <a href="p4.html" title="next" class="w3-btn fas fa-angle-right brownTxt tinyT w3-btn"></a>
+                
+    </div>
+    
+
+<script src="littleJF.js"></script>
+<script>
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===32) {
+        var p = document.getElementsByClassName("pointer");
+        p[0].style.display = "none";}
+    })
+//nav and pointer
+//up arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===38) {
+    blockNav(-1);
+    }
+})
+
+//down arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===40) {
+    blockNav(1);
+    }
+})
+function showData(id) {
+   document.getElementById(id).style.color = "white"
+}
+</script>
+
+    
+            
+       
+
+
+
+
+
+
+
+
+</body>
+</html>

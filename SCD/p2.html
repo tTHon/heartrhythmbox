@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-4');
+</script>
+
+<title>SCA Myths vs Facts #2</title>
+
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+  // Load the Visualization API and the corechart package.
+  google.charts.load('current', {'packages':['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Callback that creates and populates a data table,
+  // instantiates the pie chart, passes in the data and
+  // draws it.
+  function drawChart() {
+
+    // Create the data table.
+    var data = google.visualization.arrayToDataTable(
+    [
+      ['Etiologies', 'incidence(%)',{ role: 'style' }, { role: 'annotation' }],  
+      ['Brugada Syndrome', 63.5, '#f06292', 'Brugada S'],
+      ['Early Repolarization Syndrome', 9.6, '#ba68c8','Early Repolarization S'],
+      ['Long QT syndrome', 7.7,'#7986cb','Long QT Syndrome'],
+      ['Idiopathic VF', 3.8,'#4db6ac','idiopathic VF'],
+      
+    ]);
+
+    // Set chart options
+    var options = {height: 500, chartArea: {height: '80%', width: '85%'},
+        fontName: 'Open Sans', fontSize: "22",
+        tooltip: {text: 'percentage'},
+        hAxis: {title: 'Incidence (%)'}, vAxis: {textPosition: 'none'},	
+        legend: {position: 'none'}
+        };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.BarChart(document.getElementById('barChart'));
+    chart.draw(data, options);
+  }
+window.addEventListener("resize", function(){drawChart()});
+
+</script>
+
+
+
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="myCSS.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<style>
+.barBlue {
+    height: 85vh;
+    background: linear-gradient(to top, #a4e7fc 20%, #eafaff 100%);
+}
+.barBlueFirst {margin-top: 45vh; border-top: darkgrey 0.1vh solid; line-height: 110%}
+.barPink {
+    height: 85vh;
+    background: linear-gradient(to top, rgb(253, 199, 188) 20%, #FEEAE6 100%);
+}
+.barPinkFirst {margin-top: 20vh;border-top: darkgrey 0.1vh solid}
+.barGreen {
+    height: 85vh;
+    background: linear-gradient(to top, #d0fcaf 70%, #ecfce0 100%);;
+}
+.barGreenFirst {margin-top: 10vh;border-top: darkgrey 0.1vh solid}
+
+@media screen and (max-width: 600px) {
+    .barBlue {height:auto; background-color: #a4e7fc }
+    .barBlueFirst{margin: auto; border: transparent}
+    .barPink {height:auto; background-color: rgb(253, 199, 188)}
+    .barPinkFirst {margin: auto;border: transparent}
+    .barGreen {height:auto; background-color:#d0fcaf}
+    .barGreenFirst{margin: auto;border: transparent}
+}
+
+</style>
+
+<body>
+
+    <div class="container header"> 
+        <!--topBlk-->        
+        <div id="top" class="w3-row slide">
+            <div class="w3-col s6 w3-center w3-mobile leftCol" style="font-size: 6vh">
+                <div class="smallT w3-text-grey">Myths|Facts #2</div>
+                <div class="mediumT" style="padding: 1vw;">
+                    I see my doctor regularly.<br>
+                I should not die of sudden cardiac 
+                    death.</div>
+              
+            </div>
+            <div class="w3-col s6 largeT w3-mobile rightCol" style="text-align: center">
+                Is it true? <br>
+                <div>
+                <a href="p2.html#1Blk" title="Myth&Fact#2" class="w3-btn w3-round pink2 text smallerT">
+                    Tell me more</a></div>
+            </div>
+               
+        </div>
+    </div>
+
+<div onclick="pointer()"><span class="pointer" style="display: none"></span>  
+        
+    <!--1Block-->
+    <div id="1Blk" class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(1)"></div>
+        <div class="w3-row">
+        <div class="w3-col s4 w3-center header w3-mobile barBlue" style="padding: 2vw;">
+            <div class="largeT barBlueFirst">5%</div> 
+            <div class="smallT"> of SCA victims had normal structural heart. </div>
+        </div>    
+        <div class="w3-col s4 w3-center header w3-mobile barPink" style="padding: 2vw;">
+            <div class="largeT barPinkFirst">33%</div> 
+            <div class="smallT">had history of heart disease but deemed to be low risk.</div>
+        </div>
+        <div class="w3-col s4 w3-center header smallT w3-mobile barGreen" style="padding: 2vw;">
+            <div class="largeT barGreenFirst">46%</div> 
+            <div class="smallT">never had history of heart disease.</div>
+            <div class="ref">Ref:
+            <a href="http://circ.ahajournals.org/content/102/6/649">Circulation 2000</a>
+            ,&nbsp
+            <a href="http://circ.ahajournals.org/content/125/8/1043">Circulation 2015</a>
+            ,&nbsp and
+            <a href="https://academic.oup.com/eurheartj/article-lookup/doi/10.1093/eurheartj/ehn155">
+            Eur Heart J 2008.</a>
+            </div>
+        </div>
+    
+        </div></div>
+
+
+    <!--2Block-->
+    <div class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(2)"></div>
+        <div class="w3-row greyBorder">
+            <div class="w3-container w3-cell w3-center w3-mobile header mediumT w3-padding blueBG" 
+            style="line-height: 120%">
+            Causes of SCA in normal structural heart
+            <ul class="w3-ul w3-padding w3-mobile w3-hoverable header smallT w3-white" 
+            style="line-height: 120%">
+                <li>Long QT syndrome</li>
+                <li>Brugada syndrome</li>
+                <li>Wolff-Parkinson-White syndrome</li>
+                <li>Early repolarization syndrome</li>
+                <li>Others: <span class="smallerT">Catecholaminergic polymorphic VT
+                , Short QT syndrome
+                , and Idiopathic VF    </span>
+                </li>
+            </ul>
+            <div class="w3-row w3-center ref">
+                    Ref: <a href="http://circ.ahajournals.org/content/119/8/1085.long">Maron et al. Circulation 2009 and</a>
+                    <a href="http://circres.ahajournals.org/content/116/12/1887">
+                    Hayashi et al. Circ Res 2015. </a>
+                </div>
+        
+            </div>
+            <div class="w3-container w3-cell w3-cell-middle w3-padding w3-mobile w3-center header smallT" >
+                <div class="w3-content w3-border-bottom w3-mobile" style="line-height: 120%">
+                    Etiologies of SCA survivors with structurally normal heart.</div>
+                <div class="w3-content smallerT w3- w3-mobile">Data from 52 survivors in Thailand. 
+                <span class="w3-row w3-left w3-round w3-btn w3-border tinyT" onclick="location.reload()">refresh</span>
+                </div>
+                <div id="barChart" class="w3-padding chartWrap w3-center w3-mobile">
+                </div>
+                 
+                <a href="https://www.ncbi.nlm.nih.gov/pubmed/23539928" class="ref">
+                    Ref: J Med Assoc Thai. 2013.</a>    
+                   
+            </div>
+       </div>
+       </div>
+
+    <!--3Block Brugada-->
+    <div class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(3)"></div>
+        <div class="w3-cell-row w3-mobile">            
+            <div class="w3-container w3-padding tanBG w3-cell w3-cell-middle w3-center w3-mobile">
+            <div class="w3-row header mediumT w3-padding w3-mobile">
+            Brugada Syndrome </div>    
+            
+            </div>
+            <div class="w3-container w3-padding tanBG w3-cell w3-cell-middle w3-center w3-mobile">
+            <img src="figures/p2/Brugada.png">
+            </div>
+        </div>
+        <div class="w3-cell-row w3-mobile text" style="line-height: 160%; font-size: 1.5em">
+            <div class="w3-container w3-padding-large w3-cell w3-mobile" 
+            style ="background-color: #dedbc5; text-align: justify">
+                Associated with syncope or SCA due to VF predominantly in young Asian male.
+            </div>
+            <div class="w3-container w3-cell w3-mobile w3-padding-large w3-mobile" 
+            style ="background-color: #d4d1b5;text-align: justify; line-height: 140%">
+                Typical ECG findings (Coved ST elevation in V1-V2) can be dynamic.<br><br>
+                <b>Triggers</b> include fever, cocaine, alcohol, benzodiazepines, and hypokalemia. 
+            </div>
+            <div class="w3-container w3-cell w3-mobile w3-padding-large w3-mobile" 
+            style ="background-color: #cbc7a4;text-align: justify">
+                <b>High risk features: </b><br>
+                spontaneous coved type ECG, history of syncope, and prior cardiac arrest.
+                <div class="ref">
+                    <a href="http://www.onlinejacc.org/content/early/2017/10/19/j.jacc.2017.10.054?_ga=2.254232589.464239245.1527639321-909899438.1509518611">
+                    2017 ACC VA/SCD Guidelines
+                    </a>
+                </div>
+            </div>
+        </div>  
+
+        </div>
+
+    <!--4Block LQTS-->
+    <div class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(4)"></div>
+        <div class="w3-cell-row w3-mobile">            
+            <div class="w3-container w3-padding blueBG w3-cell w3-cell-middle w3-center w3-mobile">
+            <div class="w3-row header mediumT w3-padding w3-mobile">
+            Long QT syndrome </div>    
+            
+            </div>
+            <div class="w3-container w3-padding blueBG w3-cell w3-cell-middle w3-center w3-mobile">
+            <img src="figures/p2/LQTs.png">
+            </div>
+        </div>
+        <div class="w3-cell-row w3-mobile text" style="line-height: 160%; font-size: 1.5em">
+            <div class="w3-container w3-padding-large w3-cell w3-mobile" 
+            style ="background-color: #c1f0ff; text-align: justify">
+                More than 10 different types of genes involved in LQTs have been described.
+            </div>
+            <div class="w3-container w3-cell w3-mobile w3-padding-large" 
+            style ="background-color: #a7eaff;text-align: justify; line-height: 140%">
+                <b>Triggers</b><br> include QT-prolonging medications 
+                (ie. TCAs, Quinolones, Macrolides, & etc.),
+                hypoK, and hypoMg. 
+            </div>
+            <div class="w3-container w3-cell w3-mobile w3-padding-large" 
+            style ="background-color:#8ee3ff ;text-align: justify">
+                <b>High risk features: </b><br>
+                QTc>470 ms, LQTs II & III, Hx of syncope or SCA.  
+                <div class="ref">
+                    <a href="http://www.onlinejacc.org/content/early/2017/10/19/j.jacc.2017.10.054?_ga=2.254232589.464239245.1527639321-909899438.1509518611"
+                    class="ref">
+                    2017 ACC VA/SCD Guidelines 
+                    </a>
+                </div>
+            </div>
+        </div>  
+
+        </div>
+
+    <!--5Block WPW-->
+    <div class="w3-row block">
+            <div class="w3-btn next" onmouseover="next(5)"></div>
+            <div class="w3-cell-row w3-mobile">            
+                <div class="w3-container w3-padding green w3-cell w3-cell-middle w3-center w3-mobile">
+                <div class="w3-row header mediumT w3-padding w3-mobile" style="text-align: justify">
+                Wolff-Parkinson-White Syndrome</div>    
+                <div class="w3-container w3-mobile header smallerT" style="text-align: justify">
+                    can lead to rapid ventricular conduction, ventricular arrhythmias, and SCA.
+                
+                </div></div>
+                <div class="w3-container w3-padding green w3-cell w3-cell-middle w3-center w3-mobile">
+                <img src="figures/p2/WPW resting.png">
+                </div>
+            </div>
+            <div class="w3-cell-row w3-mobile w3-topbar w3-border-dark-grey green">
+                <div class="w3-container w3-cell w3-cell-middle w3-mobile w3-border-right">
+                <img src="figures/p2/WPW AF.png">    
+                </div>
+                <div class="w3-container w3-cell w3-cell-middle w3-mobile">
+                <img src="figures/p2/WPW VF.png">    
+                </div>
+                </div>
+            </div>  
+
+    <!--6Block ERS SQTS-->
+    <div class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(6)"></div>
+        <div class="w3-cell-row w3-mobile pink1">            
+            <div class="w3-container w3-padding w3-cell w3-cell-middle 
+            w3-center w3-mobile">
+            <img src="figures/p2/ER1.JPG">
+                  
+            </div>
+            <div class="w3-container w3-padding w3-cell w3-cell-middle w3-center w3-mobile header mediumT">
+            Early Repolarization Syndrome
+            </div>
+            </div>
+        </div>
+        
+         
+
+    <!--7Block CPVT iVF-->
+    <div class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(7)"></div>
+        <div class="w3-cell-row w3-mobile darkPink">
+        <div class="w3-container w3-center w3-card w3-padding w3-mobile header mediumT greyBG">
+            SCA in normal structural heart and normal resting ECG.
+        </div>            
+            <div class="w3-col s6 w3-padding w3-center w3-mobile">
+            <img src="figures/p2/CPVT.png">
+            <div class="w3-row header mediumT w3-padding w3-mobile header smallT">
+            Catecholaminergic polymorphic VT (CPVT)</div>    
+            
+            </div>
+            <div class="w3-col s6 w3-padding w3-center w3-mobile">
+            <img src="figures/p2/PVC induced VF.JPG">
+            <div class="w3-row header mediumT w3-padding w3-mobile header smallT">
+                Idiopathic VF
+            </div>
+            </div>
+        </div>
+        
+        </div> 
+        
+    <!--8 Block Coro Anomalies-->
+    <div class="w3-row block">
+        <div class="w3-btn next" onmouseover="next(8)"></div>
+        <div class="w3-row  pink1 w3-mobile" style="padding: 2vh 1vw 2vh 1vw">
+        <div class="w3-col s3 w3-center w3-padding w3-mobile header mediumT"
+         style="margin-top: 9%">
+            Coronary Anomalies
+        </div>            
+        <div class="w3-col s4 w3-padding w3-center w3-mobile">
+            <img src="figures/p2/ARCAOS.png">
+           </div>
+            <div class="w3-col s5 w3-padding w3-mobile">
+            <span class="header dropCap w3-text-deep-orange" style="padding-top: 1vh">O</span>
+            <span class="header smallT" style="text-align: justify">ne of the most common causes of SCD in 
+                young athletes especially with anomalous origin of right coronary artery
+                from the left coronary cusp (ARCAOS), using interarterial course.
+            </span>
+            </div>
+            
+        </div>
+        
+        </div>     
+
+    <!--9 Block Sum-->
+    <div class="w3-row block">
+        <!--div class="w3-btn next" onmouseover="next(9)"></div-->
+        <div class="w3-cell-row w3-mobile brownBorder">
+        <div class="w3-container w3-cell w3-cell-middle w3-center w3-padding w3-mobile header mediumT">
+            SCA is complex and hardly predictable.
+            <div class="w3-row w3-center ref">
+                Ref:
+                <a href="http://circres.ahajournals.org/content/116/12/1887">
+                Hayashi et al. Circ Res 2015. </a>
+            </div>
+        </div>            
+            <div class="w3-container w3-padding w3-cell w3-cell-middle 
+            w3-center w3-mobile">
+            <img src="figures/p2/SCD epidemiology.png">
+            </div>
+
+            
+        </div>
+        
+        </div>  
+    
+    
+
+                
+
+    
+
+<!--end pointer div-->
+    </div>
+
+<!--before bottom-->
+<div class="w3-row w3-center block header w3-mobile">
+    <a href="#top"><i title="to the TOP" class="fas fa-arrow-circle-up w3-hover-opacity 
+    smallT" style="color: #e5e5e5; border: transparent;text-align: center"></i></a>
+    <div class="w3-center w3-mobile tinyT">        
+    <a href="https://www.facebook.com/HeartRhythmBox/" style="text-decoration: none;">
+        <i title="@HeartRhythmBox" class="fab fa-facebook w3-hover-opacity" 
+        style="color:  #3B5998; border: transparent;"></i>
+        <span class="tinyT">HeartRhythmBox</span></a><br> 
+        <a href="https://heartrhythmbox.com" style="text-decoration: none;" target="_blank">
+            <img src="boxPink.png" style="width: 2vmax;text-decoration: none;" 
+            title="Heart Rhythm Box - Main Page">
+            <b>heartRhythmBox.com</b></a>
+    </div>
+</div>
+
+
+
+<!--bottom-->
+    <div class="w3-bar w3-center w3-card-4 w3-bottom w3-border-top header brownTxt tinyT">
+        <a href="index.html" title="homepage" class="w3-btn fas fa-home brownTxt tinyT w3-btn"
+            style="border: transparent;"></a>
+        <a href="p1.html" title="back" class="w3-btn fas fa-angle-left brownTxt tinyT w3-btn"></a>
+        
+        <a href="p1.html" title="#1" class="w3-btn noMobile">1</a>
+        <a href="p2.html" title="#2" class="w3-btn activeBtn">2</a>
+        <a href="p3.html" title="#3" class="w3-btn noMobile">3</a>
+        <a href="p4.html" title="#4" class="w3-btn noMobile">4</a>
+        <a href="p5.html" title="#5" class="w3-btn noMobile">5</a>
+        <a href="p6.html" title="#6" class="w3-btn noMobile">6</a>
+        <a href="p7.html" title="#7" class="w3-btn noMobile">7</a>
+        <a href="p3.html" title="next" class="w3-btn fas fa-angle-right brownTxt tinyT w3-btn"></a>
+        
+        </div>
+    
+
+<script src="littleJF.js"></script>
+<script>
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===32) {
+        var p = document.getElementsByClassName("pointer");
+        p[0].style.display = "none";}
+    })
+
+//nav and pointer
+//up arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===38) {
+    blockNav(-1);
+    }
+})
+
+//down arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===40) {
+    blockNav(1);
+    }
+})
+</script>
+
+    
+            
+       
+
+
+
+
+
+
+
+
+</body>
+</html>
