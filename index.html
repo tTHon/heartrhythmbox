@@ -28,363 +28,325 @@
 </script>
 
 <style>
-    * {margin: 0;padding: 0;}
-    .coral {background-color: #fa7268;}
+* {
+margin: 0;
+padding: 0;
+}
 
-    /*flexbox */
-    .row {
-      display: flex;padding: 3vmax;
-    }
-    .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+.coral {background-color: #ff6f61;}
 
-    .col1-4{
-      flex: 25%;
-      -ms-flex: 25%;
-      padding: 1vmax;align-self: center;
-    }
-    .col3-4{flex: 75%;
-      -ms-flex: 75%;
-      padding: 0.5vmax 1.5vmax;text-align: left;line-height: 120%;
-      align-self: center;
-    }
+/*flexbox */
+.row {display: flex;}
+.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+.row600 {display: flex;}
+.rowContent {display: flex;padding: 2vmax;border-bottom: #bbb dotted 1px;}
+.rowContent:last-child {border: none;}
 
-    .card {box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 8px;}
+@media only screen and (max-width:600px) {
+  .row600, .rowContent {flex-wrap: wrap;}
+}
 
-    .sectionH {padding-top: 0.5vmax;
+.colHalf{
+  flex: 50%;
+  -ms-flex: 50%;
+  padding: 1vmax;align-self: center;
+}
+
+.col1-4{
+  flex: 25%;
+  -ms-flex: 25%;
+  padding: 1vmax;align-self: center;
+}
+.col3-4{flex: 75%;
+  -ms-flex: 75%;
+  padding: 0.5vmax 1.5vmax;text-align: left;line-height: 120%;
+  align-self: center;
+}
+
+.card {box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+border-radius: 8px;}
+
+.menu {text-decoration: none;padding: 0.1vmin 0.7vmax;color:#ff6f61;border-right: #f1f2f3 0.1vmax solid;}
+.sectionH {padding-top: 0.5vmax;
       background-color: transparent;color: white;font-size: 18px;border: none;
     }
-    .sectionT {
+.sectionT {
       font-size: 14px;color: #f1f1f1;padding: 0.5vmax;
     }
+
 </style>
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif;">
-    
-    <div style="text-align: center;background-color: white;">
-        
-        <!--title-->
-        <div class="coral" 
-        style="width: 90%;border-bottom-right-radius: 5vmax;padding-top: 13vh;padding-bottom: 13vh;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">
-            <img src="box coral.png" width="120" height="120">
-            
-            <div style="font-size: 5vmax;color:white;width: fit-content;text-align: left;
-            margin-right: auto;margin-left:auto;line-height: 100%;border-bottom: white 0.1vmax solid;padding-bottom: 3vmax;">
+    <!--menu-->
+    <div style="position: sticky;top: 0;left: 0;">
+    <div class="coral row" 
+    style="justify-content: center;align-items: center;padding: 0vmax;">
+        <div style="text-align: right;">
+        <img src="box coral.png" style="width: 5vmax;">
+        </div>
+        <div style="font-size: 2.3vmax;color: white;text-align: left;">
+            Heart<span style="font-weight: 700;">RHYTHM</span>Box<br>
+        </div>
+    </div>
+    <!--menu-->
+    <div class="row card" style="padding-top:0.2vmax;font-size: 1.7vmax;justify-content: center;
+    text-align: center;background-color: white;">
+        <a href="#top" title="home page" class="menu">Home </a>
+        <a href="#latest" title="the latest content" class="menu">The Latest </a>
+        <a href="#earlier" title="the archived content" class="menu">The Earlier </a>
+        <a href="" title="info on online classes" class="menu">Teaching Portal </a>
+        <a href="#about" title="who we are and why we are here" class="menu" style="border-right: none;">About Us </a>
+    </div>
+    </div>
+
+    <!--home-->
+    <div class="row600" style="padding-top: 8vh;padding-bottom: 15vh;
+    text-align: center;justify-content: center;">
+         
+          <div class="card" style="font-size: 5vmax;color:#ff6f61;line-height: 100%;background-color:#d7f44a;
+          text-align:left;padding: 0.5vmax 1vmax;align-self: center;">
                <span style="letter-spacing:1.5vmax">Heart</span><br>
                 <span style="font-weight: 600;">RhythM</span><br>
                 B&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;&nbsp;&nbsp;&nbsp;X
-            </div>
-            <div style="font-size: 2vmax;color: #f1f1f1;padding:3vmax;letter-spacing: 0.8vmax;
-            width: fit-content;text-align:center;margin-left: auto;margin-right: auto;line-height: 100%;">
-            cardiac arrhythmias tutorials at your fingertips.
-            </div>
-            <script async src="https://cse.google.com/cse.js?cx=007840877810477839873:4bpoeoxktjo"></script>
-            <div class="gcse-search"></div>
-                
-        </div>
-        
-        <!--the latest-->
-        <div style="padding: 5vmax 3vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;color: #555;
-        letter-spacing: -0.1vmax;">
-          <div style="border-bottom:#FCB7B2 0.1vmax solid">
-          <span style="color: #fa7268;">
-          The</span>&nbsp;
-          latest</div>
-        </div>
-
-        <!--the list of the latest-->
-        <!--AF Ablation-->
-        <div class="row">
-          <div class="col1-4">
-            <a href="https://heartrhythmbox.github.io/AF_Ablation/" target="_blank">
-            <img src="media/AF ablation.png" style="width: 90%;" class="card">
-            </a>
-            </div>
-          <div class="col3-4">
-              <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-              04.20
-              </div>
-              <a href="https://heartrhythmbox.github.io/AF_Ablation/" target="_blank" 
-              style="text-decoration: none;color: black;">
-            <span style="font-size:2.5vmax;font-weight:400;">
-              <span style="font-weight: 600;font-size: 2.8vmax;">
-              Catheter Ablation for Atrial Fibrillation</span> 
-            </span></a>
-            <br>
-            <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax">
-              Mechanisms of AF & Target for Ablation | Techniques & Procedural Consideration | Evidences & Recommendations
-            </div>
           </div>
-        </div>
-
-
-        <!--SCD M&F-->
-        <div class="row">
-          <div class="col1-4">
-            <a href="https://heartrhythmbox.com/scd/" target="_blank">
-            <img src="media\SCDM&F.png" style="width: 90%;" class="card">
-            </a>
-            </div>
-          <div class="col3-4">
-              <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-              03.20
-              </div>
-              <a href="https://heartrhythmbox.com/scd/" target="_blank" 
-              style="text-decoration: none;color: black;">
-            <span style="font-size:2.5vmax;font-weight:400;">
-              <span style="font-weight: 600;font-size: 2.8vmax;">
-              Sudden Cardiac Death: Myths & Facts</span> 
-            </span></a>
-            <br>
-            <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax">
-              Basic Understanding of Sudden Cardiac Deaths, Common Causes, Treatments, and Prevention 
-            </div>
-          </div>
-        </div>
-
-        <!--EP QA-->
-        <div class="row">
-          <div class="col1-4">
-            <a href="https://heartrhythmbox.com/qa2020/" target="_blank">
-            <img src="media\Ep QA.png" style="width: 90%;" class="card">
-            </a>
-            </amp-img>
-          </div>
-          <div class="col3-4">
-              <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-              03.20
-              </div>
-              <a href="https://heartrhythmbox.com/qa2020/" target="_blank" 
-              style="text-decoration: none;color: black;">
-            <span style="font-size:2.5vmax;font-weight:400;">
-              <span style="font-weight: 600;font-size: 2.8vmax;">
-              Cardiac Electrophysiology Qs&As 2020</span> 
-            </span></a>
-            <br>
-            <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax">
-            Aimed for board preparation and quick knowledge update.<br> 
-            Coming in 3 topics (for now): Basic Pacing Concepts, Sudden Cardiac Death, and Top Tracings.
-            </div>
-          </div>
-        </div>
-
-        <!--ACHD-->
-        <div class="row">
-          <div class="col1-4">
-            <a href="https://heartrhythmbox.com/achd/" target="_blank">
-            <img src="media\ACHD.png" style="width: 90%;" class="card">
-            </a>
-           
-          </div>
-          <div class="col3-4">
-              <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-              02.20
-              </div>
-              <a href="https://heartrhythmbox.com/achd/" target="_blank" 
-              style="text-decoration: none;color: black;">
-            <span style="font-size:2.5vmax;font-weight:400;">
-              <span style="font-weight: 600;font-size: 2.8vmax;">
-              SCD in Grown-up Congenital Heart Diseases</span> 
-            </span></a>
-            <br>
-            <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
-            letter-spacing: -0.1vmin;padding-top:2vmax">
-            Info-Comics
-            </div>
-          </div>
-        </div>
-
-        <!--J wave-->
-        <div class="row">
-          <div class="col1-4">
-            <a href="https://jwave.heartrhythmbox.com/" target="_blank">
-            <img src="media/jwave.png" style="width: 90%;" class="card">
-            </a>
+          <div style="align-self: center;padding: 2vmax;color: #797979;font-size: 1.75vmax;">
+            <span style="font-size: 2vmax;color: #ff6f61;text-align: left;letter-spacing: 2px;
+            padding: 0.5vmax 0;">is an education website on cardiac electrophyiology.</span>
             
-          </div>
-          <div class="col3-4">
-              <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-              01.20
-              </div>
-              <a href="https://jwave.heartrhythmbox.com/" target="_blank" 
-              style="text-decoration: none;color: black;">
-            <span style="font-size:2.5vmax;font-weight:400;">
-              <span style="font-weight: 600;font-size: 2.8vmax;">
-              J-Wave Syndrome&nbsp;</span> 
-            </span></a>
-            <br>
-            <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
-            letter-spacing: -0.1vmin;padding-top:2vmax">
-            A Brief Introduction with Latest Update on J-wave Syndrome
-            </div>
-          </div>
-        </div>
-
-        <!--update H2-->
-        <div class="row">
-            <div class="col1-4">
-              <a href="https://heartrhythmbox.com/updateh2/updateh2.html" target="_blank">
-              <img src="media\updateH2.png" style="width: 90%;" class="card">
-              </a>
-             
-            </div>
-            <div class="col3-4">
-                <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-                11.19
-                </div>
-                <a href="https://heartrhythmbox.com/updateh2/updateh2.html" target="_blank" 
-                style="text-decoration: none;color: black;">
-              <span style="font-size:2.5vmax;font-weight:400;">
-                <span style="font-weight: 600;font-size: 2.8vmax;">
-                Arrhythmias Update&nbsp;</span> H2-2019
-              </span></a>
-              <br>
-              <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
-              letter-spacing: -0.1vmin;padding-top:2vmax">
-              Trials and Guidelines Update of the 2nd half of 2019.
-              </div>
-            </div>
-          </div>
-  
-
-        <!--top tracings-->
-        <div class="row">
-          <div class="col1-4">
-            <a href="https://toptracings.heartrhythmbox.com/" target="_blank">
-            <img src="media\toptracings.png" style="width: 90%;" class="card">
-            </a>
-            
-          </div>
-          <div class="col3-4">
-              <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-              10.19
-              </div>
-              <a href="https://toptracings.heartrhythmbox.com/" target="_blank" 
-              style="text-decoration: none;color: black;">
-            <span style="font-size:2.5vmax;font-weight:400;">
-              <span style="font-weight: 600;font-size: 2.8vmax;">
-              Top Tracings&nbsp;</span> you need to know before the exam.
-            </span></a>
-            <br>
-            <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
-            letter-spacing: -0.1vmin;padding-top:2vmax">
-            Common tracings including ECGs, EGMs, and device tracings, that
-            may appear in the board exam.
-            </div>
-          </div>
-        </div>
-
-        <!--ecg-->
-        <div class="row">
-            <div class="col1-4">
-              <a href="https://ecg.heartrhythmbox.com/" target="_blank">
-              <img src="media\ecg.png" style="width: 90%;" class="card">
-              </a>
-             
-            </div>
-            <div class="col3-4">
-                <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-                10.19
-                </div>
-                <a href="https://ecg.heartrhythmbox.com/" target="_blank" 
-                style="text-decoration: none;color: black;">
-              <span style="font-size:2.5vmax;font-weight:400;">
-                <span style="font-weight: 600;font-size: 2.8vmax;">
-                Non-cardiac Causes&nbsp;</span> of abnormal ECGs.
-              </span></a>
-              <br>
-              <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
-              letter-spacing: -0.1vmin;padding-top:2vmax">
-              Abnormal ECGs from lungs & brain pathology, electrolyte abnormalites, and other metabolic derangement.
-              </div>
-            </div>
-          </div>
-        
-        <!--device HF-->
-        <div class="row">
-            <div class="col1-4">
-              <a href="https://devicehf2019.heartrhythmbox.com/" target="_blank">
-              <img src="media\deviceHF.png" style="width: 90%;" class="card">
-              </a>
-            
-            </div>
-            <div class="col3-4">
-                <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-                09.19
-                </div>
-                <a href="https://devicehf2019.heartrhythmbox.com/" target="_blank" 
-                style="text-decoration: none;color: black;">
-              <span style="font-size:2.5vmax;font-weight:400;">
-                <span style="font-weight: 600;font-size: 2.8vmax;">
-                Cardiac Rhythm Devices&nbsp;</span> in HF 2019.
-              </span></a>
-              <br>
-              <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
-              letter-spacing: -0.1vmin;padding-top:2vmax">
-              Optimal candidates for CRT & ICD & Update on new devices for HF.
-              </div>
-            </div>
-          </div>
-
-        <!--IBHRE-->
-        <div class="row">
-            <div class="col1-4">
-              <a href="https://ibhre.heartrhythmbox.com/" target="_blank">
-              <img src="media\ibhre.png" style="width: 90%;" class="card">
-              </a>
-             
-            </div>
-            <div class="col3-4">
-                <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-                07.19
-                </div>
-                <a href="https://ibhre.heartrhythmbox.com/" target="_blank" 
-                style="text-decoration: none;color: black;">
-              <span style="font-size:2.5vmax;font-weight:400;">
-                <span style="font-weight: 600;font-size: 2.8vmax;">
-                IBHRE Tutorials&nbsp;</span> &bull; 2019 Update
-              </span></a>
-              <br>
-              <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
-              letter-spacing: -0.1vmin;padding-top:2vmax">
-              Basic EP | ECG | Clinical Practice
-              for cardiac rhythm device specialists.
-              </div>
-            </div>
-          </div>
-
-        <!--basicPPM-->
-        <div class="row">
-            <div class="col1-4">
-              <a href="https://basicppm.heartrhythmbox.com/" target="_blank">
-              <img src="media\basicPPM.png" style="width: 90%;" class="card">
-              </a>
-            
-            </div>
-            <div class="col3-4">
-                <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-                05.19
-                </div>
-                <a href="https://basicppm.heartrhythmbox.com/" target="_blank" 
-                style="text-decoration: none;color: black;">
-              <span style="font-size:2.5vmax;font-weight:400;">
-                Basic
-                <span style="font-weight: 600;font-size: 2.8vmax;">
-                Pacing&nbsp;</span> Concept
-              </span></a>
-              <br>
-              <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
-              letter-spacing: -0.1vmin;padding-top:2vmax">
-              Multiple-choice Questions with detailed Answers in basic pacing concepts.
-              </div>
+            <div style="padding-top: 0.5vmax;line-height: 150%;">
+            . . . updated contents on a variety of topics.<br>
+            . . . Qs&As for board preparation.<br>
+            . . . no cost or subscription required.
             </div>
           </div>
     </div>
 
-    <!--the earlier-->
-    <div style="background-color: #f1f1f1;">
+    <!--search console-->
+    <div style="max-width: 600px;margin-left: auto;margin-right: 0;">
+      <script async src="https://cse.google.com/cse.js?cx=007840877810477839873:4bpoeoxktjo"></script>
+              <div class="gcse-search"></div>
+      </div>
+
+    <!--the latest-->
+    <div id="latest" style="background-color: #f1f2f3;">
+    <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;
+    color: #555;">
+      <div style="border-bottom:#ff6f61 1px solid">
+      <span style="color:#ff6f61;">
+      The</span>&nbsp;
+      latest</div>
+    </div>
+
+    <!--the list of the latest-->
+    <!--AF Ablation-->
+    <div class="rowContent">
+      <div class="col1-4">
+        <a href="https://heartrhythmbox.com/afablation/" target="_blank">
+        <img src="media/AF ablation.png" style="width: 90%;" class="card">
+        </a>
+        </div>
+      <div class="col3-4">
+          <div style="padding:1vmax 0;color: #ff6f61;font-size: 1.5vmax;">
+          04.20
+          </div>
+          <a href="https://heartrhythmbox.com/afablation/" target="_blank" 
+          style="text-decoration: none;color: black;">
+        <span style="font-size:2.5vmax;font-weight:400;">
+          <span style="font-weight: 600;font-size: 2.8vmax;">
+          Catheter Ablation for Atrial Fibrillation</span> 
+        </span></a>
+        <br>
+        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax">
+          Mechanisms of AF & Target for Ablation | Techniques & Procedural Consideration | Evidences & Recommendations
+        </div>
+      </div>
+    </div>
+
+    <!--SCD M&F-->
+    <div class="rowContent">
+      <div class="col1-4">
+        <a href="https://heartrhythmbox.com/scd/" target="_blank">
+        <img src="media\SCDM&F.png" style="width: 90%;" class="card">
+        </a>
+        </div>
+      <div class="col3-4">
+          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
+          03.20
+          </div>
+          <a href="https://heartrhythmbox.com/scd/" target="_blank" 
+          style="text-decoration: none;color: black;">
+        <span style="font-size:2.5vmax;font-weight:400;">
+          <span style="font-weight: 600;font-size: 2.8vmax;">
+          Sudden Cardiac Death: Myths & Facts</span> 
+        </span></a>
+        <br>
+        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax">
+          Basic Understanding of Sudden Cardiac Deaths, Common Causes, Treatments, and Prevention 
+        </div>
+      </div>
+    </div>
+  
+    <!--EP QA-->
+    <div class="rowContent" >
+      <div class="col1-4">
+        <a href="https://heartrhythmbox.com/qa2020/" target="_blank">
+        <img src="media\Ep QA.png" style="width: 90%;" class="card">
+        </a>
+        </amp-img>
+      </div>
+      <div class="col3-4">
+          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
+          03.20
+          </div>
+          <a href="https://heartrhythmbox.com/qa2020/" target="_blank" 
+          style="text-decoration: none;color: black;">
+        <span style="font-size:2.5vmax;font-weight:400;">
+          <span style="font-weight: 600;font-size: 2.8vmax;">
+          Cardiac Electrophysiology Qs&As 2020</span> 
+        </span></a>
+        <br>
+        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax">
+        Aimed for board preparation and quick knowledge update.<br> 
+        Coming in 3 topics (for now): Basic Pacing Concepts, Sudden Cardiac Death, and Top Tracings.
+        </div>
+      </div>
+    </div>
+  
+    <!--ACHD-->
+    <div class="rowContent">
+      <div class="col1-4">
+        <a href="https://heartrhythmbox.com/achd/" target="_blank">
+        <img src="media\ACHD.png" style="width: 90%;" class="card">
+        </a>
+        
+      </div>
+      <div class="col3-4">
+          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
+          02.20
+          </div>
+          <a href="https://heartrhythmbox.com/achd/" target="_blank" 
+          style="text-decoration: none;color: black;">
+        <span style="font-size:2.5vmax;font-weight:400;">
+          <span style="font-weight: 600;font-size: 2.8vmax;">
+          SCD in Grown-up Congenital Heart Diseases</span> 
+        </span></a>
+        <br>
+        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
+        letter-spacing: -0.1vmin;padding-top:2vmax">
+        Info-Comics
+        </div>
+      </div>
+    </div>
+  
+    <!--J wave-->
+    <div class="rowContent">
+      <div class="col1-4">
+        <a href="https://jwave.heartrhythmbox.com/" target="_blank">
+        <img src="media/jwave.png" style="width: 90%;" class="card">
+        </a>
+        
+      </div>
+      <div class="col3-4">
+          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
+          01.20
+          </div>
+          <a href="https://jwave.heartrhythmbox.com/" target="_blank" 
+          style="text-decoration: none;color: black;">
+        <span style="font-size:2.5vmax;font-weight:400;">
+          <span style="font-weight: 600;font-size: 2.8vmax;">
+          J-Wave Syndrome&nbsp;</span> 
+        </span></a>
+        <br>
+        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
+        letter-spacing: -0.1vmin;padding-top:2vmax">
+        A Brief Introduction with Latest Update on J-wave Syndrome
+        </div>
+      </div>
+    </div>
+
+    <!--update H2-->
+    <div class="rowContent">
+      <div class="col1-4">
+        <a href="https://heartrhythmbox.com/updateh2/updateh2.html" target="_blank">
+        <img src="media\updateH2.png" style="width: 90%;" class="card">
+        </a>
+        
+      </div>
+      <div class="col3-4">
+          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
+          11.19
+          </div>
+          <a href="https://heartrhythmbox.com/updateh2/updateh2.html" target="_blank" 
+          style="text-decoration: none;color: black;">
+        <span style="font-size:2.5vmax;font-weight:400;">
+          <span style="font-weight: 600;font-size: 2.8vmax;">
+          Arrhythmias Update&nbsp;</span> H2-2019
+        </span></a>
+        <br>
+        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
+        letter-spacing: -0.1vmin;padding-top:2vmax">
+        Trials and Guidelines Update of the 2nd half of 2019.
+        </div>
+      </div>
+    </div>
+
+    <!--ecg-->
+    <div class="rowContent">
+      <div class="col1-4">
+        <a href="https://ecg.heartrhythmbox.com/" target="_blank">
+        <img src="media\ecg.png" style="width: 90%;" class="card">
+        </a>
+        
+      </div>
+      <div class="col3-4">
+          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
+          10.19
+          </div>
+          <a href="https://ecg.heartrhythmbox.com/" target="_blank" 
+          style="text-decoration: none;color: black;">
+        <span style="font-size:2.5vmax;font-weight:400;">
+          <span style="font-weight: 600;font-size: 2.8vmax;">
+          Non-cardiac Causes&nbsp;</span> of abnormal ECGs.
+        </span></a>
+        <br>
+        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
+        letter-spacing: -0.1vmin;padding-top:2vmax">
+        Abnormal ECGs from lungs & brain pathology, electrolyte abnormalites, and other metabolic derangement.
+        </div>
+      </div>
+    </div>
+     
+    <!--IBHRE-->
+    <div class="rowContent">
+        <div class="col1-4">
+          <a href="https://ibhre.heartrhythmbox.com/" target="_blank">
+          <img src="media\ibhre.png" style="width: 90%;" class="card">
+          </a>
+          
+        </div>
+        <div class="col3-4">
+            <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
+            07.19
+            </div>
+            <a href="https://ibhre.heartrhythmbox.com/" target="_blank" 
+            style="text-decoration: none;color: black;">
+          <span style="font-size:2.5vmax;font-weight:400;">
+            <span style="font-weight: 600;font-size: 2.8vmax;">
+            IBHRE Tutorials&nbsp;</span> &bull; 2019 Update
+          </span></a>
+          <br>
+          <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
+          letter-spacing: -0.1vmin;padding-top:2vmax">
+          Basic EP | ECG | Clinical Practice
+          for cardiac rhythm device specialists.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--the earlier-->
+  <div id="earlier" style="background-color:white;">
     <div style="padding: 3vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;color: #555;
     letter-spacing: -0.1vmax;">
       <div style="border-bottom:#FCB7B2 0.1vmax solid">
@@ -394,6 +356,31 @@
     </div>
 
     <!--the list of the earlier-->
+    <!--device HF-->
+    <div class="rowContent">
+      <div class="col3-4" style="text-align: right;">
+          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
+          09.19
+          </div>
+          <a href="https://heartrhythmbox.github.io/deviceHF2019/" target="_blank" 
+          style="text-decoration: none;color: black;">
+        <span style="font-size:2.5vmax;font-weight:400;">
+          <span style="font-weight: 600;font-size: 2.8vmax;">
+          Cardiac Rhythm Devices&nbsp;</span> in HF 2019.
+        </span></a>
+        <br>
+        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;
+        letter-spacing: -0.1vmin;padding-top:2vmax">
+        Optimal candidates for CRT & ICD & Update on new devices for HF.
+        </div>
+      </div>
+      <div class="col1-4">
+        <a href="https://heartrhythmbox.github.io/deviceHF2019/" target="_blank">
+        <img src="media\deviceHF.png" style="width: 90%;" class="card">
+        </a>
+      
+      </div>
+    </div>
     <!--Gd2019-->
     <div style="padding: 1vmax 3vmax;line-height:100%;">
     <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
@@ -461,58 +448,56 @@
 
     </div>
 
-
-    <!--footer-->
-    <div style="background-color: #555;color: white;font-size: 18px;padding: 5vh 3vh">
-      <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
-      
-        <div class="rowF">
-        <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
-        style="text-decoration:none;color: white;">
-        <b>follow</b> us at &nbsp;
-        <img src="fb.png" width="23" height="23" layout="fixed" style="vertical-align: -3px;">
-      
-        </a>
-        </div>
-
-        
-        <div class="rowF">
-        <a href="#top" target="_blank" 
-        style="text-decoration:none;color: white;">
-        <b>Top</b> of the page</a>
-        </div>
-
-        <div class="rowF" style="text-align: left;">
-           
-                
-                  <h2 class="sectionH">About the page</h2>
-                  <p class="sectionT">Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
-                    The page is created mainly for educational purpose. 
-                    We believe that presentations should be more interactive and easily accessible. All pages are mobile-friendly, tablet-friendly, and of course, notebook and desktop-friendly.
-                  </p>
-        </div>        
-        <div class="rowF" style="text-align: left;">       
-                  <h2 class="sectionH">About the author</h2>
-                  <p class="sectionT">
-                    <i>t'</i> Thon, the screen name of the author, is a novice web developer,
-                    a wine enthusiast, and a cardiac eletrophysiologist by training.
-                  </p>
-               
-            
-        </div>
-
-        <div class="rowF" style="border-bottom: none;">
-            <a href="https://github.com/HeartRhythmBox" target="_blank" 
-            style="text-decoration:none;color: white;">
-            Know more about us: &nbsp;
-            <img src="github white.png" width="23" height="23" layout="fixed" style="vertical-align: -3px;">
-           
-            </a>
-        </div>
-
-      </div>
-    </div>
+<!--footer-->
+<div id="about" style="background-color: #555;color: white;font-size: 18px;padding: 5vh 3vh">
+  <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
   
+    <div class="rowF">
+      <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+      style="text-decoration:none;color: white;">
+        <b>follow</b> us at &nbsp;
+        <img src="fb.png" style="vertical-align: -3px;width: 23px;">
+      </a>
+    </div>
 
+    
+    <div class="rowF">
+    <a href="#top" target="_blank" 
+    style="text-decoration:none;color: white;">
+    <b>Top</b> of the page</a>
+    </div>
+
+    <div class="rowF" style="text-align: left;">
+       
+            
+              <h2 class="sectionH">About the page</h2>
+              <p class="sectionT">Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+                The page is created mainly for educational purpose. 
+                We believe that presentations should be more interactive and easily accessible. 
+                No need to register or download. You can access everything at your fingertips.
+              </p>
+    </div>        
+    <div class="rowF" style="text-align: left;">       
+              <h2 class="sectionH">About the author</h2>
+              <p class="sectionT">
+                <i>t'</i> Thon, the screen name of the author, is a novice web developer,
+                a wine enthusiast, and a cardiac eletrophysiologist by training.
+              </p>
+           
+        
+    </div>
+
+    <div class="rowF" style="border-bottom: none;">
+        <a href="https://github.com/HeartRhythmBox" target="_blank" 
+        style="text-decoration:none;color: white;">
+        Know more about us: &nbsp;
+        <img src="github white.png" style="vertical-align: -3px;width: 23px;">
+       
+        </a>
+    </div>
+
+  </div>
+</div>
+    
 </body>
 </html>
