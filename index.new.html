@@ -36,9 +36,7 @@ padding: 0;
 .coral {background-color: #fa7268;}
 
 /*flexbox */
-.row {
-  display: flex;padding: 3vmax;
-}
+.row {display: flex;}
 .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
 
 .colHalf{
@@ -61,19 +59,28 @@ padding: 0;
 .card {box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 border-radius: 8px;}
 
+.menu {text-decoration: none;padding: 0 0.5vmax;color:#fa7268;border-right: #f1f2f3 0.1vmax solid;}
+
 </style>
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif;">
     <!--title-->
-    <div class="coral row" style="position: sticky;top: 0;left: 0;padding: 0.5vmax;justify-content: center;">
+    <div class="coral row" 
+    style="position: sticky;top: 0;left: 0;justify-content: center;align-items: center;padding: 0vmax;">
         <div style="text-align: right;">
         <img src="box coral.png" style="width: 5vmax;">
         </div>
         <div style="font-size: 2.3vmax;color: white;text-align: left;">
             Heart<span style="font-weight: 700;">RHYTHM</span>Box<br>
-            <span style="font-size: 1.5vmax;color: #f1f2f3;line-height: 100%;">Cardiac Arrhythmias Tutorials</span>
         </div>
+    </div>
+    <div class="row" style="padding-top:0.2vmax;font-size: 1.7vmax;justify-content: center;">
+        <a href="" class="menu">Home </a>
+        <a href="" class="menu">The Latest </a>
+        <a href="" class="menu">The Earlier </a>
+        <a href="" class="menu">Teaching Portal </a>
+        <a href="" class="menu">About Us </a>
     </div>
     
 </body>
