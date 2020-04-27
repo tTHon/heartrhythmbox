@@ -69,11 +69,12 @@ border-radius: 8px;}
 
 .menu {text-decoration: none;padding: 0.1vmin 0.7vmax;color:#ff6f61;border-right: #ddd 1px solid;}
 
-.blog {background-color: white;padding: 2vmax;border-bottom: #888 1px solid;margin: 1vmax;}
+.blog {background-color: #f7f7f7;padding: 2vmax;margin: 2vmax}
 .headLine {font-weight: 600;font-size: 3vmax;color:#ff6f61;line-height: 130%;}
-.posted {font-size: 1.8vmax;font-weight: 200;color: #888;}
+.posted {font-size: 1.8vmax;font-weight: 200;color: #888;border-bottom: #b5bab6 solid 1px;padding: 0.5vmax;}
 .content {font-size: 1.8vmax;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;color: #555;
-            padding: 2.5vmax}
+            padding: 2.5vmax;text-align: justify;line-height: 150%;}
+    .content li {padding: 0.5vmax;}
 
 .sectionH {padding-top: 0.5vmax;background-color: transparent;color: white;font-size: 18px;border: none;}
 .sectionT {
@@ -84,6 +85,10 @@ border-radius: 8px;}
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif;">
+
+    <!--fb javascript sdk-->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
 
     <!--menu-->
     <div style="position: sticky;top: 0;left: 0;">
@@ -113,11 +118,11 @@ border-radius: 8px;}
     </div>
 
     <!--blog-->
-    <div class="blog">
+    <div class="blog card">
         
         <!--headline-->
         <div class="headLine" >
-            Basic ECG Interpretations for MSIV: 14 May 2020
+            Basic ECG Interpretations for MSIV Group 1 -- 14 May 2020
         </div>
         <!--date posted-->
         <div class="posted">
@@ -126,20 +131,26 @@ border-radius: 8px;}
         </div>
         <!--content-->
         <div class="content">
-            <ul style="margin-left:auto;margin-right: auto;">
+            <ul>
                 <li>
-                    Pretest: please go to the link or QR code below.<br>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeoTEWYPGBxBkO9kl_pdsWuNTZooF3AMuRBKQhdAxlnRSsPzA/viewform?usp=pp_url">
-                        Click here for pretest
-                    </a><br>
-                    <img src="teaching\QRforPreTest.png" style="width: 15vmax;">
+                    Pretest: please go this 
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeoTEWYPGBxBkO9kl_pdsWuNTZooF3AMuRBKQhdAxlnRSsPzA/viewform?usp=pp_url" target="_blank">
+                    link</a> or scan the QR code <br>
+                    <img src="teaching\QRforPreTest.png" style="max-width: 100%;max-height: 30vh;">
                     
                 </li>
                 <li>
-                    Check these clips out for basic knowledge.
+                    Check these clips out for basic knowledge.<br>
+                    <iframe style="max-width: 100%;" width="560" height="315" 
+                    src="https://www.youtube.com/embed/videoseries?list=PLSVT4h46-zUIJGfmtimiWI9prGHwlbKNE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+                    </a>
+
                 </li>
             </ul>
-            check this vdo clips out.
+            
+            <div class="fb-comments" data-href="https://heartrhythmbox.com/teaching.html" data-numposts="10" data-width="100%">
+            </div>
         </div>
     </div>
 
