@@ -34,15 +34,15 @@ padding: 0;
 /*flexbox */
 .row {display: flex;}
 .row600 {display: flex;}
-.col1-3{
-  flex: 33%;
-  -ms-flex: 33%;margin: 0.5vmax;
+.colHalf{
+  flex: 50%;
+  -ms-flex: 50%;margin: 0.5vmax;
   padding: 1vmax;align-self: center;
 }
 
 @media only screen and (max-width:600px) {
   .row600, .rowContent {flex-wrap: wrap;}
-  .col1-3 {flex: 100%;max-width: 100%;}
+  .colHalf {flex: 100%;max-width: 100%;}
 }
 
 /*color*/
@@ -60,31 +60,30 @@ border-radius: 8px;}
 
 </head>
 
-<body style="font-family: 'Manrope', sans-serif;">
-    <h1 class="blue" style="padding:5vh 2vmax;font-weight: 800;font-size: 3vmax;line-height: 120%;">
-        Cardiac Rhythm Devices Troubleshooting
+<body style="font-family: 'Manrope', sans-serif;background-color: #232941;">
+    <h1 style="padding:5vh 2vmax;font-weight: 800;font-size: 3vmax;line-height: 120%;color: white;
+    text-align: center;letter-spacing: 2px;">
+        CARDIAC&nbsp;&nbsp;RHYTHM&nbsp;&nbsp;DEVICE&nbsp;&nbsp;TROUBLESHOOTING 
     </h1>
-    <h2 class="row600" style="padding: 1vmax;font-weight: 400;">
+    <h2 class="row600" style="padding:1vmax 2vmax;font-weight: 400;">
         
-        <div class="col1-3 green card" style="font-size: 2vmax;">
+        <div class="colHalf green card" style="font-size: 2vmax;">
             <a href="sensing.html" target="_blank" class="clean" style="color:#295651;">
-                <img src="media/sensing.png" style="width: 100%;" class="card">
-                Sensing
+                <img src="media/paceSense.png" style="width: 100%;" class="card">
+                Pace & Sense
             </a>
         </div>
-        <div class="col1-3 jade card" style="font-size: 2vmax;">
-            <a href="pacing.html" target="_blank" class="clean" style="color:#295651;">
+        <div class="colHalf jade card" style="font-size: 2vmax;">
+            <a href="pacing.html" target="_blank" class="clean" style="color:white;">
                 <img src="media/sensing.png" style="width: 100%;" class="card">
-                Pacing
+                Shock
             </a>
         </div>
-        <div class="col1-3 pine card" style="font-size: 2vmax;">
-            Shock
-        </div>
+        
     </h2>
 
 <!--end page-->
-<div style="margin-top:5vh;background:#f1f1f1;font-size: 1.2vmax;padding: 2vmax;color:#797979;text-align: center;">
+<div style="margin-top:5vh;background-color:#ddd;font-size: 1.2vmax;padding: 2vmax;color:#797979;text-align: center;">
     <a href="https://heartrhythmbox.com" target="_blank">        
         <img src="\box transparent.png" style="width: 3.5vmax;"></a> &nbsp;&nbsp;
     <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">
