@@ -33,7 +33,7 @@ padding: 0;
 
 /*flexbox */
 .row {display: flex;}
-.row600 {display: flex;}
+.row600,.row800 {display: flex;}
 .col1-3{
     flex: 33%;
     -ms-flex: 33%;margin: 0.5vmax;
@@ -45,6 +45,10 @@ padding: 0;
     .row600, .rowContent {flex-wrap: wrap;}
     .col1-3 {flex: 100%;max-width: 100%;}
     .noMobile {display: none;}
+}
+
+@media only screen and (max-width:800px){
+    .row800 {flex-wrap: wrap;}
 }
 
 /*color*/
@@ -160,7 +164,7 @@ justify-content: center;}
     </h2>
     </div>
 
-    <!--A dislodgement-->
+    <!--3 A dislodgement-->
     <div class="Q">
         <!--img-->
         <h1 class="tracing">
@@ -195,7 +199,7 @@ justify-content: center;}
         </h2>
         </div>
 
-    <!--CRT A undersensing-->
+    <!--4 CRT A undersensing-->
     <div class="Q">
         <!--img-->
         <h1 class="tracing">
@@ -242,7 +246,7 @@ justify-content: center;}
         </h2>
         </div>
     
-    <!--PPM syndrome-->
+    <!--5 PPM syndrome-->
     <div class="Q">
         <!--img-->
         <h1 class="tracing">
@@ -341,7 +345,7 @@ justify-content: center;}
         </h2>
         </div>
     
-    <!--A in V-->
+    <!--7 A in V-->
     <div class="Q">
         <!--img-->
         <h1 class="tracing">
@@ -442,7 +446,7 @@ justify-content: center;}
         </h2>
         </div>
     
-    <!--lead fx not sense nor pace-->
+    <!--9 lead fx not sense nor pace-->
     <div class="Q">
         <!--img-->
         <h1 class="tracing">
@@ -481,7 +485,7 @@ justify-content: center;}
         </h2>
         </div>
 
-    <!--EMI causing inapp shock-->
+    <!--10 EMI causing inapp shock-->
     <div class="Q">
         <!--img-->
         <h1 class="tracing">
@@ -582,6 +586,54 @@ justify-content: center;}
                         <li>Ventricular lead sensitivity should be assessed.</li>
                         <li>VT storm should also be treated accordingly.</li>
                     </ol>
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+    </div>
+
+    <!--13 lead in CS-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/pacing/lead in CS/Temp pace in CS.jpg" style="width: 100%;">
+        </h1>
+        
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        Temporary pacemaker. VVI 80.
+                </li>
+                <li>
+                    <span style="font-weight: 800;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Normal pacing function of an LV lead.
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                    <ul class="noBorder" style="list-style-position: inside;">
+                        <li>Pacing function is normal. Sensing function is unknown.</li>
+                        <li>Ventricular pacing vector is left-to-right (positive in V1 and negative in I and aVL) and
+                            superior-to-inferior (positive in II, III, and aVF).
+                        </li>
+                        <li>Pacing has to come from left ventricular side.</li>
+                        <li>CXR shows the lead was in outflow tract area. LVOT or CS are possible.</li>
+                        <li>X-ray in the LAO view confirms the lead position in coronary sinus.</li>
+                    </ul>
+                    <div class="row600" style="padding:1vmax;justify-content: center;">
+                        <div style="padding: 1vmax;">
+                            <img src="media/pacing/lead in CS/CXR.jpg" style="width: 100%;">
+                        </div>
+                        <div style="padding: 1vmax;">
+                            <img src="media/pacing/lead in CS/LAO.png" style="width: 100%;">
+                        </div>
+                    </div>
                     </span>
                 </li>
             </ul>

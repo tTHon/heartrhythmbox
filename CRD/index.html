@@ -32,71 +32,755 @@ padding: 0;
 }
 
 /*flexbox */
-.row {display: flex;}
-.row600 {display: flex;}
-.colHalf{
-  flex: 50%;
-  -ms-flex: 50%;margin: 0.5vmax;
-  padding: 1vmax;align-self: center;
-}
+.row, .row600, .row800 {display: flex;}
+.rowWrap {display: flex;flex-wrap: wrap;justify-content: center;}
 
 @media only screen and (max-width:600px) {
-  .row600, .rowContent {flex-wrap: wrap;}
-  .colHalf {flex: 100%;max-width: 100%;}
+  .row600 {flex-wrap: wrap;}
 }
+@media only screen and (max-width:800px){
+    .row800 {flex-wrap: wrap;}
+}
+
 
 /*color*/
 .blue {color:#232941}
 .pine {background-color: #295651;color: white;}
-.jade {background-color: #499360;color: white;}
+.jade {background-color: #499360;color: #f1f2f3;}
 .green {background-color: #97baa4;color: #295651;}
+.gin {background-color: #b9ffef;color: #232941;}
+.berryl {background-color: #7eccb6;color: #232941;}
 
 
 .card {box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 border-radius: 8px;}
+.imgCard {width: 320px;height: 180px;border-radius: 8px;padding: 0.5vmin;margin: 1vmax;
+overflow: hidden;font-size: 2vmax;text-align: center;line-height: 100%;align-self: center;cursor: pointer;}
+.imgCard img {width: 100%;max-height: 130px;}
 .clean {text-decoration: none;}
+
+/*showcase*/
+.tracing {padding: 0.2vmax;}
+.content {list-style: none;font-size: 2vmax;}
+.content li {border-bottom: #797979 solid 0.1vmin;padding:1vmax;list-style-position: inside;}
+.footer {position: sticky;bottom: 0;left: 0;width: 100%;color: #97baa4;background-color: #333333;
+font-size: 1.5vmax;padding:0.5vmax;border-top-left-radius: 8px;border-top-right-radius: 8px;
+justify-content: center;}
+.footer a {text-decoration: none;color: #97baa4;border-right: #797979 1px dotted;}
+.Q {display: none;}
+.noBorder {padding:0.5vmax 2vmax;}
+.noBorder li {border: none;}
+#showCase {display: none;}
 
 </style>
 
 </head>
 
 <body style="font-family: 'Manrope', sans-serif;background-color: #232941;">
+<div id="home">
     <h1 style="padding:5vh 2vmax;font-weight: 800;font-size: 3vmax;line-height: 120%;color: white;
     text-align: center;letter-spacing: 2px;">
         CARDIAC&nbsp;&nbsp;RHYTHM&nbsp;&nbsp;DEVICE&nbsp;&nbsp;TROUBLESHOOTING 
     </h1>
-    <h2 class="row600" style="padding:1vmax 2vmax;font-weight: 400;">
+    <h2 class="rowWrap" style="padding:1vmax 2vmax;font-weight: 400;">
         
-        <div class="colHalf green card" style="font-size: 2vmax;">
-            <a href="sensing.html" target="_blank" class="clean" style="color:#295651;">
-                <img src="media/paceSense.png" style="width: 100%;" class="card">
-                Pace & Sense
-            </a>
+        <div class="green imgCard" onclick="goTo(0,'green')">
+            <img src="media/sensing/AV undersensing.png">
+             1   
         </div>
-        <div class="colHalf jade card" style="font-size: 2vmax;">
-            <a href="pacing.html" target="_blank" class="clean" style="color:white;">
-                <img src="media/sensing.png" style="width: 100%;" class="card">
-                Shock
-            </a>
+        <div class="jade imgCard" onclick="goTo(1,'jade')">
+            <img src="media/sensing/oversensingFromLeadFx.png">
+            2   
         </div>
-        
+        <div class="pine imgCard" onclick="goTo(2,'pine')">
+            <img src="media/sensing/ADislodgement.jpg">
+            3   
+        </div>
+        <div class="gin imgCard" onclick="goTo(3,'gin')">
+            <img src="media/sensing/intermittent BiV.png">
+            4   
+        </div>
+        <div class="berryl imgCard" onclick="goTo(4,'berryl')">
+            <img src="media/pacing/loss A capture.png">
+            5   
+        </div>
+        <div class="green imgCard" onclick="goTo(5,'green')">
+            <img src="media/pacing/V lead dislodgement.JPG">
+            6   
+        </div>
+        <div class="jade imgCard" onclick="goTo(6,'jade')">
+            <img src="media/pacing/A in V/ddd60.jpg">
+            7   
+        </div>
+        <div class="pine imgCard" onclick="goTo(7,'pine')">
+            <img src="media/pacing/lead swich/tracing.jpg">
+            8   
+        </div>
+        <div class="gin imgCard" onclick="goTo(8,'gin')">
+            <img src="media/pacing/lead Fx/Lead Fx 1800 ohms.JPG">
+            9   
+        </div>
+        <div class="berryl imgCard" onclick="goTo(9,'berryl')">
+            <img src="media/ICD/EMI.jpg">
+            10   
+        </div>
+        <div class="green imgCard" onclick="goTo(10,'green')">
+            <img src="media/ICD/vf shocks.png">
+            11   
+        </div>
+        <div class="jade imgCard" onclick="goTo(11,'jade')">
+            <img src="media/ICD/undersensingVT.png">
+            12   
+        </div>
+        <div class="pine imgCard" onclick="goTo(12,'pine')">
+            <img src="media/pacing/lead in CS/Temp pace in CS.jpg">
+            13   
+        </div>
+       
     </h2>
 
-<!--end page-->
-<div style="margin-top:5vh;background-color:#ddd;font-size: 1.2vmax;padding: 2vmax;color:#797979;text-align: center;">
-    <a href="https://heartrhythmbox.com" target="_blank">        
-        <img src="\box transparent.png" style="width: 3.5vmax;"></a> &nbsp;&nbsp;
-    <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">
-        <img src="fb.png" style="width: 3.5vmax;">
-    </a>
-    <br>
-        
-    HeartRhythmBox, an education page of heart rhythm topics.<br>
-    visit us at <a href="https://heartrhythmbox.com" target="_blank">
-    www.heartrhythmbox.com</a><br>
-    or <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">https://www.facebook.com/HeartRhythmBox/</a>
+    <!--end page-->
+    <div style="margin-top:5vh;background-color:#ddd;font-size: 1.2vmax;padding: 2vmax;color:#797979;text-align: center;">
+        <a href="https://heartrhythmbox.com" target="_blank">        
+            <img src="\box transparent.png" style="width: 3.5vmax;"></a> &nbsp;&nbsp;
+        <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">
+            <img src="fb.png" style="width: 3.5vmax;">
+        </a>
+        <br>
+            
+        HeartRhythmBox, an education page of heart rhythm topics.<br>
+        visit us at <a href="https://heartrhythmbox.com" target="_blank">
+        www.heartrhythmbox.com</a><br>
+        or <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">https://www.facebook.com/HeartRhythmBox/</a>
+    </div>
 </div>
 
+<div id="showCase">
+    <!--AV undersensing-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/sensing/AV undersensing.png" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content" style="color: #333333;">
+                <li>
+                    <span style="font-weight: 800;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        Pacemaker
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Undersensing both A & V
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        - Dual chamber pacemaker (2 pacing spikes within 240ms of each other).<br>
+                        - Baseline rhythm: complete heart block with slow and narrow ventricular escape.<br>
+                        - No evidence of appropriate sensing either A or V. Pacing spikes are all over the place.<br>
+                        - Hard to evaluate pacing function. All pacing spikes occurred during functional refractory periods.
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+        </div>
+    
+    <!--lead fx oversensing-->
+    <div class="Q">
+    <!--img-->
+    <h1 class="tracing">
+        <img src="media/sensing/oversensingFromLeadFx.png" style="width: 100%;">
+    </h1>
+  
+    <h2 style="padding: 1vmax;">
+        <ul class="content">
+            <li>
+                <span style="font-weight: 800;color: #232941;">SETTING</span><br>
+                <span style="font-weight: 400;">
+                    DDD for complete heart block x 10years; generator change 3 years ago.
+                    <br>
+                    Presents with syncope while pulling a field tent. Initial pacemaker interrogation shows normal pacing parameters.
+                </span>
+            </li>
+            <li>
+                <span style="font-weight: 800;color: #232941;">GENERAL DIAGNOSIS</span><br>
+                <span style="font-weight: 400;">
+                    Failure to Fire/Pace
+                </span>
+            </li>
+            <li>
+                <span style="font-weight: 800;color: #232941;">DIFFERENTIAL DIAGNOSES</span><br>
+                <span style="font-weight: 400;">
+                    <ul style="padding-left: 2vmax;">
+                        <li style="border: none;">Oversensing: cross-talk, EMI, oversensing of P or T wave.</li>
+                        <li style="border: none;">Lead problems: fracture, insulation break.</li>
+                        <li style="border: none;">Circuit failure</li>
+                        <li style="border: none;">Battery failure</li>
+                        <li style="border: none;">Loose set screw</li>
+                        <li style="border: none;">Incompatible lead & header</li>
+                    </ul>
+                </span>
+            </li>
+            <li>
+                <span style="font-weight: 800;color: #232941;">EXPLANATION</span><br>
+                <span style="font-weight: 400;">
+                    - Syncope occurred during shoulder activity. Pacemaker should be checked during arm/shoulder movement.
+                    In this case, lead noise is observed during arm movement. Lead fracture is the root cause of the problem.
+                    <br>
+                    - Loose set screw and header/lead mismatch are more likely to occur early after implantation or generator change. 
+                    - Pacemaker was only 3 years old. Battery depletion is unlikely.
+                </span>
+            </li>
+        </ul>
+
+    </h2>
+    </div>
+
+    <!--3 A dislodgement-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/sensing/ADislodgement.jpg" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        DDD 60/120, AV delay 200. Tracing obtained 6 hrs after the implantation.
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Failure to sense and capture of atrial lead.
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        - DDx: Battery depletion, lead fracture, lead dislodgement.<br>
+                        - The event occurred early after the implantation. Lead dislodgement is most likely.<br>
+                        - In this case, the atrial lead was dislodged and not properly sensed or paced.
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+        </div>
+
+    <!--4 CRT A undersensing-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/sensing/intermittent BiV.png" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;color: black;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        CRT-D; DDD 60/120; SAV delay 120ms; PAV delay 150ms
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: black;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Loss of P-synchronous Pacing
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: black;">DIFFERENTIAL DIAGNOSES</span><br>
+                    <span style="font-weight: 400;">
+                        <ul style="padding-left: 2vmax;">
+                            <li style="border: none;">Long programmed AV delay</li>
+                            <li style="border: none;">Atrial rate is too fast or maximal tracking rate is too low.</li>
+                            <li style="border: none;">PVCs and/or PVARP extension post PVCs.</li>
+                            <li style="border: none;">Atrial undersensing</li>
+                        </ul>
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: black;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        - Baseline rhythm is sinus rhythm, 1AVB, IVCD. <br>
+                        - Only one pacing spike is observed at the 8th beat. The pacing spike is in sync with P wave and is biventricular (positive in V1 & V2).<br>
+                        - Native PR is longer than programmed AV delay, so there should be biV pacing followed each and every P wave. <br>
+                        - Intermittent atrial undersensing is the most likely the root cause of suboptimal BiV pacing.<br>
+                        - In this case, A signal was tiny, recorded at 0.3mV.
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+        </div>
+    
+    <!--5 PPM syndrome-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/pacing/loss A capture.png" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;color: #232941;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        Two years after dual chamber pacemaker implantation with dyspnea on exertion and lower extremity edema.
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: #232941;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Failure to capture of atrial lead
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: #232941;">DIFFERENTIAL DIAGNOSES</span><br>
+                    <span style="font-weight: 400;">
+                        <ul class="noBorder">
+                            <li>Lead dislodgement</li>
+                            <li>Elevated threshold</li>
+                            <li>Lead fracture</li>
+                            <li>Insulation break</li>
+                            <li>Loose set screw</li>
+                            <li>Battery depletion</li>
+                            <li>Circuit Failure</li>
+                        </ul>
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: #232941;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        <ul class="noBorder">
+                            <li>Tracing: 2 pacing spikes within 160 ms, no A capture, but V capture with retrograde P waves.</li>
+                            <li>Retrograde P waves are within PVARP; did not cause PMT.</li>
+                            <li>Symptoms of dyspnea and edema are likely from pacemaker syndrome from retrograde P waves.</li>
+                            <li>Elevated threshold, rather than lead dislodgement, is more likely at the chronic stage of pacemaker.</li>
+                            <li>Lead fracture, insulation break, or battery problems remain possible but less common.</li>
+                            <li>In this case, the atrial threshold is up due to newly developed renal insufficiency.</li>
+                        </ul>
+                    </span>
+                </li>
+
+            </ul>
+    
+        </h2>
+        </div>
+
+    <!--V dislodgement-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/pacing/V lead dislodgement.JPG" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;color: #232941;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        DDD 60/120, AVD 200ms. One week after initial implantation.
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: #232941;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Failure to sense and capture of ventricular lead
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: #232941;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        <ul class="noBorder">
+                            <li>Atrial lead sensing function is normal, pacing function is unknown.</li>
+                            <li>
+                                DDx: Lead dislodgement, battery depletion, lead fracture, insulation break.<br>
+                                Since the event occurs in the acute phase, battery depletion and lead fracture are unlikely.
+                            </li>
+                            <li>Baseline rhythm = sinus rhythm with complete heart block with slow ventricular escape.</li>
+                            <li>
+                                Pacing spikes are mostly P-wave synchronous. Some occurs after PVCs; likely tracking the retrograde P waves.
+                            </li>
+                            <li>In this case, the ventricular lead is dislodged. Reposition is required. 
+                                While awaiting repositioning, the patient should be managed as if he/she is having complete heart block without permanent pacemaker.</li>
+                        </ul>
+                    </span>
+                </li>
+
+            </ul>
+    
+        </h2>
+        </div>
+    
+    <!--7 A in V-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/pacing/A in V/ddd60.jpg" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;color: #232941;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        DDD 60, AVD 300ms, Boston Insignia. One day after initial implantation.
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: #232941;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Failure to sense and capture of atrial lead
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;color: #232941;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        <ul class="noBorder">
+                        <li>P waves (hidden in T waves) were not properly sensed.</li>
+                        <li>A pacing resulted in V capture.</li>
+                        <li>V pacing (the spike was 300ms after the A pacing spike) resulted in functional non-capture.</li>
+                        <li>DDx: Atrial lead dislodgement in to right ventricle or leads switch in the header (A lead in the V port and V lead in the A port).</li>
+                        <li>If A lead is in RV and A pacing results in V capture, should there be "safety-pacing" within 110ms? </li>
+                        &nbsp;&nbsp;&nbsp;&bull;In this case, it is the Boston Scientific device which has the algorithm to asynchronously pace at the programmed AV interval instead of safety pacing at 110 ms.<br>
+                        <li>Can we rule in/out leads switch in the header?</li>
+                        &nbsp;&nbsp;&nbsp;&bull;With this tracing alone, cannot. To rule in, you need to see the evidence of atrial sensing. Though there is no such evidence in this tracing, it might be that we have not seen a long enough tracing.
+                        <li>Next step: PPM interrogation and CXR.</li>
+                        </ul>
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;color: #232941;">MORE INFO</span><br>
+                    <span style="font-weight: 400;">
+                        CXR and Device EGM shows atrial lead dislodgement into right ventricle.
+                    </span>
+                    <div class="row800">
+                        <div style="padding: 0.5vmax;flex-shrink: 1.1;">
+                            <img src="media/pacing/A in V/egm.jpg" style="width: 100%;">
+                        </div>
+                        <div style="padding: 0.5vmax;">
+                            <img src="media/pacing/A in V/cxr.png" style="width: 100%;">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+    
+        </h2>
+        </div>
+
+    <!--Lead Switch-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/pacing/lead swich/tracing.jpg" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;color: #232941;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        DDD 60/120, AV delay 170 ms, tracing obtained in the recovery area right after pacemaker implantation.
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: #232941;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Failure to capture of atrial lead
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;color: #232941;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        <ul class="noBorder">
+                            <li>Magnet application (= DOO) shows that A pacing results in V capture.</li>
+                            <li>DDx: A dislodgement in RV vs. leads switch in the header (A lead in V port and V lead in A port).</li>
+                            <li>P wave from the native sinus beat is properly sensed meaning that there must be a lead in the atrial. So, this is the case of leads switch in the header. Reoperation is required.</li>
+                            <li>Baseline rhythm = sinus with frequent PVCs.</li>
+                            <li>After each sinus P wave, PVARP extension is triggered as a response to PVC.</li>
+                            <li>Atrial pacing after sinus beat comes right on time of 830 msec (1000-170).</li>
+                            <img src="media/pacing/lead swich/labelled.png" style="width: 80%;text-align: center;">    
+                            
+                        </ul>
+                    </span>
+                </li>
+
+            </ul>
+    
+        </h2>
+        </div>
+    
+    <!--9 lead fx not sense nor pace-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/pacing/lead Fx/Lead Fx 1800 ohms.JPG" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        VVI 60. Initial implantation 15 years ago. Generator change 3 years ago.
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Failure to output, failure to capture, and failure to sense.
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        - Baseline rhythm: AF with slow ventricular response; slower than lower rate of pacemaker.<br>
+                        - No pacing spikes during the first four beats = failure to output.<br>
+                        - 3 pacing spikes without capture at the last part of the tracings. The 1st and 3rd spikes are not in refractory period and are not captured.<br>
+                        - Pacing spikes are not in sync with the native beats = failure to sense.<br>
+                        - Lead problems are on the top of the list. Battery depletion is possible but less likely for a 3-yr old modern pacemaker.<br>
+                        - In this case, lead impedance is 1800 ohms consistent with lead fracture. The fracture is also visible in the X-ray.<br>
+                        <img src="media/pacing/lead Fx/CXR.png" style="padding: 1vmax;width: 80%;">
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+        </div>
+
+    <!--10 EMI causing inapp shock-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/ICD/EMI.jpg" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        Single-chamber ICD.
+                </li>
+                <li>
+                    <span style="font-weight: 800;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Inappropriate ICD shock
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                    - Signals with non-physiologic intervals (ie. &lt;200ms) are recorded. These are noises.   <br>                      
+                    - Electromagnetic interference is most likely since noises are seen in both near-field (Vtip-Vring) and far-field signals (Can to HVB).<br>
+                    - EMI causes inappropriate shock.<br>
+                    - The patient reports use of electrical saw during the episode.                        
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+    </div>
+
+    <!--VF shocks-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/ICD/vf shocks.png" style="width: 100%;">
+        </h1>
+        
+        <h2 style="padding: 1vmax;color: #333333;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        Single-chamber ICD. Multiple shocks within 12 hours.
+                </li>
+                <li>
+                    <span style="font-weight: 800;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Appropriate ICD Shock
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                    - Both near-field and far-field signals are consistent with VF.<br>
+                    - Multiple appropriate ICD shocks for ventricular arrhythmia within a short period of time should be treated as electrical storm.<br>
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+    </div>
+
+    <!--undersensing fVT-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/ICD/undersensingVT.png" style="width: 100%;">
+        </h1>
+        
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;color: #232941;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        Single-chamber ICD. Palpitation and syncope.
+                </li>
+                <li>
+                    <span style="font-weight: 800;color: #232941;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Appropriate and Necessary ICD Shock
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;color: #232941;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                    <ol class="noBorder" style="list-style-position: inside;">
+                        <li>VT with CL 300 ms triggers appropriate ATP (FVT Rx1 Burst).</li>
+                        <li>VT accelerates to 260 ms.</li>
+                        <li>Several VT beats are undersensed; noted with the CL of 500-540 ms.</li>
+                        <li>The second therapy (ATP) and the third therapy (shock) are delayed.</li>
+                        <li>Shock is necessary after unsuccessful ATPs.</li>
+                        <li>Ventricular lead sensitivity should be assessed.</li>
+                        <li>VT storm should also be treated accordingly.</li>
+                    </ol>
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+    </div>
+
+    <!--13 lead in CS-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/pacing/lead in CS/Temp pace in CS.jpg" style="width: 100%;">
+        </h1>
+        
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        Temporary pacemaker. VVI 80.
+                </li>
+                <li>
+                    <span style="font-weight: 800;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Normal pacing function of an LV lead.
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                    <ul class="noBorder" style="list-style-position: inside;">
+                        <li>Pacing function is normal. Sensing function is unknown.</li>
+                        <li>Ventricular pacing vector is left-to-right (positive in V1 and negative in I and aVL) and
+                            superior-to-inferior (positive in II, III, and aVF).
+                        </li>
+                        <li>Pacing has to come from left ventricular side.</li>
+                        <li>CXR shows the lead was in outflow tract area. LVOT or CS are possible.</li>
+                        <li>X-ray in the LAO view confirms the lead position in coronary sinus.</li>
+                    </ul>
+                    <div class="row600" style="padding:1vmax;justify-content: center;">
+                        <div style="padding: 1vmax;">
+                            <img src="media/pacing/lead in CS/CXR.jpg" style="width: 100%;">
+                        </div>
+                        <div style="padding: 1vmax;">
+                            <img src="media/pacing/lead in CS/LAO.png" style="width: 100%;">
+                        </div>
+                    </div>
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+    </div>
+
+    <!--footer-->
+    <div class="footer row">
+        <div onclick="goHome()" style="cursor: pointer;">Home&nbsp;&nbsp;</a></div>
+        <div style="cursor: pointer;" id="prev" onclick="slideNav(-1)">&nbsp;&nbsp;&lt;Prev&nbsp;&bull;&nbsp;</div>
+        <div id="qNo"></div>
+        <div style="cursor: pointer;" id="next" onclick="slideNav(1)">&bull;&nbsp;&nbsp;Next&gt;</div>
+    </div>
+</div>
+
+<script>
+var question = document.getElementsByClassName('Q')
+var questionNo = 0;
+var bgColor = ["green","jade","pine","gin","berryl","green","jade","pine","gin","berryl","green","jade","pine","gin","berryl"]
+
+
+
+function goTo(x,color){
+    document.getElementById('home').style.display = "none"
+    //change className
+    var showCase = document.getElementById('showCase')
+    showCase.className = color;
+    showCase.style.display = "block";
+    questionNo = x;next();
+}
+
+function goHome(){
+    document.getElementById('home').style.display = "block"
+    document.getElementById('showCase').style.display = "none"
+}
+
+function slideNav(n){
+    var max = question.length;
+        
+    questionNo = questionNo + n;
+    
+    if (questionNo<max && questionNo>=0) {
+        
+                
+    } else if (questionNo>=max){
+        questionNo = 0;
+    } else if (questionNo<0){
+        questionNo = max-1;
+    }
+    next();
+}
+
+function next(){
+    
+    for (var i=0;i<question.length;i++){
+            question[i].style.display="none"
+        }
+    
+    //change bg color
+    document.getElementById('showCase').className = bgColor[questionNo]
+    question[questionNo].style.display="block"
+    question[questionNo].scrollIntoView({behavior:"smooth", block:"start"});
+    var nextQ = questionNo + 1;
+    document.getElementById('qNo').innerHTML = ' Q' + nextQ  + '/' + question.length;
+}
+    
+</script>
     
 </body>
 </html>
