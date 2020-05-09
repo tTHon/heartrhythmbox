@@ -72,24 +72,6 @@ text-align: center}
 line-height: 120%;margin-top: 0.5vh}
 .content {font-size:1.8vmax;line-height: 130%}
 
-/*pointer*/
-.pointer {
-    cursor: pointer;
-    height: 0.5em;
-    width: 0.5em;
-    margin: 0 0.2em;
-    display: inline-block;
-    background-color: #fc553d;
-    border-radius: 50%;
-    position: fixed;  
-    z-index: 4;
-    animation: blink 1.5s linear infinite;
-    }
-    @keyframes blink{
-    0%{opacity: 0;}
-    50%{opacity: 0.7}
-    100%{opacity: 1;}
-    }
 
 </style>
 
@@ -198,9 +180,6 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
   
 </div>
-
-<!--pointer-->
-<div onclick="pointer()"><span class="pointer" style="display: none"></span>  
 
 <!--rate control-->
 <div class="w3-row" id="mech"></div>
@@ -444,7 +423,7 @@ line-height: 120%;margin-top: 0.5vh}
         </div>
         <div class="ref w3-padding w3-center">
             <a href="https://academic.oup.com/eurheartj/article/37/38/2893/2334964" target="_blank">
-            2016 ECG Guidelines
+            2016 ESC Guidelines
             </a>
         </div>
                 
@@ -473,7 +452,7 @@ line-height: 120%;margin-top: 0.5vh}
         </div>
         <div class="ref w3-padding w3-center">
             <a href="https://academic.oup.com/eurheartj/article/37/38/2893/2334964" target="_blank">
-            2016 ECG Guidelines
+            2016 ESC Guidelines
             </a>
         </div>
                 
@@ -992,7 +971,7 @@ line-height: 120%;margin-top: 0.5vh}
 
 
 
-<!--end pointer-->
+
 
 <!--end page-->
 <div class="w3-container sans w3-center" 
@@ -1007,18 +986,11 @@ style="margin-top:10vh;background:#f1f1f1;font-size: 1vmax;padding: 2vmax;color:
 </div>
 
 
-</div>
+
 </body>
 
 <script src="block navigation.js"></script>
 <script>
-
-window.addEventListener("keydown", function(event) {
-        event.preventDefault();
-        if (event.keyCode===32) {
-        var p = document.getElementsByClassName("pointer");
-        p[0].style.display = "none";}
-    })
 
 window.addEventListener("keydown", function(event) {
         event.preventDefault();
@@ -1040,16 +1012,6 @@ window.addEventListener("keydown", function(event) {
 })
 
 window.ontouchmove = function () {unblur()};
-
-//pointer
-function pointer() {
-    var x = event.clientX;
-    var y = event.clientY;
-    var p = document.getElementsByClassName("pointer");
-    p[0].style.display = "inline";
-    p[0].style.left = x+"px"; 
-    p[0].style.top = y+"px";
-    }
 
 function unblur() {
     var b = document.getElementsByClassName("block");
