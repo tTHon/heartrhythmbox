@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ablation of AFL/AT: Main Page</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Prompt&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1548733331544768",
+          enable_page_level_ads: true
+     });
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date()); 
+
+  gtag('config', 'UA-119340815-1');
+</script>
+
+</head>
+
+<style>
+
+.toTop {
+    position: fixed; 
+    background-color: transparent; color:#d8d8d0 ;
+    top: 92%;right: 2%;
+    cursor: pointer;transition: 0.2s;
+    display: none;
+    z-index: 1; opacity: 1;
+   }
+.toTop :hover {opacity: 0.6}
+
+@media only screen and (max-width: 600px){
+    .toTop {top: 95%; right: 5%}    
+}
+
+.aGradient {
+    width: 100%; height: 100%;
+	background: linear-gradient(-45deg, #000, #310913, #530f21, #6c001b);
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 15s ease infinite;
+	-moz-animation: Gradient 5s ease infinite;
+	animation: Gradient 5s ease infinite;
+}
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+.gradient {background: linear-gradient(-45deg, #000, #310913, #530f21, #6c001b);}
+.wineBg {background-color: #530f21}
+.cremeTxt {color:#d8d8d0}
+.pinkTxt {color:#f6cdd8}
+
+.cursive {font-family: 'Monoton', cursive;}
+.thai {font-family: 'Prompt', serif;}
+
+.theA {font-family: 'Monoton', cursive;font-size: 80vh;color:#74152e;line-height: 90%;
+overflow: hidden;white-space: nowrap;text-overflow: clip}
+.pageTitle {font-size:5.5vmax;color:white;font-family: 'Prompt', serif;line-height: 80%;font-weight: 500;}
+
+.block {padding: 2vmax 1vmax}
+.listHover li:hover {color: white}
+.headLine {font-family: 'Prompt', serif;font-size: 3.5vmax;color:#f6cdd8;padding:1vmax;;line-height: 110%}
+.text {font-family: 'Prompt', serif;font-size: 2vmax;color:#FCf2f5;padding:1vmax;;line-height: 110%}
+.ref {color:#abab9a;font-size: 1vmax;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+line-height: 150%;padding-top:1vmax}
+
+.Rx1 {margin-left:5%;}
+.Rx2 {margin-left:10%;}
+.Rx3 {margin-left:15%;}
+.Rx4 {margin-left:20%;}
+.RxBullet {font-family: 'Monoton', cursive;text-align: right;font-size: 7vmax;color:#9f1d3f}
+.RxText {font-family: 'Righteous', cursive;font-size:4vmax;color: #f1f1f1;}
+
+@media only screen and (max-width:600px){
+	.Rx1, .Rx2, .Rx3, .Rx4 {margin-left:5%}
+}
+
+.caseList {background-color: #74152e;color: white;border-radius: 1vmax;font-size: 2.5vmax;padding: 1vmax;margin-top: 0.5vmax;>}
+.cTitle {font-size: 6vmax;color:#9f1d3f;padding-left:1.5vmax}
+@media only screen and (max-width:600px){
+	.cTitle {font-size:5vmax}
+}
+.cList {padding: 1vmax 1.5vmax 2.5vmax 1.5vmax;font-family: 'Prompt', serif;font-size:2.5vmax;color:#abab9a;text-align: left}
+.cList li:hover {color: #f6cdd8}
+
+</style>
+
+<!--title-->
+<div id="top" class="aGradient w3-center block" style="padding:0">
+    <div class="w3-row" style="width:100%;display:block">
+        <span class="theA">A</span>
+        <br>
+        <span class="pageTitle" >
+        Ablation of Atrial Flutter<br>& Atrial Tachycardia
+        </span>
+    </div>
+    
+    <div class="Thai" style="padding: 3vh;font-size: 1.7vmax;color:#abab9a">
+        <a href="https://www.HeartRhythmBox.com/" style="text-decoration:none" target="_blank">
+        <img src="box coral.png" style="width: 2.5vmax;">
+        heartRhythmBox
+        </a>
+    </div>
+    
+</div>
+
+<a href="#top" title="to the top" class="toTop" onclick="unblur()">
+	<i class="fas fa-arrow-circle-up" style="font-size: 2.8vmax"></i>
+</a>
+
+<!--AT AFL vs AF-->
+<div class="block" style="background-color: #abab9a;">
+	<div class="headLine" style="color:#530f21">
+		AF vs. Atrial Flutter(AFL) vs. Atrial Tachycardia (AT)
+	</div>
+		<div class="w3-row">
+			<div class="w3-col s4 w3-mobile">
+			<video id='afIntro' width="100%" height="auto" poster controls muted loop onclick="autoP(this)">
+				<source src="media/AF.mp4" type="video/mp4">
+			</video>
+			</div>
+			<div class="w3-col s4 w3-mobile">
+			<video id='aflIntro'  width="100%" height="auto" poster controls muted loop onclick="autoP(this)">
+				<source src="media/AFlutter.mp4" type="video/mp4"></video>
+			</div>
+			<div class="w3-col s4 w3-mobile">
+				<video id='atIntro' width="100%" height="auto" poster controls muted loop onclick="autoP(this)">
+					<source src="media/AT.mp4" type="video/mp4"></video>
+			</div>	
+		</div>
+	<div class="text" style="color:#530f21;padding: 1vmax;margin-top: 1vmax">
+	ทั้ง 3 ภาวะนี้ต่างกันที่กลไกการเกิด <br>
+	ถ้าดูจาก EKG ในคนที่เป็น AFL หรือ AT จะเห็น P wave ที่มีรูปร่างชัดเจนและสม่ำเสมอกว่าคนที่เป็น AF <br>
+	ทั้ง 3 ภาวะนี้ อาจมี ventricular rate ที่สม่ำเสมอหรือไม่สม่ำเสมอก็ได้
+	</div>
+</div>
+
+<!--AFL basic-->
+<div class="block">
+		<div class="w3-row w3-center w3-white">
+			<div class="w3-col l5 m5 s6 w3-padding w3-mobile">
+			<img src="media/AFL/typical AFL.jpg" style="max-width: 100%;max-height: 60vh"></div>
+			<div class="w3-col l7 m7 s6 w3-padding w3-mobile">
+			<img src="media/AFL/atypical flutter_fig.png" style="max-width: 100%;max-height: 60vh"></div>
+			
+		</div>
+		<div class="headLine" style="color:#6c001b">
+			Atrial Flutter</div>
+		<div class="text gradient" style="color:#f1f1f1">
+			เกิดจากวงจรหมุนวนขนาดใหญ่ (Macrorentry) รอบๆจุดศูนย์กลางที่เป็นโครงสร้างที่ไฟฟ้าผ่านไม่ได้ 
+			ซึ่งอาจเป็นโครงสร้างปกติในหัวใจ เช่น coronary sinus os
+			หรืออาจเป็นรอยเย็บหรือรอยแผลเป็นจากการผ่าตัดหรือการจี้ หรืออาจเป็นอุปกรณ์ที่ใส่ในหัวใจ เช่น ASD closure device ก็ได้
+			<br>**Macrorentry circuit = more than 2 sq.cm. in diameter
+			<div class="ref">
+				<a href="https://www.sciencedirect.com/science/article/pii/S0140673612614639?via%3Dihub" target="_blank">
+					Lee et al. Lancet 2012; 380: 1509–19.</a>
+				</div>
+		</div>
+</div>
+
+<!--typical AFL-->
+<div class="block gradient">
+		<div class="w3-cell-row w3-white w3-center">
+			<div class="w3-cell w3-padding w3-mobile">
+			<img src="media/AFL/typical AFL A.png" style="max-width: 100%;max-height: 60vh"></div>
+			<div class="w3-cell w3-padding w3-mobile">
+			<img src="media/AFL/flutter waves.jpg" style="max-width: 100%;max-height: 60vh"></div>
+			
+		</div>
+		<div class="headLine">
+			Cavotricuspid isthmus dependent atrial flutter</div>
+		<div class="text">
+			เป็น AFL ที่พบได้บ่อยที่สุด โดยวงจรหมุนวนอยู่บริเวณด้านหน้าของ right atrium รอบๆ tricuspid annulus 
+			ส่วนด้านหลัง วงจรไม่สามารถวิ่งครบวงได้ เพราะมี Crista Terminalis เป็นตัวกันไม่ให้ไฟฟ้าวิ่งผ่าน <br><br>
+			มากกว่า 80% ของวงจรนี้จะวิ่งทวนเข็มนาฬิกา (ให้มอง tricuspid annulus เป็นหน้าปัดนาฬิกา) ทำให้เกิดลักษณะเฉพาะ
+			ที่เห็นใน EKG ที่มี flutter wave ที่เป็นฟันเลื่อย ที่เราเรียกกันว่า "typical flutter" <br><br>
+			วงจรนี้มีส่วนที่แคบที่สุด และเป็นส่วนที่เชื่อมต่อวงจรทั้งหมด (critical isthmus) ที่ floor ของ right atrium
+			ส่วนที่เชื่อมระหว่าง IVC และ tricuspid annulus = Cavotricuspid Isthmus
+			<div class="ref">
+				<a href="https://www.sciencedirect.com/science/article/pii/S0140673612614639?via%3Dihub" target="_blank">
+					Lee et al. Lancet 2012; 380: 1509–19.</a>
+				</div>
+		</div>
+</div>
+
+<!--typical AFL2-->
+<div class="block w3-black">
+		<div class="w3-cell-row w3-center w3-mobile">
+			<div class="w3-cell w3-cell-middle w3-mobile" >
+				<video id='propAFL' width="100%" height="auto" poster controls muted loop onclick="autoP(this)">
+				<source src="media/AFL/Propagation AFL.mp4" type="video/mp4">
+				</video>
+			</div>
+			<div class="w3-cell w3-cell-middle w3-mobile">
+				<img src="media/AFL/Halo EGM AFL.png" style="max-width:100%;">
+			</div>
+			<div class="w3-cell w3-cell-middle w3-mobile">
+				<img src="media/AFL/Halo Xray.png" style="max-width:100%;">
+				<div class="headLine">
+						Typical atrial flutter</div>
+				<div class="text">
+					Macro-reentry; the atrial activation covers >70% of the entire cycle length. 
+				</div>
+			</div>
+		</div>
+</div>
+
+<!--Atypical AFL-->
+<div class="block gradient">
+	<div class="headLine" style="padding: none;">
+			Atypical atrial flutter or Macro-reentrant atrial tachycardia</div>
+	<div class="w3-row w3-center w3-white">
+	<img src="media/AFL/atypical AFL.png" style="max-width:100%;max-height: 60vh;padding: 0.5vmax 0"></div>
+	<div class="text">
+			เป็นวงจรหมุนวนขนาดใหญ่ วิ่งรอบโครงสร้างอื่นๆที่ไม่ใช่ tricuspid annulus <br>
+			การบอกตำแหน่งของวงจรของ atypical flutter ด้วย ECG ทำได้ยากมากๆ 
+			หรือแม้แต่การวินิจฉัย typical flutter ด้วย ECG ในคนไข้ที่เคยผ่าตัดหัวใจมาแล้วก็ทำได้ไม่ง่ายนัก
+		<div class="ref">
+		<a href="https://www.clinicalkey.com/#!/content/book/3-s2.0-B9780323244299000134?indexOverride=GLOBAL">
+			Huang and Wood. Catheter Ablation of Cardiac Arrhythmias.
+		</a>
+		</div>
+	</div>		
+</div>
+
+<!--AFL ASD--
+<div class="block">
+		<div class="w3-container w3-center">
+				<div class="headLine" style="color:#530f21;text-align: left">
+					Case: 39F s/p surgical ASD repair when she was 9 years old, presents with recurrent palpitation.
+				</div>
+				<div class="w3-cell-row w3-center">
+				<div class="w3-cell w3-cell-middle w3-padding w3-mobile">
+					<img src="media/AFL/AFL ASD/AFL ASD repair.png" style="width:100%;padding:0.5vmax;">				
+				</div>
+				<div class="w3-cell w3-cell-middle w3-mobile">
+					<img src="media/AFL/AFL ASD/AFL ASD repair EGM.jpg" style="width:100%;padding:0.5vmax;
+					border: black 0.1vmin solid">
+				</div>
+				</div>
+				<div class="text wineBg">
+				Not much you can tell from the ECG.		</div>
+				<div class="w3-row w3-center"  style="margin-top: 5vmax;margin-bottom: 2vmax">
+					<img src="media/AFL/AFL ASD/entrainment.png" style="width:100%">
+				</div>
+				<div class="text wineBg">
+						Entrainment ช่วยให้ idea คร่าวๆว่าวงจรอยู่แถวไหน	</div>
+				<div class="w3-cell-row w3-center" style="margin-top: 5vmax">
+					<div class="w3-cell w3-cell-middle w3-center w3-mobile">
+					<video id='aflASD' width="100%" height="auto" poster controls muted loop onclick="autoP(this)">
+						<source src="media/AFL/AFL ASD/Periatriotomy .mp4" type="video/mp4">
+					</video></div>
+					<div class="w3-cell w3-cell-middle w3-center headLine w3-mobile" style="color:#310913">
+						3D electroanatomical mapping<br> ให้รายละเอียดเพิ่ม
+						<div class="text" style="color:#000">
+						ในเคสนี้ วงจร flutter วิ่งวนรอบ surgical scar<br> บริเวณด้านข้างของ right atrium
+						</div>
+					</div>
+				</div>
+			</div>
+</div-->
+
+<!--AT intro-->
+<div class="block wineBg">
+		<div class="headLine">
+				Focal atrial tachycardia</div>	
+		<div class="w3-cell-row w3-white w3-center">	
+		<div class="w3-cell w3-cell-middle w3-padding" style="border-right: #797979 solid 0.1vmax">
+			<img src="media/AT/AT anatomy.jpg" style="max-width:100%;max-height: 80vh;"></div>
+		<div class="w3-cell w3-cell-middle w3-padding">
+			<img src="media/AT/AT P wave algo.png" 
+			style="max-width:100%;max-height: 80vh;"></div>
+		
+		</div>	
+		
+		<div class="text">
+			กลไก: automaticity, triggered, หรือ micro-reentry ...มีจุดกำเนิดไฟฟ้าจากบริเวณใดบริเวณหนึ่งใน 
+			atrium ปล่อยกระแสไฟฟ้าให้กระจายไปรอบๆ <br>
+			ส่วนใหญ่แล้ว Focal AT มักพบในคนไข้ที่ไม่มี structural heart disease และตำแหน่งที่เป็นจุดกำเนิดมักจะมาจาก
+			right atrium โดยเฉพาะบริเวณ Crista Terminalis <br>
+			**micro-reentry circuit: less than 2 sq.cm in diameter, entrainable, and able to 
+			map from >70% of cycle length; but use the same ablation approach as automaticity or 
+			triggered mechanisms. 
+			<div class="ref">
+				<a href="https://www.sciencedirect.com/science/article/pii/S0140673612614639?via%3Dihub" target="_blank">
+					Lee et al. Lancet 2012; 380: 1509–19.</a> and
+				<a href="https://www.sciencedirect.com/science/article/pii/S0735109706014641?via%3Dihub" target="_blank">
+				Kistler et al. JACC 2006.
+				</a>
+				</div>
+		</div>
+
+</div>
+
+<!--AT location-->
+<div class="block wineBg">
+		<div class="headLine">
+				Focal atrial tachycardia examples</div>	
+		<div class="w3-cell-row w3-white w3-center">	
+		<div class="w3-cell w3-cell-middle w3-mobile" style="border-right: #797979 solid 0.1vmax">
+			<img src="media/AT/cs_at.jpg" style="max-width:100%;"></div>
+		<div class="w3-cell w3-cell-middle w3-mobile">
+			<img src="media/AT/septal AT.jpg" 
+			style="max-width:100%;"></div>
+		
+		</div>	
+
+</div>
+
+<!--micro vs macro-->
+<div class="block w3-black">
+		<div class="headLine">
+			Focal vs. Micro vs. Macro-reentry</div>
+		<div class="text">
+			<table class="w3-table w3-bordered">
+				<tr style="color:#9f1d3f;background-color: #abab9a">
+					<th>Characters</th><th>Focal</th><th>Microreentry</th><th>Macroreentry</th>
+				</tr>
+				<tr style="color:#FCf2f5">
+					<td>Most Common heart diseases</td>
+					<td>None</td><td>AF s/p RFA</td><td>CAD, AF s/p RFA</td>
+				</tr>
+				<tr style="color:#FCf2f5">
+					<td>ECG isoelectric interval</td>
+					<td>Yes</td><td>Yes</td><td>No</td>
+				</tr>
+				<tr style="color:#FCf2f5">
+					<td>Record from >80% of CL</td>
+					<td>No</td><td>Yes</td><td>Yes</td>
+				</tr>
+				<tr style="color:#FCf2f5">
+					<td>Entrain with PPI-TCL&lt;20ms, 2sites &gt;2cm apart</td>
+					<td>No</td><td>No</td><td>Yes</td>
+				</tr>
+				<tr style="color:#FCf2f5">
+					<td>Activation Pattern</td>
+					<td>Radial</td><td>Radial</td><td>Large Loop</td>
+				</tr>
+				<tr style="color:#FCf2f5">
+					<td>Ablation Approach</td>
+					<td>Focal</td><td>Focal</td><td>Linear</td>
+				</tr>
+			
+			</table>
+			<div class="ref">
+				<a href="https://www.clinicalkey.com/#!/content/book/3-s2.0-B9780323244299000110?indexOverride=GLOBAL" target="_blank">
+					Huang and Wood. Catheter Ablation of Cardiac Arrhythmias.</a>
+				</div>
+		</div>
+		
+	</div>
+
+<!--AT radial activation-->
+<div class="block gradient">
+	<div class="w3-row">
+	<div class="w3-col l8 m8 s12">
+		<video id='ATRFA' width="100%" height="auto" poster controls muted loop onclick="autoP(this)">
+		<source src="media/AT/AT post AF RFA.mp4" type="video/mp4">
+		</video></div>
+	<div class="w3-col l4 m4 s12">
+		<div class="headLine">
+		Radial Activation Pattern ใน focal หรือ micro-reentry mechanisms</div>	
+	<div class="text">
+		สังเกตว่าจากจุดเริ่มต้นของ tachycardia ไปจนถึงจุดสุดท้ายที่ map ได้ใน left atrium 
+		รวมแล้วเป็นระยะเวลาน้อยกว่า 70% ของ tachycardia cycle length
+	</div></div>
+	</div>
+</div>
+
+<!--case-->
+<div class="block" style="background-color: #abab9a;">
+	<div class="w3-row cursive w3-center" style="font-size: 5vmax;color: #74152e;">
+		Interesting &nbsp;&nbsp;Cases
+	</div>
+	<div class="w3-content Thai caseList"> 
+		<a href="case1.html" style="text-decoration: none;" target="_blank">
+		Case #1: 2D mapping can still be useful.</a>
+	</div>
+	<div class="w3-content Thai caseList">
+		<a href="case2.html" style="text-decoration: none;" target="_blank">
+		Case #2: 3D mapping in a tachycardia induced cardiomyopathy patient.</a>
+	</div>
+	<div class="w3-content Thai caseList">
+		<a href="case3.html" style="text-decoration: none;" target="_blank">
+		Case #3: Tachycardia post ASD repair.</a>
+	</div>
+	<div class="w3-content Thai caseList" style="padding-bottom: 2vmax;">
+		<a href="case4.html" style="text-decoration: none;" target="_blank">
+		Case #4: Is it early enough?</a>
+	</div>
+</div>
+	
+
+<!--AT post transplant--
+<div class="block">
+	<div class="headLine" style="color:#74152e">
+			Case: 44F s/p heart transplant 8 years ago; bicaval technique, presents with palpitation.
+	</div>
+	<div class="w3-row w3-center" style="border:#6c001b 0.2vmax solid">
+		<div class="w3-col s6 w3-padding w3-mobile">
+			<img src="media/AT/post Tx/EKG.png" style="width:100%"></div>
+		<div class="w3-col s6 w3-mobile">
+			<img src="media/AT/post Tx/AT EGM.png" style="width:100%">
+		</div>
+		<div class="text" style="color:#797979">
+			ECG suggested non-sinus rhythm. EGM confirmed atrial tachycardia/flutter with 
+			1:1 conduction. <br>
+			Noted in "*" with probable electrical activity from the old heart.
+		</div>
+	</div>
+	<div class="w3-row w3-center" style="padding-top: 1vmax">
+		<div class="w3-cell w3-cell-middle w3-padding">
+			<img src="media/AT/post Tx/inf view break at blue.jpg" style="width:100%"></div>
+		<div class="w3-cell w3-cell-middle w3-padding">
+			<img src="media/AT/post Tx/propagation.png" style="width:100%"></div>
+		<div class="w3-row text wineBg" style="text-align:left">
+			?mechanism: micro-reentry vs focal <br>
+			เคสนี้ map ใน RA ได้ 221ms แต่ tachycardia cycle length = 310ms แต่เนื่องจาก scar tissue 
+			เยอะ อาจจะ map ได้ไม่ครบ??? <br>
+			Propagation map ดูเหมือนจะมีวง reentry เล็กๆ รอบ IVC + scar <br>
+			แต่ไม่ว่าจะเป็น focal หรือ micro-reentry ก็จี้เหมือนกัน
+		</div> 
+	</div>
+
+	<div class="w3-row text" style="margin-top: 2vmax;border:#6c001b 0.2vmax solid;color:#797979">
+		Focal ablation at the earliest point resulted in termination of the tachycardia.
+		<div class="w3-cell w3-cell-middle  w3-padding">
+			<img src="media/AT/post Tx/term during ablation.jpg" style="width:100%"></div>
+		<div class="w3-cell w3-cell-middle">
+			<img src="media/AT/post Tx/term carto.png" style="width:100%">
+			</div>
+	</div>
+	</div-->
+
+<!--3D mapping--
+<div class="block w3-black">
+		<div class="headLine">
+			3D mapping ช่วยเก็บข้อมูลของตำแหน่งและสัญญาณ ทำให้เรามองกลไกของ tachycardia ได้ง่ายขึ้น 
+			และยังช่วยลดเวลาและการใช้รังสี..
+			แต่ถ้าเราไม่เข้าใจหลักการของเครื่องและกลไกของ tachycardia การมี 3D mapping ก็อาจไม่ช่วยอะไร</div>
+		<div class="w3-row w3-center w3-white" style="padding:0.5vmin">
+		<img src="media/AT/RIPV/AT RIPV.jpg" style="max-width:100%;max-height: 70vh;padding: 0.5vmax 0">
+		<div class="text" style="color:#6c001b;text-align:left">
+			8 year-old kid, with persistent palpitation. No significant structural heart disease 
+			except mildly impaired LV function. <br>
+			จาก ECG... นึกถึง atrial tachycardia มากที่สุด
+		</div>		
+		<div style="border:#9f1d3f 0.1vmax solid;margin-top: 1vmax">
+			<img src="media/AT/RIPV/RA.jpg" style="max-width:100%;max-height: 70vh;padding: 0.5vmax 0">
+		<div class="text" style="color:#6c001b;">
+		แมพขวา (right atrium) ได้จุดที่เร็วที่สุด (สีแดง) ดังรูป...จี้ตรงนี้เลยมั้ย	</div></div>
+		<div style="border:#9f1d3f 0.1vmax solid;margin-top: 1vmax">
+			<img src="media/AT/RIPV/LA.jpg" style="max-width:100%;max-height: 70vh;padding: 0.5vmax 0">
+			<div class="text" style="color:#6c001b;">
+			จุดที่เร็วที่สุดใน right atrium ไม่ได้เร็วมากและอยู่ตรง interatrial septum พอดี...<br>
+			ต้องคิดว่ามีที่ที่เรายังไม่ได้แมพ ที่เร็วกว่านี้มั้ย เช่น ใน left atrium</div></div>
+		<div style="margin-top: 1vmax">
+			<div class="w3-row w3-center w3-black">
+				<div class="w3-col s6 w3-mobile">
+					<video id='RIPV' width="100%" height="auto" poster controls muted loop onclick="autoP(this)">
+					<source src="media/AT/RIPV/AT RIPV.mp4" type="video/mp4">
+					</video>	
+				</div>
+				<div class="w3-col s6 w3-mobile">
+				<img src="media/AT/RIPV/RA LA.jpg" style="max-width:100%;max-height: 70vh;padding: 0.5vmax 0"></div>
+			</div>
+			<div class="text" style="color:#6c001b;">
+				Dx: Focal AT from RIPV <br>
+				สังเกตว่า right pulmonary veins อยู่ซ้อนด้านหลังของ right atrium เลย
+				ทำให้สัญญาณใน proximal CS เร็วกว่า distal CS เลยอาจจะทำให้ดูเหมือนว่าจุดที่เร็วที่สุดอาจมาจาก right atrium
+			</div>
+		</div>
+
+		</div>
+
+	</div-->
+
+<!--conclusions-->
+<div class="aGradient block" style="padding:0;height: fit-content">
+	<div class="w3-row cursive cTitle">
+	Conclusions</div>
+	<ul class="w3-ul cList">
+		<li>AF = ไม่สม่ำเสมอ ไม่เห็น p waves ชัดเจน ไม่เหมือนกับ AT หรือ AFL</li>
+		<li>AFL = Macroreentry = วงจรใหญ่ ใช้วิธีจี้แบบ linear ablation</li>
+		<li>AT = focal หรือ Microreentry ใช้วิธีจี้แบบ focal</li>
+		<li>AFL ชนิดที่พบบ่อยที่สุดคือ Cavotricuspid isthmus dependent flutter มีลักษณะเฉพาะใน ECG คือ
+			เป็น saw-tooth appearance</li>
+		<li>ในคนไข้ที่เคยได้รับการผ่าตัดหัวใจ หรือเคยจี้ไฟฟ้าหัวใจมาแล้ว การวินิจฉัยและบอกตำแหน่งของ AFL
+			หรือ AT อาจทำได้ยาก ต้องอาศัยการทำ EP study + mapping</li>
+		<li>3D mapping เป็นเทคโนโลยีที่ช่วยให้รายละเอียดของตำแหน่งและกลไกของ tachycardia แต่ผู้ใช้
+			ต้องเข้าใจ tachycardia ก่อนจึงจะได้ประโยชน์จากเทคโนโลยีนี้อย่างเต็มที่
+		</li>
+	</ul>
+	
+</div>
+
+
+  <!--footer-->
+  <div style="background: #ddd;font-size: 18px;padding:3vmax 3vmax;text-align: center;
+  color:#555;font-weight: 600;line-height: 200%;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+	
+	<a href="#top" title="to the top" onclick="unblur()">
+		<i class="fas fa-arrow-circle-up" style="font-size: 24px;">
+	<span style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-weight: 400;font-size: 16px;">to the top of the page</span></a></i><br>
+    <span style="font-weight: 400;">
+    Follow me at<br> <a href="https://heartrhythmbox.com" style="cursor: pointer;text-decoration: none;" target="_blank">
+      <img src="box transparent.png" width="25" height="25">
+      
+      <span>HeartRhythmBox.com</span>
+    </a>&nbsp;
+    <br>
+    <a href="https://www.facebook.com/HeartRhythmBox/" style="text-decoration: none;cursor: pointer;" target="_blank">
+      <img src="facebook.png" width="25" height="25">
+      <spa>HeartRhythmBox</span>
+    </a>
+  </span>
+  <br>
+    HeartRhythmBox is an education page on Heart Rhythm Topics.<br>
+  </div>
+
+<script src="block navigation.js"></script>
+<script src="toTop.js"></script>
+<script>
+
+//esc
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===27) {
+        window.unblur()}
+    })
+
+//up arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===38) {
+    blockNav(-1)}
+})
+//down arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===40) {
+    blockNav(1)}
+})
+
+window.ontouchmove = function () {unblur()};
+window.onscroll = function() {scroll()};
+
+function autoP(elem) {
+	//check mobile browser	
+	if (screen.width>1024){
+		var notMobile = true;
+	}
+	var id = elem.id;
+	var vid = document.getElementById(id);
+	if (notMobile){
+		vid.play();
+		document.getElementById(id).removeAttribute('controls')
+		
+	}
+}
+
+</script>	
+
+</body>
+</html>
+
