@@ -10,6 +10,7 @@
   <script async custom-element="amp-auto-ads"
         src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
   <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
   <link rel="canonical" href="https://toptracings.heartrhythmbox.com/">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   
@@ -21,10 +22,11 @@
   <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
   <style amp-custom>
 
-    .flex {display: flex;}
+    .coral {color: #fa7268;}
+    .row {display: flex;}
     @media only screen and (max-width:600px) {
       .row {flex-wrap: wrap;}
-}
+    }
     .container, .container img {
       background-color: transparent;
     }
@@ -32,44 +34,39 @@
       object-fit: contain;
     }
     
-   .container {
+    .container {
      position: relative;
-     width: 64vw;
-     height: 36vw;
+     width: 72vw;
+     height: 45vw;
     }
-    amp-carousel {margin-top: none;max-width: 65vw;margin-left: auto;margin-right: auto;
-    max-height: 37vw;background-color:transparent;}
 
-    @media only screen and (max-width:900px){
+    .headLine {font-size: 2.5vmax;text-align: center;margin-left: auto;margin-right: auto;color: #333;line-height: 120%;
+      padding-top: 8vmax;padding-bottom:1vmax;max-width: 900px;width: fit-content;border-bottom: #fa7268 solid 0.1vmax;padding-bottom: 1vmax;}
+  
+
+    amp-carousel {margin-top: none;max-width: 73vw;margin-left: auto;margin-right: auto;
+    max-height: 46vw;background-color:transparent;}
+
+    .caption {font-family: Roboto, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
+    padding: 0.5vmax;text-align: center;color:#777;}
+
+    @media only screen and (max-width:1024px){
       .container {width: 96vw;height:54vw;}
-      amp-carousel {max-height: 54vw;max-width: 96vw;}
+      amp-carousel {max-height: 55vw;max-width: 97vw;}
     }
 
-    
-
-    .caption {font-family: Roboto, sans-serif;font-size: medium;
-      position: absolute;text-align: center;color:white;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.6);
-      max-height: 30%;}
-
-      
-    
-    amp-selector [option][selected] {
+    amp-selector [selected] {
         outline: none;background-color: #555;border: #555 0.1vmax solid;
     }
 
     .dots  {
-    width:10px;
-    height:10px;
-    border-radius:8px;
-    background-color:none;border: #555 0.1vmax solid;
+    width:1.2vmin;
+    height:1.2vmin;
+    border-radius:1vmin;
+    background-color:none;border:#555 0.1vmax solid;
     display:inline-block;
     }
 
-    
    
   
 </style>
@@ -94,52 +91,114 @@
     </amp-analytics>
 
 
+<!--title section-->
 
-
-<amp-carousel id="carousel1"
-    height="1200"
-    layout="fixed-height"
-    type="slides">
-
-    <!---->
-    <div class="containerd">
-      <div>
-        1.3<br>Managed Ventricular Pacing 
+<div class="row">
+  <div style="flex: 50%;">
+  <amp-video autoplay class="contain"
+    width="844"
+    height="912"
+    layout="responsive"
+    src="media\AF LAT.mp4"></amp-video>
+  </div>  
+  
+  <div style="font-size: 3.6vmax;align-self: center;text-align: center;padding: 2vmax;flex: 50%;color: #232323;flex: 50%;">
+    AF Management<br> <span style="color: black;">10 things to Remember</span>
+    
+      <div style="padding: 2vmax;">
+      <a href="https://heartrhythmbox.com" 
+      style="cursor: pointer;text-decoration: none;color: #555;font-size: 20px;">
+        <amp-img src="box coral.png" width="35" height="35" layout='fixed'>
+        </amp-img>
+        <span style="vertical-align: 7px;">HeartRhythmBox.com</span>
+      </a>
       </div>
-    </div>
+  </div>
+</div>
 
-   
+<!--content-->
+<div style="background-color: #f1f1f1;"> 
+
+  <!--1-->
+  <div class="headLine">
+    1. AF does not have to be "IRREGULAR".
+  </div>
+
+  <amp-carousel id="carousel1"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel1Selector.toggle(index=event.index, value=true)"
+      >
+     
+      <!--af slow VR-->
+      <div class="container">
+        <amp-img src="media\1\AF slow VR.png"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
+      <!--af biV-->
+      <div class="container">
+        <amp-img src="media\1\AF BiV pacing.JPG"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
   </amp-carousel>
 
-<amp-selector class="selector"
-  on="select:carousel1.goToSlide(index=event.targetOption)"
-  layout="container" style="text-align: center;">
-    <span option='0' class="dots" selected></span>
-    <span option='1' class="dots"></span>
-    <span option='2' class="dots"></span>
-    <span option='3' class="dots"></span>
-</amp-selector>
+  <amp-selector id="carousel1Selector" on="select:carousel1.goToSlide(index=event.targetOption)"
+    layout="container" style="text-align: center;">
+      <span option='0' class="dots" selected></span>
+      <span option='1' class="dots"></span>
+  </amp-selector>
 
-
-<amp-carousel id="carousel2"
-height="1200"
-layout="fixed-height"
-type="slides">
-<div class="container red">
-    <div class="title">
-      3<br>Basic EGM
-    </div>
+  <div class="caption">
+    AF may be regular in patients with impaired AV nodal conduction or in faster V pacing.
   </div>
-   
-</amp-carousel>
-<amp-selector class="selector"
-  on="select:carousel2.goToSlide(index=event.targetOption)"
-  layout="container" style="text-align: center;">
-    <span option='0' class="dots" selected></span>
-    <span option='1' class="dots"></span>
-    <span option='2' class="dots"></span>
-    <span option='3' class="dots"></span>
-</amp-selector>
+
+  <!--2-->
+  <div class="headLine">
+    2. Rhythm control should be considered urgently in...
+  </div>
+
+  <amp-carousel id="carousel2"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel2Selector.toggle(index=event.index, value=true)"
+      >
+
+      <!--af WPW-->
+      <div class="container">
+        <amp-img src="media\2\afWPW.png"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
+      <!--af STEMI-->
+      <div class="container">
+        <amp-img src="media\2\AF with STEMI.jpg"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
+      <!--af HF-->
+      <div class="container">
+        <amp-img src="media\2\afHF.png"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
+  </amp-carousel>
+
+  <amp-selector id="carousel2Selector" on="select:carousel2.goToSlide(index=event.targetOption)"
+    layout="container" style="text-align: center;">
+      <span option='0' class="dots" selected></span>
+      <span option='1' class="dots"></span>
+      <span option='2' class="dots"></span>
+  </amp-selector>
+
+  <div class="caption">
+    AF with extremely fast conduction to accessory pathway (AF w/WPW), AF with end-organ damage such as STEMI or acute pulmonary edema.
+  </div>
+
+</div>
   
 <!--ad-->
   <amp-ad width="100vw" height="320"
