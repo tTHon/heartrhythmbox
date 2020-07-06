@@ -56,15 +56,17 @@
     }
 
     amp-selector [selected] {
-        outline: none;background-color: #555;border: #555 0.1vmax solid;
-    }
+        outline: none;background-color: #555;}
 
     .dots  {
     width:1.2vmin;
     height:1.2vmin;
     border-radius:1vmin;
     background-color:none;border:#555 0.1vmax solid;
-    display:inline-block;
+    display:inline-block;outline: none;
+    }
+    .ref{position: absolute;bottom: 1%;right: 1%;
+      font-size: 14px;color: #ddd;background-color: rgba(0,0,0,0.7);
     }
 
    
@@ -117,7 +119,7 @@
 </div>
 
 <!--content-->
-<div style="background-color: #f1f1f1;"> 
+  <div style="background-color: #f1f1f1;"> 
 
   <!--1-->
   <div class="headLine">
@@ -154,8 +156,10 @@
   <div class="caption">
     AF may be regular in patients with impaired AV nodal conduction or in faster V pacing.
   </div>
-
+  </div>
+  
   <!--2-->
+  <div style="background-color: white;">
   <div class="headLine">
     2. Rhythm control should be considered urgently in...
   </div>
@@ -195,12 +199,11 @@
   </amp-selector>
 
   <div class="caption">
-    AF with extremely fast conduction to accessory pathway (AF w/WPW), AF with end-organ damage such as STEMI or acute pulmonary edema.
+    AF with extremely fast conduction via accessory pathway (AF w/WPW), AF with end-organ damage such as STEMI or acute pulmonary edema.
   </div>
-
-</div>
+  </div>
   
-<!--ad-->
+  <!--ad-->
   <amp-ad width="100vw" height="320"
      type="adsense"
      data-ad-client="ca-pub-1548733331544768"
@@ -208,8 +211,159 @@
      data-auto-format="rspv"
      data-full-width="">
   <div overflow=""></div>
-</amp-ad>
+  </amp-ad>
+
+  <!--3-->
+  <div style="background-color: #f1f1f1;">
+  <div class="headLine">
+    3. Risk factor management is the first step in long-term AF management.
+  </div>
+
+  <amp-carousel id="carousel3"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel3Selector.toggle(index=event.index, value=true)"
+      >
+
+      <!--RFM-->
+      <div class="container">
+        <amp-img src="media\3\RFM.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
+      </div>
+      <!--Htn-->
+      <div class="container">
+        <amp-img src="media\3\LIFE.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1016/j.jacc.2004.10.068" target="_blank" class="ref">LIFE Study, JACC 2005.</a>        
+      </div>
+      <!--exercise wt loss-->
+      <div class="container">
+        <amp-img src="media\3\weightExercise.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="http://www.onlinejacc.org/content/65/20/2159" target="_blank" style="color: #ddd;">LEGACY, JACC 2015.</a>, 
+          <a href="https://www.sciencedirect.com/science/article/pii/S0735109714064675" target="_blank" style="color: #ddd;">ARREST-AF, JACC 2014.</a>,
+          and <a href="https://www.sciencedirect.com/science/article/pii/S0735109715033392" target="_blank" style="color: #ddd;">CARDIO-FIT, JACC 2015.</a>
+          </div>
+      </div>
+      <!--sum RFM-->
+      <div class="container">
+        <amp-img src="media\3\rfmAndGoal.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1161/CIRCULATIONAHA.116.023163" target="_blank" class="ref">Circulation 2017.</a>        
+      </div>
+
+  </amp-carousel>
+
+  <amp-selector id="carousel3Selector" on="select:carousel3.goToSlide(index=event.targetOption)"
+    layout="container" style="text-align: center;">
+      <span option='0' class="dots" selected></span>
+      <span option='1' class="dots"></span>
+      <span option='2' class="dots"></span>
+      <span option='3' class="dots"></span>
+  </amp-selector>
+
+  <div class="caption">
+    Risk Factor Management (weight control, exercise, treatment of hypertension, OSA, DM, and smoking cessation) slows
+    the progression of AF and reduces AF burden.
+  </div>
+  </div>
+
+  <!--4-->
+  <div style="background-color: white">
+  <div class="headLine">
+      4. For stroke risk evaluation, use CHA<sub>2</sub>DS<sub>2</sub>-VaSc in most but NOT all.
+  </div>
   
+  <amp-carousel id="carousel4"
+        height="1200"
+        layout="fixed-height"
+        type="slides"
+        on="slideChange:carousel4Selector.toggle(index=event.index, value=true)"
+        >
+        <!--rheumatic-->
+        <div class="container">
+          <amp-img src="media\4\Rheumatic.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
+        </div>  
+        <!--the score-->
+        <div class="container">
+          <amp-img src="media\4\chadsvasc.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
+        </div>
+
+        <!--HCM-->
+        <div class="container">
+          <amp-img src="media\4\HCM Stroke.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0038-1676818" target="_blank" 
+          class="ref">Thromb Haemost 2019.</a>
+        </div>
+ 
+    </amp-carousel>
+  
+    <amp-selector id="carousel4Selector" on="select:carousel4.goToSlide(index=event.targetOption)"
+      layout="container" style="text-align: center;">
+        <span option='0' class="dots" selected></span>
+        <span option='1' class="dots"></span>
+        <span option='2' class="dots"></span>
+    </amp-selector>
+  
+    <div class="caption">
+      In AF patients with mechanical valve, moderate-to-severe mitral stenosis, or hypertrophic cardiomyopathy,
+      OAC is indicated regardless of the CHA<sub>2</sub>DS<sub>2</sub>-VaSc score.
+    </div>
+  </div>
+
+  <!--5-->
+  <div style="background-color: #f1f1f1;">
+  <div class="headLine">
+    5. The Goods & The Bads of NOACs & Warfarin.
+  </div>
+
+  <amp-carousel id="carousel5"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel5Selector.toggle(index=event.index, value=true)"
+      >
+
+      <!--RFM-->
+      <div class="container">
+        <amp-img src="media\3\RFM.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
+      </div>
+
+  </amp-carousel>
+
+  <amp-selector id="carousel5Selector" on="select:carousel5.goToSlide(index=event.targetOption)"
+    layout="container" style="text-align: center;">
+      <span option='0' class="dots" selected></span>
+      <span option='1' class="dots"></span>
+      <span option='2' class="dots"></span>
+      <span option='3' class="dots"></span>
+  </amp-selector>
+
+  <div class="caption">
+    Risk Factor Management (weight control, exercise, treatment of hypertension, OSA, DM, and smoking cessation) slows
+    the progression of AF and reduces AF burden.
+  </div>
+  </div>
+  
+ 
   <!--footer-->
   <div style="background: #ddd;font-size: 18px;padding:3vmax 3vmax;text-align: center;
   color:#555;line-height: 200%;">
