@@ -23,7 +23,7 @@
   <style amp-custom>
 
     .coral {color: #fa7268;}
-    .row {display: flex;}
+    .row, .rowNoWrap {display: flex;}
     @media only screen and (max-width:600px) {
       .row {flex-wrap: wrap;}
     }
@@ -123,7 +123,7 @@
 <!--1-->
   <div style="background-color: #f1f1f1;"> 
 
-  <div class="headLine">
+  <div id="no1" class="headLine">
     1. AF does not have to be "IRREGULAR".
   </div>
 
@@ -161,7 +161,7 @@
   
   <!--2-->
   <div style="background-color: white;">
-  <div class="headLine">
+  <div id="no2" class="headLine">
     2. Rhythm control should be considered urgently in...
   </div>
 
@@ -216,7 +216,7 @@
 
   <!--3-->
   <div style="background-color: #f1f1f1;">
-  <div class="headLine">
+  <div id="no3" class="headLine">
     3. Risk factor management is the first step in long-term AF management.
   </div>
 
@@ -278,7 +278,7 @@
 
   <!--4-->
   <div style="background-color: white">
-  <div class="headLine">
+  <div id="no4" class="headLine">
       4. For stroke risk evaluation, use CHA<sub>2</sub>DS<sub>2</sub>-VaSc in most but NOT all.
   </div>
   
@@ -337,7 +337,7 @@
 
   <!--5-->
   <div style="background-color: #f1f1f1;">
-  <div class="headLine">
+  <div id="no5" class="headLine">
     5. How good are the OACs?
   </div>
 
@@ -382,7 +382,7 @@
 
   <!--6-->
   <div style="background-color: white">
-  <div class="headLine">
+  <div id="no6" class="headLine">
       6. Rate control for live, Rhythm control for love.
   </div>
   
@@ -423,7 +423,7 @@
 
   <!--7-->
   <div style="background-color: #f1f1f1">
-  <div class="headLine">
+  <div id="no7" class="headLine">
       7. Amiodarone is NOT the first line for rate control.
   </div>
   
@@ -458,7 +458,7 @@
   </amp-selector>
   
   <div class="caption" style="text-align: left;">
-    1. May consider amiodarone for rate control in acute AF with HF.<br>
+    1. May consider amiodarone after beta-blocker for rate control in acute AF with HF.<br>
     2. Choice of medications for rate control depends on LVEF.<br>
     3. The prevalence of of adverse effects related to amiodarone is up to 15% in the first year and 50% in case of prolonged treatment.    
   </div>
@@ -466,9 +466,13 @@
   
  
   <!--footer-->
-  <div style="background: #ddd;font-size: 18px;padding:3vmax 3vmax;text-align: center;
-  color:#555;line-height: 200%;">
-    
+  <div style="background: #ddd;font-size: 16px;padding:3vmax 3vmax;color:#555;line-height: 200%;text-align: center;">
+   
+    <span>Page Nav:&nbsp;</span><span><a href="#top">Top</a>&nbsp;</span> 
+    <span><a href="#1">#1</a>&nbsp;</span>
+    <span><a href="#2">#2</a>&nbsp;</span> 
+
+    <br>
     <span style="font-weight: 400;">
     Follow me at<br> <a href="https://heartrhythmbox.com" style="cursor: pointer;text-decoration: none;color: #555;">
       <amp-img src="box coral.png" width="25" height="25"
