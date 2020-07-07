@@ -48,7 +48,7 @@
     max-height: 46vw;background-color:transparent;}
 
     .caption {font-family: Roboto, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
-    padding: 0.5vmax;text-align: center;color:#777;}
+    padding: 0.8vmax;text-align: center;color:#777;}
 
     @media only screen and (max-width:1024px){
       .container {width: 96vw;height:54vw;}
@@ -67,7 +67,7 @@
     display:inline-block;outline: none;
     }
     .ref{position: absolute;bottom: 1%;right: 1%;
-      font-size: 1.2vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
+      font-size: 1vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
     }
 
    
@@ -302,7 +302,14 @@
           class="contain"></amp-img>
           <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
         </div>
-
+        <!--VHF-->
+        <div class="container">
+          <amp-img src="media\4\VHD.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1093/europace/euy151" target="_blank" 
+          class="ref">Lip et al. Europace 2018.</a>
+        </div>
         <!--HCM-->
         <div class="container">
           <amp-img src="media\4\HCM Stroke.png"
@@ -319,6 +326,7 @@
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
         <span option='2' class="dots"></span>
+        <span option='3' class="dots"></span>
     </amp-selector>
   
     <div class="caption">
@@ -330,7 +338,7 @@
   <!--5-->
   <div style="background-color: #f1f1f1;">
   <div class="headLine">
-    5. How good are the OACs.
+    5. How good are the OACs?
   </div>
 
   <amp-carousel id="carousel5"
@@ -342,26 +350,117 @@
 
       <!--overall-->
       <div class="container">
-        <amp-img src="AFMx\media\5\StrokebyScore.png"
+        <amp-img src="media\5\StrokebyScore.png"
         layout="fill"
         class="contain"></amp-img>
         <a href="https://doi.org/10.1016/j.ijcard.2014.11.196" target="_blank" class="ref">Int J Cardiol 2015.</a>
       </div>
+      <!--NOACs vs Warfarin-->
+      <div class="container">
+        <amp-img src="media\5\NOAC Metaanalysis.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+        <a href="https://doi.org/10.1016/S0140-6736(13)62343-0" target="_blank" style="color: #DDD;">Lancet 2013.</a>
+        and  <a href="https://www.acc.org/latest-in-cardiology/articles/2014/07/18/15/22/meta-analysis-how-noacs-compared-to-warfarin-in-afib" target="_blank" style="color: #DDD;">ACC.org: Latest in Cardiology</a>
+        </div>
+      </div>
+
+    </amp-carousel>
+
+    <amp-selector id="carousel5Selector" on="select:carousel5.goToSlide(index=event.targetOption)"
+      layout="container" style="text-align: center;">
+        <span option='0' class="dots" selected></span>
+        <span option='1' class="dots"></span>
+    </amp-selector>
+
+    <div class="caption" style="text-align: left;">
+      1. Any OACs (either warfarin or NOACs) reduce stroke by approximately 70%.<br>
+      2. Compared to warfarin, NOACs are associated with approximately 50% lower incidence of intracranial hemorrhage.<br>
+    </div>
+  </div>
+
+  <!--6-->
+  <div style="background-color: white">
+  <div class="headLine">
+      6. Rate control for live, Rhythm control for love.
+  </div>
+  
+  <amp-carousel id="carousel6"
+        height="1200"
+        layout="fixed-height"
+        type="slides"
+        on="slideChange:carousel6Selector.toggle(index=event.index, value=true)"
+        >
+        <!--CCS GL-->
+        <div class="container">
+          <amp-img src="media\6\Rate Rhythm Algorithm CCS guidelines.jpg"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="http://dx.doi.org/10.1016/j.cjca.2014.08.001" target="_blank" class="ref">2014 CCS Guidelines</a>
+        </div>  
+        <!--meta analysis-->
+        <div class="container">
+          <amp-img src="media\6\rateVrhythmMetaanalysis.jpg"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://dx.doi.org/10.1371%2Fjournal.pone.0186856" target="_blank" class="ref">PLoS One 2017.</a>
+        </div>  
+  </amp-carousel>
+  
+  <amp-selector id="carousel6Selector" on="select:carousel6.goToSlide(index=event.targetOption)"
+      layout="container" style="text-align: center;">
+        <span option='0' class="dots" selected></span>
+        <span option='1' class="dots"></span>
+  </amp-selector>
+  
+  <div class="caption" style="text-align: left;">
+    1. Rate control is often sufficient to improve AF-related symptoms.<br>
+    2. Rate control is essential in AF management regardless of whether rhythm or rate control strategy is chosen.<br>
+    2. All trials that have compared rhythm vs. rate control have resulted in neutral outcomes in major CV endpoints.
+  </div>
+  </div>
+
+  <!--7-->
+  <div style="background-color: white">
+  <div class="headLine">
+      7. Amiodarone is NOT the first line for rate control.
+  </div>
+  
+  <amp-carousel id="carousel7"
+        height="1200"
+        layout="fixed-height"
+        type="slides"
+        on="slideChange:carousel7Selector.toggle(index=event.index, value=true)"
+        >
+        <!--ESC GL-->
+        <div class="container">
+          <amp-img src="media\7\Rate control ESC GL.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
+        </div> 
+        <!--cordarone--> 
+        <div class="container">
+          <amp-img src="media\7\cordarone.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://www.escardio.org/Journals/E-Journal-of-Cardiology-Practice/Volume-10/Treatment-with-amiodarone-How-to-avoid-complications" target="_blank" class="ref">
+            ESC e-Journal 2011.</a>
+        </div> 
 
   </amp-carousel>
-
-  <amp-selector id="carousel5Selector" on="select:carousel5.goToSlide(index=event.targetOption)"
-    layout="container" style="text-align: center;">
-      <span option='0' class="dots" selected></span>
-      <span option='1' class="dots"></span>
-      <span option='2' class="dots"></span>
-      <span option='3' class="dots"></span>
+  
+  <amp-selector id="carousel7Selector" on="select:carousel7.goToSlide(index=event.targetOption)"
+      layout="container" style="text-align: center;">
+        <span option='0' class="dots" selected></span>
+        <span option='1' class="dots"></span>
   </amp-selector>
-
-  <div class="caption">
-    1. Any OACs (either warfarin or NOACs) reduce stroke by approximately 70%.<br>
-    2. (Almost all) NOACs are associated with approximately 50% lower incidence of intracranial hemorrhage.<br>
-    3. NOACs remain contraindicated in patients with mechanical valve and moderate-to-severe mitral stenosis.
+  
+  <div class="caption" style="text-align: left;">
+    1. May consider amiodarone for rate control in acute AF with HF.<br>
+    2. Choice of medications for rate control depends on LVEF.<br>
+    3. The prevalence of of adverse effects related to amiodarone is up to 15% in the first year and 50% in case of prolonged treatment.    
   </div>
   </div>
   
