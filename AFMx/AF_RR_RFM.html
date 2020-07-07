@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AF|Rate-Rhythm|RFM 2018</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-7');
+</script>
+
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Abel|Michroma|Slabo+27px" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+<style>
+/*fonts*/
+.Abel {font-family: 'Abel', sans-serif;}
+.wideFont {font-family: 'Michroma', sans-serif;}
+.serif {font-family: 'Slabo 27px', serif;}
+
+/*color*/
+.darkRed {color: #420c1a}
+.red {color: #883240}
+.redBg {background:linear-gradient(to bottom right,#420c1a 0%, #883240 10%,#bd102d 100%)}
+.berryRed {color: #bd102d}
+.pink {color:#f8e7ea}
+.darkBlue {color: #12151f}
+.blue2 {color: #627980}
+.blue {color: #96a9ae}
+.lightBlue {background-color: #fafbfb}
+
+.barContainer {background: #f1f1f1;height: 6vh;width: 100%;position: sticky;top: 0;z-index:3;}
+.topBar a {text-decoration: none;font-size: 2.5vh;padding: 1.25vh 0.75vw;font-family: 'Abel', sans-serif}
+.header {font-size: 3vh;padding:1vh 1.5vw 0.5vh 0;
+    color: #5a5a5a;border-right:#fafbfb solid 0.1vmax}
+.fbIcon {font-size: 2.5vh;padding:2.25vh 0.2vw 2.25vh 0.75vw}
+
+@media only screen and (max-width: 1200px) {
+    .header {font-size: 2vh;padding: 1vh 1.5vw}
+    .topBar a {font-size: 1.8vh;padding: 2vh 1.5vw}
+    .fbIcon {font-size: 1.8vh;padding: 2vh 0.5vw}
+}
+.for900 {display: none}
+@media only screen and (max-width:900px) {
+    .no900 {display: none}
+    .for900 {display: block}
+}
+
+.block {
+    margin: 3vh 0;position: relative;padding-top:6vh;
+}
+.blockHolder  {margin: 0 2vw;border-radius: 1vw;}
+.topic {font-family: 'Abel', sans-serif;padding:0.75vmax 0.5vmax 0.5vmax 0.75vmax}
+.eyebrow {height: 0.5vmax;width: 3vmax;background: linear-gradient(to right, #883240 0%, #bd102d 50%)}
+.topicTxt {font-size: 2vmax;color: #96a9ae;line-height: 120%}
+.topicTxt :first-child {color:#883240}
+.topicTxt :last-child {color: #bd102d}
+.headLine {font-family: 'Slabo 27px', serif;color: #12151f;font-size: 2.8vmax;line-height: 120%;
+text-align: center}
+.imgHolder {max-height: 65vh;max-width: 98%}
+@media only screen and (max-width:600px) {
+    .blockHolder {margin: 0;border-radius: 0}
+    .imgHolder {max-height: auto;max-width:100%}
+}
+.center {display: block;margin-left: auto;margin-right: auto;}
+.ref {font-size: 1vmax;font-family: 'Abel', sans-serif;;color: #96a9ae;
+line-height: 120%;margin-top: 0.5vh}
+.content {font-size:1.8vmax;line-height: 130%}
+.drugTable {font-size: 1.8vmax;line-height: 130%;overflow: scroll;}
+.drugTable th, .drugTable td {border: grey 0.1vmax solid;border-collapse: collapse;text-align: center;
+                                vertical-align: middle}
+.drugTable th:first-child, td:first-child {border-left: none}
+.drugTable th:last-child, td:last-child {border-right:none}
+.finalList li:hover {font-weight: bold}
+.finalList li:first-child:hover {font-weight: 400}
+.finalList li {border-radius: 0.5vmax}
+
+/*pointer*/
+.pointer {
+    cursor: pointer;
+    height: 0.5em;
+    width: 0.5em;
+    margin: 0 0.2em;
+    display: inline-block;
+    background-color: #fc553d;
+    border-radius: 50%;
+    position: fixed;  
+    z-index: 4;
+    animation: blink 1.5s linear infinite;
+    }
+    @keyframes blink{
+    0%{opacity: 0;}
+    50%{opacity: 0.7}
+    100%{opacity: 1;}
+    }
+
+.next {
+    position: absolute; display: inline;
+    left: 98vw; 
+    background-color: transparent;
+    color: transparent;
+}
+
+</style>
+
+<body>
+
+<!--topBar-->
+<div class="barContainer w3-center no900">
+    <span class="wideFont header" onclick="unblur()">
+        <a href="#top" style="text-decoration:none">Atrial Fibrillation</a></span>
+    <span class="topBar" onclick="unblur()">
+        <a href="#rate">Rate control</a></span>
+    <span class="topBar" onclick="unblur()">
+        <a href="#rhythm">Rhythm control</a></span>
+    <span class="topBar" onclick="unblur()">
+       <a href="#rfm">Risk factors modification</a></span>
+    <span class="Abel" onclick="unblur()">
+        <a href="https://www.facebook.com/HeartRhythmBox/" title="@heartrhythmbox" target="_blank">
+            <i class="fab fa-facebook-square fbIcon" style="color: #3B5998;"></i></a>
+        <a href="https://heartrhythmbox.github.io/main/" title="Main Page" target="_blank">
+        <img src="box transparent.png" style="width:2.5vh;padding-bottom: 1vh"></a>
+    </span>
+        
+</div>
+
+<!--for mobile-->
+<div class="barContainer for900">
+    <span class="w3-dropdown-hover" onclick="unblur()" ><i class="fas fa-bars" style="font-size: 2vh;padding: 2vh;
+        cursor: pointer;background-color: #f1f1f1;"></i>
+        <div class="w3-dropdown-content w3-bar-block w3-card-4 Abel" style="font-size: 2vh">
+            <a href="#rate" class="w3-bar-item w3-button">rate control</a>
+            <a href="#rhythm" class="w3-bar-item w3-button">rhythm control</a>
+            <a href="#rfm" class="w3-bar-item w3-button">risk factors modification</a>
+        </div>
+    </span>
+    <span class="wideFont header" style="border: none" onclick="unblur()">
+        <a href="#top" style="text-decoration:none">Atrial Fibrillation</a></span>
+    <span class="Abel w3-right" style="padding-right: 1.5vh" onclick="unblur()">
+        <a href="https://www.facebook.com/HeartRhythmBox/" title="@heartrhythmbox" target="_blank">
+            <i class="fab fa-facebook-square fbIcon" style="color: #3B5998;font-size: 2vh"></i></a>
+        <a href="https://heartrhythmbox.github.io/main/" title="Main Page" target="_blank">
+        <img src="box transparent.png" style="width:2.2vh;padding-bottom: 1vh"></a>
+    </span>
+</div>
+
+
+<!--intro-->
+<div class="block" style="padding-top:none">
+    <div class="w3-row blockHolder" style="background: black;padding: 3vmax 0vmax">
+    <div class="w3-cell w3-cell-middle w3-mobile">
+            <video width="100%" height="auto" autoplay muted loop>
+                <source src="media/AF LAT.mp4" type="video/mp4">
+            </video>
+    </div>
+    <div class="w3-cell w3-padding w3-cell-middle w3-mobile">
+        <img src="media/AF EGM.jpg" style="width: 100%;" class="w3-sepia">
+        <img src="media/AF RVR in CHF.jpg" style="width: 100%" class="w3-sepia">
+        <div class="w3-container" style="text-align: right;padding-top: 2vh">
+            <div class="w3-row wideFont pink" style="font-size: 3.5vmax;">
+                Atrial Fibrillation</div>
+            <div class="w3-row Abel" style="font-size: 2vmax;color: #b8b8b8">
+                rate control | rhythm control | risk factors modification
+            <br>
+            <a href="https://www.facebook.com/HeartRhythmBox/" title="@heartrhythmbox" target="_blank"
+                style="text-decoration:none;font-size: 1.5vmax" class="blue">
+            <i class="fab fa-facebook-square blue" style="font-size: 1.5vmax"></i>
+            HeartRhythmBox
+            </a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--pointer-->
+<div onclick="pointer()"><span class="pointer" style="display: none"></span>  
+
+<!--rate control-->
+<div class="w3-row" id="rate"></div>
+<!--rate/why1-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rate control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">why</span>
+            </div>
+        </div>
+        <div class="w3-row w3-center w3-white w3-padding" style="margin: 0 0.5vw;">
+        <div class="w3-col w3-center s5 w3-padding">
+            <img src="media/rate/AF pressure tracing.jpg" style="width:100%">
+        </div>
+        <div class="w3-col w3-center s7 w3-padding">
+            <img src="media/rate/AF hemodynamic.png" style="width:100%"></div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-cell w3-padding w3-cell-middle headLine darkRed" 
+            style="font-size:3vmax;text-align: left;line-height: 100%">
+                <span class="w3-wide red">Rate</span><br>Control</div>
+            <div class="w3-cell w3-padding Abel blue2 w3-cell-middle" style="font-size:2vmax">
+                ..reduces symptoms and improves hemodynamic.<br>
+                ..is an essential therapy of AF regardless of whether rhythm or rate control strategy is chosen.
+            </div>
+        </div>
+        
+        <div class="ref w3-center">
+            <a href="https://www.sciencedirect.com/science/article/pii/S0002914902033738?via%3Dihub#BIB35" 
+            target="_blank">
+                Maisel and Stevension. Am J Cardiol. 2003 Mar 20;91(6A):2D-8D.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+
+<!--Rate Why2-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rate control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">why</span>
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col s7 w3-center w3-padding w3-mobile">
+            <img src="media/rate/TachyMyopathyMech.jpg" class="imgHolder"></div>
+            <div class="w3-col s5 w3-padding headLine darkRed w3-mobile" style="text-align:left;line-height: 140%">
+            AF is the most common arrhythmic cause of tachycardia induced cardiomyopathy.<br>
+            Rate control, as well as rhythm control, is shown to reverse the process.
+                <div class="ref">
+                <a target="_blank"
+                href="https://www.sciencedirect.com/science/article/pii/S0735109715049980?via%3Dihub#bib55">
+                Gopinathannair et al. J Am Coll Cardiol. 2015 Oct 13;66(15):1714-28.</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rate/how agent bb ccb-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rate control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">how</span>
+            </div>
+        </div>
+        <div class="w3-cell-row w3-padding">
+            <div class="w3-cell w3-cell-middle w3-padding">
+                <img src="media/rate/AcuteRate.png" style="width:100%"></div>
+            <div class="w3-cell w3-cell-middle w3-padding">
+                <img src="media/rate/ChronicRate.png" style="width:100%">
+                <div class="ref">
+                    <a href="https://academic.oup.com/eurheartj/article/37/38/2893/2334964" target="_blank">
+                    2016 ESC Guidelines for AF
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Choice of rate-controlling agents depend on LVEF.</div>
+        <div class="w3-row w3-padding Abel blue2 content">
+            CCB is not recommended in a patient with heart failure or impaired LV function. <br>
+            The role of digoxin as the first line is limited due to the inefficacy at controlling ventricular rate
+            during exercise.<br>
+            May use amiodarone for rate control in acute setting; but not in a long-term.</span>
+        </div>
+        
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rate/how/dig mortality-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rate control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">how</span>
+                <span>- digoxin</span>
+            </div>
+        </div>
+        <img src="media/rate/dig.png" class="imgHolder center">
+        <div class="w3-container w3-center w3-padding headLine darkRed" style="text-align:left">
+            Digoxin may increase mortality in AF.</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            Data from Aristotle showed that in patients with AF currently taking digoxin, 
+            the risk of death was independently related to serum digoxin concentration; 
+            highest with concentrations ≥1.2 ng/ml.<br>
+            The risk of death was greatest early after initiation of digoxin in 
+            previous nonusers, particularly with respect to sudden cardiac death.
+        </div>
+        <div class="ref" style="padding-left:1vmax">
+            <a href="https://www.sciencedirect.com/science/article/pii/S0735109718301037?via%3Dihub" target="_blank">
+            Lopes et al. J Am Coll Cardiol. 2018 Mar 13;71(10):1063-1074.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rate/avn abl-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rate control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">how</span>
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col s4 w3-padding w3-mobile">
+                <img src="media/rate/AVNodalAbl.jpg" style="width:100%"></div>
+            <div class="w3-col s8 w3-mobile">
+                <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+                AV nodal ablation</div>
+            <ul class="w3-ul w3-hoverable Abel blue2" style="font-size:1.8vmax">
+            <li class="w3-hover-light-grey">Last resource for those who were UNRESPONSIVE or INTOLERANT to INTENSIVE rate/rhythm control.</li>
+            <li class="w3-hover-light-grey">Remember that the patient will be pacemaker dependent for the rest of his life.</li>
+            <li class="w3-hover-light-grey">Consider CRT; rather than a simple pacemaker, in a patient with impaired LVEF.</li>
+            <li class="w3-hover-light-grey">Sudden cardiac arrest may occur early after AV nodal ablation due to abrupt change in heart rate,
+                sympathetic tone, and K-channel function. Rapid pacing during the first few months reduces the incidence of
+                SCA.</li>
+            </ul>
+            <div class="ref" style="text-align:center">
+                <a href="https://www.ahajournals.org/doi/abs/10.1161/CIR.0000000000000041" target="_blank">
+                    2014 ACC Guideliens for AF</a> and
+                <a href="https://academic.oup.com/eurheartj/article/37/38/2893/2334964" target="_blank">
+                    2016 ESC Guidelines for AF
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rate/how target-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rate control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">how</span>
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col s6 w3-padding"><img src="media/rate/RACEII.png" style="width:100%"></div>
+            <div class="w3-col s6 w3-padding"><img src="media/rate/rateInHFrEF.png" style="width:100%"></div>
+        </div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Target Resting Heart Rate is &lt;110 bpm for the majority of the AF patients including 
+            those with HFrEF.</div>
+        <div class="ref" style="padding-left: 1vmax">Ref: 
+            <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1001337" target="_blank">RACEII</a>,
+            <a href="https://onlinelibrary.wiley.com/doi/abs/10.1093/eurjhf/hft093" target="_blank">RACEII - post Hoc</a>,
+            &nbsp;and <a target="_blank"
+            href="https://www.sciencedirect.com/science/article/pii/S0735109717368936?via%3Dihub">
+            Beta-Blockers in Heart Failure.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rate/remark on very high rate-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rate control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">remark</span>
+            </div>
+        </div>
+        <img src="media/rate/AF with wpw 004.png" class="imgHolder center" style="width:auto;">
+        <div class="w3-container w3-center w3-padding headLine darkRed" style="text-align:left">
+            In a patient with AF with extremely rapid ventricular rate, think of...</div>
+        <div class="w3-row w3-center w3-padding Abel blue2" style="font-size:1.8vmax">
+            pre-excitation (WPW), hyperthyroidism, or catecholiminergic surge.
+        </div>
+        
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<div id="rhythm" class="w3-row w3-padding"></div>
+<!--rhythm/why1-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">why</span>
+            </div>
+        </div>
+        <img src="media/rhythm/AF with STEMI.jpg" class="imgHolder center" style="width:auto;">
+        <div class="w3-container w3-center w3-padding headLine darkRed" style="text-align:left">
+            Rhythm control saves life in an emergent situation such as...</div>
+        <div class="w3-row w3-center w3-padding Abel blue" style="font-size:1.8vmax">
+            AF with WPW, acute myocardial ischemia, acute pulmonary edema, or unstable hemodynamic situation.
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/why2-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">why</span>
+            </div>
+        </div>
+        <div class="w3-padding imgHolder">
+            <div class="w3-col s4 w3-padding">
+                <img src="media/rhythm/CameraMriLvef.png" style="width:100%"></div>
+            <div class="w3-col s8 w3-padding">
+                <img src="media/rhythm/CastleAfPrimaryOutcome.png" style="width:100%">
+            </div>
+        </div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Rhythm control improves LV function, and cardiovascular outcomes in selected 
+            populations.</div>
+        <div class="ref" style="padding-left: 1vmax">Ref:
+            <a href="https://www.sciencedirect.com/science/article/pii/S073510971739349X?via%3Dihub" target="_blank">
+            CAMERA-MRI</a> and 
+            <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1707855" target="_blank">CASTLE-AF</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/whom rate vs rhythm-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">why</span>
+                <span>- vs. rate control</span>
+            </div>
+        </div>
+        <img src="media/rhythm/AFFIRM SR.png" class="imgHolder center">
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Being in sinus rhythm is the best but how to get there is not easy.</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            In AFFIRM, rhythm control was not superior to rate control in mortality, CV outcome, or quality of life
+            in an intention-to-treat analysis. On-treatment analysis, however, showed the mortality benefit of
+            being in sinus rhythm was associated with a lower risk of death, while AAD use was associated with 
+            increased risk of death.
+        </div>
+        <div class="ref" style="padding-left: 1vmax">
+            <a href="https://www.ahajournals.org/doi/abs/10.1161/01.cir.0000121736.16643.11" target="_blank">
+                AFFIRM Investigators. Circulation. 2004;109:1509–1513.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/whom rate vs rhythm-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">why</span>
+                <span>- vs. rate control</span>
+            </div>
+        </div>
+        <img src="media/rhythm/Rate Rhythm Algorithm CCS guidelines.jpg" class="imgHolder center" style="padding-top: 2vmax">
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Choosing rhythm or rate control strategy is not a one-way task. You can always change your mind.</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            For most patients, rate control seems to be the first appropriate step.<br>
+            In selected cases with highly symptomatic AF or arrhythmia induced cardiomyopathy, 
+            early consideration of rhythm control in conjunction with rate control might be indicated. 
+        </div>
+        <div class="ref" style="padding-left: 1vmax">
+            <a href="https://www.onlinecjc.ca/article/S0828-282X(14)01249-5/abstract" target="_blank">
+            2014 CCS Guidelines for AF</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/how cv-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">how</span>
+            </div>
+        </div>
+        <div class="w3-row w3-padding">
+            <div class="w3-col s5 w3-mobile w3-padding">
+                <img src="media/rhythm/DefibPad.png" style="width: 100%">
+                <div class="ref w3-center" style="padding-bottom:0.5vmax">
+                    <a href="https://www.zoll.com/medical-products/product-manuals">
+                    Zoll - Product Manuals</a>
+                </div>
+            </div>
+            <div class="w3-col s7 w3-mobile w3-padding redBg">
+            <div class="w3-container w3-padding headLine" style="text-align:left;color:#f8e7ea">
+            Synchronized Cardioversion</div>
+            <ul class="w3-ul w3-hoverable w3-padding Abel" style="font-size:1.8vmax;color: #fafbfb">
+            <li class="w3-hover-light-grey">Method of choice to restore sinus rhythm in an emergent situation.</li>
+            <li class="w3-hover-light-grey">Anterior-posterior pad position is more effective than antero-lateral position.</li>
+            <li class="w3-hover-light-grey">Unless the patient has been adequately anticoaguated at least 3wks prior, immediate anticoagulation
+                is required before cardioversion.</li>
+            <li class="w3-hover-light-grey">Anticoagulation should be continued for at least 3wks after cardioversion, and lifelong in patients 
+                at risk of stroke.</li>
+            </ul>
+            <div class="ref w3-center">
+            <a href="https://academic.oup.com/eurheartj/article/37/38/2893/2334964#110288901" target="_blank">
+            2016 ESC Guidelines for AF</a> and
+            <a href="https://www.sciencedirect.com/science/article/pii/S0140673602113158?via%3Dihub#bib8" target="_blank">
+            Kirchof et al. Lancet 2002;26:1275-79.</a>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/how/AAD-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span>how</span>
+            </div>
+        </div>
+        <div class="imgHolder center w3-responsive" style="border: #883240 0.1vmin solid;max-height: 50vh">
+            <table class="w3-table Abel drugTable">
+            <tr class="redBg pink">
+                <th>Agents</th><th>Acute Conversion (&lt;7d)</th><th>Chronic Conversion (>7d)</th>
+                <th>LVH</th><th>CAD</th><th>CHF</th>
+                <th>AV node blocking property</th><th>ECG features prompting discontinuation</th>
+            </tr>
+            <tr>
+                <td>Flecainde</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+                <td>None</td>
+                <td>QRS>25% wider</td>
+            </tr>
+            <tr>
+                <td>Propafenone</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+                <td>Minimal</td>
+                <td>QRS>25% wider</td>
+            </tr>
+            <tr>
+                <td>Amiodarone</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td>
+                <td>Moderate</td>
+                <td>QTc>500ms</td>
+            </tr>
+            <tr>
+                <td>Dronedarone</td><td>N</td><td>N</td><td>Y</td><td>Y</td><td>Y for mild form</td>
+                <td>Moderate</td>
+                <td>QTc>500ms</td>
+            </tr>
+            <tr>
+                <td>Sotalol</td><td>N</td><td>N</td><td>N</td><td>Y</td><td>N</td>
+                <td>A lot</td>
+                <td>QTc>500ms or QTc increases >60ms</td>
+            </tr>
+            <tr>
+                <td>Ibutilide (IV)</td><td>Y</td><td>Y</td><td colspan="3">Careful</td>
+                <td>None</td>
+                <td>Careful in long QTc</td>
+                </tr>
+            <tr>
+                <td>Vernakalant (IV)</td><td>Y</td><td>N</td><td>Y</td><td>Y for stable CAD</td><td>Y for mild form</td>
+                <td>Moderate</td>
+                <td>Avoid in QTc>440</td>
+                </tr>
+            </table>
+        </div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Antiarrhythmic Drugs (AADs)</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            The choice of the agent depends largely on the presence of structural heart diseases.<br>
+            Avoid IC agents (Flecainide and Propafenone) in a patient with structural heart disease.<br>
+            Avoide Dronedarone in moderate to severe heart failure.<br>
+        </div>
+        <div class="ref" style="padding-left: 1vmax">
+            <a href="https://academic.oup.com/eurheartj/article/37/38/2893/2334964#110288901" target="_blank">
+                2016 ESC Guidelines for AF</a> and
+            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4101194/" target="_blank">
+                Camm J. Curr Cardiol Rev. 2014 Nov; 10(4): 309–314.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/how/IC se-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span>how</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">AAD - IC</span>
+            </div>
+        </div>
+        <img src="media/rhythm/AFL from IC.png" class="imgHolder center">
+        <div class="w3-container w3-center w3-padding headLine darkRed" style="text-align:left">
+            Class IC AADs have minimal to none of beta blocking property.</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            What that means is...if the drug turn AF into atrial flutter, without beta blocking
+            property, the patient may develop atrial flutter with 1:1 AV conduction. So...
+            when prescribes flecainide or propafenone, remember to add beta blocker to the regimen,
+            unless you really really have good enough reasons not to.
+        </div>
+        
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/how/cordarone -->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span>how</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">AAD - Amiodarone</span>
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col w3-padding m5 l5 w3-mobile">
+            <img src="media/rhythm/amiodarone.png" style="width:100%;"></div>
+            <div class="w3-col w3-padding m7 l7 w3-mobile">
+            <img src="media/rhythm/corneal deposit.jpeg" style="width:50%;">
+            <div class="w3-container headLine darkRed" style="text-align:left">
+                    Amiodarone side effects</div>
+                <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax;text-align: left">
+                    <div class=" w3-hover-light-grey" style="border-bottom:#96a9ae 0.1vmin solid"> The prevalence of adverse effects related to treatment with amiodarone
+                        is 15% the first year and 50% in case of prolonged administration.</div>
+                    <div class=" w3-hover-light-grey" style="border-bottom:#96a9ae 0.1vmin solid">Higher dose (ie.&ge;400mg/day) is related to higher incidence of side effects
+                        esp. lung toxicity.</div>
+                    <div class=" w3-hover-light-grey">
+                        Cornea microdeposits (shown in above image) are found in nearly all patients
+                        receiving amiodarone for more than 6 months. Unlike optic neuritis, their presence does not require 
+                        withdrawal of treatment, since they are not related to impairment of visual acuity.</div>
+                </div>
+                <div class="ref" style="padding-left:1vmax">Ref:
+                    <a target="_blank"
+                    href="https://www.escardio.org/Journals/E-Journal-of-Cardiology-Practice/Volume-10/Treatment-with-amiodarone-How-to-avoid-complications">
+                        Merino and Perez de Isla. ESC E-Journal of Cardiology Practice 2011.
+                        </a> and 
+                    <a href="https://www.nejm.org/doi/full/10.1056/NEJMicm1406501" target="_blank">
+                        Chan and Jhanji. N Engl J Med 2015; 372:1656</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/how/ablation -->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span>how</span>
+                <span>&#8765;&thinsp;</span><span>Ablation</span>
+            </div>
+        </div>
+        <div class="w3-responsive" style="padding: 1vmax;border:#420c1a 1vmax solid">
+            <table class="w3-table w3-bordered w3-hoverable w3-centered Abel" style="font-size:2vmax">
+            <tr>
+                <th>Setting</th><th>Line of therapy</th><th>Class of recommendation</th>
+            </tr>
+                <tr class="w3-hover-yellow">
+                <td>Symptomatic Paroxysmal</td>
+                <td>First Line</td>
+                <td>IIa</td>
+            </tr>
+            <tr class="w3-hover-green">
+                <td>Symptomatic Paroxysmal</td>
+                <td>Second Line</td>
+                <td>I</td>
+            </tr>
+            <tr class="w3-hover-yellow">
+                <td>Symptomatic Persistent</td>
+                <td>Second Line</td>
+                <td>IIa</td>
+                </tr>
+            <tr class="w3-hover-yellow">
+                    <td>Symptomatic Long-persistent</td>
+                    <td>Second Line</td>
+                    <td>IIa (IIb in 2014 ACC)</td>
+                </tr>
+            <tr class="w3-hover-yellow">
+                    <td>Symptomatic HFrEF</td>
+                    <td>suspected tachycardia induced cardiomyopathy</td>
+                    <td>IIa</td>
+                    </tr>
+            <tr class="w3-hover-yellow">
+                    <td>AF related tachycardia</td>
+                    <td>to avoid pacemaker implantation</td>
+                    <td>IIa</td>
+                    </tr>
+        </table></div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Catheter ablation: current recommendation.</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            Catheter Ablation reduces symptoms, improves quality of life, increases time
+            in sinus rhythm, and increases LVEF in HFrEF when compared to AADs.
+            Additionally, a recent RCT showed mortality benefit of catheter ablation in AF with 
+            HFrEF.
+        </div>
+        <div class="ref" style="padding-left: 1vmax">
+            <a href="https://academic.oup.com/eurheartj/article/37/38/2893/2334964#110288901" target="_blank">
+            2016 ESC Guidelines for AF</a>, 
+            <a href="https://jamanetwork.com/journals/jama/fullarticle/185277" target="_blank">Thermocool-AF</a>,
+            <a href="https://jamanetwork.com/journals/jama/fullarticle/1829990" target="_blank">RAFFT-2</a>, 
+            <a href="https://www.ahajournals.org/doi/full/10.1161/CIRCEP.114.001938" target="_blank">Meta-Analysis in HFrEF</a>,
+            and <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1707855" target="_blank">CASTLE-AF.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/how/ablation CAMERA-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span>how</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">Ablation - CAMERA-MRI</span>
+            </div>
+        <div class="w3-row" style="padding:2vmax 0.2vmin 0.2vmin 1vmax">
+            <div class="w3-col l4 m6 s6 w3-padding">
+                <img src="media/rhythm/CameraMriLvef.png" style="width:100%">
+            </div>
+            <div class="w3-col l4 m6 s6 w3-padding">
+                <img src="media/rhythm/CameraMriLge.jpg" style="width:100%">
+            </div>
+            <div class="w3-col l4 m12 s12">
+            <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+                Catheter ablation in persistent AF with idiopathic cardiomyopathy.</div>
+            <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+                The restoration of sinus rhythm with catheter ablation results in significant improvement of LVEF,
+                particularly in the absence of ventricular fibrosis on CMR.
+            </div>
+            <div class="ref" style="padding-left: 1vmax">
+                <a href="https://www.sciencedirect.com/science/article/pii/S073510971739349X?via%3Dihub" target="_blank">
+                CAMERA-MRI</a>
+            </div></div>
+        </div>
+        </div>
+        
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--rhythm/how/ablation Castle-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>rhythm control</span>
+                <span>&#8765;&thinsp;</span><span>how</span>
+                <span>&#8765;&thinsp;</span><span class="w3-wide">Ablation - CASTLE-AF</span>
+            </div>
+        </div>
+        <div class="w3-row" style="padding-top: 1vmax">
+            <div class="w3-col s5 w3-padding">
+                <img src="media/rhythm/CastleAfPrimaryOutcome.png" style="width:100%">
+            </div>
+            <div class="w3-col s7 w3-padding">
+                <img src="media/rhythm/CastleAFTable.jpeg" style="width:100%">
+            </div>
+
+        </div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            CASTLE-AF: the first RCT that showed benefits of catheter ablation on CV outcomes.</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            Catheter ablation for atrial fibrillation in patients with heart failure was 
+            associated with a significantly lower rate of a composite end point of death from
+            any cause or hospitalization for worsening heart failure than was medical therapy. 
+        </div>
+        <div class="ref" style="padding-left: 1vmax">
+            <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1707855" target="_blank">CASTLE-AF.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<div class="w3-row" id="rfm"></div>
+<!--RFM1-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>risk factors modification</span>
+                <span>&#8765;&thinsp;</span><span>why</span>
+            </div>
+        </div>
+        <div class="w3-row imgHolder w3-padding">
+            <div class="w3-col s5 w3-padding">
+                <img src="media/RFM/obesityMech.jpg" style="width:100%">
+            </div>
+            <div class="w3-col s7 w3-padding">
+                <img src="media/RFM/overview.jpg" style="width:100%">
+            </div>
+        </div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Risk Factors Modification (RFM)</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            Cardiometabolic risk factors such as obesity, physical inactivity, hypertension,
+            DM, and dyslipidemia have all been linked to increased incidence of AF.
+            
+        </div>
+        <div class="ref" style="padding-left: 1vmax">
+            <a href="https://www.ahajournals.org/doi/pdf/10.1161/CIR.0000000000000568" target="_blank">
+            AHA Scientific Statement on AF Burden</a> and
+            <a href="https://www.sciencedirect.com/science/article/pii/S0735109717395694?via%3Dihub" target="_blank">
+            Lavie et al. JACC 2017;70:2022-35.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--RFM2-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>risk factors modification</span>
+            </div>
+        </div>
+        <div class="w3-row imgHolder w3-padding">
+            <div class="w3-col s5" style="padding: 0 0.1vmax">
+                <img src="media/RFM/outcomeRFM.png" style="width:100%">
+            </div>
+            <div class="w3-col s7" style="padding: 0 0.1vmax">
+                <img src="media/RFM/exercise and AF burden RCT.png" style="width:100%">
+            </div>
+        </div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            Risk Factors Modification (RFM)</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            Data from a small RCT and several non-RCTs showed that comprehensive risk factors management
+            is effective in reducing AF burden, improving LA and LV function, and increasing quality of life.    
+        </div>
+        <div class="ref" style="padding-left: 1vmax">
+            <a href="http://electrophysiology.onlinejacc.org/content/early/2017/03/24/j.jacep.2016.12.015" target="_blank">The CENT Study</a>, 
+            <a href="http://www.onlinejacc.org/content/65/20/2159" target="_blank">LEGACY Study</a>, 
+            and <a href="https://www.ahajournals.org/doi/pdf/10.1161/CIRCULATIONAHA.115.018220" target="_blank">
+                Circulation. 2016;133:466-473. </a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--latest trial Ablate and Pace-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <div class="w3-row topic">
+            <div class="eyebrow"></div>  
+            <div class="topicTxt">
+                <span>latest trial</span>
+                <span>&#8765;&thinsp;</span><span>APAF-CRT</span>
+                
+            </div>
+        </div>
+        <div class="w3-row" style="padding-top: 1vmax">
+            <img src="media/APAF CRT.png" class="imgHolder center">            
+
+        </div>
+        <div class="w3-container w3-padding headLine darkRed" style="text-align:left">
+            APAF-CRT: 'Ablate and Pace' for permanent AF with heart failure and narrow QRS.</div>
+        <div class="w3-row w3-padding Abel blue2" style="font-size:1.8vmax">
+            In an elderly patient (mean age=72) with severely symptomatic permanent AF unsuitable or failed AF ablation,
+            narrow QRS, and at least one HF hospitalization in the previous year, AV junction ablation + CRT was 
+            superior to pharmacological therapy in reducing HF symptoms and hospitalization.
+        </div>
+        <div class="ref" style="padding-left: 1vmax">
+            <a href="https://academic.oup.com/eurheartj/advance-article-abstract/doi/10.1093/eurheartj/ehy555/5078460?redirectedFrom=fulltext" 
+            target="_blank">APAF-CRT.</a>
+        </div>
+    </div>
+    <div class="w3-btn next" onmouseover="blockNav(1)"></div>
+</div>
+
+<!--conclusions-->
+<div class="block">
+    <div class="blockHolder lightBlue">
+        <ul class="w3-ul Abel finalList" style="font-size:2vmax;padding:1vmax">
+            <li class="wideFont w3-white darkBlue" style="font-size:2.5vmax;">CONCLUSIONS</li>
+            <li style="background:#f8e7ea">
+            Rate control is an essential part throughout the life of the patient regardless of 
+            the treatment strategy.</li>
+            <li style="background:#bd102d;color:white">In selected cases with highly symptomatic AF or arrhythmia induced cardiomyopathy, 
+                consider rhythm control in conjunction with rate control.</li>
+            <li style="background:#883240;color:white">Catheter ablation in HFrEF is associated with improved mortality and HF hospitalization.</li>
+            <li style="background:#420c1a;color:white">Physical activity and weight control is effective in reducing AF burden.</li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+<!--end pointer-->
+
+<!--end page-->
+<div class="w3-container Abel w3-center" 
+style="margin-top:10vh;background:#f1f1f1;font-size: 1vmax;padding: 2vmax;color:#797979">
+    <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top" onclick="unblur()">
+        <i class="fas fa-arrow-circle-up"></i></a><br>
+    HeartRhythmBox, an education page of heart rhythm topics.<br>
+    visit us at <a href="https://heartrhythmbox.github.io/main/" target="_blank">
+    https://heartrhythmbox.github.io/main/</a><br>
+    or <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">https://www.facebook.com/HeartRhythmBox/</a>
+</div>
+
+
+</div>
+
+<script src="block navigation.js"></script>
+<script>
+
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===32) {
+        var p = document.getElementsByClassName("pointer");
+        p[0].style.display = "none";}
+    })
+
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===27) {
+        window.unblur()}
+    })
+
+//up arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===38) {
+    blockNav(-1)}
+})
+//down arrow
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===40) {
+    blockNav(1)}
+})
+
+window.ontouchmove = function () {unblur()};
+
+//pointer
+function pointer() {
+    var x = event.clientX;
+    var y = event.clientY;
+    var p = document.getElementsByClassName("pointer");
+    p[0].style.display = "inline";
+    p[0].style.left = x+"px"; 
+    p[0].style.top = y+"px";
+    }
+
+function unblur() {
+    var b = document.getElementsByClassName("block");
+    var i;
+    for (i=0;i<b.length;i++){
+        b[i].style.opacity = 1;
+    }
+}
+
+
+</script>
+
+
+</body>
+</html>
