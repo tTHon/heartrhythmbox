@@ -34,7 +34,7 @@
       object-fit: contain;
     }
     
-    .container {outline: none;
+    .container {
      position: relative;
      width: 72vw;
      height: 45vw;
@@ -46,30 +46,32 @@
 
     amp-carousel {margin-top: none;max-width: 73vw;margin-left: auto;margin-right: auto;
     max-height: 46vw;background-color:transparent;}
-
+    
     .caption {font-family: Roboto, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
-    padding: 0.5vmax 1vmax 1.5vmax 1vmax;text-align: center;color:#777;}
+    padding: 0.8vmax 1vmax 2vmax 1vmax;text-align: center;color:#777;}
 
     @media only screen and (max-width:1024px){
       .container {width: 96vw;height:54vw;}
       amp-carousel {max-height: 55vw;max-width: 97vw;}
     }
 
-    amp-selector [selected] {color: transparent;
-        outline: none;background-color: #555;border:#555 0.1vmax solid;}
+    amp-selector[role=tablist].tabs {display: flex;justify-content: center;}
+    amp-selector[role=tablist].tabs [selected] {outline: none;
+      background-color: #555;border:#555 0.1vmax solid;}
 
     .dots  {
     width:1.2vmin;
     height:1.2vmin;
-    border-radius:1vmin;
+    border-radius:1.2vmin;
     background-color:none;border:#555 0.1vmax solid;
-    display:inline-block;outline: none;
+    display:inline-block;margin: 0 0.2vmax;
     }
-    
+        
     .ref{position: absolute;bottom: 1%;right: 1%;
       font-size: 1vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
     }
 
+  
    
   
 </style>
@@ -148,10 +150,9 @@
       </div>
   </amp-carousel>
 
-  <amp-selector id="carousel1Selector" on="select:carousel1.goToSlide(index=event.targetOption)"
-    layout="container" style="text-align: center;">
-      <span option='0' class="dots" selected></span>
-      <span option='1' class="dots"></span>
+  <amp-selector id="carousel1Selector" class="tabs" role=tablist on="select:carousel1.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
   </amp-selector>
 
   <div class="caption">
@@ -192,7 +193,7 @@
       </div>
   </amp-carousel>
 
-  <amp-selector id="carousel2Selector" on="select:carousel2.goToSlide(index=event.targetOption)"
+  <amp-selector id="carousel2Selector" class="tabs" role=tablist on="select:carousel2.goToSlide(index=event.targetOption)"
     layout="container" style="text-align: center;">
       <span option='0' class="dots" selected></span>
       <span option='1' class="dots"></span>
@@ -262,7 +263,7 @@
 
   </amp-carousel>
 
-  <amp-selector id="carousel3Selector" on="select:carousel3.goToSlide(index=event.targetOption)"
+  <amp-selector id="carousel3Selector" class="tabs" role=tablist on="select:carousel3.goToSlide(index=event.targetOption)"
     layout="container" style="text-align: center;">
       <span option='0' class="dots" selected></span>
       <span option='1' class="dots"></span>
@@ -321,7 +322,7 @@
  
     </amp-carousel>
   
-    <amp-selector id="carousel4Selector" on="select:carousel4.goToSlide(index=event.targetOption)"
+    <amp-selector id="carousel4Selector" class="tabs" role=tablist on="select:carousel4.goToSlide(index=event.targetOption)"
       layout="container" style="text-align: center;">
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
@@ -368,7 +369,7 @@
 
     </amp-carousel>
 
-    <amp-selector id="carousel5Selector" on="select:carousel5.goToSlide(index=event.targetOption)"
+    <amp-selector id="carousel5Selector" class="tabs" role=tablist on="select:carousel5.goToSlide(index=event.targetOption)"
       layout="container" style="text-align: center;">
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
@@ -408,7 +409,7 @@
         </div>  
   </amp-carousel>
   
-  <amp-selector id="carousel6Selector" on="select:carousel6.goToSlide(index=event.targetOption)"
+  <amp-selector id="carousel6Selector" class="tabs" role=tablist on="select:carousel6.goToSlide(index=event.targetOption)"
       layout="container" style="text-align: center;">
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
@@ -417,7 +418,7 @@
   <div class="caption" style="text-align: left;">
     1. Rate control is often sufficient to improve AF-related symptoms.<br>
     2. Rate control is essential in AF management regardless of whether rhythm or rate control strategy is chosen.<br>
-    2. All trials that have compared rhythm vs. rate control have resulted in neutral outcomes in major CV endpoints.
+    3. All trials that have compared rhythm vs. rate control have resulted in neutral outcomes in major CV endpoints.
   </div>
   </div>
 
@@ -451,7 +452,7 @@
 
   </amp-carousel>
   
-  <amp-selector id="carousel7Selector" on="select:carousel7.goToSlide(index=event.targetOption)"
+  <amp-selector id="carousel7Selector" class="tabs" role=tablist on="select:carousel7.goToSlide(index=event.targetOption)"
       layout="container" style="text-align: center;">
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
@@ -463,6 +464,47 @@
     3. The prevalence of of adverse effects related to amiodarone is up to 15% in the first year and 50% in case of prolonged treatment.    
   </div>
   </div>
+
+  <!--8-->
+  <div style="background-color: #f1f1f1">
+  <div id="no7" class="headLine">
+      8. Class IC AAD is effective if you know how to use it.
+  </div>
+  
+  <amp-carousel id="carousel7"
+        height="1200"
+        layout="fixed-height"
+        type="slides"
+        on="slideChange:carousel7Selector.toggle(index=event.index, value=true)"
+        >
+        <!--IC prop-->
+        <div class="container">
+          <amp-img src=""
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
+        </div> 
+        <!--AFL--> 
+        <div class="container">
+          <amp-img src=""
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://www.escardio.org/Journals/E-Journal-of-Cardiology-Practice/Volume-10/Treatment-with-amiodarone-How-to-avoid-complications" target="_blank" class="ref">
+            ESC e-Journal 2011.</a>
+        </div> 
+
+  </amp-carousel>
+  
+  <amp-selector id="carousel7Selector" class="tabs" role=tablist on="select:carousel7.goToSlide(index=event.targetOption)"
+      layout="container" style="text-align: center;">
+        <span option='0' class="dots" selected></span>
+        <span option='1' class="dots"></span>
+  </amp-selector>
+  
+  <div class="caption" style="text-align: left;">
+    
+  </div>
+  </div>
   
  
   <!--footer-->
@@ -470,10 +512,18 @@
    
     <span>Page Nav:&nbsp;</span><span><a href="#top">Top</a>&nbsp;</span> 
     <span><a href="#1">#1</a>&nbsp;</span>
-    <span><a href="#2">#2</a>&nbsp;</span> 
+    <span><a href="#2">#2</a>&nbsp;</span>
+    <span><a href="#3">#3</a>&nbsp;</span>
+    <span><a href="#4">#4</a>&nbsp;</span>
+    <span><a href="#5">#5</a>&nbsp;</span>
+    <span><a href="#6">#6</a>&nbsp;</span>
+    <span><a href="#7">#7</a>&nbsp;</span>
+    <span><a href="#8">#8</a>&nbsp;</span>
+    <span><a href="#9">#9</a>&nbsp;</span>
+    <span><a href="#10">#10</a>&nbsp;</span> 
 
-    <br>
-    <span style="font-weight: 400;">
+    
+    <div style="padding-top:1vmax;">
     Follow me at<br> <a href="https://heartrhythmbox.com" style="cursor: pointer;text-decoration: none;color: #555;">
       <amp-img src="box coral.png" width="25" height="25"
       layout='fixed'>
@@ -487,8 +537,8 @@
       </amp-img>
       <span style="vertical-align: 7px;">@HeartRhythmBox</span>
     </a>
-  </span>
-  <br>
+  </div>
+  
     HeartRhythmBox is an education page on Heart Rhythm Topics.<br>
     This page is made with ⚡.
   </div>
