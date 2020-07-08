@@ -22,7 +22,7 @@
   <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
   <style amp-custom>
 
-    .coral {color: #fa7268;}
+    .coral {background-color: #fa7268;}
     .row {display: flex;}
     @media only screen and (max-width:600px) {
       .row {flex-wrap: wrap;}
@@ -71,9 +71,11 @@
       font-size: 1vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
     }
 
+    table, tr, th {padding: 1vmax;}
+    td {padding: 0.5vmax;}
+    th, tr, td {border:solid #ddd 0.1vmax;font-size: 1.5vmax;}
   
-   
-  
+     
 </style>
 
 </head>
@@ -467,60 +469,214 @@
 
   <!--8-->
   <div style="background-color: #f1f1f1">
-  <div id="no7" class="headLine">
+  <div id="no8" class="headLine">
       8. Class IC AAD is effective if you know how to use it.
   </div>
   
-  <amp-carousel id="carousel7"
+  <amp-carousel id="carousel8"
         height="1200"
         layout="fixed-height"
         type="slides"
-        on="slideChange:carousel7Selector.toggle(index=event.index, value=true)"
+        on="slideChange:carousel8Selector.toggle(index=event.index, value=true)"
         >
         <!--IC prop-->
         <div class="container">
-          <amp-img src=""
-          layout="fill"
-          class="contain"></amp-img>
-          <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
-        </div> 
+          <div style="overflow-x: scroll;overflow-y: scroll;">
+          <table style="text-align: center;border-collapse: collapse;width: 100%;height: 100%;
+          border: 0.2vmax solid #555;">
+            <tr class="coral" style="border: none;color: black;">
+                <th>Agents</th><th>Acute Conversion (&lt;7d)</th><th>Chronic Conversion (>7d)</th>
+                <th>LVH</th><th>CAD</th><th>CHF</th>
+                <th>AV node blocking property</th><th>ECG features prompting discontinuation</th>
+            </tr>
+            <tr>
+                <td>Flecainde</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+                <td>None</td>
+                <td>QRS>25% wider</td>
+            </tr>
+            <tr>
+                <td>Propafenone</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
+                <td>Minimal</td>
+                <td>QRS>25% wider</td>
+            </tr>
+            <tr>
+                <td>Amiodarone</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td>
+                <td>Moderate</td>
+                <td>QTc>500ms</td>
+            </tr>
+            <tr>
+                <td>Dronedarone</td><td>N</td><td>N</td><td>Y</td><td>Y</td><td>Y for mild form</td>
+                <td>Moderate</td>
+                <td>QTc>500ms</td>
+            </tr>
+            <tr>
+                <td>Sotalol</td><td>N</td><td>N</td><td>N</td><td>Y</td><td>N</td>
+                <td>A lot</td>
+                <td>QTc>500ms or QTc increases >60ms</td>
+            </tr>
+            <tr>
+                <td>Ibutilide (IV)</td><td>Y</td><td>Y</td><td colspan="3">Careful</td>
+                <td>None</td>
+                <td>Careful in long QTc</td>
+                </tr>
+            <tr>
+                <td>Vernakalant (IV)</td><td>Y</td><td>N</td><td>Y</td><td>Y for stable CAD</td><td>Y for mild form</td>
+                <td>Moderate</td>
+                <td>Avoid in QTc>440</td>
+                </tr>
+          </table>
+          </div>
+          </div> 
         <!--AFL--> 
         <div class="container">
-          <amp-img src=""
+          <amp-img src="media\8\AFL 1to1.JPG"
           layout="fill"
           class="contain"></amp-img>
-          <a href="https://www.escardio.org/Journals/E-Journal-of-Cardiology-Practice/Volume-10/Treatment-with-amiodarone-How-to-avoid-complications" target="_blank" class="ref">
-            ESC e-Journal 2011.</a>
+          <div class="ref">AFL with 1:1 AV conduction in an AF patient while on Propafenone w/o BB.</div>
         </div> 
 
   </amp-carousel>
   
-  <amp-selector id="carousel7Selector" class="tabs" role=tablist on="select:carousel7.goToSlide(index=event.targetOption)"
+  <amp-selector id="carousel8Selector" class="tabs" role=tablist on="select:carousel8.goToSlide(index=event.targetOption)"
       layout="container" style="text-align: center;">
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
   </amp-selector>
   
   <div class="caption" style="text-align: left;">
-    
+    1. Class IC AADs (Flecainide & Propafenone) are very effective for acute AF conversion in patients without structural heart disease.<br>
+    2. IC AADs have little beta blocking effect. AFL with 1:1 AV conduction may occur if administered without AV nodal blocking agent.
   </div>
   </div>
   
- 
+  <!--9-->
+  <div style="background-color: #f1f1f1">
+    <div id="no9" class="headLine">
+        9. Ablation has its role BUT not to omit anticoagulation
+    </div>
+    
+    <amp-carousel id="carousel9"
+          height="1200"
+          layout="fixed-height"
+          type="slides"
+          on="slideChange:carousel9Selector.toggle(index=event.index, value=true)"
+          >
+
+          <!--Recurrence AF--> 
+          <div class="container">
+            <amp-img src="media\9\Cabana Recurrence AF.png"
+            layout="fill"
+            class="contain"></amp-img>
+            <a href="https://jamanetwork.com/journals/jama/fullarticle/2728676" target="_blank" class="ref">
+            CABANA Trial. JAMA 2019.
+            </a>
+          </div> 
+          <!--QOL--> 
+          <div class="container">
+            <amp-img src="media\9\Cabana QOL.png"
+            layout="fill"
+            class="contain"></amp-img>
+            <a href="https://jamanetwork.com/journals/jama/fullarticle/2728675" target="_blank" class="ref">
+            CABANA Trial. JAMA 2019.
+            </a>
+          </div> 
+          <!--CASTLE--> 
+          <div class="container">
+            <amp-img src="media\9\castleAF AF 1endpoint.png"
+            layout="fill"
+            class="contain"></amp-img>
+            <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa17078555" target="_blank" class="ref">
+            CASTLE AF. NEJM 2018.
+            </a>
+          </div> 
+  
+    </amp-carousel>
+    
+    <amp-selector id="carousel9Selector" class="tabs" role=tablist on="select:carousel9.goToSlide(index=event.targetOption)"
+        layout="container" style="text-align: center;">
+          <span option='0' class="dots" selected></span>
+          <span option='1' class="dots"></span>
+          <span option='2' class="dots"></span>
+    </amp-selector>
+    
+    <div class="caption">
+    In symptomatic AF patients, catheter ablation improves symptoms and reduces recurrent AF. <br>
+    In AF with HFrEF patients, catheter ablation reduces CV death and HF hospitalization.  
+    </div>
+  </div>
+
+  <!--ad-->
+  <amp-ad width="100vw" height="320"
+     type="adsense"
+     data-ad-client="ca-pub-1548733331544768"
+     data-ad-slot="3832343426"
+     data-auto-format="rspv"
+     data-full-width="">
+  <div overflow=""></div>
+  </amp-ad>
+
+
+<!--10-->
+<div style="background-color: #f1f1f1">
+  <div id="no10" class="headLine">
+      10. The term 'Lone AF' should be avoided.
+  </div>
+  
+  <amp-carousel id="carousel10"
+        height="1200"
+        layout="fixed-height"
+        type="slides"
+        on="slideChange:carousel10Selector.toggle(index=event.index, value=true)"
+        >
+
+        <!--incidence lone AF--> 
+        <div class="container">
+          <amp-img src="media\10\loneAF incidence.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="http://dx.doi.org/10.1016/j.jacc.2014.01.023" target="_blank" class="ref">
+          JACC 2014.
+          </a>
+        </div> 
+        <!--Carto--> 
+        <div class="container">
+          <amp-img src="media\10\carto.jpg"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1016/j.jacc.2008.11.054" target="_blank" class="ref">
+          JACC 2008.
+          </a>
+        </div> 
+
+
+  </amp-carousel>
+
+  <amp-selector id="carousel10Selector" class="tabs" role=tablist on="select:carousel10.goToSlide(index=event.targetOption)"
+      layout="container" style="text-align: center;">
+        <span option='0' class="dots" selected></span>
+        <span option='1' class="dots"></span>
+  </amp-selector>
+  
+  <div class="caption">
+  ..With more ways to evaluate structural heart diseases, less and less 'LONE' AF is detected.<br>
+  ..AF is a progressive disease. Even in the previously-called 'lone AF' patients, the prognosis is not benign.
+  </div>
+</div>
+
   <!--footer-->
   <div style="background: #ddd;font-size: 16px;padding:3vmax 3vmax;color:#555;line-height: 200%;text-align: center;">
    
-    <span>Page Nav:&nbsp;</span><span><a href="#top">Top</a>&nbsp;</span> 
-    <span><a href="#1">#1</a>&nbsp;</span>
-    <span><a href="#2">#2</a>&nbsp;</span>
-    <span><a href="#3">#3</a>&nbsp;</span>
-    <span><a href="#4">#4</a>&nbsp;</span>
-    <span><a href="#5">#5</a>&nbsp;</span>
-    <span><a href="#6">#6</a>&nbsp;</span>
-    <span><a href="#7">#7</a>&nbsp;</span>
-    <span><a href="#8">#8</a>&nbsp;</span>
-    <span><a href="#9">#9</a>&nbsp;</span>
-    <span><a href="#10">#10</a>&nbsp;</span> 
+    <span><a href="#top">Top</a>&nbsp;</span> 
+    <span><a href="#no1">#1</a>&nbsp;</span>
+    <span><a href="#no2">#2</a>&nbsp;</span>
+    <span><a href="#no3">#3</a>&nbsp;</span>
+    <span><a href="#no4">#4</a>&nbsp;</span>
+    <span><a href="#no5">#5</a>&nbsp;</span>
+    <span><a href="#no6">#6</a>&nbsp;</span>
+    <span><a href="#no7">#7</a>&nbsp;</span>
+    <span><a href="#no8">#8</a>&nbsp;</span>
+    <span><a href="#no9">#9</a>&nbsp;</span>
+    <span><a href="#no10">#10</a>&nbsp;</span> 
 
     
     <div style="padding-top:1vmax;">
