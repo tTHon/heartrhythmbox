@@ -34,7 +34,7 @@
       object-fit: contain;
     }
     
-    .container {
+    .container {outline: none;
      position: relative;
      width: 72vw;
      height: 45vw;
@@ -48,7 +48,7 @@
     max-height: 46vw;background-color:transparent;}
 
     .caption {font-family: Roboto, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
-    padding: 0.8vmax;text-align: center;color:#777;}
+    padding: 0.5vmax 1vmax 1.5vmax 1vmax;text-align: center;color:#777;}
 
     @media only screen and (max-width:1024px){
       .container {width: 96vw;height:54vw;}
@@ -57,7 +57,7 @@
 
     
     amp-selector [selected] {
-        outline: transparent;background-color: #555;}
+        outline: none;background-color: #555;border:#555 0.1vmax solid;}
 
     .dots  {
     width:1.2vmin;
@@ -66,6 +66,7 @@
     background-color:none;border:#555 0.1vmax solid;
     display:inline-block;outline: none;
     }
+    .dots [selected] {outline: none;}
     .ref{position: absolute;bottom: 1%;right: 1%;
       font-size: 1vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
     }
