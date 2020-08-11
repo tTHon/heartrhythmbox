@@ -231,9 +231,9 @@
   </div>
   
   <!--2 causes & prognosis-->
-  <div style="background-color: white;">
+  <div class="lightGrey">
   <div id="no2" class="headLine">
-    Prognosis of Syncope -- cardiac (HCM case)/OH (w/Hip Fx)
+    Causes & Prognosis of Syncope
   </div>
 
   <amp-carousel id="carousel2"
@@ -243,23 +243,44 @@
       on="slideChange:carousel2Selector.toggle(index=event.index, value=true)"
       >
 
-      <!--af WPW-->
+      <!--cause-->
       <div class="container">
-        <amp-img src="media\2\afWPW.png"
+        <amp-img src="media\Prognosis\Causes of Syncope Brignole.png"
         layout="fill"
         class="contain"></amp-img>
+        <a href="https://doi.org/10.1016/s0735-1097(01)01241-4" target="_blank" class="ref">
+        JACC 2001.
+        </a>
       </div>
-      <!--af STEMI-->
+      <!--prognosis-->
       <div class="container">
-        <amp-img src="media\2\AF with STEMI.jpg"
+        <amp-img src="media\Prognosis\KM.png"
         layout="fill"
         class="contain"></amp-img>
+        <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa012407" target="_blank" class="ref">
+        NEJM 2002.
+        </a>
       </div>
-      <!--af HF-->
+      <!--red flag-->
       <div class="container">
-        <amp-img src="media\2\afHF.png"
-        layout="fill"
-        class="contain"></amp-img>
+        <div style="overflow-y: scroll;height: 100%;padding: 1vmax;">
+          <div style="background-color: #800000;color: white;font-size: 2vmax;padding: 1vmax;">Red Flag Features <br>
+          <span style="font-size: 1.5vmax;color: #ababab;">(People requiring urgent assessment and treatment)</span>
+          </div>
+          <ul class="lightGrey" style="padding:1vmax 3vmax;font-size: 2vmax;">
+            <li>Abnormal ECG</li>
+            <li>Heart Failure</li>
+            <li>TLoC during exertion</li>
+            <li>Family history of sudden cardiac death in people aged younger than 40 years and/or an inherited cardiac condition.</li>
+            <li>New or unexplained breathlessness.</li>
+            <li>A heart murmur.</li>
+            <li>Consider referring within 24 hours for cardiovascular assessment, as above, anyone aged older than 65 years who has experienced TLoC without prodromal symptoms.</li>
+          </ul>
+          <a href="https://www.nice.org.uk/guidance/cg109" target="_blank" class="ref">
+          NICE Guidance on TLoC. Updated 2014.
+          </a>
+
+        </div>
       </div>
   </amp-carousel>
 
@@ -271,7 +292,7 @@
   </amp-selector>
 
   <div class="caption">
-    AF with extremely fast conduction via accessory pathway (AF w/WPW), AF with end-organ damage such as STEMI or acute pulmonary edema.
+    Reflex syncope (or vasovagal, or neurally mediated) is the most common cause. Cardiac syncope has the worst prognosis.
   </div>
   </div>
   
@@ -279,7 +300,7 @@
   <!--3 basic investigation-->
   <div style="background-color: #f1f1f1;">
   <div id="no3" class="headLine">
-    'HOPE' (PE case, HCM case - ECG)
+    Initial Evaluation
   </div>
 
   <amp-carousel id="carousel3"
@@ -289,38 +310,35 @@
       on="slideChange:carousel3Selector.toggle(index=event.index, value=true)"
       >
 
-      <!--RFM-->
+      <!--HPE-->
       <div class="container">
-        <amp-img src="media\3\RFM.png"
+        <amp-img src="media\Eval\Canadian Diagram.png"
         layout="fill"
         class="contain"></amp-img>
-        <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
+        <a href="https://doi.org/10.1016/j.cjca.2019.12.023" target="_blank" class="ref">
+          2020 CCS Practice Update on Syncope</a>
       </div>
-      <!--Htn-->
-      <div class="container">
-        <amp-img src="media\3\LIFE.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <a href="https://doi.org/10.1016/j.jacc.2004.10.068" target="_blank" class="ref">LIFE Study, JACC 2005.</a>        
-      </div>
-      <!--exercise wt loss-->
-      <div class="container">
-        <amp-img src="media\3\weightExercise.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <div class="ref">
-          <a href="http://www.onlinejacc.org/content/65/20/2159" target="_blank" style="color: #ddd;">LEGACY, JACC 2015.</a>, 
-          <a href="https://www.sciencedirect.com/science/article/pii/S0735109714064675" target="_blank" style="color: #ddd;">ARREST-AF, JACC 2014.</a>,
-          and <a href="https://www.sciencedirect.com/science/article/pii/S0735109715033392" target="_blank" style="color: #ddd;">CARDIO-FIT, JACC 2015.</a>
-          </div>
-      </div>
-      <!--sum RFM-->
+      <!--Yield of Hx-->
       <div class="container">
         <amp-img src="media\3\rfmAndGoal.png"
         layout="fill"
         class="contain"></amp-img>
         <a href="https://doi.org/10.1161/CIRCULATIONAHA.116.023163" target="_blank" class="ref">Circulation 2017.</a>        
       </div>
+      <!--Canadian Score-->
+      <div class="container">
+        <amp-img src="media\3\LIFE.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1016/j.jacc.2004.10.068" target="_blank" class="ref">LIFE Study, JACC 2005.</a>        
+      </div>
+      <!--score and outcomes-->
+      <div class="container">
+        <amp-img src="media\3\weightExercise.png"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
+
 
   </amp-carousel>
 
@@ -333,8 +351,7 @@
   </amp-selector>
 
   <div class="caption">
-    Risk Factor Management (weight control, exercise, treatment of hypertension, OSA, DM, and smoking cessation) slows
-    the progression of AF and reduces AF burden.
+    Detailed History Taking is the most important step for evaluation of syncope.
   </div>
   </div>
 
