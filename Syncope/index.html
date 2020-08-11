@@ -153,10 +153,16 @@
       height="1200"
       layout="fixed-height"
       type="slides"
-      on="slideChange:carousel1Selector.toggle(index=event.index, value=true)"
-      >
+      on="slideChange:carousel1Selector.toggle(index=event.index, value=true)">
+
+      <!--syncope def bars-->
+      <div class="container">
+        <amp-img src="media\definitions\bars.png"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
      
-      <!--TLOC List-->
+      <!--Syncope Def-->
       <div class="container">
         
           <div class="lightGrey" style="padding: 2vmax">
@@ -177,22 +183,50 @@
           </div>
        
       </div>
-      <!--af biV-->
+
+      <!--pitfall in dx-->
       <div class="container">
-        <amp-img src="media\1\AF BiV pacing.JPG"
+        <div class="lightGrey" style="overflow-x: scroll;overflow-y: scroll;padding: 1vmax;">
+          <div style="font-size: 2vmax;padding: 1vmax;">Conditions that may be misdiagnosed as syncope</div>
+        <table style="text-align: center;border-collapse: collapse;width: 100%;height: 100%;
+        border: 0.2vmax solid #555;">
+          <tr class="brown2" style="border: none;">
+              <th>Cause of Loss of Consciousness</th>
+              <th>Not syncope because...</th>
+          </tr>
+          <tr><td>Seizure</td><td>not from cerebral hypoperfusion</td></tr>
+          <tr><td>Trauma</td><td>not from cerebral hypoperfusion</td></tr>
+          <tr><td>Intoxication (from drugs, alcohol, and etc.)</td><td>not totally unaware, not from cerebral hypoperfusion</td></tr>
+          <tr><td>Cardiac Arrest</td><td>not transient, not reversible</td></tr>
+          <tr><td>Stroke</td><td>not transient</td></tr>
+          <tr><td>Subarachnoid hemorrhage</td><td>not from cerebral hypoperfusion <br>
+            (consciousness may be progressively reduced rather than immediately lost. Accompanying severe headache, other neurological signs)</td></tr>
+          <tr><td>Cataplexy</td><td>not unaware (unresponsive, uncontrolled, but fully aware)</td></tr>
+        </table>
+        </div>
+      </div> 
+
+      <!--cause of TLOC-->
+      <div class="container">
+        <amp-img src="media\definitions\TLOC.png"
         layout="fill"
         class="contain"></amp-img>
-        <div class="ref">AF w/ BiV pacing s/p AV nodal ablation.</div>
+        <a href="https://doi.org/10.1093/eurheartj/ehy037" target="_blank" class="ref">
+          2018 ESC Guidelines for Syncope
+          </a>
       </div>
+
   </amp-carousel>
 
   <amp-selector id="carousel1Selector" class="tabs" role=tablist on="select:carousel1.goToSlide(index=event.targetOption)">
     <div option='0' class="dots" selected></div>
     <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
   </amp-selector>
 
   <div class="caption">
-    ..depends on the AV nodal function.
+    Syncope is Transient Loss of Consciousness due to Cerebral Hypoperfusion.
   </div>
   </div>
   
