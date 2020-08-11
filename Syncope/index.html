@@ -22,7 +22,15 @@
   <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
   <style amp-custom>
 
-    .coral {background-color: #fa7268;}
+    /*color*/
+  .lightGrey {background-color: #f1f3f4}
+  .lightBlue {background-color: #edf1fa;}
+  .blue {background-color: #c0cfe3}
+  .darkGrey {background-color: #ababab}
+  .brown1 {background-color: #b2843d;color: white}
+  .brown2 {background-color: #7c4c1b;color: white}
+  .coral {background-color: #fa7268;}
+
     .row {display: flex;}
     @media only screen and (max-width:600px) {
       .row {flex-wrap: wrap;}
@@ -41,7 +49,7 @@
     }
 
     .headLine {font-size: 2.5vmax;text-align: center;margin-left: auto;margin-right: auto;color: #333;line-height: 120%;
-      padding-top: 8vmax;padding-bottom:1vmax;max-width: 900px;width: fit-content;border-bottom: #fa7268 solid 0.1vmax;padding-bottom: 1vmax;}
+      padding-top: 8vmax;padding-bottom:1vmax;max-width: 900px;width: fit-content;border-bottom: #c0cfe3 solid 0.1vmax;padding-bottom: 1vmax;}
   
 
     amp-carousel {margin-top: none;max-width: 73vw;margin-left: auto;margin-right: auto;
@@ -49,6 +57,11 @@
     
     .caption {font-family: Raleway, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
     padding: 0.8vmax 1vmax 2vmax 1vmax;text-align: center;color:#777;}
+
+    .logoAlign {text-align: right;padding: 1vmax;background-color: #edf1fa;font-size: 1.2vmax;}
+    @media only screen and (max-width:999px){
+      .logoAlign {text-align: right;background-color: white;padding-top: 0.5vmin;font-size: 1vw;}
+    }
 
     @media only screen and (max-width:1024px){
       .container {width: 96vw;height:54vw;}
@@ -100,32 +113,37 @@
 
 <!--title section-->
 
-<div class="row">
-  <div style="flex: 50%;">
-  <amp-video autoplay class="contain"
-    width="844"
-    height="912"
-    layout="responsive"
-    src="media\AF LAT.mp4"></amp-video>
+<div>
+  <div>
+    <amp-img 
+    media="(min-width: 1000px)"
+    src="media\title.png" width="1775"
+    height="747"
+    layout="responsive">
+    </amp-img>
+    <amp-img 
+    media="(max-width: 999px)"
+    src="media\title_m.png" width="1084"
+    height="870"
+    layout="responsive">
+    </amp-img>
   </div>  
-  
-  <div style="font-size: 3.6vmax;align-self: center;text-align: center;padding: 2vmax;flex: 50%;color: #232323;flex: 50%;">
-    Syncope<br> <span style="color: black;"></span>
+
     
-      <div style="padding: 2vmax;">
-      <a href="https://heartrhythmbox.com" 
-      style="cursor: pointer;text-decoration: none;color: #555;font-size: 20px;">
-        <amp-img src="box coral.png" width="35" height="35" layout='fixed'>
-        </amp-img>
-        <span style="vertical-align: 7px;">HeartRhythmBox.com</span>
-      </a>
-      </div>
+  <div class="logoAlign">
+    <a href="https://heartrhythmbox.com" 
+    style="cursor: pointer;text-decoration: none;color: #777;">
+      <amp-img src="boxGrey.png" width="2vmax" height="2vmax" layout='fixed'>
+      </amp-img>
+      <span style="vertical-align: 2px;">HeartRhythmBox.com</span>
+    </a>
   </div>
+
 </div>
 
 <!--content-->
 <!--1 definition-->
-  <div style="background-color: #f1f1f1;"> 
+  <div style="background-color: white;"> 
 
   <div id="no1" class="headLine">
     Definition of Syncope
@@ -138,12 +156,26 @@
       on="slideChange:carousel1Selector.toggle(index=event.index, value=true)"
       >
      
-      <!--af slow VR-->
+      <!--TLOC List-->
       <div class="container">
-        <amp-img src="media\1\AF slow VR.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <div class="ref">AF w/ high grade AV block w/ slow junctional escape.</div>
+        
+          <div class="lightGrey" style="padding: 2vmax">
+            <span style="font-size: 2.5vmax;font-weight: 900">TRANSIENT</span><br>
+            <span style="font-size: 2vmax">short duration; &lt;5mins</span>
+          </div>
+          <div class="blue" style="padding: 2vmax">
+            <span style="font-size: 2.5vmax;font-weight: 900">UNRESPONSIVE</span><br>
+            <span style="font-size: 2vmax">no response to speech/touch/pain. required witness.</span>
+          </div>
+          <div class="brown1" style="padding: 2vmax">
+            <span style="font-size: 2.5vmax;font-weight: 900">UNAWARE</span><br>
+            <span style="font-size: 2vmax">loss of memory.</span>
+          </div>
+          <div class="brown2" style="padding: 2vmax">
+            <span style="font-size: 2.5vmax;font-weight: 900">UNCONTROLLED</span><br>
+            <span style="font-size: 2vmax">fall, abnormal movement.</span>
+          </div>
+       
       </div>
       <!--af biV-->
       <div class="container">
@@ -291,30 +323,7 @@
           class="contain"></amp-img>
           <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
         </div>  
-        <!--the score-->
-        <div class="container">
-          <amp-img src="media\4\chadsvasc.png"
-          layout="fill"
-          class="contain"></amp-img>
-          <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
-        </div>
-        <!--VHF-->
-        <div class="container">
-          <amp-img src="media\4\VHD.png"
-          layout="fill"
-          class="contain"></amp-img>
-          <a href="https://doi.org/10.1093/europace/euy151" target="_blank" 
-          class="ref">Lip et al. Europace 2018.</a>
-        </div>
-        <!--HCM-->
-        <div class="container">
-          <amp-img src="media\4\HCM Stroke.png"
-          layout="fill"
-          class="contain"></amp-img>
-          <a href="https://www.thieme-connect.de/products/ejournals/abstract/10.1055/s-0038-1676818" target="_blank" 
-          class="ref">Thromb Haemost 2019.</a>
-        </div>
- 
+
     </amp-carousel>
   
     <amp-selector id="carousel4Selector" class="tabs" role=tablist on="select:carousel4.goToSlide(index=event.targetOption)"
