@@ -298,7 +298,7 @@
   
 
   <!--3 basic eval-->
-  <div style="background-color: #f1f1f1;">
+  <div style="background-color: white;">
   <div id="no3" class="headLine">
     Initial Evaluation
   </div>
@@ -358,7 +358,7 @@
   </div>
 
   <!--4 Test-->
-  <div style="background-color: white;margin-bottom: 5vmax;">
+  <div class="lightBlue" style="margin-bottom: 5vmax;">
   <div id="no4" class="headLine">
       Diagnostic Evaluation
   </div>
@@ -417,7 +417,7 @@
 
 
   <!--5 Bifas-->
-  <div style="background-color: #f1f1f1;">
+  <div class="lightGrey">
   <div id="no5" class="headLine">
     Bifascicular Block
   </div>
@@ -466,10 +466,10 @@
     </div>
   </div>
 
-  <!--6 Reflex Syncope-->
+  <!--6 exercise related Syncope-->
   <div style="background-color: white">
   <div id="no6" class="headLine">
-      Reflex Syncope: role of Tilt table test and exercise
+      Exercise related syncope
   </div>
   
   <amp-carousel id="carousel6"
@@ -478,19 +478,19 @@
         type="slides"
         on="slideChange:carousel6Selector.toggle(index=event.index, value=true)"
         >
-        <!--CCS GL-->
+        <!--algo-->
         <div class="container">
-          <amp-img src="media\6\Rate Rhythm Algorithm CCS guidelines.jpg"
+          <amp-img src="media\exercise\algo.png"
           layout="fill"
           class="contain"></amp-img>
-          <a href="http://dx.doi.org/10.1016/j.cjca.2014.08.001" target="_blank" class="ref">2014 CCS Guidelines</a>
+          <a href="https://www.acc.org/latest-in-cardiology/articles/2016/04/29/19/06/the-syncopal-athlete" target="_blank" class="ref">ACC Expert Analysis 2016.</a>
         </div>  
-        <!--meta analysis-->
+        <!--mechanism post exercise syncope-->
         <div class="container">
-          <amp-img src="media\6\rateVrhythmMetaanalysis.jpg"
+          <amp-img src="media\exercise\mechanisms.png"
           layout="fill"
           class="contain"></amp-img>
-          <a href="https://dx.doi.org/10.1371%2Fjournal.pone.0186856" target="_blank" class="ref">PLoS One 2017.</a>
+          <a href="https://doi.org/10.1007/s40279-018-0911-7" target="_blank" class="ref">Sports Med 2018.</a>
         </div>  
   </amp-carousel>
   
@@ -501,16 +501,15 @@
   </amp-selector>
   
   <div class="caption" style="text-align: left;">
-    1. Rate control is often sufficient to improve AF-related symptoms.<br>
-    2. Rate control is essential in AF management regardless of whether rhythm or rate control strategy is chosen.<br>
-    3. All trials that have compared rhythm vs. rate control have resulted in neutral outcomes in major CV endpoints.
+    1. Syncope DURING exercise is most concerning for cardiac etiology.<br>
+    2. Syncope AFTER exercise is usually from reflex syncope or orthostatic hypotension.
   </div>
   </div>
 
-  <!--7 post-exercise syncope-->
-  <div style="background-color: #f1f1f1">
+  <!--7 post-prandial syncope-->
+  <div class="lightBlue">
   <div id="no7" class="headLine">
-      Post exercise syncope -- Bezold Jarrich reflex
+      Post-prandial hypotension/syncope
   </div>
   
   <amp-carousel id="carousel7"
@@ -519,20 +518,34 @@
         type="slides"
         on="slideChange:carousel7Selector.toggle(index=event.index, value=true)"
         >
-        <!--ESC GL-->
+        <!--Mechanisms-->
         <div class="container">
-          <amp-img src="media\7\Rate control ESC GL.png"
+          <amp-img src="media\postprandial\mechanism.png"
           layout="fill"
           class="contain"></amp-img>
-          <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
+          <a href="https://doi.org/10.1007/978-3-030-30332-7_2" target="_blank" class="ref">Postprandial Hypotension 2019</a>
         </div> 
-        <!--cordarone--> 
+        <!--risk factors--> 
         <div class="container">
-          <amp-img src="media\7\cordarone.png"
+          <amp-img src="media\postprandial\risks.png"
           layout="fill"
           class="contain"></amp-img>
-          <a href="https://www.escardio.org/Journals/E-Journal-of-Cardiology-Practice/Volume-10/Treatment-with-amiodarone-How-to-avoid-complications" target="_blank" class="ref">
-            ESC e-Journal 2011.</a>
+          <a href="https://doi.org/10.1016/j.amjmed.2009.06.026" target="_blank" class="ref">
+            Am J Med 2010.</a>
+        </div> 
+        <!--causes of OH-->
+        <div class="container">
+          <amp-img src="media\postprandial\causesOH.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1016/j.jacc.2015.06.1084" target="_blank" class="ref">JACC 2015</a>
+        </div>
+        <!--nonPharm Tx of OH-->
+        <div class="container">
+          <amp-img src="media\postprandial\nonPharmTx.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1016/j.jacc.2015.06.1084" target="_blank" class="ref">JACC 2015</a>
         </div> 
 
   </amp-carousel>
@@ -541,12 +554,14 @@
       layout="container" style="text-align: center;">
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
+        <span option='2' class="dots"></span>
+        <span option='3' class="dots"></span>
   </amp-selector>
   
   <div class="caption" style="text-align: left;">
-    1. May consider amiodarone after beta-blocker for rate control in acute AF with HF.<br>
-    2. Choice of medications for rate control depends on LVEF.<br>
-    3. The prevalence of adverse effects related to amiodarone is up to 15% in the first year and 50% in case of prolonged treatment.    
+    1. Postprandial hypotension/syncope is not uncommon in elderly esp. with comorbodities.<br>
+    2. The major mechanism is likely orthostatic hypotension due to autonomic failure.<br>
+    3. Though the mechanism is benign, the underlying comorbidities are not.
   </div>
   </div>
 
@@ -562,61 +577,30 @@
         type="slides"
         on="slideChange:carousel8Selector.toggle(index=event.index, value=true)"
         >
-        <!--IC prop-->
-        <div class="container">
-          <div style="overflow-x: scroll;overflow-y: scroll;">
-          <table style="text-align: center;border-collapse: collapse;width: 100%;height: 100%;
-          border: 0.2vmax solid #555;">
-            <tr class="coral" style="border: none;color: black;">
-                <th>Agents</th><th>Acute Conversion (&lt;7d)</th><th>Chronic Conversion (>7d)</th>
-                <th>LVH</th><th>CAD</th><th>CHF</th>
-                <th>AV node blocking property</th><th>ECG features prompting discontinuation</th>
-            </tr>
-            <tr>
-                <td>Flecainde</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
-                <td>None</td>
-                <td>QRS>25% wider</td>
-            </tr>
-            <tr>
-                <td>Propafenone</td><td>Y</td><td>N</td><td>N</td><td>N</td><td>N</td>
-                <td>Minimal</td>
-                <td>QRS>25% wider</td>
-            </tr>
-            <tr>
-                <td>Amiodarone</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td><td>Y</td>
-                <td>Moderate</td>
-                <td>QTc>500ms</td>
-            </tr>
-            <tr>
-                <td>Dronedarone</td><td>N</td><td>N</td><td>Y</td><td>Y</td><td>Y for mild form</td>
-                <td>Moderate</td>
-                <td>QTc>500ms</td>
-            </tr>
-            <tr>
-                <td>Sotalol</td><td>N</td><td>N</td><td>N</td><td>Y</td><td>N</td>
-                <td>A lot</td>
-                <td>QTc>500ms or QTc increases >60ms</td>
-            </tr>
-            <tr>
-                <td>Ibutilide (IV)</td><td>Y</td><td>Y</td><td colspan="3">Careful</td>
-                <td>None</td>
-                <td>Careful in long QTc</td>
-                </tr>
-            <tr>
-                <td>Vernakalant (IV)</td><td>Y</td><td>N</td><td>Y</td><td>Y for stable CAD</td><td>Y for mild form</td>
-                <td>Moderate</td>
-                <td>Avoid in QTc>440</td>
-                </tr>
-          </table>
-          </div>
-          </div> 
-        <!--AFL--> 
-        <div class="container">
-          <amp-img src="media\8\AFL 1to1.JPG"
-          layout="fill"
-          class="contain"></amp-img>
-          <div class="ref">AFL with 1:1 AV conduction in an AF patient while on Propafenone w/o BB.</div>
-        </div> 
+
+      <!--multiple causes--> 
+      <div class="container">
+        <amp-img src="media\Recurrency\multipleCauses.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1093/europace/eux099" target="_blank" class="ref">Europace 2018.</a>
+      </div> 
+      <!--recurrence and CV death--> 
+      <div class="container">
+        <amp-img src="media\Recurrency\recurrentAndCVDeath.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="http://dx.doi.org/10.1016/j.amjcard.2014.02.035" target="_blank" class="ref">Am J Cardiol 2014.</a>
+      </div>
+      <!--CVD and Stroke in healthy syncope--> 
+      <div class="container">
+        <amp-img src="media\Recurrency\CVDandStroke.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1016/j.jacc.2012.08.1024" target="_blank" class="ref">JACC 2013.</a>
+      </div> 
+
+
 
   </amp-carousel>
   
@@ -624,11 +608,13 @@
       layout="container" style="text-align: center;">
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
+        <span option='2' class="dots"></span>
   </amp-selector>
   
   <div class="caption" style="text-align: left;">
-    1. Class IC AADs (Flecainide & Propafenone) are very effective for acute AF conversion in patients without structural heart disease.<br>
-    2. IC AADs have little beta blocking effect. AFL with 1:1 AV conduction may occur if administered without AV nodal blocking agent.
+    1. Many patients have more than 1 etiology of syncope.<br>
+    2. Syncope and Recurrent Syncope increase morbiditiy and mortality.<br>
+    3. Syncope may be the 1st manifestation of a more severe underlying cardiovascular disease.
   </div>
   </div>
   
