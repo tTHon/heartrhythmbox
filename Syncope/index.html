@@ -49,7 +49,7 @@
     }
 
     .headLine {font-size: 2.5vmax;text-align: center;margin-left: auto;margin-right: auto;color: #333;line-height: 120%;
-      padding-top: 8vmax;padding-bottom:1vmax;max-width: 900px;width: fit-content;border-bottom: #c0cfe3 solid 0.1vmax;padding-bottom: 1vmax;}
+      padding-top: 8vmax;padding-bottom:1vmax;max-width: 900px;width: fit-content;border-bottom: #aec2db solid 0.1vmax;padding-bottom: 1vmax;}
   
 
     amp-carousel {margin-top: none;max-width: 73vw;margin-left: auto;margin-right: auto;
@@ -297,7 +297,7 @@
   </div>
   
 
-  <!--3 basic investigation-->
+  <!--3 basic eval-->
   <div style="background-color: #f1f1f1;">
   <div id="no3" class="headLine">
     Initial Evaluation
@@ -320,23 +320,24 @@
       </div>
       <!--Yield of Hx-->
       <div class="container">
-        <amp-img src="media\3\rfmAndGoal.png"
+        <amp-img src="media\Eval\HxYield.png"
         layout="fill"
         class="contain"></amp-img>
-        <a href="https://doi.org/10.1161/CIRCULATIONAHA.116.023163" target="_blank" class="ref">Circulation 2017.</a>        
+        <a href="https://doi.org/10.1371/journal.pone.00752553" target="_blank" class="ref">PLOS ONE 2013.</a>        
       </div>
       <!--Canadian Score-->
       <div class="container">
-        <amp-img src="media\3\LIFE.png"
+        <amp-img src="media\Eval\CSRS.png"
         layout="fill"
         class="contain"></amp-img>
-        <a href="https://doi.org/10.1016/j.jacc.2004.10.068" target="_blank" class="ref">LIFE Study, JACC 2005.</a>        
+        <a href="https://doi.org/10.1016/j.cjca.2019.12.023" target="_blank" class="ref">2020 CCS Practice Update on Syncope.</a>        
       </div>
-      <!--score and outcomes-->
+      <!--low & high risk features-->
       <div class="container">
-        <amp-img src="media\3\weightExercise.png"
+        <amp-img src="media\Eval\LowandHighRiskFx.png"
         layout="fill"
         class="contain"></amp-img>
+        <a href="https://doi.org/10.1016/j.cjca.2019.12.023" target="_blank" class="ref">2020 CCS Practice Update on Syncope.</a>
       </div>
 
 
@@ -351,29 +352,44 @@
   </amp-selector>
 
   <div class="caption">
-    Detailed History Taking is the most important step for evaluation of syncope.
+    Initial evaluation includes detailed history taking, physical examination, and ECG.<br>
+    History taking, if properly performed, is in most cases the only ‘test’ necessary.
   </div>
   </div>
 
-  <!--4 EP Study-->
+  <!--4 Test-->
   <div style="background-color: white;margin-bottom: 5vmax;">
   <div id="no4" class="headLine">
-      EP Study for post MI
+      Diagnostic Evaluation
   </div>
   
   <amp-carousel id="carousel4"
         height="1200"
         layout="fixed-height"
         type="slides"
-        on="slideChange:carousel4Selector.toggle(index=event.index, value=true)"
-        >
-        <!--rheumatic-->
-        <div class="container">
-          <amp-img src="media\4\Rheumatic.png"
-          layout="fill"
-          class="contain"></amp-img>
-          <a href="https://doi.org/10.1093/eurheartj/ehw210" target="_blank" class="ref">2016 ESC Guidelines</a>
-        </div>  
+        on="slideChange:carousel4Selector.toggle(index=event.index, value=true)">
+
+    <!--tilt-->
+    <div class="container">
+      <amp-img src="media\Test\Tilt.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <a href="https://doi.org/10.1093/eurheartj/ehy037" target="_blank" class="ref">2018 ESC Guidelines for syncope</a>
+    </div>
+    <!--cardiac monitor-->
+    <div class="container">
+      <amp-img src="media\Test\cardiacMonitor.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <a href="https://doi.org/10.1016/j.cjca.2019.12.023" target="_blank" class="ref">2020 CCS Practice Update on Syncope</a>
+    </div>
+    <!--EP Study-->
+    <div class="container">
+      <amp-img src="media\Test\EPS in post MI.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <a href="http://dx.doi.org/10.1016/j.jacc.2012.12.017" target="_blank" class="ref">2013 ACCF/AHA Appropriate Use of ICD</a>
+    </div>  
 
     </amp-carousel>
   
@@ -382,12 +398,10 @@
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
         <span option='2' class="dots"></span>
-        <span option='3' class="dots"></span>
     </amp-selector>
   
     <div class="caption">
-      In AF patients with mechanical valve, moderate-to-severe mitral stenosis, or hypertrophic cardiomyopathy,
-      OAC is indicated regardless of the CHA<sub>2</sub>DS<sub>2</sub>-VaSc score.
+      Choice of Diagnostic Testing(s) is driven by the initial evaluation. The use of broad-based investigations is ineffective and costly.
     </div>
   </div>
 
