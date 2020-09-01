@@ -50,11 +50,12 @@
     }
 
     .headLine {font-size: 2.5vmax;text-align: center;margin-left: auto;margin-right: auto;color: #20344f;line-height: 120%;
-      padding-top: 8vmax;padding-bottom:0.8vmax;max-width: 900px;width: fit-content;border-bottom: #fa7268 solid 0.25vmax;padding-bottom: 1vmax;}
+      padding-top: 8vmax;padding-bottom:1vh;max-width: 900px;width: fit-content;border-bottom: #fa7268 solid 0.25vmax;}
   
 
-    amp-carousel {margin-top: none;max-width: 73vw;margin-left: auto;margin-right: auto;
+    amp-carousel {margin-top: 1vh;max-width: 73vw;margin-left: auto;margin-right: auto;
     max-height: 46vw;background-color:transparent;}
+    
     
     .caption {font-family: Montserrat, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
     padding: 0.8vmax 1vmax 2vmax 1vmax;text-align: center;color:#20344f;}
@@ -136,11 +137,11 @@
 
 
 <!--content-->
-<!--1 definition-->
+<!--1 EAST AFNET4-->
   <div class="lightGrey"> 
 
   <div id="no1" class="headLine">
-    Definition of Syncope
+    Early Rhythm Control REDUCES CV Outcomes: EAST-AFNET 4 Trial
   </div>
 
   <amp-carousel id="carousel1"
@@ -149,77 +150,150 @@
       type="slides"
       on="slideChange:carousel1Selector.toggle(index=event.index, value=true)">
 
-      <!--syncope def bars-->
+      <!--AF Progression-->
       <div class="container">
-        <amp-img src="media\definitions\bars.png"
+        <amp-img src="media\EAST AFNET4\afProgression.png"
         layout="fill"
         class="contain"></amp-img>
+        <a href="https://doi.org/10.1093/eurheartj/ehu028" target="_blank" class="ref">
+          EHJ 2014.
+          </a>
       </div>
-     
-      <!--Syncope Def-->
+     <!--KM Curve-->
+      <div class="container">
+        <amp-img src="media\EAST AFNET4\KM.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2019422" target="_blank" class="ref">
+          EAST-AFNET 4 Trial
+          </a>
+      </div>      
+
+      <!--how2RhythmCtrl-->
+      <div class="container">
+        <amp-img src="media\EAST AFNET4\rhythmCtrlMethods.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2019422" target="_blank" class="ref">
+          EAST-AFNET 4 Trial
+          </a>
+      </div>
+
+      <!--outcomes-->
+      <div class="container">
+        <amp-img src="media\EAST AFNET4\outcome.png"
+        layout="fill"
+        class="contain">
+      </amp-img>
+      <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2019422" target="_blank" class="ref">
+          EAST-AFNET 4 Trial
+      </a>
+      </div>
+
+      <!--adverse Outcomes-->
+      <div class="container">
+        <amp-img src="media\EAST AFNET4\adverseEvents.png"
+        layout="fill"
+        class="contain">
+      </amp-img>
+      <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2019422" target="_blank" class="ref">
+          EAST-AFNET 4 Trial
+      </a>
+      </div>
+      <!--%SR-->
+      <div class="container">
+        <amp-img src="media\EAST AFNET4\PercentInSR.png"
+        layout="fill"
+        class="contain">
+      </amp-img>
+      <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2019422" target="_blank" class="ref">
+          EAST-AFNET 4 Trial
+      </a>
+      </div>
+
+     <!--WHY-->
       <div class="container">
         <div style="overflow-y: scroll;height: 100%;">
-          <div class="lightGrey" style="padding: 2vmax">
-            <span style="font-size: 2.5vmax;font-weight: 900">TRANSIENT</span><br>
-            <span style="font-size: 2vmax">short duration; &lt;5mins</span>
+          <div class="darkBlue" style="padding: 2vmax;text-align: center;">
+            <span style="font-size: 2.5vmax;font-weight: 900;color: #fa7268;">
+              <i class="fas fa-question-circle"></i>&nbsp;WHY</span><br>
+            <span style="font-size: 2.2vmax">early rhythm control works?</span>
           </div>
-          <div class="blue" style="padding: 2vmax">
-            <span style="font-size: 2.5vmax;font-weight: 900">UNRESPONSIVE</span><br>
-            <span style="font-size: 2vmax">no response to speech/touch/pain. required witness.</span>
+          <div class="creme" style="padding: 1vmax 2vmax;text-align: center;">
+            <span style="font-size: 2vmax;font-weight: 900">
+              <i class="fas fa-heart" style="color: #fa7268;font-size: 2.5vmax;"></i>
+              &nbsp;Slow the progression of atrial cardiomyopathy.</span><br>
+            <span style="font-size: 1.7vmax;">
+              median time since diagnosis = 36days.<br>
+              lower stroke rate in rhythm control group but no differences in CV hospitalizations.
+            </span>
           </div>
-          <div class="brown1" style="padding: 2vmax">
-            <span style="font-size: 2.5vmax;font-weight: 900">UNAWARE</span><br>
-            <span style="font-size: 2vmax">loss of memory.</span>
+          <div style="padding: 1vmax 2vmax;text-align: center;background-color: #faf0ca;">
+            <span style="font-size: 2vmax;font-weight: 900">
+              <i class="fas fa-drum" style="color: #fa7268;font-size: 2.5vmax;"></i>
+              &nbsp;Better & Safer Rhythm Control</span><br>
+            <span style="font-size: 1.7vmax;">
+              no differences in non-CV deaths & Torsades.<br>very low complication rates from ablation.
+            </span>
           </div>
-          <div class="brown2" style="padding: 2vmax">
-            <span style="font-size: 2.5vmax;font-weight: 900">UNCONTROLLED</span><br>
-            <span style="font-size: 2vmax">fall, abnormal movement.</span>
+          <div class="creme" style="padding: 1vmax 2vmax;text-align: center;">
+            <span style="font-size: 2vmax;font-weight: 900">
+              <i class="fas fa-concierge-bell" style="color: #fa7268;font-size: 2.5vmax;"></i>
+              &nbsp;Rhythm control group received more attention.</span><br>
+            <span style="font-size: 1.7vmax;">
+              patients were not blinded to Tx.<br>
+              rhythm control groups needed to send ECG via Vitaphone 2/wk; would trigger a visit if AF.
+            </span>
           </div>
+
         </div>
        
       </div>
 
-      <!--pitfall in dx-->
-      <div class="container">
-        <div style="font-size: 2vmax;padding: 1vmax;overflow-x: scroll;overflow-y: scroll;height: 100%;width: 100%;">
-          Conditions that may be misdiagnosed as syncope
-        <table style="text-align: center;border-collapse: collapse;width: 100%;height: 100%;border: 0.2vmax solid #555;">
-          <tr class="brown2" style="border: none;">
-              <th>Cause of Loss of Consciousness</th>
-              <th>Not syncope because...</th>
-          </tr>
-          <tr><td>Seizure</td><td>not from cerebral hypoperfusion</td></tr>
-          <tr><td>Trauma</td><td>not from cerebral hypoperfusion</td></tr>
-          <tr><td>Intoxication (from drugs, alcohol, and etc.)</td><td>not totally unaware, not from cerebral hypoperfusion</td></tr>
-          <tr><td>Cardiac Arrest</td><td>not transient, not reversible</td></tr>
-          <tr><td>Stroke</td><td>not transient</td></tr>
-          <tr><td>Subarachnoid hemorrhage</td><td>not from cerebral hypoperfusion <br>
-            (consciousness may be progressively reduced rather than immediately lost. Accompanying severe headache, other neurological signs)</td></tr>
-          <tr><td>Cataplexy</td><td>not unaware (unresponsive, uncontrolled, but fully aware)</td></tr>
-        </table>
+     <!--conclusion-->
+     <div class="container">
+      <div class="row darkBlue" style="height: 100%;overflow-y: scroll;">
+        <div style="padding: 2vmax;text-align: center;flex: 20%;text-align: center;align-self: center;">
+          <i class="far fa-comments" style="color: #fa7268;font-size: 5vmax;"></i>
         </div>
-      </div> 
+        <div class="creme" style="flex: 80%;color: #20344f;padding: 1vmax;overflow-y: scroll;">
+          <div style="padding: 1vmax 2vmax;border-bottom: #20344f 0.1vmin solid;">
+            <div style="font-size: 2vmax;font-weight: 900">
+              <i class="far fa-thumbs-up" style="color: #fa7268;font-size: 2.5vmax;"></i>
+              &nbsp;Low Event Rates with This Era Regimens</div>
+            <ul style="font-size: 1.7vmax;">
+              <li>Guidelines recommended treatment-- 90% anticoagulated, 40% on Statin, and 70% on MRA.</li>
+              <li>Stroke rate &lt;1%/100 persons-yr in both group.</li>
+              <li>Symptoms improvement aproximately from 30% asymptomatic at baseline to 70% asympatomatic after Tx in both groups.</li>
+            </ul>
+          </div>
+          <div style="padding: 1vmax 2vmax;border-bottom: #20344f 0.1vmin solid;">
+            <div style="font-size: 2vmax;font-weight: 900">
+              <i class="fas fa-users" style="color: #fa7268;font-size: 2.5vmax;"></i>
+              &nbsp;Early Rhythm Control for WHOM?</div>
+            <ul style="font-size: 1.7vmax;">
+              <li>Age 70, CHA<sub>2</sub>DS<sub>2</sub>-VAS<sub>c</sub> 3.4, 88% hypertension.</li>
+              <li>38% first episode, 27% persistent.</li><li>30% asymptomatic.</li>
+              <li>&gt;50% in rhythm control group on IC.</li>
+            </ul>
+          </div>
+          <div style="padding: 1vmax 2vmax;border-bottom: #20344f 0.1vmin solid;">
+            <div style="font-size: 2vmax;font-weight: 900">
+              <i class="fas fa-hourglass-half" style="color: #fa7268;font-size: 2.5vmax;"></i>
+              &nbsp;HOW early?</div>
+            <ul style="font-size: 1.7vmax;">
+              <li>Median 36 days (6-114 days).</li>
+              <li>38% first episode.</li>
+            </ul>
+          </div>
+        </div>
 
-      <!--syncope vs Sz-->
-      <div class="container">
-        <amp-img src="media\definitions\vsSz.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <a href="https://onlinelibrary.wiley.com/doi/book/10.1002/9781444312812" target="_blank" class="ref">
-          The Evaluation and Treatment of Syncope: A Handbook for Clinical Practice
-          </a>
-      </div>      
-
-      <!--cause of TLOC-->
-      <div class="container">
-        <amp-img src="media\definitions\TLOC.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <a href="https://doi.org/10.1093/eurheartj/ehy037" target="_blank" class="ref">
-          2018 ESC Guidelines for Syncope
-          </a>
       </div>
+     
+    </div>
 
+
+      
   </amp-carousel>
 
   <amp-selector id="carousel1Selector" class="tabs" role=tablist on="select:carousel1.goToSlide(index=event.targetOption)">
@@ -228,10 +302,14 @@
     <div option='2' class="dots"></div>
     <div option='3' class="dots"></div>
     <div option='4' class="dots"></div>
+    <div option='5' class="dots"></div>
+    <div option='6' class="dots"></div>
+    <div option='7' class="dots"></div>
   </amp-selector>
 
   <div class="caption">
-    Syncope is Transient Loss of Consciousness due to Cerebral Hypoperfusion.
+    Early rhythm-control therapy was associated with a lower risk of cardiovascular
+outcomes than usual care among patients with early atrial fibrillation and cardiovascular conditions.
   </div>
   </div>
   
