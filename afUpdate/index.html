@@ -245,6 +245,15 @@
               rhythm control groups needed to send ECG via Vitaphone 2/wk; would trigger a visit if AF.
             </span>
           </div>
+          <div style="padding: 1vmax 2vmax;text-align: center;background-color: #faf0ca;">
+            <span style="font-size: 2vmax;font-weight: 900">
+              <i class="fas fa-sign-out-alt" style="color: #fa7268;font-size: 2.5vmax;"></i>
+              &nbsp;Non-uniform dropout</span><br>
+            <span style="font-size: 1.7vmax;">
+              though some statistical maneuvers were used to fix the dropout, the missing data of nearly 10% can potentially invalidate the analysis.<br>
+              9% dropout in early rhythm control group and 6.6% in the control.
+            </span>
+          </div>
 
         </div>
        
@@ -352,7 +361,7 @@ outcomes than usual care among patients with early atrial fibrillation and cardi
       </div>
       <!--algo-->
       <div class="container">
-        <div class="row">
+        <div class="row" style="height: 100%;overflow-y: scroll;">
           <div class="creme" style="font-size: 2vmax;text-align: center;padding: 2vmax;flex: 50%;">
             <i class="fas fa-wave-square" style="color: #fa7268;font-size: 3vmax;padding: 1vmax;"></i><br>
             <b>Suspected AF from non-ECG recording</b>
@@ -565,7 +574,7 @@ outcomes than usual care among patients with early atrial fibrillation and cardi
   <!--5 catheter abl-->
   <div class="lightBlue">
   <div id="no5" class="headLine">
-    Bifascicular Block
+    Catheter Ablation for AF
   </div>
 
   <amp-carousel id="carousel5"
@@ -575,33 +584,36 @@ outcomes than usual care among patients with early atrial fibrillation and cardi
       on="slideChange:carousel5Selector.toggle(index=event.index, value=true)"
       >
 
-      <!--BFB and CHB-->
+      <!--CASTLE AF-->
       <div class="container">
-        <amp-img src="media\BFB\incidenceOfCHB.png"
+        <amp-img src="media\Abl\Castle.png"
         layout="fill"
         class="contain"></amp-img>
-        <a href="https://www.nejm.org/doi/full/10.1056/NEJM198207153070301" target="_blank" class="ref">NEJM 1982.</a>
+        <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1707855" target="_blank" class="ref">CASTLE-AF.</a>
       </div>
-      <!--EPS & ILR Guide-->
+      <!--CABANA-->
       <div class="container">
-        <amp-img src="media\BFB\EPSGuide.png"
+        <amp-img src="media\Abl\CABANA.png"
         layout="fill"
         class="contain"></amp-img>
-        <a href="https://doi.org/10.1111/pace.12946" target="_blank" class="ref">PACE 2016.</a>
+        <a href="https://jamanetwork.com/journals/jama/fullarticle/2728676" target="_blank" class="ref">CABANA Trial.</a>
       </div>
-      <!--ACC Algo-->
+      <!--Metaanalysis-->
       <div class="container">
-        <amp-img src="media\BFB\conductionDisorderMx.png"
+        <amp-img src="media\Abl\Metaanalysis.jpg"
         layout="fill"
         class="contain"></amp-img>
-        <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank" class="ref">2018 ACC Guidelines for Bradycardia</a>
+        <a href="https://doi.org/10.1161/CIRCEP.119.007414" target="_blank" class="ref">
+          Circulation: Arrhythmia and Electrophysiology. 2019.</a>
       </div>      
-      <!--POSTIII-->
+      <!--Guidelines-->
       <div class="container">
-        <amp-img src="media\BFB\POSTIII.png"
+        <amp-img src="media\Abl\ablAlgo.png"
         layout="fill"
         class="contain"></amp-img>
-        <a href="https://www.abstractsonline.com/pp8/#!/4554/presentation/7911" target="_blank" class="ref">POSTIII. LBCT, HRS 2018.</a>
+        <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank" class="ref">
+          2020 ESC Guidelines for AF.
+        </a>   
       </div>
     </amp-carousel>
 
@@ -614,9 +626,10 @@ outcomes than usual care among patients with early atrial fibrillation and cardi
     </amp-selector>
 
     <div class="caption" style="text-align: left;">
-      1. Chronic bifascicular block increases risk of complete heart block.<br>
-      2. Earlier non-randomized date favors the EPS or Implantable monitoring guided approach, rather than empirical pacemaker.<br>
-      3. In a recent data from an RCT, permenent pacemaker compared to implantable monitoring is a preferred strategy.
+      <b>NEW in this guidelines.</b> Catheter ablation for AF:<br>
+      1. is now recommended to improve symptoms after failed AAD in all types of AF including persistent AF.<br>
+      2. is recommended to reverse LV function in tachycardia induced cardiomyopathy.<br>
+      3. should be considered to improve SURVIVAL in HFrEF.
     </div>
   </div>
 
@@ -660,10 +673,10 @@ outcomes than usual care among patients with early atrial fibrillation and cardi
   </div>
   </div>
 
-  <!--7  OAC in specific situation-->
+  <!--7  AHRE-->
   <div class="lightGrey">
   <div id="no7" class="headLine">
-      Post-prandial Hypotension/Syncope
+      Subclinical AF detected by Cardiac-Rhythm Device
   </div>
   
   <amp-carousel id="carousel7"
@@ -672,14 +685,14 @@ outcomes than usual care among patients with early atrial fibrillation and cardi
         type="slides"
         on="slideChange:carousel7Selector.toggle(index=event.index, value=true)"
         >
-        <!--Mechanisms-->
+        <!--stroke risk by duration and score-->
         <div class="container">
           <amp-img src="media\postprandial\mechanism.png"
           layout="fill"
           class="contain"></amp-img>
           <a href="https://doi.org/10.1007/978-3-030-30332-7_2" target="_blank" class="ref">Postprandial Hypotension 2019</a>
         </div> 
-        <!--risk factors--> 
+        <!--proposed Mx--> 
         <div class="container">
           <amp-img src="media\postprandial\risks.png"
           layout="fill"
@@ -687,21 +700,6 @@ outcomes than usual care among patients with early atrial fibrillation and cardi
           <a href="https://doi.org/10.1016/j.amjmed.2009.06.026" target="_blank" class="ref">
             Am J Med 2010.</a>
         </div> 
-        <!--causes of OH-->
-        <div class="container">
-          <amp-img src="media\postprandial\causesOH.png"
-          layout="fill"
-          class="contain"></amp-img>
-          <a href="https://doi.org/10.1016/j.jacc.2015.06.1084" target="_blank" class="ref">JACC 2015</a>
-        </div>
-        <!--nonPharm Tx of OH-->
-        <div class="container">
-          <amp-img src="media\postprandial\nonPharmTx.png"
-          layout="fill"
-          class="contain"></amp-img>
-          <a href="https://doi.org/10.1016/j.jacc.2015.06.1084" target="_blank" class="ref">JACC 2015</a>
-        </div> 
-
   </amp-carousel>
   
   <amp-selector id="carousel7Selector" class="tabs" role=tablist on="select:carousel7.goToSlide(index=event.targetOption)"
