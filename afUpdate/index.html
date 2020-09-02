@@ -684,6 +684,135 @@ outcomes than usual care among patients with early atrial fibrillation and cardi
   </div>
   </div>
 
+  <!--7 postOpAF-->
+  <div class="lightGrey">
+    <div id="no7" class="headLine">
+        PostOperative AF
+    </div>
+    
+    <amp-carousel id="carousel7"
+          height="1200"
+          layout="fixed-height"
+          type="slides"
+          on="slideChange:carousel7Selector.toggle(index=event.index, value=true)">
+  
+      <!--algo-->
+      <div class="container">
+        <amp-img src="media\postOp\postOpAfAlgo.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank" class="ref">
+          2020 ESC Guidelines for AF.
+        </a> 
+      </div>
+      <!--CABG-->
+      <div class="container">
+        <amp-img src="media\postOp\postCABGAF.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://jamanetwork.com/journals/jamacardiology/fullarticle/2676579" target="_blank" class="ref">
+          JAMA Cardiol. 2018.
+        </a> 
+      </div>
+      <!--nonCardiac-->
+      <div class="container">
+        <amp-img src="media\postOp\nonCardiacSxAF.jpg"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://www.onlinejacc.org/content/72/17/2027" target="_blank" class="ref">
+          JACC. 2018.
+        </a> 
+      </div>
+
+  
+  
+      </amp-carousel>
+    
+      <amp-selector id="carousel7Selector" class="tabs" role=tablist on="select:carousel7.goToSlide(index=event.targetOption)"
+        layout="container" style="text-align: center;">
+          <span option='0' class="dots" selected></span>
+          <span option='1' class="dots"></span>
+          <span option='2' class="dots"></span>
+      </amp-selector>
+    
+      <div class="caption" style="text-align: left;">
+        1. Periop BB or amiodarone is recommended for prevention of postOp AF.<br>
+        2. No RCTs on long-term OAC yet. (<span style="background-color: yellow;">IIa for non-cardiac Sx</span> and
+        <span style="background-color: orange;">IIb for cardiac Sx</span>)
+      </div>
+    </div>
+
+  <!--8 lifeStyle-->
+  <div class="lightBlue">
+    <div id="no8" class="headLine">
+      Lifestyle Intervention
+    </div>
+  
+    <amp-carousel id="carousel8"
+        height="1200"
+        layout="fixed-height"
+        type="slides"
+        on="slideChange:carousel8Selector.toggle(index=event.index, value=true)"
+        >
+  
+        <!--Overall-->
+        <div class="container">
+          <amp-img src="media\RFM\RFM.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank" class="ref">
+            2020 ESC Guidelines for AF.
+          </a>
+        </div>
+        <!--Obesity-->
+        <div class="container">
+          <amp-img src="media\RFM\BMI.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="http://dx.doi.org/10.1016/j.amjmed.2012.11.024" target="_blank" class="ref">Am J Med. 2013.</a>
+        </div>
+        <!--alcohol-->
+        <div class="container">
+          <amp-img src="media\RFM\alcohol.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://heart.bmj.com/content/99/15/1093.info" target="_blank" class="ref">
+            Heart. 2013.</a>
+        </div>      
+        <!--exercise-->
+        <div class="container">
+          <amp-img src="media\RFM\exercise.webp"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1038/s41598-019-49686-w" target="_blank" class="ref">
+            Sci Rep 2019.
+          </a>   
+        </div>
+        <!--caffeine-->
+        <div class="container">
+          <amp-img src="media\RFM\caffeine.png"
+          layout="fill"
+          class="contain"></amp-img>
+          <a href="https://doi.org/10.1016/j.cjca.2013.12.026" target="_blank" class="ref">
+            Can J Cardiol. 2014.
+          </a>   
+        </div>
+      </amp-carousel>
+  
+      <amp-selector id="carousel8Selector" class="tabs" role=tablist on="select:carousel8.goToSlide(index=event.targetOption)"
+        layout="container" style="text-align: center;">
+          <span option='0' class="dots" selected></span>
+          <span option='1' class="dots"></span>
+          <span option='2' class="dots"></span>
+          <span option='3' class="dots"></span>
+          <span option='4' class="dots"></span>
+      </amp-selector>
+  
+      <div class="caption">
+        Weight control, avoid excess alcohol, and exercise but not excessive. Caffeine unlikely contributes to AF.
+      </div>
+    </div>
+
   <!--footer-->
   <div style="background: #ddd;font-size: 1.65vmax;padding:3vmax 3vmax;color:#555;line-height: 200%;text-align: center;">
    
