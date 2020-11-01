@@ -47,6 +47,16 @@
     .noMobile {display: none;}
 }
 
+.block {padding: 2vmax;}
+.headLine {
+    font-family: 'Eczar', serif;font-size: 2.8vmax;line-height: 120%;
+}
+.pGraph {
+    font-family: 'Rubik', sans-serif;font-size: 1.7vmax;line-height: 120%; 
+    color: #555555;text-indent: 4vmax;padding-top: 2vmax;
+}
+.figure {padding:1.5vmax;width: 100%;border: #ddd solid 0.1vmin;}
+.caption {font-family: 'Rubik', sans-serif;font-size: 1.5vmax;line-height: 120%;color: #777777;padding-bottom: 2vmax;}
 .ref {font-size: 1vmax;color: #555555;padding-left: 1vmax;
 line-height: 120%;margin-top: 0.5vh}
 
@@ -56,31 +66,73 @@ line-height: 120%;margin-top: 0.5vh}
 
 <body class="margLR">
 <!--main title-->
-<div class="w3-row w3-center noMobile" style="line-height: 200%;padding: 4vmax 6vmax 2vmax 6vmax;border-bottom: #dddddd solid 0.1vmin;">
-    <div class="w3-col l2 m2" style="text-align: left;">
-        <i class="fas fa-home" style="font-size: 2vmax;color: #777777;"></i>
-    </div>
-    <div class="w3-col l8 m8 serif w3-center" style="font-size: 4vmax;">
+ 
+<div style="line-height: 200%;width: 100%;padding: 3vmax 0;">
+    <div class="w3-center serif" style="font-size: 5vmax;padding: 1vmax;">
         EP Trials Review
     </div>
-    <div class="w3-col l2 m2 sans" style="font-size: 1.5vmax;text-align: center;color: #555555;">
-        Dec 5, <b>2020</b>
+    <div class="w3-center sans" style="font-size: 1.5vmax;color: #555555;background-color: #eeeeee;">
+        December 5, <b>2020</b>
+    </div>
+</div> 
+
+<!--content-->
+<div class="w3-row">
+    <div class="w3-col l3 m4 s12 block">
+        <div class="headLine">
+            Less life-year loss in AF patients over the last decade.
+        </div>
+        <div class="pGraph">
+            Data from Framingham Heart Study reveals that...
+        </div>
+    </div>
+    <div class="w3-col l6 m8 s12 block" 
+    style="border-right: #ababab solid 0.1vmin;border-left: #ababab solid 0.1vmin;">
+        <img src="media/EAST AFNET/KM.png" style="width: 100%;" class="figure">
+        <div class="caption">
+            Kaplan Meier curve
+        </div>
+        <div class="headLine">
+            EAST-AFNET 4
+        </div>
+        <div class="pGraph">
+            Early rhythm control in AF patients is associated with lower CV events.
+        </div>
+    </div>
+    <div class="w3-col l3 m4 s12 block">
+        <div class="headLine" >
+            SWISS-AF
+        </div>
+        <div class="pGraph">
+            Silent cerebral ischemia is not uncommon in AF patients and is associated with worse cognitive function.
+        </div>
+    </div>
+    <div class="w3-col l4 m4 s12 block">
+        <div class="headLine" style="border-right: #ababab solid 0.1vmin;">
+            ECG Interpretation: Accuracy, Alternative, and Advance
+        </div>
+        <div class="pGraph" style="border-right: #ababab solid 0.1vmin;">
+            Accuracy of ECG interpretation has been tested in a meta-analysis.            
+        </div>
+    </div>
+    <div class="w3-col l4 m4 s12 block" style="border-right: #ababab solid 0.1vmin;">
+        <div class="headLine">
+            PREATORIAN Trial
+        </div>
+        <div class="pGraph">
+            Entirely subcutaneous ICD is ...      
+        </div>
+    </div>
+    <div class="w3-col l4 m4 s12 block">
+        <div class="headLine">
+            Electronic Gaming and Life-threatening Ventricular Arrhythmias
+        </div>
+        <div class="pGraph">
+            Several case reports ...        
+        </div>
     </div>
 
-</div> 
-<div class="mobileOnly" 
-style="line-height: 200%;border-bottom: #dddddd solid 0.1vmin;width: 100%;">
-    <div class="w3-center">
-        <i class="fas fa-home" style="font-size: 2vmax;color: #777777;"></i>
-    </div>
-    <div class="w3-center serif" style="font-size: 4vmax;padding: 1vmax;">
-        EP Trials Review
-    </div>
-    <div class="w3-center sans w3-light-grey" style="font-size: 1.5vmax;color: #555555;">
-        Dec 5, <b>2020</b>
-    </div>
-
-</div> 
+</div>
 
 
 
@@ -92,8 +144,7 @@ style="line-height: 200%;border-bottom: #dddddd solid 0.1vmin;width: 100%;">
 <div class="w3-container sans w3-center" 
 style="margin-top:10vh;background:#f1f1f1;font-size: 1vmax;padding: 2vmax;color:#797979">
     <img src="box transparent.png" style="width: 2vmax;">
-    <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top" onclick="unblur()">
-        <i class="fas fa-arrow-circle-up"></i></a><br>
+    <br>
     HeartRhythmBox, an education page of heart rhythm topics.<br>
     visit us at <a href="https://heartrhythmbox.com" target="_blank">
     www.heartrhythmbox.com</a><br>
