@@ -37,10 +37,14 @@
 .sans {font-family: 'Rubik', sans-serif;}
 .serif {font-family: 'Eczar', serif;}
 .margLR {margin-left: 1vmax;margin-right: 1vmax;}
+.noMobile {display: block;}
+.mobileOnly {display: none;}
 
 
 @media only screen and (max-width:600px) {
     .margLR {margin: none;}
+    .mobileOnly {display: block;}
+    .noMobile {display: none;}
 }
 
 .ref {font-size: 1vmax;color: #555555;padding-left: 1vmax;
@@ -52,14 +56,27 @@ line-height: 120%;margin-top: 0.5vh}
 
 <body class="margLR">
 <!--main title-->
-<div class="w3-row w3-center" style="line-height: 200%;padding: 4vmax 6vmax 2vmax 6vmax;border-bottom: #dddddd solid 0.1vmin;">
-    <div class="w3-col l2 m2 s1" style="text-align: left;">
+<div class="w3-row w3-center noMobile" style="line-height: 200%;padding: 4vmax 6vmax 2vmax 6vmax;border-bottom: #dddddd solid 0.1vmin;">
+    <div class="w3-col l2 m2" style="text-align: left;">
         <i class="fas fa-home" style="font-size: 2vmax;color: #777777;"></i>
     </div>
-    <div class="w3-col l8 m8 s11 serif w3-center" style="font-size: 4vmax;">
+    <div class="w3-col l8 m8 serif w3-center" style="font-size: 4vmax;">
         EP Trials Review
     </div>
-    <div class="w3-col l2 m2 s12 sans" style="font-size: 1.5vmax;text-align: center;color: #555555;">
+    <div class="w3-col l2 m2 sans" style="font-size: 1.5vmax;text-align: center;color: #555555;">
+        Dec 5, <b>2020</b>
+    </div>
+
+</div> 
+<div class="mobileOnly" 
+style="line-height: 200%;border-bottom: #dddddd solid 0.1vmin;width: 100%;">
+    <div class="w3-center">
+        <i class="fas fa-home" style="font-size: 2vmax;color: #777777;"></i>
+    </div>
+    <div class="w3-center serif" style="font-size: 4vmax;padding: 1vmax;">
+        EP Trials Review
+    </div>
+    <div class="w3-center sans w3-light-grey" style="font-size: 1.5vmax;color: #555555;">
         Dec 5, <b>2020</b>
     </div>
 
