@@ -40,27 +40,50 @@
 .noMobile {display: block;}
 .mobileOnly {display: none;}
 
-
-@media only screen and (max-width:600px) {
-    .margLR {margin: none;}
-    .mobileOnly {display: block;}
-    .noMobile {display: none;}
-}
-
 .block {padding: 2vmax;}
 .headLine {
     font-family: 'Eczar', serif;font-size: 2.8vmax;line-height: 120%;
 }
 .pGraph {
     font-family: 'Rubik', sans-serif;font-size: 1.7vmax;line-height: 120%; 
-    color: #555555;text-indent: 4vmax;padding-top: 2vmax;
+    color: #555555;text-indent: 4vmax;padding-top: 2vmax;text-align: justify;
 }
 .figure {padding:1.5vmax;width: 100%;border: #ddd solid 0.1vmin;}
-.caption {font-family: 'Rubik', sans-serif;font-size: 1.5vmax;line-height: 120%;color: #777777;padding-bottom: 2vmax;}
+.caption {font-family: 'Rubik', sans-serif;font-size: 1.5vmax;line-height: 120%;color: #ababab;padding-bottom: 2vmax;}
 .ref {font-size: 1vmax;color: #555555;padding-left: 1vmax;
 line-height: 120%;margin-top: 0.5vh}
 
+/*border*/
+.lineRt {border-right: #ababab solid 0.1vmin;
+border-bottom: white solid 2vmax;
+border-bottom-right-radius: 2vmax;
+border-top: white solid 2vmax;
+border-top-right-radius: 2vmax;}
+.lineLt {border-left: #ababab solid 0.1vmin;
+border-bottom: white solid 2vmax;
+border-bottom-left-radius: 2vmax;
+border-top: white solid 2vmax;
+border-top-left-radius: 2vmax;}
+.mobileBorder {border-bottom: none;}
 
+
+
+@media only screen and (max-width:600px) {
+    .margLR {margin-left: 0.1vmax;margin-right: 0.1vmax;}
+    .mobileOnly {display: block;}
+    .noMobile {display: none;}
+    .lineLt, .lineRt {border: none;}
+    .mobileBorder {border-bottom: double 0.1vmax #797979;padding-bottom: 2vmax;}
+}
+
+@media only screen and (min-width:601px) and (max-width: 992px) {
+    .lineRt {border: none;}
+    .lineLt {border-left: #ababab solid 0.1vmin;
+border-bottom: white solid 2vmax;
+border-bottom-left-radius: 2vmax;
+border-top: white solid 2vmax;
+border-top-left-radius: 2vmax;}
+}
 
 </style>
 
@@ -82,12 +105,12 @@ line-height: 120%;margin-top: 0.5vh}
         <div class="headLine">
             Less life-year loss in AF patients over the last decade.
         </div>
-        <div class="pGraph">
-            Data from Framingham Heart Study reveals that...
+        <div class="pGraph mobileBorder">
+            In the Framingham Heart Study, the mean number of life years lost to AF at 10 years improved 
+            significantly over the past 45 years, but a 2-year gap compared with individuals without AF was still present. 
         </div>
     </div>
-    <div class="w3-col l6 m8 s12 block" 
-    style="border-right: #ababab solid 0.1vmin;border-left: #ababab solid 0.1vmin;">
+    <div class="w3-col l6 m8 s12 block lineRt lineLt">
         <img src="media/EAST AFNET/KM.png" style="width: 100%;" class="figure">
         <div class="caption">
             Kaplan Meier curve
@@ -95,7 +118,7 @@ line-height: 120%;margin-top: 0.5vh}
         <div class="headLine">
             EAST-AFNET 4
         </div>
-        <div class="pGraph">
+        <div class="pGraph mobileBorder">
             Early rhythm control in AF patients is associated with lower CV events.
         </div>
     </div>
@@ -103,23 +126,24 @@ line-height: 120%;margin-top: 0.5vh}
         <div class="headLine" >
             SWISS-AF
         </div>
-        <div class="pGraph">
+        <img src="media/SwissAF/swissAF19.jpg" style="width: 100%;" class="figure">
+        <div class="pGraph mobileBorder">
             Silent cerebral ischemia is not uncommon in AF patients and is associated with worse cognitive function.
         </div>
     </div>
     <div class="w3-col l4 m4 s12 block">
-        <div class="headLine" style="border-right: #ababab solid 0.1vmin;">
+        <div class="headLine">
             ECG Interpretation: Accuracy, Alternative, and Advance
         </div>
-        <div class="pGraph" style="border-right: #ababab solid 0.1vmin;">
+        <div class="pGraph mobileBorder">
             Accuracy of ECG interpretation has been tested in a meta-analysis.            
         </div>
     </div>
-    <div class="w3-col l4 m4 s12 block" style="border-right: #ababab solid 0.1vmin;">
+    <div class="w3-col l4 m4 s12 block">
         <div class="headLine">
             PREATORIAN Trial
         </div>
-        <div class="pGraph">
+        <div class="pGraph mobileBorder">
             Entirely subcutaneous ICD is ...      
         </div>
     </div>
@@ -129,6 +153,15 @@ line-height: 120%;margin-top: 0.5vh}
         </div>
         <div class="pGraph">
             Several case reports ...        
+        </div>
+    </div>
+    <div class="w3-col l4 m4 s12 block">
+        <div class="ref mobileBorder">
+            Ref:<br>
+            1.
+            <a href="https://doi.org/10.1136/bmj.m2724" target="_blank">
+            Trends in excess mortality associated with AF over 45 years (Framingham Heart Study). BMJ 2020; 370:m2724.</a>
+            <br>     
         </div>
     </div>
 
