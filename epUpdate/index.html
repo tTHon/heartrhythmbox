@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>EP Trials Update 2020</title>
+<title>EP Trials Review 2020</title>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-7"></script>
 <script>
@@ -15,9 +15,9 @@
 </head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="box transparent.png" type="image/png" sizes="60x60">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href="https://fonts.googleapis.com/css2?family=Eczar&family=Rubik&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
 
 <!--auto-ad-->
 <script data-ad-client="ca-pub-1548733331544768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -50,21 +50,30 @@
 }
 .figure {padding:1.5vmax;width: 100%;border: #ddd solid 0.1vmin;}
 .caption {font-family: 'Rubik', sans-serif;font-size: 1.5vmax;line-height: 120%;color: #ababab;padding-bottom: 2vmax;}
-.ref {font-size: 1vmax;color: #555555;padding-left: 1vmax;
+.ref {font-size: 0.9vmax;color: #777777;padding-left: 1vmax;font-family: 'Rubik', sans-serif;
 line-height: 120%;margin-top: 0.5vh}
 
+
 /*border*/
-.lineRt {border-right: #ababab solid 0.1vmin;
-border-bottom: white solid 2vmax;
-border-bottom-right-radius: 2vmax;
-border-top: white solid 2vmax;
-border-top-right-radius: 2vmax;}
-.lineLt {border-left: #ababab solid 0.1vmin;
-border-bottom: white solid 2vmax;
-border-bottom-left-radius: 2vmax;
-border-top: white solid 2vmax;
-border-top-left-radius: 2vmax;}
+.lineRt, .lineRt2 {border-right: #ababab solid 0.1vmin;
+border-bottom: white solid 1.5vmax;
+border-bottom-right-radius: 1.5vmax;
+border-top: white solid 1.5vmax;
+border-top-right-radius: 1.5vmax;}
+.lineLt, .lineLt2 {border-left: #ababab solid 0.1vmin;
+border-bottom: white solid 1.5vmax;
+border-bottom-left-radius: 1.5vmax;
+border-top: white solid 1.5vmax;
+border-top-left-radius: 1.5vmax;}
+.lineMd2 {border: none;}
 .mobileBorder {border-bottom: none;}
+.mdScrOnly {display: none;}
+.refBorder {
+    border-top: double 0.3vmax #797979;padding-top: 2vmax;
+    }
+
+.more {font-family: 'Rubik', sans-serif;font-size: 1.7vmax;
+    color: #777777}
 
 
 
@@ -72,17 +81,32 @@ border-top-left-radius: 2vmax;}
     .margLR {margin-left: 0.1vmax;margin-right: 0.1vmax;}
     .mobileOnly {display: block;}
     .noMobile {display: none;}
-    .lineLt, .lineRt {border: none;}
-    .mobileBorder {border-bottom: double 0.1vmax #797979;padding-bottom: 2vmax;}
+    .lineLt, .lineRt, .lineLt2, .lineRt2, .lineMd2 {border: none;}
+    .mobileBorder{border-bottom: solid 0.1vmax #797979;padding-bottom: 2vmax;}
+    .refBorder {border: none;}
+    .lgScrOnly, .mdScrOnly {display: none;}
+    .figure {width: 80%;margin-left: auto;margin-right: auto;}
 }
 
 @media only screen and (min-width:601px) and (max-width: 992px) {
-    .lineRt {border: none;}
-    .lineLt {border-left: #ababab solid 0.1vmin;
-border-bottom: white solid 2vmax;
-border-bottom-left-radius: 2vmax;
-border-top: white solid 2vmax;
-border-top-left-radius: 2vmax;}
+    .lineRt, .lineRt2 {border: none;} 
+    .lineLt, .lineLt2 {border-left: #ababab solid 0.1vmin;
+        border-bottom: white solid 1.5vmax;
+        border-bottom-left-radius: 1.5vmax;
+        border-top: white solid 1.5vmax;
+        border-top-left-radius: 1.5vmax;}
+    .lineMd2 {border-right: #ababab solid 0.1vmin;
+        border-bottom: white solid 1.5vmax;
+        border-bottom-right-radius: 1.5vmax;
+        border-top: white solid 1.5vmax;
+        border-top-right-radius: 1.5vmax;
+        }
+    .lgScrOnly {display: none;}
+    .mdScrOnly {display: block;}
+    .refBorder {border-left: #ababab solid 0.1vmin;border-bottom: white solid 1.5vmax;
+        border-bottom-left-radius: 1.5vmax;
+        border-top: white solid 1.5vmax;
+        border-top-left-radius: 1.5vmax;}
 }
 
 </style>
@@ -90,17 +114,21 @@ border-top-left-radius: 2vmax;}
 <body class="margLR">
 <!--main title-->
  
-<div style="line-height: 200%;width: 100%;padding: 3vmax 0;">
-    <div class="w3-center serif" style="font-size: 5vmax;padding: 1vmax;">
+<div class="w3-center" style="line-height: 200%;width: 100%;padding: 3vmax 0;">
+    <a href="https://heartrhythmbox.com" target="_blank">
+    <img src="box transparent.png" style="width: 4vmax;padding-bottom: 1.5vmax;"></a>
+    <br>
+    <div class="serif" style="font-size: 5vmax;padding: 1vmax;">
         EP Trials Review
     </div>
-    <div class="w3-center sans" style="font-size: 1.5vmax;color: #555555;background-color: #eeeeee;">
+    <div class="sans" style="font-size: 1.5vmax;color: #555555;background-color: #eeeeee;">
         December 5, <b>2020</b>
     </div>
 </div> 
 
 <!--content-->
 <div class="w3-row">
+    <a href="framingham.html" target="_blank">
     <div class="w3-col l3 m4 s12 block">
         <div class="headLine">
             Less life-year loss in AF patients over the last decade.
@@ -108,10 +136,11 @@ border-top-left-radius: 2vmax;}
         <div class="pGraph mobileBorder">
             In the Framingham Heart Study, the mean number of life years lost to AF at 10 years improved 
             significantly over the past 45 years, but a 2-year gap compared with individuals without AF was still present. 
+            <span class="more">(..click for more..)</span>        
         </div>
-    </div>
+    </div></a>
     <div class="w3-col l6 m8 s12 block lineRt lineLt">
-        <img src="media/EAST AFNET/KM.png" style="width: 100%;" class="figure">
+        <img src="media/EAST AFNET/KM.png" class="figure">
         <div class="caption">
             Kaplan Meier curve
         </div>
@@ -120,58 +149,108 @@ border-top-left-radius: 2vmax;}
         </div>
         <div class="pGraph mobileBorder">
             Early rhythm control in AF patients is associated with lower CV events.
+            <span class="more"> (..click for more..)</span>   
         </div>
     </div>
-    <div class="w3-col l3 m4 s12 block">
+    <div class="w3-col s12 mdScrOnly" style="border-bottom: double 0.3vmax #797979;">
+        &nbsp;
+    </div>
+    <div class="w3-col l3 m4 s12 block lineMd2">
         <div class="headLine" >
             SWISS-AF
         </div>
-        <img src="media/SwissAF/swissAF19.jpg" style="width: 100%;" class="figure">
+        <img src="media/SwissAF/swissAF19.jpg" class="figure">
         <div class="pGraph mobileBorder">
             Silent cerebral ischemia is not uncommon in AF patients and is associated with worse cognitive function.
+            <span class="more"> (..click for more..)</span>   
         </div>
+    </div>
+    <div class="w3-col s12 lgScrOnly" style="border-bottom: double 0.3vmax #797979;">
+        &nbsp;
     </div>
     <div class="w3-col l4 m4 s12 block">
         <div class="headLine">
-            ECG Interpretation: Accuracy, Alternative, and Advance
+            ECG Interpretations: Accuracy, Alternative, and Advance
         </div>
         <div class="pGraph mobileBorder">
-            Accuracy of ECG interpretation has been tested in a meta-analysis.            
+            In a meta-analysis of 62 studies, physicians at all training levels had deficiencies 
+            in ECG interpretation, even after educational interventions. Artificial intelligence, using
+            deep neural network, has been shown to be as good as or even better than human in ECG interpretation.        
+            <span class="more"> (..click for more..)</span>   
         </div>
     </div>
-    <div class="w3-col l4 m4 s12 block">
+    <div class="w3-col l4 m4 s12 block lineRt2 lineLt2">
         <div class="headLine">
             PREATORIAN Trial
         </div>
+        <img src="media/Praetorian/Praetorian.jpg" class="figure">
         <div class="pGraph mobileBorder">
-            Entirely subcutaneous ICD is ...      
+            In patients with an indication for an ICD but no indication for pacing, 
+            the entirely subcutaneous ICD was noninferior to the transvenous ICD with respect to device-related complications and inappropriate shocks.
+            <span class="more"> (..click for more..)</span>   
         </div>
     </div>
-    <div class="w3-col l4 m4 s12 block">
+    <div class="w3-col s12 mdScrOnly" style="border-bottom: double 0.3vmax #797979;">
+        &nbsp;
+    </div>
+    <div class="w3-col l4 m6 s12 block">
         <div class="headLine">
             Electronic Gaming and Life-threatening Ventricular Arrhythmias
         </div>
-        <div class="pGraph">
-            Several case reports ...        
+        <div class="pGraph mobileBorder">
+            In several case reports of patients with underlying arrhythmogenic conditions, 
+            ventricular arrhythmias were shown to be associated with strong emotion related 
+            to electronic war games.
+            <span class="more"> (..click for more..)</span>            
         </div>
     </div>
-    <div class="w3-col l4 m4 s12 block">
-        <div class="ref mobileBorder">
+    <div class="w3-col l12 m6 s12 block refBorder">
+        <div class="ref">
             Ref:<br>
             1.
             <a href="https://doi.org/10.1136/bmj.m2724" target="_blank">
-            Trends in excess mortality associated with AF over 45 years (Framingham Heart Study). BMJ 2020; 370:m2724.</a>
+            Trends in excess mortality associated with AF. BMJ 2020.</a>
             <br>     
+            2.
+            <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2019422" target="_blank">
+            EAST-AFNET4. NEJM 2020.
+            </a><br>
+            3.
+            <a href="https://doi.org/10.1016/j.jacc.2018.12.039" target="_blank">
+            SWISS-AF. JACC 2019.
+            </a><br>
+            4.
+            <a href="https://www.hrsonline.org/news/press-releases/hrs2020science-lbct-silent-brain-lesions" target="_blank">
+            SWISS-AF. Heart Rhythm LBCT 2020.
+            </a><br>
+            5. 
+            <a href="https://doi.org/10.1001/jamainternmed.2020.3989" target="_blank">
+            Accuracy of ECG Interpretations. JAMA Intern Med 2020.
+            </a><br>
+            6. 
+            <a href="https://doi.org/10.1038/s41467-020-15432-4" target="_blank">
+            Automatic diagnosis of ECG using DNN. Nat Commun 2020.
+            </a><br>
+            7. 
+            <a href="https://doi.org/10.1161/CIRCEP.120.008437" target="_blank">
+            AI-enabled ECG algorithm for LVSD. Circ EP 2020.
+            </a><br>
+            8. 
+            <a href="https://doi.org/10.1056/nejmoa1915932" target="_blank">
+            PRAETORIAN Trial. NEJM 2020.
+            </a><br>
+            9. 
+            <a href="https://doi.org/10.1016/j.hrcr.2020.02.007" target="_blank">
+            VDO Game VT. Heart Rhythm Case Reports 2020.
+            </a><br>
+            10. 
+            <a href="https://doi.org/10.1056/nejmc1905537" target="_blank">
+            Syncope triggered by electronic gaming. NEJM 2019.
+            </a>
         </div>
     </div>
 
 </div>
-
-
-
-
-
-
 
 <!--end page-->
 <div class="w3-container sans w3-center" 
@@ -188,39 +267,5 @@ style="margin-top:10vh;background:#f1f1f1;font-size: 1vmax;padding: 2vmax;color:
 
 </body>
 
-<script src="block navigation.js"></script>
-<script>
-
-window.addEventListener("keydown", function(event) {
-        event.preventDefault();
-        if (event.keyCode===27) {
-        window.unblur()}
-    })
-
-//up arrow
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===38) {
-    blockNav(-1)}
-})
-//down arrow
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===40) {
-    blockNav(1)}
-})
-
-window.ontouchmove = function () {unblur()};
-
-function unblur() {
-    var b = document.getElementsByClassName("block");
-    var i;
-    for (i=0;i<b.length;i++){
-        b[i].style.opacity = 1;
-    }
-}
-
-
-</script>
 
 </html>
