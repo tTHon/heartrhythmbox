@@ -87,6 +87,21 @@
 		background-position: 0% 50%
 	}
 }
+.pointer {
+    cursor: pointer;
+    height: 0.5em;
+    width: 0.5em;
+    background-color: #fc553d;
+    border-radius: 50%;
+    position: fixed;  
+    z-index: 1;
+    animation: blink 1.5s linear infinite;
+    }
+    @keyframes blink{
+    0%{opacity: 0;}
+    50%{opacity: 0.7}
+    100%{opacity: 1;}
+    }
 
 .gradient {background: linear-gradient(-45deg, #000, #310913, #530f21, #6c001b);}
 .wineBg {background-color: #530f21}
@@ -154,6 +169,8 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 <a href="#top" title="to the top" class="toTop" onclick="unblur()">
 	<i class="fas fa-arrow-circle-up" style="font-size: 2.8vmax"></i>
 </a>
+<!--start pointer-->
+<div onclick="pointer()"><span class="pointer" style="display: none"></span> 
 
 <!--AT AFL vs AF-->
 <div class="block" style="background-color: #abab9a;">
@@ -541,7 +558,8 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 	
 </div>
 
-
+<!--end pointer-->
+</div>
   <!--footer-->
   <div style="background: #ddd;font-size: 18px;padding:3vmax 3vmax;text-align: center;
   color:#555;font-weight: 600;line-height: 200%;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
@@ -567,6 +585,7 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 
 <script src="block navigation.js"></script>
 <script src="toTop.js"></script>
+<script src="pointer.js"></script>
 <script>
 
 //esc
@@ -589,6 +608,13 @@ window.addEventListener("keydown", function(event) {
     blockNav(1)}
 })
 
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===80) {
+        pointerSwitch()}
+    })
+//pointer
+var pSwitch = 0;
 window.ontouchmove = function () {unblur()};
 window.onscroll = function() {scroll()};
 
