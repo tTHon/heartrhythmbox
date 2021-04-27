@@ -718,6 +718,34 @@
     <ref>http://oxfordmedicine.com/view/10.1093/med/9780198727774.001.0001/med-9780198727774</ref>
 </question>
 
+<!--runaway pacemaker-->
+<question>
+    <index>Runaway Pacemaker</index>
+    <clinical>A VVIR was implanted in a 78-year-old patient in 1994 because of complete AV block, programmed at a low rate of 60 ppm. The patient lost follow-up for more than 5 years and now presented with near-syncopal episodes. ECG is as shown. Magnetic application did not provoke any change. The device was not able to communicate with the programmer.
+        </clinical>
+           
+    <qImage>media\runaway pacemaker.png</qImage>
+    <mainQ>What is the next appropriate management?
+        </mainQ>
+    <choices>
+        <a>Apply the magnet with higher magnetic strength.</a>
+        <b>Change the pacemaker generator emergently.</b>
+        <c>Continue to observe the patient.</c>
+        <d>Schedule coronary angiogram.</d>
+        <e>Upgrade to ICD.</e>
+        </choices>
+    <answer>B</answer>
+    <exp>The tracing shows underlying rhythm of complete heart block with ventricular escape rate of 40 bpm.
+    There were spike bursts at approximately 2000 bpm with decreasing amplitude without ventricular captures.
+    The pacemaker was not able to interrogated and did not respond to magnetic application. 
+    This is typical for runaway pacemaker. The pacing spikes mostly fails to capture due to battery depletion.
+    Runaway pacemaker is a phenomenon found exclusively in older generation of pacemaker. The most frequent causes are battery depletion or sudden failure of pacemaker circuits which could be due to electric diathermy or radiation.
+    The treatment is to implant a new pacemaker generator.
+    </exp>
+    <aImage>NA</aImage>
+    <ref>https://doi.org/10.1016/j.eupc.2005.06.004</ref>
+</question>
+
 
 <!--pause artifact-->
 <question>
@@ -736,7 +764,7 @@
         </choices>
     <answer>E</answer>
     <exp>Pause artifacts.
-    The small signals are are not P waves but ventricular complexes. These complexes time out perfectly. 
+    The small signals are not P waves but ventricular complexes. These complexes time out perfectly. 
     Therefore, the rhythm is sinus and the patient likely has psychogenic syncope.
         </exp>
     <aImage>NA</aImage>
