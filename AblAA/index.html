@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ablation of AFL/AT: Main Page</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Prompt&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Sarabun&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -87,6 +87,21 @@
 		background-position: 0% 50%
 	}
 }
+.pointer {
+    cursor: pointer;
+    height: 0.5em;
+    width: 0.5em;
+    background-color: #fc553d;
+    border-radius: 50%;
+    position: fixed;  
+    z-index: 1;
+    animation: blink 1.5s linear infinite;
+    }
+    @keyframes blink{
+    0%{opacity: 0;}
+    50%{opacity: 0.7}
+    100%{opacity: 1;}
+    }
 
 .gradient {background: linear-gradient(-45deg, #000, #310913, #530f21, #6c001b);}
 .wineBg {background-color: #530f21}
@@ -94,67 +109,61 @@
 .pinkTxt {color:#f6cdd8}
 
 .cursive {font-family: 'Monoton', cursive;}
-.thai {font-family: 'Prompt', serif;}
+.thai {font-family: 'Sarabun', sans-serif;}
 
 .theA {font-family: 'Monoton', cursive;font-size: 45vw;color:#74152e;line-height: 90%;
 overflow: hidden;white-space: nowrap;text-overflow: clip}
-.pageTitle {font-size:5vmax;color:white;font-family: 'Prompt', serif;line-height: 80%;font-weight: 500;}
+.pageTitle {font-size:4vmax;color:white;font-family: 'Sarabun', sans-serif;font-weight: 500;}
 
 .block {padding: 2vmax 1vmax}
 .listHover li:hover {color: white}
-.headLine {font-family: 'Prompt', serif;font-size: 3.5vmax;color:#f6cdd8;padding:1vmax;;line-height: 110%}
-.text {font-family: 'Prompt', serif;font-size: 2vmax;color:#FCf2f5;padding:1vmax;;line-height: 110%}
+.headLine {font-family: 'Sarabun', sans-serif;f;font-size: 3.5vmax;color:#f6cdd8;padding:1vmax;;line-height: 110%}
+.text {font-family: 'Sarabun', sans-serif;f;font-size: 2vmax;color:#FCf2f5;padding:1vmax;line-height: 120%}
 .ref {color:#abab9a;font-size: 1vmax;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 line-height: 150%;padding-top:1vmax}
 
-.Rx1 {margin-left:5%;}
-.Rx2 {margin-left:10%;}
-.Rx3 {margin-left:15%;}
-.Rx4 {margin-left:20%;}
-.RxBullet {font-family: 'Monoton', cursive;text-align: right;font-size: 7vmax;color:#9f1d3f}
-.RxText {font-family: 'Righteous', cursive;font-size:4vmax;color: #f1f1f1;}
-
-@media only screen and (max-width:600px){
-	.Rx1, .Rx2, .Rx3, .Rx4 {margin-left:5%}
-}
-
 .caseList {background-color: #74152e;color: white;border-radius: 1vmax;font-size: 2.5vmax;
-padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+padding: 1vmax;margin-top: 0.5vmax;font-family:'Sarabun', sans-serif;}
 .cTitle {font-size: 6vmax;color:#9f1d3f;padding-left:1.5vmax}
 @media only screen and (max-width:600px){
 	.cTitle {font-size:5vmax}
 }
-.cList {padding: 1vmax 1.5vmax 2.5vmax 1.5vmax;font-family: 'Prompt', serif;font-size:2.5vmax;color:#abab9a;text-align: left}
+.cList {padding: 1vmax 1.5vmax 2.5vmax 1.5vmax;font-family: 'Sarabun', sans-serif;;font-size:2.5vmax;color:#abab9a;text-align: left}
 .cList li:hover {color: #f6cdd8}
 
 </style>
 
 <!--title-->
-<div id="top" class="aGradient w3-center block" style="padding:0">
-    <div class="w3-row" style="width:100%;display:block">
-        <span class="theA">A</span>
-        <br>
-        <span class="pageTitle" >
-        Ablation of Atrial Flutter<br>& Atrial Tachycardia
-        </span>
-    </div>
+<div id="top" class="aGradient w3-row w3-center block" style="padding:0;">
     
-    <div class="Thai" style="padding: 3vh;font-size: 1.7vmax;color:#abab9a">
-        <a href="https://www.HeartRhythmBox.com/" style="text-decoration:none" target="_blank">
+    <div class="w3-cell w3-cell-middle w3-mobile">
+		<span class="theA">A</span>
+        <br>
+	</div>
+        
+    <div class="Thai w3-cell w3-cell-middle w3-mobile" 
+	style="color:#abab9a">
+		<span class="pageTitle" >
+			Ablation of Atrial Flutter<br>& Atrial Tachycardia
+			</span><br><br>
+        <a href="https://www.HeartRhythmBox.com/" style="text-decoration:none;" target="_blank">
         <img src="box coral.png" style="width: 2.5vmax;">
         heartRhythmBox
         </a>
     </div>
+
     
 </div>
 
 <a href="#top" title="to the top" class="toTop" onclick="unblur()">
 	<i class="fas fa-arrow-circle-up" style="font-size: 2.8vmax"></i>
 </a>
+<!--start pointer-->
+<div onclick="pointer()"><span class="pointer" style="display: none"></span> 
 
 <!--AT AFL vs AF-->
-<div class="block" style="background-color: #abab9a;">
-	<div class="headLine" style="color:#530f21">
+<div class="block gradient">
+	<div class="headLine" style="color:#abab9a">
 		AF vs. Atrial Flutter(AFL) vs. Atrial Tachycardia (AT)
 	</div>
 		<div class="w3-row">
@@ -172,7 +181,7 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 					<source src="media/AT.mp4" type="video/mp4"></video>
 			</div>	
 		</div>
-	<div class="text" style="color:#530f21;padding: 1vmax;margin-top: 1vmax">
+	<div class="text" style="padding: 1vmax;margin-top: 1vmax">
 	ทั้ง 3 ภาวะนี้ต่างกันที่กลไกการเกิด <br>
 	ถ้าดูจาก EKG ในคนที่เป็น AFL หรือ AT จะเห็น P wave ที่มีรูปร่างชัดเจนและสม่ำเสมอกว่าคนที่เป็น AF <br>
 	ทั้ง 3 ภาวะนี้ อาจมี ventricular rate ที่สม่ำเสมอหรือไม่สม่ำเสมอก็ได้
@@ -360,27 +369,27 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 				<tr style="color:#9f1d3f;background-color: #abab9a">
 					<th>Characters</th><th>Focal</th><th>Microreentry</th><th>Macroreentry</th>
 				</tr>
-				<tr style="color:#FCf2f5">
+				<tr class="w3-hover-light-grey" style="color:#FCf2f5">
 					<td>Most Common heart diseases</td>
 					<td>None</td><td>AF s/p RFA</td><td>CAD, AF s/p RFA</td>
 				</tr>
-				<tr style="color:#FCf2f5">
+				<tr style="color:#FCf2f5" class="w3-hover-light-grey">
 					<td>ECG isoelectric interval</td>
 					<td>Yes</td><td>Yes</td><td>No</td>
 				</tr>
-				<tr style="color:#FCf2f5">
+				<tr style="color:#FCf2f5" class="w3-hover-light-grey">
 					<td>Record from >80% of CL</td>
 					<td>No</td><td>Yes</td><td>Yes</td>
 				</tr>
-				<tr style="color:#FCf2f5">
+				<tr style="color:#FCf2f5" class="w3-hover-light-grey">
 					<td>Entrain with PPI-TCL&lt;20ms, 2sites &gt;2cm apart</td>
 					<td>No</td><td>No</td><td>Yes</td>
 				</tr>
-				<tr style="color:#FCf2f5">
+				<tr style="color:#FCf2f5" class="w3-hover-light-grey">
 					<td>Activation Pattern</td>
 					<td>Radial</td><td>Radial</td><td>Large Loop</td>
 				</tr>
-				<tr style="color:#FCf2f5">
+				<tr style="color:#FCf2f5" class="w3-hover-light-grey">
 					<td>Ablation Approach</td>
 					<td>Focal</td><td>Focal</td><td>Linear</td>
 				</tr>
@@ -411,6 +420,23 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 	</div>
 </div>
 
+<!--indications-->
+<div class="block wineBg">
+	<div class="headLine">
+		When to Ablate	</div>
+	<div class="w3-row w3-center text">
+		<div class="w3-cell w3-cell-middle w3-mobile">
+			<img src="media/afl indication.png" style="width: 100%;">
+		</div>
+		<div class="w3-cell w3-cell-middle text w3-padding w3-mobile" style="text-align: left;">
+			<li class="w3-padding w3-hover-black">Ablate when recurs or intolerant to medicaitons.</li>
+			<li class="w3-padding w3-hover-black">For typical flutter, ablation may be the 1st line Rx after the 1st episode (IIa).</li>
+			<li class="w3-padding w3-hover-black">For atypical flutter, ablation should be performed in experienced centers.</li>
+		</div>
+		<a href="https://doi.org/10.1093/eurheartj/ehz467" target="_blank" class="ref">2019 ESC Guidelines for SVT</a>
+	</div>
+</div>
+
 <!--case-->
 <div class="block" style="background-color: #abab9a;">
 	<div class="w3-row cursive w3-center" style="font-size: 5vmax;color: #74152e;">
@@ -418,7 +444,7 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 	</div>
 	<div class="w3-content caseList"> 
 		<a href="case1.html" style="text-decoration: none;" target="_blank">
-		Case #1: 2D mapping can still be useful.</a>
+		Case #1: 2D mapping in atrial flutter.</a>
 	</div>
 	<div class="w3-content caseList">
 		<a href="case2.html" style="text-decoration: none;" target="_blank">
@@ -430,7 +456,7 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 	</div>
 	<div class="w3-content caseList" style="padding-bottom: 2vmax;">
 		<a href="case4.html" style="text-decoration: none;" target="_blank">
-		Case #4: Is it early enough?</a>
+		Case #4: Tachycardia induced cardiomyopathy in an 8 year-old kid.</a>
 	</div>
 </div>
 	
@@ -538,7 +564,8 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 	
 </div>
 
-
+<!--end pointer-->
+</div>
   <!--footer-->
   <div style="background: #ddd;font-size: 18px;padding:3vmax 3vmax;text-align: center;
   color:#555;font-weight: 600;line-height: 200%;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
@@ -564,6 +591,7 @@ padding: 1vmax;margin-top: 0.5vmax;font-family:'Segoe UI', Tahoma, Geneva, Verda
 
 <script src="block navigation.js"></script>
 <script src="toTop.js"></script>
+<script src="pointer.js"></script>
 <script>
 
 //esc
@@ -586,6 +614,13 @@ window.addEventListener("keydown", function(event) {
     blockNav(1)}
 })
 
+window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===80) {
+        pointerSwitch()}
+    })
+//pointer
+var pSwitch = 0;
 window.ontouchmove = function () {unblur()};
 window.onscroll = function() {scroll()};
 

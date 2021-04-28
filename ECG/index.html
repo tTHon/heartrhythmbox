@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title></title>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="description" content="Non-cardiac Causes of Abnormal ECGs">
+<meta name="keywords" content="ECGs, Potassium, Hypokalemia, hyperkalemia, Calcium, Hypocalcemia,
+hypercalcemia, hypothermia, Osborn wave, J wave, pulmonary embolism, CTEPH, carbonmonoxide, poisoning,
+TCA, prolonged QT, intracranial hemorrhage, negative T wave">
+<meta name="author" content="t'Thon">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!--G Ad-->
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-1548733331544768",
+          enable_page_level_ads: true
+     });
+</script>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-1');
+</script>
+
+<link href="https://fonts.googleapis.com/css?family=Quicksand:400,600&display=swap" rel="stylesheet">
+<script async src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+
+</head>
+
+<style>
+    .block {min-height: 100vh;width: 100%;height: fit-content;}
+    .head {font-family: 'Quicksand', sans-serif;font-weight: 600}
+    .text {font-family: 'Quicksand', sans-serif;font-weight: 400}
+    .center {margin-left: auto;margin-right: auto}
+    .textShadow {text-shadow: 0 -5px 10px rgba(0, 0, 0, 0.3);}
+    .boxShadow {box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.2), 0 -8px 20px 0 rgba(0, 0, 0, 0.19);}
+    .pad {padding: 1vmax}
+    .card {border-radius: 5px;padding: 1vmax;margin: 0.5vmax;
+    box-shadow: 2px -2px 4px 0 rgba(0, 0, 0, 0.2), 3px -3px 6px 0 rgba(0, 0, 0, 0.19);}
+    .cardNoMargin {border-radius: 5px;padding: 1vmax;
+    box-shadow: 2px -2px 4px 0 rgba(0, 0, 0, 0.2), 3px -3px 6px 0 rgba(0, 0, 0, 0.19);}
+    
+    /*color*/
+    .pink {background-color: #ff0d7b}
+    .grey {background-color: #374140}
+    .dark {background-color: #2a2c2b}
+    .lightGrey {background-color: #bdc3c7}
+    .creme {background-color: #d9cb9e}
+    
+
+    .pointer {
+    cursor: pointer;
+    height: 0.5vmax;
+    width: 0.5vmax;
+    background-color: #ff0d7b;
+    border-radius: 50%;
+    position: fixed;  
+    z-index: 1;
+    animation: blink 1.5s linear infinite;
+    }
+    @keyframes blink{
+    0%{opacity: 0;}
+    50%{opacity: 0.7}
+    100%{opacity: 1;}
+    }
+
+      
+    /* Position the image container (needed to position the left and right arrows) */
+    .container {
+      position: relative;
+      height: 92vh;width: 100%;
+    }
+    
+    .imgBox {
+        box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.2), 0 -8px 20px 0 rgba(0, 0, 0, 0.19);
+        height: 80vh;max-width: 100%;width: auto;
+        object-fit: contain;
+      }
+
+    @media only screen and (max-width: 800px){
+        .block {height: fit-content;min-height: fit-content;}
+        .imgBox {height: auto;width: 98%;box-shadow: none;}
+        .container {min-height: 56vw;height:auto;width: 100%;
+        padding-top: 20px}
+        .card {box-shadow: none}
+    }
+    
+    
+    .caption {
+        padding:1vmax; text-align: center;font-size: 2.5vmax;
+        color: white;
+        }
+    
+        
+    /* Hide the images by default */
+    .slideSet0, .slideSet1, .slideSet2 {
+      display: none; padding: 1vmax;text-align: center;object-fit: contain;
+      }
+    
+    
+    /* Next & previous buttons */
+    .prevS,
+    .nextS {
+      cursor: pointer;
+      position: absolute;
+      top: 45%;
+      color: #a9a9a9;
+      font-size: 2vmax;
+    }
+    
+    /* Position the "next button" to the right */
+    .nextS {right: 1%}
+    .prevS {left: 1%;}
+    
+    /* On hover, add a black background color with a little bit see-through */
+    .prevS:hover,
+    .nextS:hover {
+      color: rgba(88, 88, 88, 0.9);
+    }
+
+       
+/* Container for flexboxes */
+.row {
+  display: -webkit-flex;
+  display: flex;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.col2 {
+    -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 50%;
+}
+
+.col1-3 {
+    -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 33.3%;
+}
+.col2-3 {
+    -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 66.6%;
+}
+
+.headline {padding-top: 1vmax;}
+.mobileOnly {display: none;}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 800px) {
+  .row {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+  .col2 {width: 99%;}
+  .headline {padding-top: 1.5vmax;}
+  .mobileOnly {display:block}
+  .noMobile {display: none}
+  .nextS, .prevS {display: none}
+}
+
+
+#jWave > table,th,td {border: 2px solid #505050;
+  border-collapse: collapse;line-height: 130%;padding: 0.5vmax 1.5vmax;}
+#tdp > table,th,td {border: 2px solid #505050;
+  border-collapse: collapse;line-height: 130%;padding: 0.5vmax 1.5vmax;}
+
+#jWave, #tdp> table, th {font-size:2.5vmax}
+#jWave, #tdp> table, td {font-size: 2.2vmax}
+
+.slideProgress {font-size: 1.4vmax;color:#bbb;vertical-align: 5%} 
+.navM {position: absolute;top: 0.5%;left: 43%;font-size: 2vmax;
+font-family: 'Quicksand', sans-serif;font-weight: 400;}   
+ 
+
+
+</style>
+    
+<body>
+    
+    <!--title-->
+    <div class="block" 
+    style="background-color: #374140;">
+        <div class="row">
+        <div class="column pad" style="align-content: center;">
+            <img src="media/HLB.png" 
+            style="width: 100%;max-height: 90vh;object-fit:contain;"></div>
+        <div style="font-size: 5vmax;align-self: center;line-height: 100%;color: #bdc3c7;" 
+        class="head column textShadow pad">
+        Non-cardiac causes of abnormal ECGs
+        <br>
+        <span style="font-size:2vmax;line-height: 90%" class="text">
+            Because <span style="color:#e04338;font-weight: 600;font-size: 2.5vmax">HEART</span> is not alone.
+        </span>
+        </div>
+        </div>
+        <div class="noMobile" style="font-size: 1.8vmax;text-align: center">
+            <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+                style="text-decoration: none;color:#aaa" class="text textShadow">
+                    <i class="fab fa-facebook" style="font-size: 2vmax;color:#1877f2"></i> @heartRhythmBox
+            </a>&nbsp;
+        <a href="https://heartrhythmbox.com" target="_blank" class="text textShadow" 
+        style="text-decoration:none;color:#aaa;">
+            <img src="box white.png" style="width: 2.2vmax;vertical-align: center"> heartRhythmBox.com</a>
+        </div>
+
+        <div class="mobileOnly pad" style="font-size: 1.8vmax;padding-top: 2vh;line-height: 150%">
+                <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+                    style="text-decoration: none;color:#aaa" class="text textShadow">
+                        <i class="fab fa-facebook" style="font-size: 2vmax;color:#1877f2"></i> @heartRhythmBox
+                </a><br>
+            <a href="https://heartrhythmbox.com" target="_blank" class="text textShadow" 
+            style="text-decoration:none;color:#aaa;">
+                <img src="box white.png" style="width: 2.2vmax;vertical-align: center"> heartRhythmBox.com</a>
+            </div>
+    </div>
+      
+    <!--pointer-->
+    <div onclick="pointer()"><span class="pointer" style="display: none"></span>  
+    
+    <!--Elytes K-->
+    <div class="block">
+        
+        <!--headline-->
+        <div class="text headline" style="font-size: 2.2vmax;color: #2a2c2b">
+        electrolytes <span style="color: #374140;font-size:1.8vmax">&bull; Potassium</span>
+        <span class="slideProgress noMobile">1/8</span>
+            
+        </div>
+        
+        <!--slideset0 Potassium-->
+        <div class="container pink">
+            
+            <!--intro-->
+            <div class="slideSet0" style="color:black;">
+                <div class="row">
+                    <div class="col2 card" style="align-self: center;background-color: #ddd">
+                    <img src="media/K/actionPotentialK.jpg" style="width: 100%" class="boxShadow">
+                        <div class="text" style="font-size: 1.2vmax">
+                            <a href="http://www.onlinejacc.org/content/42/3/401" target="_blank" 
+                            style="text-decoration: none;color:#888">
+                            JACC 2003</a>
+                        </div>
+                    </div>
+                    <div class="col2 grey head card textShadow" style="font-size:5vmax;color: white;
+                    text-align: left;align-self: center">
+                        Potassium <br>
+                        <div class="text" style="font-size:2vmax;color: #ddd">The major contributor of repolarization phase.
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!--hypok1-->
+            <div class="slideSet0">
+                <div>
+                    <img src="media/K/HypoK/HypoK_1.2.JPG"  class="imgBox"></div>
+                <div class="text caption"> 
+                    90F consulted for bradycardia post colonoscopy.</div>
+            </div>   
+
+            <!--hypok2-->
+            <div class="slideSet0">
+                <div>
+                    <img src="media/K/HypoK/HypoK_1.2_label.jpg"  class="imgBox"></div>
+                <div class="text caption" style="font-size:2vmax; line-height:100%;"> 
+                    K= 1.2. Noted with generalized ST depression, prolonged QTc, and presence of U wave.
+                </div>
+            </div> 
+            
+            <!--hypok2-->
+            <div class="slideSet0">
+                <div>
+                    <img src="media/K/HypoK/TdP.jpg"  class="imgBox" style="background-color: #374140">
+                </div>
+                <div class="text caption" style="font-size:2vmax; line-height:100%;"> 
+                    Severe kypokalemia can induce polymorphic VT and sudden cardiac arrest.
+                </div>
+            </div> 
+
+            <!--k membrance potential-->
+            <div class="slideSet0">
+                <div class="row" style="text-align: center">
+                <div class="col2 card" style="background-color: #ddd;align-self: center">
+                    <img src="media/K/K_memPot.gif" style="width: 100%;">
+                </div>
+                <div class="grey card text col2" style="font-size:2.2vmax;color: #ddd;
+                line-height: 120%;align-self: center">
+                    The <span style="color:white;font-weight: 600">potassium</span> 
+                    gradient across the cellular membrane is the most important factor 
+                    in establishing this membrane potential.    <br><br>
+                    During <span style="color:white;font-weight: 600">hyperkalemia</span>, the gradient is reduced resulted in the reduction of phase 0 of action potential
+                    and <span style="color:white;font-weight: 600">slowing of the impulse conduction.</span>
+                </div>
+                </div>
+            </div> 
+
+            <!--hyperk1-->
+            <div class="slideSet0">
+                <div>
+                    <img src="media/K/HyperK/tall_T.JPG"  class="imgBox"></div>
+                <div class="text caption"> 
+                    Narrow-based and symmetical peaked T wave in early phase of hyperkalemia. 
+                    </div>
+                
+            </div>        
+
+            <!--hyperk2-->
+            <div class="slideSet0">
+                <div>
+                    <img src="media/K/HyperK/sinus arrest.png" class="imgBox">
+                    <div class="text caption"> 
+                    Sinus arrest and intraventricular conduction delay.</div>
+                    
+                </div>
+            </div>     
+            
+            <!--hyperk3-->
+            <div class="slideSet0">
+                <div>
+                    <img src="media/K/HyperK/hyperK sine wave.jpeg" class="imgBox">
+                    <div class="text caption"> 
+                    Sine wave: QRS complex continues to widen and blend with T wave.</div>
+                    
+                </div>
+            </div>     
+
+            <!--K sum-->
+            <div class="slideSet0">
+                <div>
+                    <img src="media/K/K summary.png" class="imgBox">
+                    <div class="text caption"> 
+                    ECG changes in hypo & hyper K+.</div>
+                    
+                </div>
+            </div>     
+            
+            
+            <a class="prevS noMobile" onclick="plusSlides(-1,0)"><i class="fas fa-angle-left noMobile"></i></a>
+            <a class="nextS noMobile" onclick="plusSlides(1,0)"><i class="fas fa-angle-right noMobile"></i></a>
+            <span class="mobileOnly navM" style="color:#ddd">
+                <a onclick="plusSlides(-1,0)"><i class="fas fa-angle-left"></i></a>&nbsp;
+                <span class="slideProgressM"></span>&nbsp;
+                <a onclick="plusSlides(1,0)"><i class="fas fa-angle-right"></i></a>
+            </span>
+     
+        </div>
+    </div>
+    
+    
+    <!--Elytes Ca-->
+    <div class="block">
+          
+        <div class="text headline" style="font-size: 2.2vmax;color: #2a2c2b">
+        electrolytes <span style="color: #374140;font-size:1.8vmax">&bull; Calcium</span>
+        <span class="slideProgress noMobile"></span>    
+        </div>
+        
+    <!--slideset1 Calcium-->
+        <div class="container creme">
+            
+            <!--intro-->
+            <div class="slideSet1" style="color:black;">
+                <div class="row">
+                    <div class="col2" style="align-self: center;">
+                        <img src="media/Ca/AP.jpg" style="align-self: center;width: 100%">
+                    </div>
+                    <div class="col2 pad head" 
+                    style="font-size: 3vmax;color:#2a2c2b;align-self: center;text-align: left">
+                    <div style="font-size: 5vmax;border-bottom: #374140 solid 0.1vmax;margin-bottom: 1vmax">
+                        Calcium </div>
+                    is the ion of the phase 2. <br>
+                    Imbalance of Calcium affects <span style="color:#ff0d7b;font-size:4vmax">ST segment.</span>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!--hyp0Ca-->
+            <div class="slideSet1">
+                <div>
+                    <img src="media/Ca/HypoCa.jpg"  class="imgBox"></div>
+                <div class="text caption" style="color:#374140"> 
+                    Hypocalcemia: prolonged ST segment.</div>
+            </div>   
+
+            <!--hyperCa-->
+            <div class="slideSet1">
+                <div>
+                    <img src="media/Ca/HyperCa.png"  class="imgBox"></div>
+                <div class="text caption" style="color:#374140"> 
+                    68F with metastic CA with serum Calcium of 14 mEq/l. </div>
+            </div>   
+
+            <!--hyperCa explain-->
+            <div class="slideSet1">
+                <div>
+                    <img src="media/Ca/HyperCa label.png"  class="imgBox"></div>
+                <div class="text caption" style="color:#374140"> 
+                    Osborn wave (positive deflection at J point), short QTc, and ST elevation.</div>
+            </div>   
+
+            <a class="prevS noMobile" onclick="plusSlides(-1,1)"><i class="fas fa-angle-left noMobile"></i></a>
+            <a class="nextS noMobile" onclick="plusSlides(1,1)"><i class="fas fa-angle-right noMobile"></i></a>
+            <span class="mobileOnly navM">
+                <a onclick="plusSlides(-1,1)"><i class="fas fa-angle-left"></i></a>&nbsp;
+                <span class="slideProgressM"></span>&nbsp;
+                <a onclick="plusSlides(1,1)"><i class="fas fa-angle-right"></i></a>
+            </span>
+     
+        </div>
+    
+    </div> 
+
+    
+    <!--metabolic & Toxic-->
+    <div class="block">
+        
+        <div class="text headline" style="font-size: 2.2vmax;color: #2a2c2b">
+        metabolic <span style="color: #374140;">& toxicity</span>
+        <span class="slideProgress noMobile"></span>    
+        </div>
+        
+    <!--slideset2-->
+        <div class="container lightGrey" style="color:black;">
+            
+            <!--hypothermia-->
+            <div class="slideSet2" >
+                <div>
+                    <img src="media/metabolic/Hypothermia.JPG" class="imgBox">
+                </div>
+                <div class="text caption" style="color:#374140"> 
+                    During therapeutic hypothermia.</div>
+            </div>
+
+            <!--hypothermia explain-->
+            <div class="slideSet2" >
+                <div >
+                    <img src="media/metabolic/Hypothermia label.jpg" style="max-height: 70vh;max-width: 100%;
+                    width:auto;height: auto">
+                </div>
+                <div class="text caption" style="color:#374140;line-height: 140%;font-size: 2vmax"> 
+                    <span class="head pink" style="color: white;font-size: 2.5vmax">
+                        ECG changes during hypothermia
+                    </span>    <br>
+                    bradycardia, 
+                    <span class="head">prominent J waves or Osborn waves</span>
+                        , prolonged PR/QRS/QTc, sinus arrest,
+                    and VT/VF.
+                </div>
+            </div>
+
+            <!--causes of prominent J wave-->
+            <div class="slideSet2">
+                <div class="head pink card" style="margin: 1vmax;font-size:2.8vmax;color:white">
+                    J waves syndromes
+                </div>
+                <div class="text pad" style="font-size: 2vmax;text-align: left">
+                    Prominent J-wave has been observed in both inherited and acquired conditions propmting 
+                    their designation as J wave syndromes. The proposed mechanism includes the outward shift
+                    of repolarization current during early phase of action potential.
+                    <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3825797/" 
+                    target="_blank" style="font-size: 1.5vmax;text-decoration: none;color: #505050">
+                    (Antzelevich, C. J Electrocardiol 2013.)</a>
+                </div>
+                
+                <div id="jWave" class="center" style="margin-top: 1.2vmax">
+                <table class="text center" style="text-align: left;width: 100%">
+                    <tr style="color:#d9cb9e" class="grey">
+                    <th>Causes of J waves syndromes</th><th>Leads displaying J-wave</th>
+                    </tr>
+                    <tr>
+                        <td>Early repolarization syndrome (ERS) type I</td>
+                        <td>Lateral leads (I, V4-V6)</td>
+                    </tr>
+                    <tr>
+                        <td>ERS type II</td>
+                        <td>Inferior leads (II, III, aVF)</td>
+                    </tr>
+                    <tr>
+                        <td>ERS type III or Global ER</td>
+                        <td>Global</td>
+                    </tr>
+                    <tr>
+                        <td>Brugada Syndrome</td>
+                        <td>RV leads (V1-V3)</td>
+                    </tr>
+                    <tr>
+                        <td>Hypothermia or hypercalcemia mediated</td>
+                        <td>Global</td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+
+            <!--CO-->
+            <div class="slideSet2" >
+                <div>
+                    <img src="media/metabolic/CO.png" class="imgBox">
+                </div>
+                <div class="text caption" style="color:#374140"> 
+                    78F was found unresponsive in a car with running engine.</div>
+            </div>
+
+            <!--CO xplain-->
+            <div class="slideSet2" >
+                    <div class="head pink card" style="margin: 1vmax;font-size:2.8vmax;color:white">
+                            Carbon Monoxide Poisoning
+                        </div>
+                    <div>
+                        <img src="media/metabolic/CO poisoning spectrum.png" 
+                        style="max-height: 60vh;max-width: 100%;height: auto;width: auto">     
+                    </div>
+                    
+                     <div class="text caption" style="color:#374140;font-size: 2vmax"> 
+                    Cardiovascular sequelae of CO poisoning are frequent, with myocardial injury assessed by
+                    biomarkers or ECG in up to 1/3 of patients. </div>
+                    <div class="text" style="font-size: 1.2vmax;text-decoration: none;color: #505050">
+                            <a href="http://www.onlinejacc.org/content/45/9/1513" target="_blank"
+                            style="font-size:1.5vmax;color: #505050;">JACC 2005, </a>
+                    <a href="https://jamanetwork.com/journals/jama/fullarticle/202255" target="_blank"
+                    style="font-size:1.5vmax;color: #505050;">JAMA 2006, </a> and
+                    <a href="https://www.nejm.org/doi/full/10.1056/NEJMcp0808891" target="_blank"
+                    style="font-size:1.5vmax;color: #505050;">NEJM 2009.</a>
+                    
+                    </div>
+            </div>
+
+            <!--TCA-->
+            <div class="slideSet2" >
+                    <div>
+                        <img src="media/metabolic/TCA.png" class="imgBox">
+                    </div>
+                    <div class="text caption" style="color:#374140"> 
+                        24F with seizure</div>
+                </div>
+            
+            <!--TCA label-->
+            <div class="slideSet2" >
+                    <div>
+                        <img src="media/metabolic/TCA label.png" class="imgBox">
+                    </div>
+                    <div class="text caption" style="color:#374140"> 
+                        TCA Intoxication</div>
+            </div>
+
+            <!--TCA detail-->
+            <div class="slideSet2" >
+                <div class="cardNoMargin pink head" 
+                style="font-size: 3vmax;color:white;">
+                ECG Features of TCA Toxicity
+                </div>
+                <ul class="text pad center" style="font-size: 2vmax;max-width: 800px;text-align: center;
+                line-height: 120%;font-weight: 600;list-style: none">
+                    <li class="pad cardNoMargin">Sinus Tachycardia is the most common.</li>
+                    <li class="pad cardNoMargin">QRS duration in limb leads is related to prognosis.<br> 
+                        QRS&ge;100 is an indication for Sodium Bicarbonate.</li>
+                    <li class="pad cardNoMargin">R/S ratio in aVR is related to development of seizure and dysrhythmias.</li>
+                    <li class="pad cardNoMargin">Other ECG findings: prolonged PR/QRS/QT, right axis deviation, and Brugada pattern.</li>
+                    <li class="pad cardNoMargin">Brugada pattern was found to be associated with higher mortality.</li>
+                </ul>
+                <a href="https://emedicine.medscape.com/article/819204-workup#c8" 
+                style="font-size: 1.2vmax;color:#505050" class="text">
+                Tsai, et al. Emergency Medicine 2017.</a>
+            </div>
+
+            <!--TdP-->
+            <div class="slideSet2" >
+                <div class="boxShadow" style="text-align: center;background-color:black">
+                    <img src="media/metabolic/drug_tdp.JPG" style="width: 95%">
+                </div>
+                <div class="text caption" style="color:#374140;"> 
+                    65F with AF & HFpEF with recent diaarrhea. 
+                    Current medications include amiodarone, atenolol, furosemide, ciprofloxacin, and motilium.</div>
+            </div>
+
+            <!--drugs induced TdP-->
+            <div class="slideSet2" >
+                <div style="padding: 2vmax;text-align: center;">
+                    <div class="head pink card" style="font-size:3vmax;color: white">
+                    Examples of Drugs that prolong QT and associated with a known risk of Torsades de Pointes.
+                    </div>
+                    <div class="text" style="color:#505050;font-size:1.5vmax">
+                        for a full list, please go to
+                        <a href="https://www.crediblemeds.org" target="_blank">
+                            crediblemeds.org
+                        </a> or 
+                        <a href="/media/metabolic/Combined List(english).pdf" target="_blank" style="color:#505050">
+                        click here for pdf download.</a>
+                    </div>
+
+                    <div id="tdp" class="center dark card" style="margin-top: 2vmax;">
+                    <table class="text" style="color:#d9cb9e;">
+                        <tr>
+                            <th>Drug Class</th><th>Generic Name</th>
+                        </tr>
+                        <tr>
+                            <td>Antidepressants & Antipsychotics</td>
+                            <td>
+                                Citalopram, Escitalopram, Haloperidol
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Antibiotics</td>
+                            <td>Azithromycin, Clarithromycin, 
+                                Erythromycin, Ciprofloxacin, Levofloxacin</td>
+                        </tr>
+                        <tr>
+                            <td>Antiemetics</td>
+                            <td>Domperidone, Ondansetron</td>
+                        </tr>
+                    </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--TdP clinical scenarios-->
+            <div class="slideSet2" >
+                <div class="row pad" style="vertical-align: middle">
+                    <div class="col2-3 pad">
+                        <img src="media/metabolic/TdP scenarios.png" style="width:100%">
+                    </div>
+                    <div class="col1-3 head pad" style="font-size: 2.2vmax;text-align: left;">
+                        Incidence of Torsades de Pointes by individual drug
+                        in an individual patient is small. 
+                        <br><br>
+                        Patients who developed ventricular arrhythmias are
+                        among those with clinical scenarios
+                        that further reduced their repolarization reserve
+                        and cause excessive QT prolongation.
+                        <div class="text" style="font-size: 1.5vmax;margin-top: 1vmax">
+                        <a href="http://dx.doi.org/10.1016/j.jacc.2015.12.063" target="_blank">
+                        Schwartz et al. JACC 2016.</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+            <a class="prevS noMobile" onclick="plusSlides(-1,2)"><i class="fas fa-angle-left noMobile"></i></a>
+            <a class="nextS noMobile" onclick="plusSlides(1,2)"><i class="fas fa-angle-right noMobile"></i></a>
+            <span class="mobileOnly navM">
+                <a onclick="plusSlides(-1,2)"><i class="fas fa-angle-left"></i></a>&nbsp;
+                <span class="slideProgressM"></span>&nbsp;
+                <a onclick="plusSlides(1,2)"><i class="fas fa-angle-right"></i></a>
+            </span>
+        
+        </div>
+    
+    </div>
+
+    <!--Lungs-->
+    <div class="block">
+        
+        <div class="text headline" style="font-size: 2.2vmax;color: #2a2c2b">
+        Lungs
+        <span class="slideProgress noMobile"></span>    
+        </div>
+        
+    <!--slideset3-->
+        <div class="container grey">
+            
+            <!--PE-->
+            <div class="slideSet3">
+                <div style="text-align: center">
+                    <img src="media/Lungs/PE/Pulmonary Embolism.JPG" class="imgBox">
+                </div>
+                <div class="text caption" style="color:white"> 
+                    34F got up from a very long-distance train ride and passed out.</div>
+            </div>
+
+            <!--PE explain-->
+            <div class="slideSet3">
+                <div style="text-align: center">
+                    <img src="media/Lungs/PE/Pulmonary Embolism Label.jpg" class="imgBox">
+                </div>
+                <div class="text caption" style="color:white"> 
+                    Right axis deviation, RV conduction delay, and RV ischemia.</div>
+            </div>
+
+            <!--PE CT-->
+            <div class="slideSet3">
+                <div style="text-align: center">
+                    <img src="media/Lungs/PE/PE CT.jpg" class="imgBox">
+                </div>
+                <div class="text caption" style="color:white"> 
+                    Pulmonary Embolism</div>
+            </div>
+
+            <!--PE ECG-->
+            <div class="slideSet3">
+                <div class="row">
+                <div class="column pad" style="text-align: center">
+                    <img src="media/Lungs/PE/ECG in PE.png" style="width: auto;max-height: 85vh;max-width: 100%">
+                </div>
+                <div class="column head pad" style="font-size: 3vmax;color: #ff0d7b;
+                vertical-align: center;align-self: center"> 
+                    <span class="textShadow">
+                    ECG is neither sensitive nor specific enough to diagnose or exclude pulmonary embolism.
+                    </span>
+                    <div class="text" style="font-size: 1.5vmax;padding-top: 2vmax">
+                    <a href="http://dx.doi.org/10.1016/j.jemermed.2016.09.009" target="_blank" style="text-decoration: none;color:#aaa;">
+                    J Emer Med 2016.
+                    </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--CTEPH-->
+            <div class="slideSet3">
+                <div style="text-align: center">
+                    <img src="media/Lungs/CTEPH.jpg" class="imgBox">
+                </div>
+                <div class="text caption" style="color:white"> 
+                    Chronic Thromboembolic Pulmonary Hypertension (CTEPH)</div>
+            </div>
+
+            <!--CTEPH explain-->
+            <div class="slideSet3">
+                <div style="text-align: center">
+                    <img src="media/Lungs/CTEPH Label.jpg" class="imgBox">
+                </div>
+                <div class="text caption" style="color:white"> 
+                    RV overload: RA and RV enlargement, RV strain, and RBBB.</div>
+            </div>
+
+
+            <a class="prevS noMobile" onclick="plusSlides(-1,3)"><i class="fas fa-angle-left noMobile"></i></a>
+            <a class="nextS noMobile" onclick="plusSlides(1,3)"><i class="fas fa-angle-right noMobile"></i></a>
+            <span class="mobileOnly navM" style="color: #ddd;">
+                <a onclick="plusSlides(-1,3)"><i class="fas fa-angle-left"></i></a>&nbsp;
+                <span class="slideProgressM"></span>&nbsp;
+                <a onclick="plusSlides(1,3)"><i class="fas fa-angle-right"></i></a>
+            </span>
+        
+        </div>
+    
+    </div>
+
+    <!--Brain-->
+    <div class="block">
+        
+        <div class="text headline" style="font-size: 2.2vmax;color: #2a2c2b">
+        Brain
+        <span class="slideProgress noMobile"></span>    
+        </div>
+        
+    <!--slideset3-->
+        <div class="container pink">
+            
+            <!--deep T-->
+            <div class="slideSet4">
+                <div style="text-align: center">
+                    <img src="media/Brain/ICH.JPG" class="imgBox">
+                </div>
+                <div class="text caption" style="color:white"> 
+                    75M with change in mental status.</div>
+            </div>
+
+            <!--ICH ECG-->
+            <div class="slideSet4">
+                <div class="row">
+                <div class="col2-3 lightGrey pad card" style="text-align: center;align-self: center">
+                    <img src="media/Brain/ICH.JPG" style="width: 100%">
+                </div>
+                <div class="text col1-3 pad grey card" style="color:white;font-size: 2.5vmax"> 
+                    <span class="head">
+                        3 most common ECG changes in intracranial hemorrhage are
+                    </span>
+                    <ul style="list-style:square">
+                        <li>Widening and inverted T waves in precordial leads.</li>
+                        <li>Prolonged QTc</li>
+                        <li>Bradycardia</li>
+                    </ul>
+                    <div class="text pad" style="font-size: 1.5vmax;color:#888">
+                        Ref: Marriott’s practical electrocardiography. 2014.
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!--TWI-->
+            <div class="slideSet4">
+                <div class="head pad" style="text-align: center;font-size:2.8vmax;color: white;line-height: 110%">
+                    Causes of Negative or Flattened T waves apart from Ischemic Heart Disease
+                </div>
+                <div class="row center" style="color:white;text-align: center;">
+                    <div class="column" style="align-self: center;text-align: center">
+                        <ul class="text" style="font-size: 2vmax;text-align: center;
+                        line-height: 120%;font-weight: 600;list-style:none">
+                            <li class="pad grey cardNoMargin">Normal variants: children, black people, & etc.</li>
+                            <li class="pad grey cardNoMargin">Pericarditis</li>
+                            <li class="pad grey cardNoMargin">Cor Pulmonale & Pulmonary Embolism</li>
+                            <li class="pad grey cardNoMargin">Myocarditis & Cardiomyopathy.</li>
+                            <li class="pad grey cardNoMargin">Mitral Valve Prolapse</li>
+                            <li class="pad grey cardNoMargin">Alcoholism</li>
+                            <li class="pad grey cardNoMargin">Stroke</li>
+                        </ul>
+                    </div>
+                    <div class="column" style="align-self: center;">
+                        <ul class="text" style="font-size: 2vmax;text-align: center;
+                        line-height: 120%;font-weight: 600;list-style:none">
+                            <li class="pad grey cardNoMargin">Myxedema: usually flat T wave or only slightly negative</li>
+                            <li class="pad grey cardNoMargin">Athlete, HCM esp. apical type.</li>
+                            <li class="pad grey cardNoMargin">Drugs: Amiodarone, Amphetamine, etc.</li>
+                            <li class="pad grey cardNoMargin">Hypokalemia</li>
+                            <li class="pad grey cardNoMargin">Post tachycardia</li>
+                            <li class="pad grey cardNoMargin">Secondary to LVH or LBBB</li>
+                            <li class="pad grey cardNoMargin">Electrical Memory</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text pad" style="color:#aaa;font-size:1.5vmax">
+                <a href="https://accessmedicine.mhmedical.com/content.aspx?bookid=2046&sectionid=185805347"
+                target="_blank" style="text-decoration: none;color:#aaa">
+                    Hurst's the Heart, 14e.
+                </a>
+                </div>
+            </div>
+
+            <a class="prevS noMobile" onclick="plusSlides(-1,4)"><i class="fas fa-angle-left noMobile"></i></a>
+            <a class="nextS noMobile" onclick="plusSlides(1,4)"><i class="fas fa-angle-right noMobile"></i></a>
+            <span class="mobileOnly navM" style="color: #ddd;">
+                <a onclick="plusSlides(-1,4)"><i class="fas fa-angle-left"></i></a>&nbsp;
+                <span class="slideProgressM"></span>&nbsp;
+                <a onclick="plusSlides(1,4)"><i class="fas fa-angle-right"></i></a>
+            </span>
+        
+        </div>
+    
+    </div>
+
+    <!--conclusion-->
+    <div class="block dark" style="margin-top: 5vh;">
+        <div class="text pad" style="font-size: 5vmax;color:white;text-align: center">
+        CONCLUSION
+        </div>
+        <div class="row head pad">
+            <div class="col1-3 creme pad card" style="font-size: 2vmax">
+                Electrolytes Imbalance can disrupt the electrical properties of cardiac myocytes, 
+                causing abnormalities in QRS duration, QT interval, and T wave morphology.
+            </div>
+            <div class="col1-3 pink pad card" style="font-size: 2vmax">
+                Pathology in other organs may cause stress to the heart, resulting in
+                strain pattern or ischemic pattern in the ECG.
+            </div>
+            <div class="col1-3 lightGrey pad card" style="font-size: 2vmax;">
+                Many of ECG abnormalites from non-cardiac causes are non-specific. 
+                Clinical correlation remains invaluable in diagnosis and treatment.
+            </div>
+        </div>
+
+        <div style="font-size: 1.8vmax;padding-top: 5vh;text-align: center;">
+            <img src="media/HLBsmall.png" style="width: 15vmax"><br>
+            <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+                style="text-decoration: none;color:#aaa" class="text textShadow">
+                    <i class="fab fa-facebook" style="font-size: 2vmax;color:#1877f2"></i> @heartRhythmBox
+            </a><br>
+        <a href="https://heartrhythmbox.com" target="_blank" class="text textShadow" 
+        style="text-decoration:none;color:#aaa;">
+            <img src="box white.png" style="width: 2.2vmax;vertical-align: center"> heartRhythmBox.com</a>
+        
+        </div>
+        
+    </div>
+    
+    
+<!--end Div pointer-->
+</div>
+    
+    
+<script src="block navigation.js" ></script>
+<script src="pointer.js" ></script>
+<script>
+    
+    //nav and pointer
+    //up arrow
+    window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===38) {
+        blockNav(-1);
+        closeMenu();}
+    })
+    //down arrow
+    window.addEventListener("keydown", function(event) {
+        event.preventDefault();
+        if (event.keyCode===40) {
+        blockNav(1);
+        closeMenu();}
+    })
+    
+       
+    //p
+    window.addEventListener("keydown", function(event) {
+            event.preventDefault();
+            if (event.keyCode===80) {
+            pointerSwitch()}
+        })
+    
+    
+    
+    //pointer
+    var pSwitch = 0;
+    
+    var slideIndex = [1,1,1,1];
+    var slideID = ['slideSet0', 'slideSet1','slideSet2','slideSet3','slideSet4'];
+    showSlides(1,0);showSlides(1,1),showSlides(1,2),showSlides(1,3),showSlides(1,4);
+    
+    
+    function plusSlides(n, set) {
+      showSlides(slideIndex[set] += n, set);
+    }
+    
+    function showSlides(n,set) {
+      var i;
+      var slides = document.getElementsByClassName(slideID[set]);
+      var next = document.getElementsByClassName('nextS');
+      var prev = document.getElementsByClassName('prevS');
+      var prog = document.getElementsByClassName('slideProgress');
+      var progM = document.getElementsByClassName('slideProgressM')
+
+      if (screen.width>800){
+        next[set].style.display = 'block';
+        prev[set].style.display = 'block';}
+      
+
+      if (n >= slides.length) {
+        slideIndex[set] = slides.length;
+        next[set].style.display = 'none'
+        }
+      
+      if (n <= 1) {
+        prev[set].style.display = 'none';
+        slideIndex[set] = 1;
+        }
+
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+          }
+      
+      slides[slideIndex[set]-1].style.display = "block";
+
+      
+      prog[set].innerHTML = ' ('+ slideIndex[set] + '/' + slides.length + ')';
+      progM[set].innerHTML = ' ('+ slideIndex[set] + '/' + slides.length + ')';
+      
+      }
+    
+    </script>	
+    
+</body>
+</html>
