@@ -22,7 +22,7 @@
 .navItem:hover {background-color: rgb(82, 82, 82);color: #f2f2f2;}
 .topBar {
     font-size: 2vmax;padding: 0.5vmax;
-    background-color: rgb(250, 248, 233);position: sticky;top: 0;
+    background-color: rgb(250, 248, 233);position: sticky;top: 0;z-index: 1;
     border-bottom-left-radius: 1vmax;border-bottom-right-radius: 1vmax;   
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
@@ -39,20 +39,20 @@
 
 /*flexbox */
 .row {display: flex;}
-.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
 .row600 {display: flex;}
-
-
 @media only screen and (max-width:600px) {
-  .row600, .rowContent {flex-wrap: wrap;}
+  .row600 {flex-wrap: wrap;}
 }
-
+.col1-3{
+  flex: 33.3%;
+  -ms-flex: 33.3%;
+  padding: 1vmax;align-self: center;
+}
 .colHalf{
   flex: 50%;
   -ms-flex: 50%;
   padding: 1vmax;align-self: center;
 }
-
 .col1-4{
   flex: 25%;
   -ms-flex: 25%;
@@ -63,11 +63,12 @@
   padding: 0.5vmax 1.5vmax;text-align: left;line-height: 120%;
   align-self: center;
 }
-
 .card {box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 border-radius: 8px;}
+.bar {height: 50vh;padding: 1vmax;font-size: 2vmax;}
 
 /*footer*/
+.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
 .sectionH {padding-top: 0.7vmax;
         background-color: transparent;color: white;font-size: 16px;border: none;
       }
@@ -105,11 +106,30 @@ border-radius: 8px;}
     <button on="tap:sidebar.open" style="border: none;cursor: pointer;" class="creme">
         <i class="fas fa-bars" style="font-size: 2vmax;color: rgb(220, 73, 63);"></i></button>
     &nbsp;IBHRE <b>Tutorials</b>
-    <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
+    <span style="top: 0.3vmax;right: 1vmax;position: absolute;">
         <a href="https://heartrhythmbox.com">
-        <amp-img src="box_grey.png" width="30" height="30" layout="fixed">
+        <amp-img src="box_grey.png" width="23" height="23" layout="fixed">
             </amp-img></a>
         </span>
+</div>
+
+<!--selection-->
+<div class="row" style="margin: 15vh 0;">
+    <div class="col1-3">
+        <div class="bar" style="background-color: rgb(117,192,149);overflow-wrap: break-word;word-break: break-all;">
+            Basic<br>Electrophysiology
+        </div>
+    </div>
+    <div class="col1-3">
+        <div class="bar" style="background-color: rgb(170, 171, 177);">
+            ECG
+        </div>
+    </div>
+    <div class="col1-3">
+        <div class="bar" style="background-color: rgb(220, 73, 63);">
+            Clinical Practice
+        </div>
+    </div>
 </div>
 
 <!--accordian-->
