@@ -7,6 +7,7 @@
 
 <script async src="https://cdn.ampproject.org/v0.js"></script>
 <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+<script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
 <link rel="canonical" href="https://heartrhythmbox.com/ibhre">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css"/>
@@ -18,10 +19,15 @@
 }
 .navItem:hover {background-color: rgb(82, 82, 82);color: #f2f2f2;}
 .topBar {
-    font-size: 2.2vmax;padding: 1.5vmax;
-    background-color: rgb(250, 248, 233)
+    font-size: 2vmax;padding: 0.5vmax;
+    background-color: rgb(250, 248, 233);position: sticky;top: 0;
+    border-bottom-left-radius: 1vmax;border-bottom-right-radius: 1vmax;   
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
-
+.sectionTitle {
+    font-size: 3vmax;padding: 3vmax 1vmax;margin-left: auto;margin-right: auto;
+    border-left: rgb(82, 82, 82) 1vmax solid;border-top: none;border-bottom: none;
+}
 
 .aqua {color: rgb(1, 166, 186);}
 .red {color: rgb(220, 73, 63);}
@@ -33,7 +39,7 @@
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 
-<body style="font-family: 'Oxygen', sans-serif;color: rgb(82, 82, 82);">
+<body style="font-family: 'Oxygen', sans-serif;color: rgb(82, 82, 82);background-color: rgb(250, 248, 233);">
 
 <amp-sidebar id="sidebar" layout="nodisplay" side="left">
     <div style="text-align: right;">
@@ -58,11 +64,34 @@
     <button on="tap:sidebar.open" style="border: none;cursor: pointer;" class="creme">
         <i class="fas fa-bars" style="font-size: 2vmax;color: rgb(220, 73, 63);"></i></button>
     &nbsp;IBHRE <b>Tutorials</b>
-    <span style="top: 1.5vmax;right: 1.5vmax;position: absolute;">
+    <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
         <a href="https://heartrhythmbox.com">
         <amp-img src="box_grey.png" width="30" height="30" layout="fixed">
             </amp-img></a>
         </span>
 </div>
+
+<!--accordian-->
+<amp-accordion style="max-width: fit-content;margin-left: auto;margin-right: auto;">
+    <section>
+      <h4 class="creme" style="margin-top: 15vh;border: none;">
+        <span class="sectionTitle" style="border-left-color: rgb(117,192,149);">
+            Basic Electrophysiology</span></h4>
+      <p>Bunch of awesome content.</p>
+    </section>
+    <section>
+        <h4 class="creme" style="margin-top: 5vh;border: none;">
+        <span class="sectionTitle" style="border-left-color: rgb(170, 171, 177);">
+            ECGs</span></h4>
+      <div>Bunch of even more awesome content. This time in a <code><div></code>.</div>
+    </section>
+    <section>
+        <h4 class="creme" style="margin-top: 5vh;border: none;">
+            <span class="sectionTitle" style="border-left-color: rgb(220, 73, 63)">
+                Clinical Practice</span></h4>
+      <div>ssss</div>
+    </section>
+</amp-accordion>
+
 </body>
 </html>
