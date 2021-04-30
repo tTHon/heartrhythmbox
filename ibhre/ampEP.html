@@ -58,59 +58,32 @@
 @media only screen and (max-width:800px) {
   .row800 {display: none;}
 }
-.col1-3{
-  flex: 33.3%;
-  -ms-flex: 33.3%;
-  padding: 1vmax;align-self: center;
-}
-.colHalf{
-  flex: 50%;
-  -ms-flex: 50%;
-  padding: 1vmax;align-self: center;
-}
-.col1-4{
-  flex: 25%;
-  -ms-flex: 25%;
-  padding: 1vmax;align-self: center;
-}
-.col3-4{flex: 75%;
-  -ms-flex: 75%;
-  padding: 0.5vmax 1.5vmax;text-align: left;line-height: 120%;
-  align-self: center;
-}
-.card {box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-border-radius: 8px;}
 
 /*accordion*/
-.main {font-size: 2vmax;padding: 1vmax;;
-color: white;}
+.main {font-size: 2vmax;padding: 1vmax;color: white;}
 .main h4 {padding: 1vmax;border: none;background-color: transparent;}
-.branch {font-size: 1.8vmax;padding: 0.5vmax 0 0.5vmax 1vmax;}
-.branch h4 {border-bottom: #ddd 0.1vmax solid;font-weight: normal;}
-.main p, .branch p {background-color: rgb(250, 248, 233);color: rgb(82, 82, 82);}
+
+amp-accordion {margin-left: auto;margin-right: auto;text-align: center;}
+amp-accordion section[expanded] .showMore {display: none;}
+amp-accordion section:not([expanded]) .showLess {display: none;}
 
 /*carousel*/
     /* define some contants */
-    .slide {margin-left: auto;margin-right: auto;}
     .collapsible-captions {
-      --caption-height: 32px;
+      --caption-height: 2vmax;
       --image-height: 300px;
-      --caption-padding: 1rem;
-      --button-size: 28px;
+      --button-size: 1.5vmax;
       --caption-color: #f5f5f5;;
-      --caption-bg-color: #111;
-      background: var(--caption-bg-color);
+      font-size: 1.8vmax;
     }
     .collapsible-captions * {
       /* disable chrome touch highlight */
       -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
       box-sizing: border-box;
     }
-    /* see https://amp.dev/documentation/examples/style-layout/how_to_support_images_with_unknown_dimensions/ */
-    .collapsible-captions .fixed-height-container {
+    .collapsible-captions {
       position: relative;
       width: 100%;
-      height: var(--image-height);
     }
     .collapsible-captions amp-img img {
       object-fit: contain;
@@ -133,24 +106,23 @@ color: white;}
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      /* animate expansion */
-      transition: max-height 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
       /* overlay the carousel icons */
-      z-index: 1000;
+      z-index: 10;
       /* some styling */
       color: var(--caption-color);
-      background: var(--caption-bg-color);
+      background-color: rgba(17,17,17,0.6);
     }
     /* expanded caption */
     .collapsible-captions figcaption.expanded {
       /* add padding and show all of the text */
-      padding: var(--button-size);
       line-height: inherit;
       white-space: normal;
       text-overflow: auto;
       max-height: calc(var(--caption-height) + var(--image-height));
       /* show scrollbar in case caption is larger than image */
       overflow: auto;
+      background-color: rgba(17,17,17,0.9);
     }
     /* don't show focus highlights in chrome */
     .collapsible-captions figcaption:focus {
@@ -162,23 +134,22 @@ color: white;}
       display: block;
       position: absolute;
       top: calc((var(--caption-height) - var(--button-size)) / 2);
-      right: 2px;
+      right: 0.5vw;
       width: var(--button-size);
       height: var(--button-size);
       line-height: var(--button-size);
       text-align: center;
-      font-size: 12px;
-      color: inherit;
+      font-size: 1.8vmax;
+      color: white;
       cursor: pointer;
     }
 
-amp-carousel {margin-top: 1vh;max-width: 73vw;margin-left: auto;margin-right: auto;
-max-height: 46vw;background-color:transparent;}
+/*amp-carousel {max-width: 100%;margin-left: auto;margin-right: auto;
+max-height: 70vw;background-color:transparent;}
 
 @media only screen and (max-width:1024px){
-    .slide {width: 96vw;height:54vw;}
-    amp-carousel {max-height: 55vw;max-width: 97vw;}
-}
+    amp-carousel {max-height: 70vw;max-width: 97vw;}
+}*/
 
 /*footer*/
 .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
@@ -258,29 +229,28 @@ color: black;text-align: center;padding: 1vmax;">
 <!--content-->
  <amp-accordion animate expand-single-section>
     <!--basic EP-->
-    <section class="main aqua" expanded>
-      <h4>Basic Science</h4>
-      <amp-carousel class="collapsible-captions" height="1200" layout="fixed-height" type="slides">
+    <section class="main aqua">
+      <h4>
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+        Basic Science
+      </h4>
+      <amp-carousel class="collapsible-captions" height="50vw" width="88vw" layout="fixed" type="slides" 
+      style="margin-left: auto;margin-right: auto;">
         <figure>
-          <div class="slide">
-            <amp-img layout="fill" src="media\AAD.png" class="contain"></amp-img>
-          </div>
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          <amp-img layout="fill" src="media\AAD.png"></amp-img>
+         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
             <span [text]="expanded ? '▼' : '▲'">▲</span>
           </figcaption>
         </figure>
         <figure>
-          <div class="slide">
-            <amp-img layout="fill" src="https://unsplash.it/500/500"></amp-img>
-          </div>
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+          <amp-img layout="fill" src="https://unsplash.it/500/500"></amp-img>
+         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
         <figure>
-          <div class="slide">
-            <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
-          </div>
+          <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
           <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
@@ -289,12 +259,18 @@ color: black;text-align: center;padding: 1vmax;">
 
     <!--AA-->
     <section class="main red">
-      <h4>Antiarrhythmic Agents</h4>
+      <h4>
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+      Antiarrhythmic Agents</h4>
       <div>Bunch of even more awesome content. This time in a <code><div></code>.</div>
     </section>
     <!--QA-->
     <section class="main grey">
-      <h4>Qs & As</h4>
+      <h4>
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+        Qs & As</h4>
       <figure>
         <amp-img src="/static/samples/img/clean-1.jpg" layout="responsive" width="400" height="710"></amp-img>
         <figcaption>Images work as well.</figcaption>
