@@ -63,7 +63,7 @@
 .main {font-size: 2vmax;padding: 1vmax;color: white;}
 .main h4 {padding: 1vmax;border: none;background-color: transparent;}
 
-amp-accordion {margin-left: auto;margin-right: auto;text-align: center;}
+amp-accordion {margin-left: auto;margin-right: auto;text-align: center;width: fit-content;padding: 5vh 0;}
 amp-accordion section[expanded] .showMore {display: none;}
 amp-accordion section:not([expanded]) .showLess {display: none;}
 
@@ -228,15 +228,16 @@ color: black;text-align: center;padding: 1vmax;">
  </div>
 <!--content-->
  <amp-accordion animate expand-single-section>
-    <!--basic EP-->
+    <!--Action Potential-->
     <section class="main aqua">
       <h4>
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Basic Science
+        The Action Potential
       </h4>
       <amp-carousel class="collapsible-captions" height="50vw" width="88vw" layout="fixed" type="slides" 
       style="margin-left: auto;margin-right: auto;">
+        <!--AP of non-PPM-->
         <figure>
           <amp-img layout="fill" src="media\AAD.png"></amp-img>
          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
@@ -244,28 +245,58 @@ color: black;text-align: center;padding: 1vmax;">
             <span [text]="expanded ? '▼' : '▲'">▲</span>
           </figcaption>
         </figure>
+        
+        <!--Channels for each phase-->
         <figure>
           <amp-img layout="fill" src="https://unsplash.it/500/500"></amp-img>
          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
+        
+        <!--AP comparisons: figures-->
         <figure>
           <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
           <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
+
+        <!--AP comparisons table-->
+        <figure>
+          <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
+          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+        </figure>
+
+        <!--Refractory period-->
+        <figure>
+          <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
+          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+        </figure>
+
       </amp-carousel>
     </section>
 
-    <!--AA-->
+    <!--Mech of Arrhythmias-->
     <section class="main red">
       <h4>
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Antiarrhythmic Agents</h4>
+      Mechanisms of Arrhythmias</h4>
       <div>Bunch of even more awesome content. This time in a <code><div></code>.</div>
     </section>
-    <!--QA-->
+    <!--AAs-->
+    <section class="main grey">
+      <h4>
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+        Antiarrhythmic Agents</h4>
+      <figure>
+        <amp-img src="/static/samples/img/clean-1.jpg" layout="responsive" width="400" height="710"></amp-img>
+        <figcaption>Images work as well.</figcaption>
+      </figure>
+    </section>
+    <!--QAs-->
     <section class="main grey">
       <h4>
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
