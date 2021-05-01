@@ -21,11 +21,12 @@
 }
 
 /*color*/
-.aqua {background-color: rgb(1, 166, 186);}
-.red {background-color: rgb(220, 73, 63);}
-.grey {background-color: rgb(170, 171, 177);}
-.creme {background-color: rgb(250, 248, 233);}
-.darkGrey {background-color:rgb(82, 82, 82)}
+.darkCyan {background-color: #074860;color: #f1f1f1;}
+.cyan1 {background-color: #1b5b56;color: #f1f1f1;}
+.cyan2 {background-color: #11515b;color: #f1f1f1;}
+.lime {color: #ccff00;}
+.nearBlack {background-color: #232323;color: #f1f1f1;}
+.lightBlue {background-color: #B6c2c8;color: #074860;}
 
 /*top*/
 .navItem {
@@ -34,8 +35,8 @@
 }
 .navItem:hover {background-color: rgb(82, 82, 82);color: #f2f2f2;}
 .topBar {
-    font-size: 2vmax;padding: 0.5vmax;
-    background-color: rgb(250, 248, 233);position: sticky;top: 0;z-index: 1;
+    font-size: 2vmax;padding: 0.5vmax;color: #f1f1f1;
+    background-color: #074860;position: sticky;top: 0;z-index: 1;
     border-bottom-left-radius: 1vmax;border-bottom-right-radius: 1vmax;   
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
@@ -50,7 +51,7 @@
 .tab {
   margin: 0 1.5vmax;cursor: pointer;
 }
-.tab a {text-decoration: none;color: rgb(82, 82, 82);}
+.tab a {text-decoration: none;color:#f1f1f1;}
 
 /*flexbox */
 .row {display: flex;}
@@ -60,11 +61,13 @@
 }
 
 /*accordion*/
-.main {font-size: 2vmax;padding: 1vmax;color: white;}
-.main h4 {padding: 1vmax;border: none;background-color: transparent;}
+.main {font-size: 2vmax;padding: 1vmax;}
+.main h4 {padding: 1vmax;border: none;}
 
-amp-accordion {margin-left: auto;margin-right: auto;text-align: center;width: fit-content;padding: 5vh 0;}
+amp-accordion {margin-left: auto;margin-right: auto;text-align: center;width: fit-content;
+padding: 5vh 0;margin-top: 5vh;margin-bottom: 5vh;}
 amp-accordion section[expanded] .showMore {display: none;}
+amp-accordion section[expanded] .showLess {color: #ccff00;}
 amp-accordion section:not([expanded]) .showLess {display: none;}
 
 /*carousel*/
@@ -144,13 +147,6 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       cursor: pointer;
     }
 
-/*amp-carousel {max-width: 100%;margin-left: auto;margin-right: auto;
-max-height: 70vw;background-color:transparent;}
-
-@media only screen and (max-width:1024px){
-    amp-carousel {max-height: 70vw;max-width: 97vw;}
-}*/
-
 /*footer*/
 .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
 .sectionH {padding-top: 0.7vmax;
@@ -165,12 +161,12 @@ max-height: 70vw;background-color:transparent;}
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 
-<body style="font-family: 'Oxygen', sans-serif;color: rgb(82, 82, 82);background-color: rgb(250, 248, 233);">
+<body style="font-family: 'Oxygen', sans-serif;color: rgb(82, 82, 82);">
 
-<amp-sidebar id="sidebar" layout="nodisplay" side="left" class="creme">
+  <amp-sidebar id="sidebar" layout="nodisplay" side="left">
     <div style="text-align: left;padding: 0.5vmax;">
     <button on="tap:sidebar.close" style="border: none;">
-        <i class="fas fa-times-circle" style="font-size: 2vmax;color: rgb(220, 73, 63);border:none"></i>
+        <i class="fas fa-times-circle" style="font-size: 2vmax;color: rgb(27, 91,86);border:none"></i>
     </button>
     </div>
     <ul style="list-style: none;margin: 0;padding: 0;">
@@ -188,8 +184,8 @@ max-height: 70vw;background-color:transparent;}
 
 <!--large screen only --menu-->
 <div class="topBar row800" style="font-size: 1.8vmax;">
-  <button on="tap:sidebar.open" style="border: none;cursor: pointer;" class="creme">
-    <i class="fas fa-bars" style="font-size: 1.8vmax;color: rgb(220, 73, 63);"></i></button>
+  <button on="tap:sidebar.open" class="darkCyan" style="border: none;cursor: pointer;">
+    <i class="fas fa-bars" style="font-size: 1.8vmax;color: #ccff00;"></i></button>
   <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
     <a href="https://heartrhythmbox.com">
     <amp-img src="box_grey.png" width="30" height="30" layout="fixed">
@@ -198,8 +194,8 @@ max-height: 70vw;background-color:transparent;}
   <div class="tab">
     IBHRE Tutorials
   </div>
-  <div class="tab" style="border-bottom:rgb(220, 73, 63) solid 0.2vmax">
-    Fundamental of EP</a>
+  <div class="tab" style="border-bottom:#ccff00 solid 0.2vmax">
+    <a href="ampEP.html">Fundamental of EP</a>
   </div>
   <div class="tab">
     ECGs
@@ -211,8 +207,8 @@ max-height: 70vw;background-color:transparent;}
 
 <!--mobile menu-->
 <div class="topBar mobileOnly" style="width: 100%;">
-  <button on="tap:sidebar.open" style="border: none;cursor: pointer;" class="creme">
-  <i class="fas fa-bars" style="font-size: 2vmax;color: rgb(220, 73, 63);"></i></button>
+  <button on="tap:sidebar.open" style="border: none;cursor: pointer;" class="darkCyan lime">
+  <i class="fas fa-bars" style="font-size: 2vmax;"></i></button>
   <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
     <a href="https://heartrhythmbox.com">
     <amp-img src="box_grey.png" width="20" height="20" layout="fixed">
@@ -221,16 +217,15 @@ max-height: 70vw;background-color:transparent;}
 </div>
 
 <!--title-->
-<div class="creme" 
-style="font-size: 3.2vmax;letter-spacing: 0.5vmax;font-weight: 900;
-color: black;text-align: center;padding: 1vmax;">
+<div style="font-size: 3.2vmax;letter-spacing: 0.5vmax;font-weight: 900;text-align: center;padding: 1vmax;">
   Fundamental of Electrophysiology 
  </div>
+
 <!--content-->
  <amp-accordion animate expand-single-section>
     <!--Action Potential-->
-    <section class="main aqua">
-      <h4>
+    <section class="main darkCyan">
+      <h4 class="darkCyan">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
         The Action Potential
@@ -278,16 +273,16 @@ color: black;text-align: center;padding: 1vmax;">
     </section>
 
     <!--Mech of Arrhythmias-->
-    <section class="main red">
-      <h4>
+    <section class="main cyan2">
+      <h4 class="cyan2">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
       Mechanisms of Arrhythmias</h4>
       <div>Bunch of even more awesome content. This time in a <code><div></code>.</div>
     </section>
     <!--AAs-->
-    <section class="main grey">
-      <h4>
+    <section class="main cyan1">
+      <h4 class="cyan1">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
         Antiarrhythmic Agents</h4>
@@ -297,13 +292,12 @@ color: black;text-align: center;padding: 1vmax;">
       </figure>
     </section>
     <!--QAs-->
-    <section class="main grey">
-      <h4>
+    <section class="main lightBlue">
+      <h4 class="lightBlue">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
         Qs & As</h4>
       <figure>
-        <amp-img src="/static/samples/img/clean-1.jpg" layout="responsive" width="400" height="710"></amp-img>
         <figcaption>Images work as well.</figcaption>
       </figure>
     </section>
