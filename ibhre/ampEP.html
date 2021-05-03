@@ -54,11 +54,19 @@
 .tab a {text-decoration: none;color:#f1f1f1;}
 
 /*flexbox */
-.row {display: flex;}
+.row {display: flex;align-content: center;flex-wrap: wrap;}
 .row800 {display: flex;}
 @media only screen and (max-width:800px) {
   .row800 {display: none;}
 }
+
+/*list*/
+.lightList {font-size: 2.5vmax;font-weight: 900;padding: 2vmax; text-align: center;color: #ccff00;margin: 1vmax;overflow-y:scroll;}
+.lightList li {
+  font-size: 1.8vmax;font-weight: normal;border-bottom: #ddd 0.1vmax solid;color: #ddd;padding: 1vmax;
+  list-style: none;
+  }
+.lightList li:hover {background-color: #074860;color: #ffffff;}
 
 /*accordion*/
 .main {font-size: 2vmax;padding: 1vmax;}
@@ -266,8 +274,32 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             Action Potential of Non-pacemaker cells (left) vs. Pacemaker cells (right)<br>
             Pacemaker cells = nodal cells including sinoatrial (SA) and atrioventricular (AV) nodal cells. <br>
             Noted that non-pacemaker cells have true resting membrane potential (phase 4) and rapid phase 0. <br>
-            In pacemaker cells, there are only 4 phases. Phase 4 is the spontaneous depolarization phase and is mainly Calcium dependent<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+            In pacemaker cells, there are only 4 phases. Phase 4 is the spontaneous depolarization phase and is mainly Calcium dependent
             Phase 0 is depolarization and phase 3 is repolarization.
+            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+        </figure>
+
+        <!--pacemaker cells-->
+        <figure>
+          <div class="row noMobile">
+            <amp-img layout="responsive" src="media\EP\pacemaker AP detail.png" height="48vw" width="40vw" style="flex: 1;padding: 1vmax;align-self: center;"></amp-img>
+            <div style="flex: 1;padding: 1vmax;align-self: center;">
+              <ul class="lightList">
+                Pacemaker Cells
+                <li>Calcium dependent</li>
+                <li>Slow up and down stroke</li>
+                <li>Pacemaker activity is generated automaticity.</li>
+                <li>Can be modified by many factors, such as autonomic nervous system, and etc. </li>
+                <li>Specific current = I<sub>f</sub> or Funny Current</li>
+              </ul>
+            </div>
+          </div>
+          <div class="mobileOnly">
+          <amp-img layout="fill" src="media\EP\pacemaker AP detail.png"></amp-img>
+          </div>
+          
+          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+            Specific Properties of Pacemaker Cells
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
 
