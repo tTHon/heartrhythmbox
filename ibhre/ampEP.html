@@ -10,6 +10,7 @@
 <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
 <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
 <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
 <link rel="canonical" href="https://heartrhythmbox.com/ibhre">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css"/>
@@ -52,6 +53,7 @@
   margin: 0 1.5vmax;cursor: pointer;
 }
 .tab a {text-decoration: none;color:#f1f1f1;}
+.ref, .ref a {font-size: 1.1vw;color: #ddd;}
 
 /*flexbox */
 .row {display: flex;align-content: center;flex-wrap: wrap;}
@@ -61,12 +63,24 @@
 }
 
 /*list*/
-.lightList {font-size: 2.5vmax;font-weight: 900;padding: 2vmax; text-align: center;color: #ccff00;margin: 1vmax;overflow-y:scroll;}
+.lightList {font-size: 2.5vmax;font-weight: 900;padding: 2vmax; text-align: center;color: #ccff00;margin: 1vmax;}
 .lightList li {
   font-size: 1.8vmax;font-weight: normal;border-bottom: #ddd 0.1vmax solid;color: #ddd;padding: 1vmax;
   list-style: none;
   }
 .lightList li:hover {background-color: #074860;color: #ffffff;}
+
+/*table*/
+.lightTable {text-align: left;width: fit-content;margin-left: auto;margin-right: auto;border-collapse: collapse;
+color: #f2f2f2;margin-top: 1vw;font-size: 1.9vw;}
+.lightTable, .lightTable th, .lightTable td {padding: 1.5vw;border-bottom: #ddd 0.1vmax solid;}
+.lightTable th {color: #ccff00;font-size: 2vw;}
+@media only screen and (max-width:600px){
+  .lightTable, .lightTable th, .lightTable td {padding: 0.5vw;margin-top: 0;font-size: 1.8vw;}
+}
+@media only screen and (max-width:400px) {
+  .lightTable {overflow-y: scroll;}
+}
 
 /*accordion*/
 .main {font-size: 2vmax;padding: 1vmax;}
@@ -156,6 +170,12 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       cursor: pointer;
     }
 
+    .amp-video-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    height: 100%;
+  }
 /*footer*/
 .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
 .sectionH {padding-top: 0.7vmax;
@@ -233,8 +253,40 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 <!--content-->
  <amp-accordion animate expand-single-section>
     <!--Action Potential-->
-    <section class="main darkCyan">
+    
+    <!--conduction-->
+    <section class="main darkCyan" expanded>
       <h4 class="darkCyan">
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+      Normal Conduction System</h4>
+      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+      style="margin-left: auto;margin-right: auto;">
+        
+      <!--VDO-->
+        <amp-video width="1280" height="720" src="media\EP\Normal Conduction System.mp4" 
+        layout="responsive" controls>
+        </amp-video>
+
+        <figure>
+          <amp-img layout="fill" src="media\EP\Conduction_System_of_Heart.jpg"></amp-img>
+         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          Conduction System of the Heart<br>
+          Specialized conducting components of the heart include the sinoatrial node, the internodal pathways, Bachmann's bundle, 
+          the atrioventricular node, the atrioventricular bundle, the right and left bundle branches, and the Purkinje fibers.           
+          <br><i class="ref">ref:
+            <a href="http://legacy.cnx.org/content/col11496/1.8" target="_blank">
+              OpenStax, Anatomy & Physiology.</a>
+          </i>
+            <span [text]="expanded ? '▼' : '▲'">▲</span>
+          </figcaption>
+        </figure>
+        
+      </amp-carousel>
+    </section>
+    
+    <section class="main cyan2">
+      <h4 class="cyan2">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
         The Action Potential
@@ -263,7 +315,19 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
           Phase 4: K<sup>+</sup> &darr;<br>
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
-        
+
+        <!--AP and ECG-->
+        <figure>
+          <amp-img layout="fill" src="media\EP\AP and ECG.png"></amp-img>
+          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+            Temporal Correlation between Action Potential and ECG.<br>
+            QRS = phase 0-1, ST-T = phase 2, T = phase 3.<br>
+            <i class="ref">from <a href="https://doi.org/10.1038/nrd1108" target="_blank">
+              Nat Rev Drug Discov 2, 439–447 (2003).
+            </a></i>
+            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+        </figure>
+
         <!--AP comparisons: figures-->
         <figure>
           <div class="row" style="background-color: #f5f5f5;">
@@ -274,7 +338,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             Action Potential of Non-pacemaker cells (left) vs. Pacemaker cells (right)<br>
             Pacemaker cells = nodal cells including sinoatrial (SA) and atrioventricular (AV) nodal cells. <br>
             Noted that non-pacemaker cells have true resting membrane potential (phase 4) and rapid phase 0. <br>
-            In pacemaker cells, there are only 4 phases. Phase 4 is the spontaneous depolarization phase and is mainly Calcium dependent
+            In pacemaker cells, there are only 4 phases. Phase 4 is the spontaneous depolarization phase and is mainly Calcium dependent.
             Phase 0 is depolarization and phase 3 is repolarization.
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
@@ -285,7 +349,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             <amp-img layout="responsive" src="media\EP\pacemaker AP detail.png" height="48vw" width="40vw" style="flex: 1;padding: 1vmax;align-self: center;"></amp-img>
             <div style="flex: 1;padding: 1vmax;align-self: center;">
               <ul class="lightList">
-                Pacemaker Cells
+                Pacemaker Cells Action Potential
                 <li>Calcium dependent</li>
                 <li>Slow up and down stroke</li>
                 <li>Pacemaker activity is generated automaticity.</li>
@@ -299,35 +363,46 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
           </div>
           
           <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            Specific Properties of Pacemaker Cells
+            Specific Properties of Action Potential of Pacemaker Cells<br>
+            ...including Calcium depedent, slow up & down strokes, modifiable by autonomic nervous system. 
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
 
         <!--AP comparisons table-->
         <figure>
-          <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+          <table class="lightTable">
+            <tr>
+            <th>Properties</th><th>Pacemaker Cells</th><th>Non-pacemaker Cells</th></tr>
+            <tr>
+            <td>Location</td><td>SA and AV Nodes</td><td>Myocardium, His-Purkinje, Bypass Tracts</td></tr>
+            <tr>
+            <td>Normal Resting Potentials</td><td>-40 to -65mV</td><td>-80 to -95mV</td>
+            </tr>
+            <tr>
+            <td>Phase 0 Currents</td><td>Primarily Calcium</td><td>Sodium</td></tr>
+            <tr>
+            <td>Conduction Velocity</td><td>Slow: 0.01-0.1 m/s</td><td>Fast: 0.5-5 m/s</td>
+            </tr>
+            <tr>
+            <td>Conduction Property</td><td>Decreemental</td><td>All or None</td>
+            </tr>
+          </table>
+          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+            EP Properties of Pacemaker vs Non-pacemaker cells.<br>
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
 
         <!--Refractory period-->
         <figure>
-          <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+          <amp-img layout="fill" src="media\EP\RefractoryPeriod.png"></amp-img>
+          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+            Refractory Period
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
 
       </amp-carousel>
     </section>
 
-    <!--Mech of Arrhythmias-->
-    <section class="main cyan2">
-      <h4 class="cyan2">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Mechanisms of Arrhythmias</h4>
-      <div>Bunch of even more awesome content. This time in a <code><div></code>.</div>
-    </section>
     <!--AAs-->
     <section class="main cyan1">
       <h4 class="cyan1">
