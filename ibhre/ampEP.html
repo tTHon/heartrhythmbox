@@ -94,6 +94,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     .collapsible-captions figure {
       margin: 0;
       padding: 0;
+      background-color: #333;
     }
     /* single line caption */
     .collapsible-captions figcaption {
@@ -233,25 +234,40 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
       style="margin-left: auto;margin-right: auto;">
         <!--AP of non-PPM-->
-        <figure>
-          <amp-img layout="fill" src="media\AAD.png"></amp-img>
+        <figure style="background-color: #f5f5f5;">
+          <amp-img layout="fill" src="media\EP\action potential.png"></amp-img>
          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+          This is the action potential of...?<br>
+          This is the action potential of non-pacemaker cels such as myocardium and His-Purkinje fiber.            
             <span [text]="expanded ? '▼' : '▲'">▲</span>
           </figcaption>
         </figure>
         
         <!--Channels for each phase-->
-        <figure>
-          <amp-img layout="fill" src="https://unsplash.it/500/500"></amp-img>
-         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        <figure style="background-color: #f5f5f5;">
+          <amp-img layout="fill" src="media\EP\Myocardial AP.png"></amp-img>
+         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          Four Phases of Action Potential.<br>
+          Phase 0: Na<sup>+</sup> &uarr;<br>
+          Phase 1: K<sup>+</sup> &darr;<br>
+          Phase 2: Ca<sup>2+</sup> &uarr;<br>
+          Phase 3: K<sup>+</sup> &darr;<br>
+          Phase 4: K<sup>+</sup> &darr;<br>
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
         
         <!--AP comparisons: figures-->
         <figure>
-          <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+          <div class="row" style="background-color: #f5f5f5;">
+            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\Myocardial AP.png" style="flex: 50%;padding: 1vmax;align-self: center;"></amp-img>
+            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\Pacemaker AP.png" style="flex: 50%;padding: 1vmax;border-left: 0.1vmax solid #555;align-self: center;"></amp-img>
+          </div>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+            Action Potential of Non-pacemaker cells (left) vs. Pacemaker cells (right)<br>
+            Pacemaker cells = nodal cells including sinoatrial (SA) and atrioventricular (AV) nodal cells. <br>
+            Noted that non-pacemaker cells have true resting membrane potential (phase 4) and rapid phase 0. <br>
+            In pacemaker cells, there are only 4 phases. Phase 4 is the spontaneous depolarization phase and is mainly Calcium dependent<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+            Phase 0 is depolarization and phase 3 is repolarization.
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
 
