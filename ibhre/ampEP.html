@@ -271,7 +271,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <figure>
           <amp-img layout="fill" src="media\EP\Conduction_System_of_Heart.jpg"></amp-img>
          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          Conduction System of the Heart<br>
+          <b>Conduction System of the Heart</b><br>
           Specialized conducting components of the heart include the sinoatrial node, the internodal pathways, Bachmann's bundle, 
           the atrioventricular node, the atrioventricular bundle, the right and left bundle branches, and the Purkinje fibers.           
           <br><i class="ref">ref:
@@ -307,7 +307,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <figure style="background-color: #f5f5f5;">
           <amp-img layout="fill" src="media\EP\Myocardial AP.png"></amp-img>
          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          Four Phases of Action Potential.<br>
+          <b>Four Phases of Action Potential.</b><br>
           Phase 0: Na<sup>+</sup> &uarr;<br>
           Phase 1: K<sup>+</sup> &darr;<br>
           Phase 2: Ca<sup>2+</sup> &uarr;<br>
@@ -320,7 +320,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <figure>
           <amp-img layout="fill" src="media\EP\AP and ECG.png"></amp-img>
           <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            Temporal Correlation between Action Potential and ECG.<br>
+            <b>Temporal Correlation between Action Potential and ECG.</b><br>
             QRS = phase 0-1, ST-T = phase 2, T = phase 3.<br>
             <i class="ref">from <a href="https://doi.org/10.1038/nrd1108" target="_blank">
               Nat Rev Drug Discov 2, 439–447 (2003).
@@ -335,7 +335,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\Pacemaker AP.png" style="flex: 50%;padding: 1vmax;border-left: 0.1vmax solid #555;align-self: center;"></amp-img>
           </div>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            Action Potential of Non-pacemaker cells (left) vs. Pacemaker cells (right)<br>
+            <b>Action Potential of Non-pacemaker cells (left) vs. Pacemaker cells (right)</b><br>
             Pacemaker cells = nodal cells including sinoatrial (SA) and atrioventricular (AV) nodal cells. <br>
             Noted that non-pacemaker cells have true resting membrane potential (phase 4) and rapid phase 0. <br>
             In pacemaker cells, there are only 4 phases. Phase 4 is the spontaneous depolarization phase and is mainly Calcium dependent.
@@ -349,7 +349,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             <amp-img layout="responsive" src="media\EP\pacemaker AP detail.png" height="48vw" width="40vw" style="flex: 1;padding: 1vmax;align-self: center;"></amp-img>
             <div style="flex: 1;padding: 1vmax;align-self: center;">
               <ul class="lightList">
-                Pacemaker Cells Action Potential
+                <b>Pacemaker Cells Action Potential</b>
                 <li>Calcium dependent</li>
                 <li>Slow up and down stroke</li>
                 <li>Pacemaker activity is generated automaticity.</li>
@@ -388,15 +388,29 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             </tr>
           </table>
           <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            EP Properties of Pacemaker vs Non-pacemaker cells.<br>
+            <b>EP Properties of Pacemaker vs Non-pacemaker cells.</b><br>
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
 
         <!--Refractory period-->
         <figure>
-          <amp-img layout="fill" src="media\EP\RefractoryPeriod.png"></amp-img>
+          <div class="row noMobile">
+          <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\RefractoryPeriod.png" style="flex: 1;padding: 1vmax;align-self: center;"></amp-img>
+          <div style="flex: 1;align-self: center;">
+          <ul class="lightList">
+            <b class="lime">Refractory Period (RP)</b>
+            <li>Absolute RP (ARP): nothing can pass.</li>
+            <li>Effective RP: allow local depolarization; not propagated one.</li>
+            <li>Relative RP: stronger stimulus may depolarize.</li>
+            <li>ARP = phase 0, 1, 2, and early part of phase 3. </li>
+          </ul></div>
+          </div>
+          <div class="mobileOnly">
+            <amp-img layout="fill" src="media\EP\RefractoryPeriod.png"></amp-img>
+          </div>
           <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            Refractory Period
+            <b>Refractory Period</b><br>
+            Absolute Refractory Period (ARP) = nothing can pass = phase 0-2 and early 3.
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
 
