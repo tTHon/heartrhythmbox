@@ -57,7 +57,7 @@
 
 /*flexbox */
 .row {display: flex;align-content: center;flex-wrap: wrap;}
-.row800 {display: flex;}
+.row800 {display: flex;padding: 1vmax;}
 @media only screen and (max-width:800px) {
   .row800 {display: none;}
 }
@@ -71,16 +71,20 @@
 .lightList li:hover {background-color: #074860;color: #ffffff;}
 
 /*table*/
-.lightTable {text-align: left;width: fit-content;margin-left: auto;margin-right: auto;border-collapse: collapse;
-color: #f2f2f2;margin-top: 1vw;font-size: 1.9vw;}
+.lightTable {text-align: left;width: fit-content;border-collapse: collapse;
+color: #f2f2f2;font-size: 1.9vw;height: 90%;margin: auto;}
 .lightTable, .lightTable th, .lightTable td {padding: 1.5vw;border-bottom: #ddd 0.1vmax solid;}
 .lightTable th {color: #ccff00;font-size: 2vw;}
-@media only screen and (max-width:600px){
-  .lightTable, .lightTable th, .lightTable td {padding: 0.5vw;margin-top: 0;font-size: 1.8vw;}
+@media only screen and (max-width:600px) and (min-width: 449px){
+  .lightTable, .lightTable th, .lightTable td {padding: 0.5vw;font-size: 1.2vw;}
 }
-@media only screen and (max-width:400px) {
-  .lightTable {overflow-y: scroll;}
+@media only screen and (max-width:448px){
+  .lightTable, .lightTable th, .lightTable td {padding: 0.2vw;font-size: 1vw;}
+  .lightTable {overflow-y: scroll;padding: none;}
+  .lightTable tr:nth-child(5
+  ) {display: none;}
 }
+
 
 /*accordion*/
 .main {font-size: 2vmax;padding: 1vmax;}
@@ -285,6 +289,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </amp-carousel>
     </section>
     
+    <!--AP-->
     <section class="main cyan2">
       <h4 class="cyan2">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
@@ -345,7 +350,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
         <!--pacemaker cells-->
         <figure>
-          <div class="row noMobile">
+          <div class="row800 noMobile">
             <amp-img layout="responsive" src="media\EP\pacemaker AP detail.png" height="48vw" width="40vw" style="flex: 1;padding: 1vmax;align-self: center;"></amp-img>
             <div style="flex: 1;padding: 1vmax;align-self: center;">
               <ul class="lightList">
@@ -392,21 +397,22 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
         </figure>
 
-        <!--Refractory period-->
+       <!--Refractory period-->
         <figure>
-          <div class="row noMobile">
-          <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\RefractoryPeriod.png" style="flex: 1;padding: 1vmax;align-self: center;"></amp-img>
+          <div class="mobileOnly">
+            <amp-img layout="fill" src="media\EP\RefractoryPeriod.png"></amp-img>
+          </div>
+          <div class="row800 noMobile">
+          <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\RefractoryPeriod.png" style="flex: 1;padding: 1vmax;align-self: center;">
+          </amp-img>
           <div style="flex: 1;align-self: center;">
           <ul class="lightList">
-            <b class="lime">Refractory Period (RP)</b>
+            <b>Refractory Period (RP)</b>
             <li>Absolute RP (ARP): nothing can pass.</li>
             <li>Effective RP: allow local depolarization; not propagated one.</li>
             <li>Relative RP: stronger stimulus may depolarize.</li>
             <li>ARP = phase 0, 1, 2, and early part of phase 3. </li>
           </ul></div>
-          </div>
-          <div class="mobileOnly">
-            <amp-img layout="fill" src="media\EP\RefractoryPeriod.png"></amp-img>
           </div>
           <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
             <b>Refractory Period</b><br>
@@ -417,23 +423,89 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </amp-carousel>
     </section>
 
-    <!--AAs-->
+    <!--Mech Arrhythmias-->
     <section class="main cyan1">
       <h4 class="cyan1">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Antiarrhythmic Agents</h4>
+        Mechanism of Arrhythmias</h4>
+      
+      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+        style="margin-left: auto;margin-right: auto;">
+      
+      <!--VDO automaticity-->
       <figure>
-        <amp-img src="/static/samples/img/clean-1.jpg" layout="responsive" width="400" height="710"></amp-img>
+      <amp-video width="1892" height="1070" src="media\EP\AT.mp4" layout="responsive" controls>
+      </amp-video>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Enhance Automaciticy</b><br>
+        = accelerated generation of an action potential by either normal pacemaker tissue (enhanced normal automaticity) 
+        or by abnormal tissue within the myocardium (abnormal automaticity).<br>
+        Examples: sinus tachycardia, atrial tachycardia, junctional tachycardia, or idioventricular rhythm.      
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+      </figure>
+
+      <!--Automaticity-->
+      <figure>
+      <div class="mobileOnly">
+        <amp-img layout="fill" src="media\EP\automaticity AP.png"></amp-img>
+      </div>
+      <div class="row800 noMobile">
+      <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\automaticity AP.png" style="flex: 1;padding: 1vmax;align-self: center;">
+      </amp-img>
+      <div style="flex: 1;align-self: center;">
+      <ul class="lightList" style="text-align: left;">
+        <b style="padding-left: 1vmax;">Enhanced Automaticity</b>
+        <li>from normal pacemaker cells, such as sinus tachycardia.</li>
+        <li>from abnormal cells, such as atrial tachycardia.</li>
+        <li>Warm up & cool down phenomenon.</li>
+        <li>Response to autonomic nervous activity and many drugs.</li>
+      </ul></div>
+      </div>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Enhanced Automaticity</b><br>
+        Warm up & cool down phenomenon. Modifiable by drugs and autonomic nervous system.
+        <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+      </figure>
+
+      <!--VDO reentry-->
+      <figure>
+        <amp-video width="1892" height="1070" src="media\EP\AFlutter.mp4" layout="responsive" controls>
+        </amp-video>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          <b>Reentry</b><br>
+          = continous activity around the circuit within myocardium to re-excite the heart after the local refractory period has ended.<br>
+          Examples: atrial flutter, AVNRT, or scar related VT.      
+          <span [text]="expanded ? '▼' : '▲'">▲</span>
+          </figcaption>
+      </figure>
+
+      <!--VDO reentry-->
+      <figure>
+        <amp-video width="1892" height="1070" src="media\EP\PVC.mp4" layout="responsive" controls>
+        </amp-video>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          <b>Triggered Activity</b><br>
+          = abnormal action potentials that are triggered by the preceding action potential.<br>
+          Examples: idiopathic PVCs/VT, torsades de pointes, or digitalis toxicity.      
+          <span [text]="expanded ? '▼' : '▲'">▲</span>
+          </figcaption>
+      </figure>
+
+      <figure>
+        <amp-img src="media\EP\automaticity AP.png" layout="fill"></amp-img>
         <figcaption>Images work as well.</figcaption>
       </figure>
+      </amp-carousel>
     </section>
+    
     <!--QAs-->
     <section class="main lightBlue">
       <h4 class="lightBlue">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Qs & As</h4>
+        Antiarrhythmic Agents</h4>
       <figure>
         <figcaption>Images work as well.</figcaption>
       </figure>
