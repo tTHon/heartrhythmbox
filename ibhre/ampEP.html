@@ -63,12 +63,18 @@
 }
 
 /*list*/
-.lightList {font-size: 2.5vmax;font-weight: 900;padding: 2vmax; text-align: center;color: #ccff00;margin: 1vmax;}
-.lightList li {
+.lightList, .darkList {font-size: 2.5vmax;font-weight: 900;padding: 2vmax; text-align: center;color: #ccff00;margin: 1vmax;}
+.lightList li, .darkList li {
   font-size: 1.8vmax;font-weight: normal;border-bottom: #ddd 0.1vmax solid;color: #ddd;padding: 1vmax;
   list-style: none;
   }
-.lightList li:hover {background-color: #074860;color: #ffffff;}
+.darkList {color: #074860;}
+.lightList li:hover, .darkList li:hover  {background-color: #074860;color: #ffffff;}
+.darkList li {color: #232323;border-bottom-color: #555;}
+@media only screen and (max-width:800px){
+  .darkList, .lightList, .lightList li, .darkList li {font-size: 1.8vmax;padding: 0.5vmax;}
+}
+
 
 /*table*/
 .lightTable {text-align: left;width: fit-content;border-collapse: collapse;
@@ -481,7 +487,30 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
           </figcaption>
       </figure>
 
-      <!--VDO reentry-->
+      <!--reentry-->
+      <figure>
+        <div class="mobileOnly" style="background-color: #ddd;">
+          <amp-img layout="fill" src="media\EP\reentry.png"></amp-img>
+        </div>
+        <div class="row800 noMobile" style="background-color: #ddd;">
+        <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\reentry.png" style="flex: 1;padding: 1vmax;align-self: center;">
+        </amp-img>
+        <div style="flex: 1;align-self: center;">
+        <ul class="darkList" style="text-align: left;">
+          <b style="padding-left: 1vmax;">Reentry</b>
+          <li>Rotate around an anatomical barrier.</li>
+          <li>2 pathways with 2 different EP properties.</li>
+          <li>Initiate by premature beat.</li>
+          <li>Rapid pacing can entrain and terminate.</li>
+        </ul></div>
+        </div>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          <b>Reentry Mechanism</b><br>
+          Can be entrained and overdrive suppressed.
+          <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+        </figure>
+
+      <!--VDO trigger-->
       <figure>
         <amp-video width="1892" height="1070" src="media\EP\PVC.mp4" layout="responsive" controls>
         </amp-video>
@@ -493,22 +522,149 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
           </figcaption>
       </figure>
 
+      <!--EAD DAD-->
       <figure>
-        <amp-img src="media\EP\automaticity AP.png" layout="fill"></amp-img>
-        <figcaption>Images work as well.</figcaption>
+        <amp-img src="media\EP\EAD_DAD.png" layout="fill"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          <b>Triggered Activity</b><br>
+          EAD: Long QT, Brady-induced TdP, HypoK<sup>+</sup><br>
+          DAD: Digitalis toxicity, idiopathic VT.
+          <span [text]="expanded ? '▼' : '▲'">▲</span>
+          </figcaption>
       </figure>
       </amp-carousel>
     </section>
     
-    <!--QAs-->
+    <!--AAs-->
     <section class="main lightBlue">
       <h4 class="lightBlue">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
         Antiarrhythmic Agents</h4>
-      <figure>
-        <figcaption>Images work as well.</figcaption>
-      </figure>
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+      style="margin-left: auto;margin-right: auto;">
+        
+    <figure>
+      <div class="row" style="align-content: center;height: 50vw;background-color: #f5f5f5;color: #074860;font-size: 2vmax;font-weight: 900;">
+      <div style="flex: 1;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ia.png"></amp-img>
+        Ia
+        </div>
+      <div style="flex: 1;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ib.png"></amp-img>
+        Ib</div>
+      <div style="flex: 1;align-self: center;align-items: center;"> 
+      <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ic.png"></amp-img>
+      Ic</div>
+      </div>
+      
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Class I: Sodium Blocker</b><br>
+      categorized into 3 classes, by Na<sup>+</sup> channel asso-/dissociation rate.<br>
+      From rapid to slow: IB, IA, IC.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+      
+    <figure>
+      <div class="row" style="align-content: center;background-color: #f5f5f5;">
+      <div style="flex: 0.8;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ia.png"></amp-img>
+      </div>
+      <div style="flex: 1.2;align-items: center;align-self: center;">
+        <ul class="darkList">
+          Class Ia 
+          <li>Intermediate asso-/dissociation rate of sodium channel.</li>
+          <li>Quinidine, Procainamide, Disopyramide, Ajmaline.</li>
+          <li>Prolong QT and QRS duration</li>
+        </ul>
+      </div>
+      </div>
+    </figure>
+
+    <figure>
+      <div class="row" style="align-content: center;background-color: #f5f5f5;">
+      <div style="flex: 0.8;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ib.png"></amp-img>
+      </div>
+      <div style="flex: 1.2;align-items: center;align-self: center;">
+        <ul class="darkList">
+          Class Ib 
+          <li>Rapid asso-/dissociation rate of sodium channel.</li>
+          <li>Lidocaine, Mexilitine, Phynytoin</li>
+          <li>Shorten QT. Minimal effect on QRS duration.</li>
+        </ul>
+      </div>
+      </div>
+    </figure>
+
+    <figure>
+      <div class="row" style="align-content: center;background-color: #f5f5f5;">
+      <div style="flex: 0.8;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ic.png"></amp-img>
+      </div>
+      <div style="flex: 1.2;align-items: center;align-self: center;">
+        <ul class="darkList">
+          Class Ic 
+          <li>Slow asso-/dissociation rate of sodium channel.</li>
+          <li>Flecainide, Encainide, Propafenone, Moricizine</li>
+          <li>Prolong QRS. Minimal effect on QT</li>
+        </ul>
+      </div>
+      </div>
+    </figure>
+
+    <figure>
+      <div class="row" style="align-content: center;background-color: #f5f5f5;">
+      <div style="flex: 0.8;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\II.png"></amp-img>
+      </div>
+      <div style="flex: 1.2;align-items: center;align-self: center;">
+        <ul class="darkList">
+          Class II: Beta-Blocker 
+          <li>Only class that saves life.</li>
+          <li>Bisoprolol, Carvedilol, Metoprolol, and etc.</li>
+          <li>Inhibit sympathetic activity.</li>
+          <li>Increase action potential duration.</li>
+        </ul>
+      </div>
+      </div>
+    </figure>
+
+    <figure>
+      <div class="row" style="align-content: center;background-color: #f5f5f5;">
+      <div style="flex: 0.8;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\III.png"></amp-img>
+      </div>
+      <div style="flex: 1.2;align-items: center;align-self: center;">
+        <ul class="darkList">
+          Class III: Potassium-Blocker 
+          <li>Amiodarone, Dofetilide, Ibutilide, Sotalol</li>
+          <li>Prolong QT</li>
+          <li>Amiodarone inhibits multiple channels 
+            including Na<sup>+</sup>, beta, and Ca<sup>2+</sup>.</li>
+        </ul>
+      </div>
+      </div>
+    </figure>
+
+    <figure>
+      <div class="row" style="align-content: center;background-color: #f5f5f5;">
+      <div style="flex: 0.8;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\IV.png"></amp-img>
+      </div>
+      <div style="flex: 1.2;align-items: center;align-self: center;">
+        <ul class="darkList">
+          Class IV: Calcium-Blocker 
+          <li>Diltiazem, Verapamil</li>
+          <li>Block SA and AV nodes</li>
+          <li>Negative inotropic effect</li>
+        </ul>
+      </div>
+      </div>
+    </figure>
+
+    </amp-carousel>
     </section>
   </amp-accordion>
 
