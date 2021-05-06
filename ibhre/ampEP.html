@@ -55,6 +55,9 @@
 }
 .tab a {text-decoration: none;color:#f1f1f1;}
 .ref, .ref a {font-size: 1.1vw;color: #ddd;}
+@media only screen and (max-width:600px) {
+  .ref, .ref a {font-size: 10px;}
+}
 
 /*flexbox */
 .row {display: flex;align-content: center;flex-wrap: wrap;}
@@ -540,6 +543,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         
     <figure>
       <div class="row" style="align-content: center;height: 50vw;background-color: #f5f5f5;color: #074860;font-size: 2vmax;font-weight: 900;">
+        <b style="text-align: center;width: 100%;font-size: 2.2vmax;">Class I: Sodium Blocker</b>
       <div style="flex: 1;align-self: center;align-items: center;"> 
         <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ia.png"></amp-img>
         Ia
@@ -683,9 +687,9 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <div style="flex: 1.2;align-items: center;align-self: center;">
         <ul class="darkList">
           Ivabradine 
-          <li>Inhibit cardiac pacemaker current or I<sub>f</sub>.</li>
-          <li class="noMobile">I<sub>f</sub> constrols diastolic depolarization of SA node.</li>
-          <li>Ivabradine selectively block I<sub>f</sub> and slow sinus rate.</li>
+          <li>Inhibit cardiac pacemaker current or I<sub><i>f</i></sub>.</li>
+          <li class="noMobile">I<sub><i>f</i></sub> &nbsp;controls diastolic depolarization of SA node.</li>
+          <li>Ivabradine selectively block I<sub><i>f</i></sub>&nbsp; and slow sinus rate.</li>
           <li>Has no effects of BP or cardiac contractility.</li>
         </ul>
       </div>
