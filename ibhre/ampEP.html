@@ -11,6 +11,7 @@
 <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
 <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+<script async custom-element = "amp-fit-text" src = "https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
 <link rel="canonical" href="https://heartrhythmbox.com/ibhre">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css"/>
@@ -77,18 +78,12 @@
 
 
 /*table*/
-.lightTable {text-align: left;width: fit-content;border-collapse: collapse;
-color: #f2f2f2;font-size: 1.9vw;height: 90%;margin: auto;}
-.lightTable, .lightTable th, .lightTable td {padding: 1.5vw;border-bottom: #ddd 0.1vmax solid;}
-.lightTable th {color: #ccff00;font-size: 2vw;}
-@media only screen and (max-width:600px) and (min-width: 449px){
-  .lightTable, .lightTable th, .lightTable td {padding: 0.5vw;font-size: 1.2vw;}
-}
-@media only screen and (max-width:448px){
-  .lightTable, .lightTable th, .lightTable td {padding: 0.2vw;font-size: 1vw;}
-  .lightTable {overflow-y: scroll;padding: none;}
-  .lightTable tr:nth-child(5
-  ) {display: none;}
+.lightTable {text-align: left;width: fit-content;border-collapse: collapse;padding: 1vmax;font-size: 1.8vmax;
+color: #f2f2f2;height: 90%;margin: auto;}
+.lightTable, .lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;}
+.lightTable th {color: #ccff00;font-size: 2vmax;}
+@media only screen and (max-width:400px){
+  .lightTable tr:nth-child(5) {display: none;}
 }
 
 
@@ -104,6 +99,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
 /*carousel*/
     /* define some contants */
+  amp-carousel {max-height: 90vh;}
     .collapsible-captions {
       --caption-height: 2vmax;
       --image-height: 300px;
@@ -180,12 +176,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       cursor: pointer;
     }
 
-    .amp-video-container {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    height: 100%;
-  }
+
 /*footer*/
 .rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
 .sectionH {padding-top: 0.7vmax;
@@ -381,7 +372,8 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
         <!--AP comparisons table-->
         <figure>
-          <table class="lightTable">
+         <amp-fit-text width="80vw" height="40vw" layout="responsive">
+         <table class="lightTable">
             <tr>
             <th>Properties</th><th>Pacemaker Cells</th><th>Non-pacemaker Cells</th></tr>
             <tr>
@@ -398,9 +390,11 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             <td>Conduction Property</td><td>Decreemental</td><td>All or None</td>
             </tr>
           </table>
+        </amp-fit-text>
           <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
             <b>EP Properties of Pacemaker vs Non-pacemaker cells.</b><br>
             <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+        
         </figure>
 
        <!--Refractory period-->
@@ -659,6 +653,40 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
           <li>Diltiazem, Verapamil</li>
           <li>Block SA and AV nodes</li>
           <li>Negative inotropic effect</li>
+        </ul>
+      </div>
+      </div>
+    </figure>
+
+    <figure>
+      <div class="row" style="align-content: center;background-color: #f5f5f5;">
+      <div style="flex: 0.8;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\dig.png"></amp-img>
+      </div>
+      <div style="flex: 1.2;align-items: center;align-self: center;">
+        <ul class="darkList">
+          Digoxin 
+          <li>Inhibit Na-K ATPase, thus, increase intracellular Ca<sup>2+</sup>.</li>
+          <li>Slow SA and AV node.</li>
+          <li>Positive inotropic effect</li>
+          <div class="ref"><a href="https://pubmed.ncbi.nlm.nih.gov/16603014/" target="_blank" style="color: #555;font-weight: normal;">Crit Care Resusc. 1999 Sep;1(3):252-64.</a></div>
+        </ul>
+      </div>
+      </div>
+    </figure>
+
+    <figure>
+      <div class="row" style="align-content: center;background-color: #f5f5f5;">
+      <div style="flex: 0.8;align-self: center;align-items: center;"> 
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\If.png"></amp-img>
+      </div>
+      <div style="flex: 1.2;align-items: center;align-self: center;">
+        <ul class="darkList">
+          Ivabradine 
+          <li>Inhibit cardiac pacemaker current or I<sub>f</sub>.</li>
+          <li class="noMobile">I<sub>f</sub> constrols diastolic depolarization of SA node.</li>
+          <li>Ivabradine selectively block I<sub>f</sub> and slow sinus rate.</li>
+          <li>Has no effects of BP or cardiac contractility.</li>
         </ul>
       </div>
       </div>
