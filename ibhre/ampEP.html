@@ -28,8 +28,8 @@
 .cyan2 {background-color: #11515b;color: #f1f1f1;}
 .lime {color: #ccff00;}
 .nearBlack {background-color: #232323;color: #f1f1f1;}
-.lightBlue {background-color: #B6c2c8;color: #074860;}
-.magenta {background-color: #ffd8f7;color: #232323;}
+.lightBlue1 {background-color: #B6c2c8;color: #074860;}
+.lightBlue2 {background-color: #8eafc0;color: #074860;}
 /*top*/
 .navItem {
     font-size: 1.8vmax;padding: 1vmax 2vmax 1vmax 1vmax;border: none;cursor: pointer;
@@ -38,7 +38,7 @@
 .navItem:hover {background-color: rgb(82, 82, 82);color: #f2f2f2;}
 .topBar {
     font-size: 2vmax;padding: 0.5vmax;color: #f1f1f1;
-    background-color: #074860;position: sticky;top: 0;z-index: 1;
+    background-color: #074860;position: sticky;top: 0;z-index: 10;
     border-bottom-left-radius: 1vmax;border-bottom-right-radius: 1vmax;   
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
@@ -84,11 +84,13 @@
 
 
 /*table*/
-.lightTable {text-align: left;width: fit-content;border-collapse: collapse;padding: 1vmax;font-size: 1.8vmax;
-color: #f2f2f2;height: 90%;margin: auto;}
-.lightTable, .lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;}
-.lightTable th {color: #ccff00;font-size: 2vmax;}
-@media only screen and (max-width:400px){
+.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax;color: #f2f2f2;height: 90%;
+margin: 1vmax;margin-bottom: 8vh;}
+.lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax;}
+.lightTable th {color: #ccff00;}
+@media only screen and (max-width:500px){
+  .lightTable {margin: none;padding: 0.25vw;}
+  .lightTable th, .lightTable td {padding: 0.25vw;}
   .lightTable tr:nth-child(5) {display: none;}
 }
 
@@ -354,8 +356,8 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <!--pacemaker cells-->
         <figure>
           <div class="row800 noMobile">
-            <amp-img layout="responsive" src="media\EP\pacemaker AP detail.png" height="48vw" width="40vw" style="flex: 1;padding: 1vmax;align-self: center;"></amp-img>
-            <div style="flex: 1;padding: 1vmax;align-self: center;">
+            <amp-img layout="responsive" src="media\EP\pacemaker AP detail.png" height="30vw" width="30vw" style="flex: 0.8;padding: 1vmax;align-self: center;"></amp-img>
+            <div style="flex: 1.2;padding: 1vmax;align-self: center;">
               <ul class="lightList">
                 <b>Pacemaker Cells Action Potential</b>
                 <li>Calcium dependent</li>
@@ -409,9 +411,9 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             <amp-img layout="fill" src="media\EP\RefractoryPeriod.png"></amp-img>
           </div>
           <div class="row800 noMobile">
-          <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\RefractoryPeriod.png" style="flex: 1;padding: 1vmax;align-self: center;">
+          <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\RefractoryPeriod.png" style="flex: 0.8;padding: 1vmax;align-self: center;">
           </amp-img>
-          <div style="flex: 1;align-self: center;">
+          <div style="flex: 1.2;align-self: center;">
           <ul class="lightList">
             <b>Refractory Period (RP)</b>
             <li>Absolute RP (ARP): nothing can pass.</li>
@@ -536,8 +538,8 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </section>
     
     <!--AAs-->
-    <section class="main lightBlue">
-      <h4 class="lightBlue">
+    <section class="main lightBlue2">
+      <h4 class="lightBlue2">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
         Antiarrhythmic Agents</h4>
@@ -753,17 +755,17 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <figure>
     <amp-fit-text width="80vw" height="40vw" layout="responsive">
       <div style="text-align: center;font-weight: 900;padding: 1vmax;color: #B6c2c8;font-size: 3vmax;">Drugs and Devices</div>
-      <table class="lightTable" style="padding: 1vmax;">
+      <table class="lightTable">
          <tr>
-         <th>Function</th><th class="darkCyan lime"  style="padding: 1vmax;">Increase Threshold</th>
+         <th>Function</th><th class="darkCyan lime">Increase Threshold</th>
          <th style="color: white;">Decrease Threshold</th></tr>
          <tr>
          <td>Pacing</td>
-         <td class="darkCyan lime" style="padding: 1vmax;">Class Ic, beta blockers, quinidine, hypoxemia, acidosis, alkalosis, hyperglycemia</td>
+         <td class="darkCyan lime">Class Ic, beta blockers, quinidine, hypoxemia, acidosis, alkalosis, hyperglycemia</td>
          <td>Epinephrine, Isoproterenol, Atropine, steroids</td></tr>
          <tr>
          <td>Defibrillation</td>
-         <td class="darkCyan lime" style="padding: 1vmax;">amiodarone, lidocaine, flecainide, sildenafil (Viagra), alcohol</td>
+         <td class="darkCyan lime">amiodarone, lidocaine, flecainide, sildenafil (Viagra), alcohol</td>
         <td>sotalol, dofetilide</td>
          </tr>
          <tr>
@@ -774,9 +776,9 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </amp-carousel>
     </section>
 
-    <!--conduction-->
-    <section class="main magenta">
-      <h4 class="magenta">
+    <!--QAs-->
+    <section class="main lightBlue1">
+      <h4 class="lightBlue1">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
       Qs and As</h4>
