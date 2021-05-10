@@ -784,19 +784,30 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       Qs and As</h4>
       <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
       style="margin-left: auto;margin-right: auto;">
-        
+      
+      <!--Q1 tracing-->
       <figure>
-        <amp-img layout="fill" src="media\EP\Conduction_System_of_Heart.jpg"></amp-img>
+        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
+        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Conduction System of the Heart</b><br>
-        Specialized conducting components of the heart include the sinoatrial node, the internodal pathways, Bachmann's bundle, 
-        the atrioventricular node, the atrioventricular bundle, the right and left bundle branches, and the Purkinje fibers.           
-        <br><i class="ref">ref:
-          <a href="http://legacy.cnx.org/content/col11496/1.8" target="_blank">
-            OpenStax, Anatomy & Physiology.</a>
-        </i>
-          <span [text]="expanded ? '▼' : '▲'">▲</span>
+        <b>Question 1</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
         </figcaption>
+      </figure>
+
+      <!--Q1 Q-->
+      <figure>
+        <div class="row">
+        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\tdp tracing.png" style="flex: 0.5;">
+          </amp-img>
+        </div>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          <b>Temporal Correlation between Action Potential and ECG.</b><br>
+          QRS = phase 0-1, ST-T = phase 2, T = phase 3.<br>
+          <i class="ref">from <a href="https://doi.org/10.1038/nrd1108" target="_blank">
+            Nat Rev Drug Discov 2, 439–447 (2003).
+          </a></i>
+          <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
       </figure>
         
       </amp-carousel>
