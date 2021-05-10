@@ -82,10 +82,14 @@
   .darkList, .lightList, .lightList li, .darkList li {font-size: 1.8vmax;padding: 0.5vmax;}
 }
 
+/*Q*/
+.qBox {text-align: left;margin-left: auto;margin-right: auto;padding: 2vmax;}
+.qList {list-style: lower-alpha inside; border-top: #ccff00 0.1vmax solid;padding: 1vmax;
+margin-left: auto;margin-right: auto;}
 
 /*table*/
 .lightTable {text-align: left;border-collapse: collapse;padding: 1vmax;color: #f2f2f2;height: 90%;
-margin: 1vmax;margin-bottom: 8vh;}
+margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
 .lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax;}
 .lightTable th {color: #ccff00;}
 @media only screen and (max-width:500px){
@@ -380,7 +384,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
         <!--AP comparisons table-->
         <figure>
-         <amp-fit-text width="80vw" height="40vw" layout="responsive" style="padding: 0.5vmin;">
+         <amp-fit-text width="80vw" height="40vw" layout="responsive" max-font-size="28" style="padding: 0.5vmin;">
          <table class="lightTable">
             <tr>
             <th>Properties</th><th>Pacemaker Cells</th><th>Non-pacemaker Cells</th></tr>
@@ -753,7 +757,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
     <!--drug and defib/pace threshold-->
     <figure>
-    <amp-fit-text width="80vw" height="40vw" layout="responsive">
+    <amp-fit-text width="80vw" height="40vw" layout="responsive" max-font-size="28">
       <div style="text-align: center;font-weight: 900;padding: 1vmax;color: #B6c2c8;font-size: 3vmax;">Drugs and Devices</div>
       <table class="lightTable">
          <tr>
@@ -797,19 +801,49 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
       <!--Q1 Q-->
       <figure>
-        <div class="row">
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\tdp tracing.png" style="flex: 0.5;">
-          </amp-img>
-        </div>
+        <amp-fit-text width="80vw" height="40vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;">
+          <div class="qBox">
+          A 54-year-old woman with symptomatic paroxysmal AF is admitted to the hospital for sotalol loading. On the third hospital day, a two-channel rhythm strip is recorded (as shown previously).<br>
+          Which of the following should you recommend?
+            <ol class="qList">
+            <li>Reduce the dose of sotalol by 50%, discharge the patient.</li>
+            <li>ICD implantation.</li>
+            <li>Perform immediate defibrillation</li>
+            <li>Start IV amiodarone and continue for the duration of five half-lives of sotalol.</li>
+            <li>Discontinue sotalol and give IV magnesium.</li>
+            </ol>
+          </div>
+        </amp-fit-text>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          <b>Temporal Correlation between Action Potential and ECG.</b><br>
-          QRS = phase 0-1, ST-T = phase 2, T = phase 3.<br>
-          <i class="ref">from <a href="https://doi.org/10.1038/nrd1108" target="_blank">
-            Nat Rev Drug Discov 2, 439–447 (2003).
-          </a></i>
+         Q1: The Answer is...<br>
+         Answer: e <br>
+         Tracing = sinus rhythm with prolong QT with PVCs which later triggers torsades. Sotalol is a class III AAD and known to increase QT interval. Treatment includes discontinue the causal agent, give IV magnesium regardless of the magnesium level. Rapid pacing may be required.
           <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
       </figure>
-        
+
+      <!--Q2 Q-->
+      <figure>
+        <amp-fit-text width="80vw" height="40vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;">
+          <div class="qBox">
+            Which of the following drugs is most likely to elevate the myocardial stimulation threshold after implantation of a dual chamber pacemaker?
+            <ol class="qList">
+            <li>Digoxin</li>
+            <li>Diltiazem</li>
+            <li>Flecainide</li>
+            <li>Mexilitine</li>
+            <li>Sotalol</li>
+            </ol>
+          </div>
+        </amp-fit-text>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+         Q2: The Answer is...<br>
+         Answer: c<br>
+         Class IC is notoriously known to increase pacing threshold.
+         <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+      </figure>
+
       </amp-carousel>
     </section>
 
