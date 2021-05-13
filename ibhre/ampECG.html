@@ -269,147 +269,147 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 <!--content-->
  <amp-accordion animate expand-single-section>
         
-    <!--SSS-->
-    <section class="main darkCyan" expanded>
-      <h4 class="darkCyan">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Sinus Node Dysfuncion</h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-        
-    <figure>
-        <amp-img layout="fill" src="media\EKG\brady\sinus pause.jpg"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Sinus Node Dysfunction</b><br>
-        may present with severe sinus bradycardia, sinoatrial exit block, sinus pause, or tachy-bradyarrhythmia. Above is sinus pause.
-        For those with symptoms, pacemaker is indicated.           
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
-    </figure>
-
-    <figure>
-        <amp-img layout="fill" src="media\EKG\brady\SA block.jpg"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Sinoatrial exit block type II</b><br>
-        SA Exit Block Type II: Sinus rhythm followed by a pause that is a multiple of P-P interval.
-        Above, the pause duration was twice of P-P interval.
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
-    </figure>
-        
-    </amp-carousel>
-    </section>
-    
-    <!--AVB-->
-    <section class="main cyan2">
-      <h4 class="cyan2">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Atrioventricular Block
-      </h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-        
-      <!--AP of non-PPM-->
-        <figure style="background-color: #f5f5f5;">
-          <amp-img layout="fill" src="media\EP\action potential.png"></amp-img>
-         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          This is the action potential of...?<br>
-          This is the action potential of non-pacemaker cels such as myocardium and His-Purkinje fiber.            
-            <span [text]="expanded ? '▼' : '▲'">▲</span>
-          </figcaption>
-        </figure>
-      </amp-carousel>
-    </section>
-
-    <!--Tachy-->
-    <section class="main cyan1">
-      <h4 class="cyan1">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Tachyarrhythmias</h4>
-      
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-        style="margin-left: auto;margin-right: auto;">
-      
-      <!--Automaticity-->
-      <figure>
-      <div class="mobileOnly">
-        <amp-img layout="fill" src="media\EP\automaticity AP.png"></amp-img>
-      </div>
-      <div class="row800 noMobile">
-      <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\automaticity AP.png" style="flex: 1;padding: 1vmax;align-self: center;">
-      </amp-img>
-      <div style="flex: 1;align-self: center;">
-      <ul class="lightList" style="text-align: left;">
-        <b style="padding-left: 1vmax;">Enhanced Automaticity</b>
-        <li>from normal pacemaker cells, such as sinus tachycardia.</li>
-        <li>from abnormal cells, such as atrial tachycardia.</li>
-        <li>Warm up & cool down phenomenon.</li>
-        <li>Response to autonomic nervous activity and many drugs.</li>
-      </ul></div>
-      </div>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Enhanced Automaticity</b><br>
-        Warm up & cool down phenomenon. Modifiable by drugs and autonomic nervous system.
-        <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-      </figure>
-      </amp-carousel>
-    </section>
-    
-    <!--SCD-->
-    <section class="main lightBlue2">
-      <h4 class="lightBlue2">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Conditions that increase risk of sudden cardiac arrest</h4>
+<!--SSS-->
+<section class="main darkCyan" expanded>
+    <h4 class="darkCyan">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Sinus Node Dysfuncion</h4>
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
+    style="margin-left: auto;margin-right: auto;">
+    
+<figure>
+    <amp-img layout="fill" src="media\EKG\brady\sinus pause.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Sinus Node Dysfunction</b><br>
+    may present with severe sinus bradycardia, sinoatrial exit block, sinus pause, or tachy-bradyarrhythmia. Above is sinus pause.
+    For those with symptoms, pacemaker is indicated.           
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+</figure>
 
-    <!--TdP-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\tdp on sotalol.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Prolong QTc and torsades de pointes.
-          <li>Prolong QTc can "trigger" torsades de pointes.</li>
-          <li class="noMobile">Causes: drugs, electrolytes abnormalities, and congenital.</li>
-          <li>Drugs that prolong QTc: Class III AADs, haloperidol, methadone, and etc.</li>
-        </ul>
-        <div class="ref" style="text-align:center">
-          <a href="http://www.onlinejacc.org/content/42/3/401" target="_blank" style="color: #555;">Yan et al. JACC 2003.</a>
-          </div>
-      </div>
-      </div>
-    </figure>
-    </amp-carousel>
-    </section>
+<figure>
+    <amp-img layout="fill" src="media\EKG\brady\SA block.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Sinoatrial exit block type II</b><br>
+    SA Exit Block Type II: Sinus rhythm followed by a pause that is a multiple of P-P interval.
+    Above, the pause duration was twice of P-P interval.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+</figure>
+    
+</amp-carousel>
+</section>
 
-    <!--Devices-->
-    <section class="main lightBlue1">
-      <h4 class="lightBlue1">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Cardiac rhythm device related ECGs</h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-      
-      <!--Q1 tracing-->
-      <figure>
-        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+<!--AVB-->
+<section class="main cyan2">
+    <h4 class="cyan2">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+    Atrioventricular Block
+    </h4>
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!--AP of non-PPM-->
+    <figure style="background-color: #f5f5f5;">
+        <amp-img layout="fill" src="media\EP\action potential.png"></amp-img>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Question 1</b>
+        This is the action potential of...?<br>
+        This is the action potential of non-pacemaker cels such as myocardium and His-Purkinje fiber.            
         <span [text]="expanded ? '▼' : '▲'">▲</span>
         </figcaption>
-      </figure>
+    </figure>
+    </amp-carousel>
+</section>
 
-      </amp-carousel>
-    </section>
+<!--Tachy-->
+<section class="main cyan1">
+    <h4 class="cyan1">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+    Tachyarrhythmias</h4>
+    
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!--Automaticity-->
+    <figure>
+    <div class="mobileOnly">
+    <amp-img layout="fill" src="media\EP\automaticity AP.png"></amp-img>
+    </div>
+    <div class="row800 noMobile">
+    <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\automaticity AP.png" style="flex: 1;padding: 1vmax;align-self: center;">
+    </amp-img>
+    <div style="flex: 1;align-self: center;">
+    <ul class="lightList" style="text-align: left;">
+    <b style="padding-left: 1vmax;">Enhanced Automaticity</b>
+    <li>from normal pacemaker cells, such as sinus tachycardia.</li>
+    <li>from abnormal cells, such as atrial tachycardia.</li>
+    <li>Warm up & cool down phenomenon.</li>
+    <li>Response to autonomic nervous activity and many drugs.</li>
+    </ul></div>
+    </div>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Enhanced Automaticity</b><br>
+    Warm up & cool down phenomenon. Modifiable by drugs and autonomic nervous system.
+    <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+    </figure>
+    </amp-carousel>
+</section>
+
+<!--SCD-->
+<section class="main lightBlue2">
+    <h4 class="lightBlue2">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+    Conditions that increase risk of sudden cardiac arrest</h4>
+<amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+
+<!--TdP-->
+<figure>
+    <div class="row" style="align-content: center;background-color: #f5f5f5;">
+    <div style="flex: 0.8;align-self: center;align-items: center;"> 
+    <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\tdp on sotalol.png"></amp-img>
+    </div>
+    <div style="flex: 1.2;align-items: center;align-self: center;">
+    <ul class="darkList">
+        Prolong QTc and torsades de pointes.
+        <li>Prolong QTc can "trigger" torsades de pointes.</li>
+        <li class="noMobile">Causes: drugs, electrolytes abnormalities, and congenital.</li>
+        <li>Drugs that prolong QTc: Class III AADs, haloperidol, methadone, and etc.</li>
+    </ul>
+    <div class="ref" style="text-align:center">
+        <a href="http://www.onlinejacc.org/content/42/3/401" target="_blank" style="color: #555;">Yan et al. JACC 2003.</a>
+        </div>
+    </div>
+    </div>
+</figure>
+</amp-carousel>
+</section>
+
+<!--Devices-->
+<section class="main lightBlue1">
+    <h4 class="lightBlue1">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Cardiac rhythm device related ECGs</h4>
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!--Q1 tracing-->
+    <figure>
+    <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
+    <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Question 1</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
 
   </amp-accordion>
 
