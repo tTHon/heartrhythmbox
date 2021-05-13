@@ -278,21 +278,27 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
       style="margin-left: auto;margin-right: auto;">
         
-        <figure>
-          <amp-img layout="fill" src="media\EP\Conduction_System_of_Heart.jpg"></amp-img>
-         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          <b>Conduction System of the Heart</b><br>
-          Specialized conducting components of the heart include the sinoatrial node, the internodal pathways, Bachmann's bundle, 
-          the atrioventricular node, the atrioventricular bundle, the right and left bundle branches, and the Purkinje fibers.           
-          <br><i class="ref">ref:
-            <a href="http://legacy.cnx.org/content/col11496/1.8" target="_blank">
-              OpenStax, Anatomy & Physiology.</a>
-          </i>
-            <span [text]="expanded ? '▼' : '▲'">▲</span>
-          </figcaption>
-        </figure>
+    <figure>
+        <amp-img layout="fill" src="media\EKG\brady\sinus pause.jpg"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Sinus Node Dysfunction</b><br>
+        may present with severe sinus bradycardia, sinoatrial exit block, sinus pause, or tachy-bradyarrhythmia. Above is sinus pause.
+        For those with symptoms, pacemaker is indicated.           
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    <figure>
+        <amp-img layout="fill" src="media\EKG\brady\SA block.jpg"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Sinoatrial exit block type II</b><br>
+        SA Exit Block Type II: Sinus rhythm followed by a pause that is a multiple of P-P interval.
+        Above, the pause duration was twice of P-P interval.
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
         
-      </amp-carousel>
+    </amp-carousel>
     </section>
     
     <!--AVB-->
