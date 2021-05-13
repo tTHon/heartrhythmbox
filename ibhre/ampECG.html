@@ -269,8 +269,29 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 <!--content-->
  <amp-accordion animate expand-single-section>
         
+<!--Basic-->
+<section class="main lightBlue1" expanded>
+    <h4 class="lightBlue1">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Basic ECG Knowledge</h4>
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!--leads and components-->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>ECG components and ECG leads.</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
 <!--SSS-->
-<section class="main darkCyan" expanded>
+<section class="main darkCyan">
     <h4 class="darkCyan">
     <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
     <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
