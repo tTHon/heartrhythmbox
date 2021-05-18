@@ -287,6 +287,32 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </figcaption>
     </figure>
 
+    <!--limb leads-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\limb leads.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Lime leads and views of the heart</b><br>
+      <i class="ref">ref: <a href="https://www.wiley.com/en-us/Basic+Electrocardiography%3A+Normal+and+Abnormal+ECG+Patterns-p-9781405175708" target="_blank">
+        Basic Electrocardiography: Normal and Abnormal ECG Patterns. Antoni Bayés de Luna.
+      </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--chest leads-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\chest leads.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Chest leads and views of the heart</b><br>
+      <i class="ref">ref: <a href="https://www.wiley.com/en-us/Basic+Electrocardiography%3A+Normal+and+Abnormal+ECG+Patterns-p-9781405175708" target="_blank">
+        Basic Electrocardiography: Normal and Abnormal ECG Patterns. Antoni Bayés de Luna.
+      </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
     </amp-carousel>
 </section>
 
