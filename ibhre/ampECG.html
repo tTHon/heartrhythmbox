@@ -344,7 +344,15 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
 </figure>
-    
+
+<figure>
+  <amp-img layout="fill" src="media\EKG\brady\modal\SA Block.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Sinoatrial exit block</b>
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+</figure>
+
 </amp-carousel>
 </section>
 
