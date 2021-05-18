@@ -387,6 +387,39 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <span [text]="expanded ? '▼' : '▲'">▲</span>
         </figcaption>
     </figure>
+
+    <!--WKB-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\brady\AVW2.JPG"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>2nd degree AV block type I or Mobitz I</b><br>
+      PR interval progressively lengthens until the AV node fails to conduct. Usually benign.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--mobitz II-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\brady\mobitz2.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>2nd degree AV block type II or Mobitz II</b><br>
+      The tracing was obtained during exercise stress test. The AV block ratio was 2:1 alternating with 3:1 with constant PR intervals<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+      The QRS duration was wide. The block level was below AV node.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--CHB-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\brady\CHB.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>3rd degree AV block or complete AV block</b><br>
+        Atrial impulse fails to conduct to ventricle. Atrial rate is faster than ventricle. 
+        Atria and ventricles are totally dissociated.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
     </amp-carousel>
 </section>
 
