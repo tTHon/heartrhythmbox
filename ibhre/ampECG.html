@@ -381,7 +381,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <figure style="background-color: #f5f5f5;">
         <amp-img layout="fill" src="media\EKG\brady\1AVB.png"></amp-img>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        1st degree AV block<br>
+        <b>1st degree AV block</b><br>
         = excessive delay of impulse passing through AV node. Manifested in ECG by prolongation of PR interval.
         The prolonged PR is constant.  
         <span [text]="expanded ? '▼' : '▲'">▲</span>
