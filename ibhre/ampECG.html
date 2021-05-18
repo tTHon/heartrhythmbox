@@ -348,7 +348,18 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 <figure>
   <amp-img layout="fill" src="media\EKG\brady\modal\SA Block.png"></amp-img>
   <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-  <b>Sinoatrial exit block</b>
+  <b>Sinoatrial exit block: ECGs & Ladder Diagram</b><br>
+  <i class="ref">
+    <a href="https://thoracickey.com/conduction-disorders-cardiac-pacing-2/" target="_blank">thoracickey.com</a>
+  </i>
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+</figure>
+
+<figure>
+  <amp-img layout="fill" src="media\EKG\brady\tachybrady.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Tachy-brady syndrome</b>     
   <span [text]="expanded ? '▼' : '▲'">▲</span>
   </figcaption>
 </figure>
@@ -366,12 +377,13 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
     
-    <!--AP of non-PPM-->
+    <!--1 AVB-->
     <figure style="background-color: #f5f5f5;">
-        <amp-img layout="fill" src="media\EP\action potential.png"></amp-img>
+        <amp-img layout="fill" src="media\EKG\brady\1AVB.png"></amp-img>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        This is the action potential of...?<br>
-        This is the action potential of non-pacemaker cels such as myocardium and His-Purkinje fiber.            
+        1st degree AV block<br>
+        = excessive delay of impulse passing through AV node. Manifested in ECG by prolongation of PR interval.
+        The prolonged PR is constant.  
         <span [text]="expanded ? '▼' : '▲'">▲</span>
         </figcaption>
     </figure>
