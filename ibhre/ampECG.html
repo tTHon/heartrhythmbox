@@ -559,32 +559,60 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
     Tachyarrhythmias</h4>
     
-    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+  <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
     
-    <!--Automaticity-->
-    <figure>
-    <div class="mobileOnly">
-    <amp-img layout="fill" src="media\EP\automaticity AP.png"></amp-img>
-    </div>
-    <div class="row800 noMobile">
-    <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\automaticity AP.png" style="flex: 1;padding: 1vmax;align-self: center;">
-    </amp-img>
-    <div style="flex: 1;align-self: center;">
-    <ul class="lightList" style="text-align: left;">
-    <b style="padding-left: 1vmax;">Enhanced Automaticity</b>
-    <li>from normal pacemaker cells, such as sinus tachycardia.</li>
-    <li>from abnormal cells, such as atrial tachycardia.</li>
-    <li>Warm up & cool down phenomenon.</li>
-    <li>Response to autonomic nervous activity and many drugs.</li>
-    </ul></div>
-    </div>
-    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Enhanced Automaticity</b><br>
-    Warm up & cool down phenomenon. Modifiable by drugs and autonomic nervous system.
-    <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+    <!--AF-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\AF.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Atrial Fibrillation</b><br>
+      Fibrillatory wave seen in V1 with totally irregular ventricular rhythm.  
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
     </figure>
-    </amp-carousel>
+
+    <!--AFL-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\Typical Flutter.JPG"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Atrial Flutter</b><br>
+      Flutter waves seen clearly in II/III/aVF/V1. 
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--SVT-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\svt w st depression.JPG"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Supraventricular Tachycardia</b><br>
+      Narrow complex tachycardia rate approximately 200 bpm.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--VT-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\VT EKG.jpg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Ventricular Tachycardia</b><br>
+      Wide complex tachycardia rate approximately 200 bpm. No man's land axis.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--brady induced VT-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\Brady induced PVT.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Polymorphic VT & VF</b><br>
+      Sinus bradycardia with couplet PVCs followed by polymorphic VT which later progressed to VF.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>    
+
+  </amp-carousel>
 </section>
 
 <!--SCD-->
