@@ -610,7 +610,19 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       Sinus bradycardia with couplet PVCs followed by polymorphic VT which later progressed to VF.
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
-    </figure>    
+    </figure> 
+
+    <!--idiopathic VT-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\RVOT VT.JPG"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Monomorphic VT</b><br>
+      Regular wide complex tachycardia, LBBB-like morphology, positive QRS in inferior leads 
+      consistent with VT from right ventricular outflow tract. 
+      In patients without structural heart disease, this condition is benign and may be cured by catheter ablation.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure> 
 
   </amp-carousel>
 </section>
