@@ -657,6 +657,48 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </figcaption>
   </figure> 
 
+  <!--HCM-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\HCM.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Hypertrophic Cardiomyopathy</b><br>
+      High voltage in I, aVL, V4-6 with lateral ST depression and T wave inversion.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--LQT-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\LQT1_broad based T.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Long QT ECG</b><br>
+      This ECG was from a patient with long QT 1 syndrome. Noted with prolong QT interval and broad based T wave.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--WPW-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\WPW.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Wolff-Parkinson-White Syndrome</b><br>
+    Left: slurred upstroke of QRS complex or delta waves presented in leads II, III, aVF, and V2-V5.<br>
+    Right: Irregular, wide-complex, and extremely fast tachycardia, consistent with AF with rapid conduction via accessory pathway
+    causing extremely fast ventricular rate. Catheter ablation is indicated.   
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--Old MI-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\Old MI w 1AVB.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Old inferior and anterior wall myocardial infarction</b><br>
+    Deep Q waves in III/aVF and V2-V4. May lead to scar-related VT.  
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
 </amp-carousel>
 </section>
 
