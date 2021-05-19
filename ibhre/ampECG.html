@@ -699,6 +699,19 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </figcaption>
   </figure> 
 
+  <!--short QT-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\short QT.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Short QT</b><br>
+    Short QT syndrome is an extremely rare, yet highly lethal condition. 
+    <i class="ref">
+      <a href="https://www.wolterskluwer.com/en/solutions/ovid/4198" target="_blank">Marriott's Practical Electrocardiography. 13th edition, 2020.</a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
 </amp-carousel>
 </section>
 
@@ -724,7 +737,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </amp-carousel>
 </section>
 
-  </amp-accordion>
+</amp-accordion>
 
 
 <!--footer-->
