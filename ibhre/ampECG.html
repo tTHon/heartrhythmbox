@@ -726,60 +726,71 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     
     <!--oversensing-->
     <figure>
-    <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-    <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+    <amp-img layout="fill" src="media\EKG\device\V oversensing 1.JPG" style="margin: 4vmax 0.5vw;"></amp-img>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Question 1</b>
+    <b>Failure to fire</b><br>
+    1st 6 beats: P synchronous ventricular pacing. Last 3 beats: P waves without any pacing spikes.<br>
+    Generic Diagnosis: failure to fire. Potential causes: oversensing, battery depletion, loose connection, and etc.<br>
+    In this case, failure to fire was due to lead noise oversensing from lead fracture.
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
     </figure>
   
     <!--undersensing-->
     <figure>
-      <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-      <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <amp-img layout="fill" src="media\EKG\device\A undersensing.png" style="margin: 4vmax 0.5vw;"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Question 1</b>
+      <b>Atrial Undersensing</b>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
 
     <!--V noncapture-->
     <figure>
-      <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-      <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <amp-img layout="fill" src="media\EKG\device\Lead Fx 1800 ohms.JPG" style="margin: 4vmax 0.5vw;"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Question 1</b>
+      <b>Failure to fire, sense, and capture</b><br>
+      This is a case of a VVI pacemaker with lead fracture. The lower rate was set at 60bpm.
+      The first 4 beats were AF with slow ventricular response without any pacing spikes. After the 4th and 5th QRS, pacing spikes occurred in appropriately<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+      The last beat was PVC followed by a pacing spike which failed to capture.
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
       </figure>
 
     <!--A in V-->
     <figure>
-      <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-      <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <amp-img layout="fill" src="media\EKG\device\A lead in V.png" style="margin: 4vmax 0.5vw;"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Question 1</b>
+      <b>Atrial lead failed to properly pace.</b><br>
+      Dual chamber system with A lead fell in to ventricle. Noted that for each QRS, there were 2 pacing spikes separated by 160ms, likely to equal AV delay.<br>
+      The 1st spike captured ventricle. The 2nd spike was functionally not captured. Cannot exclude A/V leads switch in the header, though.
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
 
     <!--AV switch port-->
     <figure>
-      <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-      <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <amp-img layout="fill" src="media\EKG\device\lead switch ddd 60 120.png" style="margin: 4vmax 0.5vw;"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Question 1</b>
+      <b>Failure to properly pace and failure to fire</b><br>
+      Dual chamber system. The first line showed 2 pacing spikes for each QRS. The 1st spike captured ventricle. The 2nd spike came at the interval of AV delay.
+      There are 2 possible explanations, A lead in ventricle or A/V leads switch in the header. The latter was most likely.
+      The 2nd and 3rd lines of the tracing showed P wave without QRS or V pacing, meaning that atrium signal was sensed. A lead in ventricle was therefore excluded.
+      In this case, A and V leads were placed in to the wrong port in the header. When atrial rate was increased as in the 2nd line, ventricular channel was sensed and therefore inhibited the pacing from both A and V channels.
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
   
     <!--PPM WKB-->
     <figure>
-      <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-      <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <amp-img layout="fill" src="media\EKG\device\PPM Block.png" style="margin: 4vmax 0.5vw;"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Question 1</b>
+      <b>DDD 50/110, PAV 150, SAV 120, PVARP 200</b><br>
+      Upper Rate Behavior: Pacemaker "block".<br>
+      ECG showed AS-VP with progressively increase in AV delay until drop beats. 
+      Atrial rate was faster than the upper tracking rate of 110bpm but slower than TARP rate. Wenckebach phenomenon was therefore seen.
+      TARP = 120+200 msec; TARP rate = 188 bpm.
+      Wenckebach window = 110-188 or 320-545msec.
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
