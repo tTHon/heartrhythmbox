@@ -1,0 +1,534 @@
+<!doctype html>
+<html ⚡ lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>IBHRE: Clinical Practice</title>
+
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+<script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+<script async custom-element = "amp-fit-text" src = "https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+<link rel="canonical" href="https://heartrhythmbox.com/ibhre">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css"/>
+<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+
+<style amp-custom>
+* {
+  box-sizing: border-box;
+}
+
+/*color*/
+.darkCyan {background-color: #074860;color: #f1f1f1;}
+.cyan1 {background-color: #1b5b56;color: #f1f1f1;}
+.cyan2 {background-color: #11515b;color: #f1f1f1;}
+.lime {color: #ccff00;}
+.nearBlack {background-color: #232323;color: #f1f1f1;}
+.lightBlue1 {background-color: #B6c2c8;color: #074860;}
+.lightBlue2 {background-color: #8eafc0;color: #074860;}
+
+/*top*/
+.topBar {
+    font-size: 2vmax;padding: 0.5vmax;color: #f1f1f1;
+    background-color: #074860;position: sticky;top: 0;z-index: 10;
+    border-bottom-left-radius: 1vmax;border-bottom-right-radius: 1vmax;   
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.mobileOnly {display: none;}
+@media only screen and (max-width:800px){
+  .noMobile, .tab {display: none;}
+  .mobileOnly {display: block;}
+}
+
+.tab {
+  margin: 0 1.5vmax;cursor: pointer;
+}
+.tab a {text-decoration: none;color:#f1f1f1;}
+.ref, .ref a {font-size: 1.1vw;color: #ddd;}
+@media only screen and (max-width:600px) {
+  .ref, .ref a {font-size: 10px;}
+}
+
+/*sideNav*/
+.sideMenu {min-width: 300px;margin: 1vmax;}
+.navItem {
+    font-size: 1.8vmax;padding: 1vmax 2vmax 1vmax 1vmax;border: none;cursor: pointer;
+    border-bottom: solid 0.1vmax rgb(112,112,112);text-align: center;
+}
+.navItem a {text-decoration: none;color:inherit;}
+.navItem:hover, .navItem a:hover {background-color: rgb(82, 82, 82);color: #f2f2f2;}
+
+/*flexbox */
+.row {display: flex;align-content: center;flex-wrap: wrap;}
+.row800 {display: flex;padding: 1vmax;}
+@media only screen and (max-width:800px) {
+  .row800 {display: none;}
+}
+
+/*list*/
+.lightList, .darkList {font-size: 2.5vmax;font-weight: 900;padding: 2vmax; text-align: center;color: #ccff00;margin: 1vmax;}
+.lightList li, .darkList li {
+  font-size: 1.8vmax;font-weight: normal;border-bottom: #ddd 0.1vmax solid;color: #ddd;padding: 1vmax;
+  list-style: none;
+  }
+  .lightList li a, .darkList li a {text-decoration: none;color: inherit;}
+.darkList {color: #074860;}
+.lightList li:hover, .darkList li:hover  {background-color: #074860;color: #ffffff;}
+.darkList li {color: #232323;border-bottom-color: #555;}
+@media only screen and (max-width:800px){
+  .darkList, .lightList, .lightList li, .darkList li {font-size: 1.8vmax;padding: 0.5vmax;}
+}
+
+/*Q*/
+.qBox {text-align: left;margin-left: auto;margin-right: auto;padding: 2vmax;}
+.qList {list-style: lower-alpha inside; border-top: #ccff00 0.1vmax solid;padding: 1vmax;
+margin-left: auto;margin-right: auto;}
+
+/*table*/
+.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax;color: #f2f2f2;height: 90%;
+margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
+.lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax;}
+.lightTable th {color: #ccff00;}
+@media only screen and (max-width:500px){
+  .lightTable {margin: none;padding: 0.25vw;}
+  .lightTable th, .lightTable td {padding: 0.25vw;}
+  .lightTable tr:nth-child(5) {display: none;}
+}
+
+
+/*accordion*/
+.main {font-size: 2vmax;padding: 1vmax;}
+.main h4 {padding: 1vmax;border: none;}
+
+amp-accordion {margin-left: auto;margin-right: auto;text-align: center;width: fit-content;
+padding: 5vh 0;margin-top: 5vh;margin-bottom: 5vh;}
+amp-accordion section[expanded] .showMore {display: none;}
+amp-accordion section[expanded] .showLess {color: #ccff00;}
+amp-accordion section:not([expanded]) .showLess {display: none;}
+
+/*carousel*/
+    /* define some contants */
+  amp-carousel {max-height: 90vh;}
+    .collapsible-captions {
+      --caption-height: 2vmax;
+      --image-height: 300px;
+      --button-size: 1.5vmax;
+      --caption-color: #f5f5f5;;
+      font-size: 1.8vmax;
+    }
+    .collapsible-captions * {
+      /* disable chrome touch highlight */
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+      box-sizing: border-box;
+    }
+    .collapsible-captions {
+      position: relative;
+      width: 100%;
+    }
+    .collapsible-captions amp-img img {
+      object-fit: contain;
+    }
+    .collapsible-captions figure {
+      margin: 0;
+      padding: 0;
+      background-color: #333;
+    }
+    /* single line caption */
+    .collapsible-captions figcaption {
+      position: absolute;
+      bottom: 0;
+      margin: 0;
+      width: 100%;
+      /* inital height is one line */
+      max-height: var(--caption-height);
+      line-height: var(--caption-height);
+      padding: 0 var(--button-size);
+      /* cut text after first line and show an ellipsis */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      /* overlay the carousel icons */
+      z-index: 10;
+      /* some styling */
+      color: var(--caption-color);
+      background-color: rgba(17,17,17,0.6);
+    }
+    /* expanded caption */
+    .collapsible-captions figcaption.expanded {
+      /* add padding and show all of the text */
+      line-height: inherit;
+      white-space: normal;
+      text-overflow: auto;
+      max-height: calc(var(--caption-height) + var(--image-height));
+      /* show scrollbar in case caption is larger than image */
+      overflow: auto;
+      background-color: rgba(17,17,17,0.9);
+    }
+    /* don't show focus highlights in chrome */
+    .collapsible-captions figcaption:focus {
+      outline: none;
+      border: none;
+    }
+    /* the expand/collapse icon */
+    .collapsible-captions figcaption span {
+      display: block;
+      position: absolute;
+      top: calc((var(--caption-height) - var(--button-size)) / 2);
+      right: 0.5vw;
+      width: var(--button-size);
+      height: var(--button-size);
+      line-height: var(--button-size);
+      text-align: center;
+      font-size: 1.8vmax;
+      color: white;
+      cursor: pointer;
+    }
+
+
+/*footer*/
+.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+.sectionH {padding-top: 0.7vmax;
+        background-color: transparent;color: white;font-size: 16px;border: none;
+      }
+.sectionT {
+        font-size: 14px;color: #f1f1f1;padding: 0.7vmax;
+      }
+
+</style>
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+
+<body style="font-family: 'Oxygen', sans-serif;color: rgb(82, 82, 82);">
+
+  <amp-sidebar id="sidebar" layout="nodisplay" side="left">
+    <div style="text-align: left;padding: 0.5vmax;">
+    <button on="tap:sidebar.close" style="border: none;">
+        <i class="fas fa-times-circle" style="font-size: 2vmax;color: rgb(27, 91,86);border:none"></i>
+    </button>
+    </div>
+    <div class="sideMenu">
+    <ul style="list-style: none;margin: 0;padding: 0;">
+        <li class="navItem"><a href="ampIndex.html">Home</a></li>
+        <li class="navItem"><a href="ampEP.html">Fundamental of EP</a></li>
+        <li class="navItem">ECGs</li>
+        <li class="navItem">Clinical Practice</li>
+        <li class="navItem" style="border-bottom: none;">
+            <a href="https://heartrhythmbox.com">
+                <amp-img src="box_grey.png" width="32" height="32" layout="fixed">
+                </amp-img></a>    
+        </li>
+    </ul></div>
+</amp-sidebar>
+
+<!--large screen only --menu-->
+<div class="topBar row800" style="font-size: 1.8vmax;">
+  <button on="tap:sidebar.open" class="darkCyan" style="border: none;cursor: pointer;">
+    <i class="fas fa-bars" style="font-size: 1.8vmax;color: #ccff00;"></i></button>
+  <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
+    <a href="https://heartrhythmbox.com">
+    <amp-img src="box_grey.png" width="30" height="30" layout="fixed">
+        </amp-img></a>
+  </span>
+  <div class="tab">
+    <a href="ampIndex.html">
+    Home</a>
+  </div>
+  <div class="tab">
+    <a href="ampEP.html">Fundamental of EP</a>
+  </div>
+  <div class="tab">
+    ECGs
+  </div>
+  <div class="tab" style="border-bottom:#ccff00 solid 0.2vmax">
+    Clinical Practice
+  </div>
+</div>
+
+<!--mobile menu-->
+<div class="topBar mobileOnly" style="width: 100%;">
+  <button on="tap:sidebar.open" style="border: none;cursor: pointer;" class="darkCyan lime">
+  <i class="fas fa-bars" style="font-size: 2vmax;"></i></button>
+  <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
+    <a href="https://heartrhythmbox.com">
+    <amp-img src="box_grey.png" width="20" height="20" layout="fixed">
+        </amp-img></a>
+    </span>
+</div>
+
+<!--title-->
+<div style="font-size: 3.2vmax;letter-spacing: 0.5vmax;font-weight: 900;text-align: center;padding: 1vmax;">
+  Clinical Practice
+ </div>
+
+<!--content-->
+ <amp-accordion animate expand-single-section>
+        
+<!--Guidelines-->
+<section class="main nearBlack" expanded>
+    <h4 class="nearBlack">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Guidelines & Exam Blueprint</h4>
+    
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!--guidelines-->
+    <figure>
+
+    <ul class="lightList">
+        <li>
+            <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
+            2017 AHA/ACC/HRS Guideline for <span class="noMobile">Management of Patients With Ventricular Arrhythmias and the Prevention of </span>
+            <span class="lime" style="font-size: 2vmax;font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;SUDDEN CARDIAC DEATH</span></a>
+        </li>
+        <li>
+            <a href="https://doi.org/10.1161/CIR.0000000000000499" target="_blank">
+            2017 ACC/AHA/HRS Guideline for <span class="noMobile">the Evaluation and Management of Patients With </span>
+            <span class="lime" style="font-size: 2vmax;font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;SYNCOPE</span></a>
+        </li>
+        <li>
+            <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
+            2018 ACC/AHA/HRS Guideline on <span class="noMobile">the Evaluation and Management of Patients With </span>
+            <span class="lime" style="font-size: 2vmax;font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;BRADYCARDIA</span></a>
+        </li>
+    </ul>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>ACC/AHA/HRS: Device Guidelines</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
+<!--Brady-->
+<section class="main darkCyan">
+    <h4 class="darkCyan">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Pacemaker Indications</h4>
+    
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!---->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Device Guidelines</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
+<!--ICD-->
+<section class="main cyan2">
+    <h4 class="cyan2">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    ICD Indications</h4>
+    
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!---->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Device Guidelines</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
+<!--CRT-->
+<section class="main cyan1">
+    <h4 class="cyan1">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    CRT Indications</h4>
+    
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!---->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Device Guidelines</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
+<!--procedure-->
+<section class="main lightBlue2">
+    <h4 class="lightBlue2">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Procedural Considerations</h4>
+    
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!--anatomy CS/RVOT-->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Device Guidelines</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    <!--complications-->
+    <figure>
+        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Device Guidelines</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    <!--sedations-->
+    <figure>
+        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Device Guidelines</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    <!--radiation safty-->
+    <figure>
+        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Device Guidelines</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    <!--sterile tech-->
+    <figure>
+        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Device Guidelines</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    <!--DFT-->
+    <figure>
+        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Device Guidelines</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    <!--device infection-->
+    <figure>
+        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Device Guidelines</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
+<!--EP procedures-->
+<section class="main lightBlue1">
+    <h4 class="lightBlue1">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Other EP Testing/Procedures</h4>
+    
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+    
+    <!---->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Device Guidelines</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
+
+
+</amp-accordion>
+
+
+<!--footer-->
+<div id="about" style="background-color: #555;color: white;font-size: 18px;padding: 15vh 3vh">
+    <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
+  
+      <div class="rowF">
+        <a href="#top" style="text-decoration:none;color: white;">
+        <b>Top</b> of the page</a>
+        </div>
+  
+      <div class="rowF">
+        <b>follow </b>&nbsp; me at &nbsp;
+          <a href="https://heartrhythmbox.com">
+            <amp-img src="box_grey.png" width="28" height="28" layout="fixed">
+            </amp-img></a>&nbsp;&nbsp; and &nbsp;&nbsp;
+        <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+            style="text-decoration:none;color: white;">
+            <amp-img src="fb.png" width="23" height="23" layout="fixed" style="vertical-align: -5px;">
+            </amp-img>
+        </a>
+      </div>
+  
+      <div class="rowF" style="text-align: left;">
+        <h2 class="sectionH">About the page</h2>
+        <p class="sectionT">Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+            The page is created mainly for educational purpose. 
+            I believe that presentations should be more interactive and easily accessible. 
+            No need to register or download. You can access everything at your fingertips.
+        </p>
+      </div>        
+      <div class="rowF" style="text-align: left;">       
+                <h2 class="sectionH">About the author</h2>
+                <p class="sectionT">
+                  <i>t'</i> Thon, the screen name of the author, is a novice web developer,
+                  a wine enthusiast, and a cardiac eletrophysiologist by training.
+                </p>
+             
+          
+      </div>
+  
+      <div class="rowF" style="border-bottom: none;">
+          <a href="https://github.com/tTHon/heartrhythmbox" target="_blank" 
+          style="text-decoration:none;color: white;">
+          Know more about my code: &nbsp;
+          <amp-img src="github white.png" width="23" height="23" layout="fixed" style="vertical-align: -3px;">
+        </amp-img>
+         
+          </a>
+      </div>
+  
+    </div>
+  </div>
+
+</body>
+</html>
