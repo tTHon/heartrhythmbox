@@ -80,8 +80,11 @@
 .darkList {color: #074860;}
 .lightList li:hover, .darkList li:hover  {background-color: #074860;color: #ffffff;}
 .darkList li {color: #232323;border-bottom-color: #555;}
+@media only screen and (min-width:801px){
+  .darkList, .lightList, .lightList li, .darkList li {padding: 0.5vmax;font-size: 2.5vmax;}
+}
 @media only screen and (max-width:800px){
-  .darkList, .lightList, .lightList li, .darkList li {font-size: 1.8vmax;padding: 0.5vmax;}
+  .darkList, .lightList, .lightList li, .darkList li {padding: 0.5vmax;}
 }
 
 /*Q*/
@@ -282,29 +285,44 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     
     <!--guidelines-->
     <figure>
-
+    <amp-fit-text width="86vw" height="44vw" layout="responsive">
     <ul class="lightList">
         <li>
             <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
             2017 AHA/ACC/HRS Guideline for <span class="noMobile">Management of Patients With Ventricular Arrhythmias and the Prevention of </span>
-            <span class="lime" style="font-size: 2vmax;font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;SUDDEN CARDIAC DEATH</span></a>
+            <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;SUDDEN CARDIAC DEATH</span></a>
         </li>
         <li>
             <a href="https://doi.org/10.1161/CIR.0000000000000499" target="_blank">
             2017 ACC/AHA/HRS Guideline for <span class="noMobile">the Evaluation and Management of Patients With </span>
-            <span class="lime" style="font-size: 2vmax;font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;SYNCOPE</span></a>
+            <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;SYNCOPE</span></a>
         </li>
         <li>
             <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
             2018 ACC/AHA/HRS Guideline on <span class="noMobile">the Evaluation and Management of Patients With </span>
-            <span class="lime" style="font-size: 2vmax;font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;BRADYCARDIA</span></a>
+            <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;BRADYCARDIA</span></a>
         </li>
     </ul>
+    </amp-fit-text>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
     <b>ACC/AHA/HRS: Device Guidelines</b>
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
     </figure>
+    
+    <!--blueprint-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\blueprintClinicalPractice.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Exam Blueprint for cardiac device specialists</b><br>
+      <i class="ref">
+        Ref: <a href="https://ibhre.org/sites/default/files/2021-04/3.10.2021-Candidate-Handbook-Final.pdf" target="_blank">
+        IBHRE Candidate Handbook
+        </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+      </figure>
 
     </amp-carousel>
 </section>
