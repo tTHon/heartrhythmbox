@@ -466,13 +466,61 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
     
-    <!---->
+    <!--ICD 2nd-->
     <figure>
-    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
-    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Device Guidelines</b>
-    <span [text]="expanded ? '▼' : '▲'">▲</span>
-    </figcaption>
+      <amp-img layout="fill" src="media\Clinical\icdSecond.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>ICD for Secondary Prevention in Patients with Ischemic Heart Disease</b><br>
+      Need to exclude reversible causes.<br>
+      ICD candidacy determined by functional status, life expectancy, or patient preference.
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
+          2017 AHA/ACC/HRS Guideline for Sudden Cardiac Death</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--ICD 1ry-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\icdPrim.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>ICD for Primary Prevention in Patients with Ischemic Heart Disease</b><br>
+      Early ICD implantation may consider in those with pacing indication or syncope.
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
+          2017 AHA/ACC/HRS Guideline for Sudden Cardiac Death</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--NICM-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\icdNICM.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>ICD for non-Ischemic Heart Disease</b><br>
+      In Lamin A/C mutation, ICD may be beneficial in those with 2 or more risk factors (NSVT, LVEF&lt;45%, non-missense mutation, and male sex). 
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
+          2017 AHA/ACC/HRS Guideline for Sudden Cardiac Death</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--HCM-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\HCM.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>ICD for Hypertrophic Cardiomyopathy</b><br>
+      HCM is the most common cause of SCD in individuals &lt;40 years of age.
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
+          2017 AHA/ACC/HRS Guideline for Sudden Cardiac Death</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
     </figure>
 
     </amp-carousel>
