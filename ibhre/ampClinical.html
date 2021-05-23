@@ -285,7 +285,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     
     <!--guidelines-->
     <figure>
-    <amp-fit-text width="86vw" height="44vw" layout="responsive">
+    <amp-fit-text width="86vw" height="40vw" layout="responsive">
     <ul class="lightList">
         <li>
             <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
@@ -336,14 +336,121 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
-    
-    <!---->
+
+    <!--def-->
     <figure>
-    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+      <amp-img layout="fill" src="media\Clinical\sndDef.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Definition</b><br>
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
+          2018 ACC/AHA/HRS Guideline on BRADYCARDIA</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+      </figure>
+
+    <!--def-->
+    <figure>
+    <amp-img layout="fill" src="media\Clinical\avBlockDef.png"></amp-img>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Device Guidelines</b>
+    <b>Definition</b><br>
+    <i class="ref">
+      <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
+        2018 ACC/AHA/HRS Guideline on BRADYCARDIA</a>
+    </i>
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
+    </figure>
+
+    <!--init Dx algo-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\initDxAlgo.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Bradycardia Evaluation Algorithm</b><br>
+      Noted that sleep apnea is now recognized as one of the conditions that causes bradycardia.<br>
+      For those who had infrequent symptoms, implantable cardiac monitor (ICM) is recommended.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
+          2018 ACC/AHA/HRS Guideline on BRADYCARDIA</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--SSS algo-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\sndAlgo.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Sinus Node Dysfunction Management</b><br>
+      Pacemaker is indicated only in symptomatic patients.
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
+          2018 ACC/AHA/HRS Guideline on BRADYCARDIA</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--SSS algo mode-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\ppmModeSND.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Choices of Pacemaker in SND</b><br>
+      For those with symptomatic SND that is short-lived or infrequent, single chamber ventricular pacing including leadless pacemaker may be adequate.<br>
+      The risk of developing AV block after PPM is 3-35%, depending on underlying bundle branch conduction abnormalities.
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
+          2018 ACC/AHA/HRS Guideline on BRADYCARDIA</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--avb algo-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\avbAlgo.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Management of AV Block</b><br>
+      Symptoms of severe 1st degree AV block (PR >0.30s) and Mobitz I are similar to those of pacemaker syndrome. 
+      The indication for PPM is driven by symptoms.<br> 
+      For those with infranodal block (Mobitz II, advanced, or complete AV block) not from reversible causes, PPM is indicated regardless of symptoms.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
+          2018 ACC/AHA/HRS Guideline on BRADYCARDIA</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--avb algo mode-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\ppmModeAvb.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Choices of PPM in AV Block</b><br>
+        In AV Block with LVEF&lt;50% and expected frequent RV pacing (&gt;40%), CRT or His-bundle pacing are preferred.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
+          2018 ACC/AHA/HRS Guideline on BRADYCARDIA</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--lyme-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\Lyme.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Lyme Carditis</b><br>
+        Lyme carditis is one of the most common reversible causes of AV block.Approximately 40%
+        of patients who are identified clinically require temporary pacing, but permanent atrioventricular block
+        after antibiotic therapy is rare.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.jacc.2018.11.035" target="_blank">
+          JACC 2019.</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
     </figure>
 
     </amp-carousel>
