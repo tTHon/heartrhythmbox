@@ -690,11 +690,13 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </figcaption>
       </figure>
     
-    <!--anatomy CS/RVOT-->
+    <!--anatomy RAA/RVOT-->
     <figure>
-    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <amp-img layout="fill" src="media\Clinical\anatomy.png"></amp-img>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Device Guidelines</b>
+    <b>Anatomy of the heart chambers relevant for pacing</b><br>
+    Right anterior oblique view (∼20°) of the heart. Note proximity of the tip (*) of the right atrial appendage (RAA) to the aortic root (Ao) and the right ventricle.
+    The pacing lead is positioned on the mid-septum against the septo-marginal trabeculation (SMT) below the supraventricular crest (SVcrest), which forms the inferior border of the right ventricular outflow tract (RVOT). A noticeable «jump» can be seen as the lead is pulled back from the RVOT over these structures.
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
     </figure>
