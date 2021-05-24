@@ -93,9 +93,9 @@
 margin-left: auto;margin-right: auto;}
 
 /*table*/
-.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax;color: #f2f2f2;height: 90%;
+.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax 2vmax;color: #f2f2f2;height: 90%;
 margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
-.lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax;}
+.lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax 2vmax;}
 .lightTable th {color: #ccff00;}
 @media only screen and (max-width:500px){
   .lightTable {margin: none;padding: 0.25vw;}
@@ -535,6 +535,41 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
           2017 AHA/ACC/HRS Guideline for Sudden Cardiac Death</a>
       </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--LQT drugs-->
+    <figure>
+      <amp-fit-text width="80vw" height="40vw" layout="responsive">
+      <table class="lightTable">
+        <tr>
+          <th>Drug Class</th><th>Examples</th>
+        </tr>
+        <tr>
+          <td>Antiarrhythmics</td><td>class Ia and class III</td>
+        </tr>
+        <tr>
+          <td>Psychotropic Medications</td><td>Haloperidol, Citalopram, Tricyclic Antidepressants</td>
+        </tr>
+        <tr>
+          <td>Antibiotics</td><td>Erythromycin, Azithromycin, Ciprofloxacin, Levofloxacin, Fluconazole</td>
+        </tr>
+        <tr>
+          <td>Antiemetics</td><td>Domperidone, Ondansetron</td>
+        </tr>
+        <tr>
+          <td>Others</td><td>Methadone</td>
+        </tr>
+      </table>
+      </amp-fit-text>
+      
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Commonly used QT-prolonging Medications</b><br>
+      <i class="ref">More complete list at
+        <a href="https://www.crediblemeds.org/" target="_blank">
+          crediblemeds.com</a>
+      or download <a href="media\Clinical\Drugs To Avoid List in LQTS.pdf" target="_blank"> pdf version here</a></i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
