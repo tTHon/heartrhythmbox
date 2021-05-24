@@ -307,6 +307,11 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             2018 ACC/AHA/HRS Guideline on <span class="noMobile">the Evaluation and Management of Patients With </span>
             <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;BRADYCARDIA</span></a>
         </li>
+        <li>
+          <a href="https://doi.org/10.1093/europace/euaa367" target="_blank">
+          2021 EHRA/HRS/APHRS/LAHRS EHRA expert consensus statement <span class="noMobile">and practical guide on optimal </span>
+          <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;on optimal implantation techniques</span></a>
+      </li>
     </ul>
     </amp-fit-text>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
@@ -653,10 +658,37 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <h4 class="lightBlue2">
     <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
     <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-    Procedural Considerations</h4>
+    Device Implantation: Procedural Considerations</h4>
     
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
+
+    <!--preop checklist-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\preOpCheckList.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Preoperative Checklist</b><br>
+      <i class="ref">
+      <a href="https://doi.org/10.1093/europace/euaa367" target="_blank">
+        2021 EHRA consensus on optimal implantation techniques</a></i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+      </figure>
+
+    <!--OAC/antiplt-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\periOpOACs.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Preoperative Management of Anticoagulation and Antiplatelets</b><br>
+      Hemetoma increases risk of infection. 
+      Uninteruppted oral anticoagulation is preferrable to heparin briding, as it reduces risk of hematoma.<br>
+      For DOAC, incidence of hemaroma was not different between interupted and uninteruppted strategy. 
+      <i class="ref">
+        <a href="https://doi.org/10.1093/europace/euaa367" target="_blank">
+          2021 EHRA consensus on optimal implantation techniques</a></i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+      </figure>
     
     <!--anatomy CS/RVOT-->
     <figure>
