@@ -701,6 +701,15 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </figcaption>
     </figure>
 
+    <!--CS-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\csAnatomy.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Anatomy of Coronary Sinus</b>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
     <!--complications-->
     <figure>
         <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
