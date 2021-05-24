@@ -287,7 +287,12 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <figure>
     <amp-fit-text width="86vw" height="40vw" layout="responsive">
     <ul class="lightList">
-        <li>
+      <li>
+        <a href="https://doi.org/10.1093/eurheartj/ehw128" target="_blank">
+          2016 ESC Guidelines for <span class="noMobile">the diagnosis and treatment of acute and chronic</span>
+        <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;HEART FAILURE</span></a>
+      </li>
+       <li>
             <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
             2017 AHA/ACC/HRS Guideline for <span class="noMobile">Management of Patients With Ventricular Arrhythmias and the Prevention of </span>
             <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;SUDDEN CARDIAC DEATH</span></a>
@@ -574,6 +579,22 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </figcaption>
     </figure>
 
+    <!--subQ-->
+    <figure>
+      <div class="row">
+      <amp-img layout="responsive" width="1" height="1" src="media\Clinical\subQICD.png" style="display: flex;flex: 0.8;"></amp-img>
+      <div style="display: flex;flex: 1.2;">
+      <ul class="lightList">
+        Entirely Subcutanous ICD
+        <li>Avoid need for venous access.</li>
+        <li class="noMobile">May not achieve adequate sensing in all patients.</li>
+        <li>Incapable of pacing</li>
+        <li>May be appropriate in HCM, Brugada, and congenital heart patients.</li>
+      </ul>
+      </div>
+      </div>  
+    </figure>
+
     </amp-carousel>
 </section>
 
@@ -587,13 +608,41 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
     
-    <!---->
+    <!--algo-->
     <figure>
-    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <amp-img layout="fill" src="media\Clinical\crtAlgoLowEF.png"></amp-img>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Device Guidelines</b>
+    <b>Indications for CRT Therapy in Patients with LVEF&le;35%</b><br>
+    <i class="ref">
+      <a href="https://www.uptodate.com" target="_blank">
+      UpToDate</a>
+    </i>
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
+    </figure>
+
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\crtAlgoMedEF.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Indications for CRT Therapy in Patients with LVEF 35-50%</b><br>
+      <i class="ref">
+        <a href="https://www.uptodate.com" target="_blank">
+        UpToDate</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\crtIndicationsEsc.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Indications for CRT Therapy in brief</b><br>
+      <i class="ref">
+        <a href="https://doi.org/10.1093/eurheartj/ehw128" target="_blank">
+        2016 ESC Guidelines for HF</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
     </figure>
 
     </amp-carousel>
