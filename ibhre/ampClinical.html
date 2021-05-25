@@ -30,6 +30,7 @@
 .nearBlack {background-color: #232323;color: #f1f1f1;}
 .lightBlue1 {background-color: #B6c2c8;color: #074860;}
 .lightBlue2 {background-color: #8eafc0;color: #074860;}
+.veryLightBlue {background-color: #cfd9db;color: #074860;}
 
 /*top*/
 .topBar {
@@ -93,7 +94,7 @@
 margin-left: auto;margin-right: auto;}
 
 /*table*/
-.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax 2vmax;color: #f2f2f2;max-height: 70vh;
+.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax 2vmax;color: #f2f2f2;
 margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
 .lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax 2vmax;}
 .lightTable th {color: #ccff00;}
@@ -599,6 +600,34 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </div>  
     </figure>
 
+    <!--TOF-->
+    <figure>
+      <div class="row">
+      <amp-img layout="responsive" width="468" height="519" src="media\Clinical\TOF.webp" style="display: flex;flex: 0.8;"></amp-img>
+      <amp-img layout="responsive" width="1" height="0.5" src="media\Clinical\Tetralogy-of-Fallot-Medcomic.jpg" style="display: flex;flex: 1.2;"></amp-img>
+      </div>  
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Tetralogy of Fallot</b><br>
+        The most common cyanotic congenital heart disease in grown-up adult.
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    <!--ACHD-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\ACHD ICD.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>ICD in Adult Congenital Heart Disease</b><br>
+      *High-risk features: prior palliative systemic to pulmonary shunts, unexplained syncope, frequent PVC, atrial tachycardia, QRS duration ≥180 ms, decreased LVEF or diastolic dysfunction, dilated right ventricle, severe pulmonary regurgitation or stenosis, or elevated levels of BNP.
+      <br>
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
+          2017 AHA/ACC/HRS Guideline for Sudden Cardiac Death</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+    
     </amp-carousel>
 </section>
 
@@ -644,6 +673,30 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <i class="ref">
         <a href="https://doi.org/10.1093/eurheartj/ehw128" target="_blank">
         2016 ESC Guidelines for HF</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\crtLeadPosition.jpg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Classification of LV Lead Position</b><br>
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIRCULATIONAHA.110.000646" target="_blank">
+        Circulation 2011.</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\apicalLVLead.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Apical LV lead position</b> was associated with higher incidence of HF or death compared to non-apical position.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIRCULATIONAHA.110.000646" target="_blank">
+        Circulation 2011.</a>
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
@@ -837,37 +890,155 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
     <!--DFT-->
     <figure>
-        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+        <amp-img layout="fill" src="media\Clinical\DFT effects of energy.png"></amp-img>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Device Guidelines</b>
+        <b>Concept of defibrillation threshold testing: DFT vs. ULV</b><br>
+        The effects of an electrical shock vary as a function of the energy delivered. A low-energy shock, on the order of 1 Joule (J), delivered in the vulnerable period, can induce an arrhythmia. The upper limit of vulnerability corresponds to the lowest shock energy, which, when delivered during the ventricular vulnerable period, does not induce VF, a value that has been correlated with the defibrillation threshold.<br>
+        <i class="ref">
+          <a href="www.cardiocases.com" target="_blank">
+            cardiocases.com
+          </a>
+        </i>
         <span [text]="expanded ? '▼' : '▲'">▲</span>
         </figcaption>
     </figure>
 
-    <!--complications-->
+    <!--DFT indications-->
     <figure>
-      <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Device Guidelines</b>
-      <span [text]="expanded ? '▼' : '▲'">▲</span>
-      </figcaption>
-  </figure>
+      <amp-fit-text width="80vw" height="40vw" layout="responsive">
+        <table class="lightTable" style="margin-bottom: auto;">
+          <tr>
+            <th>Conditions</th><th>DFT (Yes/No)</th><th>Class of Recommendation</th>
+          </tr>
+          <tr>
+            <td>Subcutanous</td><td>Yes</td><td>I</td>
+          </tr>
+          <tr>
+            <td>Initial left-pectoral, transvenous implantation with well-positioned RV lead and adequate sensing.</td>
+            <td>No</td><td>IIa</td>
+          </tr>
+          <tr>
+            <td>Right-pectoral implantation or generator change.</td><td>Yes</td><td>IIa</td>
+          </tr>
+          <tr>
+            <td>Contraindications to DFT*</td><td>No</td><td>III</td>
+          </tr>
+        </table>
+        <div class="ref" style="text-align: left;padding: 1vmax;">*documented nonchronic cardiac thrombus, AF or atrial flutter without adequate systemic anticoagulation, critical aortic stenosis, unstable CAD, recent stroke or TIA, haemodynamic instability, or other known morbidities associated with poor outcomes.
+        <br><a href="https://doi.org/10.1093/europace/euv411" target="_blank" class="noMobile">
+          2015 HRS/EHRA/APHRS/SOLAECE expert consensus statement on optimal implantable cardioverter-defibrillator programming and testing.
+        </a>
+        </div>
+      </amp-fit-text>
 
-    <!--device infection-->
-    <figure>
-        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Device Guidelines</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
     </figure>
 
     </amp-carousel>
 </section>
 
-<!--EP procedures-->
+<!--Complications-->
 <section class="main lightBlue1">
-    <h4 class="lightBlue1">
+  <h4 class="lightBlue1">
+  <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+  <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+  Complications</h4>
+  
+  <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+  style="margin-left: auto;margin-right: auto;">
+  
+    <!--complications 1-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\Tension-Pneumothorax.jpg" style="margin: 1vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Complication: Pneumothorax</b><br>
+      Risk factors for the development of a pneumothorax include: age >80 years, female sex, low BMI, chronic obstructive pulmonary disease, and subclavian vein puncture.
+      <br>
+      <i class="ref">
+        <a href="https://doi.org/10.1093/europace/euaa367" target="_blank">2021 EHRA Consensus</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+  </figure>
+
+    <!--complications 2-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\Cardiac-Tamponade.jpg" style="margin: 1vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Complication: Cardiac Tamponade</b><br>
+      Cardiac tamponade perioperatively is due to lead perforation.
+      It is strongly suggested by hemodynamic compromise and
+      should be confirmed by echocardiography and treated with emergent pericardiocentesis.
+      <br>
+      <i class="ref">
+        <a href="https://doi.org/10.1093/europace/euaa367" target="_blank">2021 EHRA Consensus</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--complication table-->
+    <figure>
+      <amp-fit-text width="80vw" height="40vw" layout="responsive">
+        <Table class="lightTable" style="margin: auto;">
+          <div class="lightBlue1" style="padding: 1vmax;text-align: center;font-weight: 900;">
+            Perioperative Complications You Need to Know.</div>
+          <tr>
+            <th>Complication</th><th class="noMobile">What is it?</th><th>What to do?</th>
+          </tr>
+          <tr>
+            <td>Cardiac Tamponade</td>
+            <td class="noMobile">Lead perforation causing blood leaking into the pericardiac space compressing the heart causing low cardiac output.</td>
+            <td>Echocardiogram to confirm. Pericardiocentesis to release the fluid.</td>
+          </tr>
+          <tr>
+            <td>Pneumothorax</td><td class="noMobile">Attempted subclavian puncture made a hole in the lung causing air leaks into the pleural space compressing the lung causing desaturation.</td>
+            <td>Air leaks into the pleural space compressing the lung causing desaturation.</td>
+          </tr>
+          <tr>
+            <td>Oversedation</td><td class="noMobile">Desaturation from hypoventilation or hypotension from vasodilatation.</td>
+            <td>Maintain airways, hydration, +/- antidotes.</td>
+          </tr>
+        </Table>
+      </amp-fit-text>
+    </figure>
+
+    <!--device infection: risk-->
+    <figure>
+        <amp-img layout="fill" src="media\Clinical\risksInfection.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Risk Factors for CIED Infection</b><br>
+        The most important procedure-related risk factors are pocket hematoma, long-procedural time, and re-operation.<br>
+        Staphylococcus aureus is the most common organism involved in acute CIED infections.
+        <i class="ref">
+          <a href="https://doi.org/10.1093/europace/euz246" target="_blank">
+          2019 EHRA Consensus on CIED infections</a>
+        </i>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+     <!--device infection: Mx-->
+      <figure>
+        <amp-img layout="fill" src="media\Clinical\infectionAlgo.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Diagnostic and Management Algorithm</b><br>
+        Definite’ CIED clinical pocket/generator infection = generator pocket shows swelling, erythema, warmth, pain, and purulent discharge/sinus
+        formation OR deformation of pocket, adherence and threatened erosion OR exposed generator or proximal leads.<br>
+        <i class="ref">
+          <a href="https://doi.org/10.1093/europace/euz246" target="_blank">
+          2019 EHRA Consensus on CIED infections</a>
+        </i>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+  </amp-carousel>
+</section>
+
+
+<!--EP procedures-->
+<section class="main veryLightBlue">
+    <h4 class="veryLightBlue">
     <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
     <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
     Other EP Testing/Procedures</h4>
@@ -875,14 +1046,58 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
     
-    <!---->
+    <!--cardiac monitor-->
     <figure>
-    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <amp-img layout="fill" src="media\Clinical\cardiacMonitor.png"></amp-img>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Device Guidelines</b>
+    <b>Ambulatory Cardiac Monitoring</b><br>
+    <i class="ref">
+      <a href="https://doi.org/10.1016/j.cjca.2019.12.023" target="_blank">
+      2020 CCS Guidelines on Syncope
+      </a>
+    </i>
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
     </figure>
+
+    <!--TTT-->
+    <figure>
+      <div class="row">
+      <amp-img layout="responsive" width="1468" height="1127" src="media\Clinical\TTT.png" style="flex: 0.8;"></amp-img>
+      
+      <amp-fit-text width="1.2" height="1" layout="responsive" 
+      style="flex: 1.2;padding: 1vmax;margin: 1vmax;">
+      <ul class="lightList">
+        <li>Test that creates changes in posture from lying to standing using to evaluate the cause of syncope.</li>
+        <li>May use adjunctive agents (Isoproterenol or nitroglycerine) to improve sensitivity.</li>
+        <li>Positive test = inducible presyncope or syncope with hypotension with or without bradycardia.</li>
+        <li>Should be considered when the cause of syncope is uncertain. 
+          <span class="noMobile">Usually includes atypical presentations, distinguishing from epilepsy, 
+            non-hemodynamic collapse, or elderly with few clues in history.</span>
+          </li>
+      </ul>
+      <span class="ref noMobile">
+        <a href="https://doi.org/10.1016/j.cjca.2019.12.023" target="_blank">
+          2020 CCS Guidelines on Syncope
+          </a>
+      </span>
+      </amp-fit-text>
+      </div>
+    </figure>
+
+    <!--Ep Study-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\cardiacMonitor.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Ambulatory Cardiac Monitoring</b><br>
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.cjca.2019.12.023" target="_blank">
+        2020 CCS Guidelines on Syncope
+        </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+      </figure>
 
     </amp-carousel>
 </section>
