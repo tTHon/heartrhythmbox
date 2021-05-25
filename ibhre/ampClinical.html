@@ -93,14 +93,13 @@
 margin-left: auto;margin-right: auto;}
 
 /*table*/
-.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax 2vmax;color: #f2f2f2;height: 90%;
+.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax 2vmax;color: #f2f2f2;max-height: 70vh;
 margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
 .lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax 2vmax;}
 .lightTable th {color: #ccff00;}
 @media only screen and (max-width:500px){
   .lightTable {margin: none;padding: 0.25vw;}
   .lightTable th, .lightTable td {padding: 0.25vw;}
-  .lightTable tr:nth-child(5) {display: none;}
 }
 
 
@@ -689,7 +688,22 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
       </figure>
-    
+
+    <!--venous access-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\venousAccess.jpg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Venous Access for Lead Insertion</b><br>
+      A venogram has been performed from the left antecubital fossa (top panel). This shows the drainage into the cephalic vein, axillary vein, running over the first rib, and then into the subclavian vein.
+      <i class="ref">
+        <a href="http://dx.doi.org/10.1136/hrt.2007.132753" target="_blank">
+          Heart 2009;95:259-264.
+        </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+      </figure>
+
     <!--anatomy RAA/RVOT-->
     <figure>
     <amp-img layout="fill" src="media\Clinical\anatomy.png"></amp-img>
@@ -710,40 +724,115 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </figcaption>
     </figure>
 
-    <!--complications-->
+    <!--drugs-->
     <figure>
-        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Device Guidelines</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
+      <!-- Ref: https://amp.dev/documentation/components/amp-fit-text/ -->
+      <amp-fit-text width="80vw" height="40vw" layout="responsive">
+        <Table class="lightTable">
+          <div class="lightBlue1" style="padding: 1vmax;text-align: center;font-weight: 900;">Common Medications administered during Device Implantation</div>
+          <tr>
+            <th>Roles</th><th>Examples</th>
+          </tr>
+          <tr>
+            <td>Antibiotics</td><td>Cefazolin, Cloxacillin, Vancomycin</td>
+          </tr>
+          <tr>
+            <td>Analgesic</td><td>Morphine derivatives such as fentanyl</td>
+          </tr>
+          <tr>
+            <td>Sedative and Amnestic</td><td>Benzodiazepines (BZP; such as midazolam)</td>
+          </tr>
+          <tr>
+            <td>Antidotes</td><td>Flumazenil (against BZP), Naloxone (against Morphine group)</td>
+          </tr>
+        </Table>
+      </amp-fit-text>
     </figure>
 
-    <!--sedations-->
+    <!--sterile tech 1-->
     <figure>
-        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Device Guidelines</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
+      <div class="nearBlack" style="font-weight: 900;font-size: 2.2vmax;padding: 1vw;">Sterile Techniques (1/2)</div>
+      <div class="row">
+      <amp-img layout="responsive" width="638" height="359" 
+      src="media\Clinical\sterileField.png" style="flex: 1;padding: 0.5vw;"></amp-img>
+      <div class="noMobile" style="flex: 1;">
+      <ul class="lightList">
+        <li>Tables draped as part of a sterile field are considered sterile only at the table level.</li>
+        <li>Anything out of your range of vision or below waist level is considered contaminated and unsterile.</li>
+        <li>If there are any questions or doubts about an object's sterility, the object should be considered unsterile.</li>
+      </ul>
+      </div>
+      </div>
     </figure>
 
-    <!--radiation safty-->
+    <!--sterile tech 2-->
     <figure>
-        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Device Guidelines</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
+      <div class="nearBlack" style="font-weight: 900;font-size: 2.2vmax;padding: 1vw;">Sterile Techniques (2/2)</div>
+      <div class="row">
+      <amp-img layout="responsive" width="2448" height="3264" 
+      src="media\Clinical\pkgOpening.png" style="flex: 1;padding: 0.5vw;"></amp-img>
+      <div class="noMobile" style="flex: 1;">
+      <ul class="lightList">
+        <li>Once a package is opened, a 2.5 cm (1 inch) border around the edge is considered unsterile.</li>
+        <li>A sterile object or field can become contaminated by lingering exposure to air.</li>  
+        <li>A sterile object or field can become contaminated by lingering exposure to air.</li>
+      </ul>
+      </div>
+      </div>
     </figure>
 
-    <!--sterile tech-->
+    <!--Rad Dose-->
     <figure>
-        <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Device Guidelines</b>
+      <amp-img layout="fill" src="media\Clinical\radDose.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Typical Radiation Dose of some sources of radiation</b><br>
+      For everyv100 mSv exposure there is 1 additional cancer on 100, with half of
+      these cancers being fatal.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1093/europace/eut409" target="_blank">
+        EP Europace 2014.</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--radiation safety-->
+    <figure>
+      <div class="nearBlack" style="font-weight: 900;font-size: 2.2vmax;padding: 1vw;">Radiation Safety (1/2)</div>
+      <div class="row">
+      <amp-img layout="responsive" width="768" height="307" 
+      src="media\Clinical\ALARA.png" style="flex: 1;padding: 0.5vw;"></amp-img>
+      <div class="noMobile" style="flex: 1;">
+      <ul class="lightList">
+        <li>"ALARA" or "as low as reasonable achievable" Principle</li>
+        <li>Even if it is a small dose, if receiving that dose has no direct benefit, you should try to avoid it. </li>
+        <li>3 basic protective measures: time, distance, and shielding.</li>
+        </ul>
+      </div>
+      </div>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <i class="ref">Ref:
+          <a href="https://www.nrc.gov/about-nrc/radiation/protects-you/protection-principles.html" target="_blank">
+          US Nuclear Regulatory Commission
+          </a>
+        </i>
         <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
+      </figcaption>
+    </figure>
+
+    <!--radiation safety 2-->
+    <figure>
+      <div class="nearBlack" style="font-weight: 900;font-size: 2.2vmax;padding: 1vw;">Radiation Safety (2/2)</div>
+      <div class="row">
+      <amp-img layout="responsive" width="850" height="672" 
+      src="media\Clinical\invSqLaw.png" style="flex: 0.8;margin: 0.5vw;"></amp-img>
+      <amp-img layout="responsive" width="709" height="241" 
+      src="media\Clinical\radExposureLevel.png" style="flex: 1.2;margin: 0.5vw;"></amp-img>
+      </div>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        The radiation Intensity is inversely proportional to the square of the distance.
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
     </figure>
 
     <!--DFT-->
@@ -754,6 +843,15 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <span [text]="expanded ? '▼' : '▲'">▲</span>
         </figcaption>
     </figure>
+
+    <!--complications-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Device Guidelines</b>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+  </figure>
 
     <!--device infection-->
     <figure>
