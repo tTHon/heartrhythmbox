@@ -1087,12 +1087,26 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
     <!--Ep Study-->
     <figure>
-      <amp-img layout="fill" src="media\Clinical\cardiacMonitor.png"></amp-img>
+      <div class="row">
+      <amp-img layout="responsive" width="1" height="1" src="media\Clinical\EP study.png" style="flex: 0.6;">
+        </amp-img>
+      <div style="flex: 1.4;">
+        <ul class="lightList">
+        <div style="padding: 1vmax;" class="noMobile">Indications for Electrophysiologic Study</div>
+        <li>Differentiate between nodal or infra-hisian block.</li>
+        <li>Assess risk of ventricular arrhythmia in ICM, DCM, and ACHD.</li>
+        <li class="noMobile">Not useful in HCM, LQTS, SQTS, CPVT, Early repolarization syndrome, and those who are already indicated for ICD.</li>
+        </ul>
+      </div>
+      </div>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Ambulatory Cardiac Monitoring</b><br>
+      <b>Indications for Electrophysiologic Study</b><br>
       <i class="ref">
-        <a href="https://doi.org/10.1016/j.cjca.2019.12.023" target="_blank">
-        2020 CCS Guidelines on Syncope
+        ICM: ischemic cardiomyopathy, DCM: dilated cardiomyopathy, ACHD: adult congenital heart disease,
+         HCM: hypertrophic cardiomyopathy, LQTS: long QT syndrome, SQTS: short QT syndrome, CPVT: catacholinergic polymorphic VT.
+         <br> Ref:
+        <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
+        2017 SCD Guidelines
         </a>
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
@@ -1100,6 +1114,133 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </figure>
 
     </amp-carousel>
+</section>
+
+<!--Q&A-->
+<section class="main nearBlack">
+  <h4 class="nearBlack">
+  <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+  <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+  Qs & As</h4>
+  
+  <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+  style="margin-left: auto;margin-right: auto;">
+  
+  <!--Q1-->
+  <figure>
+    <amp-fit-text width="80vw" height="45vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;">
+          <div class="qBox">
+            Q1: A 76 year-old woman has shortness of breath 6 hours after undergoing a pacemaker. 
+            The pacemaker was done via cephalic route. On physical examination, her chest is clear, her BP is 80/50 mmHg, and the rhythm is AV paced at 70 bpm. Which of the following is the most appropriate management?
+            <ol class="qList">
+              <li>Administer of furosemide.</li>
+              <li>Administer of salbutamol.</li>
+              <li>Echocardiogram.</li>
+              <li>Chest X-ray.</li>
+              <li>Intravenous fluid.</li>
+            </ol>
+          </div>
+        </amp-fit-text>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    Q1: The answer is...<br>
+    Answer: c.
+    Think of cardiac tamponade for hypotension and shortness of breath shortly after a device implantation. Pneumothorax is an unlikely complication for cephalic access. Heart failure, asthma exacerbation, or dehydration are possible but does not require an emergent diagnosis and treatment the same way cardiac tamponade does.
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
+
+  <!--Q2-->
+  <figure>
+    <amp-img layout="fill" src="media\QA\sqICD.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    Q2: Tracings from subcutaneous ICD
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>  
+
+  <!--Q2:Q-->
+  <figure>
+    <amp-fit-text width="85vw" height="50vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;">
+      <div class="qBox">
+        Q2: A 48 y/o woman  
+        underwent implantation of a subcutaneous implantable cardioverter-defibrillator (ICD) 
+        for primary prevention of sudden death. She presented 3 months later for a routine ICD device interrogation. 
+        Her device setting and presenting rhythm are shown in the figure (a). Review of her stored electrograms (b) showed an untreated episode several weeks earlier.
+        Which of the following is the next best step?  
+        <ol class="qList">
+          <li>Schedule follow-up for device interrogation in 3 months.</li>
+          <li>Schedule the patient for a procedure to reposition the subcutaneous ICD lead.</li>
+          <li>Change the sensing configuration to an another vector.</li>
+          <li>Perform an exercise stress test.</li>
+        </ol>
+      </div>
+        </amp-fit-text>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    Q2: The answer is...<br>
+    Answer: d.
+    At presentation, the patient is in sinus rhythm. At the programmed sensing configuration, each QRS complex is sensed appropriately. Thus, changing the sensing vector empirically to another configuration would not be indicated.
+The stored electrogram demonstrates clear evidence of a change in QRS morphology associated with T-wave oversensing in the initial portion of the tracing. The electrogram by the end of the tracing is sensed appropriately and resembles the electrogram obtained at the patient’s device interrogation on presentation. Since the device detected the rhythm as a ventricular arrhythmia, simply ignoring the observation would not be suggested. On the other hand, it is premature to consider repositioning the ICD lead. T wave oversensing is by far the most common cause of oversensing in the subcutaneous ICD and this is typically evaluated by ETT and changing the sensing vector.
+The most likely explanation is that the patient develops a rate-related bundle branch block during which the current programmed sensing configuration cannot adequately distinguish between QRS complexes and T waves. Thus, an exercise stress test will be useful to optimize the sensing configuration using a template acquired during exercise when the rate related QRS morphology can be replicated.
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
+
+  <!--Q3-->
+  <figure>
+    <div class="row">
+      <amp-img layout="responsive" width="881" height="649" src="media\QA\Q12 pLSVC.png" style="flex: 1;"></amp-img>
+    <amp-fit-text width="45vw" height="45vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;flex: 1;">
+      <div class="qBox">Q3
+        <ol class="qList">
+          <li>Dextrocardia</li>
+          <li>Image flipped from L to R</li>
+          <li>Mustard Operation</li>
+          <li>Persistent left superior vena cava</li>
+          <li>Arterial implantation</li>
+        </ol>
+      </div>
+        </amp-fit-text>
+    </div>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    Q3: The answer is...<br>
+    Answer: d.
+    Left SVC drains through coronary sinus and into RA and RV.
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
+
+  <!--Q4-->
+  <figure>
+    <amp-fit-text width="90vw" height="52vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;">
+          <div class="qBox" style="padding: 1vmax;">
+            Q4: An 82-year-old Caucasian male with ischemic cardiomyopathy, LVEF 0.10, 
+            status/post single-chamber ICD, 
+            progressive renal impairment, and 3 hospitalizations over the prior calendar year is re-hospitalized again.
+            His device is interrogated and noted to be nearing end-of-life. 
+            The patient and family express an interest in proceeding with less aggressive care.
+            Which of the following is the best approach to management of the ICD?
+            <ol class="qList">
+              <li>Selective inactivation of shock therapies while maintaining back-up ventricular pacing.</li>
+              <li>Elective generator change.</li>
+              <li>Upgrade to a CRT-D.</li>
+              <li>Electrophysiological study to evaluate for placement of an atrial lead.</li>
+            </ol>
+          </div>
+        </amp-fit-text>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    Q4: The answer is...<br>
+    Answer: a. End-of-life care<br>
+    The decision to inactivate the shock function of a defibrillator needs to take into account patient preferences and overall prognosis, especially when heart failure symptoms have progressed despite optimal medical therapy. ACC/AHA guidelines suggest that a reasonable prognosis for survival of at least 1 year applies to de novo implants; the same applies to generator changes.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
+
+
+  </amp-carousel>
 </section>
 
 
