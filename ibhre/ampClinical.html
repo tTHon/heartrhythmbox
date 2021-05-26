@@ -757,6 +757,21 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </figcaption>
       </figure>
 
+    <!--pocket plane-->
+    <figure>
+      <amp-img layout="fill" src="media\QA\Q19 pocket-layers-diagram.jpg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Tissue plane for appropriate device implantation</b><br>
+      Most common: Subcutaneous pocket = below fat and above muscles. 
+      <i class="ref">
+        <a href="howtopace.com" target="_blank">
+          howtopace.com
+        </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+      </figure>
+
     <!--anatomy RAA/RVOT-->
     <figure>
     <amp-img layout="fill" src="media\Clinical\anatomy.png"></amp-img>
@@ -1235,6 +1250,30 @@ The most likely explanation is that the patient develops a rate-related bundle b
     Q4: The answer is...<br>
     Answer: a. End-of-life care<br>
     The decision to inactivate the shock function of a defibrillator needs to take into account patient preferences and overall prognosis, especially when heart failure symptoms have progressed despite optimal medical therapy. ACC/AHA guidelines suggest that a reasonable prognosis for survival of at least 1 year applies to de novo implants; the same applies to generator changes.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
+
+  <!--Q5-->
+  <figure>
+    <amp-fit-text width="90vw" height="52vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;">
+          <div class="qBox" style="padding: 1vmax;">
+            Q5: A 70 year-old woman undergoes AV node ablation and CRT implantation for chronic AF and poor LVEF. 
+            Which of the following is the most likely reason for setting the initial lower rate of the device to 90 bpm?
+            <ol class="qList">
+              <li>To improve cardiac output.</li>
+              <li>To regularize ventricular rate.</li>
+              <li>To avoid ventricular tachycardia.</li>
+              <li>To enhance biventricular pacing.</li>
+              <li>To improve ventricular remodelling.</li>
+            </ol>
+          </div>
+        </amp-fit-text>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    Q5: The answer is...<br>
+    Answer: c. Rapid V pacing to prevent torsades.<br>
+    Sudden death secondary to torsades de pointes or ventricular fibrillation has been reported after AV junction ablation. This outcome is possibly related to increased dispersion of ventricular refractoriness produced by sudden heart rate slowing and ventricular pacing. After ablation, the ventricular pacing rate is usually set between 90 bpm and 100 bpm and then gradually tapered over several months.
     <span [text]="expanded ? '▼' : '▲'">▲</span>
   </figcaption>
   </figure>
