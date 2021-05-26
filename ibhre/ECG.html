@@ -1,1072 +1,926 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ⚡ lang="en">
+
 <head>
+<meta charset="utf-8">
+<title>IBHRE: Basic ECGs</title>
 
-<title>IBHRE Tutotials: ECG</title>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+<script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+<script async custom-element = "amp-fit-text" src = "https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+<link rel="canonical" href="https://heartrhythmbox.com/ibhre">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" type="text/css"/>
+<link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-1548733331544768",
-          enable_page_level_ads: true
-     });
-</script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-119340815-1');
-</script>
-
-
-<meta charset="UTF-8">
-<meta name="description" content="IBHRE tutorials for cardiac rhythm device specialists">
-<meta name="keywords" content="heartrhythmbox, heart rhythm, CIED, arrhythmias, sudden cardiac death. ECG">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-        
-
-
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="CSSforIBHRE.css">
-</head>
-
-<style>
-
-.block {margin-top: 20vh}
-.imgBox {
-  padding-top: 0.2vmax;
-  max-height: 85vh;
-  object-fit: contain;
- }
-
-
-
-/* Position the image container (needed to position the left and right arrows) */
-.container {
-  position: relative;
-  height: 90vh;width: 100%;
+<style amp-custom>
+* {
+  box-sizing: border-box;
 }
 
-@media only screen and (max-width: 600px){
-    .imgBox {max-height: auto; padding-top: 1vmax}
-    .container {height: auto;border: #a9a9a9 solid 0.4vmax;}
+/*color*/
+.darkCyan {background-color: #074860;color: #f1f1f1;}
+.cyan1 {background-color: #1b5b56;color: #f1f1f1;}
+.cyan2 {background-color: #11515b;color: #f1f1f1;}
+.lime {color: #ccff00;}
+.nearBlack {background-color: #232323;color: #f1f1f1;}
+.lightBlue1 {background-color: #B6c2c8;color: #074860;}
+.lightBlue2 {background-color: #8eafc0;color: #074860;}
+
+/*top*/
+.topBar {
+    font-size: 2vmax;padding: 0.5vmax;color: #f1f1f1;
+    background-color: #074860;position: sticky;top: 0;z-index: 10;
+    border-bottom-left-radius: 1vmax;border-bottom-right-radius: 1vmax;   
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.mobileOnly {display: none;}
+@media only screen and (max-width:800px){
+  .noMobile, .tab {display: none;}
+  .mobileOnly {display: block;}
+}
+
+.tab {
+  margin: 0 1.5vmax;cursor: pointer;
+}
+.tab a {text-decoration: none;color:#f1f1f1;}
+.ref, .ref a {font-size: 1.1vw;color: #ddd;}
+@media only screen and (max-width:600px) {
+  .ref, .ref a {font-size: 10px;}
+}
+
+/*sideNav*/
+.sideMenu {min-width: 300px;margin: 1vmax;}
+.navItem {
+    font-size: 1.8vmax;padding: 1vmax 2vmax 1vmax 1vmax;border: none;cursor: pointer;
+    border-bottom: solid 0.1vmax rgb(112,112,112);text-align: center;
+}
+.navItem a {text-decoration: none;color:inherit;}
+.navItem:hover, .navItem a:hover {background-color: rgb(82, 82, 82);color: #f2f2f2;}
+
+/*flexbox */
+.row {display: flex;align-content: center;flex-wrap: wrap;}
+.row800 {display: flex;padding: 1vmax;}
+@media only screen and (max-width:800px) {
+  .row800 {display: none;}
+}
+
+/*list*/
+.lightList, .darkList {font-size: 2.5vmax;font-weight: 900;padding: 2vmax; text-align: center;color: #ccff00;margin: 1vmax;}
+.lightList li, .darkList li {
+  font-size: 1.8vmax;font-weight: normal;border-bottom: #ddd 0.1vmax solid;color: #ddd;padding: 1vmax;
+  list-style: none;
+  }
+.darkList {color: #074860;}
+.lightList li:hover, .darkList li:hover  {background-color: #074860;color: #ffffff;}
+.darkList li {color: #232323;border-bottom-color: #555;}
+@media only screen and (max-width:800px){
+  .darkList, .lightList, .lightList li, .darkList li {font-size: 1.8vmax;padding: 0.5vmax;}
+}
+
+/*Q*/
+.qBox {text-align: left;margin-left: auto;margin-right: auto;padding: 2vmax;}
+.qList {list-style: lower-alpha inside; border-top: #ccff00 0.1vmax solid;padding: 1vmax;
+margin-left: auto;margin-right: auto;}
+
+/*table*/
+.lightTable {text-align: left;border-collapse: collapse;padding: 1vmax;color: #f2f2f2;height: 90%;
+margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
+.lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax;}
+.lightTable th {color: #ccff00;}
+@media only screen and (max-width:500px){
+  .lightTable {margin: none;padding: 0.25vw;}
+  .lightTable th, .lightTable td {padding: 0.25vw;}
+  .lightTable tr:nth-child(5) {display: none;}
 }
 
 
-.caption {
-    display: none;padding: 0.5vmax 3vmax 0.5vmax 1vmax; text-align: center;
-    background-color: rgba(59, 89, 152,0.8);color: white
+/*accordion*/
+.main {font-size: 2vmax;padding: 1vmax;}
+.main h4 {padding: 1vmax;border: none;}
+
+amp-accordion {margin-left: auto;margin-right: auto;text-align: center;width: fit-content;
+padding: 5vh 0;margin-top: 5vh;margin-bottom: 5vh;}
+amp-accordion section[expanded] .showMore {display: none;}
+amp-accordion section[expanded] .showLess {color: #ccff00;}
+amp-accordion section:not([expanded]) .showLess {display: none;}
+
+/*carousel*/
+    /* define some contants */
+  amp-carousel {max-height: 90vh;}
+    .collapsible-captions {
+      --caption-height: 2vmax;
+      --image-height: 300px;
+      --button-size: 1.5vmax;
+      --caption-color: #f5f5f5;;
+      font-size: 1.8vmax;
+    }
+    .collapsible-captions * {
+      /* disable chrome touch highlight */
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+      box-sizing: border-box;
+    }
+    .collapsible-captions {
+      position: relative;
+      width: 100%;
+    }
+    .collapsible-captions amp-img img {
+      object-fit: contain;
+    }
+    .collapsible-captions figure {
+      margin: 0;
+      padding: 0;
+      background-color: #333;
+    }
+    /* single line caption */
+    .collapsible-captions figcaption {
+      position: absolute;
+      bottom: 0;
+      margin: 0;
+      width: 100%;
+      /* inital height is one line */
+      max-height: var(--caption-height);
+      line-height: var(--caption-height);
+      padding: 0 var(--button-size);
+      /* cut text after first line and show an ellipsis */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      /* overlay the carousel icons */
+      z-index: 10;
+      /* some styling */
+      color: var(--caption-color);
+      background-color: rgba(17,17,17,0.6);
+    }
+    /* expanded caption */
+    .collapsible-captions figcaption.expanded {
+      /* add padding and show all of the text */
+      line-height: inherit;
+      white-space: normal;
+      text-overflow: auto;
+      max-height: calc(var(--caption-height) + var(--image-height));
+      /* show scrollbar in case caption is larger than image */
+      overflow: auto;
+      background-color: rgba(17,17,17,0.9);
+    }
+    /* don't show focus highlights in chrome */
+    .collapsible-captions figcaption:focus {
+      outline: none;
+      border: none;
+    }
+    /* the expand/collapse icon */
+    .collapsible-captions figcaption span {
+      display: block;
+      position: absolute;
+      top: calc((var(--caption-height) - var(--button-size)) / 2);
+      right: 0.5vw;
+      width: var(--button-size);
+      height: var(--button-size);
+      line-height: var(--button-size);
+      text-align: center;
+      font-size: 1.8vmax;
+      color: white;
+      cursor: pointer;
     }
 
-.moreInfo {
-    background-color: #332702;color: white;
-    font-size: 2vmax; margin: 1vmax; padding: 0.5vw;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); width: auto;
-}
 
-.modalClose {
-    background-color: white;
-    font-size: 2vmax;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
-}
-.w3-modal-content {
-    width: 80%;
-}
-.imgLabel {
-    background-color: black; color: #ffcf3b;
-    margin-top: 1vmax; padding: 0.5vmax;
-    font-size: 2vmax;
-}
-
-/* Hide the images by default */
-.slideSet0, slideSet1, slideSet2 {
-  display: none; padding: 1vmax;
-}
-
-
-/* Next & previous buttons */
-.prevS,
-.nextS {
-  cursor: pointer;
-  position: absolute;
-  top: 45%;
-  width: auto;
-  padding: 1vmax;
-  color: #a9a9a9;
-  font-weight: bold;
-  font-size: 2vmax;
-}
-
-@media only screen and (max-width: 600px) {
-    .prevS, .nextS {top:30%}
-}
-
-/* Position the "next button" to the right */
-.nextS {
-  right: 0;
-  }
-
-/* On hover, add a black background color with a little bit see-through */
-.prevS:hover,
-.nextS:hover {
-  color: rgba(88, 88, 88, 0.9);
-}
-
-.progress-container {
-  width: 100%;
-  height: 1vh;
-  background: #f1f2f1;
-}
-
-.progress-bar {
-  height: 1vh;
-  background: rgba(0, 0, 0, 0.6); 
-  width: 0%;
-}
+/*footer*/
+.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+.sectionH {padding-top: 0.7vmax;
+        background-color: transparent;color: white;font-size: 16px;border: none;
+      }
+.sectionT {
+        font-size: 14px;color: #f1f1f1;padding: 0.7vmax;
+      }
 
 </style>
 
-<body>
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
 
-<div id="mySidenav" class="sidenav roboto">
-    <a href="javascript:void(0)" class="closebtn roboto" onclick="closeNav()">&times;</a>
-    <a href="index.html" style="font-weight: 700;">HOME</a>
-    <a href="EP.html" >Fundamental EP</a>
-    <a href="ECG.html" class="active">ECGs</a>
-    <a href="Clinical.html">Clinical Practice</a>
-    <span class="onThisPage">on this page</span>
-    <a href="#Brady" style="text-align: right;">Brady</a>
-    <a href="#Tachy" style="text-align: right;">Tachy</a>
-    <a href="#SCA" style="text-align: right;">SCA</a>
-    <a href="#Device" style="text-align: right;">Device</a>
-    <a href="https://www.facebook.com/HeartRhythmBox/" style="border-top: #332702 0.2vmin solid">
-        <i title="@HeartRhythmBox" class="fab fa-facebook" 
-            style="color:  #3B5998; border: transparent;"></i>&nbspHeartRhythmBox</a>
+<body style="font-family: 'Oxygen', sans-serif;color: rgb(82, 82, 82);">
+
+  <amp-sidebar id="sidebar" layout="nodisplay" side="left">
+    <div style="text-align: left;padding: 0.5vmax;">
+    <button on="tap:sidebar.close" style="border: none;">
+        <i class="fas fa-times-circle" style="font-size: 2vmax;color: rgb(27, 91,86);border:none"></i>
+    </button>
+    </div>
+    <div class="sideMenu">
+    <ul style="list-style: none;margin: 0;padding: 0;">
+        <li class="navItem"><a href="ampIndex.html">Home</a></li>
+        <li class="navItem"><a href="ampEP.html">Fundamental of EP</a></li>
+        <li class="navItem">ECGs</li>
+        <li class="navItem">Clinical Practice</li>
+        <li class="navItem" style="border-bottom: none;">
+            <a href="https://heartrhythmbox.com">
+                <amp-img src="box_grey.png" width="32" height="32" layout="fixed">
+                </amp-img></a>    
+        </li>
+    </ul></div>
+</amp-sidebar>
+
+<!--large screen only --menu-->
+<div class="topBar row800" style="font-size: 1.8vmax;">
+  <button on="tap:sidebar.open" class="darkCyan" style="border: none;cursor: pointer;">
+    <i class="fas fa-bars" style="font-size: 1.8vmax;color: #ccff00;"></i></button>
+  <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
     <a href="https://heartrhythmbox.com">
-        <img src="box transparent.png" style="width: 3.5vh;" 
-        title="HeartRhythmBox - Main Page">&nbspOur Collection</a>
+    <amp-img src="box_grey.png" width="30" height="30" layout="fixed">
+        </amp-img></a>
+  </span>
+  <div class="tab">
+    <a href="ampIndex.html">
+    Home</a>
+  </div>
+  <div class="tab">
+    <a href="ampEP.html">Fundamental of EP</a>
+  </div>
+  <div class="tab" style="border-bottom:#ccff00 solid 0.2vmax">
+    ECGs
+  </div>
+  <div class="tab">
+    Clinical Practice
+  </div>
 </div>
 
-<div id="topnav"  class="topnav" style="font-size:2.5vmax;cursor:pointer;" 
-onclick="openNav()">&#9776;
-<span id="topnavTxt" class="slabo darkGTxt h5 w3-mobile w3-padding" style="display: inline;">
-    Essential ECGs for IBHRE</span></div>
-
-<div>
-    <a href="#top" title="to the top" class="toTop" onclick="unblur()">
-        <i class="fas fa-arrow-circle-up" style="font-size: 2.8vmax"></i>
-    </a>
+<!--mobile menu-->
+<div class="topBar mobileOnly" style="width: 100%;">
+  <button on="tap:sidebar.open" style="border: none;cursor: pointer;" class="darkCyan lime">
+  <i class="fas fa-bars" style="font-size: 2vmax;"></i></button>
+  <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
+    <a href="https://heartrhythmbox.com">
+    <amp-img src="box_grey.png" width="20" height="20" layout="fixed">
+        </amp-img></a>
+    </span>
 </div>
 
+<!--title-->
+<div style="font-size: 3.2vmax;letter-spacing: 0.5vmax;font-weight: 900;text-align: center;padding: 1vmax;">
+  Basic ECGs Interpretation
+ </div>
 
-<!--pointer-->
-<div onclick="pointer()"><span class="pointer" style="display: none"></span>  
-
-<!--1Blk basic ECG-->
-<div class="block">
+<!--content-->
+ <amp-accordion animate expand-single-section>
+        
+<!--Basic-->
+<section class="main lightBlue1" expanded>
+    <h4 class="lightBlue1">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Basic ECG Knowledge</h4>
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
     
-    <div class="fullBlock darkBrown">
-        <div class="w3-cell-row w3-mobile">
-            <div class="w3-container w3-cell w3-center w3-mobile">
-                <div class="slabo h3 w3-center" style="padding-top: 40vh">The Basic</div>
-                <div class="w3-btn w3-round-xxlarge w3-padding-small" 
-            style="border: #ffcf3b solid 0.1vmax; margin: 1vmax;" title="click here for more info" 
-            onclick="showCell('basicECG')">
-                <i class="fas fa-ellipsis-h" ></i>
-                </div>
-            </div>
-            <div class="w3-container w3-cell w3-cell-middle w3-center w3-mobile" id="basicECG" 
-            style="display: none;padding-top: 10%">
-                <img src="media/EKG/basic ECG.png" style="vertical-align: middle">
-            </div>
+    <!--leads and components-->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\basic ECG.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>ECG components and ECG leads.</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
 
+    <!--limb leads-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\limb leads.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Lime leads and views of the heart</b><br>
+      <i class="ref">ref: <a href="https://www.wiley.com/en-us/Basic+Electrocardiography%3A+Normal+and+Abnormal+ECG+Patterns-p-9781405175708" target="_blank">
+        Basic Electrocardiography: Normal and Abnormal ECG Patterns. Antoni Bayés de Luna.
+      </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
 
-        </div>
+    <!--chest leads-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\chest leads.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Chest leads and views of the heart</b><br>
+      <i class="ref">ref: <a href="https://www.wiley.com/en-us/Basic+Electrocardiography%3A+Normal+and+Abnormal+ECG+Patterns-p-9781405175708" target="_blank">
+        Basic Electrocardiography: Normal and Abnormal ECG Patterns. Antoni Bayés de Luna.
+      </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
+<!--IVCD-->
+<section class="main lightBlue2">
+  <h4 class="lightBlue2">
+  <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+  <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+  Intraventricular Conduction Delay</h4>
+<amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+  style="margin-left: auto;margin-right: auto;">
+
+<!--Possible Location-->
+<figure>
+  <amp-img layout="fill" src="media\EKG\IVCD\possibleLocation.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Possible Location of Intraventricular Conduction Abnormalities causing abnormal QRS complex</b><br>
+  as labelled in number 1, 2, and 3. The abnormalities include left/right bundle branch block and left anterior/posterior fascicular block. <br>
+  <i class="ref">
+    <a href="https://www.wolterskluwer.com/en/solutions/ovid/4198" target="_blank">Marriott's Practical Electrocardiography. 13th edition, 2020.</a>
+  </i>
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
+
+<!--RBBB diagram-->
+<figure>
+  <div class="row" style="align-content: center;background-color: #f5f5f5;">
+  <div style="flex: 0.8;align-self: center;align-items: center;"> 
+  <amp-img layout="responsive" width="30vw" height="30vw" src="media\EKG\IVCD\RBBB diagram.png"></amp-img>
+  </div>
+  <div style="flex: 1.2;align-items: center;align-self: center;">
+  <ul class="darkList">
+      Right Bundle Branch Block (RBBB)
+      <li>QRS duration &ge;120msec</li>
+      <li>Lead V1 Late intrinsicoid (R′ peak or late R peak)</li>
+      <li>Lead V6 Early intrinsicoid (R peak), wide S wave</li>
+      </ul>
+  <div class="ref noMobile" style="text-align:center">
+    <a href="https://www.wolterskluwer.com/en/solutions/ovid/4198" target="_blank" style="color: #555;">Marriott's Practical Electrocardiography. 13th edition, 2020.</a>
     </div>
-    
-</div>
-    
+  </div>
+  </div>
+</figure>
 
-<!--2Blk Brady-->
-<div class="block" id="Brady">
-      
-    <div class="w3-row w3-padding-small w3-center slabo h5 yellow w3-round-xxlarge w3-mobile" style="margin: 1vw">
-    Bradyarrhythmias</div>
-    
-<!--slideset0-->
-    <div class="container" style="margin-top: 2vh">
-        <div class="progress-container">
-            <div class="progress-bar"></div>  
-            </div>
-            
-        <!--brady1-->
-        <div class="slideSet0">
-        
-        <div class="w3-container w3-center">
-            <img src="media/EKG/brady/1AVB.png" class="imgBox">
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('1AVB','b1')" 
-            style="cursor: pointer;" id="b1">
-            Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='1AVB'> 
-            1st degree AV block. In a severe case (PR>330ms), symptoms similar to pacemaker syndrome 
-            may occur.</span>
-            
-        </div>
-        </div>        
-        
+<!--RBBB ECG-->
+<figure>
+  <amp-img layout="fill" src="media\EKG\IVCD\RBBB.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Right Bundle Branch Block (RBBB)</b><br>
+  in a patient with tetralogy of Fallot. Noted with prominent R' in V1 and wide S wave in V6.
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
 
-        <!--brady2-->
-        <div class="slideSet0">
-            <div class="w3-container w3-center">
-                <img src="media/EKG/brady/AVW2.JPG" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('AVW','b2')" 
-            style="cursor: pointer;" id="b2">
-            Show Answer</span>
-                <span class="roboto h6 w3-mobile caption" id='AVW'> 
-                    Mobitz I or Wenckebach. Pacemaker is indicated if symptomatic.</span>
-                
-            </div>
-          </div>
+<!--fascibular block diagram-->
+<figure>
+  <amp-img layout="fill" src="media\EKG\IVCD\fascicularBlock.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Fascicular Block</b><br>
+  Compared with normal conduction in (A), fascicular block activates free wall from one site instead of two.
+  <i class="ref">
+    <a href="https://www.wolterskluwer.com/en/solutions/ovid/4198" target="_blank">Marriott's Practical Electrocardiography. 13th edition, 2020.</a>
+  </i>
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
 
-        <!--brady3-->
-        <div class="slideSet0">
-            <div class="w3-container w3-center">
-                <img src="media/EKG/brady/high grade atropine.png" class="imgBox" >
-                <div class="w3-display-topright w3-button w3-round w3-mobile h6 moreInfo"
-                onclick="showCell('RBBB')">
-                more info</div>
-            <div id="RBBB" class="w3-modal">
-                <div class="w3-modal-content">
-                    <div class="w3-container w3-center">
-                        <span onclick="hideCell('RBBB')" 
-                        class="w3-button w3-display-topright roboto modalClose">
-                            &times;</span>
-                        <img src="media/EKG/brady/modal/RBBB.png" style="width: 70%;">
-                        <div class="ref">
-                            <a href="http://www.ovid.com/site/catalog/books/5836.jsp#horizontalTab1">
-                            Baltazar RF. Basic and Bedside Electrocardiography</a></div>
-                    </div>
-                </div>
-            </div>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('CHB','b3')" 
-            style="cursor: pointer;" id="b3">
-            Show Answer</span>
-                <span class="roboto h6 w3-mobile caption" id='CHB'> 
-                    Complete heart block. Escape rate is slow with RBBB and LPFB morphology.</span>
-                
-            </div>
-        </div>
-        
-        <!--brady4-->
-        <div class="slideSet0">
-            <div class="w3-container w3-center">
-                <img src="media/EKG/brady/intermittent CHB.png" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('iCHB','b4')" 
-            style="cursor: pointer;" id="b4">
-            Show Answer</span>
-                <span class="roboto h6 w3-mobile caption" id='iCHB'> 
-                    Intermittent complete heart block. 2Ps without any QRS. Underlying 
-                    rhythm is sinus rhythm with RBBB and LAFB.</span>
-                
-            </div>
-        </div>
+<!--LAFB-->
+<figure>
+  <amp-img layout="fill" src="media\EKG\IVCD\LAFB.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Left anterior fascicular block</b><br>
+  LAFB: left axis deviation (more than -60 degree), small Q in leads I and aVL, small R in leads II/III/aVF, 
+  and late intrinsicoid deflection in aVL (>0.045s).<br>
+  <i class="ref">
+    <a href="https://www.wolterskluwer.com/en/solutions/ovid/4198" target="_blank">Marriott's Practical Electrocardiography. 13th edition, 2020.</a>
+  </i>
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
 
-        <!--brady5-->
-        <div class="slideSet0">
-            <div class="w3-container w3-center">
-                <img src="media/EKG/brady/3FB.jpg" class="imgBox" >
-                <div class="w3-display-topright w3-button w3-round w3-mobile h6 moreInfo"
-                    onclick="showCell('3FBinfo')">
-                    more info</div>
-                <div id="3FBinfo" class="w3-modal">
-                    <div class="w3-modal-content">
-                        <div class="w3-container w3-center">
-                            <span onclick="hideCell('3FBinfo')" 
-                            class="w3-button w3-display-topright roboto modalClose">
-                                &times;</span>
-                            <img src="media/EKG/brady/modal/LAFB.png" style="width: 80%" 
-                                class="w3-bottombar w3-border-blue w3-padding">
-                            <img src="media/EKG/brady/modal/LPFB.png" style="width: 80%">
-                            <div class="ref">
-                                <a href="http://www.ovid.com/site/catalog/books/5836.jsp#horizontalTab1">
-                                Baltazar RF. Basic and Bedside Electrocardiography</a></div>
-                        </div>
-                    </div>
-                </div>
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('3FB','b5')" 
-            style="cursor: pointer;" id="b5">
-            Show Answer</span>
-                <span class="roboto h6 w3-mobile caption" id='3FB'> 
-                    Bifascicular block with 1st degree AV block. Consider pacemaker if 
-                    HV &ge;70ms, evidence of infranodal block, or alternating BBB.
-                </span>
-                
-            </div>
-        </div>
 
-        <!--brady6-->
-        <div class="slideSet0">
-            <div class="w3-container w3-center">
-                <img src="media/EKG/brady/sinus pause.jpg" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('pause','b6')" 
-            style="cursor: pointer;" id="b6">
-            Show Answer</span>
-                <span class="roboto h6 w3-mobile caption" id='pause'> 
-                    Sinus pause</span>
-                
-            </div>
-        </div>
+<!--Bifas-->
+<figure>
+  <amp-img layout="fill" src="media\EKG\IVCD\LPFB RBBB.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Bifascicular Block</b><br>
+  Left posterior fascicular block (LPFB) and RBBB.<br>
+  LPFB: right axis deviation (>120 degree), small R in I/aVL, small Q in II/III/aVF, 
+  and late intrisicoid deflection in aVF (>0.0045s).
+  <br>
+  <i class="ref">
+    <a href="https://www.wolterskluwer.com/en/solutions/ovid/4198" target="_blank">Marriott's Practical Electrocardiography. 13th edition, 2020.</a>
+  </i>
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
 
-        <!--brady7-->
-        <div class="slideSet0">
-            <div class="w3-container w3-center">
-                <img src="media/EKG/brady/SA block.jpg" class="imgBox" >
-                <div class="w3-display-topright w3-button w3-round w3-mobile h6 moreInfo"
-                    onclick="showCell('SABinfo')">
-                    more info</div>
-                <div id="SABinfo" class="w3-modal">
-                    <div class="w3-modal-content">
-                        <div class="w3-container w3-center">
-                            <span onclick="hideCell('SABinfo')" 
-                            class="w3-button w3-display-topright roboto modalClose">
-                                &times;</span>
-                            <img src="media/EKG/brady/modal/SA Block.png">
-                            <div class="ref">
-                            <a href="http://www.ovid.com/site/catalog/books/5836.jsp#horizontalTab1">
-                            Baltazar RF. Basic and Bedside Electrocardiography</a>
-                            and <a href="http://dl4a.org/uploads/pdf/Crawford%20Current%20Cardiology%20Edition%202.pdf">
-                            Crawford MH. Current diagnosis and treatment in cardiology.</a>                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('SABlk','b7')" 
-            style="cursor: pointer;" id="b7">
-            Show Answer</span>
-                <span class="roboto h6 w3-mobile caption" id='SABlk'> 
-                    Sinoatrial exit block type II. Intermittent sinus pauses with the
-                pause interval equals to the exact multiple of the preceding PP interval.
-                In this case, the pause is 2x of PP.</span>
-                
-            </div>
-        </div>
-
-    <!--brady8-->
-    <div class="slideSet0">
-        <div class="w3-container w3-center">
-            <img src="media/EKG/brady/tachybrady.png" class="imgBox" >
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('tbSyn','b8')" 
-            style="cursor: pointer;" id="b8">
-            Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='tbSyn'> 
-                AF with conversion pause</span>
-            
-        </div>
+<!--LBBB diagram-->
+<figure>
+  <div class="row" style="align-content: center;background-color: #f5f5f5;">
+  <div style="flex: 0.8;align-self: center;align-items: center;"> 
+  <amp-img layout="responsive" width="30vw" height="30vw" src="media\EKG\IVCD\LBBB diagram.png" style="align-items: center;align-self: center;"></amp-img>
+  </div>
+  <div style="flex: 1.2;align-items: center;align-self: center;">
+  <ul class="darkList">
+      Left Bundle Branch Block (LBBB)
+      <li>QRS duration &ge;130msec in women or &ge;140msec in men.</li>
+      <li>Lead V1: QS or rS</li>
+      <li>Lead I, V6: Monophasic R, no Q, mid-QRS slur or notch.  </li>
+      </ul>
+  <div class="ref noMobile" style="text-align:center">
+    <a href="https://www.wolterskluwer.com/en/solutions/ovid/4198" target="_blank" style="color: #555;">Marriott's Practical Electrocardiography. 13th edition, 2020.</a>
     </div>
+  </div>
+  </div>
+</figure>
 
+<!--RBBB ECG-->
+<figure>
+  <amp-img layout="fill" src="media\EKG\IVCD\LBBB.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Left Bundle Branch Block (RBBB)</b><br>
+  Noted with wide QRS and mid-QRS notching in I, aVL, V5-6.
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
 
-      <a class="prevS" onclick="plusSlides(-1,0)">❮</a>
-      <a class="nextS" onclick="plusSlides(1,0)">❯</a>
- 
-    </div>
-</div>
+</amp-carousel>
+</section>
 
-<!--3Blk Tachy-->
-<div class="block" id="Tachy">
+<!--SSS-->
+<section class="main darkCyan">
+    <h4 class="darkCyan">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Sinus Node Dysfuncion</h4>
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
     
-    <div class="w3-row w3-padding-small w3-center slabo h5 red w3-round-xxlarge w3-mobile" style="margin: 1vw">
-    Tachyarrhythmias</div>
+<figure>
+    <amp-img layout="fill" src="media\EKG\brady\sinus pause.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Sinus Node Dysfunction</b><br>
+    may present with severe sinus bradycardia, sinoatrial exit block, sinus pause, or tachy-bradyarrhythmia. Above is sinus pause.
+    For those with symptoms, pacemaker is indicated.           
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+</figure>
+
+<figure>
+    <amp-img layout="fill" src="media\EKG\brady\SA block.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Sinoatrial exit block type II</b><br>
+    SA Exit Block Type II: Sinus rhythm followed by a pause that is a multiple of P-P interval.
+    Above, the pause duration was twice of P-P interval.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+</figure>
+
+<figure>
+  <amp-img layout="fill" src="media\EKG\brady\modal\SA Block.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Sinoatrial exit block: ECGs & Ladder Diagram</b><br>
+  <i class="ref">
+    <a href="https://thoracickey.com/conduction-disorders-cardiac-pacing-2/" target="_blank">thoracickey.com</a>
+  </i>
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+</figure>
+
+<figure>
+  <amp-img layout="fill" src="media\EKG\brady\tachybrady.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Tachy-brady syndrome</b>     
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+</figure>
+
+</amp-carousel>
+</section>
+
+<!--AVB-->
+<section class="main cyan2">
+    <h4 class="cyan2">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+    Atrioventricular Block
+    </h4>
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
     
+    <!--1 AVB-->
+    <figure style="background-color: #f5f5f5;">
+        <amp-img layout="fill" src="media\EKG\brady\1AVB.png"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>1st degree AV block</b><br>
+        = excessive delay of impulse passing through AV node. Manifested in ECG by prolongation of PR interval.
+        The prolonged PR is constant.  
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
 
-<!--slideset1-->
-    <div class="container" style="margin-top: 2vh">
-        <div class="progress-container">
-            <div class="progress-bar"></div>  
-            </div>
-            
-        <!--tachy1-->
-        <div class="slideSet1">
-        
-        <div class="w3-container w3-center">
-            <img src="media/EKG/tachy/AF.png" class="imgBox" >
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('af','t1')" 
-            style="cursor: pointer;" id="t1">
-            Show Answer</span>
-        <span class="roboto h6 w3-mobile caption" id='af'> 
-            Atrial Fibrillation: irregularly irregular rhythm. Noted with fibrillatory waves in V1.
-            </span>
-        </div>
-        </div>   
+    <!--WKB-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\brady\AVW2.JPG"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>2nd degree AV block type I or Mobitz I</b><br>
+      PR interval progressively lengthens until the AV node fails to conduct. Usually benign.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
 
-        <!--tachy2-->
-        <div class="slideSet1">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/tachy/svt w st depression.JPG" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('svt','t2')" 
-                style="cursor: pointer;" id="t2">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='svt'> 
-                Supraventricular tachycardia (SVT): Narrow complex tachycardia with no clearly visible P wave.
-                </span>
-            </div>
-            </div>   
+    <!--mobitz II-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\brady\mobitz2.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>2nd degree AV block type II or Mobitz II</b><br>
+      The tracing was obtained during exercise stress test. The AV block ratio was 2:1 alternating with 3:1 with constant PR intervals
+      The QRS duration was wide. The block level was below AV node.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
 
-        <!--tachy3-->
-        <div class="slideSet1">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/tachy/Brady induced PVT.png" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('pvt','t3')" 
-                style="cursor: pointer;" id="t3">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='pvt'> 
-                Polymorphic VT with long QT or Torsade de Pointes.
-                </span>
-            </div>
-            </div>  
-        
-        <!--tachy4-->
-        <div class="slideSet1">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/tachy/RVOT VT.JPG" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('rvot','t4')" 
-                style="cursor: pointer;" id="t4">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='rvot'> 
-                Idiopathic VT from RV outflow tract. Noted with positive QRS in II, III, and aVF;
-                normal R wave progression in chest leads.
-                </span>
-            </div>
-            </div>  
+    <!--CHB-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\brady\CHB.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>3rd degree AV block or complete AV block</b><br>
+        Atrial impulse fails to conduct to ventricle. Atrial rate is faster than ventricle. 
+        Atria and ventricles are totally dissociated.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
 
-        <!--tachy5-->
-        <div class="slideSet1">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/tachy/VT EKG.jpg" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('vt','t5')" 
-                style="cursor: pointer;" id="t5">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='vt'> 
-                Ischemic VT in a patient with history of inferior wall MI.
-                </span>
-            </div>
-            </div>  
+    </amp-carousel>
+</section>
+
+<!--Tachy-->
+<section class="main cyan1">
+    <h4 class="cyan1">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+    Tachyarrhythmias</h4>
     
-    <!--tachy6-->
-    <div class="slideSet1">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/tachy/VT2.png" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('vt2','t6')" 
-                style="cursor: pointer;" id="t6">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='vt2'> 
-                Monomorphic VT. VA dissociation is clearly seen.
-                </span>
-            </div>
-            </div>  
-
-        <a class="prevS" onclick="plusSlides(-1,1)">❮</a>
-        <a class="nextS" onclick="plusSlides(1,1)">❯</a>
-    </div>     
-</div>
-
-
-<!--4Blk SCD-->
-<div class="block" id="SCA">
+  <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
     
-    <div class="w3-row w3-padding-small w3-center slabo h5 blue w3-round-xxlarge w3-mobile" style="margin: 1vw">
-    Conditions with risk for sudden cardiac arrest</div>
+    <!--AF-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\AF.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Atrial Fibrillation</b><br>
+      Fibrillatory wave seen in V1 with totally irregular ventricular rhythm.  
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--AFL-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\Typical Flutter.JPG"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Atrial Flutter</b><br>
+      Flutter waves seen clearly in II/III/aVF/V1. 
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--SVT-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\svt w st depression.JPG"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Supraventricular Tachycardia</b><br>
+      Narrow complex tachycardia rate approximately 200 bpm.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--VT-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\VT EKG.jpg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Ventricular Tachycardia</b><br>
+      Wide complex tachycardia rate approximately 200 bpm. No man's land axis.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--brady induced VT-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\Brady induced PVT.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Polymorphic VT & VF</b><br>
+      Sinus bradycardia with couplet PVCs followed by polymorphic VT which later progressed to VF.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure> 
+
+    <!--idiopathic VT-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy\RVOT VT.JPG"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Monomorphic VT</b><br>
+      Regular wide complex tachycardia, LBBB-like morphology, positive QRS in inferior leads 
+      consistent with VT from right ventricular outflow tract. 
+      In patients without structural heart disease, this condition is benign and may be cured by catheter ablation.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure> 
+
+  </amp-carousel>
+</section>
+
+<!--SCD-->
+<section class="main lightBlue2">
+    <h4 class="lightBlue2">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
+    Conditions that increase risk of sudden cardiac arrest</h4>
+<amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
+
+  <!--ARVD-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\ARVD.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Arrhythmogenic Right Ventricular Cardiomyopathy (ARVC)</b><br>
+    RBBB, T wave inversion in V1-V4, and presence of Epsilon waves (arrow). 
+    Epsilon wave is a low amplitude signal between end of QRS and onset of ST segment in V1-V3.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--BrS-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\Brugada EKG.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Brugada ECG</b><br>
+      J point elevation in right precordial leads with coved ST elevation and T wave inversion
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--HCM-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\HCM.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Hypertrophic Cardiomyopathy</b><br>
+      High voltage in I, aVL, V4-6 with lateral ST depression and T wave inversion.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--LQT-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\LQT1_broad based T.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Long QT ECG</b><br>
+      This ECG was from a patient with long QT 1 syndrome. Noted with prolong QT interval and broad based T wave.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--WPW-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\WPW.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Wolff-Parkinson-White Syndrome</b><br>
+    Left: slurred upstroke of QRS complex or delta waves presented in leads II, III, aVF, and V2-V5.<br>
+    Right: Irregular, wide-complex, and extremely fast tachycardia, consistent with AF with rapid conduction via accessory pathway
+    causing extremely fast ventricular rate. Catheter ablation is indicated.   
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--Old MI-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\Old MI w 1AVB.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Old inferior and anterior wall myocardial infarction</b><br>
+    Deep Q waves in III/aVF and V2-V4. May lead to scar-related VT.  
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--short QT-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\short QT.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Short QT</b><br>
+    Short QT syndrome is an extremely rare, yet highly lethal condition. 
+    <i class="ref">
+      <a href="https://www.wolterskluwer.com/en/solutions/ovid/4198" target="_blank">Marriott's Practical Electrocardiography. 13th edition, 2020.</a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+</amp-carousel>
+</section>
+
+<!--Devices-->
+<section class="main lightBlue1">
+    <h4 class="lightBlue1">
+    <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+    <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    Cardiac rhythm device related ECGs</h4>
+    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+    style="margin-left: auto;margin-right: auto;">
     
-<!--slideset2-->
-    <div class="container" style="margin-top: 2vh">
-        <div class="progress-container">
-            <div class="progress-bar"></div>  
-            </div>
-            
-        <!--SCD1-->
-        <div class="slideSet2">
-        
-        <div class="w3-container w3-center">
-            <img src="media/EKG/SCD/Brugada EKG.png" class="imgBox" >
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('brugada','s1')" 
-            style="cursor: pointer;" id="s1">
-            Show Answer</span>
-        <span class="roboto h6 w3-mobile caption" id='brugada'> 
-            Brugada ECG: J point elevation with coved-type ST elevation in V1-V2.
-            </span>
-        </div>
-        </div>   
-
-        <!--SCD2-->
-        <div class="slideSet2">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/SCD/HCM.jpg" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('hcm','s2')" 
-                style="cursor: pointer;" id="s2">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='hcm'> 
-                Hypertrophic cardiomyopathy: high voltage in left-sided leads with ST depression and 
-                T wave inversion.
-                </span>
-            </div>
-            </div> 
-            
-        <!--SCD3-->
-        <div class="slideSet2">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/SCD/LQT1_broad based T.png" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('lqt','s3')" 
-                style="cursor: pointer;" id="s3">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='lqt'> 
-                Long QT 
-                </span>
-            </div>
-            </div> 
-
-        <!--SCD4-->
-        <div class="slideSet2">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/SCD/Old MI w 1AVB.png" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('oldMI','s4')" 
-                style="cursor: pointer;" id="s4">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='oldMI'> 
-                Old MI; Noted with Q waves in inferior and anterior leads.
-                </span>
-            </div>
-            </div> 
-
-        <!--SCD5-->
-        <div class="slideSet2">
-        
-            <div class="w3-container w3-center">
-                <div class="w3-row" class="imgBox">
-                    <div class="w3-col s6 w3-center w3-padding">
-                    <img src="media/EKG/SCD/WPW resting.png"></div>
-                    <div class="w3-col s6 w3-center w3-padding">
-                    <img src="media/EKG/SCD/WPW AF.png"></div>
-                </div>
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('wpw','s5')" 
-                style="cursor: pointer;" id="s5">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='wpw'> 
-                Left: sinus rhythm with pre-excitation (delta wave; slurred QRS upstroke) = WPW EKG. <br>
-                Right: AF with extremely fast conduction via accessory pathway or AF with WPW.
-                </span>
-            </div>
-        </div>
-
-        <!--SCD6-->
-        <div class="slideSet2">
-                
-            <div class="w3-container w3-center">
-                <img src="media/EKG/SCD/ARVD.png" class="imgBox" >
-                <div class="ref roboto w3-center">
-                        <a href="http://circ.ahajournals.org/content/120/6/477.long">
-                        Jain et al. Circulation 2009.</a>
-                    </div>
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('arvd','s6')" 
-                    style="cursor: pointer;" id="s6">
-                    Show Answer</span>
-                
-            <span class="roboto h6 w3-mobile caption" id='arvd'> 
-                Arrhythmogenic right ventricular dysplasia (ARVD), a disease of right ventricule.
-                Characteristic ECG findings include Epsilon wave (delay in depolarization) and 
-                T wave inversion in V1-V4.
-                
-                </span>
-            </div>
-            </div>  
-
-        <!--SCD7-->
-        <div class="slideSet2">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/SCD/ER.png" class="imgBox" >
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('ER','s7')" 
-                style="cursor: pointer;" id="s7">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='ER'> 
-                Early repolarization: J point elevation concaved downward ST elevation.
-                </span>
-            </div>
-            </div>
-            
-        <!--SCD8-->
-        <div class="slideSet2">
-        
-            <div class="w3-container w3-center">
-                <img src="media/EKG/SCD/short QT.png" class="imgBox" >
-                <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('sQT','s8')" 
-                style="cursor: pointer;" id="s8">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='sQT'> 
-                Short QT    </span>
-            </div>
-            </div>
-    
-
-        <a class="prevS" onclick="plusSlides(-1,2)">❮</a>
-        <a class="nextS" onclick="plusSlides(1,2)">❯</a>
-    </div>     
-</div>
-
-<!--5Blk Device-->
-<div class="block" id="Device">
-      
-    <div class="w3-row w3-padding-small w3-center slabo h5 w3-green w3-round-xxlarge w3-mobile" style="margin: 1vw">
-    Device related</div>
-    
-    <!--slideset3-->
-      <div class="container" style="margin-top: 2vh">
-        <div class="progress-container">
-            <div class="progress-bar"></div>  
-            </div>
-    
-    <!--device1-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <img src="media/EKG/device/V lead no capture.JPG" class="imgBox" >
-            <div class="w3-display-topmiddle roboto imgLabel">1 week after implantation</div>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d1','d1a')" 
-            style="cursor: pointer;" id="d1a">
-            Show Answer</span>
-        <span class="roboto h6 w3-mobile caption" id='d1'> 
-            Dual chamber pacemaker with failure to sense and pace of V lead. <br>
-            Given the timing of 1wk after implantation, lead dislodgement is most likely.
-        </span>
-        </div>
-    </div>   
-
-    <!--device2-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <img src="media/EKG/device/Lead Fx 1800 ohms.JPG" class="imgBox" >
-            <div class="w3-display-topmiddle roboto imgLabel">s/p VVI 10years+</div>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('fx','d2')" 
-            style="cursor: pointer;" id="d2">
-            Show Answer</span>
-        <span class="roboto h6 w3-mobile caption" id='fx'> 
-            Single chamber pacemaker with failure to sense and pace of V lead. <br>
-            Given the timing of 10years after implantation, lead fracture, insulation break, or
-            battery depletion are possible. In this case, lead impedance was 1800 Ohm, so lead fracture
-            was the cause.
-        </span>
-        </div>
-    </div>   
-
-    <!--device3-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">DDD 60/120 AVD 170.
-            </div>
-            <span class="imgBox" >
-            <img src="media/EKG/device/lead switch ddd 60 120.png" style="padding: 1vmax">
-            
-            </span>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d3','d3a')" 
-            style="cursor: pointer;" id="d3a">
-            Show Answer</span>
-        <span class="roboto h6 w3-mobile caption" id='d3'> 
-            A and V leads switch in the header. Ventricular pacing is being inhibited by P wave (middle tracing),
-            ruling out lead dislodgement (there needs to be a lead in atrium).
-            Inhibition of V pacing is intermittent due to higher sensitivity in A channel.
-            
-         </span>
-        </div>
-    </div>   
-
-    <!--device4-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-               50F with complete heart block s/p DDD 8 years ago, presents with syncope.
-               Pacemaker parameters are within normal ranges. Holter recording is as shown.
-            </div>
-            <span class="imgBox" >
-            <img src="media/EKG/device/V oversensing 1.JPG" style="width: 70%">
-            
-            </span>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d4','d4a')" 
-            style="cursor: pointer;" id="d4a">
-            Show Answer</span>
-            
-        <span class="roboto h6 w3-mobile caption" id='d4'> 
-            Intermittent failure to pace the ventricle is noted. Oversensing is suspected.
-         </span>
-        </div>
-    </div>   
-
-
-    <!--device5-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <span class="imgBox" >
-            <img src="media/EKG/device/DDI 60 AVD 200.png" style="width: 80%">
-            
-            </span>
-        <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('ddi','d5')" 
-            style="cursor: pointer;" id="d5">
-            Show Answer</span> 
-        <span class="roboto h6 w3-mobile caption" id='ddi'> 
-            Normal pacemaker function. DDI 60, AVD 200.
-         </span>
-        </div>
-    </div>   
-
-    <!--device6-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-                VVI 50. 
-            </div>
-            <span class="imgBox" >
-            
-            <img src="media/EKG/device/wnkbch w vvi.png" style="width: 80%">
-            
-            </span>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d6','d6a')" 
-            style="cursor: pointer;" id="d6a">
-            Show Answer</span>
-        <span class="roboto h6 w3-mobile caption" id='d6'> 
-            Normal pacemaker function. Rhythm = sinus rhythm with AV Wenckebach. 
-            V pacing came on the dropped beats.
-         </span>
-        </div>
-    </div>   
-
-    <!--device7-->
-    <div class="slideSet3">
-        
-            <div class="w3-container w3-center">
-                <span class="imgBox" >
-                <img src="media/EKG/device/PMT.png" style="width: 80%">
-                
-                </span>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d7','d7a')" 
-                style="cursor: pointer;" id="d7a">
-                Show Answer</span> 
-            <span class="roboto h6 w3-mobile caption" id='d7'> 
-                Pacemaker mediated tachycardia; triggered by a PVC with retrograde P, followed
-                by an non-capture A pacing with long AV delay, allowing the following retrograde
-                VA conduction to capture the atrium and initiate PMT.
-             </span>
-            </div>
-        </div>   
-
-    <!--device8-->
-    <div class="slideSet3">
-        
-            <div class="w3-container w3-center">
-                <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-                    DDD 50/110, sensed AVD 120 ms, paced AVD 150 ms, PVARP 200ms
-                </div>
-                <span class="imgBox" >
-                <img src="media/EKG/device/PPM Block.png" style="width: 80%">
-                
-                </span>
-                
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d8','d8a')" 
-                style="cursor: pointer;" id="d8a">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='d8'> 
-                Sinus tachycardia with pacemaker Wenckebach.<br>
-                TARP = 200+120, UTR = 110 bpm = 546 ms, 2:1 block @ 320 ms or 188 bpm,<br> 
-                WKB 320-546 ms or 188 to 110 bpm.
-             </span>
-            </div>
-        </div>   
-    
-    <!--device9-->
-    <div class="slideSet3">
-        
-            <div class="w3-container w3-center">
-                <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-                    DDD 70/110
-                </div>
-                <span class="imgBox" >
-                <img src="media/EKG/device/safety pacing after PVCs.png" style="width: 80%">
-                
-                </span>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d9','d9a')" 
-                style="cursor: pointer;" id="d9a">
-                Show Answer</span>    
-            <span class="roboto h6 w3-mobile caption" id='d9'> 
-                Safety pacing triggered by timely PVCs. Noted with short AV delays.
-             </span>
-            </div>
-        </div>   
-
-    <!--device10-->
-    <div class="slideSet3">
-        
-            <div class="w3-container w3-center">
-                <span class="imgBox" >
-                <img src="media/EKG/device/MVP 12L EKG.png" style="width: 85%">
-                
-                </span>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('mvp','d10')" 
-                style="cursor: pointer;" id="d10">
-                Show Answer</span>   
-            <span class="roboto h6 w3-mobile caption" id='mvp'> 
-                Managed ventricular pacing: AAI mode switches to DDD with short AV delay after
-                AP without native ventricular beat.
-             </span>
-            </div>
-        </div>   
-    
-    <!--device11-->
-    <div class="slideSet3">
-        
-            <div class="w3-container w3-center">
-                <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-                    CRT non-responder. What is the next appropriate management?
-                    <span class="w3-button w3-round w3-mobile h6 moreInfo"
-                onclick="showCell('d11info')">
-                more info</span>
-                </div>
-                <span class="imgBox" >
-                <img src="media/EKG/device/BiV pacing in rapid AFL.png" style="width: 85%">
-                </span>
-
-            
-            <div id="d11info" class="w3-modal">
-                <div class="w3-modal-content">
-                    <div class="w3-container w3-center">
-                        <span onclick="hideCell('d11info')" 
-                        class="w3-button w3-display-topright roboto modalClose">
-                            &times;</span>
-                        <img src="media/EKG/device/BiV pacing vector.png" 
-                        style="width: 50%; border: #332702 0.5vw solid; margin-bottom: 1vh">
-                        <img src="media/EKG/device/BiV RV LV.png" style="width: 70%; margin-bottom: 1vh">
-                       
-                    </div>
-                </div>
-            </div>
-            
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d11','d11a')" 
-            style="cursor: pointer;" id="d11a">
-            Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='d11'> 
-                Atrial flutter with intermittent biventricular pacing. Noted with beats of fusion
-                and native LBBB. 
-             </span>
-            </div>
-        </div>   
-
-    <!--device12-->
-    <div class="slideSet3">
-        
-            <div class="w3-container w3-center">
-                <span class="imgBox" >
-                <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-                    65M s/p CRT, in ICU with pneumonia and respiratory failure. The device is programmed
-                    DDDR, 60-125 bpm. 
-                    The most likely explanation for the below tracing is:
-                    </div>
-                <img src="media/EKG/device/CRT above URL.png" style="width: 89%">
-                
-                </span>
-                
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d12','d12a')" 
-                style="cursor: pointer;" id="d12a">
-                Show Answer</span>
-            <span class="roboto h6 w3-mobile caption" id='d12'> 
-                Sinus tachycardia above upper rate limit; hence no biventricular pacing.
-             </span>
-            </div>
-        </div>
-    
-    <!--device13-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <span class="imgBox" >
-            <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-                1hr after DDD implantation.
-                </div>
-            <img src="media/EKG/device/A lead in V.png" style="width: 75%">
-            
-            </span>
-        <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d13','d13a')" 
-            style="cursor: pointer;" id="d13a">
-            Show Answer</span>    
-        <span class="roboto h6 w3-mobile caption" id='d13'> 
-            The atrial lead has dislodged into the ventricle. Ventricular captures are seen 
-            by the first spike (from atrial lead) followed by a functional non-capture from the second spike (from
-            ventricular lead). 
-         </span>
-        </div>
-    </div>
-
-    <!--device14-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <span class="imgBox" >
-            <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-                1wk post CRT
-                </div>
-            <img src="media/EKG/device/VV delay.png" style="width: 75%">
-            
-            </span>
-        <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d14','d14a')" 
-            style="cursor: pointer;" id="d14a">
-            Show Answer</span>   
-        <span class="roboto h6 w3-mobile caption" id='d14'> 
-            Normal CRT function with VV delay of 40ms. 
-         </span>
-        </div>
-    </div>
-
-    <!--device15-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <span class="imgBox" >
-            <div class="w3-row w3-center roboto imgLabel" style="margin-top: 3vh">
-                VVIR; post chest radiation
-                </div>
-            <img src="media/EKG/device/runaway pacemaker.png" style="width: 75%">
-            
-            </span>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d15','d15a')" 
-            style="cursor: pointer;" id="d15a">
-            Show Answer</span>    
-        <span class="roboto h6 w3-mobile caption" id='d15'> 
-            Pacemaker failure. Radiation may cause deterioration of lead and pacemaker
-            circuit. ECG show asynchronous pacing. Urgent generator change is needed.
-            </span>
-        </div>
-    </div>
-
-    <!--device16-->
-    <div class="slideSet3">
-        
-        <div class="w3-container w3-center">
-            <div class="imgBox" >
-            
-            <img src="media/EKG/device/A undersensing.png" style="width: 90%">
-            
-            </div>
-            <span class="w3-button w3-border w3-round w3-center roboto h8" onclick="showCell('d16','d16a')" 
-            style="cursor: pointer;" id="d16a">
-            Show Answer</span>    
-        <span class="roboto h6 w3-mobile caption" id='d16'> 
-            Atrial undersensing. Some of A pacing spikes occur at the time of native QRS causing
-            safety pacing.
-            </span>
-        </div>
-    </div>
-    
-
-
-        <a class="prevS" onclick="plusSlides(-1,3)">❮</a>
-        <a class="nextS" onclick="plusSlides(1,3)">❯</a>
-    </div>     
-</div>
-
-
-<!--end Div pointer-->
-</div>
-
-
-<script src="JF_clickToShow.js"></script>
-<script src="JF Nav.js"></script>
-<script src="block navigation.js" ></script>
-<script src="pointer.js" ></script>
-<script>
-
-//nav and pointer
-//up arrow
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===38) {
-    blockNav(-1);
-    closeMenu();}
-})
-//down arrow
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===40) {
-    blockNav(1);
-    closeMenu();}
-})
-
-//esc
-window.addEventListener("keydown", function(event) {
-        event.preventDefault();
-        if (event.keyCode===27) {
-        window.unblur()}
-    })
-
-//p
-window.addEventListener("keydown", function(event) {
-        event.preventDefault();
-        if (event.keyCode===80) {
-        pointerSwitch()}
-    })
-
-
-
-//pointer
-var pSwitch = 0;
-window.ontouchmove = function () {unblur()};
-window.onscroll = function() {scroll()};
-
-
-
-var slideIndex = [1,1,1,1];
-var slideID = ['slideSet0', 'slideSet1', 'slideSet2','slideSet3'];
-showSlides(1,0);showSlides(1,1);showSlides(1,2);showSlides(1,3);
-
-
-function plusSlides(n, set) {
-  showSlides(slideIndex[set] += n, set);
-}
-
-function showSlides(n,set) {
-  var i;
-  var slides = document.getElementsByClassName(slideID[set]);
-  if (n > slides.length) {slideIndex[set] = 1}
-  if (n < 1) {slideIndex[set] = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
+    <!--oversensing-->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\device\V oversensing 1.JPG" style="margin: 4vmax 0.5vw;"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Failure to fire</b><br>
+    1st 6 beats: P synchronous ventricular pacing. Last 3 beats: P waves without any pacing spikes.<br>
+    Generic Diagnosis: failure to fire. Potential causes: oversensing, battery depletion, loose connection, and etc.<br>
+    In this case, failure to fire was due to lead noise oversensing from lead fracture.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
   
-  slides[slideIndex[set]-1].style.display = "block";
+    <!--undersensing-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\A undersensing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Atrial Undersensing</b>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
 
-  //adjust range bar
-  var range = (slideIndex[set]/slides.length)*100;
-  var bar = document.getElementsByClassName("progress-bar");
-  bar[set].style.width = range + "%";
-  }
+    <!--V noncapture-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\Lead Fx 1800 ohms.JPG" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Failure to fire, sense, and capture</b><br>
+      This is a case of a VVI pacemaker with lead fracture. The lower rate was set at 60bpm.
+      The first 4 beats were AF with slow ventricular response without any pacing spikes. After the 4th and 5th QRS, pacing spikes occurred in appropriately
+      The last beat was PVC followed by a pacing spike which failed to capture.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+      </figure>
 
-</script>	
+    <!--A in V-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\A lead in V.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Atrial lead failed to properly pace.</b><br>
+      Dual chamber system with A lead fell in to ventricle. Noted that for each QRS, there were 2 pacing spikes separated by 160ms, likely to equal AV delay.<br>
+      The 1st spike captured ventricle. The 2nd spike was functionally not captured. Cannot exclude A/V leads switch in the header, though.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--AV switch port-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\lead switch ddd 60 120.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Failure to properly pace and failure to fire</b><br>
+      Dual chamber system. The first line showed 2 pacing spikes for each QRS. The 1st spike captured ventricle. The 2nd spike came at the interval of AV delay.
+      There are 2 possible explanations, A lead in ventricle or A/V leads switch in the header. The latter was most likely.
+      The 2nd and 3rd lines of the tracing showed P wave without QRS or V pacing, meaning that atrium signal was sensed. A lead in ventricle was therefore excluded.
+      In this case, A and V leads were placed in to the wrong port in the header. When atrial rate was increased as in the 2nd line, ventricular channel was sensed and therefore inhibited the pacing from both A and V channels.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+  
+    <!--PPM WKB-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\PPM Block.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>DDD 50/110, PAV 150, SAV 120, PVARP 200</b><br>
+      Upper Rate Behavior: Pacemaker "block".<br>
+      ECG showed AS-VP with progressively increase in AV delay until drop beats. 
+      Atrial rate was faster than the upper tracking rate of 110bpm but slower than TARP rate. Wenckebach-like behavior was therefore seen.
+      TARP = 120+200 msec; TARP rate = 188 bpm.
+      Wenckebach window = 110-188 or 320-545msec.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--PMT-->
+    <figure>
+    <amp-img layout="fill" src="media\EKG\device\PMT.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Pacemaker mediated tachycardia</b>
+      or endless-loop tachycardia.<br>
+      Another upper rate behaviour of dual-chamber pacemaker. Noted with P-synchronous rapid V pacing, usually at the rate close to upper tracking rate.<br>
+      Triggered by retrograde A which may be from PVC, long-AV delay, or non-A capture. 
+      In the above tracing, PMT was triggered by PVC.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--BiV pacing-->
+    <figure>
+      <div class="row">
+      <amp-img layout="responsive" width="40vw" height="40vw" src="media\EKG\device\BiV RV LV.png" style="flex:1;margin: 1vw;"></amp-img>
+      <amp-img layout="responsive" width="40vw" height="40vw" src="media\EKG\device\BiV pacing vector.png" style="flex: 1;margin: 1vw;"></amp-img>
+      </div>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Ventricular pacing from different locations.</b><br>
+      ECG patterns in LV pacing: R in V1, left-to-right frontal axis (negative in I and aVL and positive in III).
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--CRT above upper rate-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\CRT above URL.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>CRT system; DDD 60/120. Why did the device stop pacing?</b><br>
+      The 1st part of the tracing showed P-synchronous biventricular pacing. The atrial rate was approximately 115 bpm.<br>
+      Later in the tracing, the atrial rate speeded up to more than 120 bpm, above the upper rate limit. CRT, therefore, was unable to track and did not deliver biventricular pacing.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--MVP-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\MVP 12L EKG.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Managed Ventricular Pacing</b><br>
+      The tracing began with AP-VS, followed by AP without AV conduction (the 3rd P wave).
+      After the 3rd P wave, there were 2 pacing spikes very close to each other, one pacing A and another pacing V.
+      The finding is typical for algorithm to reduce unnecessary RV pacing by switching AAI to DDD mode when conduction from atrium fails to conduct to ventricle.
+      After the blocked AV, this algorithm is set to pace DDD with AV delay of 80ms. 
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--safety pacing-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\safety pacing after PVCs.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>DDD 70/120, AVD 200ms</b><br>
+      Appropriate AP-VP, followed by a PVC that timed perfectly at the lower rate interval. 
+      A pacing spike was seen at the beginning of the PVC with another pacing spike that came within 110ms.
+      This is the behaviour of "safety pacing" feature. 
+      Any ventricular sensed event that occurs within the 110 millisecond window after AP event will result in a ventricular pace at the end of the 110 ms window. 
+      Atrial sensed (AS) events do not initiate a Ventricular Safety Pacing interval.<br>    
+      <i class="ref">
+        <a href="https://www.medtronicacademy.com/features/ventricular-safety-pacing-vsp-feature">
+        Medtronic Academy
+        </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    </amp-carousel>
+</section>
+
+</amp-accordion>
 
 
-
-
+<!--footer-->
+<div id="about" style="background-color: #555;color: white;font-size: 18px;padding: 15vh 3vh">
+    <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
+  
+      <div class="rowF">
+        <a href="#top" style="text-decoration:none;color: white;">
+        <b>Top</b> of the page</a>
+        </div>
+  
+      <div class="rowF">
+        <b>follow </b>&nbsp; me at &nbsp;
+          <a href="https://heartrhythmbox.com">
+            <amp-img src="box_grey.png" width="28" height="28" layout="fixed">
+            </amp-img></a>&nbsp;&nbsp; and &nbsp;&nbsp;
+        <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+            style="text-decoration:none;color: white;">
+            <amp-img src="fb.png" width="23" height="23" layout="fixed" style="vertical-align: -5px;">
+            </amp-img>
+        </a>
+      </div>
+  
+      <div class="rowF" style="text-align: left;">
+        <h2 class="sectionH">About the page</h2>
+        <p class="sectionT">Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+            The page is created mainly for educational purpose. 
+            I believe that presentations should be more interactive and easily accessible. 
+            No need to register or download. You can access everything at your fingertips.
+        </p>
+      </div>        
+      <div class="rowF" style="text-align: left;">       
+                <h2 class="sectionH">About the author</h2>
+                <p class="sectionT">
+                  <i>t'</i> Thon, the screen name of the author, is a novice web developer,
+                  a wine enthusiast, and a cardiac eletrophysiologist by training.
+                </p>
+             
+          
+      </div>
+  
+      <div class="rowF" style="border-bottom: none;">
+          <a href="https://github.com/tTHon/heartrhythmbox" target="_blank" 
+          style="text-decoration:none;color: white;">
+          Know more about my code: &nbsp;
+          <amp-img src="github white.png" width="23" height="23" layout="fixed" style="vertical-align: -3px;">
+        </amp-img>
+         
+          </a>
+      </div>
+  
+    </div>
+  </div>
 
 </body>
 </html>
