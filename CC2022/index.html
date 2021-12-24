@@ -34,7 +34,7 @@
 /*top*/
 .topBar {
     font-size: 2vmax;padding: 0.5vmax;color: #f1f1f1;
-    background-color: #074860;position: sticky;top: 0;z-index: 10;
+    background-color: #752530;position: sticky;top: 0;z-index: 10;
     border-bottom-left-radius: 1vmax;border-bottom-right-radius: 1vmax;   
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
@@ -191,7 +191,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
 
 /*footer*/
-.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
+.rowF {display: flex;padding: 1vmax;border-bottom: #888 solid 0.2px;}
 .sectionH {padding-top: 0.7vmax;
         background-color: transparent;color: white;font-size: 16px;border: none;
       }
@@ -220,21 +220,24 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <li class="navItem"><a href="Clinical.html" target="_blank">Clinical Practice</a></li>
         <li class="navItem" style="border-bottom: none;">
             <a href="https://heartrhythmbox.com" target="_blank">
-                <amp-img src="box_grey.png" width="32" height="32" layout="fixed">
+                <amp-img src="CC Logo Gold small.png" width="32" height="32" layout="fixed">
                 </amp-img></a>    
         </li>
     </ul></div>
 </amp-sidebar>
-
 <!--large screen only --menu-->
-<div class="topBar row800" style="font-size: 1.8vmax;">
+<div class="topBar" style="font-size: 1.8vmax;">
   <button on="tap:sidebar.open" class="darkCyan" style="border: none;cursor: pointer;">
     <i class="fas fa-bars" style="font-size: 1.8vmax;color: #ccff00;"></i></button>
   <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
     <a href="https://heartrhythmbox.com" target="_blank">
-    <amp-img src="box_grey.png" width="30" height="30" layout="fixed">
+    <amp-img src="CC Logo Gold.png" width="28" height="45" layout="fixed">
         </amp-img></a>
   </span>
+  <div style="text-align: center;margin-left: auto;margin-right: auto;">
+    CC 2022 Schedule
+  </div>
+  <!--tab
   <div class="tab">
     <a href="Index.html" target="_blank">
     Home</a>
@@ -249,10 +252,10 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
   <div class="tab">
     <a href="Clinical.html" target="_blank">
     Clinical Practice</a>
-  </div>
+  </div-->
 </div>
 
-<!--mobile menu-->
+<!--mobile menu
 <div class="topBar mobileOnly" style="width: 100%;">
   <button on="tap:sidebar.open" style="border: none;cursor: pointer;" class="darkCyan lime">
   <i class="fas fa-bars" style="font-size: 2vmax;"></i></button>
@@ -261,7 +264,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <amp-img src="box_grey.png" width="20" height="20" layout="fixed">
         </amp-img></a>
     </span>
-</div>
+</div-->
 
 <!--title-->
 <div style="font-size: 3.2vmax;letter-spacing: 0.5vmax;font-weight: 900;text-align: center;padding: 1vmax;">
@@ -862,13 +865,11 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
   
       <div class="rowF">
         <a href="#top" style="text-decoration:none;color: white;">
-        <b>Top</b> of the page</a>
-        </div>
+        <b>Top</b> of the page</a><br>
+      </div>
     
-    <div class="rowF">
-        
-    </div>
-        <span tyle
+    <div class="rowF" style="font-size: smaller;">
+       Made it happen by <i>&nbsp; t'Thon</i>
     </div>
   </div>
 
