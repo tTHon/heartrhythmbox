@@ -23,13 +23,16 @@
 }
 
 /*color*/
-.darkCyan {background-color: #074860;color: #f1f1f1;}
-.cyan1 {background-color: #1b5b56;color: #f1f1f1;}
-.cyan2 {background-color: #11515b;color: #f1f1f1;}
-.lime {color: #ccff00;}
-.nearBlack {background-color: #232323;color: #f1f1f1;}
-.lightBlue1 {background-color: #B6c2c8;color: #074860;}
-.lightBlue2 {background-color: #8eafc0;color: #074860;}
+.dullRed {background-color: #752530;color: #f1f1f1;}
+.aqua {background-color: #36ffe1;color:#333;}
+.pink {background-color: #f69c98;color:#333;}
+.purple {background-color: #9f5f8f;color: #f1f1f1;}
+.blue {background-color: #0e066f;color: #f1f1f1;}
+.darkRed {background-color:#42040c;color: #f1f1f1;}
+.cyan {background-color:#25756a;color: #f1f1f1;}
+.silver {background-color: #71706e;color: #f1f1f1;}
+.lightCyan {background-color: #e0ffff;color:#333;}
+
 
 /*top*/
 .topBar {
@@ -71,13 +74,12 @@
 }
 
 /*list*/
-.lightList, .darkList {font-size: 2.5vmax;font-weight: 900;padding: 2vmax; text-align: center;color: #ccff00;margin: 1vmax;}
 .lightList li, .darkList li {
-  font-size: 1.8vmax;font-weight: normal;border-bottom: #ddd 0.1vmax solid;color: #ddd;padding: 1vmax;
+  font-size: 2vmax;font-weight: normal;border-bottom: #ddd 0.1vmax solid;color: #ddd;padding: 1vmax;
   list-style: none;
   }
-.darkList {color: #074860;}
-.lightList li:hover, .darkList li:hover  {background-color: #074860;color: #ffffff;}
+.darkList {color: #333;}
+.lightList li:hover, .darkList li:hover  {background-color: #333;color: #ffffff;}
 .darkList li {color: #232323;border-bottom-color: #555;}
 @media only screen and (max-width:800px){
   .darkList, .lightList, .lightList li, .darkList li {font-size: 1.8vmax;padding: 0.5vmax;}
@@ -85,14 +87,14 @@
 
 /*Q*/
 .qBox {text-align: left;margin-left: auto;margin-right: auto;padding: 2vmax;}
-.qList {list-style: lower-alpha inside; border-top: #ccff00 0.1vmax solid;padding: 1vmax;
+.qList {list-style: lower-alpha inside; border-top: #ffd071 0.1vmax solid;padding: 1vmax;
 margin-left: auto;margin-right: auto;}
 
 /*table*/
 .lightTable {text-align: left;border-collapse: collapse;padding: 1vmax;color: #f2f2f2;height: 90%;
 margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
 .lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax;}
-.lightTable th {color: #ccff00;}
+.lightTable th {color: #ffd071;}
 @media only screen and (max-width:500px){
   .lightTable {margin: none;padding: 0.25vw;}
   .lightTable th, .lightTable td {padding: 0.25vw;}
@@ -107,7 +109,7 @@ margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
 amp-accordion {margin-left: auto;margin-right: auto;text-align: center;width: fit-content;
 padding: 5vh 0;margin-top: 5vh;margin-bottom: 5vh;}
 amp-accordion section[expanded] .showMore {display: none;}
-amp-accordion section[expanded] .showLess {color: #ccff00;}
+amp-accordion section[expanded] .showLess {color: #ffd071;}
 amp-accordion section:not([expanded]) .showLess {display: none;}
 
 /*carousel*/
@@ -206,7 +208,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
 <body style="font-family: 'Abel', sans-serif;color: rgb(82, 82, 82);">
 
-  <amp-sidebar id="sidebar" layout="nodisplay" side="left">
+  <!--amp-sidebar id="sidebar" layout="nodisplay" side="left">
     <div style="text-align: left;padding: 0.5vmax;">
     <button on="tap:sidebar.close" style="border: none;">
         <i class="fas fa-times-circle" style="font-size: 2vmax;color: rgb(27, 91,86);border:none"></i>
@@ -224,19 +226,16 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
                 </amp-img></a>    
         </li>
     </ul></div>
-</amp-sidebar>
+</amp-sidebar-->
+
 <!--large screen only --menu-->
-<div class="topBar" style="font-size: 1.8vmax;">
-  <button on="tap:sidebar.open" class="darkCyan" style="border: none;cursor: pointer;">
-    <i class="fas fa-bars" style="font-size: 1.8vmax;color: #ccff00;"></i></button>
-  <span style="top: 0.5vmax;right: 1vmax;position: absolute;">
-    <a href="https://heartrhythmbox.com" target="_blank">
-    <amp-img src="CC Logo Gold.png" width="28" height="45" layout="fixed">
-        </amp-img></a>
-  </span>
-  <div style="text-align: center;margin-left: auto;margin-right: auto;">
-    CC 2022 Schedule
-  </div>
+<div class="topBar" style="text-align: center;">
+  <!--button on="tap:sidebar.open" class="darkCyan" style="border: none;cursor: pointer;">
+    <i class="fas fa-bars" style="font-size: 1.8vmax;color: #ccff00;"></i></button-->
+  <span>
+    <amp-img src="CC Logo Gold small.png" width="2vmax" height="2vmax" layout="fixed">
+    </amp-img></a>
+    CC 2022 Schedule</span>
   <!--tab
   <div class="tab">
     <a href="Index.html" target="_blank">
@@ -266,51 +265,33 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </span>
 </div-->
 
-<!--title-->
-<div style="font-size: 3.2vmax;letter-spacing: 0.5vmax;font-weight: 900;text-align: center;padding: 1vmax;">
-  Fundamental of Electrophysiology 
- </div>
-
 <!--content-->
  <amp-accordion animate expand-single-section>
         
-    <!--conduction-->
-    <section class="main darkCyan" expanded>
-      <h4 class="darkCyan">
+    <!--Named Session-->
+    <section class="main darkRed" expanded>
+      <h4 class="darkRed">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Normal Conduction System</h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-        
-      <!--VDO-->
-        <amp-video width="1280" height="720" src="media\EP\Normal Conduction System.mp4" 
-        layout="responsive" controls>
-        </amp-video>
+      Named Session</h4>
+      <ul class="lightList">
+        <li><b style="color: white;">Year in Review</b><br> (Piyamitr/<b>Pavit</b>/Sirin/Teerapat)</li>
+        <li><b style="color: white">Electrocardiogame Season 3</b>: The Returning Champion vs. The New Challengers.<br>
+            Nilubon/Dujdao/Paitoon; Moderators: Pakorn/<b>Sirin</b>
+        </li>
+        <li><b style="color: white;">Cases of the Year</b><br>
+          (Tarinee/<b>Bandit</b>/Ronpichai/Asa/Piyapat)
 
-        <figure>
-          <amp-img layout="fill" src="media\EP\Conduction_System_of_Heart.jpg"></amp-img>
-         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          <b>Conduction System of the Heart</b><br>
-          Specialized conducting components of the heart include the sinoatrial node, the internodal pathways, Bachmann's bundle, 
-          the atrioventricular node, the atrioventricular bundle, the right and left bundle branches, and the Purkinje fibers.           
-          <br><i class="ref">ref:
-            <a href="http://legacy.cnx.org/content/col11496/1.8" target="_blank">
-              OpenStax, Anatomy & Physiology.</a>
-          </i>
-            <span [text]="expanded ? '▼' : '▲'">▲</span>
-          </figcaption>
-        </figure>
-        
-      </amp-carousel>
+        </li>
+      </ul>
     </section>
     
-    <!--AP-->
-    <section class="main cyan2">
-      <h4 class="cyan2">
+    <!--Practice Changing-->
+    <section class="main purple">
+      <h4 class="purple">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        The Action Potential
+        Practice Changing Topics
       </h4>
       <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
       style="margin-left: auto;margin-right: auto;">
@@ -442,12 +423,12 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </amp-carousel>
     </section>
 
-    <!--Mech Arrhythmias-->
-    <section class="main cyan1">
-      <h4 class="cyan1">
+    <!--Gen-->
+    <section class="main blue">
+      <h4 class="blue">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Mechanism of Arrhythmias</h4>
+        General Cardiology</h4>
       
       <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
         style="margin-left: auto;margin-right: auto;">
@@ -548,12 +529,12 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </amp-carousel>
     </section>
     
-    <!--AAs-->
-    <section class="main lightBlue2">
-      <h4 class="lightBlue2">
+    <!--Echo-->
+    <section class="main cyan">
+      <h4 class="cyan">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Antiarrhythmic Agents</h4>
+        Echocardiography</h4>
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
       style="margin-left: auto;margin-right: auto;">
     
@@ -787,12 +768,12 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </amp-carousel>
     </section>
 
-    <!--QAs-->
-    <section class="main lightBlue1">
-      <h4 class="lightBlue1">
+    <!--EP-->
+    <section class="main silver">
+      <h4 class="silver">
         <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
         <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Qs and As</h4>
+      Electrophysiology</h4>
       <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
       style="margin-left: auto;margin-right: auto;">
       
@@ -806,49 +787,92 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         </figcaption>
       </figure>
 
-      <!--Q1 Q-->
+      </amp-carousel>
+    </section>
+
+    <!--Intervention-->
+    <section class="main lightCyan">
+      <h4 class="lightCyan">
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+      Intervention</h4>
+      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+      style="margin-left: auto;margin-right: auto;">
+      
+      <!--Q1 tracing-->
       <figure>
-        <amp-fit-text width="80vw" height="45vw" layout="responsive" max-font-size="28" 
-        style="color: #f2f2f2;">
-          <div class="qBox">
-          A 54-year-old woman with symptomatic paroxysmal AF is admitted to the hospital for sotalol loading. On the third hospital day, a two-channel rhythm strip is recorded (as shown previously).<br>
-          Which of the following should you recommend?
-            <ol class="qList">
-            <li>Reduce the dose of sotalol by 50%, discharge the patient.</li>
-            <li>ICD implantation.</li>
-            <li>Perform immediate defibrillation</li>
-            <li>Start IV amiodarone and continue for the duration of five half-lives of sotalol.</li>
-            <li>Discontinue sotalol and give IV magnesium.</li>
-            </ol>
-          </div>
-        </amp-fit-text>
+        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
+        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-         Q1: The Answer is...<br>
-         Answer: e <br>
-         Tracing = sinus rhythm with prolong QT with PVCs which later triggers torsades. Sotalol is a class III AAD and known to increase QT interval. Treatment includes discontinue the causal agent, give IV magnesium regardless of the magnesium level. Rapid pacing may be required.
-          <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+        <b>Question 1</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
       </figure>
 
-      <!--Q2 Q-->
+      </amp-carousel>
+    </section>
+
+    <!--Heart Failure-->
+    <section class="main aqua">
+      <h4 class="aqua">
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+      Heart Failure</h4>
+      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+      style="margin-left: auto;margin-right: auto;">
+      
+      <!--Q1 tracing-->
       <figure>
-        <amp-fit-text width="80vw" height="45vw" layout="responsive" max-font-size="28" 
-        style="color: #f2f2f2;">
-          <div class="qBox">
-            Which of the following drugs is most likely to elevate the myocardial stimulation threshold after implantation of a dual chamber pacemaker?
-            <ol class="qList">
-            <li>Digoxin</li>
-            <li>Diltiazem</li>
-            <li>Flecainide</li>
-            <li>Mexilitine</li>
-            <li>Sotalol</li>
-            </ol>
-          </div>
-        </amp-fit-text>
+        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
+        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-         Q2: The Answer is...<br>
-         Answer: c<br>
-         Class IC is notoriously known to increase pacing threshold.
-         <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+        <b>Question 1</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+      </figure>
+
+      </amp-carousel>
+    </section>
+
+    <!--SHD/ACHD-->
+    <section class="main pink">
+      <h4 class="pink">
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+      Structural and Adult Congenital Heart Disease</h4>
+      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+      style="margin-left: auto;margin-right: auto;">
+      
+      <!--Q1 tracing-->
+      <figure>
+        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
+        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Question 1</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+      </figure>
+
+      </amp-carousel>
+    </section>
+
+    <!--Quiz-->
+    <section class="main dullRed">
+      <h4 class="dullRed">
+        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+      Quizzzz</h4>
+      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+      style="margin-left: auto;margin-right: auto;">
+      
+      <!--Q1 tracing-->
+      <figure>
+        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
+        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Question 1</b>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
       </figure>
 
       </amp-carousel>
@@ -860,15 +884,21 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
 
 <!--footer-->
-<div id="about" style="background-color: #555;color: white;font-size: 18px;padding: 15vh 3vh">
+<div id="about" style="background-color: #555;color: white;font-size: 18px;padding: 5vh 3vh">
     <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
   
       <div class="rowF">
         <a href="#top" style="text-decoration:none;color: white;">
         <b>Top</b> of the page</a><br>
       </div>
+  
+      <div class="rowF">
+        <a href="#search" style="text-decoration:none;color: white;">
+        <i class="fas fa-search"></i>&nbsp;Speakers <b>Search</b>
+      </a><br>
+      </div>
     
-    <div class="rowF" style="font-size: smaller;">
+    <div class="rowF" style="font-size: smaller;border-bottom: none;color: #bbb;">
        Made it happen by <i>&nbsp; t'Thon</i>
     </div>
   </div>
