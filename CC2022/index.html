@@ -10,9 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-}
+
+html, body {margin: 0;}
 
 /*color*/
 .dullRed {background-color: #752530;color: #f1f1f1;}
@@ -33,6 +32,9 @@
     border-bottom-left-radius: 1vmax;border-bottom-right-radius: 1vmax;   
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
+.main {font-size: 2vmax;padding: 1vmax;font-weight: 900;}
+.showMore {display: none;}
+.content {display: none;}
 
 .mobileOnly {display: none;}
 @media only screen and (max-width:800px){
@@ -40,23 +42,10 @@
   .mobileOnly {display: block;}
 }
 
-.tab {
-  margin: 0 1.5vmax;cursor: pointer;
-}
-.tab a {text-decoration: none;color:#f1f1f1;}
 .ref, .ref a {font-size: 1.1vw;color: #ddd;}
 @media only screen and (max-width:600px) {
   .ref, .ref a {font-size: 10px;}
 }
-
-/*sideNav*/
-.sideMenu {min-width: 300px;margin: 1vmax;}
-.navItem {
-    font-size: 1.8vmax;padding: 1vmax 2vmax 1vmax 1vmax;border: none;cursor: pointer;
-    border-bottom: solid 0.1vmax rgb(112,112,112);text-align: center;
-}
-.navItem a {text-decoration: none;color:inherit;}
-.navItem:hover, .navItem a:hover {background-color: rgb(82, 82, 82);color: #f2f2f2;}
 
 /*flexbox */
 .row {display: flex;align-content: center;flex-wrap: wrap;}
@@ -76,11 +65,6 @@
 @media only screen and (max-width:800px){
   .darkList, .lightList, .lightList li, .darkList li {font-size: 1.8vmax;padding: 0.5vmax;}
 }
-
-/*Q*/
-.qBox {text-align: left;margin-left: auto;margin-right: auto;padding: 2vmax;}
-.qList {list-style: lower-alpha inside; border-top: #ffd071 0.1vmax solid;padding: 1vmax;
-margin-left: auto;margin-right: auto;}
 
 /*table*/
 .lightTable {text-align: left;border-collapse: collapse;padding: 1vmax;color: #f2f2f2;height: 90%;
@@ -109,7 +93,7 @@ margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
 
 </head>
 
-<body style="font-family: 'Abel', sans-serif;color: rgb(82, 82, 82);">
+<body style="font-family: 'Abel', sans-serif;color: rgb(82, 82, 82);padding: none;">
 
 <!--large screen only --menu-->
 <div class="topBar" style="text-align: center;">
@@ -120,625 +104,42 @@ margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
 </div>
 
 <!--content-->
- <amp-accordion animate expand-single-section>
-        
-    <!--Named Session-->
-    <section class="main darkRed" expanded>
-      <h4 class="darkRed">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Named Session</h4>
-      <ul class="lightList">
+<div style="width: fit-content;margin-left: auto;margin-right: auto;">         
+    
+  <!--Named Session-->
+    <div class="main darkRed" style="margin-top: 2vh;">
+      
+        <span class="showMore" onclick="showContent(0)"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+        <span class="showLess" onclick="showContent(0)"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+      Named Session
+      <ul class="lightList darkRed content">
         <li><b style="color: white;">Year in Review</b><br> (Piyamitr/<b>Pavit</b>/Sirin/Teerapat)</li>
         <li><b style="color: white">Electrocardiogame Season 3</b>: The Returning Champion vs. The New Challengers.<br>
             Nilubon/Dujdao/Paitoon; Moderators: Pakorn/<b>Sirin</b>
         </li>
         <li><b style="color: white;">Cases of the Year</b><br>
           (Tarinee/<b>Bandit</b>/Ronpichai/Asa/Piyapat)
-
         </li>
       </ul>
-    </section>
+    </div>
+
+  <!--General-->
+  <div class="main pink">
     
-    <!--Practice Changing-->
-    <section class="main purple">
-      <h4 class="purple">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Practice Changing Topics
-      </h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-        <!--AP of non-PPM-->
-        <figure style="background-color: #f5f5f5;">
-          <amp-img layout="fill" src="media\EP\action potential.png"></amp-img>
-         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          This is the action potential of...?<br>
-          This is the action potential of non-pacemaker cels such as myocardium and His-Purkinje fiber.            
-            <span [text]="expanded ? '▼' : '▲'">▲</span>
-          </figcaption>
-        </figure>
-        
-        <!--Channels for each phase-->
-        <figure style="background-color: #f5f5f5;">
-          <amp-img layout="fill" src="media\EP\Myocardial AP.png"></amp-img>
-         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          <b>Four Phases of Action Potential.</b><br>
-          Phase 0: Na<sup>+</sup> &uarr;<br>
-          Phase 1: K<sup>+</sup> &darr;<br>
-          Phase 2: Ca<sup>2+</sup> &uarr;<br>
-          Phase 3: K<sup>+</sup> &darr;<br>
-          Phase 4: K<sup>+</sup> &darr;<br>
-            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-        </figure>
-
-        <!--AP and ECG-->
-        <figure>
-          <amp-img layout="fill" src="media\EP\AP and ECG.png"></amp-img>
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            <b>Temporal Correlation between Action Potential and ECG.</b><br>
-            QRS = phase 0-1, ST-T = phase 2, T = phase 3.<br>
-            <i class="ref">from <a href="https://doi.org/10.1038/nrd1108" target="_blank">
-              Nat Rev Drug Discov 2, 439–447 (2003).
-            </a></i>
-            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-        </figure>
-
-        <!--AP comparisons: figures-->
-        <figure>
-          <div class="row" style="background-color: #f5f5f5;">
-            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\Myocardial AP.png" style="flex: 50%;padding: 1vmax;align-self: center;"></amp-img>
-            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\Pacemaker AP.png" style="flex: 50%;padding: 1vmax;border-left: 0.1vmax solid #555;align-self: center;"></amp-img>
-          </div>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            <b>Action Potential of Non-pacemaker cells (left) vs. Pacemaker cells (right)</b><br>
-            Pacemaker cells = nodal cells including sinoatrial (SA) and atrioventricular (AV) nodal cells. <br>
-            Noted that non-pacemaker cells have true resting membrane potential (phase 4) and rapid phase 0. <br>
-            In pacemaker cells, there are only 4 phases. Phase 4 is the spontaneous depolarization phase and is mainly Calcium dependent.
-            Phase 0 is depolarization and phase 3 is repolarization.
-            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-        </figure>
-
-        <!--pacemaker cells-->
-        <figure>
-          <div class="row800 noMobile">
-            <amp-img layout="responsive" src="media\EP\pacemaker AP detail.png" height="30vw" width="30vw" style="flex: 0.8;padding: 1vmax;align-self: center;"></amp-img>
-            <div style="flex: 1.2;padding: 1vmax;align-self: center;">
-              <ul class="lightList">
-                <b>Pacemaker Cells Action Potential</b>
-                <li>Calcium dependent</li>
-                <li>Slow up and down stroke</li>
-                <li>Pacemaker activity is generated automatically.</li>
-                <li>Can be modified by many factors, such as autonomic nervous system, and etc. </li>
-                <li>Specific current = I<sub>f</sub> or Funny Current</li>
-              </ul>
-            </div>
-          </div>
-          <div class="mobileOnly">
-          <amp-img layout="fill" src="media\EP\pacemaker AP detail.png"></amp-img>
-          </div>
-          
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            Specific Properties of Action Potential of Pacemaker Cells<br>
-            ...including Calcium depedent, slow up & down strokes, modifiable by autonomic nervous system. 
-            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-        </figure>
-
-        <!--AP comparisons table-->
-        <figure>
-         <amp-fit-text width="80vw" height="40vw" layout="responsive" max-font-size="28" style="padding: 0.5vmin;">
-         <table class="lightTable">
-            <tr>
-            <th>Properties</th><th>Pacemaker Cells</th><th>Non-pacemaker Cells</th></tr>
-            <tr>
-            <td>Location</td><td>SA and AV Nodes</td><td>Myocardium, His-Purkinje, Bypass Tracts</td></tr>
-            <tr>
-            <td>Normal Resting Potentials</td><td>-40 to -65mV</td><td>-80 to -95mV</td>
-            </tr>
-            <tr>
-            <td>Phase 0 Currents</td><td>Primarily Calcium</td><td>Sodium</td></tr>
-            <tr>
-            <td>Conduction Velocity</td><td>Slow: 0.01-0.1 m/s</td><td>Fast: 0.5-5 m/s</td>
-            </tr>
-            <tr>
-            <td>Conduction Property</td><td>Decremental</td><td>All or None</td>
-            </tr>
-          </table>
-        </amp-fit-text>
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            <b>EP Properties of Pacemaker vs Non-pacemaker cells.</b><br>
-            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-        
-        </figure>
-
-       <!--Refractory period-->
-        <figure>
-          <div class="mobileOnly">
-            <amp-img layout="fill" src="media\EP\RefractoryPeriod.png"></amp-img>
-          </div>
-          <div class="row800 noMobile">
-          <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\RefractoryPeriod.png" style="flex: 0.8;padding: 1vmax;align-self: center;">
-          </amp-img>
-          <div style="flex: 1.2;align-self: center;">
-          <ul class="lightList">
-            <b>Refractory Period (RP)</b>
-            <li>Absolute RP (ARP): nothing can pass.</li>
-            <li>ARP = phase 0, 1, 2, and early part of phase 3. </li>
-            <li>Effective RP: allow local depolarization; not propagated one.</li>
-            <li>Relative RP: stronger stimulus may depolarize.</li>
-          </ul></div>
-          </div>
-          <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            <b>Refractory Period</b><br>
-            Absolute Refractory Period (ARP) = nothing can pass = phase 0-2 and early 3.
-            <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-        </figure>
-
-      </amp-carousel>
-    </section>
-
-    <!--Gen-->
-    <section class="main blue">
-      <h4 class="blue">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        General Cardiology</h4>
+      <span class="showMore" onclick="showContent(1)"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+      <span class="showLess" onclick="showContent(1)"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+    General Cardiology
+    <ul class="lightList pink content">
+      <li><b style="color: white;">Htn</b><br> (Piyamitr/<b>Pavit</b>/Sirin/Teerapat)</li>
       
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-        style="margin-left: auto;margin-right: auto;">
-      
-      <!--VDO automaticity-->
-      <figure>
-      <amp-video width="1892" height="1070" src="media\EP\AT.mp4" layout="responsive" controls>
-      </amp-video>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Enhance Automaticity</b><br>
-        = accelerated generation of an action potential by either normal pacemaker tissue (enhanced normal automaticity) 
-        or by abnormal tissue within the myocardium (abnormal automaticity).<br>
-        Examples: sinus tachycardia, atrial tachycardia, junctional tachycardia, or idioventricular rhythm.      
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
-      </figure>
+    </ul>
+  </div>
 
-      <!--Automaticity-->
-      <figure>
-      <div class="mobileOnly">
-        <amp-img layout="fill" src="media\EP\automaticity AP.png"></amp-img>
-      </div>
-      <div class="row800 noMobile">
-      <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\automaticity AP.png" style="flex: 1;padding: 1vmax;align-self: center;">
-      </amp-img>
-      <div style="flex: 1;align-self: center;">
-      <ul class="lightList" style="text-align: left;">
-        <b style="padding-left: 1vmax;">Enhanced Automaticity</b>
-        <li>from normal pacemaker cells, such as sinus tachycardia.</li>
-        <li>from abnormal cells, such as atrial tachycardia.</li>
-        <li>Warm up & cool down phenomenon.</li>
-        <li>Response to autonomic nervous activity and many drugs.</li>
-      </ul></div>
-      </div>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Enhanced Automaticity</b><br>
-        Warm up & cool down phenomenon. Modifiable by drugs and autonomic nervous system.
-        <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-      </figure>
-
-      <!--VDO reentry-->
-      <figure>
-        <amp-video width="1892" height="1070" src="media\EP\AFlutter.mp4" layout="responsive" controls>
-        </amp-video>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          <b>Reentry</b><br>
-          = continous activity around the circuit within myocardium to re-excite the heart after the local refractory period has ended.<br>
-          Examples: atrial flutter, AVNRT, or scar related VT.      
-          <span [text]="expanded ? '▼' : '▲'">▲</span>
-          </figcaption>
-      </figure>
-
-      <!--reentry-->
-      <figure>
-        <div class="mobileOnly" style="background-color: #ddd;">
-          <amp-img layout="fill" src="media\EP\reentry.png" style="background-color: #ddd;"></amp-img>
-        </div>
-        <div class="row800 noMobile" style="background-color: #ddd;">
-        <amp-img layout="responsive" height="54vw" width="48vw" src="media\EP\reentry.png" style="flex: 1;padding: 1vmax;align-self: center;">
-        </amp-img>
-        <div style="flex: 1;align-self: center;">
-        <ul class="darkList" style="text-align: left;">
-          <b style="padding-left: 1vmax;">Reentry</b>
-          <li>Rotate around an anatomical barrier.</li>
-          <li>2 pathways with 2 different EP properties.</li>
-          <li>Initiate by premature beat.</li>
-          <li>Rapid pacing can entrain and terminate.</li>
-        </ul></div>
-        </div>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          <b>Reentry Mechanism</b><br>
-          Can be entrained and overdrive suppressed.
-          <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
-        </figure>
-
-      <!--VDO trigger-->
-      <figure>
-        <amp-video width="1892" height="1070" src="media\EP\PVC.mp4" layout="responsive" controls>
-        </amp-video>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          <b>Triggered Activity</b><br>
-          = abnormal action potentials that are triggered by the preceding action potential.<br>
-          Examples: idiopathic PVCs/VT, torsades de pointes, or digitalis toxicity.      
-          <span [text]="expanded ? '▼' : '▲'">▲</span>
-          </figcaption>
-      </figure>
-
-      <!--EAD DAD-->
-      <figure>
-        <amp-img src="media\EP\EAD_DAD.png" layout="fill"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-          <b>Triggered Activity</b><br>
-          EAD: Long QT, Brady-induced TdP, HypoK<sup>+</sup><br>
-          DAD: Digitalis toxicity, idiopathic VT.
-          <span [text]="expanded ? '▼' : '▲'">▲</span>
-          </figcaption>
-      </figure>
-      </amp-carousel>
-    </section>
-    
-    <!--Echo-->
-    <section class="main cyan">
-      <h4 class="cyan">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>
-        Echocardiography</h4>
-    <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-    
-    <!--I-->
-    <figure>
-      <div class="row" style="align-content: center;height: 50vw;background-color: #f5f5f5;color: #074860;font-size: 2vmax;font-weight: 900;">
-        <b style="text-align: center;width: 100%;font-size: 2.2vmax;">Class I: Sodium Blocker</b>
-      <div style="flex: 1;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ia.png"></amp-img>
-        Ia
-        </div>
-      <div style="flex: 1;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ib.png"></amp-img>
-        Ib</div>
-      <div style="flex: 1;align-self: center;align-items: center;"> 
-      <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ic.png"></amp-img>
-      Ic</div>
-      </div>
-      
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Class I: Sodium Blocker</b><br>
-      categorized into 3 classes, by Na<sup>+</sup> channel asso-/dissociation rate.<br>
-      From rapid to slow: IB, IA, IC.
-      <span [text]="expanded ? '▼' : '▲'">▲</span>
-      </figcaption>
-    </figure>
-    
-    <!--IA-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ia.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Class Ia 
-          <li>Intermediate asso-/dissociation rate of sodium channel.</li>
-          <li>Quinidine, Procainamide, Disopyramide, Ajmaline.</li>
-          <li>Prolong QT and QRS duration</li>
-        </ul>
-      </div>
-      </div>
-    </figure>
-
-    <!--IB-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ib.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Class Ib 
-          <li>Rapid asso-/dissociation rate of sodium channel.</li>
-          <li>Lidocaine, Mexilitine, Phynytoin</li>
-          <li>Shorten QT. Minimal effect on QRS duration.</li>
-        </ul>
-      </div>
-      </div>
-    </figure>
-
-    <!--Ic-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\Ic.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Class Ic 
-          <li>Slow asso-/dissociation rate of sodium channel.</li>
-          <li>Flecainide, Encainide, Propafenone, Moricizine</li>
-          <li>Prolong QRS. Minimal effect on QT</li>
-        </ul>
-      </div>
-      </div>
-    </figure>
-
-    <!--II-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\II.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Class II: Beta-Blocker 
-          <li>Only class that saves life.</li>
-          <li>Bisoprolol, Carvedilol, Metoprolol, and etc.</li>
-          <li>Inhibit sympathetic activity.</li>
-          <li>Increase action potential duration.</li>
-        </ul>
-      </div>
-      </div>
-    </figure>
-
-    <!--III-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\III.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Class III: Potassium-Blocker 
-          <li>Amiodarone, Dofetilide, Ibutilide, Sotalol</li>
-          <li>Prolong QT</li>
-          <li>Amiodarone inhibits multiple channels 
-            including Na<sup>+</sup>, beta, and Ca<sup>2+</sup>.</li>
-        </ul>
-      </div>
-      </div>
-    </figure>
-
-    <!--IV-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\IV.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Class IV: Calcium-Blocker 
-          <li>Diltiazem, Verapamil</li>
-          <li>Block SA and AV nodes</li>
-          <li>Negative inotropic effect</li>
-        </ul>
-      </div>
-      </div>
-    </figure>
-
-    <!--dig-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\dig.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Digoxin 
-          <li>Inhibit Na-K ATPase, thus, increase intracellular Ca<sup>2+</sup>.</li>
-          <li>Slow SA and AV node.</li>
-          <li>Positive inotropic effect</li>
-          <div class="ref"><a href="https://pubmed.ncbi.nlm.nih.gov/16603014/" target="_blank" style="color: #555;font-weight: normal;">Crit Care Resusc. 1999 Sep;1(3):252-64.</a></div>
-        </ul>
-      </div>
-      </div>
-    </figure>
-
-    <!--If-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\If.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Ivabradine 
-          <li>Inhibit cardiac pacemaker current or I<sub><i>f</i></sub>.</li>
-          <li class="noMobile">I<sub><i>f</i></sub> &nbsp;controls diastolic depolarization of SA node.</li>
-          <li>Ivabradine selectively block I<sub><i>f</i></sub>&nbsp; and slow sinus rate.</li>
-          <li>Has no effects of BP or cardiac contractility.</li>
-        </ul>
-      </div>
-      </div>
-    </figure>
-
-    <!--Adenosine-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\adenosine.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Adenosine
-          <li class="noMobile">Multiple effects via multiple Adenosine receptor subtypes.</li>
-          <li>Inhibits impulse generation in SA and AV node.</li>
-          <li>Vasodilation and bronchoconstriction.</li>
-          <li>Commonly used to terminate PSVT.</li>
-        </ul>
-        <div class="ref" style="text-align:center">
-        <a href="https://doi.org/10.1016/j.jcin.2014.02.009" target="_blank" style="color: #555;">JACC Cardio Interv 2014</a>
-        </div>
-      </div>
-      </div>
-    </figure>
-
-    <!--TdP-->
-    <figure>
-      <div class="row" style="align-content: center;background-color: #f5f5f5;">
-      <div style="flex: 0.8;align-self: center;align-items: center;"> 
-        <amp-img layout="responsive" width="30vw" height="30vw" src="media\EP\tdp on sotalol.png"></amp-img>
-      </div>
-      <div style="flex: 1.2;align-items: center;align-self: center;">
-        <ul class="darkList">
-          Prolong QTc and torsades de pointes.
-          <li>Prolong QTc can "trigger" torsades de pointes.</li>
-          <li class="noMobile">Causes: drugs, electrolytes abnormalities, and congenital.</li>
-          <li>Drugs that prolong QTc: Class III AADs, haloperidol, methadone, and etc.</li>
-        </ul>
-        <div class="ref" style="text-align:center">
-          <a href="http://www.onlinejacc.org/content/42/3/401" target="_blank" style="color: #555;">Yan et al. JACC 2003.</a>
-          </div>
-      </div>
-      </div>
-    </figure>
-
-    <!--drug and defib/pace threshold-->
-    <figure>
-    <amp-fit-text width="80vw" height="40vw" layout="responsive" max-font-size="28">
-      <div style="text-align: center;font-weight: 900;padding: 1vmax;color: #B6c2c8;font-size: 3vmax;">Drugs and Devices</div>
-      <table class="lightTable">
-         <tr>
-         <th>Function</th><th class="darkCyan lime">Increase Threshold</th>
-         <th style="color: white;">Decrease Threshold</th></tr>
-         <tr>
-         <td>Pacing</td>
-         <td class="darkCyan lime">Class Ic, beta blockers, quinidine, hypoxemia, acidosis, alkalosis, hyperglycemia</td>
-         <td>Epinephrine, Isoproterenol, Atropine, steroids</td></tr>
-         <tr>
-         <td>Defibrillation</td>
-         <td class="darkCyan lime">amiodarone, lidocaine, flecainide, sildenafil (Viagra), alcohol</td>
-        <td>sotalol, dofetilide</td>
-         </tr>
-         <tr>
-      </table>
-     </amp-fit-text>
-     </figure>
-
-    </amp-carousel>
-    </section>
-
-    <!--EP-->
-    <section class="main silver">
-      <h4 class="silver">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Electrophysiology</h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-      
-      <!--Q1 tracing-->
-      <figure>
-        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Question 1</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
-      </figure>
-
-      </amp-carousel>
-    </section>
-
-    <!--Intervention-->
-    <section class="main lightCyan">
-      <h4 class="lightCyan">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Intervention</h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-      
-      <!--Q1 tracing-->
-      <figure>
-        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Question 1</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
-      </figure>
-
-      </amp-carousel>
-    </section>
-
-    <!--Heart Failure-->
-    <section class="main aqua">
-      <h4 class="aqua">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Heart Failure</h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-      
-      <!--Q1 tracing-->
-      <figure>
-        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Question 1</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
-      </figure>
-
-      </amp-carousel>
-    </section>
-
-    <!--SHD/ACHD-->
-    <section class="main pink">
-      <h4 class="pink">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Structural and Adult Congenital Heart Disease</h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-      
-      <!--Q1 tracing-->
-      <figure>
-        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Question 1</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
-      </figure>
-
-      </amp-carousel>
-    </section>
-
-    <!--Quiz-->
-    <section class="main dullRed">
-      <h4 class="dullRed">
-        <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
-        <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-      Quizzzz</h4>
-      <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
-      style="margin-left: auto;margin-right: auto;">
-      
-      <!--Q1 tracing-->
-      <figure>
-        <div style="font-size: 2.5vmax;color: #f2f2f2;">Question 1: Tracing</div>
-        <amp-img layout="fill" src="media\EP\tdp tracing.png" style="margin: 4vmax 0.5vw;"></amp-img>
-        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Question 1</b>
-        <span [text]="expanded ? '▼' : '▲'">▲</span>
-        </figcaption>
-      </figure>
-
-      </amp-carousel>
-    </section>
-
-  </amp-accordion>
-
-
-
+</div>
 
 <!--footer-->
-<div id="about" style="background-color: #555;color: white;font-size: 18px;padding: 5vh 3vh">
+<div id="about" 
+style="background-color: #555;color: white;font-size: 18px;padding: 5vh 3vh;margin-top: 4vh;">
     <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
   
       <div class="rowF">
@@ -758,4 +159,32 @@ margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
   </div>
 
 </body>
+
+<script>
+
+var contentStatus = [0,0,0,0,0,0,0]
+
+function showContent(n){
+  var contentOff = document.getElementsByClassName ('showLess');
+  var contentOn = document.getElementsByClassName ('showMore');
+  var topic = document.getElementsByClassName ('content')
+  
+  //check status//
+  
+  if (contentStatus[n] ==0) {
+    contentOn[n].style.display = "inline";
+    topic[n].style.display = "block";
+    contentOff[n].style.display = "none"
+    contentStatus[n]=1;
+  }
+  else {
+    contentOff[n].style.display = "inline";
+    topic[n].style.display = "none";
+    contentStatus[n]=0;
+    contentOn[n].style.display = "none"
+  }
+
+}
+
+</script>
 </html>
