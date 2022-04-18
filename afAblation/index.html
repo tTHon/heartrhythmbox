@@ -16,8 +16,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
 <!--auto-ad-->
 <script data-ad-client="ca-pub-1548733331544768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -33,8 +32,12 @@
 </script>
 
 <style>
+*{margin: 0;padding: 0;box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 /*fonts*/
-.sans {font-family: 'Raleway', sans-serif;}
+.sans {font-family: 'Poppins', sans-serif;}
+.cursive {font-family: 'Permanent Marker', cursive;}
 
 /*color*/
 .orange {background-color: #fc553d;}
@@ -42,12 +45,14 @@
 .greenD {background-color: #bfcdc0;}
 .teal {background-color: #008080;}
 
+.scroll2Show {display: none;}
+.fixedBg {width: 100%;height: 100%;object-fit: cover;display: none;position: fixed;left: 0;right: 0;top: 0;bottom: 0;z-index: -1;}
 .barContainer {background: #eaefea;height: 5vh;width: 100%;position: sticky;top: 0;z-index:3;color: #333;
 font-size: 2.5vh;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
 
-.block {
+/*.block {
     margin: 3vh 0;position: relative;padding-top:6vh;
-}
+}*/
 
 .blockHolder  {margin: 0 2vw;border-radius: 1vw;}
 .topic {padding:0.75vmax 0.5vmax 0.5vmax 0.75vmax}
@@ -75,10 +80,10 @@ line-height: 120%;margin-top: 0.5vh}
 
 </style>
 
-<body style="font-family: 'Raleway', sans-serif;">
+<body>
 
 <!--menu bar-->
-<div class="barContainer">
+<!--div class="barContainer">
     <span class="w3-dropdown-hover" onclick="unblur()" >
     <span class="material-icons w3-bold" style="font-size: 2.2vh;padding: 1.2vh 1vw;
     cursor: pointer;background-color:#eaefea">
@@ -97,11 +102,11 @@ line-height: 120%;margin-top: 0.5vh}
         <a href="https://heartrhythmbox.com/" title="Main Page" target="_blank">
         <img src="box transparent.png" style="width:3vh;padding-top: 0.5vh;"></a>
     </span>
-</div>
+</div-->
 
 
 <!--intro-->
-<div class="block" style="padding-top:none;text-align: center;margin: 0;background: black;">
+<div style="padding-top:none;margin: 0;">
     
     <!--large screen--
     <div class="blockHolder noMobile" style="
@@ -175,31 +180,34 @@ line-height: 120%;margin-top: 0.5vh}
             </a>
         </div-->
     
-    <video autoplay muted loop style="width: 100%;height: 100%;object-fit: cover;opacity: 40%;
-    filter: sepia(80%);position: fixed;left: 0;right: 0;top: 0;bottom: 0;">
+    <video autoplay muted loop class="fixedBg" style="opacity: 50%;filter: sepia(92%);">
         <source src="media\AF LAT.mp4" type="video/mp4">
         </video>
+    <div id="title" style="padding:30vh 3vmax;opacity: 1;filter: none;text-align: center;">
+        <a href="https://heartrhythmbox.com" target="_blank">
+        <img src="box coral.png" style="width: 4vmax;padding: 1vmax 0;border-image: linear-gradient(to right, #7e2a1e, #fc553d) 1;border-bottom-width: 0.5vmax;border-bottom-style: solid;">
+        </a>
+        <div class="w3-text-shadow" style="padding: 1vmax;color: white;text-shadow:2px 2px 0 #444">
+            <span style="font-size: 5.5vmax;line-height: 100%;font-weight: 700;">CATHETER ABLATION</span> <br> 
+            <span style="font-size:4.5vmax;line-height: 100%;font-weight: 400;">OF ATRIAL FIBRILLATION</span>
+            <div class="scroll2Hide w3-animate-fading" style="font-size: 2vmax;color: #96a9ae;">
+                scroll down for more <br> &#8595
+            </div>
+            <div class="scroll2Show cursive" style="font-size: 3vmax;color:#fc553d;">
+                from Salvage to Standard
+            </div>
+        </div>
+    </div>
+    
 </div>
     
 </div>
   
 </div>
 
-<!--rate control-->
-<div class="w3-row" id="mech"></div>
 <!--mechanism 1-->
-<div class="block">
-    <div class="blockHolder greenL">
-        <div class="w3-row topic">
-            <div class="eyebrow"></div>  
-            <div class="topicTxt">
-                <span>Mechanisms</span>
-                <span>&nbsp;1/6</span>
-            </div>
-        </div>
-        <div style="text-align: center;">
-            <img src="media/AFallMechanisms.png" class="imgHolder">
-        </div>
+<div class="greenL fixedBg">
+       
         <div class="w3-row w3-padding">
             <div class="w3-cell w3-padding w3-cell-middle headLine orange" 
             style="font-size:3vmax;text-align: left;line-height: 100%;color: white;">
@@ -209,14 +217,16 @@ line-height: 120%;margin-top: 0.5vh}
                 .. from triggers to reentry, from electrical to structural remodelling.
             </div>
         </div>
-                
-    </div>
+        <div class="scroll2Show" style="text-align: center;">
+            <img src="media/AFallMechanisms.png" class="imgHolder">
+        </div>
+
     
 </div>
 
 <!--mechanism 2-->
-<div class="block">
-    <div class="blockHolder greenD">
+<div class="fixedBg">
+    <div class="greenD">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -249,8 +259,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--mechanism 3-->
-<div class="block">
-    <div class="blockHolder" style="background-color: #c6e9fc;">
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color: #c6e9fc;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -273,8 +283,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--mechasism 4-->
-<div class="block">
-    <div class="blockHolder" style="background-color:#f1f1f1;">
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color:#f1f1f1;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -305,8 +315,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--mechanism 5-->
-<div class="block">
-    <div class="blockHolder" style="background-color: #ddd;">
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color: #ddd;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -342,8 +352,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--mechanism 6-->
-<div class="block">
-    <div class="blockHolder" style="border: #bfcdc0 solid 0.1vmax;">
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="border: #bfcdc0 solid 0.1vmax;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -407,8 +417,8 @@ line-height: 120%;margin-top: 0.5vh}
 <!--tech-->
 <div class="w3-row" id="tech"></div>
 <!--tech 1-->
-<div class="block">
-    <div class="blockHolder" style="background-color: antiquewhite;">
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color: antiquewhite;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -436,8 +446,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--tech 2-->
-<div class="block">
-    <div class="blockHolder" style="background-color: antiquewhite;">
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color: antiquewhite;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -465,8 +475,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--tech 3-->
-<div class="block">
-    <div class="blockHolder" style="background-color: antiquewhite;">
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color: antiquewhite;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -495,8 +505,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--tech 4-->
-<div class="block">
-    <div class="blockHolder greenL">
+<div class="fixedBg">
+    <div class="fixedBgHolder greenL">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -530,8 +540,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--tech 5-->
-<div class="block">
-    <div class="blockHolder" style="background-color: #008080;" >
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color: #008080;" >
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -567,8 +577,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--tech 6-->
-<div class="block">
-    <div class="blockHolder" style="background-color: #008080;" >
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color: #008080;" >
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -619,8 +629,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--tech 7-->
-<div class="block">
-    <div class="blockHolder" style="border: #fc553d 0.1vmax solid;">
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="border: #fc553d 0.1vmax solid;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -654,8 +664,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--tech 8-->
-<div class="block">
-    <div class="blockHolder w3-white" style="border: #fc553d 0.1vmax solid;">
+<div class="fixedBg">
+    <div class="fixedBgHolder w3-white" style="border: #fc553d 0.1vmax solid;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -685,8 +695,8 @@ line-height: 120%;margin-top: 0.5vh}
 <div class="w3-row" id="evidence"></div>
 
 <!--evidence 1-->
-<div class="block">
-    <div class="blockHolder w3-padding" style="background-color: #555;">
+<div class="fixedBg">
+    <div class="fixedBgHolder w3-padding" style="background-color: #555;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -721,8 +731,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--evidence 2-->
-<div class="block">
-    <div class="blockHolder w3-padding" style="background-color: #444;">
+<div class="fixedBg">
+    <div class="fixedBgHolder w3-padding" style="background-color: #444;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -754,8 +764,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--evidence 3-->
-<div class="block">
-    <div class="blockHolder w3-padding" style="background-color: #333;">
+<div class="fixedBg">
+    <div class="fixedBgHolder w3-padding" style="background-color: #333;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -793,8 +803,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--evidence 4-->
-<div class="block">
-    <div class="blockHolder w3-padding" style="background-color: #222;">
+<div class="fixedBg">
+    <div class="fixedBgHolder w3-padding" style="background-color: #222;">
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -828,8 +838,8 @@ line-height: 120%;margin-top: 0.5vh}
 <div class="w3-row" id="rec"></div>
 
 <!--rec 1-->
-<div class="block">
-    <div class="blockHolder" >
+<div class="fixedBg">
+    <div class="fixedBgHolder" >
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -845,8 +855,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--rec 2-->
-<div class="block">
-    <div class="blockHolder" style="background-color: #f1f1f1;" >
+<div class="fixedBg">
+    <div class="fixedBgHolder" style="background-color: #f1f1f1;" >
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -896,8 +906,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--rec 3-->
-<div class="block">
-    <div class="blockHolder w3-white" style="border: red 0.2vmax solid;" >
+<div class="fixedBg">
+    <div class="fixedBgHolder w3-white" style="border: red 0.2vmax solid;" >
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -919,8 +929,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--rec 4-->
-<div class="block">
-    <div class="blockHolder w3-white" style="border:#008080  0.2vmax solid;" >
+<div class="fixedBg">
+    <div class="fixedBgHolder w3-white" style="border:#008080  0.2vmax solid;" >
         <div class="w3-row topic">
             <div class="eyebrow"></div>  
             <div class="topicTxt">
@@ -949,8 +959,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--conclusion-->
-<div class="block">
-    <div class="blockHolder orange">
+<div class="fixedBg">
+    <div class="fixedBgHolder orange">
         
         <div style="padding: 3vmax;">
         <div class="w3-padding-large w3-wide" 
@@ -979,7 +989,7 @@ line-height: 120%;margin-top: 0.5vh}
 
 <!--end page-->
 <div class="w3-container sans w3-center" 
-style="margin-top:10vh;background:#f1f1f1;font-size: 1vmax;padding: 2vmax;color:#797979">
+style="margin-top:40vh;height: 100vh;background:#f1f1f1;font-size: 1vmax;padding: 2vmax;color:#797979;position:relative;z-index:-2;">
     <img src="box transparent.png" style="width: 2vmax;">
     <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top" onclick="unblur()">
         <i class="fas fa-arrow-circle-up"></i></a><br>
@@ -993,9 +1003,11 @@ style="margin-top:10vh;background:#f1f1f1;font-size: 1vmax;padding: 2vmax;color:
 
 </body>
 
-<script src="block navigation.js"></script>
+<!--script src="block navigation.js"></script-->
 <script>
 
+var fix = document.getElementsByClassName('fixedBg');
+fix[0].style.display = 'block';
 window.addEventListener("keydown", function(event) {
         event.preventDefault();
         if (event.keyCode===27) {
@@ -1016,12 +1028,60 @@ window.addEventListener("keydown", function(event) {
 })
 
 window.ontouchmove = function () {unblur()};
+window.onscroll = function() {s2S()};
 
 function unblur() {
     var b = document.getElementsByClassName("block");
     var i;
     for (i=0;i<b.length;i++){
         b[i].style.opacity = 1;
+    }
+}
+
+var miniBlkH = [0.25,0.9]
+var fullBlkH = [0.7,1.6]
+
+function s2S() {
+    var miniBlock = document.getElementsByClassName('scroll2Show');
+    var hide = document.getElementsByClassName('scroll2Hide');
+    var fix = document.getElementsByClassName('fixedBg');
+    //var test = Math.round(miniBlkH[0]*window.innerHeight);
+    //document.getElementById('title').innerHTML=test;
+
+ 
+    //block0
+    var fullBlk0 = Math.round(fullBlkH[0]*window.innerHeight);
+    var miniBlk0 = Math.round(miniBlkH[0]*window.innerHeight);
+    var fullBlk1 = Math.round(fullBlkH[1]*window.innerHeight);
+    var miniBlk1 = Math.round(miniBlkH[1]*window.innerHeight)
+    if (document.body.scrollTop>miniBlk0 || document.documentElement.scrollTop>miniBlk0){
+        fix[0].style.display = 'block'
+        miniBlock[0].style.display ="block";
+        hide[0].style.display ="none";
+        fix[1].style.display ='none'
+    }
+    if (document.body.scrollTop>fullBlk0 || document.documentElement.scrollTop>fullBlk0){
+        fix[0].style.display = 'none';
+        miniBlock[0].style.display = 'none';
+        fix[1].style.display = 'block'
+    }
+    if (document.body.scrollTop<fullBlk0 || document.documentElement.scrollTop<fullBlk0){
+        miniBlock[1].style.display = 'none'
+        if (document.body.scrollTop>miniBlk0 || 
+        document.documentElement.scrollTop>miniBlk0){
+            miniBlock[0].style.display = 'block';}
+        else {
+            miniBlock[0].style.display= "none"
+        }
+    }
+
+    //block1
+    if (document.body.scrollTop>miniBlk1 || 
+    document.documentElement.scrollTop>miniBlk1){
+        fix[1].style.display = 'block'
+        miniBlock[1].style.display ="block";
+        fix[0].style.display = 'none';
+        miniBlock[0].style.display = 'none';
     }
 }
 
