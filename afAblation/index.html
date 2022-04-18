@@ -205,10 +205,10 @@ line-height: 120%;margin-top: 0.5vh}
   
 </div>
 
-<!--mechanism 1-->
+<!--fixed 1 mechanism 1-->
 <div class="greenL fixedBg">
        
-        <div class="w3-row w3-padding">
+        <!--div class="w3-row w3-padding">
             <div class="w3-cell w3-padding w3-cell-middle headLine orange" 
             style="font-size:3vmax;text-align: left;line-height: 100%;color: white;">
                 <span class="w3-wide">Mechanisms</span><br>of AF</div>
@@ -216,13 +216,52 @@ line-height: 120%;margin-top: 0.5vh}
                 .. is all of the above.<br>
                 .. from triggers to reentry, from electrical to structural remodelling.
             </div>
-        </div>
-        <div class="scroll2Show" style="text-align: center;">
+        </div-->
+        <div style="padding: 2vmax;text-align: center;color: #444;font-weight: 400%;">
+            <span style="font-weight: 700;font-size: 3vmax;color: #7e2a1e;">How ablation may fix AF?</span><br>
+            <span style="font-size: 2.5vmax;line-height: 110%;">
+            First of all...we have to understand the AF mechanisms which includes TRIGGER and REENTRY.</span>
+
+        <!--div style="text-align: center;font-size: 2.5vmax;padding: 2vmax;line-height: 110%;">
             <img src="media/AFallMechanisms.png" class="imgHolder">
+            <div>
+            </div-->
+    
+        <div class="scroll2Show" style="padding: 2vmax;text-align: center;font-size: 2vmax;">
+            <img src="media/PVSleeves.png" class="imgHolder"><br>
+            <span style="font-weight: 700;color: #fc553d;">TRIGGER(s)</span> is/are from muscle sleeves of Pulmonary veins
+        
+            <div class="ref">
+            <a href="https://www.nejm.org/doi/full/10.1056/NEJM199809033391003" target="_blank">Haïssaguerre, M. NEJM 1998;339:659-66 </a>and
+            <a href="https://www.ahajournals.org/doi/abs/10.1161/01.cir.34.3.412" target="_blank">
+                Nathan, H. Circulation 1966;34;412-422.
+            </a>
+            </div>
         </div>
+    
+        </div>
+</div>
+<!--fixed 2 mechanism 2-->
+<div class="greenD fixedBg">
+     
+    <div style="padding: 2vmax;text-align: center;color: #444;font-weight: 400%;">
+        <span style="font-weight: 700;font-size: 3vmax;color: #7e2a1e;">REENTRY</span>
+        <span style="font-size: 2.5vmax;line-height: 110%;">
+        is from remodelling both electrical and structural.</span>
 
     
+    <div class="scroll2Show" style="padding: 2vmax;text-align: center;font-size: 2vmax;line-height: 110%;">
+        <img src="media/cracksinatrium.png" class="imgHolder"><br>
+        Persistent form of AF leads to shortening AERP; favoring perpetuation of AF.<br>
+        External stressors such as obesity or structural heart diseases lead to structural remodelling; favoring reentry.
+        <div class="ref">
+            <a href="https://www.ahajournals.org/doi/full/10.1161/CIRCEP.109.910125" target="_blank">
+            Allesie et al. Circ Arrhythm Electrophysiol 2010;3:606-615.</a></div>
+    </div>
+    </div>
+
 </div>
+
 
 <!--mechanism 2-->
 <div class="fixedBg">
@@ -260,14 +299,6 @@ line-height: 120%;margin-top: 0.5vh}
 
 <!--mechanism 3-->
 <div class="fixedBg">
-    <div class="fixedBgHolder" style="background-color: #c6e9fc;">
-        <div class="w3-row topic">
-            <div class="eyebrow"></div>  
-            <div class="topicTxt">
-                <span>Mechanisms</span>
-                <span>&nbsp;3/6</span>
-            </div>
-        </div>
         <img src="media/Electrical Remodelling.jpg" class="imgHolder center">
         <div class="headLine orange" style="color: white;">Electrical Remodelling</div>
         <div class="w3-row w3-padding content w3-center">
@@ -1038,8 +1069,8 @@ function unblur() {
     }
 }
 
-var miniBlkH = [0.25,0.9]
-var fullBlkH = [0.7,1.6]
+var miniBlkH = [0.25,0.8,1.2]
+var fullBlkH = [0.7,1.2,2.5]
 
 function s2S() {
     var miniBlock = document.getElementsByClassName('scroll2Show');
@@ -1053,7 +1084,9 @@ function s2S() {
     var fullBlk0 = Math.round(fullBlkH[0]*window.innerHeight);
     var miniBlk0 = Math.round(miniBlkH[0]*window.innerHeight);
     var fullBlk1 = Math.round(fullBlkH[1]*window.innerHeight);
-    var miniBlk1 = Math.round(miniBlkH[1]*window.innerHeight)
+    var miniBlk1 = Math.round(miniBlkH[1]*window.innerHeight);
+    var fullBlk2 = Math.round(fullBlkH[2]*window.innerHeight);
+    var miniBlk2 = Math.round(miniBlkH[2]*window.innerHeight)
     if (document.body.scrollTop>miniBlk0 || document.documentElement.scrollTop>miniBlk0){
         fix[0].style.display = 'block'
         miniBlock[0].style.display ="block";
@@ -1063,8 +1096,8 @@ function s2S() {
     if (document.body.scrollTop>fullBlk0 || document.documentElement.scrollTop>fullBlk0){
         fix[0].style.display = 'none';
         miniBlock[0].style.display = 'none';
-        fix[1].style.display = 'block'
-    }
+        fix[1].style.display = 'block';
+        }
     if (document.body.scrollTop<fullBlk0 || document.documentElement.scrollTop<fullBlk0){
         miniBlock[1].style.display = 'none'
         if (document.body.scrollTop>miniBlk0 || 
@@ -1082,6 +1115,15 @@ function s2S() {
         miniBlock[1].style.display ="block";
         fix[0].style.display = 'none';
         miniBlock[0].style.display = 'none';
+    }
+
+    //block2
+    if (document.body.scrollTop>miniBlk2 || 
+    document.documentElement.scrollTop>miniBlk2){
+        fix[2].style.display = 'block'
+        miniBlock[2].style.display ="block";
+        fix[1].style.display = 'none';
+        miniBlock[1].style.display = 'none';
     }
 }
 
