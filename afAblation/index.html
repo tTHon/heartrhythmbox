@@ -45,141 +45,59 @@
 .greenD {background-color: #bfcdc0;}
 .teal {background-color: #008080;}
 
-.scroll2Show {display: none;}
-.fixedBg {width: 100%;height: 100%;object-fit: cover;display: none;position: fixed;left: 0;right: 0;top: 0;bottom: 0;z-index: -1;}
-.barContainer {background: #eaefea;height: 5vh;width: 100%;position: sticky;top: 0;z-index:3;color: #333;
-font-size: 2.5vh;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
-
-/*.block {
-    margin: 3vh 0;position: relative;padding-top:6vh;
-}*/
-
-.blockHolder  {margin: 0 2vw;border-radius: 1vw;}
-.topic {padding:0.75vmax 0.5vmax 0.5vmax 0.75vmax}
-.eyebrow {height: 0.5vmax;width: 3vmax;background: linear-gradient(to right, #7e2a1e, #fc553d)}
-.topicTxt {font-size: 2vmax;color: #bfcdc0;line-height: 120%}
-.topicTxt :first-child {color:#7e2a1e}
-.topicTxt :last-child {color: #fc553d;font-size: 1.8vmax;}
-.headLine {color: #12151f;font-size: 2.8vmax;line-height: 120%;
-text-align: center}
-.imgHolder {max-height: 65vh;max-width: 98%;}
-.mobileOnly {display: none;}
-
-
-@media only screen and (max-width:600px) {
-    .blockHolder {margin: 0;border-radius: 0}
-    .imgHolder {max-height: auto;max-width:100%}
-    .mobileOnly {display: block;}
-    .noMobile {display: none;}
+/*animation*/
+.fadeIn {
+  animation: fadeIn 2.5s;
+  -webkit-animation: fadeIn 2.5s;
+  -moz-animation: fadeIn 2.5s;
+  -o-animation: fadeIn 2.5s;
+  -ms-animation: fadeIn 2.5s;
 }
-.center {display: block;margin-left: auto;margin-right: auto;}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+.scroll2Show {display: none;}
+/*
+.fixedBg {width: 100%;height: 100%;object-fit: cover;position: fixed;left: 0;right: 0;top: 0;bottom: 0;z-index: -1;}
+*/
+
+.imgHolder {max-height: 65vh;max-width: 98%;}
+
 .ref {font-size: 1vmax;color: #96a9ae;padding-left: 1vmax;
 line-height: 120%;margin-top: 0.5vh}
-.content {font-size:1.8vmax;line-height: 130%}
+
 
 
 </style>
 
 <body>
 
-<!--menu bar-->
-<!--div class="barContainer">
-    <span class="w3-dropdown-hover" onclick="unblur()" >
-    <span class="material-icons w3-bold" style="font-size: 2.2vh;padding: 1.2vh 1vw;
-    cursor: pointer;background-color:#eaefea">
-            menu</span>
-           <div class="w3-dropdown-content w3-bar-block w3-card-4" style="font-size: 2vh">
-            <a href="#mech" class="w3-bar-item w3-button w3-border">Mechanisms</a>
-            <a href="#tech" class="w3-bar-item w3-button w3-border">Techniques</a>
-            <a href="#evidence" class="w3-bar-item w3-button w3-border">Evidences</a>
-            <a href="#rec" class="w3-bar-item w3-button w3-border">Recommendations</a>
-        </div>
-    </span>
-    <span class="noMobile" onclick="unblur()">
-        <a href="#top" style="text-decoration:none;">
-            Catheter Ablation for Atrial Fibrillation</a></span>
-    <span class="w3-right" style="padding-right: 1.5vh" onclick="unblur()">
-        <a href="https://heartrhythmbox.com/" title="Main Page" target="_blank">
-        <img src="box transparent.png" style="width:3vh;padding-top: 0.5vh;"></a>
-    </span>
-</div-->
-
-
 <!--intro-->
 <div style="padding-top:none;margin: 0;">
     
-    <!--large screen--
-    <div class="blockHolder noMobile" style="
-    background-image: url('media/title_land.png');background-size: cover;background-position: center;background-repeat: no-repeat;">
-       
-        <ul class="w3-ul" style="max-width: 900px;margin-left: auto;margin-right: auto;padding:5vmax 2vmax 3vmax 2vmax;">
-            <li class="w3-bold w3-round-large" 
-            style="font-size: 3.5vmax;color:white;background-color: rgba(252,85,61,0.8);">
-            Catheter Ablation for AF</li>            
-        </ul>
-        <ul class="w3-ul" style="max-width: 900px;margin-left: auto;margin-right: auto;padding:2vmax 2vmax">
-            <a href="#mech" style="text-decoration: none;">
-            <li class="w3-hover-black" style="font-size: 2.5vmax;color: white;background-color: rgba(0,0,0,0.7);border-bottom: #797979 solid 0.1vmax;">
-            Mechanisms
-            </li></a>
-            <a href="#tech" style="text-decoration: none;">
-            <li class="w3-hover-black" style="font-size: 2.5vmax;color: white;background-color: rgba(0,0,0,0.7);border-bottom: #797979 solid 0.1vmax;">
-            Techniques
-            </li></a>
-            <a href="#evidence" style="text-decoration: none;">
-            <li class="w3-hover-black" style="font-size: 2.5vmax;color: white;background-color: rgba(0,0,0,0.7);border-bottom: #797979 solid 0.1vmax;">
-                Evidences
-            </li></a>
-            <a href="#rec" style="text-decoration: none;">
-            <li class="w3-hover-black" style="font-size: 2.5vmax;color: white;background-color: rgba(0,0,0,0.7);">
-                Recommendations
-            </li></a>
-        </ul>
-
-        <div style="padding: 2vmax;text-align: center;color: #ddd;font-size: 1.8vmax;">
-            <a href="https://heartrhythmbox.com/" title="Main Page" target="_blank" style="text-decoration: none;">
-                <img src="box transparent.png" style="width:2vmax;padding-top: 0.5vh;">
-                www.heartRhythmBox.com
-            </a>
-        </div>
-            
-    </div-->
-
-    <!--mobile--
-    <div class="blockHolder mobileOnly" 
-    style="background-image: url('media/title_portrait.png');background-size: 100%;background-position: center;">
-       
-        <ul class="w3-ul" style="margin-left: auto;margin-right: auto;padding:12vmax 2vmax 5vmax 2vmax;">
-            <li class="w3-bold w3-round-large" 
-            style="font-size: 3.5vmax;color:white;background-color: rgba(252,85,61,0.8);">
-            Catheter Ablation for AF</li>            
-        </ul>
-        <ul class="w3-ul" style="margin-left: auto;margin-right: auto;padding:3vmax 2vmax">
-            <a href="#mech" style="text-decoration: none;">
-            <li class="w3-hover-black" style="font-size: 2.5vmax;color: white;background-color: rgba(0,0,0,0.7);border-bottom: #797979 solid 0.1vmax;">
-            Mechanisms
-            </li></a>
-            <a href="#tech" style="text-decoration: none;">
-            <li class="w3-hover-black" style="font-size: 2.5vmax;color: white;background-color: rgba(0,0,0,0.7);border-bottom: #797979 solid 0.1vmax;">
-            Techniques
-            </li></a>
-            <a href="#evidence" style="text-decoration: none;">
-            <li class="w3-hover-black" style="font-size: 2.5vmax;color: white;background-color: rgba(0,0,0,0.7);border-bottom: #797979 solid 0.1vmax;">
-                Evidences
-            </li></a>
-            <a href="#rec" style="text-decoration: none;">
-            <li class="w3-hover-black" style="font-size: 2.5vmax;color: white;background-color: rgba(0,0,0,0.7);">
-                Recommendations
-            </li></a>
-        </ul>
-
-        <div style="padding: 3vmax;text-align: center;color: #ddd;font-size: 1.8vmax;">
-            <a href="https://heartrhythmbox.com/" title="Main Page" target="_blank" style="text-decoration: none;">
-                <img src="box transparent.png" style="width:2vmax;padding-top: 0.5vh;">
-                www.heartRhythmBox.com
-            </a>
-        </div-->
-    
+     
     <video autoplay muted loop class="fixedBg" style="opacity: 50%;filter: sepia(92%);">
         <source src="media\AF LAT.mp4" type="video/mp4">
         </video>
@@ -187,7 +105,7 @@ line-height: 120%;margin-top: 0.5vh}
         <a href="https://heartrhythmbox.com" target="_blank">
         <img src="box coral.png" style="width: 4vmax;padding: 1vmax 0;border-image: linear-gradient(to right, #7e2a1e, #fc553d) 1;border-bottom-width: 0.5vmax;border-bottom-style: solid;">
         </a>
-        <div class="w3-text-shadow" style="padding: 1vmax;color: white;text-shadow:2px 2px 0 #444">
+        <div style="padding: 1vmax;color: white;text-shadow:2px 2px 0 #444">
             <span style="font-size: 5.5vmax;line-height: 100%;font-weight: 700;">CATHETER ABLATION</span> <br> 
             <span style="font-size:4.5vmax;line-height: 100%;font-weight: 400;">OF ATRIAL FIBRILLATION</span>
             <div class="scroll2Hide w3-animate-fading" style="font-size: 2vmax;color: #96a9ae;">
@@ -208,26 +126,13 @@ line-height: 120%;margin-top: 0.5vh}
 <!--fixed 1 mechanism 1-->
 <div class="greenL fixedBg">
        
-        <!--div class="w3-row w3-padding">
-            <div class="w3-cell w3-padding w3-cell-middle headLine orange" 
-            style="font-size:3vmax;text-align: left;line-height: 100%;color: white;">
-                <span class="w3-wide">Mechanisms</span><br>of AF</div>
-            <div class="w3-cell w3-padding sans w3-cell-middle" style="font-size:2vmax">
-                .. is all of the above.<br>
-                .. from triggers to reentry, from electrical to structural remodelling.
-            </div>
-        </div-->
-        <div style="padding: 2vmax;text-align: center;color: #444;font-weight: 400%;">
+    <div style="padding: 2vmax;text-align: center;color: #444;font-weight: 400%;">
             <span style="font-weight: 700;font-size: 3vmax;color: #7e2a1e;">How ablation may fix AF?</span><br>
             <span style="font-size: 2.5vmax;line-height: 110%;">
             First of all...we have to understand the AF mechanisms which includes TRIGGER and REENTRY.</span>
 
-        <!--div style="text-align: center;font-size: 2.5vmax;padding: 2vmax;line-height: 110%;">
-            <img src="media/AFallMechanisms.png" class="imgHolder">
-            <div>
-            </div-->
-    
-        <div class="scroll2Show" style="padding: 2vmax;text-align: center;font-size: 2vmax;">
+   
+    <div class="scroll2Show fadeIn" style="padding: 2vmax;text-align: center;font-size: 2vmax;">
             <img src="media/PVSleeves.png" class="imgHolder"><br>
             <span style="font-weight: 700;color: #fc553d;">TRIGGER(s)</span> is/are from muscle sleeves of Pulmonary veins
         
@@ -241,16 +146,17 @@ line-height: 120%;margin-top: 0.5vh}
     
         </div>
 </div>
+
 <!--fixed 2 mechanism 2-->
 <div class="greenD fixedBg">
      
     <div style="padding: 2vmax;text-align: center;color: #444;font-weight: 400%;">
         <span style="font-weight: 700;font-size: 3vmax;color: #7e2a1e;">REENTRY</span>
         <span style="font-size: 2.5vmax;line-height: 110%;">
-        is from remodelling both electrical and structural.</span>
+        is a result of electrical and structural remodelling.</span>
 
     
-    <div class="scroll2Show" style="padding: 2vmax;text-align: center;font-size: 2vmax;line-height: 110%;">
+    <div class="scroll2Show fadeIn" style="padding: 2vmax;text-align: center;font-size: 2vmax;line-height: 110%;">
         <img src="media/cracksinatrium.png" class="imgHolder"><br>
         Persistent form of AF leads to shortening AERP; favoring perpetuation of AF.<br>
         External stressors such as obesity or structural heart diseases lead to structural remodelling; favoring reentry.
@@ -1039,38 +945,12 @@ style="margin-top:40vh;height: 100vh;background:#f1f1f1;font-size: 1vmax;padding
 
 var fix = document.getElementsByClassName('fixedBg');
 fix[0].style.display = 'block';
-window.addEventListener("keydown", function(event) {
-        event.preventDefault();
-        if (event.keyCode===27) {
-        window.unblur()}
-    })
 
-//up arrow
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===38) {
-    blockNav(-1)}
-})
-//down arrow
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===40) {
-    blockNav(1)}
-})
+/*window.onscroll = function() {s2S()};*/
 
-window.ontouchmove = function () {unblur()};
-window.onscroll = function() {s2S()};
 
-function unblur() {
-    var b = document.getElementsByClassName("block");
-    var i;
-    for (i=0;i<b.length;i++){
-        b[i].style.opacity = 1;
-    }
-}
-
-var miniBlkH = [0.25,0.8,1.2]
-var fullBlkH = [0.7,1.2,2.5]
+var miniBlkH = [0.25,0.9,1.4]
+var fullBlkH = [0.8,1.2,2.5]
 
 function s2S() {
     var miniBlock = document.getElementsByClassName('scroll2Show');
@@ -1079,7 +959,6 @@ function s2S() {
     //var test = Math.round(miniBlkH[0]*window.innerHeight);
     //document.getElementById('title').innerHTML=test;
 
- 
     //block0
     var fullBlk0 = Math.round(fullBlkH[0]*window.innerHeight);
     var miniBlk0 = Math.round(miniBlkH[0]*window.innerHeight);
@@ -1109,17 +988,29 @@ function s2S() {
     }
 
     //block1
-    if (document.body.scrollTop>miniBlk1 || 
-    document.documentElement.scrollTop>miniBlk1){
+    if (document.body.scrollTop>miniBlk1 || document.documentElement.scrollTop>miniBlk1){
         fix[1].style.display = 'block'
         miniBlock[1].style.display ="block";
-        fix[0].style.display = 'none';
-        miniBlock[0].style.display = 'none';
+        fix[2].style.display = 'none';
+        miniBlock[2].style.display = 'none';
+    }
+    if (document.body.scrollTop>fullBlk1 || document.documentElement.scrollTop>fullBlk1){
+        fix[1].style.display = 'none';
+        miniBlock[1].style.display = 'none';
+        fix[2].style.display = 'block';
+        }
+    if (document.body.scrollTop<fullBlk1 || document.documentElement.scrollTop<fullBlk1){
+    miniBlock[2].style.display = 'none'
+    if (document.body.scrollTop>miniBlk1 || 
+    document.documentElement.scrollTop>miniBlk1){
+        miniBlock[1].style.display = 'block';}
+    else {
+        miniBlock[1].style.display= "none"
+    }
     }
 
     //block2
-    if (document.body.scrollTop>miniBlk2 || 
-    document.documentElement.scrollTop>miniBlk2){
+    if (document.body.scrollTop>miniBlk2 || document.documentElement.scrollTop>miniBlk2){
         fix[2].style.display = 'block'
         miniBlock[2].style.display ="block";
         fix[1].style.display = 'none';
