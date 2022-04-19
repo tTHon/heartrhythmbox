@@ -44,6 +44,45 @@
 .greenL {background-color: #eaefea;}
 .greenD {background-color: #bfcdc0;}
 .teal {background-color: #008080;}
+.skyLight {background-color: #f1f0e7;}
+
+/*animation*/
+.blink {
+        animation: blink-animation 1.5s steps(10, start) infinite;
+        -webkit-animation: blink-animation 1.5s steps(10, start) infinite;
+      }
+@keyframes blink-animation {
+        to {
+          opacity: 0;
+        }
+      }
+@-webkit-keyframes blink-animation {
+        to {
+          opacity: 0;
+        }
+      }
+.fadeIn {
+  animation: fadeIn 2.5s;
+  }
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+
+.hideMe {
+  animation: hideAnimation 0s ease-in 5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hideAnimation {
+  to {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+}
+
 
 .scroll2Show {display: none;}
 .fixedBg {width: 100%;height: 100vh;object-fit: cover;
@@ -63,7 +102,7 @@ line-height: 120%;margin-top: 0.5vh}
 
 <!--intro-->
 <div id="test" style="font-size: 3vmax;color: red;position: fixed;top: 20;left: 20;z-index: 10;">
-    Test
+
 </div>
 <div style="padding-top:none;margin: 0;">
     
@@ -78,13 +117,16 @@ line-height: 120%;margin-top: 0.5vh}
         <div style="padding: 1vmax;color: white;text-shadow:2px 2px 0 #444">
             <span style="font-size: 5.5vmax;line-height: 100%;font-weight: 700;">CATHETER ABLATION</span> <br> 
             <span style="font-size:4.5vmax;line-height: 100%;font-weight: 400;">OF ATRIAL FIBRILLATION</span>
-            <div class="scroll2Show w3-animate-fading" style="font-size: 2vmax;color: #96a9ae;">
+            <div class="blink hideOnScroll" style="font-size: 2vmax;color: #96a9ae;">
                 scroll down for more <br> &#8595
             </div>
-            <div class="scroll2Show cursive" style="font-size: 3vmax;color:#fc553d;">
+            <div class="scroll2Show cursive fadeIn" style="font-size: 4vmax;color:#fc553d;">
                 from Salvage to Standard
             </div>
-        </div>
+            <div class="scroll2Show cursive" style="font-size: 4vmax;color:#fc553d;">
+                from Salvage to Standard
+            </div>
+         </div>
     </div>
     
 </div>
@@ -103,7 +145,7 @@ line-height: 120%;margin-top: 0.5vh}
             <img src="media/PVSleeves.png" class="imgHolder"><br>
             <span style="font-weight: 700;color: #fc553d;">TRIGGER(s)</span> is/are from muscle sleeves of Pulmonary veins
         
-            <div class="ref">
+            <div class="ref scroll2Show">
             <a href="https://www.nejm.org/doi/full/10.1056/NEJM199809033391003" target="_blank">Haïssaguerre, M. NEJM 1998;339:659-66 </a>and
             <a href="https://www.ahajournals.org/doi/abs/10.1161/01.cir.34.3.412" target="_blank">
                 Nathan, H. Circulation 1966;34;412-422.
@@ -127,19 +169,16 @@ line-height: 120%;margin-top: 0.5vh}
         <img src="media/cracksinatrium.png" class="imgHolder w3-animate-left"><br>
         Persistent form of AF leads to shortening AERP; favoring perpetuation of AF.<br>
         External stressors such as obesity or structural heart diseases lead to structural remodelling; favoring reentry.
-        <div class="ref">
+        <div class="ref scroll2Show">
             <a href="https://www.ahajournals.org/doi/full/10.1161/CIRCEP.109.910125" target="_blank">
             Allesie et al. Circ Arrhythm Electrophysiol 2010;3:606-615.</a></div>
     </div>
     </div>
 
 </div>
-<div class="fixedBg teal">block 4</div>
-
 
 <!--end page-->
-<div class="w3-container sans w3-center" 
-style="margin-top:40vh;height: 100vh;background:#f1f1f1;font-size: 1vmax;padding: 2vmax;color:#797979;position:relative;z-index:-2;">
+<div class="skyLight" style="margin-top: 150vh;text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;">
     <img src="box transparent.png" style="width: 2vmax;">
     <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top" onclick="unblur()">
         <i class="fas fa-arrow-circle-up"></i></a><br>
@@ -150,7 +189,6 @@ style="margin-top:40vh;height: 100vh;background:#f1f1f1;font-size: 1vmax;padding
 </div>
 
 
-
 </body>
 
 <!--script src="block navigation.js"></script-->
@@ -158,144 +196,82 @@ style="margin-top:40vh;height: 100vh;background:#f1f1f1;font-size: 1vmax;padding
 
 var fix = document.getElementsByClassName('fixedBg');
 fix[0].style.display = 'block';
+var miniB = document.getElementsByClassName('scroll2Show')
 
-//window.onscroll = function() {s2S()};
-window.onscroll = function() {what2show()}
+window.onscroll = function(){
+    s2S()
+    var hide = document.getElementsByClassName('hideOnScroll');
+    var i;
+    for (i=0;i<hide.length;i++){
+        hide[i].style.display = 'none'
+    }
+}
 
-function what2show(){
-    //define screen size and scroll location
+function s2S(){
+    h = (window.innerHeight/100).toFixed(2);
+    var bNo=0;
     windowY = window.scrollY;
-    screenSize = window.innerHeight;
-    screenPos = 2*(windowY/screenSize);
-    scrollTime = Math.floor(screenPos)
-    document.getElementById('test').innerHTML = screenPos;
+    min = 50;max = 70;
+    var i=0;
+    while (i<fix.length){
+        minR=i*(60*h)+(h*min);
+        maxR=i*(60*h)+(h*max);
+        mini1=i*(60*h)+(h*15);
+        mini2=i*(60*h)+(h*30);
+        if (windowY<minR){
+            bNo=i;
+            showFix(bNo);
+            if (windowY>mini1){
+                showMiniBlk(bNo,0)
+            }
+            if (windowY>mini2){
+                showMiniBlk(bNo,1)
+            }
+            break;
+        }
+        else if (windowY>minR && windowY<maxR){
+            bNo=i+1;
+            showFix(bNo);
+            break
+        }
+        else {i++}
+    }
+}
 
-
-    //define elements of content 2 show & how many
-    var miniBlockNo = [2,1,1];
-    var miniBlockStart = [0,2,3];
-    var fix = document.getElementsByClassName('fixedBg');
-    var miniBlock = document.getElementsByClassName('scroll2Show');
-
-    //show the main block
-    fix[0].style.display = 'none'
+function showFix(n){
     var i;
     for (i=0;i<fix.length;i++){
-        if(i==scrollTime){
-            fix[i].style.display = 'block';
+        if (i==n){
+            fix[i].style.display="block"
+            //hide miniBlk
             if (i>0){
-                j=i-1;
-                mBegin = miniBlockStart[j];
-                mEnd = mBegin + miniBlockNo[j]
-                var k;
-                for (k=mBegin;k<mEnd;k++){
-                    miniBlock[k].style.display = 'none'
+                var maxMini = i*2;
+                var j;
+                for (j=maxMini-2;j<maxMini;j++){
+                    miniB[j].style.display = 'none'
                 }
             }
-            miniNo = findMiniNo();
-            miniBlock[miniNo].style.display = 'block';
         }
-        else{
-        fix[i].style.display ='none'}
-    }
-    
-
-    //show miniBlock
-    whichMiniBlock = findMiniNo();
-    function findMiniNo(){
-        basePos = 0.6*scrollTime;
-        incPos = (1/miniBlockNo[scrollTime]);
-        miniPos = screenPos-basePos;
-        miniSeq = Math.round(miniPos/incPos);
-        //check if miniSeq higher than max seq
-        if (miniSeq>miniBlockNo[scrollTime]) {miniSeq=miniBlockNo[scrollTime]}
-        miniNo = miniBlockStart[scrollTime]+miniSeq;
-        return miniNo;
-    };
-
-    /*var j;
-    for (j=0;j<miniBlock.length;j++){
-        if (j==whichMiniBlock){
-            miniBlock[j].style.display = 'block'}
         else {
-            miniBlock[j].style.display = 'none'
+            fix[i].style.display="none"
         }
-    }*/
-     
-}
-
-
-/*
-var miniBlkH = [0.25,0.9,1.4]
-var fullBlkH = [0.8,1.2,1.5]
-
-function s2S() {
-    var miniBlock = document.getElementsByClassName('scroll2Show');
-    var hide = document.getElementsByClassName('scroll2Hide');
-    var fix = document.getElementsByClassName('fixedBg');
-    //var test = Math.round(miniBlkH[0]*window.innerHeight);
-    //document.getElementById('title').innerHTML=test;
-
-    //block0
-    var fullBlk0 = Math.round(fullBlkH[0]*window.innerHeight);
-    var miniBlk0 = Math.round(miniBlkH[0]*window.innerHeight);
-    var fullBlk1 = Math.round(fullBlkH[1]*window.innerHeight);
-    var miniBlk1 = Math.round(miniBlkH[1]*window.innerHeight);
-    var fullBlk2 = Math.round(fullBlkH[2]*window.innerHeight);
-    var miniBlk2 = Math.round(miniBlkH[2]*window.innerHeight)
-    if (document.body.scrollTop>miniBlk0 || document.documentElement.scrollTop>miniBlk0){
-        fix[0].style.display = 'block'
-        miniBlock[0].style.display ="block";
-        hide[0].style.display ="none";
-        fix[1].style.display ='none'
-    }
-    if (document.body.scrollTop>fullBlk0 || document.documentElement.scrollTop>fullBlk0){
-        fix[0].style.display = 'none';
-        miniBlock[0].style.display = 'none';
-        fix[1].style.display = 'block';
-        }
-    if (document.body.scrollTop<fullBlk0 || document.documentElement.scrollTop<fullBlk0){
-        miniBlock[1].style.display = 'none'
-        if (document.body.scrollTop>miniBlk0 || 
-        document.documentElement.scrollTop>miniBlk0){
-            miniBlock[0].style.display = 'block';}
-        else {
-            miniBlock[0].style.display= "none"
-        }
-    }
-
-    //block1
-    if (document.body.scrollTop>miniBlk1 || document.documentElement.scrollTop>miniBlk1){
-        fix[1].style.display = 'block'
-        miniBlock[1].style.display ="block";
-        fix[2].style.display = 'none';
-        miniBlock[2].style.display = 'none';
-    }
-    if (document.body.scrollTop>fullBlk1 || document.documentElement.scrollTop>fullBlk1){
-        fix[1].style.display = 'none';
-        miniBlock[1].style.display = 'none';
-        fix[2].style.display = 'block';
-        }
-    if (document.body.scrollTop<fullBlk1 || document.documentElement.scrollTop<fullBlk1){
-    miniBlock[2].style.display = 'none'
-    if (document.body.scrollTop>miniBlk1 || 
-    document.documentElement.scrollTop>miniBlk1){
-        miniBlock[1].style.display = 'block';}
-    else {
-        miniBlock[1].style.display= "none"
-    }
-    }
-
-    //block2
-    if (document.body.scrollTop>miniBlk2 || document.documentElement.scrollTop>miniBlk2){
-        fix[2].style.display = 'block'
-        miniBlock[2].style.display ="block";
-        fix[1].style.display = 'none';
-        miniBlock[1].style.display = 'none';
     }
 }
 
-*/
+function showMiniBlk(f,m){
+    blkNo = (f*2)+m;
+    document.getElementById('test').innerHTML = miniB.length;
+    var i;
+    for (i=0;i<miniB.length;i++){
+        if (i==blkNo){
+            miniB[i].style.display="block"
+        }
+        else {
+            miniB[i].style.display="none"
+        }
+    }
+}   
+
 </script>
 
 </html>
