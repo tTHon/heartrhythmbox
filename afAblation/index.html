@@ -230,7 +230,7 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
     <div class="scroll2Show fadeIn" 
     style="padding: 1vmax 3vmax;font-size: 2vmax;text-align: center;color: #0C4572;">
         More <span style="font-weight:700">Substrate</span> favors electrical reentry and continuation of AF.       
-        <img src="media\cracksinatriumSmall.png" style="max-height: 50vh;">
+        <img src="media\cracksinatriumSmall.png" style="max-width: 90%;max-height: 50vh;object-fit: cover;">
         
         <div class="ref">
         <a href="https://doi.org/10.1161/CIRCEP.109.910125" target="_blank">
@@ -283,8 +283,9 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
         </td>
     </tr>
     </table>
-    <div class="scroll2Show" style="padding: 2vmax;color: #767676;font-size: 2vmax;line-height: 120%;">
-        Generally speaking...ablating persistent AF is less successful than ablating paroxysmal AF.    
+    <div class="scroll2Show w3-animate-top" style="padding: 2vmax;color: #767676;font-size: 2vmax;line-height: 120%;">
+        <span class="cursive">Generally speaking ...</span>
+        ablating persistent AF is less successful than ablating paroxysmal AF.    
     </div>
 
 </div>
@@ -374,7 +375,6 @@ function showFix(n){
 
 function showMiniBlk(f,m){
     blkNo = (f*2)+m;
-    document.getElementById('test').innerHTML = miniB.length;
     var i;
     for (i=0;i<miniB.length;i++){
         if (i==blkNo){
