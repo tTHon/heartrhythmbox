@@ -16,7 +16,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
 <!--auto-ad-->
 <script data-ad-client="ca-pub-1548733331544768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -33,7 +33,8 @@
 
 <style>
 *{margin: 0;padding: 0;box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
+    scroll-snap-type: y mandatory;
 }
 /*fonts*/
 .sans {font-family: 'Poppins', sans-serif;}
@@ -244,9 +245,10 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
 <!--fixed 4-->
 <div class="fixedBg greenL">
     <div style="padding: 2vmax;color: #fc553d;font-size: 3vmax;font-weight: 700;">
-    TREATMENT STRATEGY FOR EACH STAGE OF AF
+    TREATMENT STRATEGY BY MECHANISMS OF AF
     </div>
-    <table class="w3-table w3-margin scroll2Show fadeIn" style="max-width: 95%;margin-left: auto;margin-right: auto;">
+    <table class="w3-table w3-margin scroll2Show fadeIn" style="max-width: 95%;
+    margin-left: auto;margin-right: auto;color: #444;">
     <tr class="w3-padding">
     <th class="greenD" style="color: #fc553d;font-size:2.7vmax;border: white solid 0.1vmax;">Mechanisms of AF</th>
     <th style="color: #fc553d;font-size:2.7vmax;border:#bfcdc0 solid 0.1vmax;" class="w3-bold w3-white">Treatment Strategies</th>
@@ -257,7 +259,7 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
         <td style="border:#bfcdc0 solid 0.1vmax;vertical-align: middle;background-color: white;">
             <ul>
             <li>Drugs: CCB, BB</li>
-            <li>Ablations: Focal ablation, PVs isolation</li>
+            <li style="font-weight: 700;">ABLATION: Focal ablation, PVs isolation</li>
             </ul>
         </td>
     </tr>
@@ -278,12 +280,12 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
             <ul>
             <li>Substrate Modifications: Weight control, Exercise, Tx of OSA, Htn, & DM</li>
             <li>Drugs to control AF: Antiarrhythmic agents</li>
-            <li>Ablation: Additional Lines, Complex Fractionated EGM</li>
+            <li style="font-weight: 700;">ABLATION: Additional Lines, Complex Fractionated EGM</li>
             </ul>
         </td>
     </tr>
     </table>
-    <div class="scroll2Show w3-animate-top" style="padding: 2vmax;color: #767676;font-size: 2vmax;line-height: 120%;">
+    <div class="scroll2Show w3-animate-bottom" style="padding: 2vmax;color: #767676;font-size: 2vmax;line-height: 120%;">
         <span class="cursive">Generally speaking ...</span>
         ablating persistent AF is less successful than ablating paroxysmal AF.    
     </div>
@@ -326,13 +328,13 @@ function s2S(){
     h = (window.innerHeight/100).toFixed(2);
     var bNo=0;
     windowY = window.scrollY;
-    min = 50;max = 70;
+    min = 60;max = 80;
     var i=0;
     while (i<fix.length){
-        minR=i*(60*h)+(h*min);
-        maxR=i*(60*h)+(h*max);
-        mini1=i*(60*h)+(h*15);
-        mini2=i*(60*h)+(h*30);
+        minR=i*(70*h)+(h*min);
+        maxR=i*(70*h)+(h*max);
+        mini1=i*(70*h)+(h*20);
+        mini2=i*(70*h)+(h*40);
         if (windowY<minR){
             bNo=i;
             showFix(bNo);
