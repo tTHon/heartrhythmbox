@@ -313,7 +313,7 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
 var fix = document.getElementsByClassName('fixedBg');
 fix[0].style.display = 'block';
 var miniB = document.getElementsByClassName('scroll2Show')
-var hideMini1 = [1,0,1,1,0]
+var hideMini1 = [1,0,1,1,1]
 
 window.onscroll = function(){
     s2S()
@@ -333,7 +333,7 @@ function s2S(){
     while (i<fix.length){
         minR=i*(100*h)+(h*min);
         maxR=i*(100*h)+(h*max);
-        mini1=i*(100*h)+(h*40);
+        mini1=i*(100*h)+(h*30);
         mini2=i*(100*h)+(h*60);
         if (windowY<minR){
             bNo=i;
