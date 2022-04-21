@@ -94,7 +94,7 @@
 
 
 /*.scroll2Show {display: none;}*/
-.fixedBg {width: 100%;height: 100vh;object-fit: cover;  
+.fixedBg {width: 100%;height: 150vh;object-fit: cover;  
     display: none;position: absolute;left: 0;right: 0;top: 0;bottom: 0;z-index: -1;
     }
 .bracket {
@@ -310,7 +310,7 @@ var miniB = document.getElementsByClassName('scroll2Show')
 var hideMini1 = [1,0,1,1,1]
 
 window.onscroll = function(){
-    //s2S()
+    s2S()
     document.getElementById('test').innerHTML=window.scrollY;
     var hide = document.getElementsByClassName('hideOnScroll');
     var i;
