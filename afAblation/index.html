@@ -328,13 +328,13 @@ function s2S(){
     h = (window.innerHeight/100).toFixed(2);
     var bNo=0;
     windowY = window.scrollY;
-    min = 60;max = 80;
+    min = 100;max = 120;
     var i=0;
     while (i<fix.length){
-        minR=i*(70*h)+(h*min);
-        maxR=i*(70*h)+(h*max);
-        mini1=i*(70*h)+(h*20);
-        mini2=i*(70*h)+(h*40);
+        minR=i*(100*h)+(h*min);
+        maxR=i*(100*h)+(h*max);
+        mini1=i*(100*h)+(h*40);
+        mini2=i*(100*h)+(h*60);
         if (windowY<minR){
             bNo=i;
             showFix(bNo);
@@ -361,13 +361,13 @@ function showFix(n){
         if (i==n){
             fix[i].style.display="block"
             //hide miniBlk
-            if (i>0){
+            /*if (i>0){
                 var maxMini = i*2;
                 var j;
                 for (j=maxMini-2;j<maxMini;j++){
                     miniB[j].style.display = 'none'
                 }
-            }
+            }*/
         }
         else {
             fix[i].style.display="none"
