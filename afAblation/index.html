@@ -321,7 +321,7 @@ window.onscroll = function(){
     var c = document.getElementsByClassName('content')
     h = window.innerHeight;
     scrollSize = h*0.25;
-    document.getElementById('test').innerHTML=scrollSize;
+    document.getElementById('test').innerHTML=topPos;
     
     if (topPos<-(h/2)){
         fix[0].style.position='relative'
@@ -337,7 +337,8 @@ window.onscroll = function(){
         fix[1].style.height = '130vh'
         
 
-        var top2 = c[1].getBoundingClientRect().top;    
+
+    
         //miniBlk from scrollTop
         if (fix[1].style.display =='block'){
             if (window.scrollY>scrollSize){
@@ -349,8 +350,9 @@ window.onscroll = function(){
         }
     }
 
-    
-    if (top2>h/2){
+    var top2 = c[1].getBoundingClientRect().top;    
+        document.getElementById('test2').innerHTML=top2;
+    if (top2>(h/2)){
         fix[1].style.display='none'
         fix[0].style.transform = 'translateY(0)'
         fix[0].style.display = 'block'
