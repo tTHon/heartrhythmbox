@@ -110,6 +110,7 @@
   border: solid #f1f0e7;
   border-width: 0 0.3vmax;
 }
+#subtitle {display: none;}
 
 .imgHolder {max-height: 65vh;max-width: 98%;}
 
@@ -141,10 +142,10 @@ line-height: 120%;margin-top: 0.5vh}
         <div  style="padding: 1vmax;color: white;text-shadow:2px 2px 0 #444">
             <span style="font-size: 5.5vmax;line-height: 100%;font-weight: 700;">CATHETER ABLATION</span> <br> 
             <span style="font-size:4.5vmax;line-height: 100%;font-weight: 400;">OF ATRIAL FIBRILLATION</span>
-            <div class="blink hideOnScroll" style="font-size: 2vmax;color: #96a9ae;">
+            <div id="hideOnScroll" class="blink" style="font-size: 2vmax;color: #96a9ae;">
                 scroll down for more <br> &#8595
             </div>
-            <div style="font-size: 4vmax;color:#fc553d;">
+            <div id="subtitle" style="font-size: 4vmax;color:#fc553d;">
                 <span class="fadeIn cursive">from Salvage to Standard</span>
                 <div class="bracket delayed" 
                 style="font-size: 2vmax;color:#f1f0e7;text-align: center;line-height: 110%;
@@ -316,14 +317,16 @@ var hideMini1 = [1,0,1,1,1]
 
 window.onscroll = function(){
     //s2S()
-
+    document.getElementById('subtitle').style.display='block'
+    document.getElementById('hideOnScroll').style.display='none'
     var topPos = document.getElementById('title').getBoundingClientRect().top;
+    var bottomPos = document.getElementById('title').getBoundingClientRect().bottom;
     var c = document.getElementsByClassName('content')
     h = window.innerHeight;
-    scrollSize = h*0.25;
-    document.getElementById('test').innerHTML=topPos;
+
     
-    if (topPos<-(h/2)){
+    //if (topPos<-(h/2)){
+        if (bottomPos<h){
         fix[0].style.position='relative'
         fix[0].style.transitionDuration = '1s'
         fix[0].style.transform = 'translateY(-30vh)'
@@ -332,26 +335,31 @@ window.onscroll = function(){
         c[1].style.transform = 'translateY(-30vh)'
         c[1].style.transitionDuration = '1s'
         fix[1].style.display='block';
+        fix[1].style.transform = 'translateY(-30vh)'
         c[0].style.display = 'none'
         c[1].style.display='block';
         fix[1].style.height = '130vh'
-        
+        }
 
 
-    
+        var top2 = c[1].getBoundingClientRect().top;
         //miniBlk from scrollTop
         if (fix[1].style.display =='block'){
-            if (window.scrollY>scrollSize){
+            contentH = c[1].clientHeight;
+            scrollSize = contentH/3;
+            document.getElementById('test').innerHTML=window.scrollY;
+            document.getElementById('test2').innerHTML=top2;
+            if (top2<0.75*window.scrollY){
             miniB[0].style.display='block'
-                if (window.scrollY>2*scrollSize){
+                if (top2<0.5*window.scrollY){
                 miniB[1].style.display='block'
                 }
             }
         }
-    }
+  
 
-    var top2 = c[1].getBoundingClientRect().top;    
-        document.getElementById('test2').innerHTML=top2;
+    
+    
     if (top2>(h/2)){
         fix[1].style.display='none'
         fix[0].style.transform = 'translateY(0)'
@@ -363,11 +371,7 @@ window.onscroll = function(){
         fix[1].style.height = '100vh'
     }
     
-    /*var hide = document.getElementsByClassName('hideOnScroll');
-    var i;
-    for (i=0;i<hide.length;i++){
-        hide[i].style.display = 'none'
-    }*/
+
 }
 
 function s2S(){
