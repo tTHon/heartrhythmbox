@@ -93,9 +93,9 @@
 }
 
 
-/*.scroll2Show {display: none;}*/
-.fixedBg {width: 100%;height: 150vh;object-fit: cover;  
-    display: none;position: absolute;left: 0;right: 0;top: 0;bottom: 0;z-index: -1;
+.scroll2Show {display: none;}
+.fixedBg {width: 100%;height: 100vh;object-fit: cover;  
+    display: none;position: fixed;left: 0;right: 0;top: 0;bottom: 0;z-index: -1;
     }
 .bracket {
   background-image: linear-gradient(#f1f0e7, #f1f0e7),
@@ -123,7 +123,10 @@ line-height: 120%;margin-top: 0.5vh}
 <body>
 
 <!--fixed 0 intro-->
-<div id="test" style="font-size: 3vmax;color: red;position: fixed;top: 20;left: 20;z-index: 10;">
+<div style="font-size: 3vmax;color: red;position: fixed;top: 20;left: 20;z-index: 10;">
+    <span id="test">11</span>
+    <span id="test2">xx</span>
+</div>
 
 </div>
 <div style="padding-top:none;margin: 0;">
@@ -131,17 +134,17 @@ line-height: 120%;margin-top: 0.5vh}
     <video autoplay muted loop class="fixedBg" style="filter:opacity(50%) brightness(75%);z-index: -2;">
         <source src="media\AF LAT.mp4" type="video/mp4" style="max-height: 100vh;">
         </video>
-    <div id="title" style="padding:25vh 3vmax;opacity: 1;filter: none;text-align: center;">
+    <div class="content" id="title" style="padding:25vh 3vmax;opacity: 1;filter: none;text-align: center;">
         <a href="https://heartrhythmbox.com" target="_blank">
         <img src="box coral.png" style="width: 4vmax;padding: 1vmax 0;border-image: linear-gradient(to right, #7e2a1e, #fc553d) 1;border-bottom-width: 0.5vmax;border-bottom-style: solid;">
         </a>
-        <div style="padding: 1vmax;color: white;text-shadow:2px 2px 0 #444">
+        <div  style="padding: 1vmax;color: white;text-shadow:2px 2px 0 #444">
             <span style="font-size: 5.5vmax;line-height: 100%;font-weight: 700;">CATHETER ABLATION</span> <br> 
             <span style="font-size:4.5vmax;line-height: 100%;font-weight: 400;">OF ATRIAL FIBRILLATION</span>
             <div class="blink hideOnScroll" style="font-size: 2vmax;color: #96a9ae;">
                 scroll down for more <br> &#8595
             </div>
-            <div class="scroll2Show" style="font-size: 4vmax;color:#fc553d;">
+            <div style="font-size: 4vmax;color:#fc553d;">
                 <span class="fadeIn cursive">from Salvage to Standard</span>
                 <div class="bracket delayed" 
                 style="font-size: 2vmax;color:#f1f0e7;text-align: center;line-height: 110%;
@@ -158,7 +161,8 @@ line-height: 120%;margin-top: 0.5vh}
 <!--fixed 1-->
 <div class="skyLight fixedBg">
 </div>
-    <div style="padding: 2vmax;text-align: center;font-weight: 400;max-width: 720px;margin-top: 10vh;
+
+    <div class="content" style="padding: 2vmax;text-align: center;font-weight: 400;max-width: 720px;margin-top: 10vh;
     margin-left: auto;margin-right: auto;border: #555 solid 0.2vmax;text-align: left;">
         <span style="font-weight: 700;font-size: 4vmax;color:#fc553d;text-shadow:1px 1px 0 #444">
             HOW ABLATION may<span class="cursive" style="color: #555;">&nbsp;FIX</span> AF?</span><br>
@@ -169,10 +173,11 @@ line-height: 120%;margin-top: 0.5vh}
         </span>
     </div>
 
+
     
 
 <!--fixed 2 mechanism 1-->
-<div class="fixedBg" style="
+<!--div class="fixedBg" style="
 background-image: url('/afAblation/media/PVSketch.png');
 background-position: center;background-repeat: no-repeat;background-size: cover;height: 150vh;"></div>
   
@@ -201,11 +206,11 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
         <div style="margin-top: 1vmax;padding-left:1.5vmax; font-stretch: extra-condensed;line-height: 100%;border-left: #7e2a1e solid 1vmax;">
         Pulmonary Veins Isolation is the Ablation Strategy for this Mechanism.</div>
     </div>
-</div>  
+</div-->  
 
 
 <!--fixed 3 mechanism 1-->
-<div class="fixedBg" style="
+<!--div class="fixedBg" style="
 background-image: url('/afAblation/media/atrialFibrosisMri.png');
 background-position: center;background-repeat: no-repeat;background-size: cover;"></div>
     
@@ -236,11 +241,11 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
             Allesie et al. Circ Arrhythm Electrophysiol 2010;3:606-615.</a>
 
         </div>
-    </div>
+    </div-->
 
 
 <!--fixed 4-->
-<div class="fixedBg greenL"></div>
+<!--div class="fixedBg greenL"></div>
     <div style="padding: 2vmax;color: #fc553d;font-size: 3vmax;font-weight: 700;">
     TREATMENT STRATEGY BY MECHANISMS OF AF
     </div>
@@ -285,7 +290,7 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
     <div class="scroll2Show w3-animate-bottom" style="padding: 2vmax;color: #767676;font-size: 2vmax;line-height: 120%;">
         <span class="cursive">Generally speaking ...</span>
         ablating persistent AF is less successful than ablating paroxysmal AF.    
-    </div>
+    </div-->
 
 <!--end page-->
 <div class="skyLight" style="margin-top: 500vh;text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;">
@@ -310,13 +315,54 @@ var miniB = document.getElementsByClassName('scroll2Show')
 var hideMini1 = [1,0,1,1,1]
 
 window.onscroll = function(){
-    s2S()
-    document.getElementById('test').innerHTML=window.scrollY;
-    var hide = document.getElementsByClassName('hideOnScroll');
+    //s2S()
+
+    var topPos = document.getElementById('title').getBoundingClientRect().top;
+    var c = document.getElementsByClassName('content')
+    h = window.innerHeight;
+    scrollSize = h*0.25;
+    document.getElementById('test').innerHTML=scrollSize;
+    
+    if (topPos<-(h/2)){
+        fix[0].style.position='relative'
+        fix[0].style.transitionDuration = '1s'
+        fix[0].style.transform = 'translateY(-30vh)'
+
+        c[0].style.transform = 'translateY(-100vh)'
+        c[1].style.transform = 'translateY(-30vh)'
+        c[1].style.transitionDuration = '1s'
+        fix[1].style.display='block';
+        c[0].style.display = 'none'
+        c[1].style.display='block';
+        fix[1].style.height = '130vh'
+        
+
+        
+        //miniBlk from scrollTop
+        if (fix[1].style.display =='block'){
+            if (window.scrollY>scrollSize){
+            miniB[0].style.display='block'
+                if (window.scrollY>2*scrollSize){
+                miniB[1].style.display='block'
+                }
+            }
+        }
+    }
+
+    var top2 = c[1].getBoundingClientRect().top;
+    if (top2>h/2){
+        fix[1].style.display='none'
+        fix[0].style.transform = 'translateY(0)'
+        fix[0].style.display = 'block'
+        c[0].style.display = 'block';c[0].style.position = 'relative'
+       // c[0].style.transform = 'translateY(0)'
+    }
+    
+    /*var hide = document.getElementsByClassName('hideOnScroll');
     var i;
     for (i=0;i<hide.length;i++){
         hide[i].style.display = 'none'
-    }
+    }*/
 }
 
 function s2S(){
