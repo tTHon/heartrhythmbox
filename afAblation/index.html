@@ -309,7 +309,6 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
 
 <!--script src="block navigation.js"></script-->
 <script>
-
 var fix = document.getElementsByClassName('fixedBg');
 fix[0].style.display = 'block';
 var miniB = document.getElementsByClassName('scroll2Show')
@@ -325,29 +324,32 @@ window.onscroll = function(){
     h = window.innerHeight;
 
     
-    //if (topPos<-(h/2)){
+    //scrollDown
         if (bottomPos<h){
         fix[0].style.position='relative'
+
         fix[0].style.transitionDuration = '1s'
-        fix[0].style.transform = 'translateY(-30vh)'
+        c[1].style.transitionDuration = '1s'
+        fix[1].style.transitionDuration = '1s'
+        
+        
+        fix[0].style.transform = 'translateY(10vh)'
+        fix[1].style.transform = 'translateY(-20vh)'
 
         c[0].style.transform = 'translateY(-100vh)'
         c[1].style.transform = 'translateY(-30vh)'
-        c[1].style.transitionDuration = '1s'
         fix[1].style.display='block';
-        fix[1].style.transform = 'translateY(-30vh)'
         c[0].style.display = 'none'
         c[1].style.display='block';
-        fix[1].style.height = '130vh'
+        fix[1].style.height = '120vh'
         }
-
 
         var top2 = c[1].getBoundingClientRect().top;
         //miniBlk from scrollTop
         if (fix[1].style.display =='block'){
             contentH = c[1].clientHeight;
             scrollSize = contentH/3;
-            document.getElementById('test').innerHTML=window.scrollY;
+            
             document.getElementById('test2').innerHTML=top2;
             if (top2<0.75*window.scrollY){
             miniB[0].style.display='block'
@@ -361,6 +363,7 @@ window.onscroll = function(){
     
     
     if (top2>(h/2)){
+        fix[1].style.transform = 'translateY(0)'
         fix[1].style.display='none'
         fix[0].style.transform = 'translateY(0)'
         fix[0].style.display = 'block'
