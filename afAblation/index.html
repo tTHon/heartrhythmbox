@@ -94,6 +94,7 @@
 
 
 .scroll2Show {display: none;}
+.content {display: none;}
 .fixedBg {width: 100%;height: 100vh;object-fit: cover;  
     display: none;position: fixed;left: 0;right: 0;top: 0;bottom: 0;z-index: -1;
     }
@@ -163,16 +164,16 @@ line-height: 120%;margin-top: 0.5vh}
 <div class="skyLight fixedBg">
 </div>
 
-    <div class="content" style="padding: 2vmax;text-align: center;font-weight: 400;max-width: 720px;margin-top: 10vh;
-    margin-left: auto;margin-right: auto;border: #555 solid 0.2vmax;text-align: left;">
-        <span style="font-weight: 700;font-size: 4vmax;color:#fc553d;text-shadow:1px 1px 0 #444">
-            HOW ABLATION may<span class="cursive" style="color: #555;">&nbsp;FIX</span> AF?</span><br>
-        <span class="scroll2Show w3-animate-bottom" style="font-size: 3vmax;color: #555;padding-top: 3vh;">
-        First of all...we have to understand<br> how AF was INITIATED</span>
-        <span class="scroll2Show w3-animate-bottom" style="font-size: 3vmax;color: #555;padding-top: 3vh;">
-            and why it would KEEP ON GOING...and going...
-        </span>
-    </div>
+<div class="content" style="padding: 2vmax;text-align: center;font-weight: 400;max-width: 720px;margin-top: 10vh;
+margin-left: auto;margin-right: auto;border-top: #555 solid 0.2vmax;border-bottom: #555 solid 0.2vmax;text-align: left;">
+    <span style="font-weight: 700;font-size: 4vmax;color:#fc553d;text-shadow:1px 1px 0 #444">
+        HOW ABLATION may<span class="cursive" style="color: #555;">&nbsp;FIX</span> AF?</span><br>
+    <span class="scroll2Show w3-animate-bottom" style="font-size: 3vmax;color: #555;padding-top: 3vh;">
+    First of all...we have to understand<br> how AF was INITIATED</span>
+    <span class="scroll2Show w3-animate-bottom" style="font-size: 3vmax;color: #555;padding-top: 3vh;">
+        and why it would KEEP ON GOING...and going...
+    </span>
+</div>
 
 
     
@@ -310,7 +311,8 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
 <!--script src="block navigation.js"></script-->
 <script>
 var fix = document.getElementsByClassName('fixedBg');
-fix[0].style.display = 'block';
+var c = document.getElementsByClassName('content')
+fix[0].style.display = 'block';c[0].style.display='block'
 var miniB = document.getElementsByClassName('scroll2Show')
 var hideMini1 = [1,0,1,1,1]
 
@@ -320,18 +322,40 @@ window.onscroll = function(){
     document.getElementById('hideOnScroll').style.display='none'
     var topPos = document.getElementById('title').getBoundingClientRect().top;
     var bottomPos = document.getElementById('title').getBoundingClientRect().bottom;
-    var c = document.getElementsByClassName('content')
     h = window.innerHeight;
     var top2 = c[1].getBoundingClientRect().top;
-    document.getElementById('test2').innerHTML=top2;
+    var top1 = c[0].getBoundingClientRect().top;
+    var bottom1 = c[0].getBoundingClientRect().bottom;
+    var bottom2 = c[1].getBoundingClientRect().bottom;
+    var cHeight0 = c[0].clientHeight; 
+    
+    document.getElementById('test2').innerHTML=window.scrollY;
+
+    if (window.scrollY>bottom1){
+        document.getElementById('test').innerHTML= bottom1;
+        fix[0].style.transform = 'translateY(-30vh)'
+        fix[0].style.transitionDuration = '1s'
+        fix[1].style.display = 'block';
+        //fix[1].style.height= '120vh'
+        fix[1].style.transitionDuration = '1s'
+        c[0].style.transform = 'translateY(-60vh)'
+        c[0].style.transitionDuration = '2s'
+        c[1].style.display = 'block'
+        //c[1].style.transform = 'translateY(-30vh)'
+        c[1].style.transitionDuration = '1s'
+
+        //fix[0].style.display = 'none'
+        //c[0].style.display = 'none'
+    }
+
     //scrollDown
-        if (bottomPos<h){
+        /*if (bottomPos<h){
         fix[0].style.position='relative'
-        //fix[1].style.display='relative';    
+        fix[1].style.display='relative';    
               
         
-        fix[0].style.transform = 'translateY(-20vh)'
-        fix[1].style.transform = 'translateY(-20vh)'
+        //fix[0].style.transform = 'translateY(-20vh)'
+        //fix[1].style.transform = 'translateY(-20vh)'
         fix[0].style.transitionDuration = '1s'
         c[1].style.transitionDuration = '1s'
         fix[1].style.transitionDuration = '1s'
@@ -341,7 +365,8 @@ window.onscroll = function(){
 
         c[0].style.display = 'none'
         c[1].style.display='block';
-        fix[1].style.height = '120vh'
+        //fix[1].style.height = '120vh'
+
         }
 
         
@@ -357,11 +382,10 @@ window.onscroll = function(){
                 }
             }
         }
-  
-
-    
-    
+     
     if (top2>(h/2)){
+        fix[1].style.transitionDuration = '1s'
+        fix[0].style.transitionDuration = '1s'
         fix[1].style.transform = 'translateY(0)'
         fix[1].style.display='none'
         fix[0].style.transform = 'translateY(0)'
@@ -372,7 +396,7 @@ window.onscroll = function(){
         miniB[1].style.display = 'none'
         fix[1].style.height = '100vh'
     }
-    
+ */   
 
 }
 
