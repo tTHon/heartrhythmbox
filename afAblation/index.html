@@ -335,25 +335,36 @@ window.onscroll = function(){
         fix[1].style.display = 'block';
         //fix[1].style.height= '120vh'
         fix[1].style.transitionDuration = '1s'
-        c[0].style.transform = 'translateY(-60vh)'
-        c[0].style.transitionDuration = '2s'
+        c[0].style.transform = 'translateY(-20vh)'
+        c[0].style.transitionDuration = '1s'
         c[1].style.display = 'block'
         c[1].style.transform = 'translateY(-10vh)'
         c[1].style.transitionDuration = '1s'
 
-        //fix[0].style.display = 'none'
-        //c[0].style.display = 'none'
-  
 
         if (window.scrollY>top2){
             //miniB[1].style.display = 'none'
+            c[1].style.transform = 'translateY(0)'
+            c[1].style.transitionDuration = '1s'
             miniB[0].style.display = 'block'
             var miniBottom = miniB[0].getBoundingClientRect().bottom;
-            document.getElementById('test').innerHTML= miniBottom;
+
             document.getElementById('test2').innerHTML=window.scrollY;
             if (miniBottom<(h/2)){
                 miniB[1].style.display = 'block'    
             }
+        }
+        if (window.scrollY<top2){
+            document.getElementById('test').innerHTML= 'hey';
+            fix[0].style.transform = 'translateY(0)'
+            fix[0].style.display ='block';fix[0].style.overflow = 'hidden'
+            fix[0].style.transitionDuration = '1s'
+            fix[1].style.display = 'none'
+            c[0].style.transform = 'translateY(0)'
+            c[1].style.transform = 'translateY(0)'
+            c[0].style.transitionDuration = '1s'
+            miniB[0].style.display ='none'
+            miniB[1].style.display ='none'
         }
 
     }
