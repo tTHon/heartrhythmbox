@@ -329,11 +329,8 @@ window.onscroll = function(){
     var bottom2 = c[1].getBoundingClientRect().bottom;
     var cHeight0 = c[0].clientHeight; 
     
-    document.getElementById('test2').innerHTML=window.scrollY;
-
     if (window.scrollY>bottom1){
-        document.getElementById('test').innerHTML= bottom1;
-        fix[0].style.transform = 'translateY(-30vh)'
+        
         fix[0].style.transitionDuration = '1s'
         fix[1].style.display = 'block';
         //fix[1].style.height= '120vh'
@@ -341,13 +338,25 @@ window.onscroll = function(){
         c[0].style.transform = 'translateY(-60vh)'
         c[0].style.transitionDuration = '2s'
         c[1].style.display = 'block'
-        //c[1].style.transform = 'translateY(-30vh)'
+        c[1].style.transform = 'translateY(-10vh)'
         c[1].style.transitionDuration = '1s'
 
         //fix[0].style.display = 'none'
         //c[0].style.display = 'none'
-    }
+  
 
+        if (window.scrollY>top2){
+            //miniB[1].style.display = 'none'
+            miniB[0].style.display = 'block'
+            var miniBottom = miniB[0].getBoundingClientRect().bottom;
+            document.getElementById('test').innerHTML= miniBottom;
+            document.getElementById('test2').innerHTML=window.scrollY;
+            if (miniBottom<(h/2)){
+                miniB[1].style.display = 'block'    
+            }
+        }
+
+    }
     //scrollDown
         /*if (bottomPos<h){
         fix[0].style.position='relative'
