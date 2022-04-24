@@ -329,11 +329,10 @@ window.onscroll = function(){
     var top3 = c[2].getBoundingClientRect().top;
     var top2 = c[1].getBoundingClientRect().top;
     var top1 = c[0].getBoundingClientRect().top;
+    var bottom3 = c[2].getBoundingClientRect().bottom;
     var bottom1 = c[0].getBoundingClientRect().bottom;
     var bottom2 = c[1].getBoundingClientRect().bottom;
     var cHeight0 = c[0].clientHeight; 
-    document.getElementById('test').innerHTML= top3;
-        document.getElementById('test2').innerHTML=window.scrollY;
     
     //0 to 1
     if (window.scrollY>bottom1){
@@ -394,6 +393,8 @@ window.onscroll = function(){
 
     //2 to 1
     if (top3>h/2){
+        document.getElementById('test').innerHTML= top3;
+        document.getElementById('test2').innerHTML=bottom3;
         c[1].style.transform = 'translateY(0)'
         c[2].style.transform = 'translateY(0)'
         fix[2].style.height= '100vh'
