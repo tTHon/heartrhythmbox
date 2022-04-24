@@ -161,7 +161,8 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--fixed 1-->
-<div class="skyLight fixedBg" style="padding: 1vmax;">
+<div class="skyLight fixedBg" style="padding: 1vmax;background-image: url('/afAblation/media/atrialFibrosisMri.png');
+background-position: center;background-repeat: no-repeat;background-size: cover;">
 </div>
 
 <div class="content" style="padding: 2vmax;text-align: center;font-weight: 400;max-width: 720px;margin-top: 10vh;
@@ -179,18 +180,18 @@ margin-left: auto;margin-right: auto;border-top: #555 solid 0.2vmax;border-botto
     
 
 <!--fixed 2 mechanism 1-->
-<!--div class="fixedBg" style="
+<div class="fixedBg" style="
 background-image: url('/afAblation/media/PVSketch.png');
 background-position: center;background-repeat: no-repeat;background-size: cover;height: 150vh;"></div>
   
-    <div style="padding: 3vmax;color: #fefefe;font-weight: 700;font-size: 4vmax;max-width: 720;line-height: 100%;">
+    <div class="content" style="padding: 3vmax;color: #fefefe;font-weight: 700;font-size: 4vmax;max-width: 720;line-height: 100%;">
     Muscle Sleeves of PULMONARY VEINs<br>
     <span style="font-weight: 400;font-size: 2.5vmax;">
         are the Main Sources of Ectopic Beats; initiating AF.
     </span>
-    </div>
 
-    <div class="scroll2Show w3-animate-opacity" style="padding: 1vmax 3vmax;font-size: 2vmax;">
+
+    <div class="w3-animate-opacity" style="padding: 3vmax;font-size: 2vmax;">
         <img src="media\PVFoci.png" class="imgHolder">
          
         <div class="ref" style="color: #666;">
@@ -200,7 +201,7 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
         </a>
         </div>
     </div>
-    <div class="scroll2Show w3-animate-left" style="padding: 2vmax 10vmax 2vmax 3vmax;font-size: 3vmax;color: #7e2a1e;">
+    <div class="w3-animate-left" style="padding: 3vmax 10vmax 2vmax 3vmax;font-size: 3vmax;color: #7e2a1e;">
         <span style="width: 3vw;border-left: #232323 solid 1vmax;">&nbsp;</span>
         <span style="font-weight: 700;color: #232323;">
             MORE INVOLVED IN PAROXYSMAL THAN PERSISTENT AF.</span>
@@ -208,7 +209,8 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
         <div style="margin-top: 1vmax;padding-left:1.5vmax; font-stretch: extra-condensed;line-height: 100%;border-left: #7e2a1e solid 1vmax;">
         Pulmonary Veins Isolation is the Ablation Strategy for this Mechanism.</div>
     </div>
-</div-->  
+    </div>
+</div>  
 
 
 <!--fixed 3 mechanism 1-->
@@ -295,7 +297,7 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
     </div-->
 
 <!--end page-->
-<div class="skyLight" style="margin-top: 500vh;text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;">
+<div class="skyLight" style="margin-top: 50vh;text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;">
     <img src="box transparent.png" style="width: 2vmax;">
     <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top" onclick="unblur()">
         <i class="fas fa-arrow-circle-up"></i></a><br>
@@ -323,6 +325,7 @@ window.onscroll = function(){
     var topPos = document.getElementById('title').getBoundingClientRect().top;
     var bottomPos = document.getElementById('title').getBoundingClientRect().bottom;
     h = window.innerHeight;
+    var top3 = c[2].getBoundingClientRect().top;
     var top2 = c[1].getBoundingClientRect().top;
     var top1 = c[0].getBoundingClientRect().top;
     var bottom1 = c[0].getBoundingClientRect().bottom;
@@ -349,13 +352,11 @@ window.onscroll = function(){
             miniB[0].style.display = 'block'
             var miniBottom = miniB[0].getBoundingClientRect().bottom;
 
-            document.getElementById('test2').innerHTML=window.scrollY;
             if (miniBottom<(h/2)){
                 miniB[1].style.display = 'block'    
             }
         }
         if (window.scrollY<top2){
-            document.getElementById('test').innerHTML= 'hey';
             fix[0].style.transform = 'translateY(0)'
             fix[0].style.display ='block';fix[0].style.overflow = 'hidden'
             fix[0].style.transitionDuration = '1s'
@@ -367,127 +368,40 @@ window.onscroll = function(){
             miniB[1].style.display ='none'
         }
 
+
     }
-    //scrollDown
-        /*if (bottomPos<h){
-        fix[0].style.position='relative'
-        fix[1].style.display='relative';    
-              
+
+    //block2
+    if (bottom2<h/2 && miniB[1].style.display=='block'){
+        document.getElementById('test').innerHTML= bottom2;
+        document.getElementById('test2').innerHTML=window.scrollY;
         
-        //fix[0].style.transform = 'translateY(-20vh)'
-        //fix[1].style.transform = 'translateY(-20vh)'
-        fix[0].style.transitionDuration = '1s'
+        fix[2].style.transform = 'translateY(-10vh)'
+        fix[1].style.transitionDuration = '1s'
+        fix[2].style.display = 'block';
+        fix[2].style.height= '120vh'
+        fix[2].style.transitionDuration = '1s'
+        c[1].style.transform = 'translateY(-100vh)'
         c[1].style.transitionDuration = '1s'
-        fix[1].style.transitionDuration = '1s'
-        c[0].style.transform = 'translateY(-100vh)'
-        c[1].style.transform = 'translateY(-10vh)'
-        fix[1].style.display='block';
-
-        c[0].style.display = 'none'
-        c[1].style.display='block';
-        //fix[1].style.height = '120vh'
-
-        }
-
-        
-        //miniBlk from scrollTop
-        if (fix[1].style.display =='block'){
-            contentH = c[1].clientHeight;
-            scrollSize = contentH/3;
-            
-            if (top2<0.75*window.scrollY){
-            miniB[0].style.display='block'
-                if (top2<0.5*window.scrollY){
-                miniB[1].style.display='block'
-                }
-            }
-        }
-     
-    if (top2>(h/2)){
-        fix[1].style.transitionDuration = '1s'
-        fix[0].style.transitionDuration = '1s'
-        fix[1].style.transform = 'translateY(0)'
-        fix[1].style.display='none'
-        fix[0].style.transform = 'translateY(0)'
-        fix[0].style.display = 'block'
-        c[0].style.display = 'block';c[0].style.position = 'relative'
-        c[1].style.display = 'none'
-        miniB[0].style.display = 'none'
-        miniB[1].style.display = 'none'
-        fix[1].style.height = '100vh'
+        c[2].style.display = 'block'
+        c[2].style.transform = 'translateY(-10vh)'
+        c[2].style.transitionDuration = '1s'
     }
- */   
 
-}
-
-function s2S(){
-    h = (window.innerHeight/100).toFixed(2);
-    var bNo=0;
-    windowY = window.scrollY;
-    min = 100;max = 110;
-    var i=0;
-    while (i<fix.length){
-        minR=i*(100*h)+(h*min);
-        maxR=i*(100*h)+(h*max);
-        mini1=i*(100*h)+(h*25);
-        mini2=i*(100*h)+(h*45);
-        
-        if (windowY<minR){
-            bNo=i;
-            showFix(bNo);
-            if (windowY>mini1){
-                showMiniBlk(bNo,0)
-            }
-            if (windowY>mini2){
-                showMiniBlk(bNo,1)
-            }
-            break;
-        }
-        else if (windowY>minR && windowY<maxR){
-            bNo=i+1;
-            showFix(bNo);
-            break
-        }
-        else {i++}
+    if (top3>h/2){
+        c[1].style.transform = 'translateY(0)'
+        c[2].style.transform = 'translateY(0)'
+        fix[2].style.height= '100vh'
+        c[1].style.transform = 'translateY(0)'
+        c[1].style.transitionDuration = '1s'
+        c[2].style.transform = 'translateY(0)'
+        c[2].style.transitionDuration = '1s'
+        fix[2].style.transform = 'translateY(0)'
+        fix[2].style.display = 'none'
+        c[2].style.display = 'none'
+        //fix[1].style.display ='block';
     }
-}
-
-function showFix(n){
-    var i;
-    for (i=0;i<fix.length;i++){
-        fix[i].style.position='fixed'
-        if (i==n){
-            fix[i].style.display="block"
-            //hide miniBlk
-            /*if (i>0){
-                var maxMini = i*2;
-                var j;
-                for (j=maxMini-2;j<maxMini;j++){
-                    miniB[j].style.display = 'none'
-                }
-            }*/
-        }
-        else {
-            fix[i].style.display="none"
-        }
-    }
-}
-
-function showMiniBlk(f,m){
-    blkNo = (f*2)+m;
-    var i;
-    for (i=0;i<miniB.length;i++){
-        if (i==blkNo){
-            miniB[i].style.display="block"
-        }
-        else {
-            miniB[i].style.display="none"
-            //check if mini0 needed to be hidden
-            if (m==1 & hideMini1[f]==0){
-                miniB[blkNo-1].style.display = 'block'
-            }
-        }
-    }
+    
 }   
 
 </script>
