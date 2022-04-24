@@ -182,13 +182,14 @@ margin-left: auto;margin-right: auto;border-top: #555 solid 0.2vmax;border-botto
 <!--fixed 2 mechanism 1-->
 <div class="fixedBg" style="
 background-image: url('/afAblation/media/PVSketch.png');
-background-position: center;background-repeat: no-repeat;background-size: cover;height: 150vh;"></div>
+background-position: center;background-repeat: no-repeat;background-size: cover;"></div>
   
-    <div class="content" style="padding: 3vmax;color: #fefefe;font-weight: 700;font-size: 4vmax;max-width: 720;line-height: 100%;">
+    <div class="content" style="padding: 3vmax;color: #fefefe;font-weight: 700;font-size: 4vmax;
+    max-width: 720;line-height: 100%;">
     Muscle Sleeves of PULMONARY VEINs<br>
-    <span style="font-weight: 400;font-size: 2.5vmax;">
-        are the Main Sources of Ectopic Beats; initiating AF.
-    </span>
+        <span style="font-weight: 400;font-size: 2.5vmax;">
+            are the Main Sources of Ectopic Beats; initiating AF.
+        </span>
 
 
     <div class="w3-animate-opacity" style="padding: 3vmax;font-size: 2vmax;">
@@ -331,7 +332,10 @@ window.onscroll = function(){
     var bottom1 = c[0].getBoundingClientRect().bottom;
     var bottom2 = c[1].getBoundingClientRect().bottom;
     var cHeight0 = c[0].clientHeight; 
+    document.getElementById('test').innerHTML= top3;
+        document.getElementById('test2').innerHTML=window.scrollY;
     
+    //0 to 1
     if (window.scrollY>bottom1){
         
         fix[0].style.transitionDuration = '1s'
@@ -344,7 +348,7 @@ window.onscroll = function(){
         c[1].style.transform = 'translateY(-10vh)'
         c[1].style.transitionDuration = '1s'
 
-
+        //1 & miniB
         if (window.scrollY>top2){
             //miniB[1].style.display = 'none'
             c[1].style.transform = 'translateY(0)'
@@ -356,6 +360,8 @@ window.onscroll = function(){
                 miniB[1].style.display = 'block'    
             }
         }
+
+        //1 to 0
         if (window.scrollY<top2){
             fix[0].style.transform = 'translateY(0)'
             fix[0].style.display ='block';fix[0].style.overflow = 'hidden'
@@ -371,11 +377,9 @@ window.onscroll = function(){
 
     }
 
-    //block2
+    //block2 1 to 2
     if (bottom2<h/2 && miniB[1].style.display=='block'){
-        document.getElementById('test').innerHTML= bottom2;
-        document.getElementById('test2').innerHTML=window.scrollY;
-        
+               
         fix[2].style.transform = 'translateY(-10vh)'
         fix[1].style.transitionDuration = '1s'
         fix[2].style.display = 'block';
@@ -388,6 +392,7 @@ window.onscroll = function(){
         c[2].style.transitionDuration = '1s'
     }
 
+    //2 to 1
     if (top3>h/2){
         c[1].style.transform = 'translateY(0)'
         c[2].style.transform = 'translateY(0)'
@@ -397,9 +402,9 @@ window.onscroll = function(){
         c[2].style.transform = 'translateY(0)'
         c[2].style.transitionDuration = '1s'
         fix[2].style.transform = 'translateY(0)'
-        fix[2].style.display = 'none'
+        fix[1].style.display ='block';
         c[2].style.display = 'none'
-        //fix[1].style.display ='block';
+        fix[2].style.display = 'none'
     }
     
 }   
