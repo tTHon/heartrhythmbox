@@ -53,24 +53,7 @@
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
-header
-{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 40px 100px;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-header .logo
-{
-  color: #fff;
-  text-transform: uppercase;
-  cursor: pointer;
-}
+
 
 .showcase
 {
@@ -92,7 +75,7 @@ header .logo
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100%;max-height: 100vh;
   object-fit: cover;
   opacity: 0.7;
 }
@@ -106,59 +89,11 @@ header .logo
   background: #555;
   mix-blend-mode: overlay;
 }
-.text
-{
-  position: relative;
-  z-index: 10;
-}
 
-.text h2
-{
-  font-size: 5em;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1em;
-  text-transform: uppercase;
-}
-.text h3
-{
-  font-size: 4em;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1em;
-  text-transform: uppercase;
-}
-.text p
-{
-  font-size: 1.1em;
-  color: #fff;
-  margin: 20px 0;
-  font-weight: 400;
-  max-width: 700px;
-}
-.text a
-{
-  display: inline-block;
-  font-size: 1em;
-  background: #fff;
-  padding: 10px 30px;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-weight: 500;
-  margin-top: 10px;
-  color: #111;
-  letter-spacing: 2px;
-  transition: 0.2s;
-}
-.text a:hover
-{
-  letter-spacing: 6px;
-}
-
-
-
-.container {width: 100%;min-height: 100vh;position: absolute;left: 0;right: 0;display: flex;
-    align-content: center;align-items: center;background: #111;z-index: 2;}
+.container {padding: none;position: relative;display: block;}
+.endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;}
+.space {height: 50vh;}
+.showAfterSpace {visibility: hidden;}
 .bracket {
   background-image: linear-gradient(#f1f0e7, #f1f0e7),
                     linear-gradient(#f1f0e7, #f1f0e7),
@@ -184,18 +119,17 @@ line-height: 120%;margin-top: 0.5vh}
 <body>
 
 <div class="showcase">
-    <!--header>
-      <h2 class="logo">Travel</h2>
-      <div class="toggle"></div>
-    </header-->
+
     <video src="media\AF LAT.mp4" muted loop autoplay></video>
     <div class="overlay"></div>
  
-    <div class="text">
-      <h2>Catheter Ablation  </h2> 
-      <h3>of atrial fibrillation</h3>
+    <div style="position: relative;z-index: 10;">
+      <div style="font-weight: 800;font-size: 6vmax;color: white;text-transform: uppercase;line-height: 100%;">
+        Catheter Ablation  </div> 
+      <div style="font-weight: 600;font-size: 5vmax;color: white;text-transform: uppercase;line-height: 100%">
+        of atrial fibrillation</div>
       <div class="serif" style="font-size:3.5vmax;color:#f1f0e7;">
-        from savage to standard</p>
+        from savage to standard
       </div>
     </div>
     <ul style="position: absolute;bottom: 2vmax;display: inline-block;display: flex;
@@ -203,13 +137,40 @@ line-height: 120%;margin-top: 0.5vh}
       <li style="padding: 0.5vmax;"><a href="https://heartrhythmbox.com/" target="_blank"><img src="box transparent.png" style="width: 3vmax;"></a></li>
       <li style="padding: 0.5vmax;"><a href="https://www.facebook.com/HeartRhythmBox/" target="_blank"><img src="fb.png" style="width: 3vmax;"></a></li>
     </ul>
+
+</div>
+
+<div class="container">
+    <div class="block" style="background-image: url('/afAblation/media/atrialFibrosisMriV.png');
+    background-position: left;background-repeat: no-repeat;background-size: cover;
+    width: 100%;height:fit-content;z-index: -1;">
+        <div style="font-size: 6vmax;font-weight: 800;text-align: center;padding-top: 30vh;
+    z-index: 1;position: relative;">
+        Before we know how ablation may fix AF... 
+        </div>
+        <div class="space">&nbsp;</div>
+        <div class="showAfterSpace" 
+        style="font-size: 4vmax;font-weight: 400;text-align: center;padding: 20vh;z-index: 1;">
+        we need to learn how AF start and continue
+        </div>
+    </div>
+
+
+
+<div class="block" style="
+    background-image: url('/afAblation/media/PVSketch.png');
+    background-position: center;background-repeat: no-repeat;background-size: cover;height: 100vh;">
+        content
+    </div>
 </div>
 
 
 
+
+
 <!--end page-->
-<div class="skyLight" style="text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;pos;">
-    <img src="box transparent.png" style="width: 2vmax;">
+<div class="skyLight endPage">
+    <img src="box coral.png" style="width: 2.5vmax;">
     <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top" onclick="unblur()">
         <i class="fas fa-arrow-circle-up"></i></a><br>
     <span class="serif" style="color: #777777;font-weight: 700;">HeartRhythmBox</span>, an education page of heart rhythm topics.<br>
@@ -225,6 +186,38 @@ line-height: 120%;margin-top: 0.5vh}
 
 window.onscroll = function(){
     
+    //hide intro
+    sCase = document.getElementsByClassName('showcase');
+    sCase[0].style.transform = 'translateY(-100vh)'
+    sCase[0].style.transitionDuration = '2s'
+    
+    //scroll content into view and remove margin of the endPage
+    container = document.getElementsByClassName('container');
+    endPage = document.getElementsByClassName('endPage');
+    block = document.getElementsByClassName('block')
+    
+    //container[0].scrollIntoView();
+    container[0].style.transform = 'translateY(25vh)'
+    container[0].style.transitionDuration = '2s'
+    endPage[0].style.marginTop ='25vh'
+
+    //scrollUp to show intro
+    var top = container[0].getBoundingClientRect().top;
+    if (window.scrollY<=15*window.innerHeight && top>0){
+        sCase[0].style.transform = 'translateY(0)'
+        sCase[0].style.transitionDuration = '2s'
+        container[0].style.transform = 'translateY(0)'
+        container[0].style.transitionDuration = '2s'
+    }
+
+    //scroll2show
+    space = document.getElementsByClassName('space')
+    showAfter = document.getElementsByClassName('showAfterSpace')
+    var sTop = space[0].getBoundingClientRect().top;
+    if (sTop<0){
+        showAfter[0].style.visibility ='visible'
+    }
+   
 }   
 
 </script>
