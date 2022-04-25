@@ -61,7 +61,7 @@
   right: 0;
   width: 100%;
   min-height: 100vh;
-  padding: 100px;
+  padding: 3vmax;
   display: flex;
   align-items: center;
   background: #111;
@@ -94,6 +94,7 @@
 .endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;}
 .space {height: 50vh;}
 .showAfterSpace {visibility: hidden;}
+.block {padding: 1vmax;}
 .bracket {
   background-image: linear-gradient(#f1f0e7, #f1f0e7),
                     linear-gradient(#f1f0e7, #f1f0e7),
@@ -142,16 +143,16 @@ line-height: 120%;margin-top: 0.5vh}
 
 <div class="container">
     <div class="block" style="background-image: url('/afAblation/media/atrialFibrosisMriV.png');
-    background-position: left;background-repeat: no-repeat;background-size: cover;
+    background-position: left;background-repeat: no-repeat;background-size: cover;opacity: 0.6;
     width: 100%;height:fit-content;z-index: -1;">
-        <div style="font-size: 6vmax;font-weight: 800;text-align: center;padding-top: 30vh;
-    z-index: 1;position: relative;">
-        Before we know how ablation may fix AF... 
+        <div style="font-size: 6vmax;font-weight: 800;text-align: center;padding: 30vh 2vmax 2vmax 2vmax;
+    z-index: 3;position: relative;text-align: left;line-height: 120%;">
+        <div style="border-left: #fc553d 0.5vmax solid;padding-left: 0.5vmax;">Before we know how ablation may fix AF,</div> 
         </div>
         <div class="space">&nbsp;</div>
         <div class="showAfterSpace" 
-        style="font-size: 4vmax;font-weight: 400;text-align: center;padding: 20vh;z-index: 1;">
-        we need to learn how AF start and continue
+        style="font-size: 4vmax;font-weight: 600;text-align: center;padding: 20vh 2vmax;z-index: 1;text-align: right;line-height: 120%;">
+        <div style="border-right: #fc553d 0.5vmax solid;padding-right: 0.5vmax;">we need to learn how AF is initiated and why it keeps on going and going.</div>
         </div>
     </div>
 
@@ -205,9 +206,9 @@ window.onscroll = function(){
     var top = container[0].getBoundingClientRect().top;
     if (window.scrollY<=15*window.innerHeight && top>0){
         sCase[0].style.transform = 'translateY(0)'
-        sCase[0].style.transitionDuration = '2s'
+        sCase[0].style.transitionDuration = '1s'
         container[0].style.transform = 'translateY(0)'
-        container[0].style.transitionDuration = '2s'
+        container[0].style.transitionDuration = '1s'
     }
 
     //scroll2show
@@ -216,6 +217,8 @@ window.onscroll = function(){
     var sTop = space[0].getBoundingClientRect().top;
     if (sTop<0){
         showAfter[0].style.visibility ='visible'
+        showAfter[0].style.transform = 'translateY(-10vh)'
+        showAfter[0].style.transitionDuration = '1s'
     }
    
 }   
