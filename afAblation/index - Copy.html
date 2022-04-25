@@ -94,6 +94,7 @@
 
 
 .scroll2Show {display: none;}
+.content {display: none;}
 .fixedBg {width: 100%;height: 100vh;object-fit: cover;  
     display: none;position: fixed;left: 0;right: 0;top: 0;bottom: 0;z-index: -1;
     }
@@ -110,6 +111,7 @@
   border: solid #f1f0e7;
   border-width: 0 0.3vmax;
 }
+#subtitle {display: none;}
 
 .imgHolder {max-height: 65vh;max-width: 98%;}
 
@@ -141,10 +143,10 @@ line-height: 120%;margin-top: 0.5vh}
         <div  style="padding: 1vmax;color: white;text-shadow:2px 2px 0 #444">
             <span style="font-size: 5.5vmax;line-height: 100%;font-weight: 700;">CATHETER ABLATION</span> <br> 
             <span style="font-size:4.5vmax;line-height: 100%;font-weight: 400;">OF ATRIAL FIBRILLATION</span>
-            <div class="blink hideOnScroll" style="font-size: 2vmax;color: #96a9ae;">
+            <div id="hideOnScroll" class="blink" style="font-size: 2vmax;color: #96a9ae;">
                 scroll down for more <br> &#8595
             </div>
-            <div style="font-size: 4vmax;color:#fc553d;">
+            <div id="subtitle" style="font-size: 4vmax;color:#fc553d;">
                 <span class="fadeIn cursive">from Salvage to Standard</span>
                 <div class="bracket delayed" 
                 style="font-size: 2vmax;color:#f1f0e7;text-align: center;line-height: 110%;
@@ -159,36 +161,38 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 
 <!--fixed 1-->
-<div class="skyLight fixedBg">
+<div class="skyLight fixedBg" style="padding: 1vmax;background-image: url('/afAblation/media/atrialFibrosisMri.png');
+background-position: center;background-repeat: no-repeat;background-size: cover;">
 </div>
 
-    <div class="content" style="padding: 2vmax;text-align: center;font-weight: 400;max-width: 720px;margin-top: 10vh;
-    margin-left: auto;margin-right: auto;border: #555 solid 0.2vmax;text-align: left;">
-        <span style="font-weight: 700;font-size: 4vmax;color:#fc553d;text-shadow:1px 1px 0 #444">
-            HOW ABLATION may<span class="cursive" style="color: #555;">&nbsp;FIX</span> AF?</span><br>
-        <span class="scroll2Show w3-animate-bottom" style="font-size: 3vmax;color: #555;padding-top: 3vh;">
-        First of all...we have to understand<br> how AF was INITIATED</span>
-        <span class="scroll2Show w3-animate-bottom" style="font-size: 3vmax;color: #555;padding-top: 3vh;">
-            and why it would KEEP ON GOING...and going...
-        </span>
-    </div>
+<div class="content" style="padding: 2vmax;text-align: center;font-weight: 400;max-width: 720px;margin-top: 10vh;
+margin-left: auto;margin-right: auto;border-top: #555 solid 0.2vmax;border-bottom: #555 solid 0.2vmax;text-align: left;">
+    <span style="font-weight: 700;font-size: 4vmax;color:#fc553d;text-shadow:1px 1px 0 #444">
+        HOW ABLATION may<span class="cursive" style="color: #555;">&nbsp;FIX</span> AF?</span><br>
+    <span class="scroll2Show w3-animate-bottom" style="font-size: 3vmax;color: #555;padding-top: 3vh;">
+    First of all...we have to understand<br> how AF was INITIATED</span>
+    <span class="scroll2Show w3-animate-bottom" style="font-size: 3vmax;color: #555;padding-top: 3vh;">
+        and why it would KEEP ON GOING...and going...
+    </span>
+</div>
 
 
     
 
 <!--fixed 2 mechanism 1-->
-<!--div class="fixedBg" style="
+<div class="fixedBg" style="
 background-image: url('/afAblation/media/PVSketch.png');
-background-position: center;background-repeat: no-repeat;background-size: cover;height: 150vh;"></div>
+background-position: center;background-repeat: no-repeat;background-size: cover;"></div>
   
-    <div style="padding: 3vmax;color: #fefefe;font-weight: 700;font-size: 4vmax;max-width: 720;line-height: 100%;">
+    <div class="content" style="padding: 3vmax;color: #fefefe;font-weight: 700;font-size: 4vmax;
+    max-width: 720;line-height: 100%;">
     Muscle Sleeves of PULMONARY VEINs<br>
-    <span style="font-weight: 400;font-size: 2.5vmax;">
-        are the Main Sources of Ectopic Beats; initiating AF.
-    </span>
-    </div>
+        <span style="font-weight: 400;font-size: 2.5vmax;">
+            are the Main Sources of Ectopic Beats; initiating AF.
+        </span>
 
-    <div class="scroll2Show w3-animate-opacity" style="padding: 1vmax 3vmax;font-size: 2vmax;">
+
+    <div class="w3-animate-opacity" style="padding: 3vmax;font-size: 2vmax;">
         <img src="media\PVFoci.png" class="imgHolder">
          
         <div class="ref" style="color: #666;">
@@ -198,7 +202,7 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
         </a>
         </div>
     </div>
-    <div class="scroll2Show w3-animate-left" style="padding: 2vmax 10vmax 2vmax 3vmax;font-size: 3vmax;color: #7e2a1e;">
+    <div class="w3-animate-left" style="padding: 3vmax 10vmax 2vmax 3vmax;font-size: 3vmax;color: #7e2a1e;">
         <span style="width: 3vw;border-left: #232323 solid 1vmax;">&nbsp;</span>
         <span style="font-weight: 700;color: #232323;">
             MORE INVOLVED IN PAROXYSMAL THAN PERSISTENT AF.</span>
@@ -206,7 +210,8 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
         <div style="margin-top: 1vmax;padding-left:1.5vmax; font-stretch: extra-condensed;line-height: 100%;border-left: #7e2a1e solid 1vmax;">
         Pulmonary Veins Isolation is the Ablation Strategy for this Mechanism.</div>
     </div>
-</div-->  
+    </div>
+</div>  
 
 
 <!--fixed 3 mechanism 1-->
@@ -293,7 +298,7 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
     </div-->
 
 <!--end page-->
-<div class="skyLight" style="margin-top: 500vh;text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;">
+<div class="skyLight" style="margin-top: 50vh;text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;">
     <img src="box transparent.png" style="width: 2vmax;">
     <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top" onclick="unblur()">
         <i class="fas fa-arrow-circle-up"></i></a><br>
@@ -308,131 +313,101 @@ background-position: center;background-repeat: no-repeat;background-size: cover;
 
 <!--script src="block navigation.js"></script-->
 <script>
-
 var fix = document.getElementsByClassName('fixedBg');
-fix[0].style.display = 'block';
+var c = document.getElementsByClassName('content')
+fix[0].style.display = 'block';c[0].style.display='block'
 var miniB = document.getElementsByClassName('scroll2Show')
 var hideMini1 = [1,0,1,1,1]
 
 window.onscroll = function(){
     //s2S()
-
+    document.getElementById('subtitle').style.display='block'
+    document.getElementById('hideOnScroll').style.display='none'
     var topPos = document.getElementById('title').getBoundingClientRect().top;
-    var c = document.getElementsByClassName('content')
+    var bottomPos = document.getElementById('title').getBoundingClientRect().bottom;
     h = window.innerHeight;
-    scrollSize = h*0.25;
-    document.getElementById('test').innerHTML=scrollSize;
-    
-    if (topPos<-(h/2)){
-        fix[0].style.position='relative'
-        fix[0].style.transitionDuration = '1s'
-        fix[0].style.transform = 'translateY(-30vh)'
-
-        c[0].style.transform = 'translateY(-100vh)'
-        c[1].style.transform = 'translateY(-30vh)'
-        c[1].style.transitionDuration = '1s'
-        fix[1].style.display='block';
-        c[0].style.display = 'none'
-        c[1].style.display='block';
-        fix[1].style.height = '130vh'
-        
-
-        
-        //miniBlk from scrollTop
-        if (fix[1].style.display =='block'){
-            if (window.scrollY>scrollSize){
-            miniB[0].style.display='block'
-                if (window.scrollY>2*scrollSize){
-                miniB[1].style.display='block'
-                }
-            }
-        }
-    }
-
+    var top3 = c[2].getBoundingClientRect().top;
     var top2 = c[1].getBoundingClientRect().top;
-    if (top2>h/2){
-        fix[1].style.display='none'
-        fix[0].style.transform = 'translateY(0)'
-        fix[0].style.display = 'block'
-        c[0].style.display = 'block';c[0].style.position = 'relative'
-       // c[0].style.transform = 'translateY(0)'
+    var top1 = c[0].getBoundingClientRect().top;
+    var bottom3 = c[2].getBoundingClientRect().bottom;
+    var bottom1 = c[0].getBoundingClientRect().bottom;
+    var bottom2 = c[1].getBoundingClientRect().bottom;
+    var cHeight0 = c[0].clientHeight; 
+    
+    //0 to 1
+    if (window.scrollY>bottom1){
+        
+        fix[0].style.transitionDuration = '1s'
+        fix[1].style.display = 'block';
+        //fix[1].style.height= '120vh'
+        fix[1].style.transitionDuration = '1s'
+        c[0].style.transform = 'translateY(-20vh)'
+        c[0].style.transitionDuration = '1s'
+        c[1].style.display = 'block'
+        c[1].style.transform = 'translateY(-10vh)'
+        c[1].style.transitionDuration = '1s'
+
+        //1 & miniB
+        if (window.scrollY>top2){
+            //miniB[1].style.display = 'none'
+            c[1].style.transform = 'translateY(0)'
+            c[1].style.transitionDuration = '1s'
+            miniB[0].style.display = 'block'
+            var miniBottom = miniB[0].getBoundingClientRect().bottom;
+
+            if (miniBottom<(h/2)){
+                miniB[1].style.display = 'block'    
+            }
+        }
+
+        //1 to 0
+        if (window.scrollY<top2){
+            fix[0].style.transform = 'translateY(0)'
+            fix[0].style.display ='block';fix[0].style.overflow = 'hidden'
+            fix[0].style.transitionDuration = '1s'
+            fix[1].style.display = 'none'
+            c[0].style.transform = 'translateY(0)'
+            c[1].style.transform = 'translateY(0)'
+            c[0].style.transitionDuration = '1s'
+            miniB[0].style.display ='none'
+            miniB[1].style.display ='none'
+        }
+
+
+    }
+
+    //block2 1 to 2
+    if (bottom2<h/2 && miniB[1].style.display=='block'){
+               
+        fix[2].style.transform = 'translateY(-10vh)'
+        fix[1].style.transitionDuration = '1s'
+        fix[2].style.display = 'block';
+        fix[2].style.height= '120vh'
+        fix[2].style.transitionDuration = '1s'
+        c[1].style.transform = 'translateY(-100vh)'
+        c[1].style.transitionDuration = '1s'
+        c[2].style.display = 'block'
+        c[2].style.transform = 'translateY(-10vh)'
+        c[2].style.transitionDuration = '1s'
+    }
+
+    //2 to 1
+    if (top3>h/2){
+        document.getElementById('test').innerHTML= top3;
+        document.getElementById('test2').innerHTML=bottom3;
+        c[1].style.transform = 'translateY(0)'
+        c[2].style.transform = 'translateY(0)'
+        fix[2].style.height= '100vh'
+        c[1].style.transform = 'translateY(0)'
+        c[1].style.transitionDuration = '1s'
+        c[2].style.transform = 'translateY(0)'
+        c[2].style.transitionDuration = '1s'
+        fix[2].style.transform = 'translateY(0)'
+        fix[1].style.display ='block';
+        c[2].style.display = 'none'
+        fix[2].style.display = 'none'
     }
     
-    /*var hide = document.getElementsByClassName('hideOnScroll');
-    var i;
-    for (i=0;i<hide.length;i++){
-        hide[i].style.display = 'none'
-    }*/
-}
-
-function s2S(){
-    h = (window.innerHeight/100).toFixed(2);
-    var bNo=0;
-    windowY = window.scrollY;
-    min = 100;max = 110;
-    var i=0;
-    while (i<fix.length){
-        minR=i*(100*h)+(h*min);
-        maxR=i*(100*h)+(h*max);
-        mini1=i*(100*h)+(h*25);
-        mini2=i*(100*h)+(h*45);
-        
-        if (windowY<minR){
-            bNo=i;
-            showFix(bNo);
-            if (windowY>mini1){
-                showMiniBlk(bNo,0)
-            }
-            if (windowY>mini2){
-                showMiniBlk(bNo,1)
-            }
-            break;
-        }
-        else if (windowY>minR && windowY<maxR){
-            bNo=i+1;
-            showFix(bNo);
-            break
-        }
-        else {i++}
-    }
-}
-
-function showFix(n){
-    var i;
-    for (i=0;i<fix.length;i++){
-        fix[i].style.position='fixed'
-        if (i==n){
-            fix[i].style.display="block"
-            //hide miniBlk
-            /*if (i>0){
-                var maxMini = i*2;
-                var j;
-                for (j=maxMini-2;j<maxMini;j++){
-                    miniB[j].style.display = 'none'
-                }
-            }*/
-        }
-        else {
-            fix[i].style.display="none"
-        }
-    }
-}
-
-function showMiniBlk(f,m){
-    blkNo = (f*2)+m;
-    var i;
-    for (i=0;i<miniB.length;i++){
-        if (i==blkNo){
-            miniB[i].style.display="block"
-        }
-        else {
-            miniB[i].style.display="none"
-            //check if mini0 needed to be hidden
-            if (m==1 & hideMini1[f]==0){
-                miniB[blkNo-1].style.display = 'block'
-            }
-        }
-    }
 }   
 
 </script>
