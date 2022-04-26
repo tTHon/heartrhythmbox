@@ -207,13 +207,21 @@ line-height: 120%;margin-top: 0.5vh}
         Focal ectopic firing and reentry keeps AF continue.
       </div>
     </div>
-    <div style="padding: 2vmax;border: #eaefea solid 0.5vmax;">
+    <div style="padding: 2vmax;">
       <img src="media/afMech_NatRev.webp" class="imgBox" style="padding: 0;">
       <br>
       <a href="https://doi.org/10.1038/nrcardio.2016.118" target="_blank" class="ref" style="color: #555;">
         Nature Reviews Cardiology 2016.</a>
     </div>
-    <div style="padding: 2vmax;border: #eaefea solid 0.5vmax;">
+
+    <div class="textBox sans" style="font-weight: 700;font-size: 3vmax;
+    padding:0.5vmax 1vmax;color: #232323;margin-top: 10vh;line-height: 100%;">SUBSTRATE
+      <span style="font-weight: 400;color: #343434;font-size: 2.2vmax;text-align: justify;">
+      is developed as a result of remodelling from AF itself and other medical problems such as hypertension, obesity, or obstructive sleep apnea. 
+      and more involved in persistent than paroxysmal form.<br>
+    </span>
+    </div>
+    <div style="padding: 2vmax;">
       <img src="media/lifeCycle.png" class="imgBox" style="padding: 0;">
       <br>
       <a href="https://doi.org/10.1016/j.cjca.2020.09.001" target="_blank" class="ref" style="color: #555;">
@@ -291,7 +299,7 @@ window.onscroll = function(){
       var top = imgBox[j].getBoundingClientRect().top;
         if (top>0.5*scrollY){
           imgBox[j].style.perspective = '5vmax'
-          imgBox[j].style.transform = 'rotateX(-30deg)'
+          imgBox[j].style.transform = 'rotateX(-40deg)'
           imgBox[j].style.transitionDuration = '1s'
 
         } else
