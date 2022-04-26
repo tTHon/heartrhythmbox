@@ -173,7 +173,7 @@ line-height: 120%;margin-top: 0.5vh}
       </div>
     </div>
     
-    <div style="text-align: left;padding: 2vmax;">
+    <div class="textBox" style="text-align: left;padding: 2vmax;">
       <img src="media/pvMusSleevesFocal.webp" class="imgBox" style="border: rgba(130,130,130,0.75) solid 1vmax;padding: 0;">
       <br>
       <a href="https://doi.org/10.1038/nrcardio.2016.118" target="_blank" class="ref" style="color: #eaefea;">
@@ -195,12 +195,30 @@ line-height: 120%;margin-top: 0.5vh}
 </div>
 </div>
 
-<!--PV reentry and roles of substrate-->
+<!--roles of substrate-->
 <div class="container">
-  <div class="block" style="background-image: url('/afAblation/media/atrialFibrosisMriV.png');
-    background-position: left;background-repeat: no-repeat;background-size: cover;opacity: 0.6;
-    width: 100%;">
-
+  <div class="block" style="background-image: url('/afAblation/media/atrialFibrosisMri.png');
+    background-position: center;background-repeat: no-repeat;background-size: cover;opacity: 0.9;
+    width: 100%;text-align: center;">
+     <div class="textBox serif" style="font-size:5vmax;color:#232323;padding: 2vmax;font-weight: 600;">
+      SUBSTRATE
+        <div class="sans" style="font-size: 2.2vmax;color: #343434;line-height: 100%;font-weight: 400;">
+        Arrhythmogenic substrate or area with conduction delays and block, promotes reentry. <br>
+        Focal ectopic firing and reentry keeps AF continue.
+      </div>
+    </div>
+    <div style="padding: 2vmax;border: #eaefea solid 0.5vmax;">
+      <img src="media/afMech_NatRev.webp" class="imgBox" style="padding: 0;">
+      <br>
+      <a href="https://doi.org/10.1038/nrcardio.2016.118" target="_blank" class="ref" style="color: #555;">
+        Nature Reviews Cardiology 2016.</a>
+    </div>
+    <div style="padding: 2vmax;border: #eaefea solid 0.5vmax;">
+      <img src="media/lifeCycle.png" class="imgBox" style="padding: 0;">
+      <br>
+      <a href="https://doi.org/10.1016/j.cjca.2020.09.001" target="_blank" class="ref" style="color: #555;">
+        2020 Canadian Guidelines for AF</a>
+    </div>
 </div>
 
 
@@ -209,9 +227,9 @@ line-height: 120%;margin-top: 0.5vh}
 
 <!--end page-->
 <div class="skyLight endPage">
-    <img src="box coral.png" style="width: 2.5vmax;">
-    <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top" onclick="unblur()">
-        <i class="fas fa-arrow-circle-up"></i></a><br>
+    <img src="box coral.png" style="width: 2.5vmax;"><br>
+    <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top">
+        to top</a><br>
     <span class="serif" style="color: #777777;font-weight: 700;">HeartRhythmBox</span>, an education page of heart rhythm topics.<br>
     visit us at <a href="https://heartrhythmbox.com" target="_blank">
     www.heartrhythmbox.com</a><br>
@@ -273,13 +291,13 @@ window.onscroll = function(){
       var top = imgBox[j].getBoundingClientRect().top;
         if (top>0.5*scrollY){
           imgBox[j].style.perspective = '5vmax'
-          imgBox[j].style.transform = 'rotateX(-40deg)'
+          imgBox[j].style.transform = 'rotateX(-30deg)'
           imgBox[j].style.transitionDuration = '1s'
 
         } else
         {imgBox[j].style.transform = 'rotateX(0)'
         imgBox[j].style.perspective = '0'
-
+        imgBox[j].style.transitionDuration = '0s'
         }
     }
    
