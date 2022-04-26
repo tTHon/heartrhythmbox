@@ -90,11 +90,10 @@
   mix-blend-mode: overlay;
 }
 
-.container {padding: none;position: relative;display: block;}
+.container {padding: none;position: relative;display: block;height: fit-content;z-index: -1;}
 .endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;}
-.space {height: 50vh;}
-.showAfterSpace {visibility: hidden;}
 .block {padding: 1vmax;}
+.textBox {transform: rotateX(30deg);perspective: 5vmax;}
 .bracket {
   background-image: linear-gradient(#f1f0e7, #f1f0e7),
                     linear-gradient(#f1f0e7, #f1f0e7),
@@ -144,26 +143,32 @@ line-height: 120%;margin-top: 0.5vh}
 <div class="container">
     <div class="block" style="background-image: url('/afAblation/media/atrialFibrosisMriV.png');
     background-position: left;background-repeat: no-repeat;background-size: cover;opacity: 0.6;
-    width: 100%;height:fit-content;z-index: -1;">
-        <div style="font-size: 6vmax;font-weight: 800;text-align: center;padding: 30vh 2vmax 2vmax 2vmax;
+    width: 100%;">
+        <div class="textBox" style="font-size: 6vmax;font-weight: 800;text-align: center;padding: 30vh 2vmax 2vmax 2vmax;
     z-index: 3;position: relative;text-align: left;line-height: 120%;">
         <div style="border-left: #933ac3 1vmax solid;padding-left: 0.5vmax;background-color: rgba(234,239,234,0.3);">
           Before we know how ablation may fix AF,</div> 
         </div>
-        <div class="space">&nbsp;</div>
-        <div class="showAfterSpace" 
+        <div id="test" style="height: 20vh;">&nbsp;</div>
+        <div class="textBox" 
         style="font-size: 4vmax;font-weight: 600;text-align: center;padding: 20vh 2vmax;z-index: 1;text-align: right;line-height: 120%;">
         <div style="border-right: #933ac3 1vmax solid;padding-right: 0.5vmax;background-color: rgba(234,239,234,0.3);">we need to learn how AF is initiated and why it keeps on going and going.</div>
         </div>
     </div>
 
 
-
+<div class="container">
 <div class="block" style="
     background-image: url('/afAblation/media/PVSketch.png');
-    background-position: center;background-repeat: no-repeat;background-size: cover;height: 100vh;">
-        content
+    background-position: center;background-repeat: no-repeat;background-size: cover;">
+      <div class="textBox serif" style="font-size:5vmax;color: #f5f5f5;padding: 2vmax;">
+      Pulmonary Veins
+      </div>
+      <img src="media/afMech_NatRev.webp" 
+      style="width: 70%;margin-left: auto;margin-right: auto;padding: 2vmax;" 
+      class="imgBox">
     </div>
+</div>
 </div>
 
 
@@ -191,7 +196,7 @@ window.onscroll = function(){
     //hide intro
     sCase = document.getElementsByClassName('showcase');
     sCase[0].style.transform = 'translateY(-100vh)'
-    sCase[0].style.transitionDuration = '2s'
+    sCase[0].style.transitionDuration = '1s'
     
     //scroll content into view and remove margin of the endPage
     container = document.getElementsByClassName('container');
@@ -200,29 +205,53 @@ window.onscroll = function(){
     
     //container[0].scrollIntoView();
     container[0].style.transform = 'translateY(25vh)'
-    //container[0].style.transitionDuration = '2s'
+    container[0].style.transitionDuration = '1s'
     endPage[0].style.marginTop ='25vh'
 
     //scrollUp to show intro
     var top = container[0].getBoundingClientRect().top;
     if (window.scrollY<=15*window.innerHeight && top>0){
+      container[0].style.transform = 'translateY(0)'
         sCase[0].style.transform = 'translateY(0)'
-        sCase[0].style.transitionDuration = '1s'
-        container[0].style.transform = 'translateY(0)'
-        container[0].style.transitionDuration = '1s'
+        //sCase[0].style.transitionDuration = '1s'
+        //container[0].style.transitionDuration = '1s'
     }
 
-    //scroll2show
-    space = document.getElementsByClassName('space')
-    showAfter = document.getElementsByClassName('showAfterSpace')
-    var sBottom = space[0].getBoundingClientRect().bottom;
-    if (sBottom<=0.25*window.innerHeight){
-        showAfter[0].style.visibility ='visible'
-        showAfter[0].style.transform = 'translateY(-10vh)'
-        showAfter[0].style.transitionDuration = '1s'
+    //animateTextBox
+    txtB = document.getElementsByClassName('textBox')
+    var i;
+    for (i=0;i<txtB.length;i++){
+        var top = txtB[i].getBoundingClientRect().top;
+        if (top>0.5*scrollY){
+          txtB[i].style.perspective = '5vmax'
+          txtB[i].style.transform = 'rotateX(-30deg)'
+          txtB[i].style.transitionDuration = '1s'
+          document.getElementById('test').innerHTML = i
+        } else
+        {txtB[i].style.transform = 'rotateX(0)'
+          txtB[i].style.perspective = '0'
+
+        }
+    }
+
+    //animateImgBox
+    imgBox = document.getElementsByClassName('imgBox')
+    var j;
+    for (j=0;j<imgBox.length;j++){
+      var top = imgBox[j].getBoundingClientRect().top;
+        if (top>0.5*scrollY){
+          imgBox[j].style.perspective = '5vmax'
+          imgBox[j].style.transform = 'rotateX(-40deg)'
+          imgBox[j].style.transitionDuration = '1s'
+
+        } else
+        {imgBox[j].style.transform = 'rotateX(0)'
+        imgBox[j].style.perspective = '0'
+
+        }
     }
    
-}   
+}  
 
 </script>
 
