@@ -17,6 +17,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
 
 <!--auto-ad-->
 <script data-ad-client="ca-pub-1548733331544768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -97,20 +98,13 @@
 .imgBox {max-width: 70%;max-height: 70vh;
   margin-left: auto;margin-right: auto;padding: 3vmax;text-align: center;
   transform: rotateX(40deg);perspective: 5vmax;}
-.bracket {
-  background-image: linear-gradient(#f1f0e7, #f1f0e7),
-                    linear-gradient(#f1f0e7, #f1f0e7),
-                    linear-gradient(#f1f0e7, #f1f0e7),
-                    linear-gradient(#f1f0e7, #f1f0e7);
-
-  background-repeat: no-repeat;
-  background-size: 0.5vmax 0.3vmax;
-  background-position: top left, top right, bottom left, bottom right;
-
-  border: solid #f1f0e7;
-  border-width: 0 0.3vmax;
+@keyframes down{
+   0% {height: 0;opacity: 0;}
+   100% {height: fit-content;opacity: 1;}
 }
-
+#scrollDown {display: none;z-index: 1;vertical-align: middle;font-size: 2vmax;
+  animation: down 1s 5;color: white;padding: 0 1vmax;background: rgba(0,0,0,0.75);
+}
 
 .ref {font-size: 1vmax;color: #96a9ae;padding-left: 1vmax;
 line-height: 120%;margin-top: 0.5vh}
@@ -121,8 +115,7 @@ line-height: 120%;margin-top: 0.5vh}
 
 <body>
 
-<div class="showcase">
-
+<div class="showcase" onclick="scrollDown()">
     <video src="media\AF LAT.mp4" muted loop autoplay></video>
     <div class="overlay"></div>
  
@@ -133,12 +126,17 @@ line-height: 120%;margin-top: 0.5vh}
         of atrial fibrillation</div>
       <div class="serif" style="font-size:3.5vmax;color:#f1f0e7;">
         from savage to standard
+
       </div>
     </div>
+
+
     <ul style="position: absolute;bottom: 10vh;display: inline-block;display: flex;
     justify-content: center;opacity: 0.75;">
       <li style="padding: 0.5vmax;"><a href="https://heartrhythmbox.com/" target="_blank"><img src="box transparent.png" style="width: 3vmax;"></a></li>
       <li style="padding: 0.5vmax;"><a href="https://www.facebook.com/HeartRhythmBox/" target="_blank"><img src="fb.png" style="width: 3vmax;"></a></li>
+      <li id="scrollDown"><i class="fa-solid fa-angles-down"></i> Scroll down for more...</li>
+
     </ul>
 
 </div>
@@ -153,7 +151,6 @@ line-height: 120%;margin-top: 0.5vh}
         <div style="border-left: #933ac3 1vmax solid;padding-left: 0.5vmax;background-color: rgba(234,239,234,0.3);">
           Before we know how ablation may fix AF,</div> 
         </div>
-        <div id="test" style="height: 20vh;">&nbsp;</div>
         <div class="textBox" 
         style="font-size: 4vmax;font-weight: 600;text-align: center;padding: 20vh 2vmax;z-index: 1;text-align: right;line-height: 120%;">
         <div style="border-right: #933ac3 1vmax solid;padding-right: 0.5vmax;background-color: rgba(234,239,234,0.3);">we need to learn how AF is initiated and why it keeps on going and going.</div>
@@ -173,7 +170,7 @@ line-height: 120%;margin-top: 0.5vh}
       </div>
     </div>
     
-    <div class="textBox" style="text-align: left;padding: 2vmax;">
+    <div style="text-align: left;padding: 2vmax;">
       <img src="media/pvMusSleevesFocal.webp" class="imgBox" style="border: rgba(130,130,130,0.75) solid 1vmax;padding: 0;">
       <br>
       <a href="https://doi.org/10.1038/nrcardio.2016.118" target="_blank" class="ref" style="color: #eaefea;">
@@ -201,12 +198,11 @@ line-height: 120%;margin-top: 0.5vh}
     background-position: center;background-repeat: no-repeat;background-size: cover;opacity: 0.9;
     width: 100%;text-align: center;">
      <div class="textBox serif" style="font-size:5vmax;color:#232323;padding: 2vmax;font-weight: 600;">
-      SUBSTRATE
+      SUBSTRATE</div>
         <div class="sans" style="font-size: 2.2vmax;color: #343434;line-height: 100%;font-weight: 400;">
         Arrhythmogenic substrate or area with conduction delays and block, promotes reentry. <br>
         Focal ectopic firing and reentry keeps AF continue.
       </div>
-    </div>
     <div style="padding: 2vmax;">
       <img src="media/afMech_NatRev.webp" class="imgBox" style="padding: 0;">
       <br>
@@ -215,13 +211,13 @@ line-height: 120%;margin-top: 0.5vh}
     </div>
 
     <div class="textBox sans" style="font-weight: 700;font-size: 3vmax;
-    padding:0.5vmax 1vmax;color: #232323;margin-top: 10vh;line-height: 100%;">SUBSTRATE
+    padding:0.5vmax 1vmax;color: #232323;margin-top: 20vh;line-height: 100%;">SUBSTRATE
       <span style="font-weight: 400;color: #343434;font-size: 2.2vmax;text-align: justify;">
       is developed as a result of remodelling from AF itself and other medical problems such as hypertension, obesity, or obstructive sleep apnea. 
       and more involved in persistent than paroxysmal form.<br>
     </span>
     </div>
-    <div style="padding: 2vmax;">
+    <div style="padding: 2vmax;padding-bottom: 20vh;">
       <img src="media/lifeCycle.png" class="imgBox" style="padding: 0;">
       <br>
       <a href="https://doi.org/10.1016/j.cjca.2020.09.001" target="_blank" class="ref" style="color: #555;">
@@ -233,14 +229,15 @@ line-height: 120%;margin-top: 0.5vh}
 
 
 
+
 <!--end page-->
 <div class="skyLight endPage">
-    <img src="box coral.png" style="width: 2.5vmax;"><br>
-    <a href="#top" style="font-size:1.5vmax;text-decoration: none" title="to top">
-        to top</a><br>
+  <a href="#top" style="font-size:1.5vmax;text-decoration: none;" title="to top">
+    <i class="fa-solid fa-circle-chevron-up" style="font-size: 2vmax;"></i> to top</a><br>
+    
     <span class="serif" style="color: #777777;font-weight: 700;">HeartRhythmBox</span>, an education page of heart rhythm topics.<br>
     visit us at <a href="https://heartrhythmbox.com" target="_blank">
-    www.heartrhythmbox.com</a><br>
+      <img src="box coral.png" style="width: 2.2vmax;padding-right: 4px;">www.heartrhythmbox.com</a><br>
     or <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">https://www.facebook.com/HeartRhythmBox/</a>
 </div>
 
@@ -255,6 +252,7 @@ window.onscroll = function(){
     sCase = document.getElementsByClassName('showcase');
     sCase[0].style.transform = 'translateY(-100vh)'
     sCase[0].style.transitionDuration = '1s'
+    document.getElementById('scrollDown').style.display='none'
     
     //scroll content into view and remove margin of the endPage
     container = document.getElementsByClassName('container');
@@ -264,7 +262,7 @@ window.onscroll = function(){
     //container[0].scrollIntoView();
     container[0].style.transform = 'translateY(25vh)'
     container[0].style.transitionDuration = '1s'
-    endPage[0].style.marginTop ='25vh'
+    endPage[0].style.marginTop ='0'
 
     //scrollUp to show intro
     var top = container[0].getBoundingClientRect().top;
@@ -284,7 +282,6 @@ window.onscroll = function(){
           txtB[i].style.perspective = '5vmax'
           txtB[i].style.transform = 'rotateX(-30deg)'
           txtB[i].style.transitionDuration = '1s'
-          document.getElementById('test').innerHTML = i
         } else
         {txtB[i].style.transform = 'rotateX(0)'
           txtB[i].style.perspective = '0'
@@ -297,19 +294,23 @@ window.onscroll = function(){
     var j;
     for (j=0;j<imgBox.length;j++){
       var top = imgBox[j].getBoundingClientRect().top;
-        if (top>0.5*scrollY){
+          if (top>0.5*scrollY){
           imgBox[j].style.perspective = '5vmax'
           imgBox[j].style.transform = 'rotateX(-40deg)'
           imgBox[j].style.transitionDuration = '1s'
 
-        } else
-        {imgBox[j].style.transform = 'rotateX(0)'
-        imgBox[j].style.perspective = '0'
-        imgBox[j].style.transitionDuration = '0s'
+       } else
+        { imgBox[j].style.transform = 'rotateX(0)'
+          imgBox[j].style.perspective = '0'
+          imgBox[j].style.transitionDuration = '1s'
         }
     }
    
 }  
+
+function scrollDown(){
+  document.getElementById('scrollDown').style.display= 'block'
+}
 
 </script>
 
