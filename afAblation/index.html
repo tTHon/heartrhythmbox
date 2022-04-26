@@ -135,7 +135,7 @@ line-height: 120%;margin-top: 0.5vh}
     justify-content: center;opacity: 0.75;">
       <li style="padding: 0.5vmax;"><a href="https://heartrhythmbox.com/" target="_blank"><img src="box transparent.png" style="width: 3vmax;"></a></li>
       <li style="padding: 0.5vmax;"><a href="https://www.facebook.com/HeartRhythmBox/" target="_blank"><img src="fb.png" style="width: 3vmax;"></a></li>
-      <li id="scrollDown"><i class="fa-solid fa-angles-down"></i> Scroll down or press arrow for more...</li>
+      <li id="scrollDown"><i class="fa-solid fa-angles-down"></i> Scroll down for more...</li>
 
     </ul>
 
@@ -261,6 +261,7 @@ var nav = 0;
 function next(n){
   box = document.getElementsByClassName('textBox')
   sCase = document.getElementsByClassName('showcase');
+  top = sCase[0].getBoundingClientRect().top;
   nav = nav+n;
   if (nav<0) {
     sCase[0].scrollIntoView({behavior:"smooth", block:"start"});
@@ -270,7 +271,11 @@ function next(n){
     box[nav].scrollIntoView({behavior:"smooth", block:"start"});}
   if (nav>=0 && nav<box.length){
     box[nav].scrollIntoView({behavior:"smooth", block:"start"});}
-  } 
+  if (top<window.innerHeight && top>0){
+    nav=-1;}
+  }  
+  
+ 
 
 window.onscroll = function(){
     
