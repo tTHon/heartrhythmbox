@@ -35,7 +35,9 @@
 <style>
 *{margin: 0;padding: 0;box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+    pointer-events: all;  
 }
+
 /*fonts*/
 .sans {font-family: 'Inter', sans-serif;}
 .serif {font-family: 'Playfair Display', serif;}
@@ -58,7 +60,7 @@
 
 .showcase
 {
-  position: absolute;
+  position: fixed;
   right: 0;
   width: 100%;
   min-height: 100vh;
@@ -91,8 +93,8 @@
   mix-blend-mode: overlay;
 }
 
-.container {padding: none;position: relative;display: block;height: fit-content;z-index: -1;}
-.endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;}
+.container {padding: none;position: relative;display: block;height: fit-content;z-index: 1;}
+.endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;z-index: 1;}
 .block {padding: 1vmax;}
 .textBox {transform: rotateX(30deg);perspective: 5vmax;}
 .imgBox {max-width: 70%;max-height: 70vh;
@@ -106,9 +108,38 @@
   animation: down 1s 5;color: white;padding: 0 1vmax;background: rgba(0,0,0,0.75);
 }
 
-.ref {font-size: 1vmax;color: #96a9ae;padding-left: 1vmax;
+.ref {font-size: 1vmax;color: #96a9ae;padding-left: 1vmax;z-index: 10;cursor: pointer;position: relative;
 line-height: 120%;margin-top: 0.5vh}
+a {position: relative;z-index: 10;cursor: pointer;}
 
+.rotate {
+  -webkit-transform: rotateX(30deg) perspective(5vmax);
+    -moz-transform: rotateX(30deg) perspective(5vmax);
+    -ms-transform: rotateX(30deg) perspective(5vmax);
+    -o-transform: rotateX(30deg) perspective(5vmax);
+    transform: rotateX(30deg) perspective(5vmax);
+
+    -webkit-transition: -webkit-transform 1s ease-out;
+    -moz-transition: transform 1s ease-out;
+    -o-transition: transform 1s ease-out;
+    transition: transform 1s ease-out;
+}
+
+.offRotate{
+  -webkit-transform: rotateX(0deg) perspective(0);
+    -moz-transform: rotateX(0deg) perspective(0);
+    -ms-transform: rotateX(0deg) perspective(0);
+    -o-transform: rotateX(0deg) perspective(0);
+    transform: rotateX(0deg) perspective(0);
+
+    -webkit-transition: -webkit-transform 1.5s ease-out;
+    -moz-transition: transform 1.5s ease-out;
+    -o-transition: transform 1.5s ease-out;
+    transition: transform 1.5s ease-out;
+}
+.nav {display: none;color: #ddd;opacity: 0.9;font-size: 5vh;position: fixed;top: 90vh;left: 0;
+  cursor: pointer;text-align: center;width: 100%;
+}
 
 
 </style>
@@ -116,6 +147,14 @@ line-height: 120%;margin-top: 0.5vh}
 <body>
 
 <div class="showcase" onclick="scrollDown()">
+  <div class="nav">
+    <i class="fa-solid fa-angles-left" onclick="next(-2)"></i>
+    <i class="fa-solid fa-chevron-left" onclick="next(-1)"></i>...
+    <i class="fa-solid fa-chevron-right" onclick="next(1)"></i>
+    <i class="fa-solid fa-angles-right" onclick="next(2)"></i>
+    <span id="test"></span>
+  </div>
+  <div id="toHide">
     <video src="media\AF LAT.mp4" muted loop autoplay></video>
     <div class="overlay"></div>
  
@@ -138,7 +177,7 @@ line-height: 120%;margin-top: 0.5vh}
       <li id="scrollDown"><i class="fa-solid fa-angles-down"></i> Scroll down for more...</li>
 
     </ul>
-
+    </div>
 </div>
 
 <!--intro-->
@@ -225,9 +264,8 @@ line-height: 120%;margin-top: 0.5vh}
     </div>
 </div>
 
-
 <!--end page-->
-<div class="skyLight endPage">
+<div class="skyLight endPage" style="padding: 3vmax;">
   <a href="#top" style="font-size:1.5vmax;text-decoration: none;" title="to top">
     <i class="fa-solid fa-circle-chevron-up" style="font-size: 2vmax;"></i> to top</a><br>
     
@@ -242,66 +280,80 @@ line-height: 120%;margin-top: 0.5vh}
 <script>
 
 
-//up arrow
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===38) {
-      next(-1)
-    }
-})
-//down arrow
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===40) {
-      next(1)
-    }
-})
-
-var nav = 0;
-function next(n){
+var bNo = 0;
+function next(no){
+  n = Number(no);
   box = document.getElementsByClassName('textBox')
-  sCase = document.getElementsByClassName('showcase');
-  top = sCase[0].getBoundingClientRect().top;
-  nav = nav+n;
-  if (nav<0) {
-    sCase[0].scrollIntoView({behavior:"smooth", block:"start"});
+  //check which box is in the view
+  var i;
+  for (i=0;i<box.length;i++){
+    var top = box[i].getBoundingClientRect().top;
+    if (top<window.innerHeight/2){
+      bNo=i;
     }
-  if (nav>=box.length) {
+  }
+
+  document.getElementById('test').innerHTML = bNo
+  if (n==-2) {
+    window.scrollTo(0,0);bNo=0;
+    }
+  if (n==2){
+    last = box.length-1;
+    box[last].scrollIntoView({behavior:"smooth", block:"start"});
+    bNo=last
+  }
+
+  if (n==1 || n==-1){
+      bNo = n + bNo;
+      if (bNo<0){
+        window.scrollTo(0,0);bNo=-1;
+      }
+      if (bNo>=box.length){
+        var end = document.getElementsByClassName('endPage')
+        end[0].scrollIntoView({behavior:"smooth", block:"start"})
+        bNo=box.length+1;
+      }
+    
+      box[bNo].scrollIntoView({behavior:"smooth", block:"start"});
+  }
+  
+  /*if (nav>=box.length) {
     nav=box.length-1;
     box[nav].scrollIntoView({behavior:"smooth", block:"start"});}
   if (nav>=0 && nav<box.length){
-    box[nav].scrollIntoView({behavior:"smooth", block:"start"});}
-  if (top<window.innerHeight && top>0){
-    nav=-1;}
-  }  
+    box[nav].scrollIntoView({behavior:"smooth", block:"start"});}*/
+} 
   
- 
+
 
 window.onscroll = function(){
     
     //hide intro
     sCase = document.getElementsByClassName('showcase');
-    sCase[0].style.transform = 'translateY(-100vh)'
-    sCase[0].style.transitionDuration = '1s'
+    document.getElementById('toHide').style.display = 'none'
+    sCase[0].style.top = '90vh'
+    sCase[0].style.background ='none'
+    nav = document.getElementsByClassName('nav')
+    nav[0].style.display = 'block'
+
+
     document.getElementById('scrollDown').style.display='none'
     
-    //scroll content into view and remove margin of the endPage
+    //scroll content into view
     container = document.getElementsByClassName('container');
-    endPage = document.getElementsByClassName('endPage');
     block = document.getElementsByClassName('block')
     
-    //container[0].scrollIntoView();
-    container[0].style.transform = 'translateY(25vh)'
+    container[0].style.transform = 'translateY(15vh)'
     container[0].style.transitionDuration = '1s'
-    endPage[0].style.marginTop ='0'
 
     //scrollUp to show intro
     var top = container[0].getBoundingClientRect().top;
     if (window.scrollY<=15*window.innerHeight && top>0){
-      container[0].style.transform = 'translateY(0)'
-        sCase[0].style.transform = 'translateY(0)'
-        //sCase[0].style.transitionDuration = '1s'
-        //container[0].style.transitionDuration = '1s'
+        container[0].style.transform = 'translateY(0)'
+        sCase[0].style.top = '0'
+        document.getElementById('toHide').style.display ='block'
+        sCase[0].style.backgroundColor ='black'
+        nav[0].style.display = 'none'
     }
 
     //animateTextBox
@@ -310,13 +362,12 @@ window.onscroll = function(){
     for (i=0;i<txtB.length;i++){
         var top = txtB[i].getBoundingClientRect().top;
         if (top>0.5*scrollY){
-          txtB[i].style.perspective = '5vmax'
-          txtB[i].style.transform = 'rotateX(-30deg)'
-          txtB[i].style.transitionDuration = '1s'
+          txtB[i].classList.remove('offRotate')
+          txtB[i].classList.add('rotate')
+          
         } else
-        {txtB[i].style.transform = 'rotateX(0)'
-          txtB[i].style.perspective = '0'
-
+        { txtB[i].classList.remove('rotate')
+          txtB[i].classList.add('offRotate')
         }
     }
 
@@ -326,14 +377,19 @@ window.onscroll = function(){
     for (j=0;j<imgBox.length;j++){
       var top = imgBox[j].getBoundingClientRect().top;
           if (top>0.5*scrollY){
-          imgBox[j].style.perspective = '5vmax'
-          imgBox[j].style.transform = 'rotateX(-40deg)'
-          imgBox[j].style.transitionDuration = '1s'
+          //imgBox[j].style.perspective = '5vmax'
+          //imgBox[j].style.transform = 'rotateX(-40deg)'
+          //imgBox[j].style.transitionDuration = '1s'
+          imgBox[j].classList.remove('offRotate')
+          imgBox[j].classList.add('rotate')
+          
 
        } else
-        { imgBox[j].style.transform = 'rotateX(0)'
-          imgBox[j].style.perspective = '0'
-          imgBox[j].style.transitionDuration = '1s'
+        { //imgBox[j].style.transform = 'rotateX(0)'
+          //imgBox[j].style.perspective = '0'
+          //imgBox[j].style.transitionDuration = '1s'
+          imgBox[j].classList.remove('rotate')
+          imgBox[j].classList.add('offRotate')
         }
     }
    
@@ -341,6 +397,9 @@ window.onscroll = function(){
 
 function scrollDown(){
   document.getElementById('scrollDown').style.display= 'block'
+}
+function toTop(){
+  window.scrollTo(0,0)
 }
 
 </script>
