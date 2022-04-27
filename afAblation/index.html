@@ -100,6 +100,11 @@
 .imgBox {max-width: 70%;max-height: 70vh;
   margin-left: auto;margin-right: auto;padding: 3vmax;text-align: center;
   transform: rotateX(40deg);perspective: 5vmax;}
+
+  @media only screen and (max-width: 600px) {
+    .imgBox {width: 100%;}
+  }
+
 @keyframes down{
    0% {height: 0;opacity: 0;}
    100% {height: fit-content;opacity: 1;}
@@ -137,9 +142,11 @@ a {position: relative;z-index: 10;cursor: pointer;}
     -o-transition: transform 1.5s ease-out;
     transition: transform 1.5s ease-out;
 }
-.nav {display: none;color: #ddd;opacity: 0.9;font-size: 5vh;position: fixed;top: 90vh;left: 0;
-  cursor: pointer;text-align: center;width: 100%;
+.nav {display: none;color: #ddd;opacity: 0.7;font-size: 3vh;position: fixed;top: 30vh;left: 95vw;
+  cursor: pointer;text-align: center;
 }
+.nav li :hover{color: #bbb;opacity: 0.9;}
+.nav li{list-style-type: none;}
 
 
 </style>
@@ -148,10 +155,11 @@ a {position: relative;z-index: 10;cursor: pointer;}
 
 <div class="showcase" onclick="scrollDown()">
   <div class="nav">
-    <i class="fa-solid fa-angles-left" onclick="next(-2)"></i>
-    <i class="fa-solid fa-chevron-left" onclick="next(-1)"></i>...
-    <i class="fa-solid fa-chevron-right" onclick="next(1)"></i>
-    <i class="fa-solid fa-angles-right" onclick="next(2)"></i>
+    <li><i class="fa-solid fa-angles-up" onclick="next(-2)"></i></li>
+    <li><i class="fa-solid fa-chevron-up" onclick="next(-1)"></i></li>
+    <li>|</li><li>|</li>
+    <li><i class="fa-solid fa-chevron-down" onclick="next(1)"></i></li>
+    <li><i class="fa-solid fa-angles-down" onclick="next(2)"></i></li>
     <span id="test"></span>
   </div>
   <div id="toHide">
@@ -293,7 +301,6 @@ function next(no){
     }
   }
 
-  document.getElementById('test').innerHTML = bNo
   if (n==-2) {
     window.scrollTo(0,0);bNo=0;
     }
