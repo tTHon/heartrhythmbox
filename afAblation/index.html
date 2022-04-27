@@ -151,6 +151,11 @@ a {position: relative;z-index: 10;cursor: pointer;}
   padding: 1vmax;color: #f1f0e7;flex-wrap: wrap;
   }
 .flexBox1 div {padding: 2vmax;border: #797979 0.2vmax solid;width: 32%;}
+@keyframes toRight {
+  0% {color: linear-gradient(to right, red , yellow)};
+  100% {color: linear-gradient(to right, yellow , red);}
+}
+.L2R {animation: toRight 1s infinite;}
 
 
 </style>
@@ -282,6 +287,9 @@ a {position: relative;z-index: 10;cursor: pointer;}
   <div class="flexBox1">
     <div style="width: 24%;">
       Firing from PVs initiates AF.
+    </div>
+    <div style="font-size: 4vmax;width: 8%;">
+      <i class="fa-solid fa-wind" class="L2R" ></i>
     </div>
     <div style="width: 24%;">
       AF itself remodels the atria; shorten ERP, creates fibrosis.
