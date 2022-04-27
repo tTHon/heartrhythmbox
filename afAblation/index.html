@@ -142,6 +142,22 @@ a {position: relative;z-index: 10;cursor: pointer;}
     -o-transition:transform 1.5s ease-out;
     transition:transform 1.5s ease-out;
 }
+
+@keyframes slide {
+  0% {padding-left: 3vw;}
+  100% {padding-left: initial;}
+}
+@keyframes textShrink {
+  0% {letter-spacing: 0.1vw;}
+  50% {letter-spacing: 0.2vw;}
+  100% {letter-spacing: normal;}
+}
+.slideIn {
+  animation: slide 1s 1;
+}
+.tEffect {
+  animation: textShrink 1s 1;
+}
 .nav {display: none;color: #ddd;opacity: 0.9;font-size: 4vh;position: fixed;top: 35vh;left: 95vw;
   cursor: pointer;text-align: center;
 }
@@ -407,12 +423,12 @@ window.onscroll = function(){
     for (i=0;i<txtB.length;i++){
         var top = txtB[i].getBoundingClientRect().top;
         if (top>0.5*scrollY){
-          txtB[i].classList.remove('offRotate')
-          txtB[i].classList.add('rotate')
+          //txtB[i].classList.remove('offRotate')
+          txtB[i].classList.remove('tEffect')
           
         } else
-        { txtB[i].classList.remove('rotate')
-          txtB[i].classList.add('offRotate')
+        { txtB[i].classList.add('tEffect')
+          //txtB[i].classList.add('offRotate')
         }
     }
 
@@ -425,16 +441,16 @@ window.onscroll = function(){
           //imgBox[j].style.perspective = '5vmax'
           //imgBox[j].style.transform = 'rotateX(-40deg)'
           //imgBox[j].style.transitionDuration = '1s'
-          imgBox[j].classList.remove('offRotate')
-          imgBox[j].classList.add('rotate')
+          //imgBox[j].classList.remove('offRotate')
+          imgBox[j].classList.remove('slideIn')
           
 
        } else
         { //imgBox[j].style.transform = 'rotateX(0)'
           //imgBox[j].style.perspective = '0'
           //imgBox[j].style.transitionDuration = '1s'
-          imgBox[j].classList.remove('rotate')
-          imgBox[j].classList.add('offRotate')
+          imgBox[j].classList.add('slideIn')
+          //imgBox[j].classList.add('offRotate')
         }
     }
    
