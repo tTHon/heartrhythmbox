@@ -97,12 +97,12 @@
 .endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;z-index: 1;}
 .block {padding: 1vmax;}
 .textBox {transform: rotateX(30deg);perspective: 5vmax;}
-.imgBox {max-width: 70%;max-height: 70vh;
+.imgBox {max-width: 80%;max-height: 70vh;
   margin-left: auto;margin-right: auto;padding: 3vmax;text-align: center;
-  transform: rotateX(40deg);perspective: 5vmax;}
+  transform: rotateX(30deg);perspective: 5vmax;}
 
-  @media only screen and (max-width: 600px) {
-    .imgBox {width: 100%;}
+  @media only screen and (max-width: 800px) {
+    .imgBox {width: 100%;max-width: 100%;}
   }
 
 @keyframes down{
@@ -124,10 +124,10 @@ a {position: relative;z-index: 10;cursor: pointer;}
     -o-transform: rotateX(30deg) perspective(5vmax);
     transform: rotateX(30deg) perspective(5vmax);
 
-    -webkit-transition: -webkit-transform 1s ease-out;
-    -moz-transition: transform 1s ease-out;
-    -o-transition: transform 1s ease-out;
-    transition: transform 1s ease-out;
+    -webkit-transition: -webkit-transform 1.5s ease-out;
+    -moz-transition: transform 1.5s ease-out;
+    -o-transition: transform 1.5s ease-out;
+    transition: transform 1.5s ease-out;
 }
 
 .offRotate{
@@ -142,11 +142,15 @@ a {position: relative;z-index: 10;cursor: pointer;}
     -o-transition: transform 1.5s ease-out;
     transition: transform 1.5s ease-out;
 }
-.nav {display: none;color: #ddd;opacity: 0.7;font-size: 3vh;position: fixed;top: 30vh;left: 95vw;
+.nav {display: none;color: #ddd;opacity: 0.9;font-size: 3vh;position: fixed;top: 35vh;left: 95vw;
   cursor: pointer;text-align: center;
 }
-.nav li :hover{color: #bbb;opacity: 0.9;}
+.nav li :hover{color: #bbb;opacity: 0.98;}
 .nav li{list-style-type: none;}
+.flexBox1{display: flex;font-size: 2vmax;justify-content: center;align-content: center;
+  padding: 1vmax;color: #f1f0e7;flex-wrap: wrap;
+  }
+.flexBox1 div {padding: 2vmax;border: #797979 0.2vmax solid;width: 32%;}
 
 
 </style>
@@ -156,11 +160,10 @@ a {position: relative;z-index: 10;cursor: pointer;}
 <div class="showcase" onclick="scrollDown()">
   <div class="nav">
     <li><i class="fa-solid fa-angles-up" onclick="next(-2)"></i></li>
-    <li><i class="fa-solid fa-chevron-up" onclick="next(-1)"></i></li>
-    <li>|</li><li>|</li>
-    <li><i class="fa-solid fa-chevron-down" onclick="next(1)"></i></li>
+    <li><i class="fa-solid fa-angle-up" onclick="next(-1)"></i></li>
+    <li>|</li>
+    <li><i class="fa-solid fa-angle-down" onclick="next(1)"></i></li>
     <li><i class="fa-solid fa-angles-down" onclick="next(2)"></i></li>
-    <span id="test"></span>
   </div>
   <div id="toHide">
     <video src="media\AF LAT.mp4" muted loop autoplay></video>
@@ -178,7 +181,7 @@ a {position: relative;z-index: 10;cursor: pointer;}
     </div>
 
 
-    <ul style="position: absolute;bottom: 10vh;display: inline-block;display: flex;
+    <ul style="position: absolute;bottom: 10vh;display: inline-block;display: flex;vertical-align: middle;
     justify-content: center;opacity: 0.75;">
       <li style="padding: 0.5vmax;"><a href="https://heartrhythmbox.com/" target="_blank"><img src="box transparent.png" style="width: 3vmax;"></a></li>
       <li style="padding: 0.5vmax;"><a href="https://www.facebook.com/HeartRhythmBox/" target="_blank"><img src="fb.png" style="width: 3vmax;"></a></li>
@@ -247,8 +250,8 @@ a {position: relative;z-index: 10;cursor: pointer;}
      <div class="textBox serif" style="font-size:5vmax;color:#232323;padding: 2vmax;font-weight: 600;">
       SUBSTRATE</div>
         <div class="sans" style="font-size: 2.2vmax;color: #343434;line-height: 100%;font-weight: 400;">
-        Arrhythmogenic substrate or area with conduction delays and block, promotes reentry. <br>
-        Focal ectopic firing and reentry keeps AF continue.
+        Arrhythmogenic substrate = area with conduction delays and block. <br>
+        Substrate promotes reentry and helps maintain AF.
       </div>
     <div style="padding: 2vmax;">
       <img src="media/afMech_NatRev.webp" class="imgBox" style="padding: 0;">
@@ -257,12 +260,11 @@ a {position: relative;z-index: 10;cursor: pointer;}
         Nature Reviews Cardiology 2016.</a>
     </div>
 
-    <div class="textBox sans" style="font-weight: 700;font-size: 3vmax;
-    padding:0.5vmax 1vmax;color: #232323;margin-top: 20vh;line-height: 100%;">SUBSTRATE
-      <span style="font-weight: 400;color: #343434;font-size: 2.2vmax;text-align: justify;">
-      is developed as a result of remodelling from AF itself and other medical problems such as hypertension, obesity, or obstructive sleep apnea. 
-      and more involved in persistent than paroxysmal form.<br>
-    </span>
+    <div class="textBox sans" style="font-weight: 700;font-size: 4vmax;
+    padding:0.5vmax 1vmax;color: #232323;margin-top: 20vh;line-height: 100%;">SUBSTRATE<br>
+      <span style="font-weight: 400;color: #343434;font-size: 2.5vmax;text-align: justify;text-transform: uppercase;line-height: 100%;">
+      is more involved in persistent than paroxysmal form.<br>
+      </span>
     </div>
     <div style="padding: 2vmax;padding-bottom: 20vh;">
       <img src="media/lifeCycle.png" class="imgBox" style="padding: 0;">
@@ -270,6 +272,28 @@ a {position: relative;z-index: 10;cursor: pointer;}
       <a href="https://doi.org/10.1016/j.cjca.2020.09.001" target="_blank" class="ref" style="color: #555;">
         2020 Canadian Guidelines for AF</a>
     </div>
+</div>
+
+<div class="container" style="background: #232323;">
+  <div class="textBox serif" style="font-size: 5vmax;color:#fc553d;padding: 3vmax;font-weight: 700;line-height: 100%;">
+    MECHANISMS OF AF
+    <span class="sans" style="font-size: 2vmax;font-weight: 200;color: #ddd;">... IN SHORT</span>
+  </div>
+  <div class="flexBox1">
+    <div>
+      Firing from PVs trigger AF.
+    </div>
+    <div>
+      AF itself remodels the atria; shorten ERP, creates fibrosis.
+    </div>
+    <div>
+      Remodelling creates substrate for reentry.
+    </div>
+    <div>Reentry keeps AF continue</div>
+    <div>Age, obesity, and other medical illnesses also create the substrate.</div>
+    <div>In paroxysmal AF, PV firings is more involved than Substrate.</div>
+    <div>In persistent AF, Substrate is more involved than PV firings.</div>
+  </div>
 </div>
 
 <!--end page-->
@@ -287,11 +311,12 @@ a {position: relative;z-index: 10;cursor: pointer;}
 
 <script>
 
+//nav
+var bNo = 0;  
+box = document.getElementsByClassName('textBox')
 
-var bNo = 0;
 function next(no){
   n = Number(no);
-  box = document.getElementsByClassName('textBox')
   //check which box is in the view
   var i;
   for (i=0;i<box.length;i++){
@@ -323,12 +348,6 @@ function next(no){
     
       box[bNo].scrollIntoView({behavior:"smooth", block:"start"});
   }
-  
-  /*if (nav>=box.length) {
-    nav=box.length-1;
-    box[nav].scrollIntoView({behavior:"smooth", block:"start"});}
-  if (nav>=0 && nav<box.length){
-    box[nav].scrollIntoView({behavior:"smooth", block:"start"});}*/
 } 
   
 
@@ -341,8 +360,11 @@ window.onscroll = function(){
     sCase[0].style.top = '90vh'
     sCase[0].style.background ='none'
     nav = document.getElementsByClassName('nav')
-    nav[0].style.display = 'block'
-
+    if (window.matchMedia("(max-width: 1024px)").matches) {
+      nav[0].style.display = 'none';
+    } else {
+      nav[0].style.display = 'block';
+    } 
 
     document.getElementById('scrollDown').style.display='none'
     
