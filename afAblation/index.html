@@ -117,6 +117,8 @@
 line-height: 120%;margin-top: 0.5vh}
 a {position: relative;z-index: 10;cursor: pointer;}
 
+
+/*animation*/
 .rotate {
   -webkit-transform:rotateX(30deg) ;
     -moz-transform:rotateX(30deg) ;
@@ -143,21 +145,35 @@ a {position: relative;z-index: 10;cursor: pointer;}
     transition:transform 1.5s ease-out;
 }
 
-@keyframes slide {
-  0% {padding-left: 3vw;}
-  100% {padding-left: initial;}
+@keyframes rightIn {
+  0% {margin-left: 100vh;}
+  100% {margin-left: initial;}
 }
-@keyframes textShrink {
-  0% {letter-spacing: 0.1vw;}
-  50% {letter-spacing: 0.2vw;}
-  100% {letter-spacing: normal;}
+@keyframes leftIn {
+  0% {margin-right: 100vh;}
+  100% {margin-right: initial;}
 }
-.slideIn {
-  animation: slide 1s 1;
+@keyframes fadeOut{
+  0% {opacity: 1;}
+  100% {opacity: 0;}
 }
-.tEffect {
-  animation: textShrink 1s 1;
+@keyframes fadeIn{
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
+.rightIn {
+  animation: rightIn 1s 1;
+}
+.leftIn {
+  animation: leftIn 1s 1;
+}
+.fadeIn {
+  animation: fadeIn 2s 1 ease-out;
+}
+.fadeOut {
+  animation: fadeOut 2s 1 ease-in;
+}
+
 .nav {display: none;color: #ddd;opacity: 0.9;font-size: 4vh;position: fixed;top: 35vh;left: 95vw;
   cursor: pointer;text-align: center;
 }
@@ -423,13 +439,13 @@ window.onscroll = function(){
     for (i=0;i<txtB.length;i++){
         var top = txtB[i].getBoundingClientRect().top;
         if (top>0.2*window.innerHeight){
-          //txtB[i].classList.remove('offRotate')
+          txtB[i].classList.remove('fadeIn')
+          txtB[i].classList.add('fadeOut')
           txtB[i].style.visibility = 'hidden'
           
         } else
-        { //txtB[i].classList.add('tEffect')
-          //txtB[i].classList.add('offRotate')
-          txtB[i].classList.add('tEffect')
+        { txtB[i].classList.remove('fadeOut')
+          txtB[i].classList.add('fadeIn')
           txtB[i].style.visibility = 'visible'
         }
     }
@@ -439,20 +455,13 @@ window.onscroll = function(){
     var j;
     for (j=0;j<imgBox.length;j++){
       var top = imgBox[j].getBoundingClientRect().top;
-          if (top>0.2*window.innerHeight){
-          //imgBox[j].style.perspective = '5vmax'
-          //imgBox[j].style.transform = 'rotateX(-40deg)'
-          //imgBox[j].style.transitionDuration = '1s'
-          //imgBox[j].classList.remove('offRotate')
-          //imgBox[j].classList.remove('slideIn')
+          if (top>0.3*window.innerHeight){
+          imgBox[j].classList.remove('leftIn')
           imgBox[j].style.visibility = 'hidden'
           
 
        } else
-        { //imgBox[j].style.transform = 'rotateX(0)'
-          //imgBox[j].style.perspective = '0'
-          //imgBox[j].style.transitionDuration = '1s'
-          imgBox[j].classList.add('slideIn')
+        { imgBox[j].classList.add('leftIn')
           imgBox[j].style.visibility = 'visible'
 
         }
