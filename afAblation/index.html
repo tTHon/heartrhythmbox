@@ -201,6 +201,7 @@ a {position: relative;z-index: 10;cursor: pointer;}
     <li>|</li>
     <li><i class="fa-solid fa-angle-down" onclick="next(1)"></i></li>
     <li><i class="fa-solid fa-angles-down" onclick="next(2)"></i></li>
+    <div id="test"></div>
   </div>
   <div id="toHide">
     <video src="media\AF LAT.mp4" muted loop autoplay></video>
@@ -400,7 +401,6 @@ function next(no){
 } 
   
 
-
 window.onscroll = function(){
     
     //hide intro
@@ -439,24 +439,27 @@ window.onscroll = function(){
     var i;
     for (i=0;i<txtB.length;i++){
         var top = txtB[i].getBoundingClientRect().top;
-        if (top>0.2*window.innerHeight){
-          txtB[i].classList.remove('fadeIn')
-          txtB[i].classList.add('fadeOut')
-          txtB[i].style.visibility = 'hidden'
-          
-        } else
+        if (top>0.25*window.innerHeight){
+
+            txtB[i].style.visibility = 'hidden'
+            txtB[i].classList.add('fadeOut')
+            txtB[i].classList.remove('fadeIn')
+          }  else  
         { txtB[i].classList.remove('fadeOut')
           txtB[i].classList.add('fadeIn')
           txtB[i].style.visibility = 'visible'
         }
+     
     }
+
+
 
     //animateImgBox
     imgBox = document.getElementsByClassName('imgBox')
     var j;
     for (j=0;j<imgBox.length;j++){
       var top = imgBox[j].getBoundingClientRect().top;
-          if (top>0.3*window.innerHeight){
+          if (top>0.4*window.innerHeight){
           imgBox[j].classList.remove('leftIn')
           imgBox[j].style.visibility = 'hidden'
           
