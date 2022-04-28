@@ -150,8 +150,8 @@ a {position: relative;z-index: 10;cursor: pointer;}
   100% {margin-left: initial;}
 }
 @keyframes leftIn {
-  0% {margin-right: 100vh;}
-  100% {margin-right: initial;}
+  0% {transform: translateX(-40vw);}
+  100% {transform: translateX(0);}
 }
 @keyframes fadeOut{
   0% {opacity: 1;}
@@ -360,6 +360,7 @@ a {position: relative;z-index: 10;cursor: pointer;}
 <script>
 
 //nav
+
 var bNo = 0;  
 box = document.getElementsByClassName('textBox')
 
@@ -463,7 +464,6 @@ window.onscroll = function(){
        } else
         { imgBox[j].classList.add('leftIn')
           imgBox[j].style.visibility = 'visible'
-
         }
     }
    
