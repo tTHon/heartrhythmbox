@@ -93,12 +93,12 @@
   mix-blend-mode: overlay;
 }
 
-.container {padding: none;position: relative;display: block;height: fit-content;z-index: 1;}
+.container {padding:0 ;position: relative;display: block;height: fit-content;z-index: 1;}
 .endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;z-index: 1;}
 .block {padding: 1vmax;}
-.textBox {visibility: hidden;}
+.textBox {visibility: hidden;margin-top: 30vh;}
 .imgBox {max-width: 80%;max-height: 70vh;visibility: hidden;
-  margin-left: auto;margin-right: auto;padding: 3vmax;text-align: center;backface-visibility: hidden;
+  padding: 3vmax;text-align: center;
   }
 
   @media only screen and (max-width: 800px) {
@@ -246,10 +246,10 @@ a {position: relative;z-index: 10;cursor: pointer;}
     </div>
 
 <!--PV trigger-->
-<div class="container">
-<div class="block" style="
-    background-image: url('/afAblation/media/PVSketch.png');
-    background-position: center;background-repeat: no-repeat;background-size: cover;">
+<div class="container" style="
+background-image: url('/afAblation/media/PVSketch.png');
+background-position: center;background-repeat: no-repeat;background-size: cover;">
+<div class="block">
     <div class="textBox serif" style="font-size:5vmax;color:#fce3cb;padding: 2vmax;font-weight: 600;">
       Pulmonary Veins
         <div class="sans" style="font-size: 2.2vmax;color: white;line-height: 100%;font-weight: 400;">
@@ -281,15 +281,15 @@ a {position: relative;z-index: 10;cursor: pointer;}
 </div>
 
 <!--roles of substrate-->
-<div class="container">
-  <div class="block" style="background-image: url('/afAblation/media/atrialFibrosisMri.png');
-    background-position: center;background-repeat: no-repeat;background-size: cover;opacity: 0.9;
-    width: 100%;text-align: center;">
+<div class="container" style="background-image: url('/afAblation/media/atrialFibrosisMri.png');
+background-position: center;background-repeat: no-repeat;background-size: cover;opacity: 0.9;
+width: 100%;text-align: center;">
+  <div class="block">
      <div class="textBox serif" style="font-size:5vmax;color:#232323;padding: 2vmax;font-weight: 600;">
-      SUBSTRATE</div>
+      SUBSTRATE
         <div class="sans" style="font-size: 2.2vmax;color: #343434;line-height: 100%;font-weight: 400;">
         Arrhythmogenic substrate = area with conduction delays and block. <br>
-        Substrate promotes reentry and helps maintain AF.
+        Substrate promotes reentry and helps maintain AF.</div>
       </div>
     <div style="padding: 2vmax;">
       <img src="media/afMech_NatRev.webp" class="imgBox" style="padding: 0;">
@@ -310,10 +310,12 @@ a {position: relative;z-index: 10;cursor: pointer;}
       <a href="https://doi.org/10.1016/j.cjca.2020.09.001" target="_blank" class="ref" style="color: #555;">
         2020 Canadian Guidelines for AF</a>
     </div>
+  </div>
 </div>
 
 <div class="container" style="background: #232323;">
-  <div class="textBox serif" style="font-size: 5vmax;color:#fc553d;padding: 3vmax;font-weight: 700;line-height: 100%;">
+  <div class="textBox serif" style="font-size: 5vmax;color:#fc553d;padding:20vh 3vmax;font-weight: 700;
+  line-height: 100%;">
     MECHANISMS OF AF
     <span class="sans" style="font-size: 2vmax;font-weight: 200;color: #ddd;">... IN SHORT</span>
   </div>
@@ -341,7 +343,6 @@ a {position: relative;z-index: 10;cursor: pointer;}
   <div class="flexBox1" >
     <div>In paroxysmal AF, PV firings is more involved than Substrate.</div>
     <div>In persistent AF, Substrate is more involved than PV firings.</div>
-  </div>
   </div>
 </div>
 
