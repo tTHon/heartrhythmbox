@@ -219,6 +219,7 @@ a {position: relative;z-index: 10;cursor: pointer;}
 .arrow2 {color: #96a9ae;animation: slideIn2 4s infinite ease;}
 .arrow3 {color: #96a9ae;animation: slideIn3 4s infinite ease;}
 .flexText20 {width: 20%;}
+.flexText25 {width: 25%;}
 @media only screen and (max-width: 800px) {
     .flexBox1 {border: none;border-bottom: #fc553d solid 0.25vh;}
     .flexText20, .flexText25 {width: 50%;border-bottom: #555 dotted 0.25vh;}
@@ -230,11 +231,11 @@ a {position: relative;z-index: 10;cursor: pointer;}
 
 <div class="showcase" onclick="scrollDown()">
   <div class="nav">
-    <li><i class="fa-solid fa-angles-up" onclick="next(-2)"></i></li>
-    <li><i class="fa-solid fa-angle-up" onclick="next(-1)"></i></li>
+    <li><i class="fa-solid fa-angles-up" onclick="next(-2)" title="first"></i></li>
+    <li><i class="fa-solid fa-angle-up" onclick="next(-1)" title ="before"></i></li>
     <li>|</li>
-    <li><i class="fa-solid fa-angle-down" onclick="next(1)"></i></li>
-    <li><i class="fa-solid fa-angles-down" onclick="next(2)"></i></li>
+    <li><i class="fa-solid fa-angle-down" onclick="next(1)" title="next"></i></li>
+    <li><i class="fa-solid fa-angles-down" onclick="next(2)" title="last"></i></li>
     <!--li id="test" style="color: blueviolet;">xx</li-->
   </div>
   <div id="toHide">
