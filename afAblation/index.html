@@ -186,10 +186,10 @@ a {position: relative;z-index: 10;cursor: pointer;}
   animation: leftIn 1s 1;
 }
 .fadeIn {
-  animation: fadeIn 2s 1 ease-out;
+  animation: fadeIn 2s 1 ease-in;
 }
 .fadeOut {
-  animation: fadeOut 2s 1 ease-in;
+  animation: fadeOut 2s 1 ease-out;
 }
 .blink {
   animation: fadeIn 0.5s 10 linear;
@@ -215,9 +215,9 @@ a {position: relative;z-index: 10;cursor: pointer;}
   align-content: center;align-self: center;align-items: center;}
 
 .L2R {width: 6%;align-content: center;align-items: center;text-align: center;font-size: 3vmax;padding: 0.5vmax;}
-.arrow1 {color: #96a9ae;animation: slideIn1 4s infinite ease;}
-.arrow2 {color: #96a9ae;animation: slideIn2 4s infinite ease;}
-.arrow3 {color: #96a9ae;animation: slideIn3 4s infinite ease;}
+.arrow1 {color: #96a9ae;animation: slideIn1 2s infinite ease;}
+.arrow2 {color: #96a9ae;animation: slideIn2 2s infinite ease;}
+.arrow3 {color: #96a9ae;animation: slideIn3 2s infinite ease;}
 .flexText20 {width: 20%;}
 .flexText25 {width: 25%;}
 @media only screen and (max-width: 800px) {
@@ -225,8 +225,9 @@ a {position: relative;z-index: 10;cursor: pointer;}
     .flexText20, .flexText25 {width: 50%;border-bottom: #555 dotted 0.25vh;}
   }
 @media screen and (max-width: 1200px) and (min-width: 801px){
-  .flexText20 {width: 25%;}
-  .L2R {width: 10%;}
+  .flexBox1 div {padding-top: 1vmax;margin-top: 1vh;}
+  .flexText20 {width: 25%;padding: 3vmax 1vmax;}
+  .L2R {width: 10%;padding: 1vmax;}
 }
 
 </style>
