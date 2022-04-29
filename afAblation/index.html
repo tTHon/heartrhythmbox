@@ -105,13 +105,6 @@
     .imgBox {width: 100%;max-width: 100%;}
   }
 
-@keyframes down{
-   0% {height: 0;opacity: 0;}
-   100% {height: fit-content;opacity: 1;}
-}
-#scrollDown {display: none;z-index: 1;vertical-align: middle;font-size: 2vmax;
-  animation: down 1s 5;color: white;padding: 0 1vmax;background: rgba(0,0,0,0.75);
-}
 
 .ref {font-size: 1vmax;color: #96a9ae;padding-left: 1vmax;z-index: 10;cursor: pointer;position: relative;
 line-height: 120%;margin-top: 0.5vh}
@@ -161,6 +154,31 @@ a {position: relative;z-index: 10;cursor: pointer;}
   0% {opacity: 0;}
   100% {opacity: 1;}
 }
+@keyframes down{
+   0% {height: 0;opacity: 0;}
+   100% {height: fit-content;opacity: 1;}
+}
+@keyframes slideIn1 {
+  0% {transform: translateX(-1vw);}
+  40% {transform: translateX(-1vw);}
+  90% {transform: translateX(0)}
+  100% {transform: translateX(0);}
+}
+
+@keyframes slideIn2 {
+  0% {transform: translateX(-1vw);}
+  60% {transform: translateX(-1vw);}
+  90% {transform: translateX(0);}
+  100% {transform: translateX(0);}
+}
+
+@keyframes slideIn3 {
+  0% {transform: translateX(-1vw);}
+  80% {transform: translateX(-1vw);}
+  95% {transform: translateX(0);}
+  100% {transform: translateX(0);}
+}
+
 .rightIn {
   animation: rightIn 1s 1;
 }
@@ -173,7 +191,17 @@ a {position: relative;z-index: 10;cursor: pointer;}
 .fadeOut {
   animation: fadeOut 2s 1 ease-in;
 }
+.blink {
+  animation: fadeIn 0.5s 10 linear;
+}
 
+
+
+
+/*box*/
+#scrollDown {display: none;z-index: 1;vertical-align: middle;font-size: 2vmax;
+  animation: down 1s 5;color: white;padding: 0 1vmax;background: rgba(0,0,0,0.75);
+}
 .nav {display: none;color: #ddd;opacity: 0.9;font-size: 4vh;position: fixed;top: 35vh;left: 95vw;
   cursor: pointer;text-align: center;
 }
@@ -187,7 +215,9 @@ a {position: relative;z-index: 10;cursor: pointer;}
   align-content: center;align-self: center;align-items: center;}
 
 .L2R {width: 6%;align-content: center;align-items: center;text-align: center;font-size: 3vmax;}
-
+.arrow1 {color: #96a9ae;animation: slideIn1 4s infinite ease;}
+.arrow2 {color: #96a9ae;animation: slideIn2 4s infinite ease;}
+.arrow3 {color: #96a9ae;animation: slideIn3 4s infinite ease;}
 
 </style>
 
@@ -200,7 +230,7 @@ a {position: relative;z-index: 10;cursor: pointer;}
     <li>|</li>
     <li><i class="fa-solid fa-angle-down" onclick="next(1)"></i></li>
     <li><i class="fa-solid fa-angles-down" onclick="next(2)"></i></li>
-    <div id="test"></div>
+    <!--li id="test" style="color: blueviolet;">xx</li-->
   </div>
   <div id="toHide">
     <video src="media\AF LAT.mp4" muted loop autoplay></video>
@@ -321,33 +351,40 @@ width: 100%;text-align: center;">
       <div style="width: 20%;">
         Firing from PVs initiates AF.
       </div>
-      <div class="L2R">
-       <span>-</span><span>-</span><span>></span>
+      <div class="L2R arrow1">
+        <span>-</span><span>-</span><span>></span>
       </div>
       <div style="width: 20%;">
         AF itself remodels the atria; shorten ERP, creates fibrosis.
       </div>
-      <div class="L2R">
-        <span>-</span><span>-</span><span>></span>
+      <div class="L2R arrow2">
+        <span class ='arr'>-</span><span class ='arr'>-</span><span class ='arr'>></span>
        </div>
       <div style="width: 20%;">
         Remodelling creates substrate for reentry.
       </div>
-      <div class="L2R">
-        <span>-</span><span>-</span><span>></span>
+      <div class="L2R arrow3">
+        <span class ='a1'>-</span><span class ='a2'>-</span><span class ='a3'>></span>
        </div>
-      <div style="width: 20%;">Reentry keeps AF continue</div>
+      <div style="width: 20%;font-weight: 700;">Reentry keeps AF continue</div>
     </div>
       <div class="flexBox1">
-        <div>Age, obesity, and other medical illnesses also create the substrate.</div>
-        <div>
+        <div style="width: 25%;">
+          Age, obesity, and other medical illnesses also create the substrate.</div>
+          <div class="L2R arrow1">
+            <span class ='arr'>-</span><span class ='arr'>-</span><span class ='arr'>></span>
+           </div>
+        <div style="width: 25%;">
           Remodelling creates substrate for reentry.
         </div>
-      <div>Reentry keeps AF continue</div>
+        <div class="L2R arrow2">
+          <span class ='arr'>-</span><span class ='arr'>-</span><span class ='arr'>></span>
+         </div>
+      <div style="width: 25%;font-weight: 700;">Reentry keeps AF continue</div>
     </div>
-    <div class="flexBox1" >
-      <div>In paroxysmal AF, PV firings is more involved than Substrate.</div>
-      <div>In persistent AF, Substrate is more involved than PV firings.</div>
+    <div class="flexBox1" style="border: none;font-weight: 900;font-size: 2.2vmax;">
+      <div style="width: 40%;border-right: #fc553d 0.25vmax solid;">In paroxysmal AF, PV firings is more involved than Substrate.</div>
+      <div style="width: 40%;">In persistent AF, Substrate is more involved than PV firings.</div>
     </div>
   </div>
 </div>
@@ -371,6 +408,7 @@ width: 100%;text-align: center;">
 
 var bNo = 0;  
 box = document.getElementsByClassName('textBox')
+
 
 function next(no){
   n = Number(no);
@@ -456,7 +494,6 @@ window.onscroll = function(){
           txtB[i].classList.add('offRotate')
           txtB[i].style.visibility = 'visible'
         }
-     
     }
 
 
