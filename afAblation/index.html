@@ -120,11 +120,11 @@ a {position: relative;z-index: 10;cursor: pointer;}
 
 /*animation*/
 .rotate {
-  -webkit-transform:rotateX(30deg) ;
-    -moz-transform:rotateX(30deg) ;
-    -ms-transform:rotateX(30deg) ;
-    -o-transform:rotateX(30deg) ;
-    transform:rotateX(30deg) ;
+  -webkit-transform:rotateX(30deg) perspective(3vh);
+    -moz-transform:rotateX(30deg) perspective(3vh);
+    -ms-transform:rotateX(30deg) perspective(3vh);
+    -o-transform:rotateX(30deg) perspective(3vh);
+    transform:rotateX(30deg) perspective(3vh);
 
     -webkit-transition:-webkit-transform 1.5s linear;
     -moz-transition:transform 1.5s ease-out;
@@ -179,15 +179,14 @@ a {position: relative;z-index: 10;cursor: pointer;}
 }
 .nav li :hover{color: #bbb;opacity: 0.98;}
 .nav li{list-style-type: none;}
-.flexBox1{display: flex;font-size: 2vmax;justify-content: center;align-content: center;
-  padding: 1vmax;color: #f1f0e7;flex-wrap: wrap;
+.flexBox1{display: flex;font-size: 2vmax;font-weight: 400;border: #fc553d solid 0.25vmax;margin: 1vmax 0;
+  justify-content: center;align-content: center;align-items: center;
+  padding: 1vmax;color: #f1f0e7;flex-wrap: wrap;line-height: 100%;
   }
-.flexBox1 div {padding: 2vmax;border: #797979 0.2vmax solid;width: 32%;}
-@keyframes toRight {
-  0% {color: linear-gradient(to right, red , yellow)};
-  100% {color: linear-gradient(to right, yellow , red);}
-}
-.L2R {animation: toRight 1s infinite;}
+.flexBox1 div {padding: 2vmax;line-height: 100%;justify-content: center;text-align: center;
+  align-content: center;align-self: center;align-items: center;}
+
+.L2R {width: 6%;align-content: center;align-items: center;text-align: center;font-size: 3vmax;}
 
 
 </style>
@@ -313,36 +312,43 @@ width: 100%;text-align: center;">
   </div>
 </div>
 
-<div class="container" style="background: #232323;">
-  <div class="textBox serif" style="font-size: 5vmax;color:#fc553d;padding:20vh 3vmax;font-weight: 700;
+<div class="container" style="background: #232323;border-top: 1vmax #232323 solid;">
+  <div class="textBox serif" style="font-size: 5vmax;color:#fc553d;padding:10vh 3vmax;font-weight: 700;
   line-height: 100%;">
     MECHANISMS OF AF
     <span class="sans" style="font-size: 2vmax;font-weight: 200;color: #ddd;">... IN SHORT</span>
-  </div>
-  <div class="flexBox1">
-    <div style="width: 24%;">
-      Firing from PVs initiates AF.
+    <div class="flexBox1">
+      <div style="width: 20%;">
+        Firing from PVs initiates AF.
+      </div>
+      <div class="L2R">
+       <span>-</span><span>-</span><span>></span>
+      </div>
+      <div style="width: 20%;">
+        AF itself remodels the atria; shorten ERP, creates fibrosis.
+      </div>
+      <div class="L2R">
+        <span>-</span><span>-</span><span>></span>
+       </div>
+      <div style="width: 20%;">
+        Remodelling creates substrate for reentry.
+      </div>
+      <div class="L2R">
+        <span>-</span><span>-</span><span>></span>
+       </div>
+      <div style="width: 20%;">Reentry keeps AF continue</div>
     </div>
-    <div style="font-size: 4vmax;width: 8%;">
-      <i class="fa-solid fa-wind" class="L2R" ></i>
+      <div class="flexBox1">
+        <div>Age, obesity, and other medical illnesses also create the substrate.</div>
+        <div>
+          Remodelling creates substrate for reentry.
+        </div>
+      <div>Reentry keeps AF continue</div>
     </div>
-    <div style="width: 24%;">
-      AF itself remodels the atria; shorten ERP, creates fibrosis.
+    <div class="flexBox1" >
+      <div>In paroxysmal AF, PV firings is more involved than Substrate.</div>
+      <div>In persistent AF, Substrate is more involved than PV firings.</div>
     </div>
-    <div style="width: 24%;">
-      Remodelling creates substrate for reentry.
-    </div>
-    <div style="width: 24%;">Reentry keeps AF continue</div>
-  </div>
-  <div class="flexBox1">
-    <div>Age, obesity, and other medical illnesses also create the substrate.</div>
-    <div>
-      Remodelling creates substrate for reentry.
-    </div>
-    <div>Reentry keeps AF continue</div></div>
-  <div class="flexBox1" >
-    <div>In paroxysmal AF, PV firings is more involved than Substrate.</div>
-    <div>In persistent AF, Substrate is more involved than PV firings.</div>
   </div>
 </div>
 
@@ -443,11 +449,11 @@ window.onscroll = function(){
         if (top>0.25*window.innerHeight){
 
             txtB[i].style.visibility = 'hidden'
-            txtB[i].classList.add('fadeOut')
-            txtB[i].classList.remove('fadeIn')
+            txtB[i].classList.add('rotate')
+            txtB[i].classList.remove('offRotate')
           }  else  
-        { txtB[i].classList.remove('fadeOut')
-          txtB[i].classList.add('fadeIn')
+        { txtB[i].classList.remove('rotate')
+          txtB[i].classList.add('offRotate')
           txtB[i].style.visibility = 'visible'
         }
      
@@ -461,12 +467,14 @@ window.onscroll = function(){
     for (j=0;j<imgBox.length;j++){
       var top = imgBox[j].getBoundingClientRect().top;
           if (top>0.4*window.innerHeight){
-          imgBox[j].classList.remove('leftIn')
+          imgBox[j].classList.remove('fadeIn')
+          imgBox[j].classList.add('fadeOut')
           imgBox[j].style.visibility = 'hidden'
           
 
        } else
-        { imgBox[j].classList.add('leftIn')
+        { imgBox[j].classList.add('fadeIn')
+          imgBox[j].classList.remove('fadeOut')
           imgBox[j].style.visibility = 'visible'
         }
     }
