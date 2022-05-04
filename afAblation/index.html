@@ -241,6 +241,8 @@ a {position: relative;z-index: 10;cursor: pointer;}
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+.flowX {margin: 0 0.5vmax;}
+.flowXArrow {text-align: center;color: #797979;font-size: 2.2vmax;}
 
 </style>
 
@@ -676,24 +678,46 @@ width: 100%;height: fit-content;">
   <div class="serif" style="font-size: 5vmax;font-weight: 700;padding: 0 2vmax;line-height: 130%;color: #fc553d;word-wrap: break-word;">
   GUIDELINES RECOMMENDATIONS</div>
   <div class="sans" style="font-size: 3vmax;padding: 0 2vmax;color: #555;font-weight: 700;">
-  INDICATIONS FOR CATHETER ABLATION OF AF
+  INDICATIONS FOR CATHETER ABLATION OF AF<br>
   </div>
   
-  <div class="hideScroll" style="display: flex;flex-wrap:nowrap;font-size: 3vmax;padding: 5vmax 1vmax;color: #343434;overflow-x: scroll;">
-    <img src="media/escGL2020.jpeg" class="imgBox flowX">
-    <div class="flowX" style="background-color: lightgreen;padding: 1vmax;width: 60%;">
+  <div class="mobileOnly" style="font-size: 2vmax;font-weight: 400;text-align: center;color: #bbb;padding: 5vmax 1vmax;">
+    &lAarr; swipe left/right for more &rAarr;</div>
+  
+  <div class="hideScroll" 
+  style="display: flex;flex-wrap:nowrap;font-size: 3vmax;color: #343434;
+  overflow-x: scroll;align-items: center;">
+    <img src="media/escGL2020.jpeg" class="flowX" style="width: 90%;height: auto;max-height: 70vh;">
+    <div class="flowX" style="background-color: lightgreen;padding: 1vmax;">
       <span style="font-size: 3.5vmax;font-weight: 700;">IA</span>
-    complete isolation of PVs is recommended during all AF ablation.
+    2nd line after failed AAD in symptomatic AF of any types.
     </div>
-    <div class="flowX" style="background-color: coral;padding: 1vmax;width: 60%;">
+    <div class="flowX" style="background-color: lightgreen;padding: 1vmax;">
+      <span style="font-size: 3.5vmax;font-weight: 700;">IA</span>
+    1st line in HFrEF when tachycardiomyopathy is highly probable.
+    </div>
+    <div class="flowX" style="background-color: yellow;padding: 1vmax;">
+      <span style="font-size: 3.5vmax;font-weight: 700;">IIA</span>
+    2nd line in HFrEF after AAD, to improve survival.
+    </div>
+    <div class="flowX" style="background-color: yellow;padding: 1vmax;">
+      <span style="font-size: 3.5vmax;font-weight: 700;">IIA</span>
+      1st line in symptomatic paroxysmal AF
+    </div>
+    <div class="flowX" style="background-color: coral;padding: 1vmax;">
       <span style="font-size: 3.5vmax;font-weight: 700;">IIB</span>
-      using additional techniques beyond PVI may be considered but is not well established.
+      1st line in symptomatic persistent AF
     </div>
   </div>
   <div class="ref">
     <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
       2020 ESC Guidelines for AF
     </a>
+  </div>
+  <div class="flowXArrow">
+    <i class="fa-solid fa-angle-left" onclick="flowX(-1)" title ="before" style="cursor: pointer;"></i>
+    --
+    <i class="fa-solid fa-angle-right" onclick="flowX(-1)" title ="after" style="cursor: pointer;"></i>
   </div>
 </div>
 
@@ -717,7 +741,9 @@ width: 100%;height: fit-content;">
 //nav
 
 var bNo = 0;  
+var xNo = 0;
 box = document.getElementsByClassName('textBox')
+flowX = document.getElementsByClassName('flowX')
 document.getElementById('test').innerHTML = box.length
 
 function next(no){
@@ -754,6 +780,16 @@ function next(no){
       box[bNo].scrollIntoView({behavior:"smooth", block:"start"});
   }
 } 
+
+function flowX(x){
+  n = Number(x);
+  xNo = n + xNo;flowX[xNo].scrollIntoView({behavior:"smooth", block:"start"})
+  if (xNo<0){
+    xNo=0;flowX[xNo].scrollIntoView({behavior:"smooth", block:"start"})
+  }
+  else {flowX[xNo].scrollIntoView({behavior:"smooth", block:"start"})
+  }
+}
   
 
 window.onscroll = function(){
