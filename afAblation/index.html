@@ -231,6 +231,11 @@ a {position: relative;z-index: 10;cursor: pointer;}
   .L2R {width: 10%;padding: 0.5vmax;}
 }
 
+.flowXContainer {display: flex;overflow-x: scroll;flex-wrap: nowrap;
+  justify-content:flex-start;text-align: left;}
+.flowX {margin: 0 0.3vmax;}
+.xDot, .xDot2 {cursor: pointer;color: #aaa;font-size: 1.8vmax;}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hideScroll::-webkit-scrollbar {
   display: none;
@@ -241,8 +246,10 @@ a {position: relative;z-index: 10;cursor: pointer;}
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
-.flowX {margin: 0 0.5vmax;}
-.flowXArrow {text-align: center;color: #797979;font-size: 2.2vmax;}
+
+.flowImg {width: auto;height: auto;max-height: 80vh;min-height: 40vh;}
+.flowTxt {width: fit-content;height: 40vh;font-size: 2.5vmax;padding: 2vmax;color: white;}
+
 
 </style>
 
@@ -674,54 +681,121 @@ width: 100%;height: fit-content;">
   </div>
 </div>
 
-<div class="container greenL textBox" style="padding: 10vmax 3vmax;">
+<div class="container greenL textBox" style="padding: 10vmax 3vmax;text-align: center;">
   <div class="serif" style="font-size: 5vmax;font-weight: 700;padding: 0 2vmax;line-height: 130%;color: #fc553d;word-wrap: break-word;">
   GUIDELINES RECOMMENDATIONS</div>
   <div class="sans" style="font-size: 3vmax;padding: 0 2vmax;color: #555;font-weight: 700;">
   INDICATIONS FOR CATHETER ABLATION OF AF<br>
   </div>
+  <img src="media/escGL2020.jpeg" class="imgBox">
   
-  <div class="mobileOnly" style="font-size: 2vmax;font-weight: 400;text-align: center;color: #bbb;padding: 5vmax 1vmax;">
-    &lAarr; swipe left/right for more &rAarr;</div>
   
-  <div class="hideScroll" 
-  style="display: flex;flex-wrap:nowrap;font-size: 3vmax;color: #343434;
-  overflow-x: scroll;align-items: center;">
-    <img src="media/escGL2020.jpeg" class="flowX" style="width: 90%;height: auto;max-height: 70vh;">
+  <div class="flowXContainer" 
+  style="font-size: 2vmax;color: #343434;">
     <div class="flowX" style="background-color: lightgreen;padding: 1vmax;">
-      <span style="font-size: 3.5vmax;font-weight: 700;">IA</span>
-    2nd line after failed AAD in symptomatic AF of any types.
+      <span style="font-size: 2.5vmax;font-weight: 700;">IA</span><br>
+    2nd line (after failed AAD) | symptomatic AF of any types.
     </div>
     <div class="flowX" style="background-color: lightgreen;padding: 1vmax;">
-      <span style="font-size: 3.5vmax;font-weight: 700;">IA</span>
-    1st line in HFrEF when tachycardiomyopathy is highly probable.
+      <span style="font-size: 2.5vmax;font-weight: 700;">IA</span><br>
+    1st line | HFrEF (when tachycardiomyopathy is highly probable).
     </div>
     <div class="flowX" style="background-color: yellow;padding: 1vmax;">
-      <span style="font-size: 3.5vmax;font-weight: 700;">IIA</span>
-    2nd line in HFrEF after AAD, to improve survival.
+      <span style="font-size: 2.5vmax;font-weight: 700;">IIA</span><br>
+    2nd line (after failed AAD) | HFrEF; to improve survival.
     </div>
     <div class="flowX" style="background-color: yellow;padding: 1vmax;">
-      <span style="font-size: 3.5vmax;font-weight: 700;">IIA</span>
-      1st line in symptomatic paroxysmal AF
+      <span style="font-size: 2.5vmax;font-weight: 700;">IIA</span><br>
+      1st line | symptomatic paroxysmal AF
     </div>
     <div class="flowX" style="background-color: coral;padding: 1vmax;">
-      <span style="font-size: 3.5vmax;font-weight: 700;">IIB</span>
-      1st line in symptomatic persistent AF
+      <span style="font-size: 2.5vmax;font-weight: 700;">IIB</span><br>
+      1st line | symptomatic persistent AF
     </div>
   </div>
-  <div class="ref">
+
+  <div class="ref" style="text-align: left;">
     <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
       2020 ESC Guidelines for AF
     </a>
   </div>
-  <div class="flowXArrow">
-    <i class="fa-solid fa-angle-left" onclick="flowX(-1)" title ="before" style="cursor: pointer;"></i>
-    --
-    <i class="fa-solid fa-angle-right" onclick="flowX(-1)" title ="after" style="cursor: pointer;"></i>
+  <div class="dotRow" style="text-align: center;">
+    <span class="xDot" onclick="navX(0)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot" onclick="navX(1)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot" onclick="navX(2)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot" onclick="navX(3)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot" onclick="navX(4)"><i class="fa-solid fa-circle"></i></span>
   </div>
 </div>
 
-<div id="test"></div>
+<!--complicaiton-->
+<div class="container">
+  <div class="block" style="background-image: url('/afAblation/media/AF\ EGM.png');
+  background-position: bottom;background-repeat: no-repeat;background-size: cover;
+  width: 100%;height: fit-content;">
+    <div class="textBox" style="padding: 8vmax 3vmax;z-index: 3;position: relative;text-align: left;font-size: 6vmax;">
+      <div class="serif" style="color: #47dcda;line-height: 120%;font-style: italic;font-size: 6vmax;">
+        COMPLICATIONS</div> 
+      <ul class="san" 
+      style="color: white;line-height: 120%;font-weight: 400;font-size: 3vmax;padding-top: 2vmax;padding-bottom: 20vh;padding-left: 2vmax;
+      text-transform:capitalize;">
+        <li>&lt;0.1%: Periprocedural Death</li>
+        <li>1%: Major Complications (i.e. tamponade, AE fistula, and stroke)</li>
+        <li>5%: Moderate Complications (i.e. PV stenosis, phrenic nerve injury, and vascular complication)</li>
+      </ul> 
+    </div>
+    <div class="ref" style="text-align: left;">
+      <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+        2020 ESC Guidelines for AF
+      </a>
+    </div>
+</div>
+</div>
+
+<!--specific complications-->
+<div class="container textBox" style="background-color: #2d2d2d;">
+  <div class="serif" style="color: #47dcda;line-height: 120%;font-style: italic;font-size: 5vmax;
+  padding: 3vmax;text-align: center;">
+    SPECIFIC COMPLICATIONS</div> 
+  <div class="flowXContainer" 
+  style="font-size: 2vmax;padding: 2vmax;">
+    <div class="flowX flowTxt">
+      <span style="font-size: 3vmax;color: #47dcda;text-align: center;font-weight: 800;text-transform: uppercase;">1. Atrio-esophageal fistula
+      </span><br>
+      <ul>
+        <li>Lethal</li>
+        <li>Require prompt confirmation and intervention</li>
+      </ul>
+    </div>
+    <div class="flowX" style="border-right: #47dcda solid 1vmax;">
+      <img src="media/AE fistula sum.png" class="flowImg">
+    </div>
+    <div class="flowX">
+      <img src="media/PV stenosis.png" class="flowImg">
+    </div>
+    <div class="flowX">
+      <img src="media/Phrenic nerve.jpg" class="flowImg">
+    </div>
+    <div class="flowX">
+      <img src="media/gastroparesis.png" class="flowImg">
+    </div>
+  </div>
+
+  <div class="ref" style="text-align: left;">
+    <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+      2020 ESC Guidelines for AF
+    </a>
+  </div>
+  <div class="dotRow" style="text-align: center;">
+    <span class="xDot2" onclick="navX(0)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX(1)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX(2)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX(3)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX(4)"><i class="fa-solid fa-circle"></i></span>
+  </div>
+</div>
+
+<div id="test" style="color: white;"></div>
 
 <!--end page-->
 <div class="skyLight endPage" style="padding: 3vmax;">
@@ -741,10 +815,8 @@ width: 100%;height: fit-content;">
 //nav
 
 var bNo = 0;  
-var xNo = 0;
 box = document.getElementsByClassName('textBox')
-flowX = document.getElementsByClassName('flowX')
-document.getElementById('test').innerHTML = box.length
+
 
 function next(no){
   n = Number(no);
@@ -861,7 +933,8 @@ window.onscroll = function(){
           imgBox[j].style.visibility = 'visible'
         }
     }
-   
+    //remove unnecessary scrollX dot
+    checkDot();
 }  
 
 function scrollDown(){
@@ -869,6 +942,43 @@ function scrollDown(){
 }
 function toTop(){
   window.scrollTo(0,0)
+}
+
+function checkDot(){
+  var container = document.getElementsByClassName('flowXContainer')
+  var dot = document.getElementsByClassName('dotRow')
+  var i;
+  for (i=0;i<container.length;i++){
+    if (container[i].clientWidth>=container[i].scrollWidth){
+      dot[i].style.display = 'none'
+      container[i].classList.add('hideScroll')
+    } else {
+      dot[i].style.display = 'block'
+      container[i].classList.remove('hideScroll')
+    }
+  }  
+}
+
+function navX(x){
+  var flowX = document.getElementsByClassName('flowX')
+  var dot = document.getElementsByClassName('xDot')
+  var container = document.getElementsByClassName('flowXContainer')
+
+  //clear dot color 797979 232323
+  var i;
+  for (i=0;i<dot.length;i++){
+    dot[i].style.color = '#797979'
+  }
+  dot[x].style.color = '#232323'
+
+  //get Y position
+  var leftPos = flowX[x].getBoundingClientRect().left;
+  var topPos = flowX[x].getBoundingClientRect().top;
+  var cLeft = container[0].getBoundingClientRect().left;
+  var scrollPos = container[0].scrollLeft;
+  var toLeft = leftPos-scrollPos;
+  document.getElementById('test').innerHTML = 'leftPos' + leftPos + ' scrollPos' + scrollPos;
+  container[0].scrollTo(toLeft,0)
 }
 
 </script>
