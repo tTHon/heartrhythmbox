@@ -231,6 +231,17 @@ a {position: relative;z-index: 10;cursor: pointer;}
   .L2R {width: 10%;padding: 0.5vmax;}
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hideScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hideScroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 </style>
 
 <body>
@@ -604,7 +615,7 @@ width: 100%;text-align: center;">
           <span style="font-size: 3.5vmax;font-weight: 700;">IA</span>
         complete isolation of PVs is recommended during all AF ablation.
         </div>
-        <div style="background-color: orange;padding: 1vmax;">
+        <div style="background-color: coral;padding: 1vmax;">
           <span style="font-size: 3.5vmax;font-weight: 700;">IIB</span>
           using additional techniques beyond PVI may be considered but is not well established.
         </div>
@@ -616,7 +627,77 @@ width: 100%;text-align: center;">
       </div>
   </div>
 
+<div class="container greenD block" style="padding: 10vmax 2vmax;background-image: url('/afAblation/media/laRhythmia.png');
+background-position: bottom;background-repeat: no-repeat;background-size: cover;
+width: 100%;height: fit-content;">
+  <div class="textBox" style="font-size: 5vmax;font-weight: 700;padding: 12vmax 2vmax;line-height: 130%;color: #f5f5f5;word-wrap: break-word;">
+    ABLATION TO IMPROVE HARD OUTCOMES</div>
+  
+
+  <div style="font-size: 5vmax;font-weight: 700;padding: 10vmax 2vmax 0 2vmax;
+  line-height: 100%;color: #eee;word-wrap: break-word;">
+    <span style="border-top: solid 1vmax #fc553d;">HF</span>rEF
+  </div>
+  <div class="san" 
+  style="font-size: 2vmax;color: #f1f1f1;font-weight: 400;line-height: 100%;padding: 2vmax;">
+    In CASTLE-AF, catheter ablation reduced death and HF hospitalization in AF with HFrEF.
+  </div>
+  <img src="media/castleAF AF 1endpoint.png" class="imgBox">
+  <div class="ref">
+    <a href="https://doi.org/10.1056/nejmoa1707855" target="_blank">CASTLE-AF. NEJM 2018.</a>
+  </div>
+
+  <div style="font-size: 5vmax;font-weight: 700;padding: 10vmax 2vmax 0 2vmax;
+  line-height: 100%;color: #eee;word-wrap: break-word;">
+    <span style="border-top: solid 1vmax #fc553d;">Symp</span>tomatic Paroxysmal or Persistent AF
+  </div>
+  <div class="san" 
+  style="font-size: 2vmax;color: #f1f1f1;font-weight: 400;line-height: 100%;padding: 2vmax;">
+    In CABANA-AF, catheter ablation reduced primary outcomes (death, stroke, cardiac arrest, and serious bleeding) only in per-protocol analysis but not in ITT.
+    Of note, 27.5% crossed-over from drugs to ablation group.
+  </div>
+  <img src="media/CABANA perP.png" class="imgBox">
+  <div class="ref">
+    <a href="https://doi.org/10.1001/jama.2019.0693" target="_blank">CABANA Trial. JAMA 2019.</a>
+  </div>
+
+  <div class="san textBox" 
+  style="font-size: 3vmax;color: white;font-weight: 700;line-height: 100%;padding: 10vmax 2vmax 0 2vmax;text-align: center;">
+    In a systematic review and meta-analysis, mortality benefit of catheter ablation is mainly driven by AF with HFrEF patients.
+
+    <img src="media/metaAna.jpg" class="imgBox" style="text-align: center;width: 100%;max-height: 85vh;padding:2vmax 0.5vmax;">
+    <div class="ref" style="text-align: center;font-weight: 400;">
+      <a href="https://doi.org/10.1161/CIRCEP.119.007414" target="_blank">Circulation: Arrhythmia and Electrophysiology. 2019</a>
+    </div>
+  </div>
 </div>
+
+<div class="container greenL textBox" style="padding: 10vmax 3vmax;">
+  <div class="serif" style="font-size: 5vmax;font-weight: 700;padding: 0 2vmax;line-height: 130%;color: #fc553d;word-wrap: break-word;">
+  GUIDELINES RECOMMENDATIONS</div>
+  <div class="sans" style="font-size: 3vmax;padding: 0 2vmax;color: #555;font-weight: 700;">
+  INDICATIONS FOR CATHETER ABLATION OF AF
+  </div>
+  
+  <div class="hideScroll" style="display: flex;flex-wrap:nowrap;font-size: 3vmax;padding: 5vmax 1vmax;color: #343434;overflow-x: scroll;">
+    <img src="media/escGL2020.jpeg" class="imgBox flowX">
+    <div class="flowX" style="background-color: lightgreen;padding: 1vmax;width: 60%;">
+      <span style="font-size: 3.5vmax;font-weight: 700;">IA</span>
+    complete isolation of PVs is recommended during all AF ablation.
+    </div>
+    <div class="flowX" style="background-color: coral;padding: 1vmax;width: 60%;">
+      <span style="font-size: 3.5vmax;font-weight: 700;">IIB</span>
+      using additional techniques beyond PVI may be considered but is not well established.
+    </div>
+  </div>
+  <div class="ref">
+    <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+      2020 ESC Guidelines for AF
+    </a>
+  </div>
+</div>
+
+<div id="test"></div>
 
 <!--end page-->
 <div class="skyLight endPage" style="padding: 3vmax;">
@@ -637,7 +718,7 @@ width: 100%;text-align: center;">
 
 var bNo = 0;  
 box = document.getElementsByClassName('textBox')
-
+document.getElementById('test').innerHTML = box.length
 
 function next(no){
   n = Number(no);
