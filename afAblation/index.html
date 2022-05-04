@@ -96,7 +96,7 @@
 .container {padding:0 ;position: relative;display: block;height: fit-content;z-index: 1;}
 .endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;z-index: 1;}
 .block {padding: 1vmax;}
-.textBox {visibility: hidden;margin-top: 30vh;}
+.textBox {visibility: hidden;margin-top: 20vh;}
 .imgBox {width: auto;height: auto;max-width:90%;;max-height: 70vh;visibility: hidden;object-fit:contain;
   padding: 3vmax;text-align: center;
   }
@@ -231,9 +231,9 @@ a {position: relative;z-index: 10;cursor: pointer;}
   .L2R {width: 10%;padding: 0.5vmax;}
 }
 
-.flowXContainer {display: flex;overflow-x: scroll;flex-wrap: nowrap;
+.flowXContainer, .flowXContainer2 {display: flex;overflow-x: scroll;flex-wrap: nowrap;
   justify-content:flex-start;text-align: left;}
-.flowX {margin: 0 0.3vmax;}
+.flowX, .flowX2 {margin: 0 0.3vmax;}
 .xDot, .xDot2 {cursor: pointer;color: #aaa;font-size: 1.8vmax;}
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -247,8 +247,8 @@ a {position: relative;z-index: 10;cursor: pointer;}
   scrollbar-width: none;  /* Firefox */
 }
 
-.flowImg {width: auto;height: auto;max-height: 80vh;min-height: 40vh;}
-.flowTxt {width: fit-content;height: 40vh;font-size: 2.5vmax;padding: 2vmax;color: white;}
+.flowImg {width: auto;height: auto;max-height: 50vh;padding: 1vmax;}
+.flowTxt {width: 100%;font-size: 1.8vmax;padding: 1vmax;color: white;line-height: 130%;}
 
 
 </style>
@@ -643,7 +643,7 @@ width: 100%;height: fit-content;">
     ABLATION TO IMPROVE HARD OUTCOMES</div>
   
 
-  <div style="font-size: 5vmax;font-weight: 700;padding: 10vmax 2vmax 0 2vmax;
+  <div class="textBox" style="font-size: 5vmax;font-weight: 700;padding: 1vmax 2vmax 0 2vmax;
   line-height: 100%;color: #eee;word-wrap: break-word;">
     <span style="border-top: solid 1vmax #fc553d;">HF</span>rEF
   </div>
@@ -656,7 +656,7 @@ width: 100%;height: fit-content;">
     <a href="https://doi.org/10.1056/nejmoa1707855" target="_blank">CASTLE-AF. NEJM 2018.</a>
   </div>
 
-  <div style="font-size: 5vmax;font-weight: 700;padding: 10vmax 2vmax 0 2vmax;
+  <div class="textBox" style="font-size: 5vmax;font-weight: 700;padding: 10vmax 2vmax 0 2vmax;
   line-height: 100%;color: #eee;word-wrap: break-word;">
     <span style="border-top: solid 1vmax #fc553d;">Symp</span>tomatic Paroxysmal or Persistent AF
   </div>
@@ -719,13 +719,14 @@ width: 100%;height: fit-content;">
       2020 ESC Guidelines for AF
     </a>
   </div>
-  <div class="dotRow" style="text-align: center;">
+  <!--div class="dotRow" style="text-align: center;">
     <span class="xDot" onclick="navX(0)"><i class="fa-solid fa-circle"></i></span>
     <span class="xDot" onclick="navX(1)"><i class="fa-solid fa-circle"></i></span>
     <span class="xDot" onclick="navX(2)"><i class="fa-solid fa-circle"></i></span>
     <span class="xDot" onclick="navX(3)"><i class="fa-solid fa-circle"></i></span>
     <span class="xDot" onclick="navX(4)"><i class="fa-solid fa-circle"></i></span>
-  </div>
+  </div-->
+
 </div>
 
 <!--complicaiton-->
@@ -753,49 +754,202 @@ width: 100%;height: fit-content;">
 </div>
 
 <!--specific complications-->
-<div class="container textBox" style="background-color: #2d2d2d;">
+<div class="container textBox" style="background-color: #2d2d2d;padding-bottom: 5vmax;">
   <div class="serif" style="color: #47dcda;line-height: 120%;font-style: italic;font-size: 5vmax;
   padding: 3vmax;text-align: center;">
     SPECIFIC COMPLICATIONS</div> 
-  <div class="flowXContainer" 
-  style="font-size: 2vmax;padding: 2vmax;">
-    <div class="flowX flowTxt">
-      <span style="font-size: 3vmax;color: #47dcda;text-align: center;font-weight: 800;text-transform: uppercase;">1. Atrio-esophageal fistula
-      </span><br>
-      <ul>
-        <li>Lethal</li>
-        <li>Require prompt confirmation and intervention</li>
-      </ul>
-    </div>
-    <div class="flowX" style="border-right: #47dcda solid 1vmax;">
+  <div class="flowXContainer2" 
+  style="padding: 2.5vmax;">
+    <!--1.AEF-->
+    <div class="flowX2" style="border-right: #47dcda solid 1vmax;">
       <img src="media/AE fistula sum.png" class="flowImg">
+
+      <div class="flowTxt">
+        <span style="font-size: 2vmax;color: #47dcda;text-align: center;font-weight: 800;text-transform: uppercase;">1. Atrio-esophageal fistula
+        </span><br>
+        <ul style="padding-left: 1vmax;">
+          <li>Lethal</li>
+          <li>Require prompt confirmation and intervention</li>
+        </ul>
+      </div>
     </div>
-    <div class="flowX">
-      <img src="media/PV stenosis.png" class="flowImg">
+
+
+    <!--2. PV stenosis-->
+    <div class="flowX2" style="border-right: #47dcda solid 1vmax;">
+      <img src="media/pvIntervention.jpg" class="flowImg">
+      <div class="flowTxt" style="padding: 1vmax;">
+        <span style="font-size: 2vmax;color: #47dcda;text-align: center;font-weight: 800;
+        text-transform: uppercase;">2. Pulmonary Vein Stenosis
+        </span><br>
+        <ul style="padding-left:1vmax;">
+          <li>Severe stenosis (>75%) is uncommon with the current technology, (&lt;1%).</li>
+          <li>Symptoms: occur in 3-6mos, including dyspnea & recurrent pneumonia.</li>
+        </ul>
+      </div>
     </div>
-    <div class="flowX">
+
+    <!--3. phrenic-->
+    <div class="flowX2" style="border-right: #47dcda solid 1vmax;">
       <img src="media/Phrenic nerve.jpg" class="flowImg">
+      <div class="flowTxt" style="padding: 1vmax;">
+        <span style="font-size: 2vmax;color: #47dcda;text-align: center;font-weight: 800;
+        text-transform: uppercase;">3. Phrenic Nerve Injury
+        </span><br>
+        <ul style="padding-left:1vmax;">
+          <li>More common in cryoballoon than RF.</li>
+          <li>Mostly transient & spontaneous recover in 6-12mos.</li>
+        </ul>
+      </div>
     </div>
-    <div class="flowX">
+
+    <!--4. vagus-->
+    <div class="flowX2">
       <img src="media/gastroparesis.png" class="flowImg">
+      <div class="flowTxt" style="padding: 1vmax;">
+        <span style="font-size: 2vmax;color: #47dcda;text-align: center;font-weight: 800;
+        text-transform: uppercase;">4. Vagus Nerve Injury
+        </span><br>
+        <ul style="padding-left:1vmax;">
+          <li>From vagal denervation.</li>
+          <li>Mostly transient & asymptomatic.</li>
+        </ul>
+      </div>
     </div>
+    
   </div>
 
-  <div class="ref" style="text-align: left;">
-    <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
-      2020 ESC Guidelines for AF
+  <!--div class="dotRow2" style="text-align: center;">
+    <span class="xDot2" onclick="navX2(0)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX2(1)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX2(2)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX2(3)"><i class="fa-solid fa-circle"></i></span>
+  </div-->
+
+  <div class="ref" style="text-align: center;padding-top: 2.5vmax;">
+    Ref:
+    <a href="https://doi.org/10.1016/j.hrthm.2017.05.012" target="_blank">
+      2017 HRS Guidelines for AF Ablation
+    </a>,
+    <a href="https://doi.org/10.1161/CIRCEP.117.006001" target="_blank">
+      Circulation: Arrhythmia and Electrophysiology. 2018
+    </a>, <a href="https://doi.org/10.1016/j.hrthm.2014.01.010" target="_blank">
+      Heart Rhythm 2014.
+    </a>, and
+    <a href="https://doi.org/10.1161/CIRCEP.113.001329" target="_blank">
+      Circulation: Arrhythmia and Electrophysiology. 2014.
     </a>
   </div>
-  <div class="dotRow" style="text-align: center;">
-    <span class="xDot2" onclick="navX(0)"><i class="fa-solid fa-circle"></i></span>
-    <span class="xDot2" onclick="navX(1)"><i class="fa-solid fa-circle"></i></span>
-    <span class="xDot2" onclick="navX(2)"><i class="fa-solid fa-circle"></i></span>
-    <span class="xDot2" onclick="navX(3)"><i class="fa-solid fa-circle"></i></span>
-    <span class="xDot2" onclick="navX(4)"><i class="fa-solid fa-circle"></i></span>
+
+</div>
+
+<!--periOp-->
+<div class="container">
+  <div class="block" style="background-image: url('/afAblation/media/rhythmia2.png');
+  background-position: bottom;background-repeat: no-repeat;background-size: cover;
+  width: 100%;height: fit-content;">
+    <div class="serif textBox" style="color: white;line-height: 120%;font-style: italic;font-size: 5vmax;
+    padding: 3vmax;text-align: center;">
+      PERIPROCEDURAL STROKE RISK MANAGEMENT 
+    <img src="media/periOpOAC.png" class="imgBox" style="text-align: center;">
+    <div class="ref">
+      <a href="https://doi.org/10.1093/eurheartj/ehz190" target="_blank">Eur Heart J 2019</a>
+    </div>
+    </div>
+    <div class="flowXContainer textBox" 
+    style="padding: 2.5vmax;justify-content:space-between;margin-top: 10vh;align-content: center;">
+      <div class="flowX" style="color: white;font-size: 2vmax;border-right: #47dcda 0.5vmax solid;padding: 1VMAX;">
+       <span style="font-size: 2.5vmax;text-transform: uppercase;font-weight: 700;color: #47dcda;">Before Ablation</span>
+      <br>OAC at least <b>3wks</b> or TEE before ablation
+      </div>
+      <div class="flowX" style="color: white;font-size: 2vmax;border-right: #47dcda 0.5vmax solid;padding: 1vmax;">
+        <span style="font-size: 2.5vmax;text-transform: uppercase;font-weight: 700;color: #47dcda;">Right Before Ablation</span>
+       <br> No OAC Interruption
+      </div>
+      <div class="flowX" style="color: white;font-size: 2vmax;padding: 1vmax;">
+        <span style="font-size: 2.5vmax;text-transform: uppercase;font-weight: 700;color: #47dcda;">After Ablation</span><br>
+        At least <b>2 months</b> of OAC.<br> Long-term OAC: based on stroke risk profile <b style="color: #fc553d;">not the result of the ablation.</b>
+      </div>
+      
+    </div>
+    <div class="ref" style="text-align: left;">
+      <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+        2020 ESC Guidelines for AF
+      </a>
+    </div>
+
   </div>
 </div>
 
-<div id="test" style="color: white;"></div>
+<!--recur-->
+<div class="container greenL">
+  <div class="block" style="text-align: center;">
+    <div class="textBox" style="color: #fc553d;line-height: 120%;font-size: 5vmax;font-weight: 700;
+    padding: 12vmax 5vmax;text-align: center;">
+      WHY AF RECURS AFTER ABLATION?
+    </div>
+
+    <div class="textBox" style="font-size: 4vmax;font-weight: 700;text-transform: sentence;
+    padding: 5vmax 2vmax 0 2vmax;color: #797979;">
+      Because of the reconnected PV(s)
+    </div>
+
+    <img src="media/pvReconnect.jpg" class="imgBox">
+    <div class="ref">
+      <a href="https://doi.org/10.1161/CIRCEP.119.007247" target="_blank">
+        Circulation: Arrhythmia and Electrophysiology. 2019.
+      </a>
+    </div>
+
+    <div class="textBox" style="font-size: 4vmax;font-weight: 700;text-transform: sentence;
+    padding: 5vmax 2vmax 0 2vmax;color: #797979;">
+      Because of non-PV trigger(s)
+    </div>
+
+    <img src="media/nonPV.png" class="imgBox">
+    <div class="ref">
+      <a href="https://doi.org/10.1016/j.hrthm.2017.02.030" target="_blank">
+        Heart Rhythm 2017.
+      </a>
+    </div>
+
+    <div class="textBox" style="font-size: 4vmax;font-weight: 700;text-transform: sentence;
+    padding: 5vmax 2vmax 0 2vmax;color: #797979;text-align: center;">
+      And because of the patient's factors.
+    </div>
+
+    <img src="media/risk score after abl.png" class="imgBox">
+    <div class="ref">
+      <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+        2020 ESC Guidelines for AF
+      </a>
+    </div>
+
+
+  </div>
+
+</div>
+
+<!--conclusions-->
+<div class="container" style="background: #1e1f2b;">
+  <div class="block" style="padding: 8vmax 2vmax;">
+    <div class="textBox" style="padding: 2vmax 0;text-align: center;">
+        <div class="san" style="font-size: 6vmax;color: #47dcda;font-weight: 700;line-height: 120%;">
+        CONCLUSIONS
+        </div>
+
+    <ul style="color: white;font-size: 2.5vmax;padding: 2vmax;max-width: 1000px;text-align: justify;
+    margin-left: auto;margin-right: auto;">
+        <li>AF Ablation improves symptoms, reduces recurrence atrial 
+          arrhythmias, and improve mortality in selected group of patients.</li>
+        <li>AF Ablation is a 'SAVAGE' therapy after failed AAD.</li>
+        <li>AF Ablation is now a 'STANDARD' therapy in AF with HFrEF or symptomatic paroxysmal AF.</li>
+    </ul>
+    </div>
+
+  </div>
+</div>
+
 
 <!--end page-->
 <div class="skyLight endPage" style="padding: 3vmax;">
@@ -977,8 +1131,29 @@ function navX(x){
   var cLeft = container[0].getBoundingClientRect().left;
   var scrollPos = container[0].scrollLeft;
   var toLeft = leftPos-scrollPos;
-  document.getElementById('test').innerHTML = 'leftPos' + leftPos + ' scrollPos' + scrollPos;
   container[0].scrollTo(toLeft,0)
+}
+
+function navX2(x){
+  var flowX = document.getElementsByClassName('flowX2')
+  var dot = document.getElementsByClassName('xDot2')
+  var container = document.getElementsByClassName('flowXContainer2')
+
+  //clear dot color 797979 232323
+  var i;
+  for (i=0;i<dot.length;i++){
+    dot[i].style.color = '#dddddd'
+  }
+  dot[x].style.color = '#797979'
+
+  //get Y position
+  var leftPos = flowX[x].getBoundingClientRect().left;
+  var topPos = flowX[x].getBoundingClientRect().top;
+  var cLeft = container[0].getBoundingClientRect().left;
+  var scrollPos = container[0].scrollLeft;
+  var toLeft = leftPos-scrollPos;
+  document.getElementById('test').innerHTML = 'leftPos' + leftPos + ' scrollPos' + scrollPos;
+  container[0].scrollTo(leftPos,0)
 }
 
 </script>
