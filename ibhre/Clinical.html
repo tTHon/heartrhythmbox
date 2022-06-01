@@ -289,11 +289,11 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <figure>
     <amp-fit-text width="86vw" height="40vw" layout="responsive">
     <ul class="lightList">
-      <li>
+      <!--li>
         <a href="https://doi.org/10.1093/eurheartj/ehw128" target="_blank">
           2016 ESC Guidelines for <span class="noMobile">the diagnosis and treatment of acute and chronic</span>
         <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;HEART FAILURE</span></a>
-      </li>
+      </li-->
        <li>
             <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
             2017 AHA/ACC/HRS Guideline for <span class="noMobile">Management of Patients With Ventricular Arrhythmias and the Prevention of </span>
@@ -314,6 +314,12 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
           2021 EHRA/HRS/APHRS/LAHRS EHRA expert consensus statement <span class="noMobile">and practical guide on optimal </span>
           <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;">&nbsp;on optimal implantation techniques</span></a>
       </li>
+
+      <li>
+        <a href="https://doi.org/10.1161/CIR.0000000000001063" target="_blank">
+          2022 AHA/ACC/HFSA Guideline for the Management of 
+        <span class="lime" style="font-weight: 900;letter-spacing: 0.5vmax;text-transform: uppercase;">&nbsp;Heart Failure</span></a>
+    </li>
     </ul>
     </amp-fit-text>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
@@ -638,37 +644,51 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <h4 class="cyan1">
     <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
     <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
-    CRT Indications</h4>
+    CRT & Conduction System Pacing Indications</h4>
     
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
     
     <!--algo-->
     <figure>
-    <amp-img layout="fill" src="media\Clinical\crtAlgoLowEF.png"></amp-img>
+    <amp-img layout="fill" src="media\Clinical\crtAlgo.png"></amp-img>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Indications for CRT Therapy in Patients with LVEF&le;35%</b><br>
+    <b>Indications for CRT Therapy</b><br>
     <i class="ref">
-      <a href="https://www.uptodate.com" target="_blank">
-      UpToDate</a>
+      <a href="https://doi.org/10.1161/CIR.0000000000001063" target="_blank">
+      2022 ACC Guidelines for HF</a>
     </i>
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
     </figure>
 
     <figure>
-      <amp-img layout="fill" src="media\Clinical\crtAlgoMedEF.png"></amp-img>
+      <amp-img layout="fill" src="media\Clinical\QRSandLBBB.png"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Indications for CRT Therapy in Patients with LVEF 35-50%</b><br>
+      <b>Benefits of CRT in LBBB</b> &nbsp;varied by the duration of QRS. 
+      The benefit began in QRS&gt;120ms and became clearer in QRS&ge;150ms.<br>
       <i class="ref">
-        <a href="https://www.uptodate.com" target="_blank">
-        UpToDate</a>
+        <a href="https://doi.org/10.1161/circheartfailure.113.000380" target="_blank">
+        Results from RAFT. Circ Heart Failure 2013.</a>
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
 
     <figure>
+      <amp-img layout="fill" src="media\Clinical\QRSandNLBBB.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Benefits of CRT in non-LBBB</b> &nbsp;is less than that of LBBB. 
+      <br>
+      <i class="ref">
+        <a href="https://doi.org/10.1161/circheartfailure.113.000380" target="_blank">
+        Results from RAFT. Circ Heart Failure 2013.</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--figure>
       <amp-img layout="fill" src="media\Clinical\crtIndicationsEsc.png"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
       <b>Indications for CRT Therapy in brief</b><br>
@@ -678,7 +698,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
-    </figure>
+    </figure-->
 
     <figure>
       <amp-img layout="fill" src="media\Clinical\crtLeadPosition.jpg"></amp-img>
@@ -699,6 +719,31 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <i class="ref">
         <a href="https://doi.org/10.1161/CIRCULATIONAHA.110.000646" target="_blank">
         Circulation 2011.</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\HBP ECGs.jpeg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Selective His bundle pacing (S-HBP)</b> is easily recognized by an isoelectric interval (corresponding to the HV) between the pacing spike and QRS onset, 
+      whereas with non-selective HBP, a ‘pseudo-delta’ wave is observed due to capture of local myocardium.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank">
+        2021 ESC Guidelines for Cardiac Pacing</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\HisAlternative.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      2021 Guidelines recommended HBP as an alternative to CRT (IIA) while awaiting more data from both HBP and left bundle branch area pacing. 
+        <i class="ref">
+        <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank">
+        2021 ESC Guidelines for Cardiac Pacing</a>
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
