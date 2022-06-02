@@ -470,6 +470,19 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
+    <!--post TAVR-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical\postTAVR.jpeg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>PPM post TAVR</b><br>
+        PPM is class I for persisted high-grade AVB or new alternating BBB. EPS may be considered in new conduction abnormalities.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank">
+          2021 ESC Guidelines for pacing & CRT</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
 
     </amp-carousel>
 </section>
