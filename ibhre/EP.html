@@ -848,6 +848,29 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
          <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
       </figure>
 
+      <!--Q3-->
+      <figure>
+        <amp-fit-text width="80vw" height="45vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;">
+          <div class="qBox">
+          In a patient suffering from VT after myocardial infarction, which of following medication should be avoided?  
+            <ol class="qList">
+            <li>Amiodarone</li>
+            <li>Dofetilide</li>
+            <li>Flecainide</li>
+            <li>Metoprolol</li>
+        
+            </ol>
+          </div>
+        </amp-fit-text>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+         Q3: The Answer is...<br>
+         Answer: c<br>
+         Class IC is associated with increase risk of death in patients with history of MI.
+         <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+      </figure>
+
+
       </amp-carousel>
     </section>
 
