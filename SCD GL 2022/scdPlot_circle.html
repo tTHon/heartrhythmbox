@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+<style>
+
+.text {color: #ddd;font-size: 2.2vmax;display: none;position: fixed;text-align: left;
+  font-family: 'Abel', sans-serif;}
+#title {display: none;position: fixed;color: #f5f5f5;font-size: 3.5vmax;}
+#ref {display: none;position: fixed;color: #bbb;font-size: 14px;}
+
+</style>  
+
+<body style="background-color:#232323;font-family: 'Abel', sans-serif;">
+<!--div id="demo" style="color:white; font-family: 'Abel', sans-serif;">test</div-->
+<div class="text"></div>
+<div id="text1" class="text"></div>
+<div id="text2" class="text"></div>
+<div id="text3" class="text"></div>
+<div id="text4" class="text"></div>
+<div id="text5" class="text"></div>
+<div id="text6" class="text"></div>
+<div id="text7" class="text"></div>
+<div id="text8" class="text"></div>
+<div id="title">
+  Total Population Burdens of SCD
+  <div id="ref">
+    <a href="https://doi.org/10.1161/CIRCULATIONAHA.111.023846" target="_blank" style="color:#ccc">
+      Myerberg et al. Circulation. 2012;125:1043-1052.</a>
+  </div>
+
+</div>
+<canvas id="canvas" style="overflow: visible;font-family: 'Abel', sans-serif;" ></canvas>
+
+
+<script>
+
+//nav
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===32) {
+    nextMove()}
+})
+
+vw = window.innerWidth/100
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext("2d");
+canvas.width = (window.innerWidth);
+canvas.height = (window.innerHeight);
+var type = document.getElementsByClassName('text')
+var height = 0.9*window.innerHeight;
+var width = 0.7*window.innerWidth;
+
+var minX, minY, maxX, maxY, rangeX, rangeY, negX, negY, adjMinX, adjMinY, adjMaxX;
+var xArray1 = []; var yArray1 = [];
+var xArray2 = []; var yArray2 = [];
+var xArray3 = []; var yArray3 = [];
+var xArray4 = []; var yArray4 = [];
+var xArray5 = []; var yArray5 = [];
+var xArray6 = []; var yArray6 = [];
+var xArrayIn = []; var xArrayOut = [];var yArrayIn = []; var yArrayOut = [];
+
+//color
+var color1 = ["#4E67C8","#A4B1E3","#7185D3","#8D9DDC"]
+var color2 = ["#A7EA52","#B9EE75","#D2F4A7","#C7F191"]
+var color5 = ["#5ECCF3","#7ED6F5","#4BA3C2","#ADE5F9"]
+var color3 = ["#5DCEAF","#7AEBCA","#48CEA9","#B5FFFF"]
+var color4 = ['#E18021',"#FFFFA9","#FFD172","#FFB658"]
+var color6 = ["#F12200",'#F14124',"#D01C09",'#FF996E']
+var colorIn = ['#f1f1f1','#f5f5f5','#f2f0f0','#F7f7f7']
+var colorOut = ['#880808','#d00c0c','#b80b0b','#a00909']
+
+findKeyPara();
+
+//steps move
+var nav = 0;
+function nextMove(){
+  nav++
+  //title & ref
+  var titleText = document.getElementById('title')
+  var refText = document.getElementById('ref')
+  titleText.style.display = "block"
+  refText.style.display = "block"
+  titleText.style.top = 0.2*height + 'px'
+  titleText.style.left = 0.1*width + 'px'
+  //ctx.clearRect (0,0,canvas.width,canvas.height)
+  //clearText();
+  if (nav>7){
+    nav=1
+    ctx.clearRect (0,0,canvas.width,canvas.height)
+    clearText();
+    xArray1 = [];yArray1 = [];
+    xArray2 = []; yArray2 = [];
+    xArray3 = []; yArray3 = [];
+    xArray4 = []; yArray4 = [];
+    xArray5 = []; yArray5 = [];
+    xArray6 = []; yArray6 = [];
+    xArrayIn = []; xArrayOut = [];yArrayIn = []; yArrayOut = [];
+    findXY(0,21,259,xArray1,yArray1)
+    findScreenXY(xArray1,yArray1)
+    draw(xArray1,yArray1,color1,6)
+    label(0,21,1)
+  }
+  if (nav==1){
+    ctx.clearRect (0,0,canvas.width,canvas.height)
+    findXY(0,21,259,xArray1,yArray1)
+    findScreenXY(xArray1,yArray1)
+    draw(xArray1,yArray1,color1,6)
+    label(0,21,1)
+  }
+  if (nav==2){
+        var newXArray1 = [];var newYArray1 = [];
+        findXY(0,13,259,newXArray1,newYArray1);
+        findScreenXY(newXArray1,newYArray1)
+
+        for (i=0;i<xArray1.length;i++){
+            xArray1[i]=newXArray1[i];
+            yArray1[i]=newYArray1[i]
+        }
+
+        //clearing
+        ctx.clearRect (0,0,canvas.width,canvas.height)
+        clearText();
+
+        draw(newXArray1,newYArray1,color1,0)
+        label(0,13,1)
+        findXY(13,21,292,xArray2,yArray2)
+        findScreenXY(xArray2,yArray2)
+        draw(xArray2,yArray2,color2,6)
+        label(13,21,2)
+    }
+  if (nav==3){
+        var newXArray1 = [];var newYArray1 = [];
+        findXY(0,8,259,newXArray1,newYArray1);
+        findScreenXY(newXArray1,newYArray1)
+        for (i=0;i<xArray1.length;i++){
+            xArray1[i]=newXArray1[i];
+            yArray1[i]=newYArray1[i]
+        }
+        var newXArray2 = [];var newYArray2 = [];
+        findXY(8,13,292,newXArray2,newYArray2);
+        findScreenXY(newXArray2,newYArray2)
+        for (i=0;i<xArray2.length;i++){
+            xArray2[i]=newXArray2[i];
+            yArray2[i]=newYArray2[i]
+        }
+        ctx.clearRect (0,0,canvas.width,canvas.height)
+        clearText;
+        draw(newXArray1,newYArray1,color1,0)
+        label(0,8,1)
+        draw(newXArray2,newYArray2,color2,0)
+        label(8,13,2)
+        findXY(13,21,646,xArray3,yArray3)
+        findScreenXY(xArray3,yArray3)
+        draw(xArray3,yArray3,color3,3)
+        label(13,21,3)
+    }
+  if (nav==4){
+      var newXArray1 = [];var newYArray1 = [];
+        findXY(0,5,259,newXArray1,newYArray1);
+        findScreenXY(newXArray1,newYArray1)
+        for (i=0;i<xArray1.length;i++){
+            xArray1[i]=newXArray1[i];
+            yArray1[i]=newYArray1[i]
+        }
+      var newXArray2 = [];var newYArray2 = [];
+      findXY(5,8,292,newXArray2,newYArray2);
+      findScreenXY(newXArray2,newYArray2)
+      for (i=0;i<xArray2.length;i++){
+          xArray2[i]=newXArray2[i];
+          yArray2[i],newYArray2[i]
+      }
+      var newXArray3 = [];var newYArray3 = [];
+      findXY(8,13,646,newXArray3,newYArray3);
+      findScreenXY(newXArray3,newYArray3)
+      for (i=0;i<xArray3.length;i++){
+          xArray3[i]=newXArray3[i];
+          yArray3[i]=newYArray3[i]
+      }
+    
+      ctx.clearRect (0,0,canvas.width,canvas.height)
+      clearText();
+      draw(newXArray1,newYArray1,color1,0)
+      label(0,5,1)
+      draw(newXArray2,newYArray2,color2,0)
+      label(5,8,2)
+      draw(newXArray3,newYArray3,color3,0)
+      label(8,13,3)
+      findXY(13,21,1212,xArray4,yArray4)
+      findScreenXY(xArray4,yArray4)
+      draw(xArray4,yArray4,color4,2)
+      label(13,21,4)
+    }
+  if (nav==5) {
+      var newXArray1 = [];var newYArray1 = [];
+        findXY(0,3,259,newXArray1,newYArray1);
+        findScreenXY(newXArray1,newYArray1)
+        for (i=0;i<xArray1.length;i++){
+            xArray1[i]=newXArray1[i];
+            yArray1[i]=newYArray1[i]
+        }
+      var newXArray2 = [];var newYArray2 = [];
+      findXY(3,5,292,newXArray2,newYArray2);
+      findScreenXY(newXArray2,newYArray2)
+      for (i=0;i<xArray2.length;i++){
+          xArray2[i]=newXArray2[i];
+          yArray2[i]=newYArray2[i]
+      }
+      var newXArray3 = [];var newYArray3 = [];
+      findXY(5,8,646,newXArray3,newYArray3);
+      findScreenXY(newXArray3,newYArray3)
+      for (i=0;i<xArray3.length;i++){
+          xArray3[i]=newXArray3[i];
+          yArray3[i]=newYArray3[i]
+      }
+      var newXArray4 = [];var newYArray4 = [];
+      findXY(8,13,1212,newXArray4,newYArray4);
+      findScreenXY(newXArray4,newYArray4)
+      for (i=0;i<xArray4.length;i++){
+          xArray4[i]=newXArray4[i];
+          yArray4[i]=newYArray4[i]
+      }
+      ctx.clearRect (0,0,canvas.width,canvas.height)
+      clearText()
+      draw(newXArray1,newYArray1,color1,0)
+      label(0,3,1)
+      draw(newXArray2,newYArray2,color2,0)
+      label(3,5,2)
+      draw(newXArray3,newYArray3,color3,0)
+      label(5,8,3)
+      draw(newXArray4,newYArray4,color4,0)
+      label(8,13,4)
+      findXY(13,21,2085,xArray5,yArray5)
+      findScreenXY(xArray5,yArray5)
+      draw(xArray5,yArray5,color5,1)
+      label(13,21,5)
+    }
+  if (nav==6){
+    var newXArray1 = [];var newYArray1 = [];
+        findXY(0,2,259,newXArray1,newYArray1);
+        findScreenXY(newXArray1,newYArray1)
+
+      var newXArray2 = [];var newYArray2 = [];
+      findXY(2,3,292,newXArray2,newYArray2);
+      findScreenXY(newXArray2,newYArray2)
+
+      var newXArray3 = [];var newYArray3 = [];
+      findXY(3,5,646,newXArray3,newYArray3);
+      findScreenXY(newXArray3,newYArray3)
+
+      var newXArray4 = [];var newYArray4 = [];
+      findXY(5,8,1212,newXArray4,newYArray4);
+      findScreenXY(newXArray4,newYArray4)
+
+      var newXArray5 = [];var newYArray5 = [];
+      findXY(8,13,2085,newXArray5,newYArray5);
+      findScreenXY(newXArray5,newYArray5)
+
+      var newXArray6 = [];var newYArray6 = [];
+      findXY(13,21,3099,newXArray6,newYArray6);
+      findScreenXY(newXArray6,newYArray6)
+
+      clearText()
+      ctx.clearRect (0,0,canvas.width,canvas.height)
+      draw(newXArray1,newYArray1,color1,0)
+      label(0,2,1)
+      draw(newXArray2,newYArray2,color2,0)
+      label(2,3,2)
+      draw(newXArray3,newYArray3,color3,0)
+      label(3,5,3)
+      draw(newXArray4,newYArray4,color4,0)
+      label(5,8,4)
+      draw(newXArray5,newYArray5,color5,0)
+      label(8,13,5)
+      //findXY(13,21,3099,xArray6,yArray6)
+      //findScreenXY(xArray6,yArray6)
+      //draw(xArray6,yArray6,color6,1)
+      draw(newXArray6,newYArray6,color6,1)
+      label(13,21,6)
+
+      //push ArrayIn and Out
+      for (var i=0;i<newXArray1.length;i++){
+        xArrayIn.push(newXArray1[i])
+        yArrayIn.push(newYArray1[i])
+      }
+      for (var i=0;i<newXArray2.length;i++){
+        xArrayIn.push(newXArray2[i])
+        yArrayIn.push(newYArray2[i])
+      }
+      for (var i=0;i<newXArray3.length;i++){
+        xArrayIn.push(newXArray3[i])
+        yArrayIn.push(newYArray3[i])
+      }
+      for (var i=0;i<newXArray4.length;i++){
+        xArrayOut.push(newXArray4[i])
+        yArrayOut.push(newYArray4[i])
+      }
+      for (var i=0;i<newXArray5.length;i++){
+        xArrayOut.push(newXArray5[i])
+        yArrayOut.push(newYArray5[i])
+      }
+      for (var i=0;i<newXArray6.length;i++){
+        xArrayOut.push(newXArray6[i])
+        yArrayOut.push(newYArray6[i])
+      }
+ 
+  }
+  if (nav==7){
+    draw(xArrayOut,yArrayOut,colorOut,0.1)
+    setTimeout(function(){
+    draw(xArrayIn,yArrayIn,colorIn,1)},1500)
+    clearText()
+    label(0,5,7)
+    label(5,21,8)
+  }
+}
+
+function label(minYRatio,maxYRatio,textNo){
+  var typeArray = [
+    "Arrhythmia Risks; met criteria for ICD ~25000", 
+    "Survivors of Cardiac Arrest ~29000",
+    "HF, EF<30%  ~64000",
+    "Hx of CAD ~121000",
+    "High risks for CAD w/o clinical events ~208000",
+    "General Population ~310000",
+    "High risk population that we know of ~120000",
+    "General population that is deemed low risk ~640000"
+  ]
+
+  var labelText = document.getElementsByClassName('text');
+  var centerRatio = 21-(minYRatio+((maxYRatio-minYRatio)/2))
+  var yPoint = height*centerRatio/21
+  var fSize = (maxYRatio-minYRatio)*0.22*vw
+  if (fSize>3*vw) {fSize=2.7*vw}
+  if (fSize<1.5*vw) {fSize=1.7*vw}
+
+
+  labelText[textNo].style.display = 'block';
+  labelText[textNo].style.fontSize = fSize + 'px';
+  labelText[textNo].style.left = maxX*width + 2*vw+'px';
+  labelText[textNo].style.top = yPoint +'px';
+  labelText[textNo].innerHTML = typeArray[textNo-1]
+}
+
+//find coordinate radian 0-6.28 (2Pi)
+function findXY (inner, outer, n, xArray, yArray){
+    for (var i=0;i<n;i++){
+        if (inner==0) {inner = 1}
+        
+      //circle
+      //var radius = getRandom (inner*10,outer*10)/10;
+      //var degree = (getRandom (0,628))/100
+      //xArray.push(radius*Math.cos(degree))
+      //yArray.push(radius*Math.sin(degree))
+ 
+      //x2
+      var radius = getRandom (inner*10,outer*10)/10;
+      x = getRandom(0,100)/100
+      yRandom = getRandom (0.01,0.5)
+      y = ((x-yRandom)*(x+yRandom))*radius
+      xArray.push(x)
+      yArray.push(y)
+    }
+}
+
+function draw (xArray,yArray,colorSet,timer){
+
+  var xSize = 0.3*vw;
+  var ySize = 0.3*vw;
+  var xAngle = 0; var yAngle =0;
+  
+  if (timer ==0) {
+    for (let i=0;i<xArray.length;i++){
+      {
+      xPoint = xArray[i];
+      yPoint = yArray[i];
+      ctx.beginPath();
+      ctx.ellipse(xPoint, yPoint, xSize,ySize, xAngle, yAngle, Math.PI * 2);
+
+      //fill style main color = free speech blue
+      colorCode = colorSet[getRandom(0,4)];
+      //colorString = colorCode.toString();
+      ctx.fillStyle = colorCode;
+      ctx.fill();
+    }
+  }
+  }
+  else {
+  for (let i=0;i<xArray.length;i++){
+      setTimeout(function(){
+      xPoint = xArray[i];
+      yPoint = yArray[i];
+      ctx.beginPath();
+      ctx.ellipse(xPoint, yPoint, xSize,ySize, xAngle, yAngle, Math.PI * 2);
+
+      //fill style main color = free speech blue
+      colorCode = colorSet[getRandom(0,4)];
+      //colorString = colorCode.toString();
+      ctx.fillStyle = colorCode;
+      ctx.fill();
+    }
+    ,timer*i);
+  };
+  }
+    //legend
+  ctx.beginPath();
+  ctx.ellipse(0.1*width, 0.49*height, xSize,ySize, xAngle, yAngle, Math.PI * 2);
+  ctx.fillStyle = colorSet[1]
+  ctx.fill();
+  ctx.font = "normal 24px 'Abel', sans-serif";
+  ctx.strokeText("x 100 deaths", 0.12*width, 0.5*height);
+  ctx.fillText("x 100 deaths", 0.12*width, 0.5*height);
+}
+
+//return new screen coor
+function findScreenXY (xArray,yArray){
+    addNeg (xArray, negX)
+    addNeg (yArray, negY)
+
+    //add neg to all value
+    function addNeg(arrayName, value){
+       for (let i=0;i<arrayName.length;i++){
+        arrayName[i]+=value
+       } 
+    }
+    
+    maximumX = Math.max(...xArray);
+    maximumY = Math.max(...yArray);
+    minimumX = Math.max(...xArray);
+    minimumY = Math.max(...yArray);
+
+    //scale for circle
+    minimumX = adjMinX
+    minimumY= adjMinY
+    xUnit = width/rangeX; yUnit = height/rangeY; 
+
+    for (var i=0;i<xArray.length;i++){
+        xPoint = (xArray[i]-minimumX)*xUnit;
+        yPoint = height-(yArray[i]-minimumY)*yUnit;
+        //if (xPoint<xUnit){xPoint=xUnit};
+        //if (yPoint<yUnit){yPoint=yUnit}
+        xArray[i]=xPoint; 
+        yArray[i]=yPoint;
+    }
+
+
+} 
+
+
+function findKeyPara(){
+    var testArrayX = [];var testArrayY = [];
+    findXY(0,21,3099,testArrayX,testArrayY)
+    maxX = Math.max(...testArrayX);
+    maxY = Math.max(...testArrayY);
+    minX = Math.min(...testArrayX);
+    minY = Math.min(...testArrayY);
+    rangeX = maxX-minX;rangeY = maxY-minY;
+    negX = 0-minX;negY = 0-minY;
+
+    addNeg (testArrayX, negX)
+    addNeg (testArrayY, negY)
+    //add neg to all value
+    function addNeg(arrayName, value){
+       for (let i=0;i<arrayName.length;i++){
+        arrayName[i]+=value
+       } 
+    }
+    adjMinX = Math.min(...testArrayX);
+    adjMinY = Math.min(...testArrayY);
+    adjMaxX = Math.max(...testArrayX);
+}
+
+//random number
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+//clearText
+function clearText(){
+  var type = document.getElementsByClassName('text')
+  for (let i=0;i<type.length;i++){
+    type[i].style.display = 'none'
+  }
+}
+
+</script>
+
+</body>
+</html>
