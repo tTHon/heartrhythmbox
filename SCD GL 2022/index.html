@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Catheter Ablation for AF</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-7');
+</script>
+
+</head>
+<meta charset="UTF-8">
+<title>SCD Guidelines Review 2022 by heartRhythmBox.com</title>
+<link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="t'Thon">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Abel&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+
+<!--auto-ad-->
+<script data-ad-client="ca-pub-1548733331544768" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-119340815-1');
+</script>
+
+<style>
+*{margin: 0;padding: 0;box-sizing: border-box;
+    font-family: 'Abel', sans-serif;
+    pointer-events: all;  
+}
+
+/*fonts*/
+.sans {font-family: 'Abel', sans-serif;}
+.serif {font-family: 'Playfair Display', serif;}
+
+
+/*color*/
+.orange {background-color: #fc553d;}
+.greenL {background-color: #eaefea;}
+.greenD {background-color: #bfcdc0;}
+.skyLight {background-color: #f1f0e7;}
+
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Abel', sans-serif;
+}
+
+
+.showcase
+{
+  position: fixed;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 3vmax;
+  display: flex;
+  align-items: center;
+  background: #111;
+  transition: 0.5s;
+  z-index: 2;
+}
+
+.showcase video
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;max-height: 100vh;
+  object-fit: cover;
+  opacity: 0.7;
+}
+.overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #232323;
+  mix-blend-mode: overlay;
+}
+
+.container {padding:0 ;position: relative;display: block;height: fit-content;z-index: 1;}
+.endPage {text-align: center;font-size: 1.5vmax;padding: 2vmax;color: #797979;z-index: 1;}
+.block {padding: 1vmax;}
+.textBox {visibility: hidden;margin-top: 20vh;}
+.imgBox {width: auto;height: auto;max-width:90%;;max-height: 70vh;visibility: hidden;object-fit:contain;
+  padding: 3vmax;text-align: center;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .imgBox {width: 100%;max-width: 100%;}
+  }
+
+
+.ref {font-size: 1vmax;color: #96a9ae;padding-left: 1vmax;z-index: 10;cursor: pointer;position: relative;
+line-height: 120%;margin-top: 0.5vh}
+a {position: relative;z-index: 10;cursor: pointer;color:inherit;}
+
+
+/*animation*/
+.rotate {
+  -webkit-transform:rotateX(30deg) perspective(3vh);
+    -moz-transform:rotateX(30deg) perspective(3vh);
+    -ms-transform:rotateX(30deg) perspective(3vh);
+    -o-transform:rotateX(30deg) perspective(3vh);
+    transform:rotateX(30deg) perspective(3vh);
+
+    -webkit-transition:-webkit-transform 1.5s linear;
+    -moz-transition:transform 1.5s ease-out;
+    -o-transition:transform 1.5s ease-out;
+    transition:transform 1.5s ease-out;
+}
+
+.offRotate{
+  -webkit-transform:rotateX(0deg) perspective(0);
+    -moz-transform:rotateX(0deg) perspective(0);
+    -ms-transform:rotateX(0deg) perspective(0);
+    -o-transform:rotateX(0deg) perspective(0);
+    transform:rotateX(0deg) perspective(0);
+
+    -webkit-transition:-webkit-transform 1.5s linear;
+    -moz-transition:transform 1.5s ease-out;
+    -o-transition:transform 1.5s ease-out;
+    transition:transform 1.5s ease-out;
+}
+
+@keyframes rightIn {
+  0% {transform:translateX(40vw);}
+  100% {transform:translateX(0);}
+}
+@keyframes leftIn {
+  0% {transform: translateX(-40vw);}
+  100% {transform: translateX(0);}
+}
+@keyframes fadeOut{
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+@keyframes fadeIn{
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+@keyframes down{
+   0% {height: 0;opacity: 0;}
+   100% {height: fit-content;opacity: 1;}
+}
+@keyframes slideIn1 {
+  0% {transform: translateX(-1vw);}
+  40% {transform: translateX(-1vw);}
+  90% {transform: translateX(0)}
+  100% {transform: translateX(0);}
+}
+
+@keyframes slideIn2 {
+  0% {transform: translateX(-1vw);}
+  60% {transform: translateX(-1vw);}
+  90% {transform: translateX(0);}
+  100% {transform: translateX(0);}
+}
+
+@keyframes slideIn3 {
+  0% {transform: translateX(-1vw);}
+  80% {transform: translateX(-1vw);}
+  95% {transform: translateX(0);}
+  100% {transform: translateX(0);}
+}
+
+.rightIn {
+  animation: rightIn 1s 1;
+}
+.leftIn {
+  animation: leftIn 1s 1;
+}
+.fadeIn {
+  animation: fadeIn 1s 1 ease-in;
+}
+.fadeOut {
+  animation: fadeOut 1s 1 ease-out;
+}
+.blink {
+  animation: fadeIn 0.5s 10 linear;
+}
+
+
+
+
+/*box*/
+#scrollDown {display: none;z-index: 1;vertical-align: middle;font-size: 2vmax;
+  animation: down 1s 5;color: white;padding: 0 1vmax;background: rgba(0,0,0,0.75);
+}
+.nav {display: none;color: #ddd;opacity: 0.9;font-size: 4vh;position: fixed;top: 35vh;left: 95vw;
+  cursor: pointer;text-align: center;
+}
+.nav li :hover{color: #bbb;opacity: 0.98;}
+.nav li{list-style-type: none;}
+.flexBox1{display: flex;font-size: 2vmax;font-weight: 400;border: #fc553d solid 0.25vmax;margin: 1vmax 0;
+  justify-content: center;align-content: center;align-items: center;
+  padding: 0.5vmax;color: #f1f0e7;flex-wrap: wrap;line-height: 100%;
+  }
+.flexBox1 div {padding: 0.5vmax;line-height: 100%;justify-content: center;text-align: center;
+  align-content: center;align-self: center;align-items: center;}
+
+.L2R {width: 6%;align-content: center;align-items: center;text-align: center;font-size: 3vmax;padding: 0.5vmax;}
+.arrow1 {color: #96a9ae;animation: slideIn1 2s infinite ease;}
+.arrow2 {color: #96a9ae;animation: slideIn2 2s infinite ease;}
+.arrow3 {color: #96a9ae;animation: slideIn3 2s infinite ease;}
+.flexText20 {width: 20%;}
+.flexText25 {width: 25%;}
+@media only screen and (max-width: 800px) {
+    .flexBox1 {border: none;border-bottom: #fc553d solid 0.25vh;}
+    .flexText20, .flexText25 {width: 50%;border-bottom: #555 dotted 0.25vh;}
+  }
+@media screen and (max-width: 1200px) and (min-width: 801px){
+  .flexBox1 {justify-content: flex-start;}
+  .flexBox1 div {margin-top: 2vmax;text-align: left;line-height: 120%;}
+  .flexText20 {width: 25%;padding:0.5vmax;}
+  .L2R {width: 10%;padding: 0.5vmax;}
+}
+
+.flowXContainer, .flowXContainer2 {display: flex;overflow-x: scroll;flex-wrap: nowrap;
+  justify-content:flex-start;text-align: left;}
+.flowX, .flowX2 {margin: 0 0.3vmax;}
+.xDot, .xDot2 {cursor: pointer;color: #aaa;font-size: 1.8vmax;}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hideScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hideScroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.flowImg {width: auto;height: auto;max-height: 50vh;padding: 1vmax;}
+.flowTxt {width: 100%;font-size: 1.8vmax;padding: 1vmax;color: white;line-height: 130%;}
+
+
+</style>
+
+<body>
+
+<div class="showcase" onclick="scrollDown()">
+  <div class="nav">
+    <li><i class="fa-solid fa-angles-up" onclick="next(-2)" title="first"></i></li>
+    <li><i class="fa-solid fa-angle-up" onclick="next(-1)" title ="before"></i></li>
+    <li>|</li>
+    <li><i class="fa-solid fa-angle-down" onclick="next(1)" title="next"></i></li>
+    <li><i class="fa-solid fa-angles-down" onclick="next(2)" title="last"></i></li>
+    <!--li id="test" style="color: blueviolet;">xx</li-->
+  </div>
+  <div id="toHide">
+    <video src="media/green band BG.mp4" muted loop autoplay></video>
+    <div class="overlay"></div>
+ 
+    <div style="position: relative;z-index: 10;">
+      <div style="font-weight: 800;font-size:5vmax;color: white;text-transform: uppercase;line-height: 100%;">
+        Sudden Cardiac Death & Ventricular Arrhythmias  </div> 
+      <div style="font-weight: 400;font-size: 2.5vmax;color: #f1f0e7;padding-top: 2vmax;
+      text-transform: uppercase;line-height: 100%">
+        2022 ESC Guidelines Review</div>
+      <div class="serif" style="font-size:2.5vmax;color:#f1f0e7;">
+        focus on CAD & DCM/HNDCM <br>
+        <a href="https://doi.org/10.1093/eurheartj/ehac262" target="_blank" style="font-size:1.5vmax;color: #797979;">
+          link to 2022 ESC Guidelines for SCD/VA
+        </a>
+      </div>
+    </div>
+
+
+    <ul style="position: absolute;bottom: 10vh;display: inline-block;display: flex;vertical-align: middle;
+    justify-content: center;opacity: 0.75;">
+      <li style="padding: 0.5vmax;"><a href="https://heartrhythmbox.com/" target="_blank"><img src="box transparent.png" style="width: 3vmax;"></a></li>
+      <li style="padding: 0.5vmax;"><a href="https://www.facebook.com/HeartRhythmBox/" target="_blank"><img src="fb.png" style="width: 3vmax;"></a></li>
+      <li id="scrollDown"><i class="fa-solid fa-angles-down"></i> Scroll down for more...</li>
+
+    </ul>
+    </div>
+</div>
+
+<!--LVEF NYHA 1-->
+<div class="container">
+    <div class="block" style="background-color: #232323;
+    width: 100%;height: fit-content;">
+        <div class="textBox" style="font-size: 6vmax;font-weight: 400;text-align: center;padding: 28vh 2vmax 2vmax 2vmax;
+    z-index: 3;position: relative;text-align: left;line-height: 100%;">
+        <div class="serif" style="border-left: #89f1ff 1vmax solid;padding-left: 1vmax;color: #f1f1f1;">
+          LVEF & NYHA
+          </div> 
+          <div class="sans" style="font-size:2.5vmax;color: #aaa;">for SCD riks stratification</div>
+        </div>
+        <div class="textBox" 
+        style="font-size: 2.5vmax;text-align: center;padding: 12vmax 5vmax 20vmax 5vmax;z-index: 1;
+        text-align: center;line-height: 120%;color:#f1f0e7;">
+            <span style="border-top: #89f1ff 1vh solid;font-weight: 600;">LVEF & NYHA</span> <br>
+            remain the 2 key parameters for SCD risk stratifications.<br>
+            LVEF & NYHA are strongly associated with SCD risks.<br>
+            And treatment according to these 2 parameters reduce mortality. 
+            See <a href="https://www.nejm.org/doi/full/10.1056/nejmoa013474" target="_blank">
+            MADIT II</a> and
+            <a href="https://www.nejm.org/doi/full/10.1056/nejmoa043399" target="_blank">
+            SCD-HeFT</a> for examples.
+
+        </div>
+    </div>
+</div>
+
+<!--LVEF NYHA 2-->
+<div class="container" style="background-color: #232323;">
+<div class="block">
+    <div class="textBox serif" style="font-size:5vmax;color:#fce3cb;padding: 2vmax;">
+      Impaired LVEF after MI
+        <div class="sans" style="font-size: 2.2vmax;color: #f1f1f1;padding-right: 20vw;
+        line-height: 100%;font-weight: 400;">
+        inversely correlates with risk of SCD. <br><br>
+        ICD is recommended in post MI with LVEF &le;30%, after optimal medical treatment (OMT), regardless of symptoms.<br>
+        </div>
+    </div>
+    
+    <div style="text-align: left;padding: 2vmax;color: #f1f1f1;">
+      <img src="Media/Valiant.jpg" class="imgBox" 
+      style="padding: 0;">
+      <br>
+      <a href="https://www.nejm.org/doi/10.1056/NEJMoa043938" target="_blank" class="ref">
+        VALIANT Trial NEJM 2005.</a>
+    </div>
+    <div class="textBox sans" style="font-size: 3vmax;text-align: right;
+    padding:0.5vmax 1vmax;color: #b4e89c;margin-top: 5vh;line-height: 120%;">
+      Majority of deaths in NYHA II & III are caused by SCD.
+      <div style="color:#ddd;font-size:2vmax;line-height: 110%;">
+      ICD is recommended in LVEF&le;35% and NYHA II or III with several underlying cardiac conditions.
+      <div style="font-size:1.8vmax;color: #888;padding-left: 25vw;">
+        Noted that the level of recommendation of ICD for DCM with LVEF&le;35% and NYHA II or III was downgraded from I to IIa 
+      in response to the result of 
+      <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa1608029" target="_blank">
+      DANISH trial.</a></div>
+      </div>
+    </div>
+    <div style="text-align: right;padding: 2vmax;"> 
+      <img src="media/NYHA.jpg" class="imgBox" style="padding: 0;"><br>
+      <a href="https://doi.org/10.1016/S0140-6736(99)04440-2" target="_blank" class="ref">
+        MERIT-HF. Lancet 1999.</a>
+        
+    </div>
+    
+</div>
+</div>
+
+<!--beyond LVEF & NYHA-->
+<div class="container" style="background-image: url('/SCD GL 2022/Media/roomWall.png');
+background-position: bottom;background-repeat: no-repeat;background-size: contain;opacity: 0.8;
+width: 100%;height: fit-content;background-color: #232323;">
+  <div class="block">
+     <div class="textBox serif" style="font-size:5vmax;color:#f1f1f1;padding: 2vmax;font-weight: 600;text-align: center;">
+      BEYOND LVEF & NYHA
+        <div class="sans" style="font-size: 2.2vmax;color: #eee;line-height: 120%;font-weight: 400;text-transform: uppercase;">
+        &dot;Programmed Electrical Stimulation (PES)<br>
+        &dot;Cardiac MRI<br>
+        &dot;Genetic Testing<br>
+        &dot;SCD Risk Score<br>
+  </div>
+
+
+    <div class="textBox sans" style="font-weight: 700;font-size: 4vmax;
+    padding:0.5vmax 1vmax;color: #232323;margin-top: 20vh;line-height: 100%;">SUBSTRATE<br>
+      <span style="font-weight: 400;color: #343434;font-size: 2.5vmax;text-align: justify;text-transform: uppercase;line-height: 100%;">
+      is more involved in persistent than paroxysmal form.<br>
+      </span>
+    </div>
+    <div style="padding: 2vmax;padding-bottom: 20vh;">
+      <img src="media/PESinMI.png" class="imgBox" style="padding: 0;">
+      <br>
+      <a href="https://doi.org/10.1016/j.cjca.2020.09.001" target="_blank" class="ref" style="color: #555;">
+        2020 Canadian Guidelines for AF</a>
+    </div>
+  </div>
+</div>
+</div>
+<div class="container" style="background: #232323;border-top: 1vmax #232323 solid;">
+  <div class="textBox serif" style="font-size: 5vmax;color:#fc553d;padding:10vh 3vmax;font-weight: 700;
+  line-height: 100%;">
+    MECHANISMS OF AF
+    <span class="sans" style="font-size: 2vmax;font-weight: 200;color: #ddd;">... IN SHORT</span>
+    <div class="flexBox1">
+      <div class="flexText20">
+        Firing from PVs initiates AF.
+      </div>
+      <div class="L2R arrow1">
+        <span>-</span><span>-</span><span>></span>
+      </div>
+      <div class="flexText20">
+        AF itself remodels the atria; shorten ERP, creates fibrosis.
+      </div>
+      <div class="L2R arrow2">
+        <span class ='arr'>-</span><span class ='arr'>-</span><span class ='arr'>></span>
+       </div>
+      <div class="flexText20">
+        Remodelling creates substrate for reentry.
+      </div>
+      <div class="L2R arrow3">
+        <span class ='a1'>-</span><span class ='a2'>-</span><span class ='a3'>></span>
+       </div>
+      <div class="flexText20" style="font-weight: 700;">Reentry keeps AF continue</div>
+    </div>
+      <div class="flexBox1">
+        <div class="flexText25">
+          Age, obesity, and other medical illnesses also create the substrate.</div>
+          <div class="L2R arrow1">
+            <span class ='arr'>-</span><span class ='arr'>-</span><span class ='arr'>></span>
+           </div>
+        <div class="flexText25">
+          Remodelling creates substrate for reentry.
+        </div>
+        <div class="L2R arrow2">
+          <span class ='arr'>-</span><span class ='arr'>-</span><span class ='arr'>></span>
+         </div>
+      <div class="flexText25" style="font-weight: 700;">Reentry keeps AF continue</div>
+    </div>
+    <div class="flexBox1" style="border: none;font-weight: 900;font-size: 2.2vmax;">
+      <div style="width: 40%;border-right: #fc553d 0.25vmax solid;">In paroxysmal AF, PV firings is more involved than Substrate.</div>
+      <div style="width: 40%;">In persistent AF, Substrate is more involved than PV firings.</div>
+    </div>
+  </div>
+</div>
+
+<!--technique-->
+<div class="container">
+  <div class="block" style="background-image: url('/afAblation/media/PVIBG.png');
+  background-position: bottom;background-repeat: no-repeat;background-size: cover;opacity: 0.9;
+  width: 100%;height: fit-content;">
+    <div class="textBox" style="padding: 10vmax 3vmax;z-index: 3;position: relative;text-align: center;font-size: 6vmax;">
+      <div class="serif" style="color: #47dcda;line-height: 120%;font-style: italic;font-size: 6vmax;">
+        {ฮาว-ทู-จี้}</div> 
+      <div class="san" 
+      style="color: white;line-height: 100%;font-weight: 300;font-size: 3vmax;padding-top: 2vmax;padding-bottom: 20vh;
+      text-transform: uppercase;">
+        basic Understanding of AF ablation techniques
+      </div> 
+    </div>
+</div>
+</div>
+
+<!--PVI-->
+<div class="container" style="background: #1e1f2b;">
+  <div class="block" style="padding: 8vmax 2vmax;">
+    <div class="textBox" style="padding: 2vmax 0;">
+        <div class="serif" style="font-size: 5vmax;color: #47dcda;font-weight: 700;">
+        PULMONARY VEIN ISOLATION (PVI)
+        </div>
+        <div class="san" style="font-size: 2.5vmax;color: white;line-height: 120%;">
+        Complete isolation of pulmonary veins is the cornerstone of AF ablation.
+        <div class="ref" style="padding: 0;">
+          <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">2020 ESC Guidelines for AF</a>
+        </div>
+        </div>
+    </div>
+    <img src="media/PVI.jpg" class="imgBox">
+
+
+    <div class="textBox" style="padding: 2vmax;text-align: center;">
+      <div class="san" style="font-size: 4vmax;font-weight: 700;color: #47dcda;line-height: 110%;">
+        PVI could be performed using Point-by-Point.
+        <img src="media/RFPntxPnt.png" class="imgBox" style="padding-bottom: 0;">
+      </div>
+    </div>
+    <div class="textBox" style="padding: 5vh 1vw;text-align: center;">
+      <div class="san" style="font-size: 4vmax;font-weight: 700;color: #47dcda;line-height: 110%;">
+        or Single-Shot Device.
+        <img src="media/cryoBalloon.png" class="imgBox" style="padding-bottom: 0;">
+      </div>
+
+           
+      <div class="ref">
+        <a href="https://doi.org/10.1056/nejmoa1602014" target="_blank">FIRE AND ICE. NEJM 2016.</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--PVI efficacy-->
+<div class="container">
+  <div class="block" style="background-image: url('/afAblation/media/PVIBG.png');
+  background-position: bottom;background-repeat: no-repeat;background-size: cover;opacity: 0.9;
+  width: 100%;height: fit-content;">
+    <div class="textBox" style="padding: 8vmax 3vmax;z-index: 3;position: relative;text-align: center;font-size: 6vmax;">
+      <div class="serif" style="color: #47dcda;line-height: 120%;font-style: italic;font-size: 6vmax;">
+        How good is PVI?</div> 
+      <div class="san" 
+      style="color: white;line-height: 100%;font-weight: 300;font-size: 3vmax;padding-top: 2vmax;padding-bottom: 20vh;
+      text-transform: uppercase;">
+        Efficacy of PVI in maintaining SR and reducing symptoms
+      </div> 
+    </div>
+</div>
+</div>
+
+<!--PVI Trial Px-->
+<div class="container" style="background: #1e1f2b;">
+  <div class="block" style="padding: 8vmax 2vmax;">
+    <div class="textBox" style="padding: 2vmax 0;text-align: center;">
+        <div class="san" style="font-size: 5vmax;color: #47dcda;font-weight: 700;line-height: 120%;">
+        PVI IN PAROXYSMAL AF
+        </div>
+        <div class="san" style="font-size: 2.5vmax;color: white;">
+        SYMPTOMATIC | AFTER FAILED AAD
+        </div>
+        <img src="media/thermoCoolAF.png" class="imgBox" style="text-align: center;">
+        <div class="ref">
+          <a href="https://doi.org/10.1001/jama.2009.2029" target="_blank">THERMOCOOL-AF. JAMA 2010.</a>
+        </div>
+    </div>
+     
+    <div class="textBox" style="padding: 2vmax 0;text-align: center;">
+      <div class="san" style="font-size: 5vmax;color: #47dcda;font-weight: 700;line-height: 120%;">
+      PVI IN PAROXYSMAL AF
+      </div>
+      <div class="san" style="font-size: 2.5vmax;color: white;">
+      SYMPTOMATIC | FIRST LINE
+      </div>
+      <img src="media/earlyAF.png" class="imgBox" style="text-align: center;padding-bottom: 0;">
+      <img src="media/earlyAF_symp.png" class="imgBox" style="text-align: center;padding-top: 0.5vmax;">
+      <div class="ref">
+        <a href="https://doi.org/10.1056/nejmoa2029980" target="_blank">EARLY-AF. NEJM 2021.</a>
+      </div>
+  </div>
+
+  <div class="textBox" style="padding: 2vmax 0;text-align: center;">
+    <div class="san" style="font-size: 5vmax;color: #47dcda;font-weight: 700;line-height: 120%;">
+      PVI IN PERSISTENT AF
+      </div>
+      <div class="san" style="font-size: 2.5vmax;color: white;line-height: 100%;">
+        SYMPTOMATIC | AFTER FAILED AAD<br>
+        <span style="font-size: 2vmax;color: #ddd;">
+        PVI is less effective in persistent than paroxysmal AF.
+        </span>
+      </div>
+      <img src="media/STOP PsAF.jpg" class="imgBox">
+      <div class="ref">
+        <a href="https://doi.org/10.1016/j.hrthm.2020.06.020" target="_blank">Heart Rhythm 2020</a>
+      </div>
+  </div>
+  </div>
+</div>
+
+<!--substrate abl-->
+<div class="container">
+  <div class="block" style="background-image: url('/afAblation/media/AF\ EGM.png');
+  background-position: bottom;background-repeat: no-repeat;background-size: cover;
+  width: 100%;height: fit-content;">
+    <div class="textBox" style="padding: 8vmax 3vmax;z-index: 3;position: relative;text-align: center;font-size: 6vmax;">
+      <div class="serif" style="color: #47dcda;line-height: 120%;font-style: italic;font-size: 6vmax;">
+        SUBSTRATE ABLATION</div> 
+      <div class="san" 
+      style="color: white;line-height: 100%;font-weight: 600;font-size: 3vmax;padding-top: 2vmax;padding-bottom: 20vh;
+      text-transform: uppercase;">
+        Ablation strategy for persistent AF
+      </div> 
+    </div>
+</div>
+</div>
+
+<!--Ps AF-->
+<div class="container" style="background: #2d2d2d">
+  <div class="block" style="padding: 8vmax 2vmax;">
+    <div class="textBox" style="padding: 2vmax 0;text-align: left;">
+        <div class="san" style="font-size: 5vmax;color: #47dcda;font-weight: 700;line-height: 120%;">
+        COMPLEX FRACTIONATED EGM (CFAE)
+        </div>
+        
+        <div class="san" style="font-size: 2vmax;color: #ddd;font-weight: 400;line-height: 120%;max-width: 90vw;">
+        CFAEs correlate with areas of slowed conduction and pivot points of reentrant wavelets. 
+        Results from the original trial showed that, in paroxysmal AF, 82% free of atrial arrhythmias in 1yr.
+        In persistent AF, 70% free of atrial arrhythmias in 1yr.
+        </div>
+    </div>
+        <img src="media/CAFE.png" class="imgBox" style="text-align: center;">
+        <div class="ref">
+          <a href="https://doi.org/10.1016/j.jacc.2003.12.054" target="_blank">JACC 2004.</a>
+        </div>
+  </div>
+
+  <div class="textBox" style="padding: 2vmax 3vmax;text-align: right;">
+    <div class="san" style="font-size: 5vmax;color: #47dcda;font-weight: 700;line-height: 120%;">
+    ADDITIONAL LINE(S)
+    </div>
+    
+    <div class="san" style="font-size: 2vmax;color: #ddd;font-weight: 400;line-height: 120%;">
+      Linear ablations may be added along the left atrial roof, mitral isthmus, or box lesions connecting PV lesions.
+    </div>
+    <img src="media/PVILines.jpg" class="imgBox" style="text-align: right;">
+    <div class="ref">
+      <a href="https://doi.org/10.1056/nejmoa1408288" target="_blank">STAR-AF II. NEJM 2015.</a>
+    </div>
+    <img src="media/BoxLesion.jpg" class="imgBox" style="text-align:right">
+    <div class="ref">
+      <a href="https://doi.org/10.1016/j.jacc.2017.08.041" target="_blank">CAMERA-MRI. JACC 2017.</a>
+    </div>
+  </div>
+
+  <div class="textBox" style="padding: 2vmax 0;text-align: center;">
+    <div class="san" style="font-size: 5vmax;color: #47dcda;font-weight: 700;line-height: 120%;">
+    IS PVI+ BETTER THAN PVI ALONE?
+    </div>
+    <div class="san" style="font-size: 2.5vmax;color: #ddd;font-weight: 600;line-height: 120%;">
+    NOT REALLY.  
+    </div>
+    
+    <img src="media/StarAFII.png" class="imgBox" style="text-align: center;">
+    <div class="ref">
+      <a href="https://doi.org/10.1056/nejmoa1408288" target="_blank">STAR-AF II. NEJM 2015.</a>
+    </div>
+
+  </div>
+
+  <div class="textBox" style="padding: 12vmax 2vmax;word-wrap: break-word;">
+    <span style="font-size: 4vmax;color:#47dcda;font-weight: 700;line-height: 130%;">
+    OVERALL, ABLATION IMPROVE SYMPTOMS AND REDUCE AF RECURRENCE</span>
+    <div class="san" 
+    style="font-size: 2vmax;color: #f1f1f1;font-weight: 400;line-height: 100%;padding: 1vmax;">
+      In CABANA (43% paroxysmal AF), catheter ablation was effective in reducing recurrence of any AF by 48% and symptomatic AF by 51% compared with drug therapy over 5 years of follow-up. 
+    </div>
+    <img src="media/CABANA sx and af recur.jpg" class="imgBox">
+    <div class="ref">
+      <a href="https://doi.org/10.1001/jama.2019.0693" target="_blank">CABANA Trial. JAMA 2019.</a>
+    </div>
+  </div>
+</div>
+
+  <div class="container greenL textBox" style="padding: 10vmax 3vmax;">
+      <div class="serif" style="font-size: 5vmax;font-weight: 700;padding: 0 2vmax;line-height: 130%;color: #fc553d;word-wrap: break-word;">
+      GUIDELINES RECOMMENDATIONS</div>
+      <div class="sans" style="font-size: 3vmax;padding: 0 2vmax;color: #555;font-weight: 700;">
+      FOR ABLATION TECHNIQUES
+      </div>
+      <div style="display: flex;flex-wrap: wrap;font-size: 3vmax;padding: 5vmax 1vmax;color: #343434;">
+        <div style="background-color: lightgreen;padding: 1vmax;">
+          <span style="font-size: 3.5vmax;font-weight: 700;">IA</span>
+        complete isolation of PVs is recommended during all AF ablation.
+        </div>
+        <div style="background-color: coral;padding: 1vmax;">
+          <span style="font-size: 3.5vmax;font-weight: 700;">IIB</span>
+          using additional techniques beyond PVI may be considered but is not well established.
+        </div>
+      </div>
+      <div class="ref">
+        <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+          2020 ESC Guidelines for AF
+        </a>
+      </div>
+  </div>
+
+<div class="container greenD block" style="padding: 10vmax 2vmax;background-image: url('/afAblation/media/laRhythmia.png');
+background-position: bottom;background-repeat: no-repeat;background-size: cover;
+width: 100%;height: fit-content;">
+
+  <div class="textBox" style="font-size: 5vmax;font-weight: 700;padding: 12vmax 2vmax;line-height: 130%;color: #f5f5f5;word-wrap: break-word;">
+    ABLATION TO IMPROVE HARD OUTCOMES</div>
+  
+
+  <div class="textBox" style="font-size: 5vmax;font-weight: 700;padding: 1vmax 2vmax 0 2vmax;
+  line-height: 100%;color: #eee;word-wrap: break-word;">
+    <span style="border-top: solid 1vmax #fc553d;">HF</span>rEF
+    <div class="san" style="font-size: 2vmax;color: #f1f1f1;font-weight: 400;line-height: 100%;padding: 1vmax 0;">
+    In CASTLE-AF, catheter ablation reduced death and HF hospitalization in AF with HFrEF.
+    </div>
+  </div>
+  <img src="media/castleAF AF 1endpoint.png" class="imgBox">
+  <div class="ref">
+    <a href="https://doi.org/10.1056/nejmoa1707855" target="_blank">CASTLE-AF. NEJM 2018.</a>
+  </div>
+
+  <div class="textBox" style="font-size: 5vmax;font-weight: 700;padding: 10vmax 2vmax 0 2vmax;
+  line-height: 100%;color: #eee;word-wrap: break-word;">
+    <span style="border-top: solid 1vmax #fc553d;">Symp</span>tomatic Paroxysmal or Persistent AF
+
+  <div class="san" 
+  style="font-size: 2vmax;color: #f1f1f1;font-weight: 400;line-height: 100%;padding: 2vmax 0;">
+    In CABANA-AF, catheter ablation reduced primary outcomes (death, stroke, cardiac arrest, and serious bleeding) only in per-protocol analysis but not in ITT.
+    Of note, 27.5% crossed-over from drugs to ablation group.
+  </div>
+  </div>
+  <img src="media/CABANA perP.png" class="imgBox" style="filter: invert();">
+  <div class="ref">
+    <a href="https://doi.org/10.1001/jama.2019.0693" target="_blank">CABANA Trial. JAMA 2019.</a>
+  </div>
+
+  <div class="san textBox" 
+  style="font-size: 3vmax;color: white;font-weight: 700;line-height: 100%;padding: 10vmax 2vmax 0 2vmax;text-align: center;">
+    In a systematic review and meta-analysis, mortality benefit of catheter ablation is mainly driven by AF with HFrEF patients.
+
+    <img src="media/metaAna.jpg" class="imgBox" style="text-align: center;width: 100%;max-height: 85vh;padding:2vmax 0.5vmax;">
+    <div class="ref" style="text-align: center;font-weight: 400;">
+      <a href="https://doi.org/10.1161/CIRCEP.119.007414" target="_blank">Circulation: Arrhythmia and Electrophysiology. 2019</a>
+    </div>
+  </div>
+</div>
+
+<div class="container greenL textBox" style="padding: 10vmax 3vmax;text-align: center;">
+  <div class="serif" style="font-size: 5vmax;font-weight: 700;padding: 0 2vmax;line-height: 130%;color: #fc553d;word-wrap: break-word;">
+  GUIDELINES RECOMMENDATIONS</div>
+  <div class="sans" style="font-size: 3vmax;padding: 0 2vmax;color: #555;font-weight: 700;">
+  INDICATIONS FOR CATHETER ABLATION OF AF<br>
+  </div>
+  <img src="media/escGL2020.jpeg" class="imgBox">
+  
+  
+  <div class="flowXContainer" 
+  style="font-size: 2vmax;color: #343434;">
+    <div class="flowX" style="background-color: lightgreen;padding: 1vmax;">
+      <span style="font-size: 2.5vmax;font-weight: 700;">IA</span><br>
+    2nd line (after failed AAD) | symptomatic AF of any types.
+    </div>
+    <div class="flowX" style="background-color: lightgreen;padding: 1vmax;">
+      <span style="font-size: 2.5vmax;font-weight: 700;">IA</span><br>
+    1st line | HFrEF (when tachycardiomyopathy is highly probable).
+    </div>
+    <div class="flowX" style="background-color: yellow;padding: 1vmax;">
+      <span style="font-size: 2.5vmax;font-weight: 700;">IIA</span><br>
+    2nd line (after failed AAD) | HFrEF; to improve survival.
+    </div>
+    <div class="flowX" style="background-color: yellow;padding: 1vmax;">
+      <span style="font-size: 2.5vmax;font-weight: 700;">IIA</span><br>
+      1st line | symptomatic paroxysmal AF
+    </div>
+    <div class="flowX" style="background-color: coral;padding: 1vmax;">
+      <span style="font-size: 2.5vmax;font-weight: 700;">IIB</span><br>
+      1st line | symptomatic persistent AF
+    </div>
+  </div>
+
+  <div class="ref" style="text-align: left;">
+    <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+      2020 ESC Guidelines for AF
+    </a>
+  </div>
+  <!--div class="dotRow" style="text-align: center;">
+    <span class="xDot" onclick="navX(0)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot" onclick="navX(1)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot" onclick="navX(2)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot" onclick="navX(3)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot" onclick="navX(4)"><i class="fa-solid fa-circle"></i></span>
+  </div-->
+
+</div>
+
+<!--complicaiton-->
+<div class="container">
+  <div class="block" style="background-image: url('/afAblation/media/AF\ EGM.png');
+  background-position: bottom;background-repeat: no-repeat;background-size: cover;
+  width: 100%;height: fit-content;">
+    <div class="textBox" style="padding: 8vmax 3vmax;z-index: 3;position: relative;text-align: left;font-size: 6vmax;">
+      <div class="serif" style="color: #47dcda;line-height: 120%;font-style: italic;font-size: 6vmax;word-wrap: break-word;">
+        COMPLICATIONS</div> 
+      <ul class="san" 
+      style="color: white;line-height: 120%;font-weight: 400;font-size: 3vmax;padding-top: 2vmax;padding-bottom: 20vh;padding-left: 2vmax;
+      text-transform:capitalize;">
+        <li>&lt;0.1%: Periprocedural Death</li>
+        <li>1%: Major Complications (i.e. tamponade, AE fistula, and stroke)</li>
+        <li>5%: Moderate Complications (i.e. PV stenosis, phrenic nerve injury, and vascular complication)</li>
+      </ul> 
+    </div>
+    <div class="ref" style="text-align: left;">
+      <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+        2020 ESC Guidelines for AF
+      </a>
+    </div>
+</div>
+</div>
+
+<!--specific complications-->
+<div class="container textBox" style="background-color: #2d2d2d;padding-bottom: 5vmax;">
+  <div class="serif" style="color: #47dcda;line-height: 120%;font-style: italic;font-size: 5vmax;
+  padding: 3vmax;text-align: center;word-wrap: break-word;">
+    SPECIFIC COMPLICATIONS</div> 
+  <div class="flowXContainer2" 
+  style="padding: 2.5vmax;">
+    <!--1.AEF-->
+    <div class="flowX2" style="border-right: #47dcda solid 1vmax;">
+      <img src="media/AE fistula sum.png" class="flowImg">
+
+      <div class="flowTxt">
+        <span style="font-size: 2vmax;color: #47dcda;text-align: center;font-weight: 800;text-transform: uppercase;">1. Atrio-esophageal fistula
+        </span><br>
+        <ul style="padding-left: 1vmax;">
+          <li>Lethal</li>
+          <li>Require prompt confirmation and intervention</li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!--2. PV stenosis-->
+    <div class="flowX2" style="border-right: #47dcda solid 1vmax;">
+      <img src="media/pvIntervention.jpg" class="flowImg">
+      <div class="flowTxt" style="padding: 1vmax;">
+        <span style="font-size: 2vmax;color: #47dcda;text-align: center;font-weight: 800;
+        text-transform: uppercase;">2. Pulmonary Vein Stenosis
+        </span><br>
+        <ul style="padding-left:1vmax;">
+          <li>Severe stenosis (>75%) is uncommon with the current technology (&lt;1%).</li>
+          <li>Symptoms: occur in 3-6mos, including dyspnea & recurrent pneumonia.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!--3. phrenic-->
+    <div class="flowX2" style="border-right: #47dcda solid 1vmax;">
+      <img src="media/Phrenic nerve.jpg" class="flowImg">
+      <div class="flowTxt" style="padding: 1vmax;">
+        <span style="font-size: 2vmax;color: #47dcda;text-align: center;font-weight: 800;
+        text-transform: uppercase;">3. Phrenic Nerve Injury
+        </span><br>
+        <ul style="padding-left:1vmax;">
+          <li>More common in cryoballoon than RF.</li>
+          <li>Mostly transient & spontaneous recover in 6-12mos.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!--4. vagus-->
+    <div class="flowX2">
+      <img src="media/gastroparesis.png" class="flowImg">
+      <div class="flowTxt" style="padding: 1vmax;">
+        <span style="font-size: 2vmax;color: #47dcda;text-align: center;font-weight: 800;
+        text-transform: uppercase;">4. Gastroparesis
+        </span><br>
+        <ul style="padding-left:1vmax;">
+          <li>From vagal denervation.</li>
+          <li>Mostly transient & asymptomatic.</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+
+  <!--div class="dotRow2" style="text-align: center;">
+    <span class="xDot2" onclick="navX2(0)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX2(1)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX2(2)"><i class="fa-solid fa-circle"></i></span>
+    <span class="xDot2" onclick="navX2(3)"><i class="fa-solid fa-circle"></i></span>
+  </div-->
+
+  <div class="ref" style="text-align: center;padding-top: 2.5vmax;">
+    Ref:
+    <a href="https://doi.org/10.1016/j.hrthm.2017.05.012" target="_blank">
+      2017 HRS Guidelines for AF Ablation
+    </a>,
+    <a href="https://doi.org/10.1161/CIRCEP.117.006001" target="_blank">
+      Circulation: Arrhythmia and Electrophysiology. 2018
+    </a>, <a href="https://doi.org/10.1016/j.hrthm.2014.01.010" target="_blank">
+      Heart Rhythm 2014.
+    </a>, and
+    <a href="https://doi.org/10.1161/CIRCEP.113.001329" target="_blank">
+      Circulation: Arrhythmia and Electrophysiology. 2014.
+    </a>
+  </div>
+
+</div>
+
+<!--periOp-->
+<div class="container">
+  <div class="block" style="background-image: url('/afAblation/media/rhythmia2.png');
+  background-position: bottom;background-repeat: no-repeat;background-size: cover;
+  width: 100%;height: fit-content;">
+    <div class="serif textBox" style="color: white;line-height: 120%;font-style: italic;font-size: 5vmax;
+    padding: 3vmax;text-align: center;word-wrap: break-word;">
+      PERI-PROCEDURAL STROKE RISK MANAGEMENT 
+    <img src="media/periOpOAC.png" class="imgBox" style="text-align: center;">
+    <div class="ref">
+      <a href="https://doi.org/10.1093/eurheartj/ehz190" target="_blank">Eur Heart J 2019</a>
+    </div>
+    </div>
+    <div class="flowXContainer textBox" 
+    style="padding: 2.5vmax;justify-content:space-between;margin-top: 10vh;align-content: center;">
+      <div class="flowX" style="color: white;font-size: 2vmax;border-right: #47dcda 0.5vmax solid;padding: 1VMAX;">
+       <span style="font-size: 2.5vmax;text-transform: uppercase;font-weight: 700;color: #47dcda;">Before Ablation</span>
+      <br>OAC at least <b>3wks</b> or TEE before ablation
+      </div>
+      <div class="flowX" style="color: white;font-size: 2vmax;border-right: #47dcda 0.5vmax solid;padding: 1vmax;">
+        <span style="font-size: 2.5vmax;text-transform: uppercase;font-weight: 700;color: #47dcda;">Right Before Ablation</span>
+       <br> No OAC Interruption
+      </div>
+      <div class="flowX" style="color: white;font-size: 2vmax;padding: 1vmax;">
+        <span style="font-size: 2.5vmax;text-transform: uppercase;font-weight: 700;color: #47dcda;">After Ablation</span><br>
+        At least <b>2 months</b> of OAC.<br> Long-term OAC: based on stroke risk profile <b style="color: #fc553d;">not the result of the ablation.</b>
+      </div>
+      
+    </div>
+    <div class="ref" style="text-align: left;">
+      <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+        2020 ESC Guidelines for AF
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!--recur-->
+<div class="container greenL">
+  <div class="block" style="text-align: center;">
+    <div class="textBox" style="color: #fc553d;line-height: 120%;font-size: 5vmax;font-weight: 700;
+    padding: 12vmax 5vmax;text-align: center;">
+      WHY AF RECURS AFTER ABLATION?
+    </div>
+
+    <div class="textBox" style="font-size: 4vmax;font-weight: 700;text-transform: sentence;
+    padding: 5vmax 2vmax 0 2vmax;color: #797979;">
+      Because of the reconnected PV(s)
+    </div>
+
+    <img src="media/pvReconnect.jpg" class="imgBox">
+    <div class="ref">
+      <a href="https://doi.org/10.1161/CIRCEP.119.007247" target="_blank">
+        Circulation: Arrhythmia and Electrophysiology. 2019.
+      </a>
+    </div>
+
+    <div class="textBox" style="font-size: 4vmax;font-weight: 700;text-transform: sentence;
+    padding: 5vmax 2vmax 0 2vmax;color: #797979;">
+      Because of non-PV trigger(s)
+    </div>
+
+    <img src="media/nonPV.png" class="imgBox">
+    <div class="ref">
+      <a href="https://doi.org/10.1016/j.hrthm.2017.02.030" target="_blank">
+        Heart Rhythm 2017.
+      </a>
+    </div>
+
+    <div class="textBox" style="font-size: 4vmax;font-weight: 700;text-transform: sentence;
+    padding: 5vmax 2vmax 0 2vmax;color: #797979;text-align: center;">
+      And because of the patient's factors.
+    </div>
+
+    <img src="media/risk score after abl.png" class="imgBox">
+    <div class="ref">
+      <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank">
+        2020 ESC Guidelines for AF
+      </a>
+    </div>
+
+
+  </div>
+
+</div>
+
+<!--conclusions-->
+<div class="container" style="background: #1e1f2b;">
+  <div class="block" style="padding: 8vmax 2vmax;">
+    <div class="textBox" style="padding: 2vmax 0;text-align: center;">
+        <div class="san" style="font-size: 5vmax;color: #47dcda;font-weight: 700;line-height: 120%;">
+        CONCLUSIONS
+        </div>
+
+    <ul style="color: white;font-size: 2.5vmax;padding: 2vmax;max-width: 1000px;text-align: justify;
+    margin-left: auto;margin-right: auto;">
+        <li>AF Ablation improves symptoms, reduces recurrence atrial 
+          arrhythmias, and improve mortality in selected group of patients.</li>
+        <li>AF Ablation is a <span class="serif" style="font-weight: 700;">'SAVAGE'</span> therapy after failed AAD.</li>
+        <li>AF Ablation is now a <span class="serif" style="font-weight: 700;">'STANDARD'</span> therapy in AF with HFrEF or symptomatic paroxysmal AF.</li>
+        <li>Though AF Ablation is a relatively safe procedure, complications do occur.</li>
+    </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<!--end page-->
+<div class="skyLight endPage" style="padding: 3vmax;">
+  <a href="#top" style="font-size:1.5vmax;text-decoration: none;" title="to top">
+    <i class="fa-solid fa-circle-chevron-up" style="font-size: 2vmax;"></i> to top</a><br>
+    
+    <span class="serif" style="color: #777777;font-weight: 700;">HeartRhythmBox</span>, an education page of heart rhythm topics.<br>
+    visit us at <a href="https://heartrhythmbox.com" target="_blank">
+      <img src="box coral.png" style="width: 2.2vmax;padding-right: 4px;">www.heartrhythmbox.com</a><br>
+    or <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">https://www.facebook.com/HeartRhythmBox/</a>
+</div>
+
+</body>
+
+<script>
+
+//nav
+
+var bNo = 0;  
+box = document.getElementsByClassName('textBox')
+
+
+function next(no){
+  n = Number(no);
+  //check which box is in the view
+  var i;
+  for (i=0;i<box.length;i++){
+    var top = box[i].getBoundingClientRect().top;
+    if (top<window.innerHeight/2){
+      bNo=i;
+    }
+  }
+
+  if (n==-2) {
+    window.scrollTo(0,0);bNo=0;
+    }
+  if (n==2){
+    last = box.length-1;
+    box[last].scrollIntoView({behavior:"smooth", block:"start"});
+    bNo=last
+  }
+
+  if (n==1 || n==-1){
+      bNo = n + bNo;
+      if (bNo<0){
+        window.scrollTo(0,0);bNo=-1;
+      }
+      if (bNo>=box.length){
+        var end = document.getElementsByClassName('endPage')
+        end[0].scrollIntoView({behavior:"smooth", block:"start"})
+        bNo=box.length+1;
+      }
+    
+      box[bNo].scrollIntoView({behavior:"smooth", block:"start"});
+  }
+} 
+
+function flowX(x){
+  n = Number(x);
+  xNo = n + xNo;flowX[xNo].scrollIntoView({behavior:"smooth", block:"start"})
+  if (xNo<0){
+    xNo=0;flowX[xNo].scrollIntoView({behavior:"smooth", block:"start"})
+  }
+  else {flowX[xNo].scrollIntoView({behavior:"smooth", block:"start"})
+  }
+}
+  
+
+window.onscroll = function(){
+    
+    //hide intro
+    sCase = document.getElementsByClassName('showcase');
+    document.getElementById('toHide').style.display = 'none'
+    sCase[0].style.top = '90vh'
+    sCase[0].style.background ='none'
+    nav = document.getElementsByClassName('nav')
+    if (window.matchMedia("(max-width: 1024px)").matches) {
+      nav[0].style.display = 'none';
+    } else {
+      nav[0].style.display = 'block';
+    } 
+
+    document.getElementById('scrollDown').style.display='none'
+    
+    //scroll content into view
+    container = document.getElementsByClassName('container');
+    block = document.getElementsByClassName('block')
+    
+    container[0].style.transform = 'translateY(15vh)'
+    container[0].style.transitionDuration = '1s'
+
+    //scrollUp to show intro
+    var top = container[0].getBoundingClientRect().top;
+    if (window.scrollY<=15*window.innerHeight && top>0){
+        container[0].style.transform = 'translateY(0)'
+        sCase[0].style.top = '0'
+        document.getElementById('toHide').style.display ='block'
+        sCase[0].style.backgroundColor ='black'
+        nav[0].style.display = 'none'
+    }
+
+    //animateTextBox
+    txtB = document.getElementsByClassName('textBox')
+    var i;
+    for (i=0;i<txtB.length;i++){
+        var top = txtB[i].getBoundingClientRect().top;
+        if (top>0.25*window.innerHeight){
+
+            txtB[i].style.visibility = 'hidden'
+            txtB[i].classList.add('fadeOut')
+            txtB[i].classList.remove('fadeIn')
+          }  else  
+        { txtB[i].classList.remove('fadeOut')
+          txtB[i].classList.add('fadeIn')
+          txtB[i].style.visibility = 'visible'
+        }
+    }
+
+
+
+    //animateImgBox
+    imgBox = document.getElementsByClassName('imgBox')
+    var j;
+    for (j=0;j<imgBox.length;j++){
+      var top = imgBox[j].getBoundingClientRect().top;
+          if (top>0.4*window.innerHeight){
+          imgBox[j].classList.remove('fadeIn')
+          imgBox[j].classList.add('fadeOut')
+          imgBox[j].style.visibility = 'hidden'
+          
+
+       } else
+        { imgBox[j].classList.add('fadeIn')
+          imgBox[j].classList.remove('fadeOut')
+          imgBox[j].style.visibility = 'visible'
+        }
+    }
+    //remove unnecessary scrollX dot
+    checkDot();
+}  
+
+function scrollDown(){
+  document.getElementById('scrollDown').style.display= 'block'
+}
+function toTop(){
+  window.scrollTo(0,0)
+}
+
+function checkDot(){
+  var container = document.getElementsByClassName('flowXContainer')
+  var dot = document.getElementsByClassName('dotRow')
+  var i;
+  for (i=0;i<container.length;i++){
+    if (container[i].clientWidth>=container[i].scrollWidth){
+      dot[i].style.display = 'none'
+      container[i].classList.add('hideScroll')
+    } else {
+      dot[i].style.display = 'block'
+      container[i].classList.remove('hideScroll')
+    }
+  }  
+}
+
+function navX(x){
+  var flowX = document.getElementsByClassName('flowX')
+  var dot = document.getElementsByClassName('xDot')
+  var container = document.getElementsByClassName('flowXContainer')
+
+  //clear dot color 797979 232323
+  var i;
+  for (i=0;i<dot.length;i++){
+    dot[i].style.color = '#797979'
+  }
+  dot[x].style.color = '#232323'
+
+  //get Y position
+  var leftPos = flowX[x].getBoundingClientRect().left;
+  var topPos = flowX[x].getBoundingClientRect().top;
+  var cLeft = container[0].getBoundingClientRect().left;
+  var scrollPos = container[0].scrollLeft;
+  var toLeft = leftPos-scrollPos;
+  container[0].scrollTo(toLeft,0)
+}
+
+function navX2(x){
+  var flowX = document.getElementsByClassName('flowX2')
+  var dot = document.getElementsByClassName('xDot2')
+  var container = document.getElementsByClassName('flowXContainer2')
+
+  //clear dot color 797979 232323
+  var i;
+  for (i=0;i<dot.length;i++){
+    dot[i].style.color = '#dddddd'
+  }
+  dot[x].style.color = '#797979'
+
+  //get Y position
+  var leftPos = flowX[x].getBoundingClientRect().left;
+  var topPos = flowX[x].getBoundingClientRect().top;
+  var cLeft = container[0].getBoundingClientRect().left;
+  var scrollPos = container[0].scrollLeft;
+  var toLeft = leftPos-scrollPos;
+  document.getElementById('test').innerHTML = 'leftPos' + leftPos + ' scrollPos' + scrollPos;
+  container[0].scrollTo(leftPos,0)
+}
+
+</script>
+
+</html>
