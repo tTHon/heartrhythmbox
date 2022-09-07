@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+<head>
+  <title>SCD Incidence Animation by heartRhythmBox.com</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+</head>
+
 <style>
 
 .text {color: #ddd;font-size: 2.2vmax;display: none;position: fixed;text-align: left;
@@ -11,7 +15,9 @@
 </style>  
 
 <body style="background-color:#232323;font-family: 'Abel', sans-serif;">
-<!--div id="demo" style="color:white; font-family: 'Abel', sans-serif;">test</div-->
+<div id="demo" style="color:white; font-family: 'Abel', sans-serif;padding-left: 30vw;
+padding-top: 40vh;text-align: center;">
+  Press Spacebar to Begin & Advance  ...</div>
 <div class="text"></div>
 <div id="text1" class="text"></div>
 <div id="text2" class="text"></div>
@@ -38,6 +44,7 @@
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
+    document.getElementById('demo').style.display ='none'
     nextMove()}
 })
 
