@@ -15,9 +15,9 @@
 </style>  
 
 <body style="background-color:#232323;font-family: 'Abel', sans-serif;">
-<div id="demo" style="color:white; font-family: 'Abel', sans-serif;padding-left: 30vw;
+<!--div id="demo" style="color:white; font-family: 'Abel', sans-serif;padding-left: 30vw;
 padding-top: 40vh;text-align: center;">
-  Press Spacebar to Begin & Advance  ...</div>
+  Press Spacebar to Begin & Advance  ...</div-->
 <div class="text"></div>
 <div id="text1" class="text"></div>
 <div id="text2" class="text"></div>
@@ -80,8 +80,13 @@ findKeyPara();
 
 //steps move
 var nav = 0;
+var autoPlay =  setInterval(function(){
+    nav++
+    nextMove()
+  },3500)
+
 function nextMove(){
-  nav++
+  //nav++
   //title & ref
   var titleText = document.getElementById('title')
   var refText = document.getElementById('ref')
@@ -314,7 +319,7 @@ function nextMove(){
   if (nav==7){
     draw(xArrayOut,yArrayOut,colorOut,0.1)
     setTimeout(function(){
-    draw(xArrayIn,yArrayIn,colorIn,1)},1500)
+    draw(xArrayIn,yArrayIn,colorIn,1)},1)
     clearText()
     label(0,5,7)
     label(5,21,8)
