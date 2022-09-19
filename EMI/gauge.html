@@ -14,7 +14,7 @@ var vw = window.innerWidth/100;
 var vh = window.innerHeight/100;
 
 drawFace();
-drawHand(Math.PI*45/180);
+drawHand(0);
 
 function drawFace() {
   var radius = 30*vw
@@ -56,13 +56,13 @@ ctx.beginPath();
 }
 
 function drawHand(angle) {
-    var length = 45*vw;
+    var length = 28*vw;
     ctx.beginPath();
     ctx.lineWidth = vw;
     ctx.lineCap = "round";
     ctx.moveTo(50*vw, 40*vw);
     ctx.rotate(angle);
-    ctx.lineTo(50*vw,(50*vw)-length);
+    ctx.lineTo(50*vw-length, 40*vw);
     ctx.stroke();
     ctx.rotate(-angle);
 }
