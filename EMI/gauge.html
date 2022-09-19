@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="demo"></div>
+<canvas id="canvas">
+</canvas>
+
+<script>
+var canvas = document.getElementById("canvas");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+var ctx = canvas.getContext("2d");
+var vw = window.innerWidth/100;
+var vh = window.innerHeight/100;
+
+drawFace();
+drawHand(Math.PI*10/180);
+
+function drawFace() {
+  var radius = 30*vw
+  //document.getElementById('demo').innerHTML = radius;
+
+  //red
+  ctx.beginPath();
+  ctx.arc(50*vw, 40*vw, radius, Math.PI, 1.25*Math.PI);
+  ctx.fillStyle = 'red';
+  ctx.lineTo(50*vw, 40*vw)
+  ctx.fill();
+
+  //orange
+  ctx.beginPath();
+  ctx.arc(50*vw, 40*vw, radius, 1.25*Math.PI, 1.5*Math.PI);
+  ctx.fillStyle = 'orange';
+  ctx.lineTo(50*vw, 40*vw)
+  ctx.fill();
+
+//yellow
+ctx.beginPath();
+  ctx.arc(50*vw, 40*vw, radius, 1.5*Math.PI, 1.75*Math.PI);
+  ctx.fillStyle = 'yellow';
+  ctx.lineTo(50*vw, 40*vw)
+  ctx.fill();
+
+//green
+  ctx.beginPath();
+  ctx.arc(50*vw, 40*vw, radius, 1.75*Math.PI, 2*Math.PI);
+  ctx.fillStyle = 'green';
+  ctx.lineTo(50*vw, 40*vw)
+  ctx.fill();
+
+  //draw center
+  ctx.beginPath();
+  ctx.arc(50*vw, 40*vw, radius*0.1, 0, 2*Math.PI);
+  ctx.fillStyle = '#333';
+  ctx.fill();
+}
+
+function drawHand(angle) {
+    var length = 45*vw;
+    ctx.beginPath();
+    ctx.lineWidth = vw;
+    ctx.lineCap = "round";
+    ctx.moveTo(50*vw, 40*vw);
+    ctx.rotate(angle);
+    ctx.lineTo(50*vw,(50*vw)-length);
+    ctx.stroke();
+    ctx.rotate(-angle);
+}
+
+</script>
+
+</body>
+</html>
