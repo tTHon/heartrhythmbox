@@ -12,12 +12,22 @@ canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
 var vw = window.innerWidth/100;
 var vh = window.innerHeight/100;
+var radius = 30*vw;
+var centerX = 50*vw;var centerY= 40*vw;
+
+//nav
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===32) {
+      moveHand(0,90)
+           }
+})
 
 drawFace();
-drawHand(0);
+drawHand(22.5);
+
 
 function drawFace() {
-  var radius = 30*vw
   //document.getElementById('demo').innerHTML = radius;
 
   //red
@@ -55,16 +65,73 @@ ctx.beginPath();
   ctx.fill();
 }
 
-function drawHand(angle) {
+function drawHand(degree) {
     var length = 28*vw;
     ctx.beginPath();
     ctx.lineWidth = vw;
     ctx.lineCap = "round";
+    xEnd = length*Math.cos(Math.PI*degree/180);
+    yEnd = length*Math.sin(Math.PI*degree/180);
     ctx.moveTo(50*vw, 40*vw);
-    ctx.rotate(angle);
-    ctx.lineTo(50*vw-length, 40*vw);
+    ctx.lineTo(50*vw+xEnd,40*vw-yEnd);
+    ctx.strokeStyle = '#333'
     ctx.stroke();
-    ctx.rotate(-angle);
+}
+
+function moveHand(degreeS,degreeEnd){
+
+  //go2End+2
+    var distance = (degreeEnd-degreeS)+5;
+    var tEnd=1;
+    var moveInterval=setInterval(function(){
+      clearCenter();
+      drawFace();
+      drawHand(degreeS+tEnd)
+      tEnd++;
+      if (tEnd>=distance){
+      clearInterval(moveInterval)
+      shakeMinus();
+      shakePlus();
+    }
+    },10*tEnd/distance)
+
+  
+  
+  //shake-2
+  function shakeMinus(){
+  var tBack=1;
+  var shakeBack=setInterval(function(){
+    clearCenter();
+    drawFace();
+    drawHand((degreeEnd+5)-tBack)
+    tBack++;
+    if (tBack>=10){
+    clearInterval(shakeBack)
+    }
+  },tBack)
+  }
+
+  //shake+2
+  function shakePlus(){
+  var tFwd=1;
+  var shakeFwd=setInterval(function(){
+    clearCenter();
+    drawFace();
+    drawHand((degreeEnd-5)+tFwd)
+    tFwd++;
+    if (tFwd>=10){
+    clearInterval(shakeFwd)
+    clearCenter();
+    drawFace();
+    drawHand(degreeEnd)
+    }
+  },tFwd*50)
+  }
+
+}
+
+function clearCenter(){
+  ctx.clearRect(centerX-radius,centerY-radius,centerX+radius,centerY+radius)
 }
 
 </script>
