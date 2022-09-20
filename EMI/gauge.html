@@ -1,31 +1,101 @@
 <!DOCTYPE html>
 <html>
+<style>
+.label {display: none;font-size: 2.2vmax;position: fixed;color: #333;font-weight: 600;}
+.greenText {display: none;font-size: 1.8vmax;position: fixed;color: black;font-weight: 400;}
+
+</style>
+
 <body>
 <div id="demo"></div>
-<canvas id="canvas">
-</canvas>
+<canvas id="canvas"></canvas>
+<div id="leftLabel" class="label" style="text-align:right"></div>
+<div id="rightLabel" class="label"></div>
+<div id="dropText0" class="greenText"></div>
+<div id="dropText1" class="greenText"></div>
+
 
 <script>
 var canvas = document.getElementById("canvas");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+canvas.width = 0.9*window.innerWidth;
+canvas.height = 0.9*window.innerHeight;
 var ctx = canvas.getContext("2d");
 var vw = window.innerWidth/100;
 var vh = window.innerHeight/100;
-var radius = 30*vw;
+var radius = 25*vw;
 var centerX = 50*vw;var centerY= 40*vw;
+var nav=0;
 
 //nav
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-      moveHand(0,90)
+      nextMove()
            }
 })
 
+createCanvas(canvas.width,canvas.height, true)
 drawFace();
-drawHand(22.5);
+drawHand(90);
+drawLabel('Unsafe to Perform','Safe to Perform');
 
+function createCanvas(width, height, set2dTransform) {
+  const ratio = Math.ceil(window.devicePixelRatio);
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+  canvas.style.width = canvas.width + 'px';
+  canvas.style.height = canvas.height + 'px';
+  if (set2dTransform) {
+    canvas.getContext('2d').setTransform(ratio, 0, 0, ratio, 0, 0);
+  }
+  return canvas;
+}
+
+function nextMove(){
+  nav++;
+  if (nav==1){
+    dropText('MRI is the test of choice.',0)
+    moveHand(90,22.5)
+  }
+  if (nav==2){
+    dropText('Device is MRI-conditional.',1)
+    moveHand(22.5,22.5)
+  }
+}
+
+function dropText(text,seq){
+  var gText = document.getElementsByClassName('greenText')
+  gText[seq].style.display = 'block';
+  startY = centerY - radius; endY = centerY-(4*vw)-(seq*4*vw);
+  xPos = centerX + radius + (2*vw);
+  gText[seq].style.left = xPos + 'px';
+  gText[seq].style.top = startY + 'px';
+  gText[seq].innerHTML = text;
+  var pos=0;
+  var dropInterval = setInterval(function(){
+    pos=pos+(0.9*vw);
+    gText[seq].style.top = startY+pos + 'px';
+    if (startY+pos>=endY){
+      clearInterval(dropInterval)
+    }
+  },10)
+}
+
+function drawLabel(left,right){
+  ctx.font = 1.8*vw + 'px Arial'
+  ctx.fillText (left,centerX,centerY) 
+  var leftPos = 0.5*canvas.width+(0.5*radius);
+  var rightPos = centerX+(0.5*radius)
+  var yPos = centerY + (2*vw);
+  var leftL = document.getElementById('leftLabel')
+  var rightL = document.getElementById('rightLabel')
+  leftL.style.display = 'block';rightL.style.display = 'block'
+  leftL.style.right = leftPos + 'px';leftL.style.top = yPos + 'px';
+  leftL.innerHTML = left;
+  rightL.style.left = rightPos + 'px';rightL.style.top = yPos + 'px';
+  rightL.innerHTML = right;
+}
 
 function drawFace() {
   //document.getElementById('demo').innerHTML = radius;
@@ -58,15 +128,23 @@ ctx.beginPath();
   ctx.lineTo(50*vw, 40*vw)
   ctx.fill();
 
+  //draw arc blank
+  ctx.beginPath();
+  ctx.arc(50*vw, 40*vw, radius*0.5, 0, 2*Math.PI);
+  ctx.fillStyle = 'white';
+  ctx.fill();  
+
   //draw center
   ctx.beginPath();
   ctx.arc(50*vw, 40*vw, radius*0.1, 0, 2*Math.PI);
   ctx.fillStyle = '#333';
   ctx.fill();
+
+
 }
 
 function drawHand(degree) {
-    var length = 28*vw;
+    var length = 22*vw;
     ctx.beginPath();
     ctx.lineWidth = vw;
     ctx.lineCap = "round";
@@ -93,7 +171,7 @@ function moveHand(degreeS,degreeEnd){
       shakeMinus();
       shakePlus();
     }
-    },10*tEnd/distance)
+    },30*tEnd/distance)
 
   
   
