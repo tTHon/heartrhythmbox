@@ -17,9 +17,6 @@
 
 <script>
 var canvas = document.getElementById("canvas");
-
-canvas.width = 0.9*window.innerWidth;
-canvas.height = 0.9*window.innerHeight;
 var ctx = canvas.getContext("2d");
 var vw = window.innerWidth/100;
 var vh = window.innerHeight/100;
@@ -35,21 +32,18 @@ window.addEventListener("keydown", function(event) {
            }
 })
 
-createCanvas(canvas.width,canvas.height, true)
+createCanvas()
 drawFace();
 drawHand(90);
 drawLabel('Unsafe to Perform','Safe to Perform');
 
-function createCanvas(width, height, set2dTransform) {
+function createCanvas() {
   const ratio = Math.ceil(window.devicePixelRatio);
-  canvas.width = width * ratio;
-  canvas.height = height * ratio;
+  canvas.width = 0.9*window.innerWidth * ratio;
+  canvas.height = 0.9*window.innerHeight * ratio;
   canvas.style.width = canvas.width + 'px';
   canvas.style.height = canvas.height + 'px';
-  if (set2dTransform) {
-    canvas.getContext('2d').setTransform(ratio, 0, 0, ratio, 0, 0);
-  }
-  return canvas;
+  //ctx.scale(1/ratio,1/ratio)
 }
 
 function nextMove(){
