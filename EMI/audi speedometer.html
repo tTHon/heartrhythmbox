@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<div id="demo"></div>
+<div style="text-align:center">
+  <canvas id="canvas" style="border:0.1vw solid black;"></canvas>
+</div>
+
+
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var vw = Math.round(window.innerWidth/100);
+var vh = Math.round(window.innerHeight/100);
+var nav=0; 
+baseX=40*vw;baseY=40*vh;
+
+createCanvas()
+ctx.beginPath();
+ctx.moveTo(baseX,baseY)
+ctx.lineTo(baseX+(0.95*17*2*vw),baseY-(0.31*17*2*vw))
+ctx.stroke()
+ctx.moveTo(baseX+(0.95*17*2*vw),baseY-(0.31*17*2*vw))
+ctx.lineTo(baseX+(17*2*vw),baseY)
+ctx.stroke()
+
+
+//nav
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===32) {
+      nextMove()
+      }
+})
+
+
+
+function createCanvas() {
+  const scale = window.devicePixelRatio;
+  canvas.style.width = 0.9*window.innerWidth + 'px';
+  canvas.style.height = 0.9*window.innerHeight + 'px';
+  canvas.width = Math.floor(0.9*window.innerWidth * scale*2)
+  canvas.height = Math.floor(0.9*window.innerHeight * scale*2)
+  ctx.scale(scale*2,scale*2)
+}
+
+
+
+</script>
+
+</body>
+</html>
