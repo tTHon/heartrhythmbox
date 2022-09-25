@@ -5,7 +5,7 @@
 
 <div id="demo"></div>
 <div style="text-align:center">
-  <canvas id="canvas" style="border:0.1vw solid black;"></canvas>
+  <canvas id="canvas" style="background-color: #333;"></canvas>
 </div>
 
 
@@ -16,38 +16,110 @@ var ctx = canvas.getContext("2d");
 var vw = Math.round(window.innerWidth/100);
 var vh = Math.round(window.innerHeight/100);
 var nav=0; 
-baseX=30*vw;baseY=70*vh;
+baseX=25*vw;baseY=70*vh;
 widthU = 4*vw;baseWidth=17*widthU;
 xTF=0.95;yTF=0.31
-document.getElementById('demo').innerHTML = baseX+(widthU*(0*3))-(baseX-((1+0)*widthU));
 
 createCanvas()
+drawAxis()
+draw (0,0.3*vw,'#f1f1f1')
 
-//draft drawing class 0-4
-var cls;
-for (cls=0;cls<5;cls++){
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===32) {
+      moveFwd(0,1)
+      }
+})
+
+
+function moveFwd(from,to){
+  var cls=from;
+  var moveInterval = setInterval(function(){
+    draw(cls-0.04,0.6*vw,'#333')
+    draw (cls,0.3*vw,'#f1f1f1')
+    var oldCls = cls;
+    cls=cls+0.01;
+    if (cls>to){
+      clearInterval(moveInterval)
+    }
+
+  },10*(cls+1))
+
+  var iCount = from+0.1;var iLimit = to-0.03
+  var innerInterval = setInterval(function(){
+    drawInner(iCount,'red')
+     iCount = iCount + 0.01;
+     if (iCount>=iLimit){
+      clearInterval(innerInterval)
+     }
+  },10)
+  
+}
+
+function draw(cls,width,color){
   ctx.beginPath();
+  ctx.lineWidth = width;
+  ctx.strokeStyle = color;
   baseLeft = baseX-((1+cls)*widthU);baseRight = baseX+(widthU*(cls*3))
-  thisWidth = baseRight-baseLeft
-  ctx.moveTo(baseLeft,baseY)
-  ctx.lineTo(baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth))
+  thisWidth = baseRight-baseLeft;
+  radius = 0.02*thisWidth
+  ctx.moveTo(baseX-(0.5*(widthU)),baseY-(yTF*(cls+0.5)*widthU))
+  ctx.lineTo(baseLeft+(xTF*thisWidth)-radius-0.1*vw,baseY-(yTF*thisWidth))
+  ctx.arcTo(baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth),baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth)+radius,radius)
+  ctx.lineTo(baseLeft+thisWidth,baseY)
   ctx.stroke()
-  ctx.moveTo(baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth))
+  drawAxis()
+}
+
+function drawInner(cls,color){
+  ctx.beginPath();
+  ctx.lineWidth = 0.2*vw;
+  ctx.strokeStyle = color;
+  baseLeft = baseX-((1+cls)*widthU);baseRight = baseX+(widthU*(cls*3))
+  thisWidth = baseRight-baseLeft;
+  radius = 0.02*thisWidth
+  ctx.moveTo(baseX,baseY-(yTF*(cls)*widthU))
+  ctx.lineTo(baseLeft+(xTF*thisWidth)-radius-0.1*vw,baseY-(yTF*thisWidth))
+  ctx.arcTo(baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth),baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth)+radius,radius)
   ctx.lineTo(baseLeft+thisWidth,baseY)
   ctx.stroke()
 }
 
 
-
-
-//nav
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===32) {
-      nextMove()
-      }
-})
-
+function drawAxis(){
+  ctx.beginPath()
+  ctx.lineWidth = 0.25*vh;
+  ctx.strokeStyle = '#ddd'
+  ctx.moveTo(baseX,baseY)
+  
+  //stop at each marker
+  var stop = baseX;
+  for (var i=1;i<5;i++){
+      stop = stop + (3*widthU)
+      ctx.lineTo(stop-0.2*vw,baseY)
+      ctx.stroke()
+      start = stop + 0.2*vw
+      ctx.moveTo(start,baseY)
+  }
+  //markers
+  for (var i=0;i<5;i++){
+    ctx.moveTo(baseX+(i*3*widthU)-(0.31*0.5*vw/2),baseY-(0.95*0.5*vw))
+    ctx.lineTo(baseX+(i*3*widthU)+(0.31*0.5*vw/2),baseY+(0.95*0.5*vw));ctx.stroke();  
+  }
+  
+  //label
+  ctx.font = 1.5*vw+ "px Arial";
+  ctx.fillStyle = "#ccc";ctx.textAlign = "right";
+  ctx.fillText("class of", baseX, baseY+2*vw);ctx.fillText("recommendation", baseX, baseY+3.2*vw);
+  ctx.textAlign = "center";ctx.fillStyle="red"
+  ctx.fillText("III", baseX+3*widthU, baseY+2*vw);
+  ctx.textAlign = "center";ctx.fillStyle="orange"
+  ctx.fillText("IIb", baseX+6*widthU, baseY+2*vw);
+  ctx.textAlign = "center";ctx.fillStyle="yellow"
+  ctx.fillText("IIa", baseX+9*widthU, baseY+2*vw);
+  ctx.textAlign = "center";ctx.fillStyle="green"
+  ctx.fillText("I", baseX+12*widthU, baseY+2*vw);
+}
 
 
 function createCanvas() {
