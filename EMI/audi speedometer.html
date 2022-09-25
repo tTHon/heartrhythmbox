@@ -16,9 +16,10 @@ var ctx = canvas.getContext("2d");
 var vw = Math.round(window.innerWidth/100);
 var vh = Math.round(window.innerHeight/100);
 var nav=0; 
-baseX=20*vw;baseY=70*vh;
-widthU = 3*vw;baseWidth=17*widthU;
-xTF=0.9,yTF=0.31
+baseX=30*vw;baseY=70*vh;
+widthU = 4*vw;baseWidth=17*widthU;
+xTF=0.95;yTF=0.31
+document.getElementById('demo').innerHTML = baseX+(widthU*(0*3))-(baseX-((1+0)*widthU));
 
 createCanvas()
 
@@ -26,13 +27,13 @@ createCanvas()
 var cls;
 for (cls=0;cls<5;cls++){
   ctx.beginPath();
-  baseLeft = baseX+(4.5-cls)*widthU;baseRight = baseX+(widthU*(5+(cls*3)))
+  baseLeft = baseX-((1+cls)*widthU);baseRight = baseX+(widthU*(cls*3))
   thisWidth = baseRight-baseLeft
   ctx.moveTo(baseLeft,baseY)
   ctx.lineTo(baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth))
   ctx.stroke()
   ctx.moveTo(baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth))
-  ctx.lineTo(baseX+thisWidth,baseY)
+  ctx.lineTo(baseLeft+thisWidth,baseY)
   ctx.stroke()
 }
 
