@@ -18,7 +18,7 @@ var vh = Math.round(window.innerHeight/100);
 var nav=0; 
 baseX=25*vw;baseY=70*vh;
 widthU = 4*vw;baseWidth=17*widthU;
-xTF=0.95;yTF=0.31
+xTF=0.95;yTF=0.31;
 
 createCanvas()
 drawAxis()
@@ -27,63 +27,94 @@ draw (0,0.3*vw,'#f1f1f1')
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-      moveFwd(0,1)
+      moveFwd(0,0.9)
       }
 })
 
 
 function moveFwd(from,to){
   var cls=from;
+  var xyArray = draw (cls,0.3*vw,'#333')
   var moveInterval = setInterval(function(){
-    draw(cls-0.04,0.6*vw,'#333')
-    draw (cls,0.3*vw,'#f1f1f1')
-    var oldCls = cls;
+    colorDraw(xyArray,cls)
     cls=cls+0.01;
-    if (cls>to){
+    xyArray = draw (cls,0.3*vw,'#f1f1f1')
+    if (cls>=to){
       clearInterval(moveInterval)
     }
-
   },10*(cls+1))
 
-  var iCount = from+0.1;var iLimit = to-0.03
-  var innerInterval = setInterval(function(){
-    drawInner(iCount,'red')
-     iCount = iCount + 0.01;
-     if (iCount>=iLimit){
-      clearInterval(innerInterval)
-     }
-  },10)
-  
 }
 
 function draw(cls,width,color){
   ctx.beginPath();
-  ctx.lineWidth = width;
+  ctx.lineWidth = Math.round(width);
   ctx.strokeStyle = color;
-  baseLeft = baseX-((1+cls)*widthU);baseRight = baseX+(widthU*(cls*3))
-  thisWidth = baseRight-baseLeft;
-  radius = 0.02*thisWidth
-  ctx.moveTo(baseX-(0.5*(widthU)),baseY-(yTF*(cls+0.5)*widthU))
-  ctx.lineTo(baseLeft+(xTF*thisWidth)-radius-0.1*vw,baseY-(yTF*thisWidth))
-  ctx.arcTo(baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth),baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth)+radius,radius)
-  ctx.lineTo(baseLeft+thisWidth,baseY)
+  baseLeft = Math.round(baseX-((1+cls)*widthU));baseRight = Math.round(baseX+(widthU*(cls*3)))
+  thisWidth = Math.round(baseRight-baseLeft);
+  radius = Math.round(0.02*thisWidth);
+  x1 = Math.round(baseX-(0.5*(widthU)));y1=Math.round(baseY-(yTF*(cls+0.5)*widthU))
+  ctx.moveTo(x1,y1)
+  x2 = Math.round(baseLeft+(xTF*thisWidth)-radius-0.1*vw);y2=Math.round(baseY-(yTF*thisWidth));
+  ctx.lineTo(x2,y2)
+  x3=Math.round(baseLeft+(xTF*thisWidth));y3=Math.round(baseY-(yTF*thisWidth));
+  x4=Math.round(baseLeft+(xTF*thisWidth));y4=Math.round(baseY-(yTF*thisWidth)+radius);
+  ctx.arcTo(x3,y3,x4,y4,radius)
+  x5=Math.round(baseLeft+thisWidth);y5=Math.round(baseY);
+  ctx.lineTo(x5,y5)
   ctx.stroke()
   drawAxis()
+  var xyArray = [x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,radius];
+  return xyArray;
 }
 
-function drawInner(cls,color){
-  ctx.beginPath();
-  ctx.lineWidth = 0.2*vw;
-  ctx.strokeStyle = color;
-  baseLeft = baseX-((1+cls)*widthU);baseRight = baseX+(widthU*(cls*3))
-  thisWidth = baseRight-baseLeft;
-  radius = 0.02*thisWidth
-  ctx.moveTo(baseX,baseY-(yTF*(cls)*widthU))
-  ctx.lineTo(baseLeft+(xTF*thisWidth)-radius-0.1*vw,baseY-(yTF*thisWidth))
-  ctx.arcTo(baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth),baseLeft+(xTF*thisWidth),baseY-(yTF*thisWidth)+radius,radius)
-  ctx.lineTo(baseLeft+thisWidth,baseY)
-  ctx.stroke()
+function colorDraw(xyArray,cls){
+
+  ctx.lineWidth = Math.round(0.3*vw)+1.5;
+  var clearArea = Math.round(0.5*1/3);  var margin = Math.round(0.1*vw);
+
+
+    ctx.strokeStyle = '#333';ctx.fillStyle = '#333';
+    ctx.beginPath();
+    ctx.moveTo(xyArray[0]-0.5,xyArray[1])
+    ctx.lineTo(xyArray[2],xyArray[3])
+    ctx.arcTo(xyArray[4],xyArray[5],xyArray[6],xyArray[7],xyArray[10])
+    ctx.lineTo(xyArray[8],xyArray[9])
+    ctx.closePath;
+    ctx.stroke();ctx.fill();
+
+    if (cls>clearArea){  
+    color = findColor(cls);colorBlk = Math.floor(cls)
+    ctx.strokeStyle = color;ctx.fillStyle = color;
+    xyArray[0]=xyArray[0]+Math.round((0.5)*widthU);
+
+    //xyArray[0]=xyArray[0]+Math.round((0.5)*widthU)+(3*widthU*colorBlk);
+
+    ctx.beginPath();
+    ctx.moveTo(xyArray[0],baseY);ctx.lineTo(xyArray[0],xyArray[1]-(yTF*cls));
+    ctx.lineTo(xyArray[2]-margin,xyArray[3]+margin)
+    ctx.arcTo(xyArray[4]-margin,xyArray[5]+margin,xyArray[6]-margin,xyArray[7]+margin,xyArray[10])
+    ctx.lineTo(xyArray[8]-margin,xyArray[9])
+    ctx.closePath;
+    ctx.stroke();ctx.fill();
+    }
+
+    function findColor(cls){
+      colorArray = ['255,0,0',
+                    '255,165,0',
+                    '255,255,0',
+                    '0,255,0']
+
+      mainColor = Math.ceil(cls);
+      shade = mainColor-cls;
+      if (shade<0.4){shade=0.4}
+      color = 'rgba(' +colorArray[mainColor-1]+ ',' + 1 + ')'
+      return color;
+    }
+
+    drawAxis()
 }
+
 
 
 function drawAxis(){
@@ -111,13 +142,13 @@ function drawAxis(){
   ctx.font = 1.5*vw+ "px Arial";
   ctx.fillStyle = "#ccc";ctx.textAlign = "right";
   ctx.fillText("class of", baseX, baseY+2*vw);ctx.fillText("recommendation", baseX, baseY+3.2*vw);
-  ctx.textAlign = "center";ctx.fillStyle="red"
+  ctx.textAlign = "center";ctx.fillStyle="rgb(255,0,0)"
   ctx.fillText("III", baseX+3*widthU, baseY+2*vw);
-  ctx.textAlign = "center";ctx.fillStyle="orange"
+  ctx.textAlign = "center";ctx.fillStyle="rgb(255,165,0)"
   ctx.fillText("IIb", baseX+6*widthU, baseY+2*vw);
-  ctx.textAlign = "center";ctx.fillStyle="yellow"
+  ctx.textAlign = "center";ctx.fillStyle="rgb(255,255,0)"
   ctx.fillText("IIa", baseX+9*widthU, baseY+2*vw);
-  ctx.textAlign = "center";ctx.fillStyle="green"
+  ctx.textAlign = "center";ctx.fillStyle="rgb(0,255,0)"
   ctx.fillText("I", baseX+12*widthU, baseY+2*vw);
 }
 
