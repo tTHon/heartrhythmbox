@@ -28,7 +28,7 @@ draw (0,0.3*vw,'#f1f1f1')
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-      moveFwd(0,3.9)
+      moveFwd(0,2.1)
       }
 })
 
@@ -86,7 +86,7 @@ function boxDraw(xyArray,cls,lineWidth,color){
   //find the nearest mark
   var colorBlk = Math.floor(cls);
 
-  x1=baseX+(colorBlk*3/100)*widthU;y1=baseY;
+  x1=baseX+(colorBlk*3)*widthU;y1=baseY;
   x2=x1-((1-xTF)*thisWidth);y2=y1-(x1-baseLeft)*yTF;
   if (x1<baseX){x1=baseX};if (x2<baseX){x2=baseX}
   if (x4<baseX){x4=baseX};if (x3<baseX){x3=baseX}
