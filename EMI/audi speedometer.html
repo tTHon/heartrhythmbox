@@ -84,14 +84,16 @@ function colorDraw(xyArray,cls){
 
     if (cls>clearArea) {  
 
-        color = findColor(cls);colorBlk = Math.floor(cls)
+        color = findColor(cls);colorBlk = Math.ceil(cls)
         ctx.strokeStyle = color;ctx.fillStyle = color;
 
         ctx.beginPath();
         baseLeft = Math.round(baseX-((1+cls)*widthU));baseRight = Math.round(baseX+(widthU*(cls*3)))
         thisWidth = Math.round(baseRight-baseLeft);
         radius = Math.round(0.02*thisWidth);
-        x1 = Math.round(baseX-widthU);y1=Math.round(baseY-(yTF*(cls)*widthU))
+        //ctx.moveTo(baseX,baseY)
+
+        x1 = Math.round(baseX);y1=Math.round(baseY-(yTF*(cls)*widthU))
         ctx.moveTo(x1,y1)
         x2 = Math.round(baseLeft+(xTF*thisWidth)-radius-0.1*vw);y2=Math.round(baseY-(yTF*thisWidth));
         ctx.lineTo(x2,y2)
@@ -99,8 +101,8 @@ function colorDraw(xyArray,cls){
         x4=Math.round(baseLeft+(xTF*thisWidth));y4=Math.round(baseY-(yTF*thisWidth)+radius);
         ctx.arcTo(x3,y3,x4,y4,radius)
         x5=Math.round(baseLeft+thisWidth);y5=Math.round(baseY);
-        ctx.lineTo(x5,y5)
-        ctx.stroke();ctx.fill()
+        ctx.lineTo(x5,y5);
+        ctx.stroke();
         drawAxis()
     }
 
@@ -113,7 +115,7 @@ function colorDraw(xyArray,cls){
       mainColor = Math.ceil(cls);
       shade = mainColor-cls;
       if (shade<0.4){shade=0.4}
-      color = 'rgba(' +colorArray[mainColor-1]+ ',' + 1 + ')'
+      color = 'rgba(' +colorArray[mainColor-1]+ ',' + shade + ')'
       return color;
     }
 
