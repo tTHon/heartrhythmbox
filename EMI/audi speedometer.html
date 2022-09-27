@@ -19,7 +19,7 @@ var nav=0;
 baseX=25*vw;baseY=70*vh;
 widthU = 4*vw;baseWidth=17*widthU;
 xTF=0.95;yTF=0.31;
-colorArray = ['red','orange','yellow','green']
+
 
 createCanvas()
 drawAxis()
@@ -76,10 +76,29 @@ function draw(cls,width,color){
 }
 
 function drawInner(cls,width){
+  colorArray = [{"red":255,"green":0,"blue":0},{"red":255,"green":165,"blue":0},
+  {"red":255,"green":255,"blue":0},{"red":0,"green":255,"blue":0}]
   ctx.beginPath();
   ctx.lineWidth = Math.round(width)+0.5;
-  colorMark = Math.floor(cls)
-  ctx.strokeStyle = colorArray[colorMark];
+  colorMark = Math.floor(cls);
+  shade = Math.ceil((cls-colorMark)*10)/10
+  r=colorArray[colorMark].red;
+  g=colorArray[colorMark].green
+  b=colorArray[colorMark].blue
+
+    function getShade(color,shade){
+      color = color + ((1-shade)*20)
+      if (color>255){color=255}
+      color=Math.round(color)
+      cString=color.toString();
+      return cString;
+    }
+
+  r=getShade(r,shade);g=getShade(g,shade);b=getShade(b,shade)
+  color = 'rgb('+r+','+g+','+b+')'
+  document.getElementById('demo').innerHTML = shade
+
+  ctx.strokeStyle = color;
   baseLeft = Math.round(baseX-((1+cls)*widthU));baseRight = Math.round(baseX+(widthU*(cls*3)))
   thisWidth = Math.round(baseRight-baseLeft);
   radius = Math.round(0.02*thisWidth);
@@ -87,7 +106,7 @@ function drawInner(cls,width){
   ctx.moveTo(x1,y1)
 
   //shade the line
-  shade = (cls-colorMark)
+
 
 
   //cont at curve
