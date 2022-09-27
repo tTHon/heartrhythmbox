@@ -30,7 +30,7 @@ var testArray = draw (0,0.3*vw,'#f1f1f1')
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-      moveFwd(0,3.9)
+      moveFwd(0,1.5)
       }
 })
 
@@ -87,7 +87,7 @@ function drawInner(cls,width){
   b=colorArray[colorMark].blue
 
     function getShade(color,shade){
-      color = color + ((1-shade)*20)
+      color = color + ((1-shade)*25)
       if (color>255){color=255}
       color=Math.round(color)
       cString=color.toString();
@@ -96,7 +96,7 @@ function drawInner(cls,width){
 
   r=getShade(r,shade);g=getShade(g,shade);b=getShade(b,shade)
   color = 'rgb('+r+','+g+','+b+')'
-  document.getElementById('demo').innerHTML = shade
+  
 
   ctx.strokeStyle = color;
   baseLeft = Math.round(baseX-((1+cls)*widthU));baseRight = Math.round(baseX+(widthU*(cls*3)))
@@ -104,13 +104,22 @@ function drawInner(cls,width){
   radius = Math.round(0.02*thisWidth);
   x1 = Math.round(baseX);y1=Math.round(baseY-(yTF*(cls+1)*widthU))
   ctx.moveTo(x1,y1)
-
+  
   //shade the line
-
+  if (colorMark>0){
+    if (colorMark==1){
+      sX1=Math.round(baseLeft+((cls+5)*widthU*xTF));
+      sY1=Math.round(baseY-((cls)*yTF*widthU)) 
+      ctx.strokeStyle = 'rgb(255,0,0)'
+      ctx.lineWidth = Math.round(width)+0.5;
+      ctx.lineTo(sX1,sY1);ctx.stroke();
+      ctx.moveTo(sX1,sY1)
+    }
+  }  
 
 
   //cont at curve
-  if (x2<baseX){x2=baseX}
+  ctx.strokeStyle = color;
   x2 = Math.round(baseLeft+(xTF*thisWidth)-radius-0.1*vw);y2=Math.round(baseY-(yTF*thisWidth));
   ctx.lineTo(x2,y2)
   x3=Math.round(baseLeft+(xTF*thisWidth));y3=Math.round(baseY-(yTF*thisWidth));
