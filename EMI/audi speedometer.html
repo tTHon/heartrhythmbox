@@ -16,41 +16,88 @@ var ctx = canvas.getContext("2d");
 var vw = Math.round(window.innerWidth/100);
 var vh = Math.round(window.innerHeight/100);
 var nav=0; 
-baseX=25*vw;baseY=70*vh;
-widthU = 4*vw;baseWidth=17*widthU;
+baseX=20*vw;baseY=70*vh;
+widthU = 4.2*vw;baseWidth=17*widthU;
 xTF=0.95;yTF=0.31;
 
 
 createCanvas()
 drawAxis()
 var testArray = draw (0,0.3*vw,'#f1f1f1')
-//boxDraw(testArray,3.5)
-
 
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-      moveFwd(0,1.5)
+      stepMove()
       }
 })
 
+var nav =0;
+function stepMove(){
+  nav = nav+1;
+  if (nav==1){moveFwd(0,4)}
+  if (nav==2){moveBwd(4,3.3)}
+}
 
 function moveFwd(from,to){
   var cls=from;
-  xyArray = draw (cls,0.3*vw,'#333333')
+  xyArray = draw (cls,0.4*vw,'#333333')
+  pArray1= drawParallel(cls,0.2*vw,'#333333')
+  pArray2= drawParallel(cls,0.2*vw,'#333333')
+  pArray3= drawParallel(cls,0.2*vw,'#333333')
   var moveInterval = setInterval(function(){
-    //clearDraw (xyArray,cls)
-    //boxDraw(xyArray,cls)
+    clearDraw (xyArray,0.4*vw)
+    clearDraw (pArray1,1.2*vw);clearDraw (pArray2,1.2*vw);clearDraw (pArray3,1.2*vw)
     drawAxis()
+    cls=cls+0.02;
+    color1 = findColor(cls,1);color2 = findColor(cls,2);
+    color3 = findColor(cls,3);
+    pArray1 = drawParallel(cls-0.04, 1.2*vw,color1)
+    pArray2 = drawParallel(cls-0.10,1.2*vw,color2)
+    pArray3 = drawParallel(cls-0.16,1.2*vw,color3)
 
-    drawInner(cls,0.3*vw+0.5)
-    cls=cls+0.01;
-    xyArray= draw (cls,0.3*vw,'#f1f1f1')
+    xyArray= draw (cls,0.4*vw,'#f1f1f1')
     if (cls>=to){
       clearInterval(moveInterval)
     }
   },0)
+}
 
+
+function moveBwd(to,from){
+  var cls=to;
+  xyArray = draw (cls,0.4*vw,'#333333')
+  pArray1= drawParallel(cls,0.2*vw,'#333333')
+  pArray2= drawParallel(cls,0.2*vw,'#333333')
+  pArray3= drawParallel(cls,0.2*vw,'#333333')
+  var moveInterval = setInterval(function(){
+    clearDraw (xyArray,0.4*vw)
+    clearDraw (pArray1,1.2*vw);clearDraw (pArray2,1.2*vw);clearDraw (pArray3,1.2*vw)
+    drawAxis()
+    cls=cls-0.02;
+    color1 = findColor(cls,1);color2 = findColor(cls,2);
+    color3 = findColor(cls,3);
+    pArray1 = drawParallel(cls-0.04, 1.2*vw,color1)
+    pArray2 = drawParallel(cls-0.10,1.2*vw,color2)
+    pArray3 = drawParallel(cls-0.16,1.2*vw,color3)
+    xyArray= draw (cls,0.4*vw,'#f1f1f1')
+    if (cls<=from){
+      clearInterval(moveInterval)
+    }
+  },0)
+}
+
+function findColor(cls,seq){
+  var color;
+  var color1 = ['rgb(255,0,0)','rgb(205,165,0)','rgb(225,225,0)','rgb(0,255,0)']
+  var color2 = ['rgb(205,0,0)','rgb(185,135,0)','rgb(185,185,0)','rgb(0,205,0)']
+  var color3 = ['rgb(185,0,0)','rgb(155,105,0)','rgb(125,125,0)','rgb(0,185,0)']
+  mark = Math.floor(cls);
+  if (mark==4){mark=3}
+  if (seq==1){color = color1[mark]};
+  if (seq==2){color = color2[mark]}
+  if (seq==3){color = color3[mark]}
+  return color;
 }
 
 function draw(cls,width,color){
@@ -75,130 +122,35 @@ function draw(cls,width,color){
   return xyArray;
 }
 
-function drawInner(cls,width){
-  colorArray = [{"red":255,"green":0,"blue":0},{"red":255,"green":165,"blue":0},
-  {"red":255,"green":255,"blue":0},{"red":0,"green":255,"blue":0}]
+function drawParallel(cls,width,color){
   ctx.beginPath();
-  ctx.lineWidth = Math.round(width)+0.5;
-  colorMark = Math.floor(cls);
-  shade = Math.ceil((cls-colorMark)*10)/10
-  r=colorArray[colorMark].red;
-  g=colorArray[colorMark].green
-  b=colorArray[colorMark].blue
-
-    function getShade(color,shade){
-      color = color + ((1-shade)*25)
-      if (color>255){color=255}
-      color=Math.round(color)
-      cString=color.toString();
-      return cString;
-    }
-
-  r=getShade(r,shade);g=getShade(g,shade);b=getShade(b,shade)
-  color = 'rgb('+r+','+g+','+b+')'
-  
-
-  ctx.strokeStyle = color;
   baseLeft = Math.round(baseX-((1+cls)*widthU));baseRight = Math.round(baseX+(widthU*(cls*3)))
   thisWidth = Math.round(baseRight-baseLeft);
   radius = Math.round(0.02*thisWidth);
-  x1 = Math.round(baseX);y1=Math.round(baseY-(yTF*(cls+1)*widthU))
+  x1 = Math.round(baseX-(0.5*(widthU)));y1=Math.round(baseY-(yTF*(cls+0.5)*widthU))
   ctx.moveTo(x1,y1)
-  
-  //shade the line
-  if (colorMark>0){
-    if (colorMark==1){
-      sX1=Math.round(baseLeft+((cls+5)*widthU*xTF));
-      sY1=Math.round(baseY-((cls)*yTF*widthU)) 
-      ctx.strokeStyle = 'rgb(255,0,0)'
-      ctx.lineWidth = Math.round(width)+0.5;
-      ctx.lineTo(sX1,sY1);ctx.stroke();
-      ctx.moveTo(sX1,sY1)
-    }
-  }  
-
-
-  //cont at curve
-  ctx.strokeStyle = color;
   x2 = Math.round(baseLeft+(xTF*thisWidth)-radius-0.1*vw);y2=Math.round(baseY-(yTF*thisWidth));
-  ctx.lineTo(x2,y2)
+  ctx.lineTo(x2,y2);ctx.lineJoin = "bevel";
+  ctx.lineWidth=Math.round(width)-0.5;
+  ctx.strokeStyle = color;ctx.stroke()
   x3=Math.round(baseLeft+(xTF*thisWidth));y3=Math.round(baseY-(yTF*thisWidth));
   x4=Math.round(baseLeft+(xTF*thisWidth));y4=Math.round(baseY-(yTF*thisWidth)+radius);
-  ctx.arcTo(x3,y3,x4,y4,radius)
+  ctx.beginPath();ctx.lineWidth = Math.round(width)+0.5;
+  ctx.moveTo(x2,y2);ctx.lineJoin = "bevel";
+  ctx.arcTo(x3,y3,x4,y4,radius);
   x5=Math.round(baseLeft+thisWidth);y5=Math.round(baseY);
-  ctx.lineTo(x5,y5)
+  ctx.lineTo(x5,y5);  ctx.lineWidth=Math.round(width)+0.5;
+  ctx.strokeStyle = color;
   ctx.stroke()
-
-  //clearHandle
-  ctx.lineWidth = Math.round(width)+1.5;
-  a1 = Math.round(baseX-(0.6*(widthU)));b1=Math.round(baseY-(yTF*(cls)*widthU))
-  ctx.beginPath();
-  ctx.moveTo (a1,b1);ctx.lineTo(x1,y1);ctx.lineTo(baseX,baseY)
-  ctx.strokeStyle = '#333'
-  ctx.stroke();
   drawAxis()
-}
-
-function boxDraw(xyArray,cls){
-
-  var iCls=cls;
-  if (cls<0.05){iCls=0.05}
-  for (var i=0;i<iCls;i=i+0.05){
-  //line the rightmost 
-  bLeft = baseX-((1+i)*widthU);bRight = baseX+(widthU*(i*3))
-  thisWidth = bRight-bLeft;
-  document.getElementById('demo').innerHTML = thisWidth;
- 
-  //find the nearest mark
-  a1=baseX+(i*3*widthU);b1=baseY;
-  a2=(a1*xTF);b2=baseY-(yTF*thisWidth);
-  a4=(baseX+((i-0.01)*3*widthU));b4=baseY;
-  a3=(a4*xTF);b3=baseY-(yTF*(thisWidth-0.01));  
-  color = getColor(i)
-  ctx.beginPath;
-  ctx.moveTo(a1,b1);ctx.lineTo(a2,b2);
-  ctx.lineTo(a3,b3);ctx.lineTo(a4,b4);
-  ctx.closePath();
-  ctx.fillStyle = color;
-  ctx.fill(); 
-
-  }
-
-  //last point
-  //line the rightmost 
-  baseLeft = Math.round(baseX-((1+cls)*widthU));baseRight = Math.round(baseX+(widthU*(cls*3)))
-  lastWidth = Math.round(baseRight-baseLeft);
-  radius = Math.round(0.02*lastWidth);
-  x4=baseRight;y4=baseY;
-  x3=x4-((1-xTF)*lastWidth);y3=y4-(yTF*lastWidth);
- 
-  //find the nearest mark
-  //var colorMark = Math.floor(cls);
-  //var shade = Math.floor((cls % 1)*10)/10;
-  //colorBlk = colorMark + shade;
-
-  x1=baseX+((cls-0.05)*3*widthU);y1=baseY;
-  x2=x1-((1-xTF)*thisWidth);y2=y1-(x1-baseLeft)*yTF;
-  if (x1<baseX){x1=baseX};if (x2<baseX){x2=baseX}
-  if (x4<baseX){x4=baseX};if (x3<baseX){x3=baseX}
-  curveX3=xyArray[4];curveY3=xyArray[5];
-  curveX4=xyArray[6];curveY4=xyArray[7];
-  color = getColor(cls)
-  ctx.beginPath;
-  ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.lineTo(x3-radius,y3);
-  ctx.arcTo(x3,y3,x4,y4+radius,radius)
-  ctx.lineTo(x4,y4);
-  ctx.closePath();
-  ctx.fillStyle = color;
-  ctx.fill(); 
-  drawAxis();
+  var xyArray = [x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,radius];
+  return xyArray;
 }
 
 
+function clearDraw(xyArray,width){
 
-function clearDraw(xyArray,cls){
-
-  ctx.lineWidth = Math.round(0.3*vw)+1.5;
+  ctx.lineWidth = width+2.5;
   ctx.strokeStyle = '#333';ctx.fillStyle = '#333';
   ctx.beginPath();
   ctx.moveTo(xyArray[0]-0.5,xyArray[1])
