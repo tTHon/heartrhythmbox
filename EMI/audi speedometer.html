@@ -35,99 +35,74 @@ window.addEventListener("keydown", function(event) {
 var nav =0;
 function stepMove(){
   nav = nav+1;
-  if (nav==1){moveFwd(0,0.98)}
-  if (nav==2){moveFwd(0.98,3.98)}
+  if (nav==1){moveFwd(0,2.98)}
+  if (nav==2){moveFwd(2.98,3.9)}
+  if (nav==3){moveBwd(3.9,3)}
 }
 
 function moveFwd(from,to){
-  var cls=from;
-  xyArray = draw (cls,1,'#333333')
-  pArray1= drawParallel(cls,1,'#333333')
-  pArray2= drawParallel(cls,1,'#333333')
-  pArray3= drawParallel(cls,1,'#333333')
-  var moveInterval = setInterval(function(){
-    clearDraw (xyArray,0.4*vw)
-    for (let i=1;i<10;i++){
-      drawParallel(cls-0.02-(0.01*i), 0.5*vw,'#333')
-      drawParallel(cls-0.02-(0.02*i), 0.5*vw,'#333')
-      drawParallel(cls-0.02-(0.03*i), 0.5*vw,'#333')
-    }
-    drawAxis()
-    cls=cls+0.02;
-    color1 = findColor(cls,1);color2 = findColor(cls,2);
-    color3 = findColor(cls,3);
-    for (let j=1;j<10;j++){
-        drawParallel(cls-(0.01*j), 0.4*vw,color1)
-        drawParallel(cls-(0.02*j), 0.4*vw,color2)
-        drawParallel(cls-(0.03*j), 0.4*vw,color3)
-    }
+  let xyArray= draw (from,0.4*vw,'#333')
+  
+  for (let k=from;k<=to;k=k+0.01){
+    setTimeout (function(){
+      clearDraw (xyArray,0.4*vw)
+      let cls=k;
+      for (let i=1;i<10;i++){
+        drawParallel(cls-0.01-(0.01*i), 0.6*vw,'#333')
+        drawParallel(cls-0.02-(0.02*i), 0.6*vw,'#333')
+        drawParallel(cls-0.03-(0.03*i), 0.6*vw,'#333')
+      }
 
-    xyArray= draw (cls,0.4*vw,'#f1f1f1')
-    if (cls>=to){
-      clearInterval(moveInterval)
-      for (let k=1;k<10;k++){
-        drawParallel(cls-(0.01*k), 0.5*vw,'#333')
-        drawParallel(cls-(0.02*k), 0.5*vw,'#333')
-        drawParallel(cls-(0.03*k), 0.5*vw,'#333')
-      }      
-      for (let l=1;l<10;l++){
-          drawParallel(cls-(0.01*l), 0.4*vw,color1)
-          drawParallel(cls-(0.02*l), 0.4*vw,color2)
-          drawParallel(cls-(0.03*l), 0.4*vw,color3)
-        }
-      draw (cls,0.4*vw,'#f1f1f1')
+      var color1 = findColor(k,1);var color2 = findColor(k,2);
+      var color3 = findColor(k,3);
+      for (let j=1;j<10;j++){
+          drawParallel(cls-(0.01*j), 0.4*vw,color1)
+          drawParallel(cls-(0.02*j), 0.4*vw,color2)
+          drawParallel(cls-(0.03*j), 0.4*vw,color3)
+      }
+
+      xyArray= draw (cls,0.4*vw,'#f1f1f1')
+      drawAxis()
+      },k)
+
+   }
+  }
+
+function moveBwd(from,to){
+  xyArray= draw (from,0.4*vw,'#333')
+  for (let l=from;l>=to;l=l-0.01){
+    setTimeout(function(){
+      var i;var j;
+      clearDraw (xyArray,0.4*vw)
+      for (let i=1;i<10;i++){
+        drawParallel(l-0.01-(0.01*i), 0.5*vw,'#333')
+        drawParallel(l-0.01-(0.02*i), 0.5*vw,'#333')
+        drawParallel(l-0.01-(0.03*i), 0.5*vw,'#333')
+      }
+
+      var color1 = findColor(l,1);var color2 = findColor(l,2);
+      var color3 = findColor(l,3);
+      for (let j=1;j<10;j++){
+          drawParallel(l-(0.01*j), 0.4*vw,color1)
+          drawParallel(l-(0.02*j), 0.4*vw,color2)
+          drawParallel(l-(0.03*j), 0.4*vw,color3)
+      }
+
+      xyArray= draw (l,0.4*vw,'#f1f1f1')
+      drawAxis()
+
+      },l)
+
     }
-  },10-cls)
 }
 
 
-function moveBwd(to,from){
-  var cls=to;
-  xyArray = draw (cls,0.4*vw,'#333333')
-  pArray1= drawParallel(cls,0.2*vw,'#333333')
-  pArray2= drawParallel(cls,0.2*vw,'#333333')
-  pArray3= drawParallel(cls,0.2*vw,'#333333')
-  var moveInterval = setInterval(function(){
-    clearDraw (xyArray,0.4*vw)
-    for (let m=1;m<10;m++){
-      drawParallel(cls-0.02-(0.01*m), 0.5*vw,'#333')
-      drawParallel(cls-0.02-(0.02*m), 0.5*vw,'#333')
-      drawParallel(cls-0.02-(0.03*m), 0.5*vw,'#333')
-      }
-    drawAxis()
-    cls=cls-0.02;
-    color1 = findColor(cls,1);color2 = findColor(cls,2);
-    color3 = findColor(cls,3);
-    for (let i=n;n<10;n++){
-
-        drawParallel(cls-(0.01*n), 0.4*vw,color1)
-        drawParallel(cls-(0.02*n), 0.4*vw,color2)
-        drawParallel(cls-(0.03*n), 0.4*vw,color3)
-        }
-
-    xyArray= draw (cls,0.4*vw,'#f1f1f1')
-    if (cls<=from){
-      clearInterval(moveInterval)
-      for (let o=1;o<10;o++){
-        drawParallel(cls-(0.01*o), 0.5*vw,'#333')
-        drawParallel(cls-(0.02*o), 0.5*vw,'#333')
-        drawParallel(cls-(0.03*o), 0.5*vw,'#333')
-      }      
-    for (let p=1;p<10;p++){
-        drawParallel(cls-(0.01*p), 0.4*vw,color1)
-        drawParallel(cls-(0.02*p), 0.4*vw,color2)
-        drawParallel(cls-(0.03*p), 0.4*vw,color3)
-      }
-      draw (cls,0.4*vw,'#f1f1f1')
-    }
-  },0)
-}
 
 function findColor(cls,seq){
   var color;
-  var color1 = ['rgb(255,0,0)','rgb(205,165,0)','rgb(225,225,0)','rgb(0,255,0)']
-  var color2 = ['rgb(205,0,0)','rgb(185,135,0)','rgb(185,185,0)','rgb(0,205,0)']
-  var color3 = ['rgb(185,0,0)','rgb(155,105,0)','rgb(125,125,0)','rgb(0,185,0)']
+  var color1 = ['rgb(255,0,0)','rgb(255,117,26)','rgb(255,230,0)','rgb(0,255,0)']
+  var color2 = ['rgb(205,0,0)','rgb(255,133,51)','rgb(255,240,98)','rgb(0,205,0)']
+  var color3 = ['rgb(185,0,0)','rgb(255,148,77)','rgb(255,245,157)','rgb(0,185,0)']
   mark = Math.ceil(cls)-1;
   if (mark==4){mark=3}
   if (seq==1){color = color1[mark]};
@@ -179,8 +154,6 @@ function drawParallel(cls,width,color){
   ctx.strokeStyle = color;
   ctx.stroke()
   drawAxis()
-  var xyArray = [x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,radius];
-  return xyArray;
 }
 
 
@@ -232,9 +205,9 @@ function drawAxis(){
   ctx.fillText("class of", baseX, baseY+2*vw);ctx.fillText("recommendation", baseX, baseY+3.2*vw);
   ctx.textAlign = "center";ctx.fillStyle="rgb(255,0,0)"
   ctx.fillText("III", baseX+3*widthU, baseY+2*vw);
-  ctx.textAlign = "center";ctx.fillStyle="rgb(255,165,0)"
+  ctx.textAlign = "center";ctx.fillStyle="rgb(255,117,26)"
   ctx.fillText("IIb", baseX+6*widthU, baseY+2*vw);
-  ctx.textAlign = "center";ctx.fillStyle="rgb(255,255,0)"
+  ctx.textAlign = "center";ctx.fillStyle="rgb(255,230,0)"
   ctx.fillText("IIa", baseX+9*widthU, baseY+2*vw);
   ctx.textAlign = "center";ctx.fillStyle="rgb(0,255,0)"
   ctx.fillText("I", baseX+12*widthU, baseY+2*vw);
