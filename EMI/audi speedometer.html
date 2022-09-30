@@ -49,10 +49,10 @@ function moveFwd(from,to){
       
       if (k-0.3>0){
       for (let i=1;i<12;i++){
-        if (k-(0.03*i)>0){
+
         drawParallel(k-0.01-(0.01*i), 0.6*vw,'#333')
         drawParallel(k-0.01-(0.02*i), 0.6*vw,'#333')
-        drawParallel(k-0.01-(0.03*i), 0.6*vw,'#333')}
+        drawParallel(k-0.01-(0.03*i), 0.6*vw,'#333')
         }
       }
 
@@ -61,10 +61,10 @@ function moveFwd(from,to){
 
       if (k-0.3>0){
       for (let j=1;j<10;j++){
-          if (k-(j*0.03)>0){
+
           drawParallel(k-(j*0.01), 0.4*vw,color1)
           drawParallel(k-(j*0.02), 0.4*vw,color2)
-          drawParallel(k-(j*0.03), 0.4*vw,color3)}
+          drawParallel(k-(j*0.03), 0.4*vw,color3)
         }
       }
 
@@ -82,21 +82,21 @@ function moveBwd(from,to){
     setTimeout(function(){
       var i;var j;
       clearDraw (xyArray,0.6*vw)
-      if (l-0.03>0){
+
       for (let i=1;i<10;i++){
         drawParallel(l-0.01-(0.01*i), 0.6*vw,'#333')
         drawParallel(l-0.02-(0.02*i), 0.6*vw,'#333')
         drawParallel(l-0.03-(0.03*i), 0.6*vw,'#333')
-      }
+      
       }
       var color1 = findColor(l,1);var color2 = findColor(l,2);
       var color3 = findColor(l,3);
-      if (l-0.03>0){
+
       for (let j=1;j<10;j++){
           drawParallel(l-(0.01*j), 0.4*vw,color1)
           drawParallel(l-(0.02*j), 0.4*vw,color2)
           drawParallel(l-(0.03*j), 0.4*vw,color3)
-      }}
+      }
 
       xyArray= draw (l,0.4*vw,'#f1f1f1')
       //drawAxis()
