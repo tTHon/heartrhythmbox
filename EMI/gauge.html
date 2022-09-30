@@ -45,42 +45,23 @@ function createCanvas() {
 
 function nextMove(){
   nav++;
-  if (nav==1){
-    dropText('MRI is the test of choice.',65)
+  if (nav==1){    
+    dropText('MRI is the test of choice.',60)
     moveHand(-80,55)
+
   }
   if (nav==2){
-    //dropText('Device is MRI-conditional.',1)
-    moveHand(22.5,22.5)
+    dropText('Device is MRI-conditional.',50)
+    moveHand(55,55)
   }
 }
 
 function dropText(text,eAngle){
   ctx.textAlign = "start";ctx.fillStyle = "#333";
   ctx.font = 2*vw + 'px Arial';
-  var sAngle = -50;
-  startX = (radius+2*vw)*Math.cos(Math.PI*sAngle/180)+20*vw+1.5*radius; 
-  endX = (radius+2*vw)*Math.cos(Math.PI*eAngle/180)+20*vw+1.5*radius;
-  startY = 50*vh;
+  endX = (radius+2*vw)*Math.cos(Math.PI*eAngle/180)+radius;
   endY = (radius+2*vw)*Math.sin(Math.PI*-eAngle/180)+50*vh
-  pos=0;
-  xPos = startX;yPos = startY;
-  
-  var dropInterval = setInterval(function(){
-    ctx.fillStyle = 'white'
-    ctx.fillText(text,xPos,yPos)
-    xDif = endX-startX;yDif = endY-startY;
-    xPos =xPos+(0.1*xDif);
-    yPos=yPos+(0.1*yDif);
-    ctx.fillStyle = 'green'
-    if (xPos<=endX){xPos=endX}
-    if (yPos<=endY){yPos=endY}
-    document.getElementById('demo').innerHTML = xDif;
-    ctx.fillText(text,xPos,yPos)
-    if (xPos==endX && yPos==endY){
-      clearInterval(dropInterval)
-    }
-  },20)
+  ctx.fillText(text,endX,endY)
 }
 
 function drawLabel(bottom,top){
@@ -161,7 +142,7 @@ function moveHand(degreeS,degreeEnd){
     var distance = (degreeEnd-degreeS)+5;
     var tEnd=1;
     var moveInterval=setInterval(function(){
-      clearCenter();
+      clearFace();
       drawFace();
       drawHand(degreeS+tEnd)
       drawLabel('Unsafe to Perform','Safe to Perform');
@@ -179,7 +160,7 @@ function moveHand(degreeS,degreeEnd){
   function shakeMinus(){
   var tBack=1;
   var shakeBack=setInterval(function(){
-    clearCenter();
+    clearFace();
     drawFace();
     drawHand((degreeEnd+5)-tBack)
     drawLabel('Unsafe to Perform','Safe to Perform');
@@ -194,14 +175,14 @@ function moveHand(degreeS,degreeEnd){
   function shakePlus(){
   var tFwd=1;
   var shakeFwd=setInterval(function(){
-    clearCenter();
+    clearFace();
     drawFace();
     drawHand((degreeEnd-5)+tFwd)
     drawLabel('Unsafe to Perform','Safe to Perform');
     tFwd++;
     if (tFwd>=10){
     clearInterval(shakeFwd)
-    clearCenter();
+    clearFace();
     drawFace();
     drawHand(degreeEnd)
     drawLabel('Unsafe to Perform','Safe to Perform');
@@ -211,8 +192,13 @@ function moveHand(degreeS,degreeEnd){
 
 }
 
-function clearCenter(){
-  ctx.clearRect(centerX-radius,centerY-radius,centerX+radius,centerY+radius)
+function clearFace(){
+  var xPos=20*vw;var yPos = 50*vh;
+  ctx.fillStyle = 'white';
+  ctx.beginPath();
+  ctx.arc(xPos, yPos, radius, 270/180*Math.PI,90/180*Math.PI);
+  ctx.lineTo(xPos, yPos)
+  ctx.fill();
 }
 
 </script>
