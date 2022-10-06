@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color:#f5f5f5">
+
+<!--show ECG-->
+<h1 style="text-align:center">
+    Question No.1
+    <img style="width:90%;padding: 1vmax;" src="ecgs\ecg1.png">
+</h1>
+
+<h2 id="p1">Player 1</h2>
+
+
+
+<form id="form1">
+    <input type="checkbox" name="k1" id="k1">
+    <label id="key1" for="k1"></label>
+    <br>
+    <input type="checkbox" name="k2" id="k2">
+    <label id="key2" for="k2"></label>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+  
+<button onclick="checkValue()">
+    Submit
+</button>
+
+  
+
+
+
+<script>
+var keyArray = [{"key": 'sinus tachycardia', "score": 2},
+                {"key": 'complete AV block', "score": 4},
+                {"key": 'escape rate 30bpm', "score": 2},
+                {"key": 'RBBB', "score": 2}]
+
+document.getElementById('key1').innerHTML = keyArray[0].key
+document.getElementById('key2').innerHTML = keyArray[1].key
+document.getElementById('k1').value = keyArray[0].score
+document.getElementById('k2').value = keyArray[1].score
+
+function checkValue(){
+    var key = document.getElementById('k1').value;
+    document.getElementById('p1').innerHTML = document.getElementById('k1').value+document.getElementById('k2').value;
+}
+
+</script>
+
+</body>
+</html>
