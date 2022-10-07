@@ -11,10 +11,11 @@
     <img style="width:90%;padding: 1vmax;" src="ecgs\ecg1.png">
 </h1>
 
-<form id="Q0" style="font-size:2vmax;padding:1vmax">
+<form id="Q0" style="font-size:2vmax;padding:1vmax" method="POST" data-netlify="true">
 
+    <div class="pContainer">
     <!--player1-->
-    <div>
+    <div class="pBox">
     <h2 id="p1"></h2>
     <div class="aBox">
         <input type="checkbox" name="k1" class="input" onclick="updateScore(0,1)">
@@ -55,20 +56,169 @@
         <input type="checkbox" name="k8" class="input" onclick="updateScore(7,1)">
         <label class="label" for="k8"></label>
     </div>
+    <div class="aBox">
+        <input type="checkbox" name="k9" class="input" onclick="updateScore(8,1)">
+        <label class="label" for="k9"></label>
     </div>
 
-    <div>
+    <div class="aBox">
+        <input type="checkbox" name="k10" class="input" onclick="updateScore(9,1)">
+        <label class="label" for="k10"></label>
+    </div>
+    <div style="padding: 0.5vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
         <span style="font-size: 2.5vmax;font-weight:600;padding-top:1vmax">Score:</span>
         <input type="text" class="showScore"
-        style="border:none;font-size:2vmax;background-color:transparent;color: black;">
+        style="border:none;width: 3vmax;
+        font-size:2.5vmax;background-color:transparent;
+        color: black;">
     </div>
 
-    <!--input type="submit" value="Submit"-->
+
+    </div>
+
+    <!--player2-->
+    <div class="pBox">
+        <h2 id="p2"></h2>
+        <div class="aBox">
+            <input type="checkbox" name="k11" class="input" onclick="updateScore(0,2)">
+            <label class="label" for="k11"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k12" class="input" onclick="updateScore(1,2)">
+            <label class="label" for="k12"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k13" class="input" onclick="updateScore(2,2)">
+            <label class="label" for="k13"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k14" class="input" onclick="updateScore(3,2)">
+            <label class="label" for="k14"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k15" class="input" onclick="updateScore(4,2)">
+            <label class="label" for="k15"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k16" class="input" onclick="updateScore(5,2)">
+            <label class="label" for="k16"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k17" class="input" onclick="updateScore(6,2)">
+            <label class="label" for="k17"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k18" class="input" onclick="updateScore(7,2)">
+            <label class="label" for="k18"></label>
+        </div>
+        <div class="aBox">
+            <input type="checkbox" name="k19" class="input" onclick="updateScore(8,2)">
+            <label class="label" for="k19"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k20" class="input" onclick="updateScore(9,2)">
+            <label class="label" for="k20"></label>
+        </div>
+        <div style="padding: 0.5vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
+            <span style="font-size: 2.5vmax;font-weight:600;padding-top:1vmax">Score:</span>
+            <input type="text" class="showScore"
+            style="border:none;width: 3vmax;
+            font-size:2.5vmax;background-color:transparent;
+            color: black;">
+        </div>
+    
+        </div>
+    
+    <!--player3-->
+    <div class="pBox">
+        <h2 id="p3"></h2>
+        <div class="aBox">
+            <input type="checkbox" name="k21" class="input" onclick="updateScore(0,3)">
+            <label class="label" for="k21"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k22" class="input" onclick="updateScore(1,3)">
+            <label class="label" for="k22"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k23" class="input" onclick="updateScore(2,3)">
+            <label class="label" for="k23"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k24" class="input" onclick="updateScore(3,3)">
+            <label class="label" for="k24"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k25" class="input" onclick="updateScore(4,3)">
+            <label class="label" for="k25"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k26" class="input" onclick="updateScore(5,3)">
+            <label class="label" for="k26"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k27" class="input" onclick="updateScore(6,3)">
+            <label class="label" for="k27"></label>
+        </div>
+    
+        <div class="aBox">
+            <input type="checkbox" name="k28" class="input" onclick="updateScore(7,3)">
+            <label class="label" for="k28"></label>
+        </div>
+
+        <div class="aBox">
+            <input type="checkbox" name="k29" class="input" onclick="updateScore(8,3)">
+            <label class="label" for="k29"></label>
+        </div>
+
+        <div class="aBox">
+            <input type="checkbox" name="k30" class="input" onclick="updateScore(9,3)">
+            <label class="label" for="k30"></label>
+        </div>
+
+
+        <div style="padding: 0.5vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
+            <span style="font-size: 2.5vmax;font-weight:600;padding-top:1vmax">
+                Score:</span>
+            <input type="text" class="showScore"
+            style="border:none;width: 3vmax;
+            font-size:2.5vmax;background-color:transparent;
+            color: black;">
+        </div>
+    
+        </div>
+    
+    
+    </div>
+
+    <div style="margin-left:auto;margin-right:auto;padding: 2vmax;text-align: center;">   
+        <input type="submit" value="Submit" 
+        style="text-align:center;width:fit-content;padding:1vmax;cursor: pointer;
+        font-size: 3vmax;">    
+    </div>
 </form>
-  
-<button>
-    Submit
-</button>
+
+<!--question nav bar-->
+<div id="navBar">
+    <button id="left">&lt;</button>
+    <button id="current"></button>
+    <button id="right">&gt;</button>
+</div> 
+
 
   
 
@@ -83,11 +233,12 @@ var currentScore = [0,0,0];
 var keyArray = getKeyArray(qNo);
 var scoreArray = getScoreArray(qNo);
 displayTickBox(qNo,'aBox','label');
+displayNavBar(qNo)
 
 function updateScore(key,pNo){
     var addScore = scoreArray[key];
     //check if checked;
-    var inPutNo = (pNo-1)*8+key;
+    var inPutNo = (pNo-1)*10+key;
     var input = document.getElementsByClassName('input')
     if (input[inPutNo].checked){
         currentScore[pNo-1] = currentScore[pNo-1]+addScore
@@ -95,7 +246,7 @@ function updateScore(key,pNo){
     else {
         currentScore[pNo-1] = currentScore[pNo-1]-addScore
     }
-    document.getElementById('p1').innerHTML = currentScore[pNo-1];
+    
     var showScore = document.getElementsByClassName('showScore')
     showScore[pNo-1].value = currentScore[pNo-1];
 }

@@ -1,2 +1,16 @@
 .aBox {display: none;font-size: 2.5vmax;padding: 1vmax;}
 .input {width: 2.5vmax;height: 2vmax;padding: 1vmax;}
+.pContainer {display: flex;}
+.pBox {align-content: center;flex: 33%;
+    border: grey solid 0.2vmax;border-radius: 1vmax;}
+
+#p1,#p2,#p3 {font-size: 3.5vmax;color: #333333;padding: 1vmax;}
+
+@media only screen and (max-width: 1000px) {
+    .pContainer {flex-wrap: wrap;}
+    .pBox {flex: 100%;}
+  }
+
+#navBar {font-size: 2.5vmax;background-color: #555;padding: 1vmax;text-align: center;}
+#left, #right, #current {background-color: #555;color: #f1f1f1;border: none;padding: 0 1vmax 0 1vmax;
+    font-size: 3vmax;cursor: pointer;}
