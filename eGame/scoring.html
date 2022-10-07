@@ -1,49 +1,103 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" href="scoring.css">
+</head>
 <body style="background-color:#f5f5f5">
 
 <!--show ECG-->
 <h1 style="text-align:center">
-    Question No.1
+    Question No.0
     <img style="width:90%;padding: 1vmax;" src="ecgs\ecg1.png">
 </h1>
 
-<h2 id="p1">Player 1</h2>
+<form id="Q0" style="font-size:2vmax;padding:1vmax">
 
+    <!--player1-->
+    <div>
+    <h2 id="p1"></h2>
+    <div class="aBox">
+        <input type="checkbox" name="k1" class="input" onclick="updateScore(0,1)">
+        <label class="label" for="k1"></label>
+    </div>
 
+    <div class="aBox">
+        <input type="checkbox" name="k2" class="input" onclick="updateScore(1,1)">
+        <label class="label" for="k2"></label>
+    </div>
 
-<form id="form1">
-    <input type="checkbox" name="k1" id="k1">
-    <label id="key1" for="k1"></label>
-    <br>
-    <input type="checkbox" name="k2" id="k2">
-    <label id="key2" for="k2"></label>
-    <br>
-    <input type="submit" value="Submit">
+    <div class="aBox">
+        <input type="checkbox" name="k3" class="input" onclick="updateScore(2,1)">
+        <label class="label" for="k3"></label>
+    </div>
+
+    <div class="aBox">
+        <input type="checkbox" name="k4" class="input" onclick="updateScore(3,1)">
+        <label class="label" for="k4"></label>
+    </div>
+
+    <div class="aBox">
+        <input type="checkbox" name="k5" class="input" onclick="updateScore(4,1)">
+        <label class="label" for="k5"></label>
+    </div>
+
+    <div class="aBox">
+        <input type="checkbox" name="k6" class="input" onclick="updateScore(5,1)">
+        <label class="label" for="k6"></label>
+    </div>
+
+    <div class="aBox">
+        <input type="checkbox" name="k7" class="input" onclick="updateScore(6,1)">
+        <label class="label" for="k7"></label>
+    </div>
+
+    <div class="aBox">
+        <input type="checkbox" name="k8" class="input" onclick="updateScore(7,1)">
+        <label class="label" for="k8"></label>
+    </div>
+    </div>
+
+    <div>
+        <span style="font-size: 2.5vmax;font-weight:600;padding-top:1vmax">Score:</span>
+        <input type="text" class="showScore"
+        style="border:none;font-size:2vmax;background-color:transparent;color: black;">
+    </div>
+
+    <!--input type="submit" value="Submit"-->
 </form>
   
-<button onclick="checkValue()">
+<button>
     Submit
 </button>
 
   
 
 
-
+<script src="scoring.js"></script>
 <script>
-var keyArray = [{"key": 'sinus tachycardia', "score": 2},
-                {"key": 'complete AV block', "score": 4},
-                {"key": 'escape rate 30bpm', "score": 2},
-                {"key": 'RBBB', "score": 2}]
+//edit qNo accordingly
+var qNo = 0;
 
-document.getElementById('key1').innerHTML = keyArray[0].key
-document.getElementById('key2').innerHTML = keyArray[1].key
-document.getElementById('k1').value = keyArray[0].score
-document.getElementById('k2').value = keyArray[1].score
+displayName();
+var currentScore = [0,0,0];
+var keyArray = getKeyArray(qNo);
+var scoreArray = getScoreArray(qNo);
+displayTickBox(qNo,'aBox','label');
 
-function checkValue(){
-    var key = document.getElementById('k1').value;
-    document.getElementById('p1').innerHTML = document.getElementById('k1').value+document.getElementById('k2').value;
+function updateScore(key,pNo){
+    var addScore = scoreArray[key];
+    //check if checked;
+    var inPutNo = (pNo-1)*8+key;
+    var input = document.getElementsByClassName('input')
+    if (input[inPutNo].checked){
+        currentScore[pNo-1] = currentScore[pNo-1]+addScore
+    }
+    else {
+        currentScore[pNo-1] = currentScore[pNo-1]-addScore
+    }
+    document.getElementById('p1').innerHTML = currentScore[pNo-1];
+    var showScore = document.getElementsByClassName('showScore')
+    showScore[pNo-1].value = currentScore[pNo-1];
 }
 
 </script>
