@@ -10,7 +10,7 @@ var requestOptions = {
     
 };
 
-fetch("https://v1.nocodeapi.com/tthon/netlify/NpVhOQLHdQGcYgnD/listFormSubmissions?form_id=633fd8d8bc959b00087bda49", requestOptions)
+fetch("https://v1.nocodeapi.com/tthon/netlify/NpVhOQLHdQGcYgnD/listFormSubmissions?form_id=634035b9b348c50008955b1a", requestOptions)
     .then(response => response.json())
     .then(data =>getScore(data))
     .catch(error => console.log('error', error));
