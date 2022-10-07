@@ -12,25 +12,14 @@ var requestOptions = {
 
 fetch("https://v1.nocodeapi.com/tthon/netlify/NpVhOQLHdQGcYgnD/listFormSubmissions?form_id=634035b9b348c50008955b1a", requestOptions)
     .then(response => response.json())
-    .then(data =>getScore(data))
+    .then(result =>getScore(result))
     .catch(error => console.log('error', error));
 
 
-function getScore(data){
-    var form = data[0].ordered_human_fields
-    for (let i=0;i<form.length;i++){
-        if (form[i].name=='p1'){
-            var p1=form[i].value;
-        }
-        if (form[i].name=='p2'){
-            var p2=form[i].value;
-        }
-        if (form[i].name=='p3'){
-            var p3=form[i].value
-        }
-    }
-    document.getElementById('p1').innerHTML = "p1:" + p1
-    document.getElementById('p2').innerHTML = "p2:" + p2
-    document.getElementById('p3').innerHTML = "p3:" + p3
-    document.getElementById('formName').innerHTML = data[0].form_name
+function getScore(result){
+    var f = result[0].data;
+    document.getElementById('p1').innerHTML = "p1:" + f.p1
+    document.getElementById('p2').innerHTML = "p2:" + f.p2
+    document.getElementById('p3').innerHTML = "p3:" + f.p3
+    document.getElementById('formName').innerHTML = "qNo:" + f.qNo
 }
