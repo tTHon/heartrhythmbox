@@ -1,21 +1,32 @@
 var pName = ['dao','oat','pom']
 var totalQ = 15;
-
+var qNo =0;
 var keyJson = [{"no":0, "key": 'sinus tachycardia', "score": 2},
                 {"no":0, "key": 'complete AV block', "score": 4},
                 {"no":0, "key": 'escape rate 30bpm', "score": 2},
                 {"no":0, "key": 'RBBB', "score": 2}]
+loadPage();
+function loadPage(){                
+    displayName(qNo);
+    displayTickBox(qNo,'aBox','label');
+    displayNavBar(qNo)
+    currentScore = [0,0,0];
+}
 
 
+//name and ecg
 function displayName(){
     document.getElementById('p1').innerHTML = pName[0];
     document.getElementById('p2').innerHTML = pName[1];
     document.getElementById('p3').innerHTML = pName[2];
+    var source = "ecgs\\ecg"+ qNo.toString()+".png";
+    document.getElementById('ecg').src = source;
+
 }
 
 function getKeyArray(n){
     var keyArray = [];
-    for (var i=0;i<keyJson.length;i++){
+    for (let i=0;i<keyJson.length;i++){
          if (keyJson[i].no ==n){
             var k = keyJson[i].key
             keyArray.push (k);
@@ -48,6 +59,23 @@ function displayTickBox(n,boxName,labelName){
         tickBox[20+i].style.display = 'inline-flex'
         label[20+i].innerHTML = keyA[i] + ' (' + scoreA[i] + ')'
     }
+}
+
+function updateScore(key,pNo){
+    var scoreArray = getScoreArray(qNo);
+    var addScore = scoreArray[key];
+    //check if checked;
+    var inPutNo = (pNo-1)*10+key;
+    var input = document.getElementsByClassName('input')
+    if (input[inPutNo].checked){
+        currentScore[pNo-1] = currentScore[pNo-1]+addScore
+    }
+    else {
+        currentScore[pNo-1] = currentScore[pNo-1]-addScore
+    }
+    
+    var showScore = document.getElementsByClassName('showScore')
+    showScore[pNo-1].value = currentScore[pNo-1];
 }
 
 function displayNavBar(qNo){
