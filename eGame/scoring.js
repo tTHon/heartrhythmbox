@@ -6,8 +6,18 @@ var keyJson = [{"no":0, "key": 'sinus tachycardia', "score": 2},
                 {"no":0, "key": 'escape rate 30bpm', "score": 2},
                 {"no":0, "key": 'RBBB', "score": 2}]
 loadPage();
+
+document.getElementById('left').addEventListener ("click", function(){
+    if (qNo>0) {qNo--}
+    loadPage()
+})
+document.getElementById('right').addEventListener ("click",function(){
+    console.log()
+    if (qNo<15){qNo++}
+    loadPage();
+})
 function loadPage(){                
-    displayName(qNo);
+    displayName();
     displayTickBox(qNo,'aBox','label');
     displayNavBar(qNo)
     currentScore = [0,0,0];
@@ -20,8 +30,9 @@ function displayName(){
     document.getElementById('p2').innerHTML = pName[1];
     document.getElementById('p3').innerHTML = pName[2];
     var source = "ecgs\\ecg"+ qNo.toString()+".png";
-    document.getElementById('ecg').src = source;
-
+    //document.getElementById('ecg').src = source;
+    document.getElementById('title').innerHTML = "Question No." + qNo;
+    document.getElementById('questionNumber').value = qNo;
 }
 
 function getKeyArray(n){
@@ -83,6 +94,10 @@ function displayNavBar(qNo){
     var right = document.getElementById('right')
     var current = document.getElementById('current')
     current.innerHTML = qNo + '/' + totalQ
-    left.href = "scoring.html"
-    right.href = "scoring.html"
+    if (qNo>0){
+        left.innerHTML = '<'
+    } else {left.innerHTML = ''}
+    if (qNo<15){
+        right.innerHTML = '>'
+    } else {right.innerHTML =""}
 }

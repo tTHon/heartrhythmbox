@@ -7,12 +7,11 @@
 
 <div id="main">
 <!--show ECG-->
-<h1 style="text-align:center">
-    Question No.0
+<h1 id= 'title' style="text-align:center">
     <img id="ecg" style="width:90%;padding: 1vmax;">
 </h1>
 
-<form id="Q0" style="font-size:2vmax;padding:1vmax" method="POST" data-netlify="true">
+<form id="playerScoring" style="font-size:2vmax;padding:1vmax" method="POST" data-netlify="true">
 
     <div class="pContainer">
     <!--player1-->
@@ -203,7 +202,7 @@
     
         </div>
     
-    
+    <input id="questionNo" type="text" style="display:none;">
     </div>
 
     <div style="margin-left:auto;margin-right:auto;padding: 2vmax;text-align: center;">   
@@ -215,9 +214,9 @@
 
 <!--question nav bar-->
 <div id="navBar">
-    <button id="left">&lt;</button>
+    <button id="left"></button>
     <button id="current"></button>
-    <button id="right">&gt;</button>
+    <button id="right"></button>
 </div> 
 </div>
 
