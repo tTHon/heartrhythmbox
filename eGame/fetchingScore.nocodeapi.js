@@ -1,4 +1,3 @@
-//token jbBAry1lZp5mqeGiHOMg0QUBX6PyIR0sj1rfxuaREPk
 //nocodeapi
 
 var myHeaders = new Headers();
