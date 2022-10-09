@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 
+<style>
+/*color*/
+.orange0 {background-color: #F7B022;}
+.green0 {background-color: #23E068;}
+.blue0 {background-color: #5ED7FF;}
+
+</style>
+
 <body>
 
 <div id="demo"></div>
@@ -13,15 +21,15 @@
 <script>
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var vw = 0.9*window.innerWidth/100;
+var vw = 0.95*window.innerWidth/100;
 var vh = 0.9*window.innerHeight/100;
-var radius = 35*vh;
+var radius = 25*vh;
 var centerX = 20*vw;var centerY= 50*vh;
 var nav=0;
 
 createCanvas()
 drawFace();
-drawHand(-80);
+drawHand(180);
 drawLabel('Unsafe to Perform','Safe to Perform');
 
 //nav
@@ -36,9 +44,9 @@ window.addEventListener("keydown", function(event) {
 
 function createCanvas() {
   const scale = window.devicePixelRatio;
-  canvas.style.width = 0.9*window.innerWidth + 'px';
+  canvas.style.width = 0.95*window.innerWidth + 'px';
   canvas.style.height = 0.9*window.innerHeight + 'px';
-  canvas.width = Math.floor(0.9*window.innerWidth * scale*2)
+  canvas.width = Math.floor(0.95*window.innerWidth * scale*2)
   canvas.height = Math.floor(0.9*window.innerHeight * scale*2)
   ctx.scale(scale*2,scale*2)
 }
@@ -76,40 +84,40 @@ function drawLabel(bottom,top){
   ctx.fillText (top,xPos,topPos) 
 }
 
-function drawFace() {
+function drawFace(score) {
   var xPos=20*vw;var yPos = 50*vh;
-
+  var degree = score + 15;
   //red
   ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, Math.PI*50/180, Math.PI*80/180);
+  ctx.arc(xPos, yPos, radius, Math.PI*195/180, Math.PI*204/180);
   ctx.fillStyle = 'red';
   ctx.lineTo(xPos, yPos)
   ctx.fill();
 
   //orange
   ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, Math.PI*20/180, 50/180*Math.PI);
+  ctx.arc(xPos, yPos, radius, Math.PI*205/180, 214/180*Math.PI);
   ctx.fillStyle = 'orange';
   ctx.lineTo(xPos, yPos)
   ctx.fill();
 
 //yellow
 ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 330/180*Math.PI, 20/180*Math.PI);
+  ctx.arc(xPos, yPos, radius, 215/180*Math.PI, 225/180*Math.PI);
   ctx.fillStyle = 'yellow';
   ctx.lineTo(xPos, yPos)
   ctx.fill();
 
 //green
   ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 280/180*Math.PI,330/180*Math.PI);
+  ctx.arc(xPos, yPos, radius, 225/180*Math.PI,235/180*Math.PI);
   ctx.fillStyle = 'green';
   ctx.lineTo(xPos, yPos)
   ctx.fill();
 
   //draw arc blank
   ctx.beginPath();
-  ctx.arc(xPos, yPos, radius*0.5, 0, 2*Math.PI);
+  ctx.arc(xPos, yPos, radius*0.75, 0, 2*Math.PI);
   ctx.fillStyle = 'white';
   ctx.fill();  
 
@@ -132,7 +140,7 @@ function drawHand(degree) {
     yEnd = length*Math.sin(Math.PI*degree/180);
     ctx.moveTo(xPos,yPos);
     ctx.lineTo(xPos+xEnd,yPos-yEnd);
-    ctx.strokeStyle = '#333'
+    ctx.strokeStyle = 'red'
     ctx.stroke();
 }
 

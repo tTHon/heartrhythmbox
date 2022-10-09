@@ -9,15 +9,6 @@
     <div id="p3"></div>
 
 <!--script src="fetchScore.js"></script-->
-<script src="functions\f1.js"></script>
-<script>
-    var fOptions ={ method: 'GET',
-        headers: {accept: 'application/json'}}
-fetch('https://next-boilerplate-html.netlify.app/.netlify/functions/f1', fOptions)
-.then(response => response.json())
-  .then(result =>document.getElementById('demo').innerHTML = result)
-  .catch(error => console.log('error', error));
-
 
 </script>
 
