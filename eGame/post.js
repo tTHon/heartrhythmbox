@@ -1,6 +1,6 @@
 const data = { username: 'example' };
 
-fetch('/eGame', {
+fetch('\functions\mailBox.js', {
   method: 'POST', // or 'PUT'
   headers: {
     'Content-Type': 'application/json',
