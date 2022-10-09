@@ -1,14 +1,5 @@
 //tryapis.com
 
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-var requestOptions = {
-    method: "get",
-    headers: myHeaders,
-    redirect: "follow",
-    
-};
-
 const options = {
     method: 'GET',
     headers: {
@@ -17,15 +8,16 @@ const options = {
     }
   };
   
-  fetch('https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions', options)
+fetch('https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions', options)
   .then(response => response.json())
   .then(result =>getScore(result))
   .catch(error => console.log('error', error));
 
-var totalQ = 15;
+var totalQ = 16;
 var p1Score = setScoreArray();
 var p2Score = setScoreArray();
 var p3Score = setScoreArray();
+document.getElementById('demo').innerHTML = response
 
 
 function setScoreArray(){
@@ -42,9 +34,9 @@ function getScore(result){
     p1Score[f.qNo] = f.p1;
     p2Score[f.qNo] = f.p2;
     p3Score[f.qNo] = f.p3;
-    //document.getElementById('p1').innerHTML = p1Score;
-    //document.getElementById('p2').innerHTML = "p2:" + f.p2
-    //document.getElementById('p3').innerHTML = "p3:" + f.p3
-    //document.getElementById('formName').innerHTML = "qNo:" + f.qNo
+    document.getElementById('p1').innerHTML = "p1:" + f.p1;
+    document.getElementById('p2').innerHTML = "p2:" + f.p2
+    document.getElementById('p3').innerHTML = "p3:" + f.p3
+    document.getElementById('formName').innerHTML = "qNo:" + f.qNo
   }
 }
