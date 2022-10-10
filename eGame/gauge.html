@@ -12,12 +12,12 @@
 <body>
 
 <div id="demo"></div>
+<button id="b1" onclick="refresh()">refresh</button>
 <div style="text-align:center">
   <canvas id="canvas" style="border:0.1vw solid black;"></canvas>
 </div>
 
-
-
+<script src="fetchScore.js"></script>
 <script>
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -48,6 +48,10 @@ window.addEventListener("keydown", function(event) {
 })
 
 
+function refresh(){
+  reFetch(1);reFetch(2);reFetch(3)
+}
+;
 
 function createCanvas() {
   const scale = window.devicePixelRatio;
@@ -68,16 +72,18 @@ function nextMove(){
   if (nav==2){
     //dropText('Device is MRI-conditional.',50)
     moveHand(2,-120,-190)
-    moveHand(3,-120,-360)
+    moveHand(3,-120,-420)
   }
 }
 
-function dropText(text,eAngle){
+function dropText(add,gNo){
   ctx.textAlign = "start";ctx.fillStyle = "#333";
   ctx.font = 2*vw + 'px Arial';
-  endX = (radius+2*vw)*Math.cos(Math.PI*eAngle/180)+radius;
-  endY = (radius+2*vw)*Math.sin(Math.PI*-eAngle/180)+50*vh
-  ctx.fillText(text,endX,endY)
+  var baseX = (16*vw*(2*gNo-1)); 
+  endX = baseX;
+  endY = 10*vh;
+  //document.getElementById('demo').innerHTML = add
+  ctx.fillText(add,endX,endY)
 }
 
 function drawLabel(gNo){
@@ -212,7 +218,7 @@ function clearFace(gNo){
   var xPos=16*vw*(2*gNo-1);var yPos = baseY;
   ctx.fillStyle = 'white';
   ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 100/180*Math.PI,420/180*Math.PI);
+  ctx.arc(xPos, yPos, radius, 100/180*Math.PI,440/180*Math.PI);
   ctx.lineTo(xPos, yPos)
   ctx.fill();
 }
