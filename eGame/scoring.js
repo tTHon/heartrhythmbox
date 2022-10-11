@@ -13,16 +13,10 @@ var keyJson = [{"no":0, "key": 'sinus tachycardia', "score": 2},
                 {"no":2, "key": '2.3', "score": 3},         
             
             ]
+
 loadPage();
 
-document.getElementById('left').addEventListener ("click", function(){
-    if (qNo>0) {qNo--}
-    loadPage()
-})
-document.getElementById('right').addEventListener ("click",function(){
-    if (qNo<totalQ){qNo++}
-    loadPage();
-})
+
 function loadPage(){                
     displayName();
     displayTickBox(qNo,'aBox','label');
@@ -30,6 +24,11 @@ function loadPage(){
     currentScore = [0,0,0];
 }
 
+function nextQ(){
+    qNo++;
+    if (qNo<=totalQ){
+        loadPage();}
+}
 
 //name and ecg
 function displayName(){
@@ -37,10 +36,9 @@ function displayName(){
     document.getElementById('p2').innerHTML = pName[1];
     document.getElementById('p3').innerHTML = pName[2];
     document.getElementById('questionNo').value = qNo.toString();
-    var source = "ecgs\\ecg"+ qNo.toString()+".png";
-    document.getElementById('ecg').src = 'ecgs\\ecg0.png';
-    document.getElementById('title').innerHTML = source;
-    //document.getElementById('title').innerHTML = "Question No." + qNo;
+    document.getElementById('title').innerHTML = "Question No." + qNo;
+    var source = "ecgs/ecg"+ qNo.toString()+".png";
+    document.getElementById('ecg').src = source;
 }
 
 function getKeyArray(n){
@@ -97,15 +95,4 @@ function updateScore(key,pNo){
     showScore[pNo-1].value = currentScore[pNo-1];
 }
 
-function displayNavBar(qNo){
-    var left = document.getElementById('left')
-    var right = document.getElementById('right')
-    var current = document.getElementById('current')
-    current.innerHTML = qNo + '/' + totalQ
-    if (qNo>0){
-        left.innerHTML = '<'
-    } else {left.innerHTML = ''}
-    if (qNo<15){
-        right.innerHTML = '>'
-    } else {right.innerHTML =""}
-}
+
