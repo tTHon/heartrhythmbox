@@ -1,9 +1,10 @@
 //tryapis.com
 
-var totalQ = 16;
+var totalQ = 13;
 var p1Score = [];
 var p2Score = [];
 var p3Score = [];
+var questionNumber=0;
 
 function reFetch(questNo,gNo){ 
   const options = {
@@ -56,13 +57,29 @@ function reFetch(questNo,gNo){
         oldScore[2]=p3Score[questNo];   
       }  
       add = nowScore[gNo-1]-oldScore[gNo-1] 
-      //-120 to 440 degree -- move specific gNo
-      const degreeS = -120-((oldScore[gNo-1]*2));
-      const degreeE = -120-(nowScore[gNo-1]*2)
+      //-120 to 420 degree -- move specific gNo
+      //1 score equal to how many degree
+      var block = 300/((totalQ-1)*10);
+      const degreeS = -120-((oldScore[gNo-1]*block));
+      const degreeE = -120-(nowScore[gNo-1]*block)
       moveHand(gNo,degreeS,degreeE);
       dropText(add,gNo);
       showScore(gNo,(oldScore[gNo-1]),nowScore[gNo-1])
   }
+}
+
+function next(){
+  qText = document.getElementById('qNow')
+  qMax = totalQ-1
+  questionNumber ++;
+  
+  qText.innerHTML = questionNumber
+  document.getElementById('questionNo').value = questionNumber;
+      //document.getElementById('submitBut').click();
+  if (questionNumber==qMax){
+  document.getElementById('nextArrow').style.display='none'}
+
+  
 }
 
 function showScore(gNo,oldS,newS){
@@ -115,6 +132,7 @@ function dropText(add,gNo){
 
 function drawLabel(gNo){
   var baseX = (16*vw*(2*gNo-1)); 
+  max = (totalQ-1)*10
   //cos 62
   var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius));
   var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius));
@@ -125,7 +143,7 @@ function drawLabel(gNo){
   ctx.font = 2*vw + 'px Raleway, sans-serif'
   ctx.textAlign = "center";
   ctx.fillText ('0',xLeft,yPos) 
-  ctx.fillText ('150',xRight,yPos) 
+  ctx.fillText (max,xRight,yPos) 
 }
 
 function drawFace(gNo) {
