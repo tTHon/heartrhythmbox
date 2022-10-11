@@ -23,11 +23,6 @@ function loadPage(){
     currentScore = [0,0,0];
 }
 
-function nextQ(){
-    if (qNo<=totalQ){
-        loadPage();qNo++;}
-}
-
 //name and ecg
 function displayName(){
     document.getElementById('p1').innerHTML = pName[0];
