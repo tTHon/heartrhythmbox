@@ -11,6 +11,11 @@
 .score {padding: 0.2vmax 0.5vmax;
   border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
 .refBut {padding: 1vmax;margin-top: 0.5vmax;}
+#menu {display: none;background-color: #888;cursor: pointer;
+  padding-right: 0.5vw;padding-left: 0.5vw;margin-right: 0.5vw;}
+.menuItem {background-color: #888;}
+.menuItem a {text-decoration: none;color: #ddd;background-color: #888;}
+.menuItem i {color: #ddd;background-color: #888;border: none;}
 </style>
 
 <body>
@@ -56,30 +61,43 @@
 
 </div>
 <form method="POST" id="questionNav">
-<div class="itemBar" style="padding: 2.2vmax 1vmax;color: #888;text-align: right;font-size: 1.8vmax;">
+<div class="itemBar" style="padding: 2.2vmax 1vmax;color: #888;text-align: right;">
   <span id="qNav" style="float:left;font-size: 3vmax;color: #fafafa;vertical-align: bottom;">
-    <i class="fa-solid fa-ellipsis-vertical" onclick="menu(0)"
-    style="color:#888;padding-right: 0.5vmax;cursor: pointer;">
-    </i>
+    <i class="fa-solid fa-ellipsis-vertical menuDot fa-fw" onclick="showMenu()"
+    style="color:#888;cursor: pointer;"></i>
+    <span id="menu">
+      <span class="menuItem" title="main dashboard">
+        <a href="gauge.html">
+        <i class="fa-solid fa-gauge-simple-high fa-fw"></i></a>
+      </span>
+      <span class="menuItem" title="audience response">
+        <a href="">
+        <i class="fa-solid fa-people-line fa-fw"></i></a>
+      </span>
+      <span class="menuItem" title="score cards">
+        <a href="">
+        <i class="fa-solid fa-list-check fa-fw"></i>
+        </a>
+      </span>
+    </span>
     Question
     <span id="qNow">0</span> 
     /
     <span id="qAll">12</span>
 
-    <i class="fa-solid fa-chevron-right" onclick="next()"
+    <i class="fa-solid fa-chevron-right fa-fw" onclick="next()"
     style="border-radius: 3.5vmax;border: #555 solid 0.2vmax;padding: 0 0.5vmax;
     cursor: pointer;" id="nextArrow">
       <input id="questionNo" type="text" style="display:none;" name="qNo">
       <input id="submitBut" type="submit" value="Submit" style="display:none"> </i>
-    </span>
   </span>
-</form>
+
   ElectroCardioGame
   <img src="x.png" style="width:1.2vmax;vertical-align: middle;">
   CC2023
   <img src="ccLogo.png" style="width:2vmax;vertical-align: bottom;">
-
 </div>
+</form>
 
 <div id="foot" 
 style="font-size:1.6vmax;padding-top: 1vmax;color: #575757;
@@ -113,6 +131,20 @@ drawLabel(3);
 
 function refresh(gNo){
   reFetch(questionNumber,gNo)
+}
+
+var menuToggle = 0;
+function showMenu(){
+
+  if (menuToggle == 0){
+    document.getElementById('menu').style.display = 'inline'
+    //menuBar.style.display = 'inline'
+    menuToggle = 1;
+  }
+  else if (menuToggle == 1){
+    document.getElementById('menu').style.display = 'none'
+    menuToggle = 0;
+  }
 }
 
 </script>

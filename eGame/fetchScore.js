@@ -111,7 +111,7 @@ function createCanvas() {
 function dropText(add,gNo){
   var baseX = (16*vw*(2*gNo-1)); 
   endX = baseX-vw;startY = 1*vh;
-  endY = 10*vh;
+  endY = 9.5*vh;
   text = '+'+add
   
   //drop effect
@@ -136,11 +136,11 @@ function drawLabel(gNo){
   //cos 62
   var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius));
   var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius));
-  var yPos = baseY+radius+0.8*vh;
+  var yPos = baseY+radius+0.5*vh;
   ctx.beginPath();
   ctx.fillStyle = "#ddd"
   var hand = 0.8*radius
-  ctx.font = 2*vw + 'px Raleway, sans-serif'
+  ctx.font = 1.8*vw + 'px Raleway, sans-serif'
   ctx.textAlign = "center";
   ctx.fillText ('0',xLeft,yPos) 
   ctx.fillText (max,xRight,yPos) 
