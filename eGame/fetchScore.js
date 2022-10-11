@@ -59,6 +59,7 @@ function reFetch(questNo,gNo){
       add = nowScore[gNo-1]-oldScore[gNo-1] 
       //-120 to 420 degree -- move specific gNo
       //1 score equal to how many degree
+
       var block = 300/((totalQ-1)*10);
       const degreeS = -120-((oldScore[gNo-1]*block));
       const degreeE = -120-(nowScore[gNo-1]*block)

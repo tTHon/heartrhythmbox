@@ -24,9 +24,8 @@ function loadPage(){
 }
 
 function nextQ(){
-    qNo++;
     if (qNo<=totalQ){
-        loadPage();}
+        loadPage();qNo++;}
 }
 
 //name and ecg
