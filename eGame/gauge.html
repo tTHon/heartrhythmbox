@@ -3,43 +3,55 @@
   <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 <style>
-.nameBar, .scoreBar {display: flex;background-color: #333;
-  width: 100%;margin: 0;}
+* {background-color:#333;font-family: 'Raleway', sans-serif;}
+.nameBar, .scoreBar {display: flex;width: 100%;padding: 1vmax;}
 .flex33 {width: 33%;padding-top: 1vmax;color: #f1f1f1;font-size: 2vmax;text-align: center;}
 .flex33 i {cursor: pointer;color: #ddd;}
 .pName, .score {font-size: 3.5vmax;}
-.score {padding-bottom: 0.5vmax;}
+.score {padding: 0.2vmax 0.5vmax;
+  border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
+.refBut {padding: 1vmax;margin-top: 0.5vmax;}
 </style>
 
-<body style="background-color:#333;font-family: 'Raleway', sans-serif;">
+<body>
 
 <div id="demo"></div>
 <div class="nameBar">
   <div class="flex33">
-    <div class="pName" style="color:#f8b735">DAO</div>
+    <div class="pName" style="color:#f8b735">
+      <i class="fa-regular fa-star fa-fw" style="color:#f8b735;border-radius: 3.5vmax;
+      border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
+      DAO
+    </div>
   </div>
   <div class="flex33">
-    <div class="pName" style="color:#68ea97">POM</div>
+    <div class="pName" style="color:#68ea97">
+      <i class="fa-solid fa-leaf fa-fw" style="color:#68ea97;border-radius: 3.5vmax;
+      border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
+      POM</div>
   </div>
   <div class="flex33">
-    <div class="pName" style="color:#72dcff">OAT</div>
+    <div class="pName" style="color:#72dcff">
+    <i class="fa-solid fa-wheat-awn fa-fw" style="color:#72dcff;border-radius: 3.5vmax;
+    border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
+    OAT</div>
   </div>
 </div>
 <div style="text-align:center;background-color: #333;">
-  <canvas id="canvas"></canvas>
+  <canvas id="canvas" style="border-top:#555 solid 0.1vmax"></canvas>
 </div>
 <div class="scoreBar">
   <div class="flex33">
-    <div class="score" style="color:#f8b735">100</div>
-    <i class="fa-solid fa-rotate-right" onclick="refresh(1)"></i>
+    <span class="score" style="color:#f8b735">0</span><br>
+    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(1)"></i>
   </div>
   <div class="flex33">
-    <div class="score" style="color:#68ea97">50</div>
-    <i class="fa-solid fa-rotate-right" onclick="refresh(2)"></i>
+    <span class="score" style="color:#68ea97">0</span><br>
+    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(2)"></i>
   </div>
   <div class="flex33">
-    <div class="score" style="color:#72dcff">200</div>
-    <i class="fa-solid fa-rotate-right" onclick="refresh(3)"></i>
+    <span class="score" style="color:#72dcff">0</span><br>
+    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(3)"></i>
   </div>
 
 </div>
@@ -66,178 +78,8 @@ drawLabel(1);
 drawLabel(2);
 drawLabel(3);
 
-
-//event listener
-var refreshBut = document.getElementsByClassName('refBut')
-
 function refresh(gNo){
   reFetch(questionNumber,gNo)
-  document.getElementById('score').innerHTML = p1Score[0]+p2Score[0]+p3Score[0]
-}
-
-
-
-function createCanvas() {
-  const scale = window.devicePixelRatio;
-  canvas.style.width = 0.96*window.innerWidth + 'px';
-  canvas.style.height = 0.5*window.innerHeight + 'px';
-  canvas.width = Math.floor(0.96*window.innerWidth * scale*2)
-  canvas.height = Math.floor(0.5*window.innerHeight * scale*2)
-  ctx.scale(scale*2,scale*2)
-}
-
-function dropText(add,gNo){
-  var baseX = (16*vw*(2*gNo-1)); 
-  endX = baseX-vw;startY = 1*vh;
-  endY = 10*vh;
-  text = '+'+add
-  
-  //drop effect
-  var distance = (endY-startY);
-    var tEnd=0;
-    var moveInterval=setInterval(function(){
-      ctx.clearRect(baseX-(15*vw),0,30*vw,10*vh)
-      ctx.textAlign = "center";ctx.fillStyle = "#f7f7f7";
-      ctx.font = 2.5*vw + 'px Raleway, sans-serif';
-      ctx.fillText(text,endX,startY+(tEnd))
-      tEnd=tEnd+(0.5*vh);
-      if (tEnd>=distance){
-        clearInterval(moveInterval)
-    }
-    },tEnd/distance)
-
-}
-
-function drawLabel(gNo){
-  var baseX = (16*vw*(2*gNo-1)); 
-  //cos 62
-  var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius));
-  var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius));
-  var yPos = baseY+radius+0.8*vh;
-  ctx.beginPath();
-  ctx.fillStyle = "#ddd"
-  var hand = 0.8*radius
-  ctx.font = 2*vw + 'px Raleway, sans-serif'
-  ctx.textAlign = "center";
-  ctx.fillText ('0',xLeft,yPos) 
-  ctx.fillText ('150',xRight,yPos) 
-}
-
-function drawFace(gNo) {
-  var xPos=16*vw*(2*gNo-1);var yPos = baseY;
-  var color = [
-    ["#fdedcc","#fce6b9","#fcdfa7","#fbd994","#fad281",
-    "#facb6e","#f9c45b","#f8be48","#f8b735",'#F7B022'],
-    ["#BEF6D2","#9bf1bb","#8aefaf","#79eca3","#68ea97",
-    "#57e78b","#45e580","#34e274","#23E068","#1ed25f"],
-    ["#e7f9ff","#d4f4ff","#c0efff","#aceaff","#99e6ff",
-    "#85e1ff","#72dcff","#5ED7FF",'#4ad2ff','#37cdff']]
-
-
-  //coloring 120-420 degree
-  for (var i=0;i<totalQ-1;i++){
-    degreeWidth = 300/(totalQ-1);totalColor = 10;
-    degreeS = (120 + (degreeWidth*i));
-    degreeE = (degreeS + (degreeWidth-0.5));
-    ctx.beginPath();
-    ctx.arc(xPos, yPos, radius, degreeS*Math.PI/180, degreeE*Math.PI/180);
-    if (i>totalColor-1){j=9} 
-      else {j=i}
-    ctx.fillStyle = color[gNo-1][j];
-    ctx.lineTo(xPos, yPos)
-    ctx.fill();
-    
-  }
-
-  //draw arc blank
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius*0.6, 0, 2*Math.PI);
-  ctx.fillStyle = '#333';
-  ctx.fill();  
-
-  //draw center
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius*0.15, 0, 2*Math.PI);
-  ctx.fillStyle = '#111111';
-  ctx.fill();
-
-
-}
-
-function drawHand(gNo,degree) {
-    var length = 0.8*radius;
-    var xPos=16*vw*(2*gNo-1);var yPos = baseY;
-    ctx.beginPath();
-    ctx.lineWidth = 0.8*vw;
-    ctx.lineCap = "round";
-    xEnd = length*Math.cos(Math.PI*degree/180);
-    yEnd = length*Math.sin(Math.PI*degree/180);
-    ctx.moveTo(xPos,yPos);
-    ctx.lineTo(xPos+xEnd,yPos-yEnd);
-    ctx.strokeStyle = '#ff0000'
-    ctx.stroke();
-}
-
-function moveHand(gNo,degreeS,degreeEnd){
-
-  //go2End+2
-    var distance = (degreeEnd-degreeS)+5;
-    var tEnd=1;
-    var moveInterval=setInterval(function(){
-      clearFace(gNo);
-      drawFace(gNo);
-      drawHand(gNo,degreeS+tEnd)
-      tEnd++;
-      if (tEnd>=distance){
-      clearInterval(moveInterval)
-      shakeMinus(gNo);
-      shakePlus(gNo);
-    }
-    },30*tEnd/distance)
-
-  
-  
-  //shake-2
-  function shakeMinus(){
-  var tBack=1;
-  var shakeBack=setInterval(function(){
-    clearFace(gNo);
-    drawFace(gNo);
-    drawHand(gNo,(degreeEnd+5)-tBack)
-    drawLabel(gNo);
-    tBack++;
-    if (tBack>=10){
-    clearInterval(shakeBack)
-    }
-  },tBack)
-  }
-
-  //shake+2
-  function shakePlus(){
-  var tFwd=1;
-  var shakeFwd=setInterval(function(){
-    clearFace(gNo);
-    drawFace(gNo);
-    drawHand(gNo,(degreeEnd-5)+tFwd)
-    tFwd++;
-    if (tFwd>=10){
-    clearInterval(shakeFwd)
-    clearFace(gNo);
-    drawFace(gNo);
-    drawHand(gNo,degreeEnd)
-    }
-  },tFwd*50)
-  }
-
-}
-
-function clearFace(gNo){
-  var xPos=16*vw*(2*gNo-1);var yPos = baseY;
-  ctx.fillStyle = '#333';
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 100/180*Math.PI,440/180*Math.PI);
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
 }
 
 </script>
