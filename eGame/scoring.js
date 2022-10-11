@@ -20,7 +20,6 @@ loadPage();
 function loadPage(){                
     displayName();
     displayTickBox(qNo,'aBox','label');
-    displayNavBar(qNo)
     currentScore = [0,0,0];
 }
 
