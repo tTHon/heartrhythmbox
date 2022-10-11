@@ -1,20 +1,47 @@
 <!DOCTYPE html>
 <html>
-
+  <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 <style>
-/*color*/
-.orange0 {background-color: #F7B022;}
-.green0 {background-color: #23E068;}
-.blue0 {background-color: #5ED7FF;}
-
+.nameBar, .scoreBar {display: flex;background-color: #333;
+  width: 100%;margin: 0;}
+.flex33 {width: 33%;padding-top: 1vmax;color: #f1f1f1;font-size: 2vmax;text-align: center;}
+.flex33 i {cursor: pointer;color: #ddd;}
+.pName, .score {font-size: 3.5vmax;}
+.score {padding-bottom: 0.5vmax;}
 </style>
 
-<body>
+<body style="background-color:#333;font-family: 'Raleway', sans-serif;">
 
 <div id="demo"></div>
-<button id="b1" onclick="refresh()">refresh</button>
-<div style="text-align:center">
-  <canvas id="canvas" style="border:0.1vw solid black;"></canvas>
+<div class="nameBar">
+  <div class="flex33">
+    <div class="pName" style="color:#f8b735">DAO</div>
+  </div>
+  <div class="flex33">
+    <div class="pName" style="color:#68ea97">POM</div>
+  </div>
+  <div class="flex33">
+    <div class="pName" style="color:#72dcff">OAT</div>
+  </div>
+</div>
+<div style="text-align:center;background-color: #333;">
+  <canvas id="canvas"></canvas>
+</div>
+<div class="scoreBar">
+  <div class="flex33">
+    <div class="score" style="color:#f8b735">100</div>
+    <i class="fa-solid fa-rotate-right" onclick="refresh(1)"></i>
+  </div>
+  <div class="flex33">
+    <div class="score" style="color:#68ea97">50</div>
+    <i class="fa-solid fa-rotate-right" onclick="refresh(2)"></i>
+  </div>
+  <div class="flex33">
+    <div class="score" style="color:#72dcff">200</div>
+    <i class="fa-solid fa-rotate-right" onclick="refresh(3)"></i>
+  </div>
+
 </div>
 
 <script src="fetchScore.js"></script>
@@ -26,7 +53,7 @@ var vh = window.innerHeight/100;
 
 //gauge box size 32vw x 50vh
 var radius = 10*vw;var baseY = 30*vh;
-var nav=0;
+var questionNumber=0;
 
 createCanvas()
 drawFace(1);
@@ -39,14 +66,14 @@ drawLabel(1);
 drawLabel(2);
 drawLabel(3);
 
-//nav
-window.addEventListener("keydown", function(event) {
-    event.preventDefault();
-    if (event.keyCode===32) {
-      nextMove()
-      }
-})
 
+//event listener
+var refreshBut = document.getElementsByClassName('refBut')
+
+function refresh(gNo){
+  reFetch(questionNumber,gNo)
+  document.getElementById('score').innerHTML = p1Score[0]+p2Score[0]+p3Score[0]
+}
 
 
 
@@ -59,28 +86,26 @@ function createCanvas() {
   ctx.scale(scale*2,scale*2)
 }
 
-function nextMove(){
-  nav++;
-  if (nav==1){    
-    //dropText('MRI is the test of choice.',60)
-    moveHand(1,-120,-130)
-
-  }
-  if (nav==2){
-    //dropText('Device is MRI-conditional.',50)
-    moveHand(2,-120,-190)
-    moveHand(3,-120,-420)
-  }
-}
-
 function dropText(add,gNo){
-  ctx.textAlign = "start";ctx.fillStyle = "#333";
-  ctx.font = 2*vw + 'px Arial';
   var baseX = (16*vw*(2*gNo-1)); 
-  endX = baseX;
+  endX = baseX-vw;startY = 1*vh;
   endY = 10*vh;
-  //document.getElementById('demo').innerHTML = add
-  ctx.fillText(add,endX,endY)
+  text = '+'+add
+  
+  //drop effect
+  var distance = (endY-startY);
+    var tEnd=0;
+    var moveInterval=setInterval(function(){
+      ctx.clearRect(baseX-(15*vw),0,30*vw,10*vh)
+      ctx.textAlign = "center";ctx.fillStyle = "#f7f7f7";
+      ctx.font = 2.5*vw + 'px Raleway, sans-serif';
+      ctx.fillText(text,endX,startY+(tEnd))
+      tEnd=tEnd+(0.5*vh);
+      if (tEnd>=distance){
+        clearInterval(moveInterval)
+    }
+    },tEnd/distance)
+
 }
 
 function drawLabel(gNo){
@@ -88,11 +113,11 @@ function drawLabel(gNo){
   //cos 62
   var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius));
   var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius));
-  var yPos = baseY+radius+0.5*vh;
+  var yPos = baseY+radius+0.8*vh;
   ctx.beginPath();
-  ctx.fillStyle = "#444"
+  ctx.fillStyle = "#ddd"
   var hand = 0.8*radius
-  ctx.font = 'bold '+ 2*vw + 'px Arial'
+  ctx.font = 2*vw + 'px Raleway, sans-serif'
   ctx.textAlign = "center";
   ctx.fillText ('0',xLeft,yPos) 
   ctx.fillText ('150',xRight,yPos) 
@@ -100,45 +125,40 @@ function drawLabel(gNo){
 
 function drawFace(gNo) {
   var xPos=16*vw*(2*gNo-1);var yPos = baseY;
+  var color = [
+    ["#fdedcc","#fce6b9","#fcdfa7","#fbd994","#fad281",
+    "#facb6e","#f9c45b","#f8be48","#f8b735",'#F7B022'],
+    ["#BEF6D2","#9bf1bb","#8aefaf","#79eca3","#68ea97",
+    "#57e78b","#45e580","#34e274","#23E068","#1ed25f"],
+    ["#e7f9ff","#d4f4ff","#c0efff","#aceaff","#99e6ff",
+    "#85e1ff","#72dcff","#5ED7FF",'#4ad2ff','#37cdff']]
 
-  //red
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, Math.PI*120/180, Math.PI*204/180);
-  ctx.fillStyle = 'pink';
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
 
-  //orange
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, Math.PI*205/180, 214/180*Math.PI);
-  ctx.fillStyle = 'orange';
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
-
-//yellow
-ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 215/180*Math.PI, 225/180*Math.PI);
-  ctx.fillStyle = 'yellow';
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
-
-//green
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 225/180*Math.PI,420/180*Math.PI);
-  ctx.fillStyle = 'green';
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
+  //coloring 120-420 degree
+  for (var i=0;i<totalQ-1;i++){
+    degreeWidth = 300/(totalQ-1);totalColor = 10;
+    degreeS = (120 + (degreeWidth*i));
+    degreeE = (degreeS + (degreeWidth-0.5));
+    ctx.beginPath();
+    ctx.arc(xPos, yPos, radius, degreeS*Math.PI/180, degreeE*Math.PI/180);
+    if (i>totalColor-1){j=9} 
+      else {j=i}
+    ctx.fillStyle = color[gNo-1][j];
+    ctx.lineTo(xPos, yPos)
+    ctx.fill();
+    
+  }
 
   //draw arc blank
   ctx.beginPath();
   ctx.arc(xPos, yPos, radius*0.6, 0, 2*Math.PI);
-  ctx.fillStyle = 'white';
+  ctx.fillStyle = '#333';
   ctx.fill();  
 
   //draw center
   ctx.beginPath();
   ctx.arc(xPos, yPos, radius*0.15, 0, 2*Math.PI);
-  ctx.fillStyle = '#333';
+  ctx.fillStyle = '#111111';
   ctx.fill();
 
 
@@ -148,13 +168,13 @@ function drawHand(gNo,degree) {
     var length = 0.8*radius;
     var xPos=16*vw*(2*gNo-1);var yPos = baseY;
     ctx.beginPath();
-    ctx.lineWidth = vw;
+    ctx.lineWidth = 0.8*vw;
     ctx.lineCap = "round";
     xEnd = length*Math.cos(Math.PI*degree/180);
     yEnd = length*Math.sin(Math.PI*degree/180);
     ctx.moveTo(xPos,yPos);
     ctx.lineTo(xPos+xEnd,yPos-yEnd);
-    ctx.strokeStyle = 'red'
+    ctx.strokeStyle = '#ff0000'
     ctx.stroke();
 }
 
@@ -213,7 +233,7 @@ function moveHand(gNo,degreeS,degreeEnd){
 
 function clearFace(gNo){
   var xPos=16*vw*(2*gNo-1);var yPos = baseY;
-  ctx.fillStyle = 'white';
+  ctx.fillStyle = '#333';
   ctx.beginPath();
   ctx.arc(xPos, yPos, radius, 100/180*Math.PI,440/180*Math.PI);
   ctx.lineTo(xPos, yPos)

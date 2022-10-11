@@ -6,11 +6,7 @@ var p2Score = [];
 var p3Score = [];
 const nowScore = [0,0,0];
 const oldScore = [0,0,0];
-reFetch(1);
-reFetch(2);
-reFetch(3);
 
-function reFetch(gNo){
   const options = {
     method: 'GET',
     headers: {
@@ -18,13 +14,20 @@ function reFetch(gNo){
       Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
     }
   };
-  
-fetch('https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions', options)
-  .then(response => response.json())
-  .then(result =>getScore(result))
-  .catch(error => console.log('error', error));
 
-  function getScore(result){
+  const URL = 'https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions'
+  
+  fetch(URL, options)
+  .then(response => {return response.json()})
+  .then(data =>{console.log(data);
+        form = JSON.stringify(data);
+        document.getElementById('demo').innerHTML = form;
+      })
+
+
+
+
+function getScore(result){
     for (var i=0;i<result.length;i++){
       var f = result[i].data;
       p1Score[f.qNo] = parseInt(f.p1);
@@ -53,27 +56,9 @@ fetch('https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions
       
     }
   }
-  //-120 to 440 degree
-  const degreeS = -120-(oldScore[gNo-1]*2);
-  const degreeE = -120-(nowScore[gNo-1]*2)
-  moveHand(gNo,degreeS,degreeE)
-  //document.getElementById('demo').innerHTML = "start:"+ degreeS + " end:" + degreeE;
-  dropText(nowScore[gNo-1]-oldScore[gNo-1],gNo)
-}
 
-function setScoreArray(){
-  var sArray = [];
-  for (var i=0;i<totalQ;i++){
-      sArray[i] = 0;
-  }
-  return sArray;
-}
 
-function getScoreTest(){
-  var p1Test = [];
-  var p2Test = [];
-  var p3Test = [];
-}
+
 
 
 
