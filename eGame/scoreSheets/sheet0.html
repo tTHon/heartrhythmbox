@@ -20,7 +20,6 @@
     style="font-size:2vmax;padding:1vmax" 
     method="POST" 
     data-netlify="true"
-    onsubmit="next()"
     >
 
     <div id="container" class="pContainer">
@@ -222,10 +221,31 @@ padding: 3vmax;">
     Electrocardiogame x CC2023 --- property of heartRhythmBox.com
 </div>
 <script>
-    var qNo =0;
-    function next(){
-        qNo++;loadPage()
-    }
+var qNo = 0;
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  const myForm = event.target;
+  const formData = new FormData(myForm);
+  
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString(),
+  })
+    .then(() => console.log("Form successfully submitted"))
+    .catch((error) => alert(error));
+};
+
+document
+  .querySelector("form")
+  .addEventListener("submit", handleSubmit);
+
+function handleSubmit(){
+    q++;
+    loadPage()
+}
+
 </script>  
 
 <script src="scoring.js"></script>
