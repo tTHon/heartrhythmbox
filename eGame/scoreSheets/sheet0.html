@@ -213,9 +213,6 @@
     </div>
 </form>
 
-<div id="showForm">
-
-</div>
 <div id="thank">
     Thank you very much.
 </div>
@@ -236,9 +233,6 @@ const handleSubmit = (event) => {
 
   const myForm = event.target;
   const formData = new FormData(myForm);
-  var score = document.getElementsByClassName('showScore')
-  document.getElementById('showForm').innerHTML = 'p1' + score[0].value
-  + 'p2' + score[1].value + 'p3' + score[2].value;
   
   fetch("/", {
     method: "POST",
