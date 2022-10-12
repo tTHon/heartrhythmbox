@@ -14,12 +14,17 @@
 <style>
 * {background-color:#333;font-family: 'Raleway', sans-serif;}
 .nameBar, .scoreBar {display: flex;width: 100%;padding: 1vmax;}
-.flex33 {width: 33%;padding-top: 1vmax;color: #f1f1f1;font-size: 2vmax;text-align: center;}
+.scoreBar {padding-top: none;}
+.canvasZone {text-align:center;background-color: #333;border-top:#555 solid 0.1vmax;}
+.refBar {display: flex;text-align: left;border-bottom:#555 solid 0.1vmax;}
+.refBarFlex {width: 33%;padding-top: 0vmax;color: #cdcdcd;
+  font-size: 2vmax;}
+.flex33 {width: 33%;padding-top: 1vmax;color: #f1f1f1;font-size: 2vmax;
+  text-align: center;}
 .flex33 i {cursor: pointer;color: #ddd;}
-.pName, .score {font-size: 3.5vmax;}
-.score {padding: 0.2vmax 0.5vmax;
-  border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
-.refBut {padding: 1vmax;margin-top: 0.5vmax;}
+.pName, .score {font-size: 4vmax;}
+.score {padding:0 0.1vmax;border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
+.refBut {padding-left: 0.vmax;margin-top: 0.1vmax;cursor: pointer;}
 #menu {display: none;background-color: #888;cursor: pointer;
   padding-right: 0.5vw;padding-left: 0.5vw;margin-right: 0.5vw;}
 .menuItem {background-color: #888;}
@@ -30,6 +35,8 @@
 <body>
 
 <div id="demo"></div>
+
+<!--name-->
 <div class="nameBar">
   <div class="flex33">
     <div class="pName" style="color:#f8b735">
@@ -51,24 +58,40 @@
     OAT</div>
   </div>
 </div>
-<div style="text-align:center;background-color: #333;">
-  <canvas id="canvas" style="border-top:#555 solid 0.1vmax"></canvas>
+
+<!--canvas-->
+<div class="canvasZone">
+  <canvas id="canvas"></canvas>
 </div>
-<div class="scoreBar">
-  <div class="flex33">
-    <span class="score" style="color:#f8b735">0</span><br>
+<!--refresh but-->
+<div class="refBar">
+  <div class="refBarFlex">
     <i class="fa-solid fa-rotate-right refBut" onclick="refresh(1)"></i>
   </div>
-  <div class="flex33">
-    <span class="score" style="color:#68ea97">0</span><br>
+  <div class="refBarFlex">
     <i class="fa-solid fa-rotate-right refBut" onclick="refresh(2)"></i>
   </div>
-  <div class="flex33">
-    <span class="score" style="color:#72dcff">0</span><br>
+  <div class="refBarFlex">
     <i class="fa-solid fa-rotate-right refBut" onclick="refresh(3)"></i>
+  </div>
+</div>
+<!--scoreBar-->
+<div class="scoreBar">
+  <div class="flex33" style="padding:none">
+    <span class="score" style="color:#f8b735">0</span>
+  </div>
+  <div class="flex33" style="padding:none">
+    <span class="score" style="color:#68ea97">0</span>
+  </div>
+  <div class="flex33" style="padding:none">
+    <span class="score" style="color:#72dcff">0</span>
   </div>
 
 </div>
+
+
+
+<!--bottom stuffs-->
 <form method="POST" id="questionNav">
 <div class="itemBar" style="padding: 2.2vmax 1vmax;color: #888;text-align: right;">
   <span id="qNav" style="float:left;font-size: 3vmax;color: #fafafa;vertical-align: bottom;">

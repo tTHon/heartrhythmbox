@@ -135,13 +135,13 @@ function drawLabel(gNo){
   var baseX = (16*vw*(2*gNo-1)); 
   max = (totalQ-1)*10
   //cos 62
-  var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius));
-  var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius));
+  var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius))-(vw);
+  var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius))+(vw);
   var yPos = baseY+radius+0.5*vh;
   ctx.beginPath();
   ctx.fillStyle = "#ddd"
   var hand = 0.8*radius
-  ctx.font = 1.8*vw + 'px Raleway, sans-serif'
+  ctx.font = 2*vw + 'px Raleway, sans-serif'
   ctx.textAlign = "center";
   ctx.fillText ('0',xLeft,yPos) 
   ctx.fillText (max,xRight,yPos) 
