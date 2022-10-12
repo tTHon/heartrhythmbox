@@ -1,6 +1,5 @@
 var pName = ['DAO','POM','OAT']
 var totalQ = 12;
-var qNo =0;
 var keyJson = [{"no":0, "key": 'sinus tachycardia', "score": 2},
                 {"no":0, "key": 'complete AV block', "score": 4},
                 {"no":0, "key": 'escape rate 30bpm', "score": 2},
@@ -10,7 +9,10 @@ var keyJson = [{"no":0, "key": 'sinus tachycardia', "score": 2},
                 {"no":1, "key": '1.3', "score": 3},         
                 {"no":2, "key": '2.1', "score": 3},
                 {"no":2, "key": '2.2', "score": 4},
-                {"no":2, "key": '2.3', "score": 3},         
+                {"no":2, "key": '2.3', "score": 3},   
+                {"no":3, "key": '3.1', "score": 5},
+                {"no":3, "key": '3.2', "score": 2},
+                {"no":3, "key": '3.3', "score": 3}         
             
             ]
 
@@ -29,8 +31,8 @@ function displayName(){
     document.getElementById('p2').innerHTML = pName[1];
     document.getElementById('p3').innerHTML = pName[2];
     document.getElementById('questionNo').value = qNo.toString();
-    document.getElementById('title').innerHTML = "Question No." + qNo;
-    var source = "ecgs/ecg"+ qNo.toString()+".png";
+    document.getElementById('title').innerHTML = "Question No." + qNo + " /" + totalQ;
+    var source = "ecgs//ecg"+ qNo.toString()+".png";
     document.getElementById('ecg').src = source;
 }
 
@@ -61,12 +63,12 @@ function displayTickBox(n,boxName,labelName){
     var tickBox = document.getElementsByClassName(boxName);
     var label = document.getElementsByClassName(labelName)
     for (var i=0;i<keyA.length;i++){
-        tickBox[i].style.display = 'inline-flex'
+        tickBox[i].style.display = 'block'
         label[i].innerHTML = keyA[i] + ' (' + scoreA[i] + ')'
         //for p2 and p3
-        tickBox[10+i].style.display = 'inline-flex'
+        tickBox[10+i].style.display = 'block'
         label[10+i].innerHTML = keyA[i] + ' (' + scoreA[i] + ')'
-        tickBox[20+i].style.display = 'inline-flex'
+        tickBox[20+i].style.display = 'block'
         label[20+i].innerHTML = keyA[i] + ' (' + scoreA[i] + ')'
     }
 }

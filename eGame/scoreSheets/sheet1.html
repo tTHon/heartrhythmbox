@@ -7,14 +7,17 @@
 </head>
 <body>
 
+<!--title & ECG-->
 <div id="main">
-<!--show ECG-->
-<h1 id= 'title' style="text-align:center"></h1>
-<div style="text-align:center">
-<img id="ecg" style="width:90%;padding: 1vmax;"></div>
+    <h1 id= 'title' style="text-align:center"></h1>
+    <div style="text-align:center">
+    <img id="ecg">
+    </div>
+</div>
 
 
-<form id="playerScoring" style="font-size:2vmax;padding:1vmax" action="/egame/index.html"
+<form id="playerScoring" style="font-size:2vmax;padding:1vmax" 
+action="eGame\scoreSheets\sheet2.html"
 method="POST" data-netlify="true">
 
     <div id="container" class="pContainer">
@@ -69,12 +72,10 @@ method="POST" data-netlify="true">
         <input type="checkbox" name="k10" class="input" onclick="updateScore(9,1)">
         <label class="label" for="k10"></label>
     </div>
-    <div style="padding: 0.5vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
-        <span style="font-size: 2.5vmax;font-weight:600;padding-top:1vmax">Score:</span>
-        <input type="text" class="showScore" name="p1"
-        style="border:none;width: 3vmax;
-        font-size:2.5vmax;background-color:transparent;
-        color: black;">
+    <div style="padding: 1vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
+        <span style="font-size: 2.5vmax;font-weight:600;padding-top:1vmax">
+            Score:</span>
+        <input type="text" class="showScore" name="p1">
     </div>
 
 
@@ -131,12 +132,9 @@ method="POST" data-netlify="true">
             <input type="checkbox" name="k20" class="input" onclick="updateScore(9,2)">
             <label class="label" for="k20"></label>
         </div>
-        <div style="padding: 0.5vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
+        <div style="padding: 1vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
             <span style="font-size: 2.5vmax;font-weight:600;padding-top:1vmax">Score:</span>
-            <input type="text" class="showScore" name="p2"
-            style="border:none;width: 3vmax;
-            font-size:2.5vmax;background-color:transparent;
-            color: black;">
+            <input type="text" class="showScore" name="p2">
         </div>
     
         </div>
@@ -195,13 +193,10 @@ method="POST" data-netlify="true">
         </div>
 
 
-        <div style="padding: 0.5vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
+        <div style="padding: 1vmax;border-top:solid rgb(33,33,33) 0.2vmax;">
             <span style="font-size: 2.5vmax;font-weight:600;padding-top:1vmax">
                 Score:</span>
-            <input type="text" class="showScore" name="p3"
-            style="border:none;width: 3vmax;
-            font-size:2.5vmax;background-color:transparent;
-            color: black;">
+            <input type="text" class="showScore" name="p3">
         </div>
     
         </div>
@@ -209,9 +204,9 @@ method="POST" data-netlify="true">
     <input id="questionNo" type="text" style="display:none;" name="qNo">
     </div>
 
-    <div style="margin-left:auto;margin-right:auto;padding: 2vmax;text-align: center;">   
-        <input type="submit" value="Submit" 
-        style="text-align:center;width:fit-content;padding:1vmax;cursor: pointer;
+    <div style="margin-left:auto;margin-right:auto;padding: 2vmax;text-align: center;color: #222;">   
+        <input type="submit" value="SUBMIT" 
+            style="text-align:center;width:fit-content;padding:1vmax;cursor: pointer;
         font-size: 3vmax;">    
     </div>
 </form>
@@ -219,11 +214,14 @@ method="POST" data-netlify="true">
 </div>
 
 <div id="foot" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-font-size: 1.5vmax;text-align: center;font-style: italic;color: #ddd;background-color: #555;">
-    property of heartRhythmBox.com
+font-size: 1.5vmax;text-align: center;color: #ababab;background-color: #555;
+padding: 3vmax;">
+    Electrocardiogame x CC2023 --- property of heartRhythmBox.com
 </div>
   
-
+<script>
+    var qNo =1;
+</script>
 
 <script src="scoring.js"></script>
 
