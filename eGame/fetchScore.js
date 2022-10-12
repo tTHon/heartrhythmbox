@@ -104,9 +104,9 @@ function createCanvas() {
   const scale = window.devicePixelRatio;
   canvas.style.width = 0.96*window.innerWidth + 'px';
   canvas.style.height = 0.5*window.innerHeight + 'px';
-  canvas.width = Math.floor(0.96*window.innerWidth * scale*2)
-  canvas.height = Math.floor(0.5*window.innerHeight * scale*2)
-  ctx.scale(scale*2,scale*2)
+  canvas.width = Math.floor(0.96*window.innerWidth * scale*4)
+  canvas.height = Math.floor(0.5*window.innerHeight * scale*4)
+  ctx.scale(scale*4,scale*4)
 }
 
 function dropText(add,gNo){
