@@ -19,7 +19,9 @@
 <form id="playerScoring" 
     style="font-size:2vmax;padding:1vmax" 
     method="POST" 
-    data-netlify="true">
+    data-netlify="true"
+    onsubmit="next()"
+    >
 
     <div id="container" class="pContainer">
     <!--player1-->
@@ -206,7 +208,7 @@
     </div>
 
     <div style="margin-left:auto;margin-right:auto;padding: 2vmax;text-align: center;color: #222;">   
-        <input type="submit" value="SUBMIT" onclick="submitClick()"
+        <input type="submit" value="SUBMIT"
             style="text-align:center;width:fit-content;padding:1vmax;cursor: pointer;
         font-size: 3vmax;">    
     </div>
@@ -221,7 +223,7 @@ padding: 3vmax;">
 </div>
 <script>
     var qNo =0;
-    function submitClick(){
+    function next(){
         qNo++;loadPage()
     }
 </script>  
