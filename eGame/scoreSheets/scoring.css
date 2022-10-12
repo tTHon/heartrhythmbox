@@ -11,6 +11,11 @@
 .showScore{border:none;width: 3vmax;font-size:2.5vmax;background-color:transparent;
   color: #222;}
 
+#thank {background-color: #333333;position: fixed;display: none;
+left: 10vw;top: 10vh;width: 80vw;height: 80vh;text-align:center;padding-top: 10vh;
+color: #f1f1f1;font-size: 3vmax;
+}
+
 @media only screen and (max-width: 1000px) {
     .pContainer {flex-wrap: wrap;}
     .pBox {flex: 100%;}

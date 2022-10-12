@@ -206,12 +206,16 @@
     <input id="questionNo" type="text" style="display:none;" name="qNo">
     </div>
 
-    <div style="margin-left:auto;margin-right:auto;padding: 2vmax;text-align: center;color: #222;">   
+    <div id="sBut" style="margin-left:auto;margin-right:auto;padding: 2vmax;text-align: center;color: #222;">   
         <input type="submit" value="SUBMIT"
             style="text-align:center;width:fit-content;padding:1vmax;cursor: pointer;
         font-size: 3vmax;">    
     </div>
 </form>
+
+<div id="thank">
+    Thank you very much.
+</div>
 
 </div>
 
@@ -220,8 +224,10 @@ font-size: 1.5vmax;text-align: center;color: #ababab;background-color: #555;
 padding: 3vmax;">
     Electrocardiogame x CC2023 --- property of heartRhythmBox.com
 </div>
+<script src="scoring.js"></script>
 <script>
 var qNo = 0;
+loadPage();
 const handleSubmit = (event) => {
   event.preventDefault();
 
@@ -235,7 +241,14 @@ const handleSubmit = (event) => {
   })
     .then(() => console.log("Form successfully submitted"))
     .catch((error) => alert(error));
-  qNo++;loadPage();
+  qNo++;
+  if (qNo<=totalQ){
+    loadPage();}
+  else {document.getElementById('thank').style.display='block'
+    document.getElementById('main').style.opacity='0.2'
+    document.getElementById('playerScoring').style.opacity='0.2'
+    document.getElementById('sBut').style.display = 'none'
+    }
 };
 
 document
@@ -246,7 +259,7 @@ document
 
 </script>  
 
-<script src="scoring.js"></script>
+
 
 </body>
 </html>

@@ -16,13 +16,12 @@ var keyJson = [{"no":0, "key": 'sinus tachycardia', "score": 2},
             
             ]
 
-loadPage();
-
-
 function loadPage(){                
     displayName();
-    displayTickBox(qNo,'aBox','label');
     currentScore = [0,0,0];
+    resetScore();
+    displayTickBox(qNo,'aBox','label');
+
 }
 
 //name and ecg
@@ -88,6 +87,19 @@ function updateScore(key,pNo){
     
     var showScore = document.getElementsByClassName('showScore')
     showScore[pNo-1].value = currentScore[pNo-1];
+}
+
+function resetScore(){
+    var input = document.getElementsByClassName('input')
+    var score = document.getElementsByClassName('showScore')
+    for (let index = 0; index < input.length; index++) {
+        input[index].checked = false;
+        
+    }
+    for (let index = 0; index < score.length; index++) {
+        score[index].value = 0;
+        
+    }
 }
 
 
