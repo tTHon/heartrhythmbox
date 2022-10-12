@@ -25,15 +25,16 @@
 .pName, .score {font-size: 4vmax;}
 .score {padding:0 0.5vmax;border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
 .refBut {padding-left: 0.vmax;margin-top: 0.1vmax;cursor: pointer;}
-#menu {display: none;background-color: rgba(22,22,22,0.8);cursor: pointer;
-    position: fixed;z-index: 1;padding: 1vmax;font-size: 3vmax;}
-.menuItem {padding: 1vmax;background-color: rgba(22,22,22,0.8);}
-.menuItem a {text-decoration: none;color: #ddd;background-color: rgba(22,22,22,0.8);}
-.menuItem i {color: #ddd;border: none;background-color: rgba(22,22,22,0.8);}
+#menu {visibility: hidden;display: flex;background-color: rgba(22,22,22,0.8);cursor: pointer;
+    position: fixed;z-index: 1;padding: 1vmax;line-height: 100%;}
+.menuItem {padding: 1vmax;background-color: rgba(22,22,22,0.8);width: 33%;vertical-align: bottom;
+  text-align: center;line-height: 100%;}
+.menuItem i {color: #ddd;background-color: rgba(22,22,22,0.8);font-size: 5vmax;padding: 0.5vmax;}
+.menuText {color: #ddd;font-size: 1.5vmax;padding: 0;background:none;padding: 0.5vmax;}
 #bkArrow {display: none;}
 #scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 10%;left: 10%;
     position: fixed;z-index: 1;padding: 1vmax;font-size: 3vmax;color: #cdcdcd;}
-#exit {position: fixed;top: 12%;right: 12%;color: #ddd;cursor: pointer;}
+#exit {position: fixed;top: 12%;right: 15%;color: #ddd;cursor: pointer;}
 #scoreT, th, tr, td {padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;}
 
 
@@ -131,20 +132,25 @@
 <input id="submitBut" type="submit" value="Submit" style="display:none">
 </form>
 
-<!--modal-->
+<!--popUP Menu-->
 <div id="menu">
-  <span class="menuItem" title="audience response">
-    
-    <i class="fa-solid fa-people-line fa-fw"></i></a>
-    </span>
-  <span class="menuItem" title="score cards" onclick="showScoreCard()">
-    <i class="fa-solid fa-list-check fa-fw"></i>
-  </span>
+  <div class="menuItem" title="audience response">
+    <i class="fa-solid fa-stopwatch fa-fw"></i></li><br>
+    <span class="menuText">questions start/stop</span>
+  </div>
+  <div class="menuItem" title="audience response">
+    <i class="fa-solid fa-people-line fa-fw"></i><br>
+    <span class="menuText">audience response</span>
+  </div>
+  <div class="menuItem" title="score cards" onclick="showScoreCard()">
+    <i class="fa-solid fa-list-check fa-fw"></i><br>
+    <span class="menuText">score card</span>
+  </div>
 </div>
 
 <!--scoreCard-->
 <div id="scoreCard">
-  Scorecard
+  Score Card
   <button id="exit" onclick="showMenu()">X</button>
   <table id="scoreT">
   </table>
@@ -195,18 +201,20 @@ function showMenu(){
   menu = document.getElementById('menu')
 
   //calc vmax qNav font size = 3vmax
-  if (window.innerWidth>window.innerHeight){
-    pos = 3*(window.innerWidth/100)
-  } else {pos = 3*(window.innerHeight/100)}
-  menu.style.top = dot.offsetTop-(pos/2) + 'px'
-  menu.style.left = dot.offsetLeft+(pos) + 'px'
+  menu.style.left = (window.innerWidth-menu.offsetWidth)/2 + 'px'
+  menu.style.top = (window.innerHeight-menu.offsetHeight)/2 + 'px'
+  //if (window.innerWidth>window.innerHeight){
+    //pos = 3*(window.innerWidth/100)
+  //} else {pos = 3*(window.innerHeight/100)}
+  //menu.style.top = dot.offsetTop-(pos/2) + 'px'
+  //menu.style.left = dot.offsetLeft+(pos) + 'px'
 
   if (menuToggle == 0){
-    menu.style.display = 'block'
+    menu.style.visibility = 'visible'
     menuToggle = 1;
   }
   else if (menuToggle == 1){
-    menu.style.display = 'none'
+    menu.style.visibility = 'hidden'
     menuToggle = 0;
     //clear scorecard
     card = document.getElementById(scoreCard)
