@@ -37,7 +37,8 @@
 #exit {position: fixed;top: 12%;right: 15%;color: #ddd;cursor: pointer;}
 #scoreT, th, tr, td {padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;}
 
-
+.noMobile {@media only screen and (max-width: 800px) {
+        display:none}}
 </style>
 
 <body>
@@ -66,7 +67,7 @@
 </div>
 
 <!--canvas-->
-<div class="canvasZone">
+<div class="canvasZone noMobile">
   <canvas id="canvas"></canvas>
 </div>
 <!--refresh but-->
