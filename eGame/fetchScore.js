@@ -5,6 +5,7 @@ var p1Score = [];
 var p2Score = [];
 var p3Score = [];
 var questionNumber=0;
+var q2Vote = [4,8,12]
 
 function reFetch(){ 
   const options = {
@@ -21,12 +22,18 @@ function reFetch(){
     .catch(error => console.log('error', error));
 
   function getScore(result){
+    //var timeStamp = []
     for (var i=0;i<result.length;i++){
       var f = result[i].data;
       p1Score[f.qNo] = parseInt(f.p1);
       p2Score[f.qNo] = parseInt(f.p2);
       p3Score[f.qNo] = parseInt(f.p3);
+      //timeStamp.push(result[i].created_at)
     }
+
+    //sort timestamp
+    //timeStamp.reverse()
+    //document.getElementById('test').innerHTML = timeStamp
   }
 }
 
@@ -57,23 +64,143 @@ function updateScore(gNo,array,qNo){
   showScore(gNo,oldScore,newScore)
 }
 
-function next(dir){
-  qText = document.getElementById('qNow')
-  qMax = totalQ-1
-  questionNumber = questionNumber+dir;
-  if (questionNumber<0) {questionNumber=0}
-  qText.innerHTML = questionNumber
-  document.getElementById('questionNo').value = questionNumber;
-      //document.getElementById('submitBut').click();
-  if (questionNumber==qMax){
-  document.getElementById('nextArrow').style.display='none'}
-  else {document.getElementById('bkArrow').style.display='inline'}
-  if (questionNumber==0){
-    document.getElementById('bkArrow').style.display='none'}
-  else {document.getElementById('bkArrow').style.display='inline'}
+var menuToggle = 0;
+function showMenu(){
+  //get qNav posision
+  dot = document.getElementById('qNav')
+  menu = document.getElementById('menu')
 
-  
+  //calc vmax qNav font size = 3vmax
+  menu.style.left = (window.innerWidth-menu.offsetWidth)/2 + 'px'
+  menu.style.top = (window.innerHeight-menu.offsetHeight)/2 + 'px'
+
+  if (menuToggle == 0){
+    menu.style.visibility = 'visible'
+    menuToggle = 1;
+  }
+  else if (menuToggle == 1){
+    menu.style.visibility = 'hidden'
+    menuToggle = 0;
+    //clear scorecard
+    card = document.getElementById(scoreCard)
+    scoreCard.style.display = 'none'
+    scoreT = document.getElementById('scoreT')
+    scoreT.deleteRow(-1);
+    scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
+    document.getElementById('ss').style.display = 'none'
+  }
 }
+
+function showScoreCard(){
+  card = document.getElementById(scoreCard)
+  scoreCard.style.display = 'block'
+  scoreT = document.getElementById('scoreT')
+  scoreT.deleteRow(-1);
+    scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
+
+  var player = ['DAO','POM','OAT']
+  var head = scoreT.insertRow(0);
+  var row1 = scoreT.insertRow(1);
+  var row2 = scoreT.insertRow(2);
+  var row3 = scoreT.insertRow(3);
+
+  //header
+  for (let index = 0; index <= totalQ; index++) {
+    var cell = head.insertCell(index)
+    cell.innerHTML = index
+    if (index ==0){cell.innerHTML = ' '}
+    if (index ==totalQ){cell.innerHTML = 'Total'}
+  }
+
+  //p1
+  for (let i=0;i<=totalQ;i++){
+    let cell = row1.insertCell(i)
+    if (p1Score[i]>=0){
+      cell.innerHTML = p1Score[i] 
+    } else {cell.innerHTML = ' '}
+
+    if (i==0){cell.innerHTML=player[0]}
+    if (i==totalQ){cell.innerHTML = scoreSum(p1Score)}
+  }
+
+  //p2
+  for (let i=0;i<=totalQ;i++){
+    let cell = row2.insertCell(i)
+    if (p2Score[i]>=0){
+      cell.innerHTML = p2Score[i] 
+    } else {cell.innerHTML = ' '}
+
+    if (i==0){cell.innerHTML=player[1]}
+    if (i==totalQ){cell.innerHTML = scoreSum(p2Score)}
+  }
+
+  //p3
+  for (let i=0;i<=totalQ;i++){
+    let cell = row3.insertCell(i)
+    if (p3Score[i]>=0){
+      cell.innerHTML = p3Score[i] 
+    } else {cell.innerHTML = ' '}
+
+    if (i==0){cell.innerHTML=player[2]}
+    if (i==totalQ){cell.innerHTML = scoreSum(p3Score)}
+  }
+
+  function scoreSum(array){
+    var sum=0;
+    for (let index = 0; index < totalQ; index++) {
+      add = array[index]
+      if (add>=0){sum = sum+ array[index];}
+    }
+    return sum;
+  }
+
+}
+
+
+function startStopQ(){
+  ss = document.getElementById('ss')
+  menu = document.getElementById('menu')
+  ss.style.display = 'block'
+  ss.style.left = (menu.offsetLeft) + 'px'
+  ss.style.bottom = (menu.offsetTop) + 'px'
+  ss.style.width = menu.offsetWidth + 'px'
+  document.getElementById('ssQNo').innerHTML = 'Current Q: ' +questionNumber
+}
+
+function startQ(q){
+  
+  questionNumber = q;
+  document.getElementById('qNow').innerHTML = questionNumber;
+  document.getElementById('start').style.color = 'pink'
+  document.getElementById('start').innerHTML = 'Click here to start Q: ' +q
+  //check if q2vote
+  for (let index = 0; index < q2Vote.length; index++) {
+    if (q == q2Vote[index]){
+      document.getElementById('stop').style.display = 'block'
+      break;
+    }
+    else {document.getElementById('stop').style.display = 'none'
+    }
+  }
+}
+
+function startQClick(){
+  //cross if clicked
+  var q = document.getElementsByClassName('ssItem')
+  q[questionNumber].style.textDecoration = 'line-through'
+  q[questionNumber].style.color = '#777'
+  document.getElementById('ssQNo').innerHTML = 'Current Q: ' +questionNumber
+  document.getElementById('triggerNo').value = questionNumber;
+  document.getElementById('start').innerHTML = 'Click Number to Start Question'
+  document.getElementById('start').style.color = '#cdcdcd'
+  //document.getElementById('questionNav').submit();
+}
+
+function stopVClick(){
+  document.getElementById('triggerNo').value = 99;
+  //document.getElementById('questionNav').submit();
+}
+
 
 function showScore(gNo,oldS,newS){
 

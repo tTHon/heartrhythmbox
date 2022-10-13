@@ -13,18 +13,23 @@
 
 <style>
 * {background-color:#333;font-family: 'Raleway', sans-serif;}
+@media only screen and (max-width: 800px) {
+        .noMobile{display:none}
+      }
 .nameBar, .scoreBar {display: flex;width: 100%;padding: 1vmax;}
 .scoreBar {padding-top: none;}
 .canvasZone {text-align:center;background-color: #333;border-top:#555 solid 0.1vmax;}
 .refBar {display: flex;text-align: left;border-bottom:#555 solid 0.1vmax;}
 .refBarFlex {width: 33%;padding-top: 0vmax;color: #cdcdcd;
   font-size: 2vmax;}
-.flex33 {width: 33%;padding-top: 1vmax;color: #f1f1f1;font-size: 2vmax;
+.flex33 {flex: 33%;padding-top: 1vmax;color: #f1f1f1;font-size: 2vmax;
   text-align: center;}
 .flex33 i {cursor: pointer;color: #ddd;}
 .pName, .score {font-size: 4vmax;}
 .score {padding:0 0.5vmax;border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
 .refBut {padding-left: 0.vmax;margin-top: 0.1vmax;cursor: pointer;}
+.itemBar {padding: 2.2vmax 1vmax;color: #888;text-align: right;}
+#qNav {float:left;font-size: 3vmax;color: #fafafa;vertical-align: bottom;}
 #menu {visibility: hidden;display: flex;background-color: rgba(22,22,22,0.8);cursor: pointer;
     position: fixed;z-index: 1;padding: 1vmax;line-height: 100%;}
 .menuItem {padding: 1vmax;background-color: rgba(22,22,22,0.8);width: 33%;vertical-align: bottom;
@@ -36,9 +41,14 @@
     position: fixed;z-index: 1;padding: 1vmax;font-size: 3vmax;color: #cdcdcd;}
 #exit {position: fixed;top: 12%;right: 15%;color: #ddd;cursor: pointer;}
 #scoreT, th, tr, td {padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;}
+#ss {display: none;background-color: rgba(22,22,22,0.8);
+    position: fixed;z-index: 2;padding: 1vmax;font-size: 2.2vmax;color: #cdcdcd;}
+#ssContent {display: flex;flex-wrap: wrap;padding: 1vmax;}
+.ssItem {flex-basis: 3vw;text-align: center;padding: 0.5vmax;border: #888 solid 0.1vmax;cursor: pointer;}
+#start, #stop {padding: 0.5vmax;border: #888 solid 0.1vmax;border-radius: 1vmax;cursor: pointer;
+  margin: 0.5vmax;width: fit-content;font-size: 2vmax;text-align: center;}
+#stop {display: none;}
 
-.noMobile {@media only screen and (max-width: 900px) {
-        display:none}}
 </style>
 
 <body>
@@ -99,26 +109,16 @@
 
 
 <!--bottom stuffs-->
-<div class="itemBar" style="padding: 2.2vmax 1vmax;color: #888;text-align: right;">
-  <span id="qNav" style="float:left;font-size: 3vmax;color: #fafafa;
-  vertical-align: bottom;">
+<div class="itemBar">
+  <span id="qNav">
 
     <i class="fa-solid fa-ellipsis-vertical menuDot " onclick="showMenu()"
     style="color:#888;cursor: pointer;"></i>
 
-    <i class="fa-solid fa-chevron-left fa-fw" onclick="next(-1)"
-    style="border-radius: 3.5vmax;border: #555 solid 0.2vmax;
-    padding: 0 0.5vmax;cursor: pointer;" id="bkArrow"></i>
-
-        Question
+       Question
         <span id="qNow">0</span> 
         /
         <span id="qAll">12</span>
-
-    <i class="fa-solid fa-chevron-right" onclick="next(1)"
-    style="border-radius: 3.5vmax;border: #555 solid 0.2vmax;
-    padding: 0 0.5vmax;cursor: pointer;" id="nextArrow"></i>
-
   </span>
 
   ElectroCardioGame
@@ -127,15 +127,9 @@
   <img src="ccLogo.png" style="width:2vmax;vertical-align: bottom;">
 </div>
 
-<!--form-->
-<form method="POST" id="questionNav" style="display:none;">
-<input id="questionNo" type="text" style="display:none;" name="qNo">
-<input id="submitBut" type="submit" value="Submit" style="display:none">
-</form>
-
 <!--popUP Menu-->
 <div id="menu">
-  <div class="menuItem" title="audience response">
+  <div class="menuItem" title="q s/s"  onclick="startStopQ()">
     <i class="fa-solid fa-stopwatch fa-fw"></i></li><br>
     <span class="menuText">questions start/stop</span>
   </div>
@@ -143,7 +137,7 @@
     <i class="fa-solid fa-people-line fa-fw"></i><br>
     <span class="menuText">audience response</span>
   </div>
-  <div class="menuItem" title="score cards" onclick="showScoreCard()">
+  <div class="menuItem noMobile" title="score cards" onclick="showScoreCard()">
     <i class="fa-solid fa-list-check fa-fw"></i><br>
     <span class="menuText">score card</span>
   </div>
@@ -157,9 +151,39 @@
   </table>
 </div>
 
+<!--start stop Q-->
+<div id="ss">
+  <button id="ssExit" style="float:right;color: #aaa;cursor: pointer;" onclick="showMenu()">X</button>
+  <div style="text-align:center" id="ssQNo">Current Q: </div>
+    <div id="ssContent">
+      <div class="ssItem" onclick="startQ(0)">0</div>
+      <div class="ssItem" onclick="startQ(1)">1</div><div class="ssItem" onclick="startQ(2)">2</div>
+      <div class="ssItem" onclick="startQ(3)">3</div><div class="ssItem" onclick="startQ(4)">4*</div>
+      <div class="ssItem" onclick="startQ(5)">5</div>
+      <div class="ssItem" onclick="startQ(6)">6</div>
+      <div class="ssItem" onclick="startQ(7)">7</div>
+      <div class="ssItem" onclick="startQ(8)">8*</div>
+    <div class="ssItem" onclick="startQ(9)">9</div>
+    <div class="ssItem" onclick="startQ(10)">10</div>
+    <div class="ssItem" onclick="startQ(11)">11</div>
+    <div class="ssItem" onclick="startQ(12)">12*</div>
+  </div>
+    <div id="start" onclick="startQClick()">Click Number to Start Question
+    </div>
+    <div id="stop" onclick="stopVClick()">
+      Stop Accepting Votes
+    </div>
+</div>
+
+<!--form-->
+<form method="POST" id="questionNav" style="display:none;">
+  <input id="triggerNo" type="text" style="display:none;" name="tNo">
+  <input id="submitBut" type="submit" value="Submit" style="display:none">
+</form>
+
 <!--foot-->
 <div id="foot" 
-style="font-size:1.6vmax;padding-top: 1vmax;color: #575757;
+style="font-size:1.6vmax;padding-top: 1vmax;color: #777;
 text-align: center;border-top: #555 solid 0.1vmax;line-height: 100%;">
   <img src="boxGrey.png" style="width:2.2vmax;vertical-align: middle;">
   property of heartRhythmBox.com 
@@ -193,102 +217,6 @@ reFetch();
 function refresh(gNo,array){
   reFetch()
   updateScore(gNo,array,questionNumber)
-}
-
-var menuToggle = 0;
-function showMenu(){
-  //get qNav posision
-  dot = document.getElementById('qNav')
-  menu = document.getElementById('menu')
-
-  //calc vmax qNav font size = 3vmax
-  menu.style.left = (window.innerWidth-menu.offsetWidth)/2 + 'px'
-  menu.style.top = (window.innerHeight-menu.offsetHeight)/2 + 'px'
-  //if (window.innerWidth>window.innerHeight){
-    //pos = 3*(window.innerWidth/100)
-  //} else {pos = 3*(window.innerHeight/100)}
-  //menu.style.top = dot.offsetTop-(pos/2) + 'px'
-  //menu.style.left = dot.offsetLeft+(pos) + 'px'
-
-  if (menuToggle == 0){
-    menu.style.visibility = 'visible'
-    menuToggle = 1;
-  }
-  else if (menuToggle == 1){
-    menu.style.visibility = 'hidden'
-    menuToggle = 0;
-    //clear scorecard
-    card = document.getElementById(scoreCard)
-    scoreCard.style.display = 'none'
-    scoreT = document.getElementById('scoreT')
-    scoreT.deleteRow(-1);
-    scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
-  }
-}
-
-function showScoreCard(){
-  card = document.getElementById(scoreCard)
-  scoreCard.style.display = 'block'
-  scoreT = document.getElementById('scoreT')
-  scoreT.deleteRow(-1);
-    scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
-
-  var player = ['DAO','POM','OAT']
-  var head = scoreT.insertRow(0);
-  var row1 = scoreT.insertRow(1);
-  var row2 = scoreT.insertRow(2);
-  var row3 = scoreT.insertRow(3);
-
-  //header
-  for (let index = 0; index <= totalQ; index++) {
-    var cell = head.insertCell(index)
-    cell.innerHTML = index
-    if (index ==0){cell.innerHTML = ' '}
-    if (index ==totalQ){cell.innerHTML = 'Total'}
-  }
-
-  //p1
-  for (let i=0;i<=totalQ;i++){
-    let cell = row1.insertCell(i)
-    if (p1Score[i]>=0){
-      cell.innerHTML = p1Score[i] 
-    } else {cell.innerHTML = ' '}
-
-    if (i==0){cell.innerHTML=player[0]}
-    if (i==totalQ){cell.innerHTML = scoreSum(p1Score)}
-  }
-
-  //p2
-  for (let i=0;i<=totalQ;i++){
-    let cell = row2.insertCell(i)
-    if (p2Score[i]>=0){
-      cell.innerHTML = p2Score[i] 
-    } else {cell.innerHTML = ' '}
-
-    if (i==0){cell.innerHTML=player[1]}
-    if (i==totalQ){cell.innerHTML = scoreSum(p2Score)}
-  }
-
-  //p3
-  for (let i=0;i<=totalQ;i++){
-    let cell = row3.insertCell(i)
-    if (p3Score[i]>=0){
-      cell.innerHTML = p3Score[i] 
-    } else {cell.innerHTML = ' '}
-
-    if (i==0){cell.innerHTML=player[2]}
-    if (i==totalQ){cell.innerHTML = scoreSum(p3Score)}
-  }
-
-  function scoreSum(array){
-    var sum=0;
-    for (let index = 0; index < totalQ; index++) {
-      add = array[index]
-      if (add>=0){sum = sum+ array[index];}
-    }
-    return sum;
-  }
-
 }
 
 </script>
