@@ -9,6 +9,7 @@
   <title>eGame-dashboard</title>
   <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Play:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <style>
@@ -16,9 +17,13 @@
 @media only screen and (max-width: 800px) {
         .noMobile{display:none}
       }
+
 .nameBar, .scoreBar {display: flex;width: 100%;padding: 1vmax;}
-.scoreBar {padding-top: none;}
 .canvasZone {text-align:center;background-color: #333;border-top:#555 solid 0.1vmax;}
+.scoreBar {padding-top: none;}
+.score {padding:0 0.5vmax;border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
+
+/*refresh bar*/
 .refBar {display: flex;text-align: left;border-bottom:#555 solid 0.1vmax;}
 .refBarFlex {width: 33%;padding-top: 0vmax;color: #cdcdcd;
   font-size: 2vmax;}
@@ -26,8 +31,9 @@
   text-align: center;}
 .flex33 i {cursor: pointer;color: #ddd;}
 .pName, .score {font-size: 4vmax;}
-.score {padding:0 0.5vmax;border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
 .refBut {padding-left: 0.vmax;margin-top: 0.1vmax;cursor: pointer;}
+
+/*bottom stuff*/
 .itemBar {padding: 2.2vmax 1vmax;color: #888;text-align: right;}
 #qNav {float:left;font-size: 3vmax;color: #fafafa;vertical-align: bottom;}
 #menu {visibility: hidden;display: flex;background-color: rgba(22,22,22,0.8);cursor: pointer;
@@ -36,18 +42,43 @@
   text-align: center;line-height: 100%;}
 .menuItem i {color: #ddd;background-color: rgba(22,22,22,0.8);font-size: 5vmax;padding: 0.5vmax;}
 .menuText {color: #ddd;font-size: 1.5vmax;padding: 0;background:none;padding: 0.5vmax;}
-#bkArrow {display: none;}
-#scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 10%;left: 10%;
+
+/*scorecard*/
+#scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 10%;left: 10%;animation: fadeIn 1s;
     position: fixed;z-index: 1;padding: 1vmax;font-size: 3vmax;color: #cdcdcd;}
 #exit {position: fixed;top: 12%;right: 15%;color: #ddd;cursor: pointer;}
-#scoreT, th, tr, td {padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;}
-#ss {display: none;background-color: rgba(22,22,22,0.8);
+#scoreT, #scoreT th, #scoreT tr, #scoreT td {padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;}
+
+/*start/stop Q*/
+#ss {display: none;background-color: rgba(22,22,22,0.8);animation: fadeIn 1s;
     position: fixed;z-index: 2;padding: 1vmax;font-size: 2.2vmax;color: #cdcdcd;}
 #ssContent {display: flex;flex-wrap: wrap;padding: 1vmax;}
 .ssItem {flex-basis: 3vw;text-align: center;padding: 0.5vmax;border: #888 solid 0.1vmax;cursor: pointer;}
 #start, #stop {padding: 0.5vmax;border: #888 solid 0.1vmax;border-radius: 1vmax;cursor: pointer;
   margin: 0.5vmax;width: fit-content;font-size: 2vmax;text-align: center;}
 #stop {display: none;}
+
+/*top score*/
+.cursive {font-family: 'Audiowide', cursive;}
+#audience {background-color: #0f201f;width: 85%;height: 80%;z-index: 2;padding: 3vmax;
+animation: fadeIn 1s;display: none;position: fixed;bottom: 5%;left: 5%;opacity: 0.9;}
+#audienceTitle {color: #c5f000;font-size: 4vmax;text-align: center;background-color: #0F201F;padding: 2vmax;}
+#audienceTable {font-size: 2.5vmax;color: #f1f1f1;border: none;text-align:center;margin-left: auto;margin-right: auto;}
+#audienceTable #audienceTable th,#audienceTable tr,#audienceTable td {
+  border-bottom: #aaa solid 0.1vmax;padding: 0.5vmax;line-height: 110%;}
+.aName, .aScore, .aNameH, .aScoreH {min-width: 15vmax;border-bottom: #aaa solid 0.1vmax;}
+.fa-medal {cursor: pointer;}
+#aNavBar {padding: 2vmax 1vmax;text-align: center;margin-left: auto;margin-right: auto;
+margin-top: 2vmax;background-color: #0F201F;}
+.aNavItem {padding: 0.5vmax;border: #aaa solid 0.1vmax;font-size: 2vmax;border-radius: 1vmax;
+  display: inline;color: #ddd;margin-right: 1vmax;cursor: pointer;}
+
+/* zoom */
+@keyframes fadeIn {
+  from {opacity: 0%;}
+  to {opacity: 90%;}
+}
+
 
 </style>
 
@@ -121,9 +152,9 @@
         <span id="qAll">12</span>
   </span>
 
-  ElectroCardioGame
+  <span class="cursive" style="color: #89a800">ElectroCardioGame</span>
   <img src="x.png" style="width:1.2vmax;vertical-align: middle;">
-  CC2023
+  <span class="cursive" style="color:#bbb ;" >CC2023</span>
   <img src="ccLogo.png" style="width:2vmax;vertical-align: bottom;">
 </div>
 
@@ -133,7 +164,7 @@
     <i class="fa-solid fa-stopwatch fa-fw"></i></li><br>
     <span class="menuText">questions start/stop</span>
   </div>
-  <div class="menuItem" title="audience response">
+  <div class="menuItem" title="audience response" onclick="showAudience()">
     <i class="fa-solid fa-people-line fa-fw"></i><br>
     <span class="menuText">audience response</span>
   </div>
@@ -180,6 +211,48 @@
   <input id="triggerNo" type="text" style="display:none;" name="tNo">
   <input id="submitBut" type="submit" value="Submit" style="display:none">
 </form>
+
+<!--audience-->
+<div id="audience">
+  <div id="audienceTitle" class="cursive">AUDIENCE TOP SCORE</div>
+  <table id="audienceTable">
+    <tr>
+      <th></th>
+      <th class="aNameH">NAME</td>
+      <th class="aScoreH">SCORE</td>     
+    </tr>
+    <tr>
+      <td><i style="color:gold;" class="fa-solid fa-medal fa-fw" onclick="showAItem(0)"></i></td>
+      <th class="aName"></td>
+        <th class="aScore"></td>     
+    </tr>
+    <tr>
+      <td><i style="color:silver;" class="fa-solid fa-medal fa-fw" onclick="showAItem(1)"></i></td>
+      <th class="aName"></td>
+        <th class="aScore"></td>     
+    </tr>
+    <tr>
+      <td><i style="color:#CD7F32;" class="fa-solid fa-medal fa-fw" onclick="showAItem(2)"></i></td>
+      <th class="aName"></td>
+        <th class="aScore"></td>     
+    </tr>
+    <tr>
+      <td><i style="color:royalblue;" class="fa-solid fa-medal fa-fw" onclick="showAItem(3)"></i></td>
+      <th class="aName"></td>
+        <th class="aScore"></td>     
+    </tr>
+    <tr>
+      <td><i style="color:royalblue;" class="fa-solid fa-medal fa-fw" onclick="showAItem(4)"></i></td>
+      <th class="aName"></td>
+        <th class="aScore"></td>     
+    </tr>
+  </table>
+  <div id="aNavBar">
+    <div class="aNavItem" id="audienceCount">No: 0</div>
+    <div class="aNavItem" onclick="showAItem(99)">Show Scores</div>
+    <div class="aNavItem" onclick="showMenu()">Close</div>
+  </div>
+</div>
 
 <!--foot-->
 <div id="foot" 
