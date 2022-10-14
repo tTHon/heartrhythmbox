@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=News+Cycle&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {font-family:'News Cycle', sans-serif;color: #333;}
+    #ecg {max-width:95%;max-height: 70vh;padding: 1vmax;}
+    .row {display: flex;flex: 0.5vmax;font-size: 2vmax;}
+    .title {font-size: 2.5vmax;font-weight: 700;}
+    .col {flex: 33%;padding: 0.5vmax;margin: 0.5vmax;}
+    .round {border: #333 solid 0.1vmax;border-radius: 1vmax;}
+</style>
+
+<body>
+
+<div style="text-align:center">
+    <h1 id= 'title'></h1>
+    <img id="ecg">
+</div>
+
+<!--answer sheet-->
+<div class="row">
+    <div class="col round">
+        <div class="title">
+            1. General Features
+        </div>
+    </div>
+    <div class="col round">
+        <div class="title">AV Conduction</div>
+    </div>
+    <div class="col round">
+        <div class="title">Intraventricular Conduction</div>
+    </div>
+</div>
+
+
+<script src="scoring.js"></script>
+<script>
+    var qNo=0;
+    displayName();
+
+function displayName(){
+    document.getElementById('title').innerHTML = "Question No." + qNo + " /" + totalQ;
+    var source = "ecgs//ecg"+ qNo.toString()+".png";
+    document.getElementById('ecg').src = source;
+}
+
+</script>
+</body>
+</html>
