@@ -10,7 +10,8 @@
 
 </head>
 <style>
-    * {font-family:'Pragati Narrow', sans-serif;color: #333;}
+    * {font-family:'Pragati Narrow', sans-serif;color: #333;box-sizing: border-box;}
+    #ecgPage{display: none;background-color: #f5f5f6;}
     #title {color: #0f4c81;font-weight: 600;font-size: 3.5vmax;}
     #ecg {max-width:95%;max-height: 70vh;padding: 1vmax;}
     .row {display: flex;flex: 0.5vmax;font-size: 2vmax;}
@@ -24,7 +25,10 @@
     /*intro*/
     .lemon {color: #c5f000}
     .cursive {font-family: 'Audiowide', cursive;}
-    #card {background-color: #0f4c81;width: 50vmax;margin-left: auto;margin-right: auto;margin-top: 10vh;}
+    #card {background-color: #0f4c81;width: 75vmax;margin-left: auto;line-height: 180%;
+    margin-right: auto;margin-top: 15vh;text-align: center;padding: 2vmax 1vmax;}
+    #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;}
+    #waitDot {padding: 3vmax;color: azure;font-size: 4vmax;}
 </style>
 
 <body>
@@ -34,25 +38,26 @@
 <div style="text-align:center">
     <div id= 'title'></div>
     <img id="ecg">
+    <button onclick="next()">Next</button>
 </div>
 
 <!--answer sheet-->
-<div class="row">
+<div id="answerSheet" class="row">
     <div class="col round">
         <div class="head">
             1. General Features</div>
-        <input class="cBx" label="1.1" type="checkbox">1.1 Normal ECG<br>
-        <input class="cBx" label="1.2" type="checkbox">1.2 Normal variant<br>
-        <input label="1.3" class="cBx" type="checkbox">1.3 Incorrect electrode placement<br>
-        <input label="1.4" type="checkbox" class="cBx">1.4 Artifact
+        <input class="cBx" label="1.1" id="1.1" type="checkbox">1.1 Normal ECG<br>
+        <input class="cBx" label="1.2" id="1.2" type="checkbox">1.2 Normal variant<br>
+        <input label="1.3" class="cBx" id="1.3" type="checkbox">1.3 Incorrect electrode placement<br>
+        <input label="1.4" type="checkbox" id="1.4" class="cBx">1.4 Artifact
         <div class="head">
             2. P Wave</div>
-        <input class="cBx" label="2.1" type="checkbox">2.1 RA abnormalities/enlargement<br>
-        <input label="2.2" class="cBx" type="checkbox">2.2 LA abnormalities/enlargement
+        <input class="cBx" label="2.1" id="2.1" type="checkbox">2.1 RA abnormalities/enlargement<br>
+        <input label="2.2" class="cBx" id="2.2" type="checkbox">2.2 LA abnormalities/enlargement
         <div class="head">
             3. RHYTHM - Atrial Rhythms</div>
-        <input label="3.1" type="checkbox" class="cBx">3.1 Sinus rhythm<br>
-        <input label="3.2" type="checkbox" class="cBx">3.2 Sinus arrhythmia
+        <input label="3.1" type="checkbox" id="3.1" class="cBx">3.1 Sinus rhythm<br>
+        <input label="3.2" type="checkbox" id="3.2" class="cBx">3.2 Sinus arrhythmia
     </div>
     <div class="col round">
         <div class="head">6. AV Conduction</div>
@@ -67,7 +72,7 @@
     <input type="submit" value="Submit" id="submitBut">
 </div>
 <div class="butt">
-    <button id="fakeSubmit" onclick="">Submit</button>
+    <button id="fakeSubmit" onclick="afterSubmit()">Submit</button>
 </div>
 </div>
 
@@ -75,14 +80,33 @@
 
 <!--intro page-->
 <div id="card">
-    <div class="lemon cursive" style="font-size:3vmax;text-align: center;padding: 1vmax;">ElectroCardioGame</div>
+    <img src="ccLogoLemon.png" style="width:3vmax;text-align: center;padding-top: 1vmax;">
+    <div class="lemon cursive" style="font-size:3vmax;text-align: center;">
+    CC2023
+    <br><img src="xLemon.png" style="width:2vmax;text-align: center;">
+    <br>ElectroCardioGame</div><br>
+    <div id="welcome">
+        Thanks for joining us.<br>
+        Please wait here...the game will begin shortly.
+    </div>
+    <div id="waitDot">...</div>
+    <div style="font-size:1.6vmax;color: #022645">
+    property of heartRhythmBox.com
+    </div>
+    <button id="demo" onclick="next()">Next</button>
 </div>
 
 
 <script src="scoring.js"></script>
 <script>
     var qNo=0;
-    displayName();
+    var q2Vote = [4,8,12]
+    dotDot();
+    //function used during drafting
+    setTimeout(function(){
+        ecgLoad()
+    },5000)
+
     var keyJson = [{"no":0, "key": '1.2', "score": 2},
                 {"no":0, "key": '2.1', "score": 4},
                 {"no":0, "key": '2.2', "score": 2},
@@ -98,6 +122,109 @@
                 {"no":12, "key": '3.3', "score": 3}         
             ]
 
+function next(){
+    qNo++
+    ecgLoad()
+}
+
+function ecgLoad(){
+    document.getElementById('card').style.display = 'none'
+    document.getElementById('ecgPage').style.display = 'block'
+    displayName();
+    fButt = document.getElementById('fakeSubmit')
+    sButt = document.getElementById('submitBut')
+    aSheet = document.getElementById('answerSheet')
+    var vote=0;
+    for (let index = 0; index < q2Vote.length; index++) {
+        if (qNo==q2Vote[index]){
+            vote = 1;
+        }
+    }
+    if (qNo==0)
+        {fButt.style.display = 'inline-block';sButt.style.display = 'none'
+         aSheet.style.display = 'flex'
+        }
+    else if (vote==1){
+
+        sButt.style.display = 'inline-block';
+        fButt.style.display = 'none';
+        aSheet.style.display = 'flex'
+        }
+    else {
+            aSheet.style.display = 'none'
+            sButt.style.display = 'none';
+            fButt.style.display = 'none';
+        }
+    
+}
+
+var score = []
+function afterSubmit(){
+    document.getElementById('card').style.display = 'block'
+    document.getElementById('ecgPage').style.display = 'none'
+    msg = document.getElementById('welcome');
+    var input = document.getElementsByClassName('cBx')
+
+    //get answer array
+    const answer = []
+    for (let index = 0; index < input.length; index++) {
+        if (input[index].checked){
+            const item = input[index].id
+            answer.push(item)
+        }
+    }
+
+    //get key and score
+    const key = [];const kScore = []
+    for (let index = 0; index < keyJson.length; index++) {
+        if (keyJson[index].no==qNo){
+            key.push(keyJson[index].key)
+            kScore.push(keyJson[index].score)
+        }
+    }
+
+    var thisScore = 0;
+    answer.forEach(function(item){
+        for (let index = 0; index < key.length; index++) {
+            if (item == key[index]){
+                thisScore = thisScore + (kScore[index])    
+            }
+        }
+    })
+    score.push(thisScore)
+    scoreSum = sumScore()
+    
+    function sumScore(){
+        Sum = 0;
+        for (let index = 0; index < score.length; index++) {
+            Sum = Sum + score[index]            
+        }
+        return Sum;
+    }
+
+    //document.getElementById('demo').innerHTML = 'Thanks for joining the vote' + '<br />' + 
+        //'You got ' + thisScore + ' from this question.' + '<br />' +
+        //'Your total score is '+ scoreSum + '. <br />' +
+        //'Please wait here for the next question.'
+
+
+
+    //after submit page
+    if (qNo==0)
+     {msg.innerHTML = 'That was the demo question.'+ "<br />" +'Please wait here for the 1st question.'}
+    else {
+        msg.innerHTML = 'Thanks for joining the vote' + '<br />' + 
+        'You got ' + thisScore + ' from this question.' + '<br />' +
+        'Your total score is '+ scoreSum + '<br />' +
+        'Please wait here for the next question.'
+    } 
+
+    //clear answersheet
+    for (let index = 0; index < input.length; index++) {
+        input[index].checked = false;
+    }
+}
+
 function displayName(){
     document.getElementById('title').innerHTML = "Question No. " + qNo + " /" + totalQ;
     var source = "ecgs//ecg"+ qNo.toString()+".png";
@@ -105,6 +232,26 @@ function displayName(){
     if (qNo==0){
         document.getElementById('fakeSubmit').style.display = 'inline-block'
     }
+}
+
+function dotDot(){
+    dot = document.getElementById('waitDot');
+    text='.'
+    //dot.innerHTML = text
+    count = 0;maxCount=23;
+    var dotInterval = setInterval(function(){
+        count++;
+        text = text+'.';
+        dot.innerHTML = text;
+        if (count ==maxCount){
+            text = '';
+            count=0;
+        }
+    },1000)
+    if (document.getElementById('ecgPage').style.display =='block'){
+        clearInterval(dotInterval)
+    }
+
 }
 
 </script>
