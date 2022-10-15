@@ -29,7 +29,7 @@ function displayName(){
     document.getElementById('p2').innerHTML = pName[1];
     document.getElementById('p3').innerHTML = pName[2];
     document.getElementById('questionNo').value = qNo.toString();
-    document.getElementById('title').innerHTML = "Question No." + qNo + " /" + totalQ;
+    document.getElementById('title').innerHTML = "Question No. " + qNo + " /" + totalQ;
     var source = "ecgs//ecg"+ qNo.toString()+".png";
     document.getElementById('ecg').src = source;
 }

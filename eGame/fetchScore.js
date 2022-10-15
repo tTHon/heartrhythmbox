@@ -206,10 +206,10 @@ function showAudience(){
   document.getElementById('audience').style.display = 'block'
 }
 
-var bScore = [{"name":'a',"score": 52},{"name":'b',"score":89},
+var aScore = [{"name":'a',"score": 52},{"name":'b',"score":89},
           {"name":'c',"score":98},{"name": 'd',"score":99},{'name':'e','score': 77},
           {"name":'f',"score":180}]
-var aScore = [{"name":'a',"score": 52}]
+var bScore = [{"name":'a',"score": 52}]
 
 function showAItem(n){
   //fetchScore -- return aScore

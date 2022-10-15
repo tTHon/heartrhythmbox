@@ -4,37 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://fonts.googleapis.com/css2?family=News+Cycle&display=swap" rel="stylesheet">
+    <title>eGame - Audience Response</title>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran&display=swap" rel="stylesheet">
 </head>
 <style>
-    * {font-family:'News Cycle', sans-serif;color: #333;}
+    * {font-family:'Catamaran', sans-serif;color: #333;}
+    #title {color: darkslateblue;font-weight: 600;font-size: 3.5vmax;}
     #ecg {max-width:95%;max-height: 70vh;padding: 1vmax;}
     .row {display: flex;flex: 0.5vmax;font-size: 2vmax;}
-    .title {font-size: 2.5vmax;font-weight: 700;}
+    .head {font-size: 2.2vmax;font-weight: 700;padding-top: 0.5vmax;color: darkslateblue;}
     .col {flex: 33%;padding: 0.5vmax;margin: 0.5vmax;}
     .round {border: #333 solid 0.1vmax;border-radius: 1vmax;}
+    input {margin-left: 1vmax;}
 </style>
 
 <body>
 
 <div style="text-align:center">
-    <h1 id= 'title'></h1>
+    <div id= 'title'></div>
     <img id="ecg">
 </div>
 
 <!--answer sheet-->
 <div class="row">
     <div class="col round">
-        <div class="title">
-            1. General Features
-        </div>
+        <div class="head">
+            1. General Features</div>
+        <input label="1.1" type="checkbox">1.1 Normal ECG<br>
+        <input label="1.2" type="checkbox">1.2 Normal variant<br>
+        <input label="1.3" type="checkbox">1.3 Incorrect electrode placement<br>
+        <input label="1.4" type="checkbox">1.4 Artifact
+        <div class="head">
+            2. P Wave</div>
+        <input label="2.1" type="checkbox">2.1 RA abnormalities/enlargement<br>
+        <input label="2.2" type="checkbox">2.2 LA abnormalities/enlargement
+        <div class="head">
+            3. RHYTHM - Atrial Rhythms</div>
+        <input label="3.1" type="checkbox">3.1 Sinus rhythm<br>
+        <input label="3.2" type="checkbox">3.2 Sinus arrhythmia
     </div>
     <div class="col round">
-        <div class="title">AV Conduction</div>
+        <div class="head">6. AV Conduction</div>
     </div>
     <div class="col round">
-        <div class="title">Intraventricular Conduction</div>
+        <div class="head">10. Intraventricular Conduction</div>
     </div>
 </div>
 
@@ -45,7 +58,7 @@
     displayName();
 
 function displayName(){
-    document.getElementById('title').innerHTML = "Question No." + qNo + " /" + totalQ;
+    document.getElementById('title').innerHTML = "Question No. " + qNo + " /" + totalQ;
     var source = "ecgs//ecg"+ qNo.toString()+".png";
     document.getElementById('ecg').src = source;
 }
