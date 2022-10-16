@@ -345,8 +345,10 @@ function afterSubmit(){
     for (let index = 0; index < input.length; index++) {
         input[index].checked = false;
     }
-    document.getElementById('totalScore').value = score;
-    document.getElementById('audScore').submit();
+    document.getElementById('audScore').onsubmit = function(){
+        document.getElementById('totalScore').value = score;
+        document.getElementById('audScore').submit();
+    };
 }
 
 function calcScore(){
