@@ -310,10 +310,13 @@ function ecgLoad(){
         form.style.display = 'block';
         sButt.style.display = 'inline-block'
         aSheet.style.display = 'flex'
-        if (qNo==q2Vote[0]){    
+        if (qNo==q2Vote[0]){
+
             if (nameV !== null && nameV.value === ''){
                 nameEntered = nameV.value
-                } else (nameEntered = '')}
+                } else (nameEntered = '')
+            
+            }
         if (qNo>q2Vote[0]){
             document.getElementById('name').style.display = 'none'
             document.getElementById('nameInput').innerHTML = 'Your Name is:'+ nameEntered 
@@ -346,6 +349,7 @@ function afterSubmit(){
         input[index].checked = false;
     }
     document.getElementById('audScore').onsubmit = function(){
+        document.getElementById('name').value = nameEntered;
         document.getElementById('totalScore').value = score;
         document.getElementById('audScore').submit();
     };
