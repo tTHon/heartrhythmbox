@@ -16,7 +16,7 @@
     #ecg {max-width:95%;max-height: 70vh;padding: 1vmax;}
     .row {display: flex;flex: 0.5vmax;font-size: 2vmax;}
     .head {font-size: 2.2vmax;font-weight: 700;padding-top: 0.5vmax;color: #0f4c81;}
-    .col {flex: 33%;padding: 0.5vmax;margin: 0.5vmax;}
+    .col {flex: 33%;padding: 0.5vmax;margin: 0.5vmax;line-height: 150%;}
     .round {border: #333 solid 0.1vmax;border-radius: 1vmax;}
     .cBx {margin-left: 1vmax;margin-right: 1vmax;width: 1.5vmax;height: 1.5vmax;}
     #submitBut, #fakeSubmit {text-align: center;font-size: 2.5vmax;cursor: pointer;display: none;}
@@ -57,7 +57,21 @@
         <div class="head">
             3. RHYTHM - Atrial Rhythms</div>
         <input label="3.1" type="checkbox" id="3.1" class="cBx">3.1 Sinus rhythm<br>
-        <input label="3.2" type="checkbox" id="3.2" class="cBx">3.2 Sinus arrhythmia
+        <input label="3.2" type="checkbox" id="3.2" class="cBx">3.2 Sinus arrhythmia<br>
+        <input label="3.3" type="checkbox" id="3.3" class="cBx">3.3 Sinus bradycardia(&lt;60)<br>
+        <input label="3.4" type="checkbox" id="3.4" class="cBx">3.4 Sinus tachycardia(&gt;100)<br>
+        <input label="3.5" type="checkbox" id="3.5" class="cBx">3.5 Sinus pause or sinus arrest<br>
+        <input label="3.6" type="checkbox" id="3.6" class="cBx">3.6 Sinoatrial exit block<br>
+        <input label="3.7" type="checkbox" id="3.7" class="cBx">3.7 Atrial premature complexes<br>
+        <input label="3.8" type="checkbox" id="3.8" class="cBx">3.8 Atrial tachycardia<br>
+        <input label="3.9" type="checkbox" id="3.9" class="cBx">3.9 Atrial tachycardia, multifocal<br>
+        <input label="3.10" type="checkbox" id="3.10" class="cBx">3.10 Atrial flutter<br>
+        <input label="3.11" type="checkbox" id="3.11" class="cBx">3.11 Atrial fibrillation
+        <div class="head">
+            4. RHYTHM - AV Junctional Rhythms</div>
+        <input label="4.1" type="checkbox" id="4.1" class="cBx">4.1 AV junctional premature complexes<br>
+        <input label="4.2" type="checkbox" id="4.2" class="cBx">4.2 AV junctional escape complexes<br>
+        <input label="4.3" type="checkbox" id="4.3" class="cBx">4.3 AV junctional rhythm/tachycardia
     </div>
     <div class="col round">
         <div class="head">6. AV Conduction</div>
@@ -105,7 +119,7 @@
     //function used during drafting
     setTimeout(function(){
         ecgLoad()
-    },5000)
+    },500)
 
     var keyJson = [{"no":0, "key": '1.2', "score": 2},
                 {"no":0, "key": '2.1', "score": 4},
