@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eGame - Audience Response</title>
     <link href="https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap" rel="stylesheet">
@@ -229,16 +228,16 @@
 
     <!--submit-->
     <form id="audScore" 
-    name="audScore" 
+    name="audienceScore" 
     method="POST" 
     data-netlify="true">
 
         <div id="nameInput" class="butt">
             <label>Your Name is
-            <input type="text" id="audName" name="audName"></label>
+            <input type="text" id="audName" name="audienceName"></label>
         </div>
         <div class="butt" id="submitInput">
-            <input id="totalScore" type="number" name="totalScore">
+            <input id="totalScore" type="number" name="audienceTotalScore">
             <input type="submit" value="Submit" id="submitBut">
         </div>
     </form>
@@ -270,7 +269,7 @@
     var qNo = -1;
     var q2Vote = [4,8,12];
     var score = 0;var nameEntered='';
-    var keyJson = [{"no":0, "key": '1.2', "score": 0},
+    var key = [{"no":0, "key": '1.2', "score": 0},
                 {"no":0, "key": '2.1', "score": 0},
                 {"no":0, "key": '2.2', "score": 0},
                 {"no":0, "key": '3.1', "score": 0},
@@ -385,10 +384,10 @@ function calcScore(){
 
     //get key and score
     const key = [];const kScore = []
-    for (let index = 0; index < keyJson.length; index++) {
-        if (keyJson[index].no==qNo){
-            key.push(keyJson[index].key)
-            kScore.push(keyJson[index].score)
+    for (let index = 0; index < key.length; index++) {
+        if (key[index].no==qNo){
+            key.push(key[index].key)
+            kScore.push(key[index].score)
         }
     }
 
