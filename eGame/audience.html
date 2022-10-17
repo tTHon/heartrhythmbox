@@ -238,8 +238,9 @@
             <input type="text" id="audName" name="audName"></label>
         </div>
         <div class="butt" id="submitInput">
-            <input id="totalScore" type="number" name="audienceTotalScore" style="display:none">
-            <input type="submit" value="Submit" id="submitBut" style="display:none;">
+            <input id="totalScore" type="number" name="audienceTotalScore" 
+            style="display:none">
+            <input type="submit" value="Submit" id="submitBut">
         </div>
     </form>
 </div>
@@ -297,8 +298,12 @@ function next(){
 const handleSubmit = (event) => {
     thisScore = calcScore();  
     score = score + thisScore;  
+    
     if (qNo==4)
      {nameEntered = document.getElementById('audName').value;}
+    else (document.getElementById('audName').value = nameEntered)
+    document.getElementById('totalScore').value = score;
+    
     event.preventDefault();
     const myForm = event.target;
     const formData = new FormData(myForm);
@@ -309,7 +314,7 @@ const handleSubmit = (event) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams(formData).toString(),
   })
-    .then(() => console.log("Form successfully submitted"))
+    .then(() => console.log(formData.toString()))
     .catch((error) => alert(error));
     afterSubmit(); 
 };
