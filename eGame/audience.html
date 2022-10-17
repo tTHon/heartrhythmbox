@@ -289,8 +289,8 @@
 const handleSubmit = (event) => {
   event.preventDefault();
   var thisScore = calcScore();
-  //document.getElementById('audName').value = nameEntered;
-  //document.getElementById('totalScore').value = score;
+  document.getElementById('audName').value = nameEntered;
+  document.getElementById('totalScore').value = score;
 
   const myForm = event.target;
   const formData = new FormData(myForm);
