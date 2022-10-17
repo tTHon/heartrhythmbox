@@ -26,7 +26,7 @@
     #miTable TH, #miTable TR, #miTable TD {color: #f1f1f1;
         border: #aaa solid 0.1vmax;font-size:1.8vmax;text-align: center;padding: 0;
         line-height: 110%;border-collapse: collapse;}
-    #submitBut, #fakeSubmit {text-align: center;font-size: 2vmax;cursor: pointer;display: none;}
+    #submitBut {text-align: center;font-size: 2vmax;cursor: pointer;display: none;}
     .butt {text-align: center;padding: 1vmax;font-size: 2vmax;vertical-align: baseline;}
 
     /*intro*/
@@ -36,7 +36,8 @@
     text-align: center;padding: 2vmax 1vmax;z-index: -1;}
     #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;}
     #wait {color: azure;font-size: 2.5vmax;padding:1vmax;}
-    #waitDot {padding: 3vmax;color: azure;font-size: 4vmax;}
+
+
 </style>
 
 <body>
@@ -251,7 +252,7 @@
 <!--top and foot-->
 
 <!--intro page-->
-<div id="card" class="round">
+<div id="card" class="round bgGd">
     <img src="ccLogoLemon.png" style="width:3vmax;text-align: center;padding-top: 10vmax;">
     <div class="lemon cursive" style="font-size:3vmax;text-align: center;">
     CC2023
@@ -271,6 +272,7 @@
 
 <script>
 
+aGd();
 //global var
 var totalQ = 12
     var qNo = -1;
@@ -335,6 +337,7 @@ function ecgLoad(){
     //document.getElementById('next').innerHTML = nameEntered;
     document.getElementById('ecgPage').style.display = 'block'
     document.getElementById('card').style.display = 'none'
+    aGd('off')
     displayName();
     sButt = document.getElementById('submitBut')
     form = document.getElementById('audScore')
@@ -430,6 +433,37 @@ function displayName(){
     var source = "ecgs//ecg"+ qNo.toString()+".png";
     document.getElementById('ecg').src = source;
 }
+
+function aGd(turn){
+    var g = document.getElementsByClassName('bgGd');
+    //#0f817d, #1774c6, #0f1381, #0f4c81
+    //background-image: radial-gradient(farthest-side at 70% 35%, #FDE570, #FAE25F, #FACF1A,#F0BC18)
+    var x =0; var y = Math.floor((Math.random() * 100) + 1);
+    var inc = true;
+    var id = setInterval(color, 50);
+    if (turn=='off') {clearInterval(id)}
+    function color(){
+        if (inc){
+            if (x==100){
+                inc = false;
+                yDelta= Math.floor((Math.random() * 70) + 1);y = y-yDelta;
+                x--;
+            } else {x++;}
+        } else {
+            if (x==0){
+                inc = true;
+                yDelta= Math.floor((Math.random() * 70) + 1);y= y+yDelta;
+                x++;
+            } else {x--;}
+        }
+    if (y<0){y=40};if (y>100){y=60}
+    g[0].style.backgroundImage = "radial-gradient(farthest-side at " + x +"%" + y + "%,#218ae5,#1774c6, #0f4c81,#0f1381,#0a3153)"
+    }
+
+}
+
+
+
 
 </script>
 </body>
