@@ -235,7 +235,7 @@
 
         <div id="nameInput" class="butt">
             <label>Your Name is
-            <input type="text" id="name"> </label>
+            <input type="text" id="audName" name="audName"></label>
         </div>
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" name="totalScore">
@@ -289,7 +289,7 @@
 const handleSubmit = (event) => {
   event.preventDefault();
   var thisScore = calcScore();
-  //document.getElementById('name').value = nameEntered;
+  //document.getElementById('audName').value = nameEntered;
   //document.getElementById('totalScore').value = score;
 
   const myForm = event.target;
@@ -318,7 +318,7 @@ function ecgLoad(){
     sButt = document.getElementById('submitBut')
     form = document.getElementById('audScore')
     aSheet = document.getElementById('answerSheet')
-    nameV = document.getElementById('name')
+    nameV = document.getElementById('audName')
     //clear answersheet
     var input = document.getElementsByClassName('cBx')
     for (let index = 0; index < input.length; index++) {
