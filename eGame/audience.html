@@ -231,14 +231,13 @@
     <form id="audScore" 
     name="audScore" 
     method="POST" 
-    data-netlify="true"
-    onsubmit="afterSubmit()">
+    data-netlify="true">
 
         <div id="nameInput" class="butt">
             Your Name is <input type="text" id="name">
         </div>
         <div class="butt" id="submitInput">
-            <input id="totalScore" type="number" style="display:none">
+            <input id="totalScore" type="number">
             <input type="submit" value="Submit" id="submitBut">
         </div>
     </form>
@@ -289,8 +288,8 @@
 const handleSubmit = (event) => {
   event.preventDefault();
   var thisScore = calcScore();
-  document.getElementById('name').value = nameEntered;
-  document.getElementById('totalScore').value = score;
+  //document.getElementById('name').value = nameEntered;
+  //document.getElementById('totalScore').value = score;
 
   const myForm = event.target;
   const formData = new FormData(myForm);
@@ -319,6 +318,11 @@ function ecgLoad(){
     form = document.getElementById('audScore')
     aSheet = document.getElementById('answerSheet')
     nameV = document.getElementById('name')
+    //clear answersheet
+    var input = document.getElementsByClassName('cBx')
+    for (let index = 0; index < input.length; index++) {
+        input[index].checked = false;
+    }
 
     var vote=0;
     for (let index = 0; index < q2Vote.length; index++) {
@@ -358,17 +362,12 @@ function afterSubmit(thisScore){
     document.getElementById('answerSheet').style.display = 'none'
     msg = document.getElementById('welcome');
     document.getElementById('audScore').style.display = 'none'
-    var input = document.getElementsByClassName('cBx')
+
   
     msg.innerHTML = 'Thanks for joining the vote' + '<br />' + 
     'You got ' + thisScore + ' from this question.' + '<br />' +
     'Your total score is '+ score + '<br />' +
     'Please wait here for the next question.'
-
-    //clear answersheet
-    for (let index = 0; index < input.length; index++) {
-        input[index].checked = false;
-    }
 }
 
 function calcScore(){
