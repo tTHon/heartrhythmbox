@@ -1,11 +1,30 @@
 //tryapis.com
+//oyqF9n48JsYpRKXk-RaF8GsOgsa4NVrIkMZ9W_b7zrM
 
 var totalQ = 13;
 var p1Score = [];
 var p2Score = [];
 var p3Score = [];
-var questionNumber=0;
-var q2Vote = [4,8,12]
+var questionNumber;
+var q2Vote = [4,8,12];
+var subMID = [];
+
+function clearData(){
+  //reFetch();
+  console.log(subMID)
+  document.getElementById('test').innerHTML = subMID
+
+  const options = {
+    method: 'DELETE',
+    headers: {Authorization: 'Bearer byLDRD12H9zVpadt9nD0PNsUMtY5iqfxm9cvsosk4u8'}
+  };
+    
+    url = 'https://api.netlify.com/api/v1/submissions/634d5189da2d1a006979971d'
+    fetch(url, options)
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
+  
+}
 
 function reFetch(){ 
   const options = {
@@ -28,12 +47,12 @@ function reFetch(){
       p1Score[f.qNo] = parseInt(f.p1);
       p2Score[f.qNo] = parseInt(f.p2);
       p3Score[f.qNo] = parseInt(f.p3);
+      subMID.push(result[i].id)
       //timeStamp.push(result[i].created_at)
     }
 
     //sort timestamp
     //timeStamp.reverse()
-    //document.getElementById('test').innerHTML = timeStamp
   }
 }
 
@@ -195,6 +214,7 @@ function startQClick(){
   document.getElementById('start').innerHTML = 'Click Number to Start Question'
   document.getElementById('start').style.color = '#cdcdcd'
   //document.getElementById('questionNav').submit();
+  showMenu();
 }
 
 function stopVClick(){

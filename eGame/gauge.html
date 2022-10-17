@@ -286,10 +286,13 @@ drawLabel(1);
 drawLabel(2);
 drawLabel(3);
 reFetch();
+clearData();
+
+
 
 function refresh(gNo,array){
   reFetch()
-  if (p1Score.length>0)
+  if (subMID.length>0 && questionNumber>=0)
     {updateScore(gNo,array,questionNumber)}
 }
 
@@ -297,3 +300,4 @@ function refresh(gNo,array){
 
 </body>
 </html>
+  
