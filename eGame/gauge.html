@@ -289,7 +289,8 @@ reFetch();
 
 function refresh(gNo,array){
   reFetch()
-  updateScore(gNo,array,questionNumber)
+  if (p1Score.length>0)
+    {updateScore(gNo,array,questionNumber)}
 }
 
 </script>

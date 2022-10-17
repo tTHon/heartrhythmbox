@@ -285,6 +285,26 @@
                 {"no":12, "key": '3.3', "score": 3}         
             ]
 
+//submit
+const handleSubmit = (event) => {
+  event.preventDefault();
+  var thisScore = calcScore();
+  document.getElementById('name').value = nameEntered;
+  document.getElementById('totalScore').value = score;
+
+  const myForm = event.target;
+  const formData = new FormData(myForm);
+  
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString(),
+  })
+    .then(() => console.log("Form successfully submitted"))
+    .catch((error) => alert(error));
+
+    afterSubmit(thisScore)
+};
  
 function next(){
     qNo = qNo+1;
@@ -333,15 +353,13 @@ function ecgLoad(){
    
 }
 
-function afterSubmit(){
+function afterSubmit(thisScore){
     document.getElementById('card').style.display = 'block'
     document.getElementById('answerSheet').style.display = 'none'
     msg = document.getElementById('welcome');
     document.getElementById('audScore').style.display = 'none'
     var input = document.getElementsByClassName('cBx')
-
-    var thisScore = calcScore();
-   
+  
     msg.innerHTML = 'Thanks for joining the vote' + '<br />' + 
     'You got ' + thisScore + ' from this question.' + '<br />' +
     'Your total score is '+ score + '<br />' +
@@ -351,8 +369,6 @@ function afterSubmit(){
     for (let index = 0; index < input.length; index++) {
         input[index].checked = false;
     }
-    document.getElementById('name').value = nameEntered;
-    document.getElementById('totalScore').value = score;
 }
 
 function calcScore(){
