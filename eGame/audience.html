@@ -42,6 +42,7 @@
 
 <!--ecg page-->
 <div id="ecgPage">
+    <div id="demo"></div>
 <div style="text-align:center">
     <div id= 'title'></div>
     <img id="ecg">
@@ -217,12 +218,12 @@
 
         <div class="head">
             13. Pacemaker Function</div>
-        <input label="13.1" type="checkbox" id="13.1" class="cBx">13.1 Atrial or coronary sinus pacing<br>
-        <input label="13.2" type="checkbox" id="13.2" class="cBx">13.2 Ventricular demand pacemaker (VVI), normally functioning<br>
-        <input label="13.3" type="checkbox" id="13.3" class="cBx">13.3 Dual-chamber pacemaker (DDD), normally functioning<br>
-        <input label="13.4" type="checkbox" id="13.4" class="cBx">13.4 Pacemaker malfunction, not constantly capturing (atrium or ventricle)<br>
-        <input label="13.5" type="checkbox" id="13.5" class="cBx">13.5 Pacemaker malfunction, not constantly sensing (atrium or ventricle)<br>
-        <input label="13.6" type="checkbox" id="13.6" class="cBx">13.6 Paced morphology consistent with biventricular pacing or CRT<br>
+        <input type="checkbox" id="13.1" class="cBx">13.1 Atrial or coronary sinus pacing<br>
+        <input type="checkbox" id="13.2" class="cBx">13.2 Ventricular demand pacemaker (VVI), normally functioning<br>
+        <input type="checkbox" id="13.3" class="cBx">13.3 Dual-chamber pacemaker (DDD), normally functioning<br>
+        <input type="checkbox" id="13.4" class="cBx">13.4 Pacemaker malfunction, not constantly capturing (atrium or ventricle)<br>
+        <input type="checkbox" id="13.5" class="cBx">13.5 Pacemaker malfunction, not constantly sensing (atrium or ventricle)<br>
+        <input type="checkbox" id="13.6" class="cBx">13.6 Paced morphology consistent with biventricular pacing or CRT<br>
     </div>
 </div>
 
@@ -233,15 +234,14 @@
     data-netlify="true">
 
         <div id="nameInput" class="butt">
-            <label>Your Name is
-            <input type="text" id="audName" name="audienceName"></label>
+            <label for="audienceName">Your Name is
+            <input type="text" id="audName" name="audName"></label>
         </div>
         <div class="butt" id="submitInput">
-            <input id="totalScore" type="number" name="audienceTotalScore">
-            <input type="submit" value="Submit" id="submitBut">
+            <input id="totalScore" type="number" name="audienceTotalScore" style="display:none">
+            <input type="submit" value="Submit" id="submitBut" style="display:none;">
         </div>
     </form>
-    <!--button onclick="afterSubmit()" id="submitBut" >Submit</button-->
 </div>
 
 <!--top and foot-->
@@ -265,11 +265,14 @@
 
 
 <script>
-    var totalQ = 12
+
+//global var
+var totalQ = 12
     var qNo = -1;
     var q2Vote = [4,8,12];
-    var score = 0;var nameEntered='';
-    var key = [{"no":0, "key": '1.2', "score": 0},
+    var score = 0;
+    var nameEntered = 'default';
+    var keyJson = [{"no":0, "key": '1.2', "score": 0},
                 {"no":0, "key": '2.1', "score": 0},
                 {"no":0, "key": '2.2', "score": 0},
                 {"no":0, "key": '3.1', "score": 0},
@@ -281,19 +284,26 @@
                 {"no":8, "key": '2.3', "score": 3},   
                 {"no":12, "key": '3.1', "score": 5},
                 {"no":12, "key": '3.2', "score": 2},
-                {"no":12, "key": '3.3', "score": 3}         
-            ]
+                {"no":12, "key": '3.3', "score": 3}]
+    var showForm;
+
+function next(){
+    qNo = qNo+1;
+    ecgLoad()
+}
+
 
 //submit
 const handleSubmit = (event) => {
-  event.preventDefault();
-  var thisScore = calcScore();
-  document.getElementById('audName').value = nameEntered;
-  document.getElementById('totalScore').value = score;
+    thisScore = calcScore();  
+    score = score + thisScore;  
+    if (qNo==4)
+     {nameEntered = document.getElementById('audName').value;}
+    event.preventDefault();
+    const myForm = event.target;
+    const formData = new FormData(myForm);
+    
 
-  const myForm = event.target;
-  const formData = new FormData(myForm);
-  
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -301,23 +311,25 @@ const handleSubmit = (event) => {
   })
     .then(() => console.log("Form successfully submitted"))
     .catch((error) => alert(error));
-
-    afterSubmit(thisScore)
+    afterSubmit(); 
 };
- 
-function next(){
-    qNo = qNo+1;
-    ecgLoad()
-}
 
+
+    document
+    .querySelector("form")
+    .addEventListener("submit", handleSubmit);
+
+//end submit
+ 
 function ecgLoad(){
+    //document.getElementById('next').innerHTML = nameEntered;
     document.getElementById('ecgPage').style.display = 'block'
     document.getElementById('card').style.display = 'none'
     displayName();
     sButt = document.getElementById('submitBut')
     form = document.getElementById('audScore')
     aSheet = document.getElementById('answerSheet')
-    nameV = document.getElementById('audName')
+
     //clear answersheet
     var input = document.getElementsByClassName('cBx')
     for (let index = 0; index < input.length; index++) {
@@ -338,33 +350,28 @@ function ecgLoad(){
         form.style.display = 'block';
         sButt.style.display = 'inline-block'
         aSheet.style.display = 'flex'
-        if (qNo==q2Vote[0]){
 
-            if (nameV !== null){
-                nameEntered = nameV.value
-                } else (nameEntered = '')
-            
-            }
         if (qNo>q2Vote[0]){
-            document.getElementById('name').style.display = 'none'
-            document.getElementById('nameInput').innerHTML = 'Your Name is:'+ nameEntered 
+            document.getElementById('audName').style.display = 'none'
+            document.getElementById('nameInput').innerHTML = 
+            'Your Name is:'+ nameEntered 
         }
         }
-    else {
+        else {
             aSheet.style.display = 'none'
             form.style.display = 'none'
         }
    
 }
 
-function afterSubmit(thisScore){
+function afterSubmit(){
+    thisScore = calcScore();
     document.getElementById('card').style.display = 'block'
     document.getElementById('answerSheet').style.display = 'none'
     msg = document.getElementById('welcome');
-    document.getElementById('audScore').style.display = 'none'
 
-  
-    msg.innerHTML = 'Thanks for joining the vote' + '<br />' + 
+    document.getElementById('audScore').style.display = 'none'
+    msg.innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
     'You got ' + thisScore + ' from this question.' + '<br />' +
     'Your total score is '+ score + '<br />' +
     'Please wait here for the next question.'
@@ -372,7 +379,7 @@ function afterSubmit(thisScore){
 
 function calcScore(){
     var input = document.getElementsByClassName('cBx')
-    
+
     //get answer array
     const answer = []
     for (let index = 0; index < input.length; index++) {
@@ -384,10 +391,10 @@ function calcScore(){
 
     //get key and score
     const key = [];const kScore = []
-    for (let index = 0; index < key.length; index++) {
-        if (key[index].no==qNo){
-            key.push(key[index].key)
-            kScore.push(key[index].score)
+    for (let index = 0; index < keyJson.length; index++) {
+        if (keyJson[index].no==qNo){
+            key.push(keyJson[index].key)
+            kScore.push(keyJson[index].score)
         }
     }
 
@@ -399,7 +406,7 @@ function calcScore(){
             }
         }
     })
-    score = score + thisScore;
+    //document.getElementById('demo').innerHTML = thisScore;
     return thisScore;
 }
 
