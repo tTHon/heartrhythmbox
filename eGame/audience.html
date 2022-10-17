@@ -228,17 +228,21 @@
 </div>
 
     <!--submit-->
-    <form id="audScore" name="audScore" method="POST" data-netlify="true">
+    <form id="audScore" 
+    name="audScore" 
+    method="POST" 
+    data-netlify="true"
+    onsubmit="afterSubmit()">
 
         <div id="nameInput" class="butt">
             Your Name is <input type="text" id="name">
         </div>
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" style="display:none">
-            <input type="submit" value="Submit" id="submitButHidden" style="display:none;">
+            <input type="submit" value="Submit" id="submitButHidden">
         </div>
     </form>
-    <button onclick="afterSubmit()" id="submitBut" >Submit</button>
+    <!--button onclick="afterSubmit()" id="submitBut" >Submit</button-->
 </div>
 
 <!--top and foot-->
@@ -337,8 +341,7 @@ function afterSubmit(){
     var input = document.getElementsByClassName('cBx')
 
     var thisScore = calcScore();
-    score = score + thisScore;
-    
+   
     msg.innerHTML = 'Thanks for joining the vote' + '<br />' + 
     'You got ' + thisScore + ' from this question.' + '<br />' +
     'Your total score is '+ score + '<br />' +
@@ -348,11 +351,8 @@ function afterSubmit(){
     for (let index = 0; index < input.length; index++) {
         input[index].checked = false;
     }
-    document.getElementById('audScore').onsubmit = function(){
-        document.getElementById('name').value = nameEntered;
-        document.getElementById('totalScore').value = score;
-        document.getElementById('audScore').submit();
-    };
+    document.getElementById('name').value = nameEntered;
+    document.getElementById('totalScore').value = score;
 }
 
 function calcScore(){
@@ -384,6 +384,7 @@ function calcScore(){
             }
         }
     })
+    score = score + thisScore;
     return thisScore;
 }
 
