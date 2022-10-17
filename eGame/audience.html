@@ -237,6 +237,7 @@
             <label for="audienceName">Your Name is
             <input type="text" id="audName" name="audName"></label>
         </div>
+        <input id="qNo" type="number" name="qNo">
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" name="audienceTotalScore" 
             style="display:none">
@@ -303,6 +304,7 @@ const handleSubmit = (event) => {
      {nameEntered = document.getElementById('audName').value;}
     else (document.getElementById('audName').value = nameEntered)
     document.getElementById('totalScore').value = score;
+    document.getElementById('qNo').value = qNo;
     
     event.preventDefault();
     const myForm = event.target;
