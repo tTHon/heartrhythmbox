@@ -12,7 +12,21 @@ var keyJson = [{"no":0, "key": 'sinus tachycardia', "score": 2},
                 {"no":2, "key": '2.3', "score": 3},   
                 {"no":3, "key": '3.1', "score": 5},
                 {"no":3, "key": '3.2', "score": 2},
-                {"no":3, "key": '3.3', "score": 3}         
+                {"no":3, "key": '3.3', "score": 3},
+                {"no":4, "key": 'RBBB', "score": 2},
+                {"no":4, "key": '4.1', "score": 2},
+                {"no":4, "key": '4.2', "score": 5},
+                {"no":1, "key": '4.3', "score": 3},         
+                {"no":5, "key": '5.1', "score": 3},
+                {"no":5, "key": '5.2', "score": 4},
+                {"no":6, "key": '6.1', "score": 3},   
+                {"no":7, "key": '7.1', "score": 5},
+                {"no":8, "key": '8.2', "score": 2},
+                {"no":9, "key": '9.3', "score": 3},
+                {"no":10, "key": '10.1', "score": 3},   
+                {"no":10, "key": '10.2', "score": 5},
+                {"no":11, "key": '11.2', "score": 2},
+                {"no":12, "key": '12.3', "score": 3}            
             
             ]
 

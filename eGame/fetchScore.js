@@ -260,7 +260,23 @@ document
 
 function showAudience(){
   document.getElementById('audience').style.display = 'block'
+
+  //fetch score
+    //fetchScore -- return aScore
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
+      }
+    };
+    
+    fetch('https://api.netlify.com/api/v1/forms/634cb3f7db273c000a680d53/submissions', options)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.error(err));
 }
+
 
 var aScore = [{"name":'a',"score": 52},{"name":'b',"score":89},
           {"name":'c',"score":98},{"name": 'd',"score":99},{'name':'e','score': 77},
@@ -268,8 +284,6 @@ var aScore = [{"name":'a',"score": 52},{"name":'b',"score":89},
 var bScore = [{"name":'a',"score": 52}]
 
 function showAItem(n){
-  //fetchScore -- return aScore
-
   //rank score
   sortA = aScore.sort(function(a,b){
     if (a.score>b.score) {return -1}})
