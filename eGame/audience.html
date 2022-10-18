@@ -260,19 +260,24 @@
     <br>ElectroCardioGame</div><br>
     <div id="welcome">
         Thanks for joining us.<br>
-        Please wait here...the game will begin shortly.
+        Please wait here. The game will begin shortly.
     </div>
     <div id="wait"></div>
     <div style="font-size:1.6vmax;color: #022645">
     property of heartRhythmBox.com
     </div>
 </div>
-<button id="next" onclick="next()">Next</button>
+<!--button id="next" onclick="next()">Next</button-->
 
 
 <script>
 
-aGd();
+//aGd();
+setInterval(() => {
+    fetchQ();    
+}, 5000);
+
+
 //global var
 var totalQ = 12
     var qNo = -1;
@@ -294,9 +299,46 @@ var totalQ = 12
                 {"no":12, "key": '3.3', "score": 3}]
     var showForm;
 
-function next(){
-    qNo = qNo+1;
-    ecgLoad()
+//fetch
+function fetchQ(){
+    const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
+    }
+    };
+
+    fetch('https://api.netlify.com/api/v1/forms/634e14b8e3483f0008fc0ab2/submissions', options)
+    .then(response => response.json())
+    .then(result =>sortFeed(result))
+    .catch(err => console.error(err));
+
+    function sortFeed(result){
+        var feedArray = []
+        for (let index = 0; index < result.length; index++) {
+            qSent = result[index].data.q2Send;
+            tSent = result[index].data.t2Send
+            toPush = [qSent,tSent]
+            feedArray.push(toPush)
+            //console.log (feedArray)
+        }
+
+        sortA = feedArray.sort(function(a,b){
+            if (a[1]>b[1]) {return -1}
+        })
+        //console.log(sortA)
+        newQ = sortA[0][0]
+        //console.log(newQ)
+        if (newQ!=qNo){
+            qNo=newQ;
+            if (qNo==0.5){
+                afterSubmit()
+            } else (ecgLoad())
+            
+        }
+    }
+  
 }
 
 
@@ -337,7 +379,7 @@ function ecgLoad(){
     //document.getElementById('next').innerHTML = nameEntered;
     document.getElementById('ecgPage').style.display = 'block'
     document.getElementById('card').style.display = 'none'
-    aGd('off')
+    aGd(0)
     displayName();
     sButt = document.getElementById('submitBut')
     form = document.getElementById('audScore')
@@ -367,7 +409,7 @@ function ecgLoad(){
         if (qNo>q2Vote[0]){
             document.getElementById('audName').style.display = 'none'
             document.getElementById('nameInput').innerHTML = 
-            'Your Name is:'+ nameEntered 
+            'Your Name is: '+ nameEntered 
         }
         }
         else {
@@ -434,32 +476,33 @@ function displayName(){
     document.getElementById('ecg').src = source;
 }
 
-function aGd(turn){
+function aGd(off){
     var g = document.getElementsByClassName('bgGd');
     //#0f817d, #1774c6, #0f1381, #0f4c81
     //background-image: radial-gradient(farthest-side at 70% 35%, #FDE570, #FAE25F, #FACF1A,#F0BC18)
     var x =0; var y = Math.floor((Math.random() * 100) + 1);
     var inc = true;
+    if (off==0) {clearInterval(id)}
+    else {
     var id = setInterval(color, 50);
-    if (turn=='off') {clearInterval(id)}
+
     function color(){
         if (inc){
             if (x==100){
                 inc = false;
-                yDelta= Math.floor((Math.random() * 70) + 1);y = y-yDelta;
-                x--;
+                //yDelta= Math.floor((Math.random() * 70) + 1);y = y-yDelta;
+                x--;y--;
             } else {x++;}
         } else {
             if (x==0){
                 inc = true;
-                yDelta= Math.floor((Math.random() * 70) + 1);y= y+yDelta;
-                x++;
+                //yDelta= Math.floor((Math.random() * 70) + 1);y= y+yDelta;
+                x++;y++;
             } else {x--;}
         }
-    if (y<0){y=40};if (y>100){y=60}
+    if (y<0 || y>100){y=Math.floor((Math.random() * 100) + 1)}
     g[0].style.backgroundImage = "radial-gradient(farthest-side at " + x +"%" + y + "%,#218ae5,#1774c6, #0f4c81,#0f1381,#0a3153)"
-    }
-
+    }}
 }
 
 
