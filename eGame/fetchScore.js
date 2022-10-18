@@ -191,7 +191,7 @@ function startQ(q){
   questionNumber = q;
   document.getElementById('qNow').innerHTML = questionNumber;
   document.getElementById('start').style.color = 'pink'
-  document.getElementById('start').innerHTML = 'Click here to start Q: ' +q
+  document.getElementById('start').value = 'Click here to start Q: ' +q
   qClickStatus=0;
 }
 
@@ -206,25 +206,25 @@ function startQClick(){
   //document.getElementById('start').style.color = '#cdcdcd'
 
   if (qClickStatus==2){
-    document.getElementById('start').innerHTML = 'Click Number to Start Question'
+    document.getElementById('start').value = 'Click Number to Start Question'
     document.getElementById('start').style.color = '#cdcdcd'
     qClickStatus=3;    
   }
   else if (qClickStatus==0){
       //check if vote button is needed
       qClickStatus = 1;
-      document.getElementById('start').innerHTML = 'Click Number to Start Question'
+      document.getElementById('start').value = 'Click Number to Start Question'
       document.getElementById('start').style.color = '#cdcdcd'
       for (let index = 0; index < q2Vote.length; index++){
         if (questionNumber==q2Vote[index]){
           document.getElementById('start').style.color = 'pink'
-          document.getElementById('start').innerHTML = 'Stop Accepting Votes'
+          document.getElementById('start').value = 'Stop Accepting Votes'
           qClickStatus = 2;
            break;
         }}
     }
-  document.getElementById('qAll').innerHTML = 'status: ' + qClickStatus 
-  + 'qNo: ' + questionNumber
+  //document.getElementById('qAll').innerHTML = 'status: ' + qClickStatus 
+  //+ 'qNo: ' + questionNumber
   if (qClickStatus==1 || qClickStatus==3){showMenu()}
   //submit form
   //document.getElementById("t2Send").value = Date.now();
