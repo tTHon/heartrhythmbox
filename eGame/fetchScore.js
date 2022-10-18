@@ -48,12 +48,8 @@ function reFetch(){
       p2Score[f.qNo] = parseInt(f.p2);
       p3Score[f.qNo] = parseInt(f.p3);
       subMID.push(result[i].id)
-      //timeStamp.push(result[i].created_at)
     }
-
-    //sort timestamp
-    //timeStamp.reverse()
-  }
+ }
 }
 
 function updateScore(gNo,array,qNo){
@@ -187,21 +183,16 @@ function startStopQ(){
   document.getElementById('ssQNo').innerHTML = 'Current Q: ' +questionNumber
 }
 
+var qClickStatus=0;
+//0 = ready for q selection; 1 = clicked for regular q;
+//2 = ready for accepting vote;3 = after vote;
+
 function startQ(q){
-  
   questionNumber = q;
   document.getElementById('qNow').innerHTML = questionNumber;
   document.getElementById('start').style.color = 'pink'
   document.getElementById('start').innerHTML = 'Click here to start Q: ' +q
-  //check if q2vote
-  for (let index = 0; index < q2Vote.length; index++) {
-    if (q == q2Vote[index]){
-      document.getElementById('stop').style.display = 'block'
-      break;
-    }
-    else {document.getElementById('stop').style.display = 'none'
-    }
-  }
+  qClickStatus=0;
 }
 
 function startQClick(){
@@ -211,16 +202,65 @@ function startQClick(){
   q[questionNumber].style.color = '#777'
   document.getElementById('ssQNo').innerHTML = 'Current Q: ' +questionNumber
   document.getElementById('triggerNo').value = questionNumber;
-  document.getElementById('start').innerHTML = 'Click Number to Start Question'
-  document.getElementById('start').style.color = '#cdcdcd'
-  //document.getElementById('questionNav').submit();
-  showMenu();
+  //document.getElementById('start').innerHTML = 'Click Number to Start Question'
+  //document.getElementById('start').style.color = '#cdcdcd'
+
+  if (qClickStatus==2){
+    document.getElementById('start').innerHTML = 'Click Number to Start Question'
+    document.getElementById('start').style.color = '#cdcdcd'
+    qClickStatus=3;    
+  }
+  else if (qClickStatus==0){
+      //check if vote button is needed
+      qClickStatus = 1;
+      document.getElementById('start').innerHTML = 'Click Number to Start Question'
+      document.getElementById('start').style.color = '#cdcdcd'
+      for (let index = 0; index < q2Vote.length; index++){
+        if (questionNumber==q2Vote[index]){
+          document.getElementById('start').style.color = 'pink'
+          document.getElementById('start').innerHTML = 'Stop Accepting Votes'
+          qClickStatus = 2;
+           break;
+        }}
+    }
+  document.getElementById('qAll').innerHTML = 'status: ' + qClickStatus 
+  + 'qNo: ' + questionNumber
+  if (qClickStatus==1 || qClickStatus==3){showMenu()}
+  //submit form
+  //document.getElementById("t2Send").value = Date.now();
+  //document.getElementById("q2Send").value = questionNumber;
+  //document.getElementById("feedQ").submit()
 }
 
-function stopVClick(){
-  document.getElementById('triggerNo').value = 99;
-  //document.getElementById('questionNav').submit();
+
+//form submission begin
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  document.getElementById("t2Send").value = Date.now();
+  if (qClickStatus==2)
+    {document.getElementById("q2Send").value = 0.5;}
+  else {document.getElementById("q2Send").value = questionNumber;}
+  
+  const myForm = event.target;
+  const formData = new FormData(myForm);
+  
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString(),
+  })
+    .then(() => console.log("Form successfully submitted"))
+    .catch((error) => alert(error));
+
+
 }
+
+document
+  .querySelector("form")
+  .addEventListener("submit", handleSubmit);
+//form submission end
+
 
 function showAudience(){
   document.getElementById('audience').style.display = 'block'
@@ -253,8 +293,6 @@ function showAItem(n){
     score2Show[n].innerHTML = sortA[n].score
   }
  }
-
-
 
 
 function showScore(gNo,oldS,newS){

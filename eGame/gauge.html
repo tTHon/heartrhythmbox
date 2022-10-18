@@ -199,11 +199,16 @@ margin-top: 2vmax;background-color: #0F201F;}
     <div class="ssItem" onclick="startQ(11)">11</div>
     <div class="ssItem" onclick="startQ(12)">12*</div>
   </div>
-    <div id="start" onclick="startQClick()">Click Number to Start Question
+  <form id="feedQ" name="feedQ" method="POST" data-netlify="true">
+    <div id="start" onclick="startQClick()" type="Submit">
+      Click Number to Start Question
     </div>
-    <div id="stop" onclick="stopVClick()">
+    <!--div id="stop" onclick="stopVClick()">
       Stop Accepting Votes
-    </div>
+    </div-->
+    <input id="q2Send" type="number" name="q2Send" style="display:none;">
+    <input id="t2Send" type="time" name="t2Send" style="display:none;">
+  </form>
 </div>
 
 <!--form-->
@@ -286,7 +291,7 @@ drawLabel(1);
 drawLabel(2);
 drawLabel(3);
 reFetch();
-clearData();
+//clearData();
 
 
 
