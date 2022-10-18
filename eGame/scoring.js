@@ -1,4 +1,4 @@
-var pName = ['DAO','POM','OAT']
+var pName = ['DAO','KHAU','OAT']
 var totalQ = 12;
 var keyJson = [{"no":0, "key": 'sinus tachycardia', "score": 2},
                 {"no":0, "key": 'complete AV block', "score": 4},

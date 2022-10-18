@@ -232,10 +232,10 @@ function startQClick(){
 //form submission begin
 const handleSubmit = (event) => {
   event.preventDefault();
-
+  console.log(questionNumber)
   document.getElementById("t2Send").value = Date.now();
   if (qClickStatus==3)
-    {document.getElementById("q2Send").value = 0.5;}
+    {document.getElementById("q2Send").value = 9;}
   else {document.getElementById("q2Send").value = questionNumber;}
   
   const myForm = event.target;
