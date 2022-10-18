@@ -223,13 +223,9 @@ function startQClick(){
            break;
         }}
     }
-  //document.getElementById('qAll').innerHTML = 'status: ' + qClickStatus 
-  //+ 'qNo: ' + questionNumber
+
   if (qClickStatus==1 || qClickStatus==3){showMenu()}
-  //submit form
-  //document.getElementById("t2Send").value = Date.now();
-  //document.getElementById("q2Send").value = questionNumber;
-  //document.getElementById("feedQ").submit()
+
 }
 
 
@@ -238,7 +234,7 @@ const handleSubmit = (event) => {
   event.preventDefault();
 
   document.getElementById("t2Send").value = Date.now();
-  if (qClickStatus==2)
+  if (qClickStatus==3)
     {document.getElementById("q2Send").value = 0.5;}
   else {document.getElementById("q2Send").value = questionNumber;}
   
