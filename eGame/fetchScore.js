@@ -171,7 +171,7 @@ var qClickStatus=0;
 function startQ(q){
   questionNumber = q;
   document.getElementById('qNow').innerHTML = questionNumber;
-  document.getElementById('start').style.color = 'pink'
+  document.getElementById('start').style.color = 'DarkTurquoise'
   document.getElementById('start').value = 'Click here to start Q: ' +q
   qClickStatus=0;
 }
@@ -198,7 +198,7 @@ function startQClick(){
       document.getElementById('start').style.color = '#cdcdcd'
       for (let index = 0; index < q2Vote.length; index++){
         if (questionNumber==q2Vote[index]){
-          document.getElementById('start').style.color = 'pink'
+          document.getElementById('start').style.color = 'DarkTurquoise'
           document.getElementById('start').value = 'Stop Accepting Votes'
           qClickStatus = 2;
            break;
@@ -428,12 +428,14 @@ function drawLabel(gNo){
 function drawFace(gNo) {
   var xPos=16*vw*(2*gNo-1);var yPos = baseY;
   var color = [
-    ["#fdedcc","#fce6b9","#fcdfa7","#fbd994","#fad281",
-    "#facb6e","#f9c45b","#f8be48","#f8b735",'#F7B022'],
+    ['#fff0fb','#ffeaf5','#ffd7ec','#ffc3e3','#ffafda',
+    '#ff9cd1','#ff88c8','#ff75bf','#ff61b6','#ff4dad'],
+
     ["#BEF6D2","#9bf1bb","#8aefaf","#79eca3","#68ea97",
     "#57e78b","#45e580","#34e274","#23E068","#1ed25f"],
-    ["#e7f9ff","#d4f4ff","#c0efff","#aceaff","#99e6ff",
-    "#85e1ff","#72dcff","#5ED7FF",'#4ad2ff','#37cdff']]
+    
+    ["#fdedcc","#fce6b9","#fcdfa7","#fbd994","#fad281",
+    "#facb6e","#f9c45b","#f8be48","#f8b735",'#F7B022']]
 
 
   //coloring 120-420 degree

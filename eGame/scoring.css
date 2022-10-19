@@ -12,10 +12,13 @@
   color: #222;}
 
 #thank {background-color: #333333;position: fixed;display: none;
-left: 10vw;top: 10vh;width: 80vw;height: 80vh;text-align:center;padding-top: 10vh;
-color: #f1f1f1;font-size: 3vmax;
+left: 5vw;top: 5vh;width: 90vw;height: 90vh;text-align:center;padding-top: 30vh;
+color: #f1f1f1;font-size: 5vmax;
 }
-
+#intro {background-color: #333333;position: fixed;display: none;
+  left: 0;top: 0;width: 100vw;height: 100vh;text-align:center;padding-top: 30vh;
+  color: #f1f1f1;font-size: 5vmax;
+  }
 @media only screen and (max-width: 1000px) {
     .pContainer {flex-wrap: wrap;}
     .pBox {flex: 100%;}

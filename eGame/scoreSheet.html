@@ -218,14 +218,27 @@ padding: 3vmax;">
     Electrocardiogame x CC2023 --- property of heartRhythmBox.com
 </div>
 
+<div id="intro">
+    You are our scorer.<br>
+    <button onclick="starter()" 
+    style="font-size:3vmax;color:#222;padding:1vmax;cursor:pointer;border-radius: 1vmax;">
+    Please click here to begin.</button>
+</div>
 <div id="thank">
     Thank you very much!
 </div>
 
+
 <script src="scoring.js"></script>
 <script>
-var qNo = 0;
-loadPage();
+var qNo = 1;
+document.getElementById('intro').style.display = 'block'
+
+function starter(){
+    loadPage();
+    document.getElementById('intro').style.display = 'none'
+}
+
 const handleSubmit = (event) => {
   event.preventDefault();
 
