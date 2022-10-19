@@ -72,6 +72,7 @@ animation: fadeIn 1s;display: none;position: fixed;bottom: 5%;left: 5%;opacity: 
 margin-top: 2vmax;background-color: #0F201F;}
 .aNavItem {padding: 0.5vmax;border: #aaa solid 0.1vmax;font-size: 2vmax;border-radius: 1vmax;
   display: inline;color: #ddd;margin-right: 1vmax;cursor: pointer;}
+.ip {display: none;}
 
 /* zoom */
 @keyframes fadeIn {
@@ -220,38 +221,39 @@ margin-top: 2vmax;background-color: #0F201F;}
   <table id="audienceTable">
     <tr>
       <th></th>
-      <th class="aNameH">NAME</td>
-      <th class="aScoreH">SCORE</td>     
+      <td class="aNameH">NAME</td>
+      <td class="aScoreH">SCORE</td><td class="ip">IP</td>     
     </tr>
     <tr>
       <td><i style="color:gold;" class="fa-solid fa-medal fa-fw" onclick="showAItem(0)"></i></td>
-      <th class="aName"></td>
-        <th class="aScore"></td>     
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>        
     </tr>
     <tr>
       <td><i style="color:silver;" class="fa-solid fa-medal fa-fw" onclick="showAItem(1)"></i></td>
-      <th class="aName"></td>
-        <th class="aScore"></td>     
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>        
     </tr>
     <tr>
       <td><i style="color:#CD7F32;" class="fa-solid fa-medal fa-fw" onclick="showAItem(2)"></i></td>
-      <th class="aName"></td>
-        <th class="aScore"></td>     
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>         
     </tr>
     <tr>
       <td><i style="color:royalblue;" class="fa-solid fa-medal fa-fw" onclick="showAItem(3)"></i></td>
-      <th class="aName"></td>
-        <th class="aScore"></td>     
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>         
     </tr>
     <tr>
       <td><i style="color:royalblue;" class="fa-solid fa-medal fa-fw" onclick="showAItem(4)"></i></td>
-      <th class="aName"></td>
-        <th class="aScore"></td>     
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>       
     </tr>
   </table>
   <div id="aNavBar">
     <div class="aNavItem" id="audienceCount">No: 0</div>
     <div class="aNavItem" onclick="showAItem(99)">Show Scores</div>
+    <div class="aNavItem" onclick="showAItem('ip')">Show IP</div>
     <div class="aNavItem" onclick="showMenu()">Close</div>
   </div>
 </div>
@@ -290,13 +292,6 @@ drawLabel(3);
 reFetch();
 //clearData();
 
-
-
-function refresh(gNo,array){
-  reFetch()
-  if (subMID.length>0 && questionNumber>=0)
-    {updateScore(gNo,array,questionNumber)}
-}
 
 </script>
 

@@ -7,24 +7,6 @@ var p2Score = [];
 var p3Score = [];
 var questionNumber;
 var q2Vote = [4,8,12];
-var subMID = [];
-
-function clearData(){
-  //reFetch();
-  console.log(subMID)
-  document.getElementById('test').innerHTML = subMID
-
-  const options = {
-    method: 'DELETE',
-    headers: {Authorization: 'Bearer byLDRD12H9zVpadt9nD0PNsUMtY5iqfxm9cvsosk4u8'}
-  };
-    
-    url = 'https://api.netlify.com/api/v1/submissions/634d5189da2d1a006979971d'
-    fetch(url, options)
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
-  
-}
 
 function reFetch(){ 
   const options = {
@@ -47,7 +29,6 @@ function reFetch(){
       p1Score[f.qNo] = parseInt(f.p1);
       p2Score[f.qNo] = parseInt(f.p2);
       p3Score[f.qNo] = parseInt(f.p3);
-      subMID.push(result[i].id)
     }
  }
 }
@@ -257,7 +238,7 @@ document
   .addEventListener("submit", handleSubmit);
 //form submission end
 
-
+//audience score
 function showAudience(){
   document.getElementById('audience').style.display = 'block'
 
@@ -273,7 +254,7 @@ function showAudience(){
     
     fetch('https://api.netlify.com/api/v1/forms/634cb3f7db273c000a680d53/submissions', options)
       .then(response => response.json())
-      .then(response => console.log(response))
+      //.then(response => console.log(response))
       .then(result => handleScore(result))
       .catch(err => console.error(err));
 
@@ -283,43 +264,97 @@ function showAudience(){
     //data.ip: "202.28.177.50"
     //qNow: ""
 
-    //audScore[time][name][ip][score]
-    var audScore = []
-    for (let i = 0; i < result.length; i++) {
-      var scoreList = result[i].data
+    //count no of voters
+    //first -- get max qNow
+    maxQ = getMaxQ()
+    
+    function getMaxQ(){
+      var qNumber = [];
+      for (let index = 0; index < result.length; index++) {
+        var f = result[index].data;
+        qNumber[index] = parseInt(f.qNow);
+      }
+      qNumber.sort(function(a, b){return b - a})
+      max = qNumber[0]
+      return max;
     }
-      
+
+    //count maxQ votes
+    voteNo = getVoteNo(maxQ);
+    document.getElementById('audienceCount').innerHTML = 'Submitted: '+voteNo
+    function getVoteNo(Q){
+      count=0;
+      for (let index = 0; index < result.length; index++) {
+        var f = result[index].data;
+        if (f.qNow ==Q){
+          count++
+        }
+      }
+      return count;
+    }
+
+    //audScore [name][score][ip] + sorting
+    var audScore = getAudienceArray(maxQ)
+    //document.getElementById('audienceCount').innerHTML = audScore;
+    function getAudienceArray(Q){
+      var array = [];
+      for (let index = 0; index < result.length; index++) {
+        var f = result[index].data;
+        if (f.qNow ==Q){
+          audName = f.audName
+          audScore = parseInt(f.audienceTotalScore)
+          audIp = f.ip
+          toPush = [audName,audScore,audIp]
+          array.push(toPush)
+        }
+      }
+      array.sort(function(a,b){
+        if (a[1]>b[1]) {return -1}})
+
+      return array;
+    }
+
+    //show score
+    var maxItem = 5;
+    var name2Show = document.getElementsByClassName('aName')
+    var score2Show = document.getElementsByClassName('aScore')
+    var audIp = document.getElementsByClassName('ip')
+    for (let index = 0; index < maxItem; index++) {
+      name2Show[index].innerHTML = audScore[index][0]
+      score2Show[index].innerHTML = audScore[index][1]
+      audIp[index+1].innerHTML = audScore[index][2]
+      audIp[index+1].style.display = 'none'
+      name2Show[index].style.visibility = 'hidden'
+      score2Show[index].style.visibility = 'hidden'
+    }
   }
 }
 
-
-var aScore = [{"name":'a',"score": 52},{"name":'b',"score":89},
-          {"name":'c',"score":98},{"name": 'd',"score":99},{'name':'e','score': 77},
-          {"name":'f',"score":180}]
-var bScore = [{"name":'a',"score": 52}]
-
 function showAItem(n){
-  //rank score
-  sortA = aScore.sort(function(a,b){
-    if (a.score>b.score) {return -1}})
-
 
   var maxItem = 5;
   var name2Show = document.getElementsByClassName('aName')
   var score2Show = document.getElementsByClassName('aScore')
+  var audIp = document.getElementsByClassName('ip')
   if (n==99){
     for (let index = 0; index < maxItem; index++) {
-      name2Show[index].innerHTML = sortA[index].name
-      score2Show[index].innerHTML = sortA[index].score
+      name2Show[index].style.visibility = 'visible'
+      score2Show[index].style.visibility = 'visible'
+    }
+  }
+  else if(n=='ip'){
+    for (let index = 0; index < audIp.length; index++) {
+      audIp[index].style.display = 'table-cell'      
     }
   }
   else {
-    name2Show[n].innerHTML = sortA[n].name
-    score2Show[n].innerHTML = sortA[n].score
+    name2Show[n].style.visibility = 'visible'
+    score2Show[n].style.visibility = 'visible'
   }
  }
+//end audience data
 
-
+//players dashboard
 function showScore(gNo,oldS,newS){
 
   //showScore
