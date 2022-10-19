@@ -240,7 +240,7 @@
             <input type="text" id="audName" name="audName"></label>
         </div>
         <input id="oldName" type="text" name="oldName" style="display:none">
-        <input id="qNo" type="number" name="qNo" style="display:none">
+        <input id="qNow" type="number" name="qNow" style="display:none">
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" name="audienceTotalScore" 
             style="display:none">
@@ -351,7 +351,7 @@ const handleSubmit = (event) => {
     document.getElementById('oldName').value = nameEntered;
 
     document.getElementById('totalScore').value = score;
-    document.getElementById('qNo').value = qNo;
+    document.getElementById('qNo').value = qNow;
     
     event.preventDefault();
     const myForm = event.target;
