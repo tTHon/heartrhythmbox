@@ -357,7 +357,9 @@ const handleSubmit = (event) => {
     thisScore = calcScore();  
     score = score + thisScore;  
     if (qNo==4)
-        {nameEntered = document.getElementById('audName').value;}
+        {if (document.getElementById('audName').value!='')
+            {nameEntered = document.getElementById('audName').value;}
+            }
     document.getElementById('oldName').value = nameEntered;
 
     document.getElementById('totalScore').value = score;
