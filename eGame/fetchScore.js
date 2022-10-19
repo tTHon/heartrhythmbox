@@ -281,7 +281,7 @@ function showAudience(){
     //data.audName: "x"
     //data.audienceTotalScore: "7"
     //data.ip: "202.28.177.50"
-    //created_at -- time
+    //qNow: ""
 
     //audScore[time][name][ip][score]
     var audScore = []
