@@ -274,7 +274,22 @@ function showAudience(){
     fetch('https://api.netlify.com/api/v1/forms/634cb3f7db273c000a680d53/submissions', options)
       .then(response => response.json())
       .then(response => console.log(response))
+      .then(result => handleScore(result))
       .catch(err => console.error(err));
+
+  function handleScore(result){
+    //data.audName: "x"
+    //data.audienceTotalScore: "7"
+    //data.ip: "202.28.177.50"
+    //created_at -- time
+
+    //audScore[time][name][ip][score]
+    var audScore = []
+    for (let i = 0; i < result.length; i++) {
+      var scoreList = result[i].data
+    }
+      
+  }
 }
 
 
