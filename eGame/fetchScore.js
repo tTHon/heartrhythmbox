@@ -319,14 +319,17 @@ function showAudience(){
     var name2Show = document.getElementsByClassName('aName')
     var score2Show = document.getElementsByClassName('aScore')
     var audIp = document.getElementsByClassName('ip')
+    for (let index = 0; index < audIp.length; index++) {
+      audIp[index].style.display = 'none'
+    }
     for (let index = 0; index < maxItem; index++) {
       name2Show[index].innerHTML = audScore[index][0]
       score2Show[index].innerHTML = audScore[index][1]
       audIp[index+1].innerHTML = audScore[index][2]
-      audIp[index+1].style.display = 'none'
       name2Show[index].style.visibility = 'hidden'
       score2Show[index].style.visibility = 'hidden'
     }
+
   }
 }
 
