@@ -256,7 +256,7 @@ function showAudience(){
       .then(response => response.json())
       //.then(response => console.log(response))
       .then(result => handleScore(result))
-      .catch(err => console.error(err));
+      //.catch(err => console.error(err));
 
   function handleScore(result){
     //data.audName: "x"
@@ -316,11 +316,13 @@ function showAudience(){
 
     //show score
     var maxItem = 5;
+    if (result.length<maxItem){maxItem=result.length}
     var name2Show = document.getElementsByClassName('aName')
     var score2Show = document.getElementsByClassName('aScore')
     var audIp = document.getElementsByClassName('ip')
     for (let index = 0; index < audIp.length; index++) {
       audIp[index].style.display = 'none'
+    
     }
     for (let index = 0; index < maxItem; index++) {
       name2Show[index].innerHTML = audScore[index][0]
