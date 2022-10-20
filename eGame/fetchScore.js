@@ -41,7 +41,7 @@ function refresh(gNo, array){
 
 function updateScore(gNo,array,qNo){
   if (qNo==0) {oldScore=0;
-      newScore = array[0]
+      newScore = 0;
   }
   else if (qNo>0) {
     oldScore = sumScore(array,qNo-1);
