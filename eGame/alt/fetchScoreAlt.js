@@ -434,8 +434,8 @@ function drawFace(gNo) {
     ['#c0f2ee','#aceee9','#97eae3','#82e5de','#6ee1d8',
     '#59ddd3','#44d9cd','#30d5c8','#2bbfb4','#26aaa0'],
 
-    ['#f3fce4','#f0fbdb','#ecfbd2','#e8fac9','#e5f9c0',
-    '#e1f8b7','#ddf7ae','#daf7a6','#c4de95','#aec584'],
+    ['#f0fbdb','#e9faca','#e8fac9','#e2f9b8','#daf7a6',
+    '#d3f694','#cbf482','#c4f270','#bcf15e','#b5ef4c'],
     
   ]
 
