@@ -36,6 +36,8 @@
     text-align: center;padding: 2vmax 1vmax;z-index: -1;}
     #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;}
     #wait {color: azure;font-size: 2.5vmax;padding:1vmax;}
+    #foot {display: none;background-color:#efefef;text-align:center;color: #888;
+        padding-bottom: 5vmax;padding-top: 8vmax;border-radius: 1vmax;}
 
 
 </style>
@@ -233,7 +235,7 @@
     <form id="audScore" 
     name="audienceScore" 
     method="POST" 
-    data-netlify="true" style="padding-bottom:2vmax;">
+    data-netlify="true" style="padding-bottom:2vmax;padding-top: 2vmax;">
 
         <div id="nameInput" class="butt">
             <label for="audienceName">Your Name is
@@ -244,22 +246,20 @@
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" name="audienceTotalScore" 
             style="display:none">
-            <input type="submit" value="Submit" id="submitBut">
+            <input type="submit" value="Submit" id="submitBut" class="round">
         </div>
     </form>
-
-    <div style="background-color:#efefef;text-align:center;color: #888;padding-bottom: 5vmax;padding-top: 8vmax;
-    margin-top: 2vmax;">
-        <img src="ccLogoDark.png" style="width:1.7vmax;text-align: center;display: inline;">
-        <span class="cursive" style="font-size:1.7vmax;text-align: center;color: #888;">
-        CC2023 X ElectroCardioGame</span><br>
-        <span style="font-size:1.6vmax;color: #bbb;">
-            property of heartRhythmBox.com</span>
-    </div>
 
 </div>
 
 <!--top and foot-->
+<div id='foot'>
+    <img src="ccLogoDark.png" style="width:1.7vmax;text-align: center;display: inline;">
+    <span class="cursive" style="font-size:1.7vmax;text-align: center;color: #888;">
+    CC2023 X ElectroCardioGame</span><br>
+    <span style="font-size:1.6vmax;color: #bbb;">
+        property of heartRhythmBox.com</span>
+</div>
 
 <!--intro page-->
 <div id="card" class="round bgGd">
@@ -390,6 +390,7 @@ document
 function ecgLoad(){
     //document.getElementById('next').innerHTML = nameEntered;
     document.getElementById('ecgPage').style.display = 'block'
+    document.getElementById('foot').style.display = 'block'
     document.getElementById('card').style.display = 'none'
     aGd(0)
     displayName();
@@ -435,6 +436,7 @@ function afterSubmit(){
     thisScore = calcScore();
     document.getElementById('card').style.display = 'block'
     document.getElementById('answerSheet').style.display = 'none'
+    document.getElementById('foot').style.display = 'none'
     document.getElementById('audScore').style.display = 'none'
 
     document.getElementById('welcome').innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
