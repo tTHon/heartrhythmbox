@@ -33,9 +33,16 @@ function reFetch(){
  }
 }
 
+function refresh(gNo, array){
+  reFetch()
+  if (questionNumber>=0 && array.length>0)
+    {updateScore(gNo,array,questionNumber)}
+}
+
 function updateScore(gNo,array,qNo){
   if (qNo==0) {oldScore=0;
-  newScore = array[0]}
+      newScore = array[0]
+  }
   else if (qNo>0) {
     oldScore = sumScore(array,qNo-1);
     newScore = sumScore(array,qNo)
