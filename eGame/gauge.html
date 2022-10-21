@@ -23,13 +23,24 @@
 
 #title {font-size: 2vmax;padding: 0.5vmax;color: #f8f7f5;display: flex;margin-top: 0;
   background-color: #383838;width: 100%;}
-.titleFlex {flex: 40%;background-color: #383838;vertical-align: bottom;}
+.titleFlex {flex: 40%;background-color: #383838;vertical-align: bottom;padding:0 1vmax;}
 .glowing {animation: glow 30s ease-in-out infinite;}
 .titleFlexM, .titleFlexM img {flex: 10%;background-color: #383838;vertical-align: bottom;}
 #ccLogo {width: 2vmax;}
 
 /*glow*/
 @keyframes glow {
+    0% {text-shadow: none;letter-spacing: 0.1vw;}
+    3% {text-shadow: 0 0 5px #d0c9bb;}
+    6% {text-shadow: 0 0 10px #d0c9bb;}
+    9% {text-shadow: 0 0 25px #e0dbd2, 0 0 10px #f0eee9;letter-spacing: 0.2vw;}
+    12% {text-shadow: 0 0 20px #d0c9bb;}
+    15% {text-shadow: 0 0 10px #d0c9bb;}
+    18% {text-shadow: 0 0 5px #d0c9bb;}
+    21% {text-shadow: none;letter-spacing: 0.1vw;}
+    100% {text-shadow: none;letter-spacing: 0.1vw;}
+  }
+@-webkit-keyframes glow {
     0% {text-shadow: none;letter-spacing: 0.1vw;}
     3% {text-shadow: 0 0 5px #d0c9bb;}
     6% {text-shadow: 0 0 10px #d0c9bb;}
