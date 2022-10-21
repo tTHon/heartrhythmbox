@@ -423,10 +423,9 @@ function drawLabel(gNo){
   //cos 62
   var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius))-(vw);
   var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius))+(vw);
-  var yPos = baseY+radius+0.5*vh;
+  var yPos = baseY+radius+0.25*vh;
   ctx.beginPath();
   ctx.fillStyle = "#ddd"
-  var hand = 0.8*radius
   ctx.font = 2*vw + 'px Raleway, sans-serif'
   ctx.textAlign = "center";
   ctx.fillText ('0',xLeft,yPos) 
