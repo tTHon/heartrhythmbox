@@ -314,6 +314,25 @@ drawLabel(3);
 reFetch();
 //clearData();
 
+//text animation
+titleTxt = document.getElementsByClassName('titleFlex')
+var timer = 0;i=0;
+var finalTxt = titleTxt[0].innerHTML;
+var speed = 100;
+titleTxt[0].innerHTML = ''
+setInterval(typeWriter,speed)
+
+function typeWriter() {
+  i++;
+  if (i>=0 && i < 100) {
+    if (i<finalTxt.length)
+      {titleTxt[0].innerHTML += finalTxt.charAt(i);}
+    if (i==99) {
+      titleTxt[0].innerHTML ='';i=0;
+    }
+  }
+
+}
 
 </script>
 
