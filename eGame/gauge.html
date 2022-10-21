@@ -24,7 +24,22 @@
 #title {font-size: 2vmax;padding: 0.5vmax;color: #f8f7f5;display: flex;margin-top: 0;
   background-color: #383838;width: 100%;}
 .titleFlex {flex: 40%;background-color: #383838;vertical-align: bottom;}
+.glowing {animation: glow 30s ease-in-out infinite;}
 .titleFlexM, .titleFlexM img {flex: 10%;background-color: #383838;vertical-align: bottom;}
+#ccLogo {width: 2vmax;}
+
+/*glow*/
+@keyframes glow {
+    0% {text-shadow: none;}
+    3% {text-shadow: 0 0 5px #d0c9bb;}
+    6% {text-shadow: 0 0 10px #d0c9bb;}
+    9% {text-shadow: 0 0 25px #e0dbd2, 0 0 10px #f0eee9;}
+    12% {text-shadow: 0 0 20px #d0c9bb;}
+    15% {text-shadow: 0 0 10px #d0c9bb;}
+    18% {text-shadow: 0 0 5px #d0c9bb;}
+    21% {text-shadow: none}
+    100% {text-shadow: none;}
+  }
 
 .nameBar, .scoreBar {display: flex;width: 100%;padding: 1vmax;}
 .nameBar {padding-top: 4vmax;}
@@ -102,13 +117,13 @@ margin-top: 2vmax;background-color: #0F201F;}
 <!--titleBar-->
 <div id="title">
   <div class="cursive titleFlex" 
-  style="text-align: left;letter-spacing: 0.2vw;">
-    ElectroCardioGame
+  style="text-align: left;letter-spacing: 0.5vw;">
+    CC2023
    </div>
   <div class="titleFlexM" style="text-align:center;">
-  <img src="ccLogoBeige.png" style="width:2vmax;display: inline;"></div>
+    <img id="ccLogo" src="ccLogoBeige.png" style="display: inline;"></div>
   <!--img src="x.png" style="width:1.2vmax;vertical-align: middle;"-->
-  <div class="cursive titleFlex" style="text-align:right;letter-spacing: 1vw;">CC2023</div>
+  <div class="cursive titleFlex glowing" style="text-align:right;letter-spacing: 0.1vw;">ElectroCardioGame</div>
 
 </div>
 
@@ -314,25 +329,8 @@ drawLabel(3);
 reFetch();
 //clearData();
 
-//text animation
-titleTxt = document.getElementsByClassName('titleFlex')
-var timer = 0;i=0;
-var finalTxt = titleTxt[0].innerHTML;
-var speed = 100;
-titleTxt[0].innerHTML = ''
-setInterval(typeWriter,speed)
 
-function typeWriter() {
-  i++;
-  if (i>=0 && i < 100) {
-    if (i<finalTxt.length)
-      {titleTxt[0].innerHTML += finalTxt.charAt(i);}
-    if (i==99) {
-      titleTxt[0].innerHTML ='';i=0;
-    }
-  }
 
-}
 
 </script>
 
