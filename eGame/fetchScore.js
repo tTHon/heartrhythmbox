@@ -421,14 +421,15 @@ function drawLabel(gNo){
   var baseX = (16*vw*(2*gNo-1)); 
   max = (totalQ-1)*10
   //cos 62
-  var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius))-(1.1*vw);
-  var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius))+(1.1*vw);
+  var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius))-(1.5*vw);
+  var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius))+(0.5*vw);
   var yPos = baseY+(0.95*radius);
   ctx.beginPath();
   ctx.fillStyle = "#ddd"
   ctx.font = 2*vw + 'px Raleway, sans-serif'
-  ctx.textAlign = "center";
+  ctx.textAlign = "left";
   ctx.fillText ('0',xLeft,yPos) 
+  ctx.textAlign = "left";
   ctx.fillText (max,xRight,yPos) 
 }
 
