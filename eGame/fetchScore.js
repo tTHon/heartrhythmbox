@@ -62,6 +62,7 @@ function updateScore(gNo,array,qNo){
   const degreeS = -120-(oldScore*block);
   const degreeE = -120-(newScore*block)
   const add = newScore-oldScore
+  clearFace(gNo)
   moveHand(gNo,degreeS,degreeE);
   dropText(add,gNo);
   showScore(gNo,oldScore,newScore)

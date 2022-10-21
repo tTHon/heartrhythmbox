@@ -13,7 +13,7 @@
 </head>
 
 <style>
-* {background-color:#333;font-family: 'Raleway', sans-serif;}
+* {background-color:#333;font-family: 'Raleway', sans-serif;margin: 0;}
 @media only screen and (max-width: 900px) {
         .noMobile{display:none}
         .flex33, .refBarFlex {flex: 100%;}
@@ -21,7 +21,13 @@
         .nameBar, .scoreBar {flex-wrap: wrap;}
       }
 
+#title {font-size: 2vmax;padding: 0.5vmax;color: #f8f7f5;display: flex;margin-top: 0;
+  background-color: #383838;width: 100%;}
+.titleFlex {flex: 40%;background-color: #383838;vertical-align: bottom;}
+.titleFlexM, .titleFlexM img {flex: 10%;background-color: #383838;vertical-align: bottom;}
+
 .nameBar, .scoreBar {display: flex;width: 100%;padding: 1vmax;}
+.nameBar {padding-top: 4vmax;}
 .canvasZone {text-align:center;background-color: #333;border-top:#555 solid 0.1vmax;}
 .scoreBar {padding-top: none;}
 .score {padding:0 0.5vmax;border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
@@ -37,8 +43,12 @@
 .refBut {padding-left: 0.vmax;margin-top: 0.1vmax;cursor: pointer;}
 
 /*bottom stuff*/
-.itemBar {padding: 2.2vmax 1vmax;color: #888;text-align: right;}
-#qNav {float:left;font-size: 3vmax;color: #fafafa;vertical-align: bottom;}
+.itemBar {padding: 2.5vmax 1vmax;color: #888;display: flex;}
+#qNav {float:left;font-size: 3vmax;color: #fafafa;vertical-align: bottom;flex: 60%;}
+#foot {font-size:1.8vmax;color: #777;flex: 40%;
+  vertical-align: bottom;text-align:right;line-height: 150%;}
+
+/*menu*/
 #menu {visibility: hidden;display: flex;background-color: rgba(22,22,22,0.8);cursor: pointer;
     position: fixed;z-index: 1;padding: 1vmax;line-height: 100%;}
 .menuItem {padding: 1vmax;background-color: rgba(22,22,22,0.8);width: 33%;vertical-align: bottom;
@@ -88,6 +98,19 @@ margin-top: 2vmax;background-color: #0F201F;}
 </style>
 
 <body>
+
+<!--titleBar-->
+<div id="title">
+  <div class="cursive titleFlex" 
+  style="text-align: left;letter-spacing: 0.2vw;">
+    ElectroCardioGame
+   </div>
+  <div class="titleFlexM" style="text-align:center;">
+  <img src="ccLogoBeige.png" style="width:2vmax;display: inline;"></div>
+  <!--img src="x.png" style="width:1.2vmax;vertical-align: middle;"-->
+  <div class="cursive titleFlex" style="text-align:right;letter-spacing: 1vw;">CC2023</div>
+
+</div>
 
 <!--name-->
 <div class="nameBar">
@@ -145,7 +168,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 
 <!--bottom stuffs-->
 <div class="itemBar">
-  <span id="qNav">
+  <div id="qNav">
 
     <i class="fa-solid fa-ellipsis-vertical menuDot " onclick="showMenu()"
     style="color:#888;cursor: pointer;"></i>
@@ -154,13 +177,16 @@ margin-top: 2vmax;background-color: #0F201F;}
         <span id="qNow">-</span> 
         /
         <span id="qAll">12</span>
-  </span>
+  </div>
+  <!--foot-->
+  <div id="foot">
+    <sup>x</sup> heartRhythmBox.com 
+    <img src="boxGrey.png" style="width:2.2vmax;vertical-align: middle;">
+  </div>
 
-  <span class="cursive" style="color: lightblue">ElectroCardioGame</span>
-  <img src="x.png" style="width:1.2vmax;vertical-align: middle;">
-  <span class="cursive" style="color:#bbb ;" >CC2023</span>
-  <img src="ccLogo.png" style="width:2vmax;vertical-align: bottom;">
 </div>
+
+
 
 <!--popUP Menu-->
 <div id="menu">
@@ -261,15 +287,8 @@ margin-top: 2vmax;background-color: #0F201F;}
   </div>
 </div>
 
-<!--foot-->
-<div id="foot" 
-style="font-size:1.6vmax;padding-top: 1vmax;color: #777;
-text-align: center;border-top: #555 solid 0.1vmax;line-height: 100%;">
-  <img src="boxGrey.png" style="width:2.2vmax;vertical-align: middle;">
-  property of heartRhythmBox.com 
-  
-</div>
-<div id="test" style="color:white"></div>
+
+<!--div id="test" style="color:white"></div-->
 
 <script src="fetchScore.js"></script>
 <script>
