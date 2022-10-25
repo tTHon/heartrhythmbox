@@ -1,6 +1,6 @@
 exports.handler = async function (event, context) {
     const myForm = event.target;
-    const formData = new FormData(myForm);
+    //const formData = new FormData(myForm);
   
 
     return {
