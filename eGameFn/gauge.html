@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
+  <meta name="author" content="t'Thon">
+  <title>eGame-dashboard</title>
+  <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+</head>
+
+<style>
+* {background-color:#333;font-family: 'Raleway', sans-serif;margin: 0;}
+@media only screen and (max-width: 900px) {
+        .noMobile{display:none}
+        .flex33, .refBarFlex {flex: 100%;}
+        .flex33 i {display: none;}
+        .nameBar, .scoreBar {flex-wrap: wrap;}
+      }
+
+#title {font-size: 2vmax;padding: 0.5vmax;color: #f8f7f5;display: flex;margin-top: 0;opacity: 0.7;
+  background-color: #383838;width: 100%;}
+.titleFlex {flex: 40%;background-color: #383838;vertical-align: bottom;padding:0 1vmax;}
+.glowing {animation: glow 30s ease-in-out infinite;}
+.titleFlexM, .titleFlexM img {flex: 10%;background-color: #383838;vertical-align: bottom;}
+#ccLogo {width: 2vmax;}
+
+/*glow*/
+@keyframes glow {
+    0% {text-shadow: none;letter-spacing: 0.1vw;}
+    3% {text-shadow: 0 0 5px #d0c9bb;}
+    6% {text-shadow: 0 0 10px #d0c9bb;}
+    9% {text-shadow: 0 0 25px #e0dbd2, 0 0 10px #f0eee9;letter-spacing: 0.2vw;}
+    12% {text-shadow: 0 0 20px #d0c9bb;}
+    15% {text-shadow: 0 0 10px #d0c9bb;}
+    18% {text-shadow: 0 0 5px #d0c9bb;}
+    21% {text-shadow: none;letter-spacing: 0.1vw;}
+    100% {text-shadow: none;letter-spacing: 0.1vw;}
+  }
+@-webkit-keyframes glow {
+    0% {text-shadow: none;letter-spacing: 0.1vw;}
+    3% {text-shadow: 0 0 5px #d0c9bb;}
+    6% {text-shadow: 0 0 10px #d0c9bb;}
+    9% {text-shadow: 0 0 25px #e0dbd2, 0 0 10px #f0eee9;letter-spacing: 0.2vw;}
+    12% {text-shadow: 0 0 20px #d0c9bb;}
+    15% {text-shadow: 0 0 10px #d0c9bb;}
+    18% {text-shadow: 0 0 5px #d0c9bb;}
+    21% {text-shadow: none;letter-spacing: 0.1vw;}
+    100% {text-shadow: none;letter-spacing: 0.1vw;}
+  }
+
+.nameBar, .scoreBar {display: flex;width: 100%;padding: 1vmax;}
+.nameBar {padding-top: 4vmax;}
+.canvasZone {text-align:center;background-color: #333;border-top:#555 solid 0.1vmax;}
+.scoreBar {padding-top: none;}
+.score {padding:0 0.5vmax;border-radius: 0.5vmax;border: #555 solid 0.2vmax;}
+
+/*refresh bar*/
+.refBar {display: flex;text-align: left;border-bottom:#555 solid 0.1vmax;}
+.refBarFlex {width: 33%;color: #cdcdcd;
+  font-size: 2vmax;}
+.flex33 {flex: 33%;padding-top: 1vmax;color: #f1f1f1;font-size: 2vmax;
+  text-align: center;}
+.flex33 i {color: #ddd;}
+.pName, .score {font-size: 4vmax;}
+.refBut {padding-left: 0.5vmax;cursor: pointer;}
+
+/*bottom stuff*/
+.itemBar {padding: 1vmax;color: #888;display: flex;}
+#qNav {float:left;font-size: 3vmax;color: #fafafa;vertical-align: bottom;flex: 60%;}
+#foot {font-size:1.8vmax;color: #777;flex: 40%;
+  vertical-align: bottom;text-align:right;line-height: 150%;}
+
+/*menu*/
+#menu {visibility: hidden;display: flex;background-color: rgba(22,22,22,0.8);cursor: pointer;
+    position: fixed;z-index: 1;padding: 1vmax;line-height: 100%;}
+.menuItem {padding: 1vmax;background-color: rgba(22,22,22,0.8);width: 33%;vertical-align: bottom;
+  text-align: center;line-height: 100%;}
+.menuItem i {color: #ddd;background-color: rgba(22,22,22,0.8);font-size: 5vmax;padding: 0.5vmax;}
+.menuText {color: #ddd;font-size: 1.5vmax;padding: 0;background:none;padding: 0.5vmax;}
+
+/*scorecard*/
+#scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 10%;left: 10%;animation: fadeIn 1s;
+    position: fixed;z-index: 1;padding: 1vmax;font-size: 3vmax;color: #cdcdcd;}
+#exit {position: fixed;top: 12%;right: 15%;color: #ddd;cursor: pointer;}
+#scoreT, #scoreT th, #scoreT tr, #scoreT td {padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;}
+
+/*start/stop Q*/
+#ss {display: none;background-color: rgba(22,22,22,0.8);animation: fadeIn 1s;
+    position: fixed;z-index: 2;padding: 1vmax;font-size: 2.2vmax;color: #cdcdcd;}
+#ssContent {display: flex;flex-wrap: wrap;padding: 1vmax;}
+.ssItem {flex-basis: 3vw;text-align: center;padding: 0.5vmax;border: #888 solid 0.1vmax;cursor: pointer;}
+#start {padding: 0.5vmax;border: #888 solid 0.1vmax;border-radius: 1vmax;cursor: pointer;
+  margin: 0.5vmax;width: fit-content;font-size: 2vmax;text-align: center;}
+#stop {display: none;}
+
+/*top score*/
+.cursive {font-family: 'Audiowide', cursive;}
+#audience {background-color: #0f201f;width: 85%;height: 80%;z-index: 2;padding: 3vmax;
+animation: fadeIn 1s;display: none;position: fixed;bottom: 5%;left: 5%;opacity: 0.9;}
+#audienceTitle {color: #c5f000;font-size: 4vmax;text-align: center;background-color: #0F201F;padding: 2vmax;}
+#audienceTable {font-size: 2.5vmax;color: #f1f1f1;border: none;text-align:center;margin-left: auto;margin-right: auto;}
+#audienceTable tr,#audienceTable td {
+  border-bottom: #aaa solid 0.1vmax;padding: 0.5vmax;line-height: 110%;}
+#audienceTable th {padding: 0.5vmax;line-height: 110%;font-weight: 600;}
+.aName, .aScore, .aNameH, .aScoreH {min-width: 15vmax;border-bottom: #aaa solid 0.1vmax;}
+.fa-medal {cursor: pointer;}
+#aNavBar {padding: 2vmax 1vmax;text-align: center;margin-left: auto;margin-right: auto;
+margin-top: 2vmax;background-color: #0F201F;}
+.aNavItem {padding: 0.5vmax;border: #aaa solid 0.1vmax;font-size: 2vmax;border-radius: 1vmax;
+  display: inline;color: #ddd;margin-right: 1vmax;cursor: pointer;}
+.ip {display: none;}
+
+/* zoom */
+@keyframes fadeIn {
+  from {opacity: 0%;}
+  to {opacity: 90%;}
+}
+
+
+</style>
+
+<body>
+
+<!--titleBar-->
+<div id="title">
+  <div class="cursive titleFlex" 
+  style="text-align: left;letter-spacing: 0.5vw;">
+    CC2023
+   </div>
+  <div class="titleFlexM" style="text-align:center;">
+    <img id="ccLogo" src="ccLogoBeige.png" style="display: inline;"></div>
+  <!--img src="x.png" style="width:1.2vmax;vertical-align: middle;"-->
+  <div class="cursive titleFlex glowing" style="text-align:right;">ElectroCardioGame</div>
+
+</div>
+
+<!--name-->
+<div class="nameBar">
+  <div class="flex33">
+    <div class="pName" style="color: #ff7632">
+      <i class="fa-brands fa-phoenix-framework fa-fw" style="color:#ff7632;border-radius: 3.5vmax;
+      border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
+      DAO</div>
+  </div>
+  <div class="flex33">
+    <div class="pName" style="color:#30d5c8">
+      <i class="fa-brands fa-wolf-pack-battalion fa-fw" style="color:#30d5c8;border-radius: 3.5vmax;
+      border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
+      KHAW</div>
+  </div>
+  <div class="flex33">
+    <div class="pName" style="color:#cbf482">
+    <i class="fa-brands fa-firefox-browser fa-fw" style="color:#cbf482;border-radius: 3.5vmax;
+    border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
+    OAT</div>
+  </div>
+</div>
+
+<!--canvas-->
+<div class="canvasZone noMobile">
+  <canvas id="canvas"></canvas>
+</div>
+<!--refresh but-->
+<div class="refBar">
+  <div class="refBarFlex">
+    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(1,p1Score)"></i>
+  </div>
+  <div class="refBarFlex">
+    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(2,p2Score)"></i>
+  </div>
+  <div class="refBarFlex">
+    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(3,p3Score)"></i>
+  </div>
+</div>
+
+<!--scoreBar-->
+<div class="scoreBar">
+  <div class="flex33" style="padding:none">
+    <span class="score" style="color:#ff7632">0</span>
+  </div>
+  <div class="flex33" style="padding:none">
+    <span class="score" style="color:#30d5c8">0</span>
+  </div>
+  <div class="flex33" style="padding:none">
+    <span class="score" style="color:#cbf482">0</span>
+  </div>
+
+</div>
+
+
+<!--bottom stuffs-->
+<div class="itemBar">
+  <div id="qNav">
+
+    <i class="fa-solid fa-ellipsis-vertical menuDot " onclick="showMenu()"
+    style="color:#888;cursor: pointer;"></i>
+
+       Question
+        <span id="qNow">-</span> 
+        /
+        <span id="qAll">12</span>
+  </div>
+  <!--foot-->
+  <div id="foot">
+    <sup>x</sup> heartRhythmBox.com 
+    <img src="boxGrey.png" style="width:2.2vmax;vertical-align: middle;">
+  </div>
+
+</div>
+
+
+
+<!--popUP Menu-->
+<div id="menu">
+  <div class="menuItem" title="q s/s"  onclick="startStopQ()">
+    <i class="fa-solid fa-stopwatch fa-fw"></i></li><br>
+    <span class="menuText">questions start/stop</span>
+  </div>
+  <div class="menuItem" title="audience response" onclick="showAudience()">
+    <i class="fa-solid fa-people-line fa-fw"></i><br>
+    <span class="menuText">audience response</span>
+  </div>
+  <div class="menuItem noMobile" title="score cards" onclick="showScoreCard()">
+    <i class="fa-solid fa-list-check fa-fw"></i><br>
+    <span class="menuText">score card</span>
+  </div>
+</div>
+
+<!--scoreCard-->
+<div id="scoreCard">
+  Score Card
+  <button id="exit" onclick="showMenu()">X</button>
+  <table id="scoreT">
+  </table>
+</div>
+
+<!--start stop Q-->
+<div id="ss">
+  <button id="ssExit" style="float:right;color: #aaa;cursor: pointer;" onclick="showMenu()">X</button>
+  <div style="text-align:center" id="ssQNo">Current Q: </div>
+    <div id="ssContent">
+      <div class="ssItem" onclick="startQ(0)">0</div>
+      <div class="ssItem" onclick="startQ(1)">1</div><div class="ssItem" onclick="startQ(2)">2</div>
+      <div class="ssItem" onclick="startQ(3)">3</div><div class="ssItem" onclick="startQ(4)">4*</div>
+      <div class="ssItem" onclick="startQ(5)">5</div>
+      <div class="ssItem" onclick="startQ(6)">6</div>
+      <div class="ssItem" onclick="startQ(7)">7</div>
+      <div class="ssItem" onclick="startQ(8)">8*</div>
+    <div class="ssItem" onclick="startQ(9)">9</div>
+    <div class="ssItem" onclick="startQ(10)">10</div>
+    <div class="ssItem" onclick="startQ(11)">11</div>
+    <div class="ssItem" onclick="startQ(12)">12*</div>
+  </div>
+  <form id="feedQ" name="feedQ" method="POST" data-netlify="true">
+    <input id="q2Send" type="number" name="q2Send" style="display:none;">
+    <input id="t2Send" type="number" name="t2Send" style="display:none;">
+    <input type="submit" id="start" onclick="startQClick()" style="color:#cdcdcd;"
+    value="Click Number to Start Question">
+
+  </form>
+</div>
+
+<!--form-->
+<form method="POST" id="questionNav" style="display:none;">
+  <input id="triggerNo" type="text" style="display:none;" name="tNo">
+  <input id="submitBut" type="submit" value="Submit" style="display:none">
+</form>
+
+<!--audience-->
+<div id="audience">
+  <div id="audienceTitle" class="cursive">AUDIENCE TOP SCORE</div>
+  <table id="audienceTable">
+    <tr>
+      <th></th>
+      <td class="aNameH">NAME</td>
+      <td class="aScoreH">SCORE</td><td class="ip">IP</td>     
+    </tr>
+    <tr>
+      <td><i style="color:gold;" class="fa-solid fa-medal fa-fw" onclick="showAItem(0)"></i></td>
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>        
+    </tr>
+    <tr>
+      <td><i style="color:silver;" class="fa-solid fa-medal fa-fw" onclick="showAItem(1)"></i></td>
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>        
+    </tr>
+    <tr>
+      <td><i style="color:#CD7F32;" class="fa-solid fa-medal fa-fw" onclick="showAItem(2)"></i></td>
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>         
+    </tr>
+    <tr>
+      <td><i style="color:royalblue;" class="fa-solid fa-medal fa-fw" onclick="showAItem(3)"></i></td>
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>         
+    </tr>
+    <tr>
+      <td><i style="color:royalblue;" class="fa-solid fa-medal fa-fw" onclick="showAItem(4)"></i></td>
+      <td class="aName"></td>
+        <td class="aScore"></td><td class="ip"></td>       
+    </tr>
+  </table>
+  <div id="aNavBar">
+    <div class="aNavItem" id="audienceCount">No: 0</div>
+    <div class="aNavItem" onclick="showAItem(99)">Show Scores</div>
+    <div class="aNavItem" onclick="showAItem('ip')">Show IP</div>
+    <div class="aNavItem" onclick="showMenu()">Close</div>
+  </div>
+</div>
+
+
+<!--div id="test" style="color:white"></div-->
+
+<script src="fetchScore.js"></script>
+<script>
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var vw = window.innerWidth/100;
+var vh = window.innerHeight/100;
+
+//gauge box size 32vw x 50vh
+var radius = 10*vw;var baseY = 30*vh;
+
+createCanvas()
+drawFace(1);
+drawFace(2);
+drawFace(3);
+drawHand(1,-120);
+drawHand(2,-120);
+drawHand(3,-120);
+drawLabel(1);
+drawLabel(2);
+drawLabel(3);
+reFetch();
+//clearData();
+
+
+
+
+</script>
+
+</body>
+</html>
+  
