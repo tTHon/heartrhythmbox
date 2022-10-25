@@ -1,2 +1,2 @@
 [functions]
-  directory = "egame/fn/netlify/functions"
+  directory = "/egame/fn/netlify/functions"
