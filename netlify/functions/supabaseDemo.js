@@ -1,21 +1,26 @@
-//sbp_73eaa8e734d970f52610cb46fd1a4d6d7c08a19d
-//npm install --save @supabase/supabase-js
+// Grab our credentials from a .env file or environment variables
+require('dotenv').config();
+const {
+    SUPABASE_URL,
+    SESSION_SECRET
+} = process.env;
 
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY2NjY5Nzk2MCwiZXhwIjoxOTgyMjczOTYwfQ.oy4V-23uYXch0gs6iIbGPrvIj40RlgcTKBLxf4m9L8s'
-const supabaseKey = process.env.SUPABASE_KEY
-const SUPABASE_URL = "https://noospmcgjamvpgxlgmyc.supabase.co"
-
+// Connect to our database 
 const { createClient } = require('@supabase/supabase-js');
+const supabase = createClient(SUPABASE_URL, SESSION_SECRET);
 
-const supabase = createClient(SUPABASE_URL, supabaseKey);
+// Our standard serverless handler function
+exports.handler = async event => {
 
-exports.handler = async function(event,context) {
+  // Insert a row
+    const { data, error } = await supabase
+        .from('qFeed')
+        .insert([
+            {questionNo: '0' },
+        ]);
 
-  const { data, error } = await supabase
-  .from('qFeed')
-  .insert([
-    { questionNo: '0'},
-  ])
-
+  // Did it work?
   console.log(data, error);
+  
 }
+

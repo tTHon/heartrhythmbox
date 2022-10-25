@@ -5,15 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
 </head>
 <body>
     <button id="demo" onclick="fVar()">demo</button>
 </body>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    async function fVar(){
-        const response = await fetch ('/.netlify/functions/hello')
-        .then (response=>response.json())
-        document.getElementById('demo').innerHTML = response
-    }
+import { createClient } from '@supabase/supabase-js'
+
+// Create a single supabase client for interacting with your database
+const supabase = createClient('https://noospmcgjamvpgxlgmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY2NjY5Nzk2MCwiZXhwIjoxOTgyMjczOTYwfQ.oy4V-23uYXch0gs6iIbGPrvIj40RlgcTKBLxf4m9L8s')
+const { data, error } = await supabase
+  .from('qFeed')
+  .insert([
+    { questionNo: '0'},
+  ])
 </script>
 </html>
