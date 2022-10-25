@@ -7,27 +7,29 @@
     <title>demo fn</title>
 </head>
 <body>
-    <a href="/.netlify/functions/hello">click here</a>
+    <!--a href="/.netlify/functions/hello">click here</a>
 
     <form id="form" action="/.netlify/functions/hello">
         <label>
         <input name="name">enter text        
         </label>
         <button type="submit">submit</button>
-    </form>
+    </form-->
 
     <button id="bt" onclick="sendData()">click here</button>
+    <div id="demo"></div>
 </body>
 <script>
 
+var array=[]
 
     async function sendData(){
         var no = 'netlify'
         url = '/.netlify/functions/hello?name='+no
         const response = await fetch (url)
         .then (response=>response.json())
-        document.getElementById('form').innerHTML = response
-
+        array.push(response)
+        document.getElementById('demo').innerHTML = array;
     }
 </script>
 </html>

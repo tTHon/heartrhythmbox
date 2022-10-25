@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "netlify-cli": "^2.37.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.4"
   }
 }
