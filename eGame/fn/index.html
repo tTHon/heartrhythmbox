@@ -7,16 +7,15 @@
     <title>demo fn</title>
 </head>
 <body>
-    <button onclick="fetchNetlify()">click here</button>
-    
+    <a href="https://heartrhythmbox.com/.netlify/functions/hello">click here</a>
+
+    <form method="post" action="https://heartrhythmbox.com/.netlify/functions/hello">
+        <label>
+        <input name="name">enter text        
+        </label>
+        <button type="submit">submit</button>
+    </form>
 </body>
 <script>
-    async function fetchNetlify(){
-        const response = await fetch ('/.netlify/functions/hello.js')
-        .then (response=>response.json())
-
-        responseText.innerText = response
-        
-    }
 </script>
 </html>
