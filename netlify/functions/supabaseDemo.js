@@ -1,5 +1,6 @@
 // Grab our credentials from a .env file or environment variables
 require('dotenv').config();
+
 const {
     SUPABASE_URL,
     SESSION_SECRET
