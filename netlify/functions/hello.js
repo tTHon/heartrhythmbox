@@ -1,11 +1,11 @@
 exports.handler = async function (event, context) {
-  const name = event.queryStringParameters.name
+  const name = event.data
     //const formData = new FormData(myForm);
   
 
     return {
       statusCode: 200,
-      body: 'hello, ${name}',
+      body: name,
       //body: JSON.stringify({ message: "Hello World" }),
     };
   };
