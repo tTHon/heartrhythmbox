@@ -23,6 +23,15 @@
     { questionNo: n},
     ])
 
+    async function getTodos() {
+  let { data, error } = await supabase.from('todos').select('*')
+  return data
+}
+
+getTodos().then((data) => { 
+  console.log(data)
+})
+
 
 </script>
 
