@@ -8,7 +8,7 @@
 
 </head>
 <body>
-    <button id="demo">demo</button>
+    <button id="demo" onclick="refresh()">demo</button>
 </body>
 <script  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
@@ -16,9 +16,9 @@
 
   const { createClient } = supabase
   const _supabase = createClient('https://noospmcgjamvpgxlgmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY')
-  
-  async()=> {
-    //const { data, error } = await supabase
+
+  async function refresh(){
+      //const { data, error } = await supabase
     //.from('qFeed')
     //.insert([
     //{ questionNo: '0'},
@@ -26,12 +26,12 @@
     
     const { data: qFeed, error } = await supabase
       .from('qFeed')
-      .select('*')
+      .select('questionNo')
     
-    const qNo = data[0]
-    document.getElementById('demo').innerHTML = qNo
+    document.getElementById('demo').innerHTML = data
 
   }
+
 
 
 </script>
