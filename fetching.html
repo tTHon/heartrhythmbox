@@ -11,16 +11,29 @@
     <button id="demo">demo</button>
 </body>
 <script  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 <script type="module">
+
   const { createClient } = supabase
   const _supabase = createClient('https://noospmcgjamvpgxlgmyc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY')
-  //const { data, error } = await supabase
-  //.from('qFeed')
-  //.insert([
-   // { questionNo: '0'},
-  //])
-  console.log('Supabase Instance: ', _supabase)
-  // ...
+  
+  async()=> {
+    //const { data, error } = await supabase
+    //.from('qFeed')
+    //.insert([
+    //{ questionNo: '0'},
+    //])
+    
+    const { data: qFeed, error } = await supabase
+      .from('qFeed')
+      .select('*')
+    
+    const qNo = data[0]
+    document.getElementById('demo').innerHTML = qNo
+
+  }
+
+
 </script>
 
 </html>
