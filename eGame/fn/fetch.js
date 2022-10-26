@@ -14,11 +14,16 @@ save.addEventListener("click", async (e) => {
     })
 })
 
-
+var timeArray = [];
 const getData = async () => {
     const res = await database.from("qFeed").select("*");
     console.log(JSON.stringify(res))
-    document.getElementById('demo').innerHTML = res.data[0].questionNo
+    for (let index = 0; index < res.data.length; index++) {
+        var time = res.data[index].timeStamp;
+        timeArray.push(time)
+    }
+    if (timeArray[1]>timeArray[0])
+        {document.getElementById('demo').innerHTML = 'desc'}
 }
 
 getData();
