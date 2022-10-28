@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<style>
+  * {font-family: 'Poppins', sans-serif;}
+  .text {display: none;position: fixed;font-size: 2vmax;text-align: center;}
+</style>
 
 <body>
 
@@ -7,6 +14,7 @@
 <div style="text-align:center">
   <canvas id="canvas" style="background-color: #333;"></canvas>
 </div>
+<div class="text"></div>
 
 
 
@@ -16,8 +24,8 @@ var ctx = canvas.getContext("2d");
 var vw = Math.round(window.innerWidth/100);
 var vh = Math.round(window.innerHeight/100);
 var nav=0; 
-baseX=20*vw;baseY=70*vh;
-widthU = 4.2*vw;baseWidth=17*widthU;
+baseX=18*vw;baseY=70*vh;
+widthU = 4.8*vw;
 xTF=0.95;yTF=0.31;
 
 
@@ -35,15 +43,27 @@ window.addEventListener("keydown", function(event) {
 var nav =0;
 function stepMove(){
   nav = nav+1;
-  if (nav==1){moveFwd(0,3.98)}
-  if (nav==2){moveBwd(3.98,0.5)}
-  if (nav==3){moveFwd(0.5,2.2)}
+  if (nav==1){
+    insertText(0);
+    moveFwd(0,0.99,500)
+  }
+  if (nav==2){moveFwd(0.99,3.99,200)}
+ 
 }
 
-function moveFwd(from,to){
+function insertText(no){
+  const tBox = document.getElementsByClassName('text');
+  tBox[no].style.display = 'block'
+  tBox[no].style.color = 'rgb(255,0,0)'
+  tBox[no].style.left = baseX + 'px'
+  tBox[no].style.top = baseY-(2*vw) + 'px'
+  tBox[no].innerHTML = 'Previously'
+}
+
+function moveFwd(from,to,int){
   let xyArray= draw (from,0.4*vw,'#333')
   
-  for (let k=from;k<=to;k=k+0.02){
+  for (let k=from;k<=to;k=k+0.01){
     setTimeout (function(){
       clearDraw (xyArray,0.4*vw)
       
@@ -71,12 +91,12 @@ function moveFwd(from,to){
       xyArray= draw (k,0.4*vw,'#f1f1f1')
       //drawAxis()
 
-      },(to-from)*50)
+      },int)
 
    }
   }
 
-function moveBwd(from,to){
+function moveBwd(from,to,int){
   xyArray= draw (from+0.01,0.6*vw,'#333')
   for (let l=from;l>=to;l=l-0.02){
     setTimeout(function(){
@@ -101,12 +121,10 @@ function moveBwd(from,to){
       xyArray= draw (l,0.4*vw,'#f1f1f1')
       //drawAxis()
 
-      },(from-to)*50)
+      },int)
 
     }
 }
-
-
 
 function findColor(cls,seq){
   var color;
@@ -211,7 +229,7 @@ function drawAxis(){
   }
   
   //label
-  ctx.font = 1.5*vw+ "px Arial";
+  ctx.font = 1.5*vw+ "px 'Poppins', sans-serif";
   ctx.fillStyle = "#ccc";ctx.textAlign = "right";
   ctx.fillText("class of", baseX, baseY+2*vw);ctx.fillText("recommendation", baseX, baseY+3.2*vw);
   ctx.textAlign = "center";ctx.fillStyle="rgb(255,0,0)"
