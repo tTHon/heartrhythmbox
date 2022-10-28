@@ -24,8 +24,8 @@ var ctx = canvas.getContext("2d");
 var vw = Math.round(window.innerWidth/100);
 var vh = Math.round(window.innerHeight/100);
 var nav=0; 
-baseX=18*vw;baseY=70*vh;
-widthU = 4.8*vw;
+baseX=17*vw;baseY=70*vh;
+widthU = 5.5*vw;
 xTF=0.95;yTF=0.31;
 
 
@@ -45,9 +45,11 @@ function stepMove(){
   nav = nav+1;
   if (nav==1){
     insertText(0);
-    moveFwd(0,0.99,500)
+    moveFwd(0,0.99,400)
   }
-  if (nav==2){moveFwd(0.99,3.99,200)}
+  if (nav==2){moveFwd(0.99,3.98,200)}
+  if (nav==3){moveBwd(3.98,2.98,400)}
+  if (nav==4){moveFwd(2.98,2.98,100)}
  
 }
 
@@ -70,9 +72,9 @@ function moveFwd(from,to,int){
       if (k-0.3>0){
       for (let i=1;i<12;i++){
 
-        drawParallel(k-0.01-(0.01*i), 0.6*vw,'#333')
-        drawParallel(k-0.01-(0.02*i), 0.6*vw,'#333')
-        drawParallel(k-0.01-(0.03*i), 0.6*vw,'#333')
+        drawParallel(k+0.01-(0.01*i), 0.7*vw,'#333')
+        drawParallel(k+0.01-(0.02*i), 0.7*vw,'#333')
+        drawParallel(k+0.01-(0.03*i), 0.7*vw,'#333')
         }
       }
 
@@ -82,9 +84,9 @@ function moveFwd(from,to,int){
       if (k-0.3>0){
       for (let j=1;j<10;j++){
 
-          drawParallel(k-(j*0.01), 0.4*vw,color1)
-          drawParallel(k-(j*0.02), 0.4*vw,color2)
-          drawParallel(k-(j*0.03), 0.4*vw,color3)
+          drawParallel(k-(j*0.01)-0.01, 0.4*vw,color1)
+          drawParallel(k-(j*0.02)-0.02, 0.6*vw,color2)
+          drawParallel(k-(j*0.03)-0.03, 0.7*vw,color3)
         }
       }
 
@@ -104,18 +106,18 @@ function moveBwd(from,to,int){
       clearDraw (xyArray,0.6*vw)
 
       for (let i=1;i<10;i++){
-        drawParallel(l-0.01-(0.01*i), 0.6*vw,'#333')
-        drawParallel(l-0.02-(0.02*i), 0.6*vw,'#333')
-        drawParallel(l-0.03-(0.03*i), 0.6*vw,'#333')
+        drawParallel(l-0.01-(0.01*i), 0.7*vw,'#333')
+        drawParallel(l-0.02-(0.02*i), 0.7*vw,'#333')
+        drawParallel(l-0.03-(0.03*i), 0.7*vw,'#333')
       
       }
       var color1 = findColor(l,1);var color2 = findColor(l,2);
       var color3 = findColor(l,3);
 
       for (let j=1;j<10;j++){
-          drawParallel(l-(0.01*j), 0.4*vw,color1)
-          drawParallel(l-(0.02*j), 0.4*vw,color2)
-          drawParallel(l-(0.03*j), 0.4*vw,color3)
+          drawParallel(l-(0.01*j)-0.01, 0.4*vw,color1)
+          drawParallel(l-(0.02*j)-0.02, 0.6*vw,color2)
+          drawParallel(l-(0.03*j)-0.03, 0.7*vw,color3)
       }
 
       xyArray= draw (l,0.4*vw,'#f1f1f1')
@@ -168,9 +170,9 @@ function drawParallel(cls,width,color){
   radius = Math.round(0.02*thisWidth);
   x1 = Math.round(baseX-(0.5*(widthU)));y1=Math.round(baseY-(yTF*(cls+0.5)*widthU))
   ctx.moveTo(x1,y1);
-  x2 = Math.round(baseLeft+(xTF*thisWidth)-radius-0.1*vw);y2=Math.round(baseY-(yTF*thisWidth));
+  x2 = Math.round(baseLeft+(xTF*thisWidth)-radius-0.1*vw);y2=Math.round(baseY-(yTF*thisWidth)-(0.1*width));
   ctx.lineTo(x2,y2);
-  ctx.lineWidth=Math.round(width)+0.5;
+  ctx.lineWidth=Math.round(width);
   ctx.strokeStyle = '#333';ctx.stroke()
   x3=Math.round(baseLeft+(xTF*thisWidth));y3=Math.round(baseY-(yTF*thisWidth));
   x4=Math.round(baseLeft+(xTF*thisWidth));y4=Math.round(baseY-(yTF*thisWidth)+radius);
@@ -179,7 +181,7 @@ function drawParallel(cls,width,color){
   ctx.moveTo(x2,y2);
   ctx.arcTo(x3,y3,x4,y4,radius);
   x5=Math.round(baseLeft+thisWidth);y5=Math.round(baseY);
-  ctx.lineTo(x5,y5);  ctx.lineWidth=Math.round(width)+0.5;
+  ctx.lineTo(x5,y5);  ctx.lineWidth=Math.round(width);
   ctx.strokeStyle = color;
   ctx.stroke()
   //drawAxis()
@@ -188,7 +190,7 @@ function drawParallel(cls,width,color){
 
 function clearDraw(xyArray,width){
 
-  ctx.lineWidth = width+2.5;
+  ctx.lineWidth = width+1;
   ctx.strokeStyle = '#333';ctx.fillStyle = '#333';
   ctx.beginPath();
   ctx.moveTo(xyArray[0]-0.5,xyArray[1])
