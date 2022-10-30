@@ -234,8 +234,7 @@
     <!--submit-->
     <form id="audScore" 
     name="audienceScore" 
-    method="POST" 
-    data-netlify="true" style="padding-bottom:2vmax;padding-top: 2vmax;">
+    style="padding-bottom:2vmax;padding-top: 2vmax;">
 
         <div id="nameInput" class="butt">
             <label for="audienceName">Your Name is
@@ -246,7 +245,7 @@
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" name="audienceTotalScore" 
             style="display:none">
-            <input type="submit" value="Submit" id="submitBut" class="round">
+            <input onclick="handleSubmit()" value="Submit" id="submitBut" class="round">
         </div>
     </form>
 
@@ -335,37 +334,31 @@ sub();
 
 
 //submit
-const handleSubmit = (event) => {
+function handleSubmit(){
+    const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+    const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
+    const database = supabase.createClient(url,key)
+    console.log (database)
+
+    //get data
     thisScore = calcScore();  
     score = score + thisScore;  
     if (qNo==4)
         {if (document.getElementById('audName').value!='')
             {nameEntered = document.getElementById('audName').value;}
             }
-    document.getElementById('oldName').value = nameEntered;
-
-    document.getElementById('totalScore').value = score;
-    document.getElementById('qNow').value = qNo;
     
-    event.preventDefault();
-    const myForm = event.target;
-    const formData = new FormData(myForm);
-    
-
-  fetch("/", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(formData).toString(),
-  })
-    .then(() => console.log("the form is submitted successfully"))
-    .catch((error) => alert(error));
-    afterSubmit(); 
-};
-
-
-document
-    .querySelector("form")
-    .addEventListener("submit", handleSubmit);
+    //sending data
+    const sendData = async () => {
+    const feed = await database.from("Audience").insert({
+        audName: nameEntered, oldName: nameEntered,
+        qNo: qNo, score: score
+    })
+    console.log(feed)
+    }
+  sendData();
+  afterSubmit();
+}
 
 //end submit
  
