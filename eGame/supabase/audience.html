@@ -314,63 +314,24 @@ function sub(){
     const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
     const database = supabase.createClient(url,key)
     console.log (database)
-    
+
     database
     .channel('public:qFeed')
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'qFeed' }, payload => {
       console.log('Change received!', payload)
       qNow = payload.new.questionNo
-      document.getElementById('demo').innerHTML = qNow;
-      qNo=qNow;
-      if (qNow==9){
+      
+      if (qNow>100){
                 afterSubmit()
-            } else (ecgLoad())
+            } else {
+                qNo = qNow;
+                ecgLoad();
+            }
     })
     .subscribe()
 }
 
 sub();
-
-function fetchQ(){
-    const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
-    }
-    };
-
-    fetch('https://api.netlify.com/api/v1/forms/634e14b8e3483f0008fc0ab2/submissions', options)
-    .then(response => response.json())
-    .then(result =>sortFeed(result))
-    .catch(err => console.error(err));
-
-    function sortFeed(result){
-        var feedArray = []
-        for (let index = 0; index < result.length; index++) {
-            qSent = result[index].data.q2Send;
-            tSent = result[index].data.t2Send
-            toPush = [qSent,tSent]
-            feedArray.push(toPush)
-            //console.log (feedArray)
-        }
-
-        sortA = feedArray.sort(function(a,b){
-            if (a[1]>b[1]) {return -1}
-        })
-        //console.log(sortA)
-        newQ = sortA[0][0]
-        //console.log(newQ)
-        if (newQ!=qNo){
-            qNo=newQ;
-            if (qNo==9){
-                afterSubmit()
-            } else (ecgLoad())
-            
-        }
-    }
-  
-}
 
 
 //submit

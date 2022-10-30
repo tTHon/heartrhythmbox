@@ -217,7 +217,7 @@ function startQClick(){
   sendQue()  
 }
 
-//send Question Que
+//Question Que
 function sendQue(){
   const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
   const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
@@ -227,7 +227,7 @@ function sendQue(){
   //q2send
   var q2Send;
   if (qClickStatus==3)
-    {q2Send = 9;}
+    {q2Send = 100+questionNumber;}
   else {q2Send = questionNumber}
 
   //insert
@@ -238,6 +238,23 @@ function sendQue(){
     console.log(feed)
   }
   sendData();
+}
+
+function clearQue(){
+  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
+  const database = supabase.createClient(url,key)
+  console.log (database)
+
+  const clear = async ()=>{
+    const data = await database
+    .from('qFeed')
+    .delete()
+    .gte ('questionNo',0)
+  }
+    //console.log(data)
+  clear();
+
 }
 
 //end q que
