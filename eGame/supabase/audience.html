@@ -34,7 +34,7 @@
     .cursive {font-family: 'Audiowide', cursive;}
     #card {background-color: #0f4c81;width: 100%;line-height: 180%;display: block;
     text-align: center;padding: 2vmax 1vmax;z-index: -1;}
-    #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;}
+    #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;line-height: 120%;}
     #wait {color: azure;font-size: 2.5vmax;padding:1vmax;}
     #foot {display: none;background-color:#efefef;text-align:center;color: #888;
         padding-bottom: 5vmax;padding-top: 8vmax;border-radius: 1vmax;}
@@ -312,7 +312,7 @@ function sub(){
     const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
     const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
     const database = supabase.createClient(url,key)
-    console.log (database)
+    //console.log (database)
 
     database
     .channel('public:qFeed')

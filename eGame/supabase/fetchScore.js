@@ -195,14 +195,14 @@ function startQClick(){
   //document.getElementById('start').style.color = '#cdcdcd'
 
   if (qClickStatus==2){
-    document.getElementById('start').value = 'Click Number to Start Question'
+    document.getElementById('start').value = 'Click Number to Start Q'
     document.getElementById('start').style.color = '#cdcdcd'
     qClickStatus=3;    
   }
   else if (qClickStatus==0){
       //check if vote button is needed
       qClickStatus = 1;
-      document.getElementById('start').value = 'Click Number to Start Question'
+      document.getElementById('start').value = 'Click Number to Start Q'
       document.getElementById('start').style.color = '#cdcdcd'
       for (let index = 0; index < q2Vote.length; index++){
         if (questionNumber==q2Vote[index]){
@@ -246,14 +246,22 @@ function clearQue(){
   const database = supabase.createClient(url,key)
   console.log (database)
 
-  const clear = async ()=>{
+  const clearQ = async ()=>{
     const data = await database
     .from('qFeed')
     .delete()
     .gte ('questionNo',0)
   }
+  const clearAud = async ()=>{
+    const data = await database
+    .from('Audience')
+    .delete()
+    .gte ('qNo',0)
+  }
+
     //console.log(data)
-  clear();
+  clearQ();
+  clearAud();
 
 }
 
@@ -261,99 +269,71 @@ function clearQue(){
 
 //audience score
 function showAudience(){
-  document.getElementById('audience').style.display = 'block'
+  document.getElementById('audience').style.display = 'block'  
 
-  //fetch score
-    //fetchScore -- return aScore
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
-      }
-    };
-    
-    fetch('https://api.netlify.com/api/v1/forms/634cb3f7db273c000a680d53/submissions', options)
-      .then(response => response.json())
-      //.then(response => console.log(response))
-      .then(result => handleScore(result))
-      //.catch(err => console.error(err));
+  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
+  const database = supabase.createClient(url,key)
 
-  function handleScore(result){
-    //data.audName: "x"
-    //data.audienceTotalScore: "7"
-    //data.ip: "202.28.177.50"
-    //qNow: ""
+  //getData
+  const getData = async () => {
+      const aScore = await database.from("Audience")
+      .select('*')
+      .order('qNo', {ascending:false})
+      const maxQ = aScore.data[0].qNo
+      console.log(aScore.data.length)
 
-    //count no of voters
-    //first -- get max qNow
-    maxQ = getMaxQ()
-    
-    function getMaxQ(){
-      var qNumber = [];
-      for (let index = 0; index < result.length; index++) {
-        var f = result[index].data;
-        qNumber[index] = parseInt(f.qNow);
-      }
-      qNumber.sort(function(a, b){return b - a})
-      max = qNumber[0]
-      return max;
-    }
-
-    //count maxQ votes
-    voteNo = getVoteNo(maxQ);
-    document.getElementById('audienceCount').innerHTML = 'Submitted: '+voteNo
-    function getVoteNo(Q){
-      count=0;
-      for (let index = 0; index < result.length; index++) {
-        var f = result[index].data;
-        if (f.qNow ==Q){
-          count++
+      //count maxQ votes
+      voteNo = getVoteNo(maxQ);
+      document.getElementById('audienceCount').innerHTML = 'Submitted: '+voteNo
+      function getVoteNo(Q){
+        count=0;
+        for (let index = 0; index < aScore.data.length; index++) {
+          var f = aScore.data[index];
+          if (f.qNo ==Q){
+            count++
+          }
         }
+        return count;
       }
-      return count;
-    }
 
-    //audScore [name][score][ip] + sorting
-    var audScore = getAudienceArray(maxQ)
-    //document.getElementById('audienceCount').innerHTML = audScore;
-    function getAudienceArray(Q){
-      var array = [];
-      for (let index = 0; index < result.length; index++) {
-        var f = result[index].data;
-        if (f.qNow ==Q){
-          audName = f.audName
-          audScore = parseInt(f.audienceTotalScore)
-          audIp = f.ip
-          toPush = [audName,audScore,audIp]
-          array.push(toPush)
+      //audScore [name][score] + sorting
+      var audScore = getAudienceArray(maxQ)
+      
+      function getAudienceArray(Q){
+        var array = [];
+        for (let index = 0; index < aScore.data.length; index++) {
+          var f = aScore.data[index];
+          if (f.qNo ==Q){
+            audName = f.audName
+            audScore = parseInt(f.score)
+            toPush = [audName,audScore]
+            array.push(toPush)
+          }
         }
-      }
-      array.sort(function(a,b){
-        if (a[1]>b[1]) {return -1}})
+        array.sort(function(a,b){
+          if (a[1]>b[1]) {return -1}})
 
-      return array;
-    }
+        return array;
+      }
+
 
     //show score
     var maxItem = 5;
-    if (result.length<maxItem){maxItem=result.length}
+    if (audScore.length<maxItem){maxItem=audScore.length}
     var name2Show = document.getElementsByClassName('aName')
     var score2Show = document.getElementsByClassName('aScore')
-    var audIp = document.getElementsByClassName('ip')
-    for (let index = 0; index < audIp.length; index++) {
-      audIp[index].style.display = 'none'
-    
-    }
+
     for (let index = 0; index < maxItem; index++) {
       name2Show[index].innerHTML = audScore[index][0]
       score2Show[index].innerHTML = audScore[index][1]
-      audIp[index+1].innerHTML = audScore[index][2]
       name2Show[index].style.visibility = 'hidden'
       score2Show[index].style.visibility = 'hidden'
     }
+    }
 
-  }
+  getData();
+
 }
 
 function showAItem(n){
