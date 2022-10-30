@@ -15,16 +15,11 @@ save.addEventListener("click", async (e) => {
     })
 })
 
-var timeArray = [];
-//get
+//get & sort -- latest entry first
 const getData = async () => {
-    const res = await database.from("qFeed").select("*");
+    const res = await database.from("qFeed")
+    .select("*")
+    .order('timeStamp', {ascending:false})
     console.log(JSON.stringify(res))
-    for (let index = 0; index < res.data.length; index++) {
-        var time = res.data[index].timeStamp;
-        timeArray.push(time)
-    }
-    if (timeArray[1]>timeArray[0])
-        {document.getElementById('demo').innerHTML = 'desc'}
 }
 
