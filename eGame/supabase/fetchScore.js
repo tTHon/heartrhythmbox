@@ -214,37 +214,33 @@ function startQClick(){
     }
 
   if (qClickStatus==1 || qClickStatus==3){showMenu()}
-
+  sendQue()  
 }
 
+//send Question Que
+function sendQue(){
+  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
+  const database = supabase.createClient(url,key)
+  console.log (database)
 
-//form submission begin
-const handleSubmit = (event) => {
-  event.preventDefault();
-  console.log(questionNumber)
-  document.getElementById("t2Send").value = Date.now();
+  //q2send
+  var q2Send;
   if (qClickStatus==3)
-    {document.getElementById("q2Send").value = 9;}
-  else {document.getElementById("q2Send").value = questionNumber;}
-  
-  const myForm = event.target;
-  const formData = new FormData(myForm);
-  
-  fetch("/", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(formData).toString(),
-  })
-    .then(() => console.log("Form successfully submitted"))
-    .catch((error) => alert(error));
+    {q2Send = 9;}
+  else {q2Send = questionNumber}
 
-
+  //insert
+  const sendData = async () => {
+    const feed = await database.from("qFeed").insert({
+        questionNo: q2Send
+    })
+    console.log(feed)
+  }
+  sendData();
 }
 
-document
-  .querySelector("form")
-  .addEventListener("submit", handleSubmit);
-//form submission end
+//end q que
 
 //audience score
 function showAudience(){
