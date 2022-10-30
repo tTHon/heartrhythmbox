@@ -4,6 +4,7 @@ const database = supabase.createClient(url,key)
 console.log (database)
 
 
+//insert
 let save = document.getElementById('demo');
 save.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -15,6 +16,7 @@ save.addEventListener("click", async (e) => {
 })
 
 var timeArray = [];
+//get
 const getData = async () => {
     const res = await database.from("qFeed").select("*");
     console.log(JSON.stringify(res))
@@ -26,4 +28,3 @@ const getData = async () => {
         {document.getElementById('demo').innerHTML = 'desc'}
 }
 
-getData();
