@@ -418,6 +418,9 @@ function afterSubmit(){
     document.getElementById('answerSheet').style.display = 'none'
     document.getElementById('foot').style.display = 'none'
     document.getElementById('audScore').style.display = 'none'
+    var plus = qNo+1
+    var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
+    document.getElementById('preLoad').src = preLoadSource
 
     document.getElementById('welcome').innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
     'You got ' + thisScore + ' from this question.' + '<br />' +
@@ -467,9 +470,9 @@ function calcScore(){
 function displayName(){
     document.getElementById('title').innerHTML = "Question No. " + qNo + " /" + totalQ;
     var source = "ecgs//ecg"+ qNo.toString()+".png";
+    document.getElementById('ecg').src = source;
     var plus = qNo+1
     var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
-    document.getElementById('ecg').src = source;
     document.getElementById('preLoad').src = preLoadSource
 }
 
