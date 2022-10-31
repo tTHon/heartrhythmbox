@@ -125,6 +125,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 
 <body>
 
+  <div id="main">
 <!--titleBar-->
 <div id="title">
   <div class="cursive titleFlex" 
@@ -132,7 +133,7 @@ margin-top: 2vmax;background-color: #0F201F;}
     CC2023
    </div>
   <div class="titleFlexM" style="text-align:center;">
-    <img id="ccLogo" src="ccLogoBeige.png" style="display: inline;"></div>
+    <img id="ccLogo" src="ccLogoBeige.png" style="display: inline;cursor: pointer;"></div>
   <!--img src="x.png" style="width:1.2vmax;vertical-align: middle;"-->
   <div class="cursive titleFlex glowing" style="text-align:right;">ElectroCardioGame</div>
 
@@ -167,13 +168,13 @@ margin-top: 2vmax;background-color: #0F201F;}
 <!--refresh but-->
 <div class="refBar">
   <div class="refBarFlex">
-    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(1,p1Score)"></i>
+    <i id="ref1" class="fa-solid fa-rotate-right refBut" onclick="refresh(1,p1Score)"></i>
   </div>
   <div class="refBarFlex">
-    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(2,p2Score)"></i>
+    <i id="ref2" class="fa-solid fa-rotate-right refBut" onclick="refresh(2,p2Score)"></i>
   </div>
   <div class="refBarFlex">
-    <i class="fa-solid fa-rotate-right refBut" onclick="refresh(3,p3Score)"></i>
+    <i id="ref3" class="fa-solid fa-rotate-right refBut" onclick="refresh(3,p3Score)"></i>
   </div>
 </div>
 
@@ -316,17 +317,16 @@ margin-top: 2vmax;background-color: #0F201F;}
     <div class="aNavItem" onclick="showMenu()">Close</div>
   </div>
 </div>
-
+</div>
 
 <!--div id="test" style="color:white"></div-->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="fetchScore.js"></script>
 <script>
 
-window.addEventListener('beforeunload', (event) => {
-  window.alert ('NOOOO')
- });
-
+window.onbeforeunload = (event) => {
+  event.returnValue = 'onbeforeunload';
+};
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -347,7 +347,7 @@ drawLabel(1);
 drawLabel(2);
 drawLabel(3);
 reFetch();
-clearQue();
+//clearQue();
 
 
 

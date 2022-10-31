@@ -231,6 +231,11 @@ padding: 3vmax;">
 
 <script src="scoring.js"></script>
 <script>
+
+window.onbeforeunload = (event) => {
+  event.returnValue = 'onbeforeunload';
+};
+
 var qNo = 1;
 document.getElementById('intro').style.display = 'block'
 

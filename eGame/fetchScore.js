@@ -262,6 +262,7 @@ function clearQue(){
     //console.log(data)
   clearQ();
   clearAud();
+  window.alert('clear')
 }
 
 //end q que
