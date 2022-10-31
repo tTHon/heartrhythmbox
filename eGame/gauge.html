@@ -228,6 +228,10 @@ margin-top: 2vmax;background-color: #0F201F;}
     <i class="fa-solid fa-list-check fa-fw"></i><br>
     <span class="menuText">score card</span>
   </div>
+  <div class="menuItem noMobile" title="score cards" onclick="clearQue()">
+    <i class="fa-solid fa-eraser fa-fw"></i><br>
+    <span class="menuText">clear records</span>
+  </div>
 </div>
 
 <!--scoreCard-->
@@ -318,6 +322,11 @@ margin-top: 2vmax;background-color: #0F201F;}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="fetchScore.js"></script>
 <script>
+
+window.addEventListener('beforeunload', (event) => {
+  window.alert ('NOOOO')
+ });
+
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
