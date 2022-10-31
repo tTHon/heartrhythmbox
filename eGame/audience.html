@@ -39,6 +39,7 @@
     #foot {display: none;background-color:#efefef;text-align:center;color: #888;
         padding-bottom: 5vmax;padding-top: 8vmax;border-radius: 1vmax;}
 
+    #preLoad {opacity: 1.0;width: 0.1px;height: 0.1px;}    
 
 </style>
 
@@ -50,6 +51,7 @@
 <div style="text-align:center">
     <div id= 'title'></div>
     <img id="ecg">
+    <img id="preLoad">
 </div>
 
 <!--answer sheet-->
@@ -277,6 +279,7 @@
         Please wait here. The game will begin shortly.
     </div>
     <div id="wait"></div>
+    <img src="ecgs/ecg0.png" style="opacity:1.0;width:0.1px;height:0.1px">
     <div style="font-size:1.8vmax;color: #021c49">
     <sup style="color:#021c49;">X</sup> heartRhythmBox.com
     </div>
@@ -464,7 +467,10 @@ function calcScore(){
 function displayName(){
     document.getElementById('title').innerHTML = "Question No. " + qNo + " /" + totalQ;
     var source = "ecgs//ecg"+ qNo.toString()+".png";
+    var plus = qNo+1
+    var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
     document.getElementById('ecg').src = source;
+    document.getElementById('preLoad').src = preLoadSource
 }
 
 
