@@ -325,6 +325,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 <script>
 
 window.onbeforeunload = (event) => {
+  event.preventDefault()
   event.returnValue = 'onbeforeunload';
 };
 
