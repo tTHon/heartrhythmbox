@@ -93,6 +93,8 @@ function showMenu(){
     scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
     document.getElementById('ss').style.display = 'none'
     document.getElementById('audience').style.display = 'none'
+    document.getElementById('end').innerHTML = 'End Game'
+    eGameCount =0;
   }
 }
 
@@ -182,6 +184,20 @@ function startQ(q){
   document.getElementById('start').style.color = 'lightBlue'
   document.getElementById('start').value = 'Click here to start Q: ' +q
   qClickStatus=0;
+}
+
+var eGameCount =0;
+function endGame(){
+  document.getElementById('end').innerHTML = 'Click here again to END GAME'
+  eGameCount ++;
+  if (eGameCount==2){
+    document.getElementById('end').innerHTML = 'Game is about to end.'
+    eGameCount =0;
+    clearQue();
+    questionNumber = -1;
+    sendQue();
+    showMenu();
+  }
 }
 
 function startQClick(){

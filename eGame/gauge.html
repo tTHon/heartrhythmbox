@@ -93,7 +93,7 @@
     position: fixed;z-index: 2;padding: 1vmax;font-size: 2.2vmax;color: #cdcdcd;}
 #ssContent {display: flex;flex-wrap: wrap;padding: 1vmax;}
 .ssItem {flex-basis: 3vw;text-align: center;padding: 0.5vmax;border: #888 solid 0.1vmax;cursor: pointer;}
-#start {padding: 0.5vmax;border: #888 solid 0.1vmax;border-radius: 1vmax;cursor: pointer;
+#start, #end {padding: 0.5vmax;border: #888 solid 0.1vmax;border-radius: 1vmax;cursor: pointer;
   margin: 0.5vmax;width: fit-content;font-size: 2vmax;text-align: center;}
 #stop {display: none;}
 
@@ -265,6 +265,7 @@ margin-top: 2vmax;background-color: #0F201F;}
     <!--input id="t2Send" type="number" name="t2Send" style="display:none;"-->
     <input id="start" onclick="startQClick()" style="color:#cdcdcd;"
     value="Click Number to Start Q">
+    <span id="end" onclick="endGame()">End Game</span>
 
   <!--/form-->
 </div>
