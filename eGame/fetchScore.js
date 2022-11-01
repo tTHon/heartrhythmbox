@@ -194,7 +194,7 @@ function endGame(){
     document.getElementById('end').innerHTML = 'Game is about to end.'
     eGameCount =0;
     clearQue();
-    questionNumber = -1;
+    questionNumber = 1000;
     sendQue();
     showMenu();
   }

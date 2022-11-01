@@ -256,17 +256,6 @@
 </div>
 
 <!--top and foot-->
-<div id='foot'>
-    
-    <span class="cursive" style="font-size:1.7vmax;text-align: center;color: #888;letter-spacing: 0.5vw;">
-    CC2023</span>
-    <img src="ccLogoDark.png" style="width:1.7vmax;text-align: center;display: inline;">
-    <span class="cursive" style="font-size:1.7vmax;color: #888;letter-spacing: 0.1vw;">
-        ElectroCardioGame
-    </span><br>
-    <span style="font-size:1.6vmax;color: #bbb;">
-        <sup style="color:#bbb;">x</sup> heartRhythmBox.com</span>
-</div>
 
 <!--intro page-->
 <div id="card" class="round bgGd">
@@ -286,7 +275,18 @@
     <sup style="color:#021c49;">X</sup> heartRhythmBox.com
     </div>
 </div>
-<!--button id="next" onclick="next()">Next</button-->
+
+<div id='foot'>
+    
+    <span class="cursive" style="font-size:1.7vmax;text-align: center;color: #888;letter-spacing: 0.5vw;">
+    CC2023</span>
+    <img src="ccLogoDark.png" style="width:1.7vmax;text-align: center;display: inline;">
+    <span class="cursive" style="font-size:1.7vmax;color: #888;letter-spacing: 0.1vw;">
+        ElectroCardioGame
+    </span><br>
+    <span style="font-size:1.6vmax;color: #bbb;">
+        <sup style="color:#bbb;">x</sup> heartRhythmBox.com</span>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -328,17 +328,15 @@ function sub(){
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'qFeed' }, payload => {
       console.log('Change received!', payload)
       qNow = payload.new.questionNo
-      
-      if (qNow>100){
+
+      if (qNow>1000){endGame}
+      if (qNow>100 && qNow<1000){
                 afterSubmit();submitted=false;
-            } else {
+            } 
+      if (qNow<=12){
                 qNo = qNow;
-                if (qNo<=12 && qNo>=0)
-                    {ecgLoad();}
-                else if (qNo<0 || qNo>12) {
-                    endGame()
+                ecgLoad();
                 }
-            }
     })
     .subscribe()
 }
