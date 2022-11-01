@@ -325,11 +325,6 @@ margin-top: 2vmax;background-color: #0F201F;}
 <script src="fetchScore.js"></script>
 <script>
 
-window.onbeforeunload = (event) => {
-  event.preventDefault()
-  event.returnValue = 'onbeforeunload';
-};
-
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var vw = window.innerWidth/100;
