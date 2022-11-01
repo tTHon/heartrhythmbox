@@ -46,10 +46,9 @@
 </style>
 
 <body>
-
+<!--div id="demo"></div-->
 <!--ecg page-->
 <div id="ecgPage">
-    <!--div id="demo"></div-->
 <div style="text-align:center">
     <div id= 'title'></div>
     <img id="ecg">
@@ -328,8 +327,9 @@ function sub(){
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'qFeed' }, payload => {
       console.log('Change received!', payload)
       qNow = payload.new.questionNo
+      //document.getElementById('demo').innerHTML = qNow;
 
-      if (qNow>1000){endGame}
+      if (qNow>=1000){endGame()}
       if (qNow>100 && qNow<1000){
                 afterSubmit();submitted=false;
             } 
@@ -378,6 +378,7 @@ function ecgLoad(){
     //document.getElementById('next').innerHTML = nameEntered;
     displayName();
     document.getElementById('ecgPage').style.display = 'block'
+    document.getElementById('ecg').style.display = 'block'
     document.getElementById('foot').style.display = 'block'
     document.getElementById('card').style.display = 'none'
     sButt = document.getElementById('submitBut')
