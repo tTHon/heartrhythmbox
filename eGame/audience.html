@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eGame - Audience Response</title>
+    <link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
+    <meta name="author" content="t'Thon">
     <link href="https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Play:wght@700&display=swap" rel="stylesheet">
 
@@ -47,7 +49,7 @@
 
 <!--ecg page-->
 <div id="ecgPage">
-    <div id="demo"></div>
+    <!--div id="demo"></div-->
 <div style="text-align:center">
     <div id= 'title'></div>
     <img id="ecg">
@@ -290,7 +292,7 @@
 <script>
 window.onbeforeunload = (event) => {
   event.preventDefault();
-  event.returnValue = 'onbeforeunload';
+  return event.returnValue = 'onbeforeunload';
 };
 
 //global var
@@ -312,7 +314,7 @@ var keyJson = [{"no":0, "key": '1.2', "score": 0},
             {"no":12, "key": '3.1', "score": 5},
             {"no":12, "key": '3.2', "score": 2},
             {"no":12, "key": '3.3', "score": 3}]
-var showForm;
+var submitted=false;
 
 //fetch
 function sub(){
@@ -328,7 +330,7 @@ function sub(){
       qNow = payload.new.questionNo
       
       if (qNow>100){
-                afterSubmit()
+                afterSubmit();submitted=false;
             } else {
                 qNo = qNow;
                 ecgLoad();
@@ -364,6 +366,7 @@ function handleSubmit(){
     console.log(feed)
     }
   sendData();
+  submitted=true;
   afterSubmit();
 }
 
@@ -423,16 +426,22 @@ function afterSubmit(){
     var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
     document.getElementById('preLoad').src = preLoadSource
 
+    if (submitted){
     document.getElementById('welcome').innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
     'You got ' + thisScore + ' from this question.' + '<br />' +
-    'Your total score is '+ score + '<br />' 
+    'Your total score is '+ score + '<br />' }
+    else {
+        document.getElementById('welcome').innerHTML = ''
+    }
     
     if (qNo==12){document.getElementById('wait').innerHTML 
     = 'That was the last question.' + '<br />' +
     'We hope you enjoyed/learned from us.' + '<br />' +
     'See you next year.'+'<br />'
     }
-    else (document.getElementById('wait').innerHTML = 'Please wait here for the next question.')
+    else {
+        (document.getElementById('wait').innerHTML = 'Please wait here for the next question.')
+    }
 }
 
 function calcScore(){
