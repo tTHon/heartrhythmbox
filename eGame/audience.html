@@ -259,7 +259,7 @@
 
 <!--intro page-->
 <div id="card" class="round bgGd">
-    
+    <img id="ecg0" src="ecgs/ecg0.png" style="width:0.1px;height: 0.1px;opacity: 1.0;">    
     <div class="lemon cursive" style="font-size:3vmax;text-align: center;padding-top: 10vmax;">
     CC2023
     <br>
@@ -274,7 +274,7 @@
     <sup style="color:#021c49;">X</sup> heartRhythmBox.com
     </div>
 </div>
-<img src="ecgs/ecg0.png" style="width:0.1px;height: 0.1px;opacity: 1.0;">
+
 
 
 <div id='foot'>
@@ -291,10 +291,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-//window.onbeforeunload = (event) => {
-  //event.preventDefault();
-  //return event.returnValue = 'onbeforeunload';
-//};
+window.onbeforeunload = (event) => {
+  event.preventDefault();
+  return event.returnValue = 'onbeforeunload';
+};
 
 //global var
 var totalQ = 12
@@ -435,6 +435,7 @@ function afterSubmit(){
     document.getElementById('answerSheet').style.display = 'none'
     document.getElementById('foot').style.display = 'none'
     document.getElementById('audScore').style.display = 'none'
+    document.getElementById('ecg0').style.display = 'none'
     if (qNo<12){
     var plus = qNo+1
     var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
