@@ -73,11 +73,18 @@ function showMenu(){
   //get qNav posision
   dot = document.getElementById('qNav')
   menu = document.getElementById('menu')
+  maxWidth = menu.style.offsetWidth
 
   //calc vmax qNav font size = 3vmax
   menu.style.left = (window.innerWidth-menu.offsetWidth)/2 + 'px'
   menu.style.top = (window.innerHeight-menu.offsetHeight)/2 + 'px'
 
+  if (maxWidth>window.innerWidth) {
+    menu.style.left = 0;
+    maxWidth = window.innerWidth
+  }
+
+  menu.style.width = maxWidth;
   if (menuToggle == 0){
     menu.style.visibility = 'visible'
     menuToggle = 1;
