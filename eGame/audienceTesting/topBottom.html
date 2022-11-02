@@ -12,7 +12,7 @@
 </head>
 <style>
     * {font-family:'Pragati Narrow', sans-serif;color: #333;box-sizing: border-box;}
-    #ecgPage{display: none;background-color: #f5f5f6;border-radius: 1vmax;text-align:center;}
+    #ecgPage{background-color: #f5f5f6;border-radius: 1vmax;text-align:center;}
     #title {color: #0f4c81;font-weight: 600;font-size: 3.5vmax;text-align: center;}
     #ecg {max-width:95%;max-height: 90vh;padding: 1vmax;text-align: center;margin-left: auto;margin-right: auto;}
     .row {display: flex;font-size: 1.9vmax;flex-wrap: wrap;text-align: left;}
@@ -28,13 +28,14 @@
     #miTable TH, #miTable TR, #miTable TD {color: #f1f1f1;
         border: #aaa solid 0.1vmax;font-size:1.8vmax;text-align: center;padding: 0;
         line-height: 110%;border-collapse: collapse;}
-    #submitBut {text-align: center;font-size: 2vmax;cursor: pointer;display: none;}
+    #submitBut {text-align: center;font-size: 2vmax;cursor: pointer;display: inline-block;}
     .butt {text-align: center;padding: 1vmax;font-size: 2vmax;vertical-align: baseline;}
 
     /*intro*/
     .lemon {color: #c5f000}
     .cursive {font-family: 'Audiowide', cursive;}
-    #card {background-color: #0f4c81;width: 100%;line-height: 180%;display: block;
+    #card {background-color: #0f4c81;width: 100%;line-height: 180%;
+        display: none;
     text-align: center;padding: 2vmax 1vmax;z-index: -1;}
     #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;line-height: 120%;}
     #wait {color: azure;font-size: 2.5vmax;padding:1vmax;}
@@ -51,8 +52,8 @@
 <!--img src="ecgs/ecg0.png" style="opacity:1.0;width:0.1px;height:0.1px"-->
 <div id="ecgPage">
 <div style="text-align:center">
-    <div id= 'title'></div>
-    <img id="ecg">
+    <div id= 'title'>Question No. 0/12</div>
+    <img id="ecg" src="ecg0.png">
     <img id="preLoad">
 </div>
 
@@ -249,32 +250,13 @@
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" name="audienceTotalScore" 
             style="display:none">
-            <input type="submit" onclick="handleSubmit()" value="Submit" id="submitBut" class="round">
+            <input value="Submit" id="submitBut" class="round" type="submit">
         </div>
     </form>
 
 </div>
 
 <!--top and foot-->
-
-<!--intro page-->
-<div id="card" class="round bgGd">
-    <img id="ecg0" src="ecgs/ecg0.png" style="width:0.1px;height: 0.1px;opacity: 1.0;">    
-    <div class="lemon cursive" style="font-size:3vmax;text-align: center;padding-top: 10vmax;">
-    CC2023
-    <br>
-    <img src="ccLogoLemon.png" style="width:3vmax;text-align: center;padding: 2vmax 0;">
-    <br>ElectroCardioGame</div><br>
-    <div id="welcome">
-        Thanks for joining us.<br>
-        Please wait here. The game will begin shortly.
-    </div>
-    <div id="wait"></div>
-    <div style="font-size:1.8vmax;color: #021c49">
-    <sup style="color:#021c49;">X</sup> heartRhythmBox.com
-    </div>
-</div>
-
 
 
 <div id='foot'>
@@ -288,220 +270,6 @@
     <span style="font-size:1.6vmax;color: #bbb;">
         <sup style="color:#bbb;">x</sup> heartRhythmBox.com</span>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-window.onbeforeunload = (event) => {
-  event.preventDefault();
-  return event.returnValue = 'onbeforeunload';
-};
-
-//global var
-var totalQ = 12
-var qNo = -1;
-var q2Vote = [4,8,12];
-var score = 0;
-var nameEntered = 'Anonymous';
-var keyJson = [{"no":0, "key": '1.2', "score": 0},
-            {"no":0, "key": '2.1', "score": 0},
-            {"no":0, "key": '2.2', "score": 0},
-            {"no":0, "key": '3.1', "score": 0},
-            {"no":4, "key": '1.1', "score": 2},
-            {"no":4, "key": '1.2', "score": 5},
-            {"no":4, "key": '1.3', "score": 3},         
-            {"no":8, "key": '2.1', "score": 3},
-            {"no":8, "key": '2.2', "score": 4},
-            {"no":8, "key": '2.3', "score": 3},   
-            {"no":12, "key": '3.1', "score": 5},
-            {"no":12, "key": '3.2', "score": 2},
-            {"no":12, "key": '3.3', "score": 3}]
-var submitted=false;
-
-//fetch
-function sub(){
-    const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-    const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-    const database = supabase.createClient(url,key)
-    //console.log (database)
-
-    database
-    .channel('public:qFeed')
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'qFeed' }, payload => {
-      console.log('Change received!', payload)
-      qNow = payload.new.questionNo
-      //document.getElementById('demo').innerHTML = qNow;
-
-      if (qNow>=1000){endGame()}
-      if (qNow>100 && qNow<1000){
-                afterSubmit();submitted=false;
-            } 
-      if (qNow<=12){
-                qNo = qNow;
-                ecgLoad();
-                }
-    })
-    .subscribe()
-}
-
-sub();
-
-
-//submit
-function handleSubmit(){
-    const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-    const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-    const database = supabase.createClient(url,key)
-    console.log (database)
-
-    //get data
-    thisScore = calcScore();  
-    score = score + thisScore;  
-    if (qNo==4)
-        {if (document.getElementById('audName').value!='')
-            {nameEntered = document.getElementById('audName').value;}
-            }
-    
-    //sending data
-    const sendData = async () => {
-    const feed = await database.from("Audience").insert({
-        audName: nameEntered, oldName: nameEntered,
-        qNo: qNo, score: score
-    })
-    console.log(feed)
-    }
-  sendData();
-  submitted=true;
-  afterSubmit();
-}
-
-//end submit
- 
-function ecgLoad(){
-    //document.getElementById('next').innerHTML = nameEntered;
-    displayName();
-    document.getElementById('ecgPage').style.display = 'block'
-    document.getElementById('ecg').style.display = 'block'
-    document.getElementById('foot').style.display = 'block'
-    document.getElementById('card').style.display = 'none'
-    sButt = document.getElementById('submitBut')
-    form = document.getElementById('audScore')
-    aSheet = document.getElementById('answerSheet')
-
-    //clear answersheet
-    var input = document.getElementsByClassName('cBx')
-    for (let index = 0; index < input.length; index++) {
-        input[index].checked = false;
-    }
-
-    var vote=0;
-    for (let index = 0; index < q2Vote.length; index++) {
-        if (qNo==q2Vote[index]){
-            vote = 1;
-        }
-    }
-    if (qNo==0)
-        {aSheet.style.display = 'flex';
-        form.style.display = 'none';
-        }
-    else if (vote==1){
-        form.style.display = 'block';
-        sButt.style.display = 'inline-block'
-        aSheet.style.display = 'flex'
-
-        if (qNo>q2Vote[0]){
-            document.getElementById('audName').style.display = 'none'
-            document.getElementById('nameInput').innerHTML = 
-            'Your Name is: '+ nameEntered 
-        }
-        }
-        else {
-            aSheet.style.display = 'none'
-            form.style.display = 'none'
-        }
-   
-}
-
-function endGame(){
-    document.getElementById('ecgPage').style.display = 'none'
-    document.getElementById('ecg').style.display = 'none'
-    document.getElementById('card').style.display = 'block'
-    document.getElementById('welcome').innerHTML = '..BYE..'
-    document.getElementById('wait').innerHTML = ''
-}
-
-function afterSubmit(){
-    thisScore = calcScore();
-    document.getElementById('card').style.display = 'block'
-    document.getElementById('answerSheet').style.display = 'none'
-    document.getElementById('foot').style.display = 'none'
-    document.getElementById('audScore').style.display = 'none'
-    document.getElementById('ecg0').style.display = 'none'
-    if (qNo<12){
-    var plus = qNo+1
-    var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
-    document.getElementById('preLoad').src = preLoadSource}
-
-    if (submitted){
-    document.getElementById('welcome').innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
-    'You got ' + thisScore + ' from this question.' + '<br />' +
-    'Your total score is '+ score + '<br />' }
-    else {
-        document.getElementById('welcome').innerHTML = ''
-    }
-    
-    if (qNo==12){document.getElementById('wait').innerHTML 
-    = 'That was the last question.' + '<br />' +
-    'We hope you enjoyed/learned from us.' + '<br />' +
-    'See you next year.'+'<br />'
-    }
-    else {
-        (document.getElementById('wait').innerHTML = 'Please wait here for the next question.')
-    }
-}
-
-function calcScore(){
-    var input = document.getElementsByClassName('cBx')
-
-    //get answer array
-    const answer = []
-    for (let index = 0; index < input.length; index++) {
-        if (input[index].checked){
-            const item = input[index].id
-            answer.push(item)
-        }
-    }
-
-    //get key and score
-    const key = [];const kScore = []
-    for (let index = 0; index < keyJson.length; index++) {
-        if (keyJson[index].no==qNo){
-            key.push(keyJson[index].key)
-            kScore.push(keyJson[index].score)
-        }
-    }
-
-    var thisScore = 0;
-    answer.forEach(function(item){
-        for (let index = 0; index < key.length; index++) {
-            if (item == key[index]){
-                thisScore = thisScore + (kScore[index])    
-            }
-        }
-    })
-    //document.getElementById('demo').innerHTML = thisScore;
-    return thisScore;
-}
-
-function displayName(){
-    document.getElementById('title').innerHTML = "Question No. " + qNo + " /" + totalQ;
-    var source = "ecgs//ecg"+ qNo.toString()+".png";
-    document.getElementById('ecg').src = source;
-    if (qNo<12){
-    var plus = qNo+1
-    var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
-    document.getElementById('preLoad').src = preLoadSource}
-}
-
 
 
 </script>

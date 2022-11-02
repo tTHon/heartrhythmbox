@@ -8,33 +8,40 @@
     <meta name="author" content="t'Thon">
     <link href="https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Play:wght@700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
 
 </head>
 <style>
     * {font-family:'Pragati Narrow', sans-serif;color: #333;box-sizing: border-box;}
-    #ecgPage{display: none;background-color: #f5f5f6;border-radius: 1vmax;text-align:center;}
+    #ecgPage{background-color: #f5f5f6;border-radius: 1vmax;text-align:center;}
     #title {color: #0f4c81;font-weight: 600;font-size: 3.5vmax;text-align: center;}
-    #ecg {max-width:95%;max-height: 90vh;padding: 1vmax;text-align: center;margin-left: auto;margin-right: auto;}
-    .row {display: flex;font-size: 1.9vmax;flex-wrap: wrap;text-align: left;}
+    #ecg {max-width:99%;max-height: 90vh;padding: 0.1vmax;text-align: center;margin-left: auto;margin-right: auto;}
+    #answerSheet {width: 25%;overflow-y: scroll;direction: rtl;
+        resize: horizontal;min-width: 25%;}
+    
+    /*scrollbar*/
+    #answerSheet::-webkit-scrollbar {-webkit-appearance: none;}
+    #answerSheet::-webkit-scrollbar:vertical {width: 11px;}
+    #answerSheet::-webkit-scrollbar-thumb {border-radius: 8px;
+    border: 2px solid white; 
+    background-color: rgba(0, 0, 0, .5);}
+
+    .row {font-size: 1.9vmax;text-align: left;border-top-right-radius: 1vmax;}
     .head {font-size: 2vmax;font-weight: 700;padding-top: 1vmax;color: #c5f000;}
-    .col3, .col4 {padding: 0.5vmax;margin: 0.1vmax;line-height: 140%;color: #f1f1f1;background-color: #0f4c81;}
-    .col3 {flex:29%}
-    .col4 {flex: 36%;}
-    @media only screen and (max-width: 1000px) {
-      .col3, .col4 {
-        flex: 100%;}}
+    .col {padding: 0.5vmax;line-height: 140%;color: #f1f1f1;background-color: #0f4c81;direction: ltr;}
     .round {border: #aaa solid 0.1vmax;border-radius: 1vmax;}
     .cBx {margin-left: 0.2vmax;margin-right: 0.3vmax;width: 1.3vmax;height: 1.3vmax;}
     #miTable TH, #miTable TR, #miTable TD {color: #f1f1f1;
         border: #aaa solid 0.1vmax;font-size:1.8vmax;text-align: center;padding: 0;
         line-height: 110%;border-collapse: collapse;}
-    #submitBut {text-align: center;font-size: 2vmax;cursor: pointer;display: none;}
+    #submitBut {text-align: center;font-size: 2vmax;cursor: pointer;display: inline-block;}
     .butt {text-align: center;padding: 1vmax;font-size: 2vmax;vertical-align: baseline;}
 
     /*intro*/
     .lemon {color: #c5f000}
     .cursive {font-family: 'Audiowide', cursive;}
-    #card {background-color: #0f4c81;width: 100%;line-height: 180%;display: block;
+    #card {background-color: #0f4c81;width: 100%;line-height: 180%;
+        display: none;
     text-align: center;padding: 2vmax 1vmax;z-index: -1;}
     #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;line-height: 120%;}
     #wait {color: azure;font-size: 2.5vmax;padding:1vmax;}
@@ -50,15 +57,16 @@
 <!--ecg page-->
 <!--img src="ecgs/ecg0.png" style="opacity:1.0;width:0.1px;height:0.1px"-->
 <div id="ecgPage">
-<div style="text-align:center">
-    <div id= 'title'></div>
-    <img id="ecg">
+<div id="workSheet" style="display:flex;max-height: 92vh;">
+<div style="text-align:center;width: 75%;">
+    <div id= 'title'>Question No. 0/12</div>
+    <img id="ecg" src="ecg0.png">
     <img id="preLoad">
 </div>
 
 <!--answer sheet-->
-<div id="answerSheet" class="row">
-    <div class="col3 round">
+<div id="answerSheet" class="row" onscroll="arrow('off')">
+    <div class="col">
         
         <div class="head">
             1. General Features</div>
@@ -99,10 +107,8 @@
         <input label="5.4" type="checkbox" id="5.4" class="cBx">5.4 Accelerated idioventricular rhythm<br>
         <input label="5.5" type="checkbox" id="5.5" class="cBx">5.5 Ventricular escape complexes or rhythm<br>
         <input label="5.6" type="checkbox" id="5.6" class="cBx">5.6 Ventricular fibrillation
-    </div>
-    
-    <div class="col3 round">
-        
+   
+         
         <div class="head">
             6. AV Conduction</div>
         <input label="6.1" type="checkbox" id="6.1" class="cBx">6.1 AV Block, 1&deg;<br>
@@ -144,8 +150,6 @@
         <input label="9.13" type="checkbox" id="9.13" class="cBx">9.13 Central nervous system disorder<br>
         <input label="9.14" type="checkbox" id="9.14" class="cBx">9.14 Hypothermia
 
-    </div>
-    <div class="col4 round">
         <div class="head">
             10. Intraventricular Conduction</div>
         <input label="10.1" type="checkbox" id="10.1" class="cBx">10.1 RBBB, complete<br>
@@ -233,276 +237,52 @@
         <input type="checkbox" id="13.5" class="cBx">13.5 Pacemaker malfunction, not constantly sensing (atrium or ventricle)<br>
         <input type="checkbox" id="13.6" class="cBx">13.6 Paced morphology consistent with biventricular pacing or CRT<br>
     </div>
-</div>
-
-    <!--submit-->
-    <form id="audScore" 
-    name="audienceScore" 
-    style="padding-bottom:2vmax;padding-top: 2vmax;">
-
-        <div id="nameInput" class="butt">
-            <label for="audienceName">Your Name is
-            <input type="text" id="audName" name="audName"></label>
-        </div>
-        <input id="oldName" type="text" name="oldName" style="display:none">
-        <input id="qNow" type="number" name="qNow" style="display:none">
-        <div class="butt" id="submitInput">
-            <input id="totalScore" type="number" name="audienceTotalScore" 
-            style="display:none">
-            <input type="submit" onclick="handleSubmit()" value="Submit" id="submitBut" class="round">
-        </div>
-    </form>
-
-</div>
-
-<!--top and foot-->
-
-<!--intro page-->
-<div id="card" class="round bgGd">
-    <img id="ecg0" src="ecgs/ecg0.png" style="width:0.1px;height: 0.1px;opacity: 1.0;">    
-    <div class="lemon cursive" style="font-size:3vmax;text-align: center;padding-top: 10vmax;">
-    CC2023
-    <br>
-    <img src="ccLogoLemon.png" style="width:3vmax;text-align: center;padding: 2vmax 0;">
-    <br>ElectroCardioGame</div><br>
-    <div id="welcome">
-        Thanks for joining us.<br>
-        Please wait here. The game will begin shortly.
-    </div>
-    <div id="wait"></div>
-    <div style="font-size:1.8vmax;color: #021c49">
-    <sup style="color:#021c49;">X</sup> heartRhythmBox.com
-    </div>
-</div>
-
-
-
-<div id='foot'>
     
-    <span class="cursive" style="font-size:1.7vmax;text-align: center;color: #888;letter-spacing: 0.5vw;">
-    CC2023</span>
-    <img src="ccLogoDark.png" style="width:1.7vmax;text-align: center;display: inline;">
-    <span class="cursive" style="font-size:1.7vmax;color: #888;letter-spacing: 0.1vw;">
-        ElectroCardioGame
-    </span><br>
-    <span style="font-size:1.6vmax;color: #bbb;">
-        <sup style="color:#bbb;">x</sup> heartRhythmBox.com</span>
+        <!--submit-->
+        <form id="audScore" 
+        name="audienceScore" 
+        style="padding-bottom:2vmax;padding-top: 2vmax;">
+    
+            <div id="nameInput" class="butt">
+                <label for="audienceName">Your Name is
+                <input type="text" id="audName" name="audName"></label>
+            </div>
+            <input id="oldName" type="text" name="oldName" style="display:none">
+            <input id="qNow" type="number" name="qNow" style="display:none">
+            <div class="butt" id="submitInput">
+                <input id="totalScore" type="number" name="audienceTotalScore" 
+                style="display:none">
+                <input value="Submit" id="submitBut" class="round" type="submit">
+            </div>
+        </form>
+
+
+    <i class="fa-solid fa-circle-chevron-down fa-bounce" 
+    style='font-size: 3vmax;position: fixed;color:#efefef;
+    text-shadow: #777 4px 4px 8px;' 
+    id="aDown"></i>
+
+
+</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</div>
 <script>
-window.onbeforeunload = (event) => {
-  event.preventDefault();
-  return event.returnValue = 'onbeforeunload';
-};
-
-//global var
-var totalQ = 12
-var qNo = -1;
-var q2Vote = [4,8,12];
-var score = 0;
-var nameEntered = 'Anonymous';
-var keyJson = [{"no":0, "key": '1.2', "score": 0},
-            {"no":0, "key": '2.1', "score": 0},
-            {"no":0, "key": '2.2', "score": 0},
-            {"no":0, "key": '3.1', "score": 0},
-            {"no":4, "key": '1.1', "score": 2},
-            {"no":4, "key": '1.2', "score": 5},
-            {"no":4, "key": '1.3', "score": 3},         
-            {"no":8, "key": '2.1', "score": 3},
-            {"no":8, "key": '2.2', "score": 4},
-            {"no":8, "key": '2.3', "score": 3},   
-            {"no":12, "key": '3.1', "score": 5},
-            {"no":12, "key": '3.2', "score": 2},
-            {"no":12, "key": '3.3', "score": 3}]
-var submitted=false;
-
-//fetch
-function sub(){
-    const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-    const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-    const database = supabase.createClient(url,key)
-    //console.log (database)
-
-    database
-    .channel('public:qFeed')
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'qFeed' }, payload => {
-      console.log('Change received!', payload)
-      qNow = payload.new.questionNo
-      //document.getElementById('demo').innerHTML = qNow;
-
-      if (qNow>=1000){endGame()}
-      if (qNow>100 && qNow<1000){
-                afterSubmit();submitted=false;
-            } 
-      if (qNow<=12){
-                qNo = qNow;
-                ecgLoad();
-                }
-    })
-    .subscribe()
-}
-
-sub();
-
-
-//submit
-function handleSubmit(){
-    const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-    const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-    const database = supabase.createClient(url,key)
-    console.log (database)
-
-    //get data
-    thisScore = calcScore();  
-    score = score + thisScore;  
-    if (qNo==4)
-        {if (document.getElementById('audName').value!='')
-            {nameEntered = document.getElementById('audName').value;}
-            }
-    
-    //sending data
-    const sendData = async () => {
-    const feed = await database.from("Audience").insert({
-        audName: nameEntered, oldName: nameEntered,
-        qNo: qNo, score: score
-    })
-    console.log(feed)
-    }
-  sendData();
-  submitted=true;
-  afterSubmit();
-}
-
-//end submit
- 
-function ecgLoad(){
-    //document.getElementById('next').innerHTML = nameEntered;
-    displayName();
-    document.getElementById('ecgPage').style.display = 'block'
-    document.getElementById('ecg').style.display = 'block'
-    document.getElementById('foot').style.display = 'block'
-    document.getElementById('card').style.display = 'none'
-    sButt = document.getElementById('submitBut')
-    form = document.getElementById('audScore')
-    aSheet = document.getElementById('answerSheet')
-
-    //clear answersheet
-    var input = document.getElementsByClassName('cBx')
-    for (let index = 0; index < input.length; index++) {
-        input[index].checked = false;
-    }
-
-    var vote=0;
-    for (let index = 0; index < q2Vote.length; index++) {
-        if (qNo==q2Vote[index]){
-            vote = 1;
-        }
-    }
-    if (qNo==0)
-        {aSheet.style.display = 'flex';
-        form.style.display = 'none';
-        }
-    else if (vote==1){
-        form.style.display = 'block';
-        sButt.style.display = 'inline-block'
-        aSheet.style.display = 'flex'
-
-        if (qNo>q2Vote[0]){
-            document.getElementById('audName').style.display = 'none'
-            document.getElementById('nameInput').innerHTML = 
-            'Your Name is: '+ nameEntered 
-        }
-        }
-        else {
-            aSheet.style.display = 'none'
-            form.style.display = 'none'
-        }
-   
-}
-
-function endGame(){
-    document.getElementById('ecgPage').style.display = 'none'
-    document.getElementById('ecg').style.display = 'none'
-    document.getElementById('card').style.display = 'block'
-    document.getElementById('welcome').innerHTML = '..BYE..'
-    document.getElementById('wait').innerHTML = ''
-}
-
-function afterSubmit(){
-    thisScore = calcScore();
-    document.getElementById('card').style.display = 'block'
-    document.getElementById('answerSheet').style.display = 'none'
-    document.getElementById('foot').style.display = 'none'
-    document.getElementById('audScore').style.display = 'none'
-    document.getElementById('ecg0').style.display = 'none'
-    if (qNo<12){
-    var plus = qNo+1
-    var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
-    document.getElementById('preLoad').src = preLoadSource}
-
-    if (submitted){
-    document.getElementById('welcome').innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
-    'You got ' + thisScore + ' from this question.' + '<br />' +
-    'Your total score is '+ score + '<br />' }
-    else {
-        document.getElementById('welcome').innerHTML = ''
+arrow('on')
+//arrow down
+function arrow(i){
+    if (i=='on'){
+    const sheet = document.getElementById('answerSheet')
+    const rect = sheet.getBoundingClientRect()
+    const aDn = document.getElementById('aDown')
+    aDn.style.left = rect.left + ((rect.right - (rect.left))/2) + 'px'
+    aDn.style.top = rect.bottom - (0.1*rect.height) + 'px'}
+    if (i=='off'){
+        document.getElementById('aDown').style.display = 'none'
     }
     
-    if (qNo==12){document.getElementById('wait').innerHTML 
-    = 'That was the last question.' + '<br />' +
-    'We hope you enjoyed/learned from us.' + '<br />' +
-    'See you next year.'+'<br />'
-    }
-    else {
-        (document.getElementById('wait').innerHTML = 'Please wait here for the next question.')
-    }
 }
-
-function calcScore(){
-    var input = document.getElementsByClassName('cBx')
-
-    //get answer array
-    const answer = []
-    for (let index = 0; index < input.length; index++) {
-        if (input[index].checked){
-            const item = input[index].id
-            answer.push(item)
-        }
-    }
-
-    //get key and score
-    const key = [];const kScore = []
-    for (let index = 0; index < keyJson.length; index++) {
-        if (keyJson[index].no==qNo){
-            key.push(keyJson[index].key)
-            kScore.push(keyJson[index].score)
-        }
-    }
-
-    var thisScore = 0;
-    answer.forEach(function(item){
-        for (let index = 0; index < key.length; index++) {
-            if (item == key[index]){
-                thisScore = thisScore + (kScore[index])    
-            }
-        }
-    })
-    //document.getElementById('demo').innerHTML = thisScore;
-    return thisScore;
-}
-
-function displayName(){
-    document.getElementById('title').innerHTML = "Question No. " + qNo + " /" + totalQ;
-    var source = "ecgs//ecg"+ qNo.toString()+".png";
-    document.getElementById('ecg').src = source;
-    if (qNo<12){
-    var plus = qNo+1
-    var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
-    document.getElementById('preLoad').src = preLoadSource}
-}
-
-
 
 </script>
 </body>
