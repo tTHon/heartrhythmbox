@@ -8,36 +8,92 @@
     <meta name="author" content="t'Thon">
     <link href="https://fonts.googleapis.com/css2?family=Pragati+Narrow&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Play:wght@700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
 
 </head>
 <style>
     * {font-family:'Pragati Narrow', sans-serif;color: #333;box-sizing: border-box;}
-    #ecgPage{display: none;background-color: #f5f5f6;border-radius: 1vmax;text-align:center;}
+    #ecgPage{text-align:center;display: none;}
+    #workSheet {display:flex;max-height: 92vh;flex-wrap: wrap;background-color: #f5f5f6;border-radius: 1vmax;}
     #title {color: #0f4c81;font-weight: 600;font-size: 3.5vmax;text-align: center;}
-    #ecg {max-width:95%;max-height: 90vh;padding: 1vmax;text-align: center;margin-left: auto;margin-right: auto;}
-    .row {display: flex;font-size: 1.9vmax;flex-wrap: wrap;text-align: left;}
+    #ecg {max-width:99%;max-height: 90vh;padding: 0.1vmax;text-align: center;
+        margin-left: auto;margin-right: auto;background-color: #f5f5f6;}
+    #ecgArea {text-align:center;width: 75%;background-color: #f5f5f6;border-radius: 1vmax;}
+    #answerSheet {width: 25%;overflow-y: scroll;direction: rtl;max-height: 92vh;border-radius: 1vmax;
+        background-color: #f5f5f6;font-size: 1.9vmax;text-align: left;}
+    
+    /*scrollbar*/
+    #answerSheet::-webkit-scrollbar {-webkit-appearance: none;}
+    #answerSheet::-webkit-scrollbar:vertical {width: 11px;}
+    #answerSheet::-webkit-scrollbar-thumb {border-radius: 8px;
+    border: 2px solid white; 
+    background-color: rgba(0, 0, 0, .5);}
+
     .head {font-size: 2vmax;font-weight: 700;padding-top: 1vmax;color: #c5f000;}
-    .col3, .col4 {padding: 0.5vmax;margin: 0.1vmax;line-height: 140%;color: #f1f1f1;background-color: #0f4c81;}
-    .col3 {flex:29%}
-    .col4 {flex: 36%;}
-    @media only screen and (max-width: 1000px) {
-      .col3, .col4 {
-        flex: 100%;}}
+    .col {padding: 0.5vmax;line-height: 140%;color: #f1f1f1;background-color: #0f4c81;direction: ltr;}
+    .col label {color: #f1f1f1;}
     .round {border: #aaa solid 0.1vmax;border-radius: 1vmax;}
     .cBx {margin-left: 0.2vmax;margin-right: 0.3vmax;width: 1.3vmax;height: 1.3vmax;}
     #miTable TH, #miTable TR, #miTable TD {color: #f1f1f1;
         border: #aaa solid 0.1vmax;font-size:1.8vmax;text-align: center;padding: 0;
-        line-height: 110%;border-collapse: collapse;}
-    #submitBut {text-align: center;font-size: 2vmax;cursor: pointer;display: none;}
+        border-collapse: collapse;}
+    #audScore {background-color:#f5f5f6;border-radius: 1vmax;}
+    #submitBut {text-align: center;font-size: 2vmax;cursor: pointer;display: inline-block;}
     .butt {text-align: center;padding: 1vmax;font-size: 2vmax;vertical-align: baseline;}
+
+    /*orientation bar*/
+    #oBar{position: fixed;left:1%;top:1%;text-align: left;padding: 0.5vmax;cursor: pointer;}
+    #aRight{display: none;}
+    #aBottom {display: inline-block;}
+
+    /*responsive*/
+    @media screen and (min-width:801px) and (max-width: 1100px){
+        #ecgArea {width: 100%;}
+        #answerSheet {width: 100%;display: flex;direction: ltr;max-height: 50vh;overflow-y: scroll;}
+                /*scrollbar*/
+            #answerSheet::-webkit-scrollbar {-webkit-appearance: none;}
+            #answerSheet::-webkit-scrollbar:vertical {width: 11px;}
+            #answerSheet::-webkit-scrollbar-thumb {border-radius: 8px;
+            border: 2px solid white; 
+            background-color: rgba(0, 0, 0, .5);}
+        
+        .head {font-size: 18px;}
+        .col {height: fit-content;font-size: 18px;}
+        #miTable TH, #miTable TR, #miTable TD {font-size: 18px;}
+    
+        .col:first-of-type {flex: 29%;} 
+        .col:nth-of-type(2) {flex: 29%;}
+        .col:nth-of-type(3) {flex: 36%;}
+        #obar, #aDown, #aRight, #aBottom {display: none;}
+        
+    }
+
+    @media screen and (max-width:800px){
+        #ecgArea {width: 100%;}
+        #answerSheet {width: 100%;display: flex;direction: ltr;max-height: 60vh;
+            flex-wrap: wrap;padding: 1vmax;font-size: 18px;}
+            
+            /*scrollbar*/
+            #answerSheet::-webkit-scrollbar {-webkit-appearance: none;}
+            #answerSheet::-webkit-scrollbar:vertical {width: 11px;}
+            #answerSheet::-webkit-scrollbar-thumb {border-radius: 8px;
+            border: 2px solid white; 
+            background-color: rgba(0, 0, 0, .5);}
+        .head {font-size: 18px;}
+        .col {height: fit-content;font-size: 18px;padding-left: 1vmax;}
+        .col {flex: 100%;}
+        #miTable TH, #miTable TR, #miTable TD {font-size: 18px;padding: 0.5vw;}
+        #obar, #aDown, #aRight, #aBottom  {display: none;}
+    }
 
     /*intro*/
     .lemon {color: #c5f000}
     .cursive {font-family: 'Audiowide', cursive;}
-    #card {background-color: #0f4c81;width: 100%;line-height: 180%;display: block;
-    text-align: center;padding: 2vmax 1vmax;z-index: -1;}
+    #card {background-color: #0f4c81;width: 100%;line-height: 180%;
+        display: block;text-align: center;padding: 2vmax 1vmax;}
     #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;line-height: 120%;}
     #wait {color: azure;font-size: 2.5vmax;padding:1vmax;}
+    #outerFoot {background-color:none}
     #foot {display: none;background-color:#efefef;text-align:center;color: #888;
         padding-bottom: 5vmax;padding-top: 8vmax;border-radius: 1vmax;}
 
@@ -46,200 +102,212 @@
 </style>
 
 <body>
-<!--div id="demo"></div-->
+
 <!--ecg page-->
-<!--img src="ecgs/ecg0.png" style="opacity:1.0;width:0.1px;height:0.1px"-->
 <div id="ecgPage">
-<div style="text-align:center">
-    <div id= 'title'></div>
-    <img id="ecg">
-    <img id="preLoad">
-</div>
-
-<!--answer sheet-->
-<div id="answerSheet" class="row">
-    <div class="col3 round">
-        
-        <div class="head">
-            1. General Features</div>
-        <input class="cBx" label="1.1" id="1.1" type="checkbox">1.1 Normal ECG<br>
-        <input class="cBx" label="1.2" id="1.2" type="checkbox">1.2 Normal variant<br>
-        <input label="1.3" class="cBx" id="1.3" type="checkbox">1.3 Incorrect electrode placement<br>
-        <input label="1.4" type="checkbox" id="1.4" class="cBx">1.4 Artifact
-        <div class="head">
-            2. P Wave</div>
-        <input class="cBx" label="2.1" id="2.1" type="checkbox">2.1 RA abnormalities/enlargement<br>
-        <input label="2.2" class="cBx" id="2.2" type="checkbox">2.2 LA abnormalities/enlargement
-       
-        <div class="head">
-            3. RHYTHM - Atrial Rhythms</div>
-        <input label="3.1" type="checkbox" id="3.1" class="cBx">3.1 Sinus rhythm<br>
-        <input label="3.2" type="checkbox" id="3.2" class="cBx">3.2 Sinus arrhythmia<br>
-        <input label="3.3" type="checkbox" id="3.3" class="cBx">3.3 Sinus bradycardia(&lt;60)<br>
-        <input label="3.4" type="checkbox" id="3.4" class="cBx">3.4 Sinus tachycardia(&gt;100)<br>
-        <input label="3.5" type="checkbox" id="3.5" class="cBx">3.5 Sinus pause or sinus arrest<br>
-        <input label="3.6" type="checkbox" id="3.6" class="cBx">3.6 Sinoatrial exit block<br>
-        <input label="3.7" type="checkbox" id="3.7" class="cBx">3.7 Atrial premature complexes<br>
-        <input label="3.8" type="checkbox" id="3.8" class="cBx">3.8 Atrial tachycardia<br>
-        <input label="3.9" type="checkbox" id="3.9" class="cBx">3.9 Atrial tachycardia, multifocal<br>
-        <input label="3.10" type="checkbox" id="3.10" class="cBx">3.10 Atrial flutter<br>
-        <input label="3.11" type="checkbox" id="3.11" class="cBx">3.11 Atrial fibrillation
-        
-        <div class="head">
-            4. RHYTHM - AV Junctional Rhythms</div>
-        <input label="4.1" type="checkbox" id="4.1" class="cBx">4.1 AV junctional premature complexes<br>
-        <input label="4.2" type="checkbox" id="4.2" class="cBx">4.2 AV junctional escape complexes<br>
-        <input label="4.3" type="checkbox" id="4.3" class="cBx">4.3 AV junctional rhythm/tachycardia
-        
-        <div class="head">
-            5. RHYTHM - Ventricular Rhythms</div>
-        <input label="5.1" type="checkbox" id="5.1" class="cBx">5.1 Ventricular premature complexes<br>
-        <input label="5.2" type="checkbox" id="5.2" class="cBx">5.2 Ventricular parasystole<br>
-        <input label="5.3" type="checkbox" id="5.3" class="cBx">5.3 Ventricular tachycardia (3 or more consecutive complexes)<br>
-        <input label="5.4" type="checkbox" id="5.4" class="cBx">5.4 Accelerated idioventricular rhythm<br>
-        <input label="5.5" type="checkbox" id="5.5" class="cBx">5.5 Ventricular escape complexes or rhythm<br>
-        <input label="5.6" type="checkbox" id="5.6" class="cBx">5.6 Ventricular fibrillation
-    </div>
+    <div id="workSheet">
+        <div id="ecgArea">
+            <div id= 'title'>Question No. 0/12</div>
+            <img id="ecg" src="ecg0.png">
+            <img id="preLoad">
+        </div>
     
-    <div class="col3 round">
+    <!--answer sheet-->
+        <div id="answerSheet" onscroll="arrow('off')">
+            <div class="col round">
+                
+                <div class="head">
+                    1. General Features</div>
+                <input class="cBx" id="1.1" type="checkbox"><label for="1.1">1.1 Normal ECG</label><br>
+                <input class="cBx" id="1.2" type="checkbox"><label for="1.2">1.2 Normal variant</label><br>
+                <input class="cBx" id="1.3" type="checkbox"><label for="1.3">1.3 Incorrect electrode placement</label><br>
+                <input type="checkbox" id="1.4" class="cBx"><label for="1.4">1.4 Artifact</label>
+                <div class="head">
+                    2. P Wave</div>
+                <input class="cBx" id="2.1" type="checkbox"><label for="2.1">2.1 RA abnormalities/enlargement</label><br>
+                <input class="cBx" id="2.2" type="checkbox"><label for="2.2">2.2 LA abnormalities/enlargement</label>
+            
+                <div class="head">
+                    3. RHYTHM - Atrial Rhythms</div>
+                <input type="checkbox" id="3.1" class="cBx"><label for="3.1">3.1 Sinus rhythm</label><br>
+                <input type="checkbox" id="3.2" class="cBx"><label for="3.2">3.2 Sinus arrhythmia</label><br>
+                <input type="checkbox" id="3.3" class="cBx"><label for="3.3">3.3 Sinus bradycardia(&lt;60)</label><br>
+                <input type="checkbox" id="3.4" class="cBx"><label for="3.4">3.4 Sinus tachycardia(&gt;100)</label><br>
+                <input type="checkbox" id="3.5" class="cBx"><label for="3.5">3.5 Sinus pause or sinus arrest</label><br>
+                <input type="checkbox" id="3.6" class="cBx"><label for="3.6">3.6 Sinoatrial exit block</label><br>
+                <input type="checkbox" id="3.7" class="cBx"><label for="3.7">3.7 Atrial premature complexes</label><br>
+                <input type="checkbox" id="3.8" class="cBx"><label for="3.8">3.8 Atrial tachycardia</label><br>
+                <input type="checkbox" id="3.9" class="cBx"><label for="3.9">3.9 Atrial tachycardia, multifocal</label><br>
+                <input type="checkbox" id="3.10" class="cBx"><label for="3.10">3.10 Atrial flutter</label><br>
+                <input type="checkbox" id="3.11" class="cBx"><label for="3.11">3.11 Atrial fibrillation</label>
+                
+                <div class="head">
+                    4. RHYTHM - AV Junctional Rhythms</div>
+                <input type="checkbox" id="4.1" class="cBx"><label for="4.1">4.1 AV junctional premature complexes</label><br>
+                <input type="checkbox" id="4.2" class="cBx"><label for="4.2">4.2 AV junctional escape complexes</label><br>
+                <input type="checkbox" id="4.3" class="cBx"><label for="4.3">4.3 AV junctional rhythm/tachycardia</label>
+                
+                <div class="head">
+                    5. RHYTHM - Ventricular Rhythms</div>
+                <input type="checkbox" id="5.1" class="cBx"><label for="5.1">5.1 Ventricular premature complexes</label><br>
+                <input type="checkbox" id="5.2" class="cBx"><label for="5.2">5.2 Ventricular parasystole</label><br>
+                <input type="checkbox" id="5.3" class="cBx"><label for="5.3">5.3 Ventricular tachycardia (3 or more consecutive complexes)</label><br>
+                <input type="checkbox" id="5.4" class="cBx"><label for="5.4">5.4 Accelerated idioventricular rhythm</label><br>
+                <input type="checkbox" id="5.5" class="cBx"><label for="5.5">5.5 Ventricular escape complexes or rhythm</label><br>
+                <input type="checkbox" id="5.6" class="cBx"><label for="5.6">5.6 Ventricular fibrillation</label>
         
-        <div class="head">
-            6. AV Conduction</div>
-        <input label="6.1" type="checkbox" id="6.1" class="cBx">6.1 AV Block, 1&deg;<br>
-        <input label="6.2" type="checkbox" id="6.2" class="cBx">6.2 AV Block, 2&deg; - Mobitz I<br>
-        <input label="6.3" type="checkbox" id="6.3" class="cBx">6.3 AV Block, 2&deg; - Mobitz II<br>
-        <input label="6.4" type="checkbox" id="6.4" class="cBx">6.4 AV Block, 2:1<br>
-        <input label="6.5" type="checkbox" id="6.5" class="cBx">6.5 AV Block, 3&deg;<br>
-        <input label="6.6" type="checkbox" id="6.6" class="cBx">6.6 Wolff-Parkinson-White pattern<br>
-        <input label="6.7" type="checkbox" id="6.7" class="cBx">6.7 AV dissociation
-
-        <div class="head">
-            7. Abnormal QRS voltage or axis</div>
-        <input label="7.1" type="checkbox" id="7.1" class="cBx">7.1 Low voltage, limb leads<br>
-        <input label="7.2" type="checkbox" id="7.2" class="cBx">7.2 Low voltage, precordial leads<br>
-        <input label="7.3" type="checkbox" id="7.3" class="cBx">7.3 Left axis deviation(>-30&deg;)<br>
-        <input label="7.4" type="checkbox" id="7.4" class="cBx">7.4 Right axis deviation(>+100&deg;)<br>
-        <input label="7.5" type="checkbox" id="7.5" class="cBx">7.5 Electrical alternans
-
-        <div class="head">
-            8. Ventricular hypertrophy</div>
-        <input label="8.1" type="checkbox" id="8.1" class="cBx">8.1 Left ventricular hypertrophy<br>
-        <input label="8.2" type="checkbox" id="8.2" class="cBx">8.2 Right ventricular hypertrophy<br>
-        <input label="8.3" type="checkbox" id="8.3" class="cBx">8.3 Combined ventricular hypertrophy
-
-        <div class="head">
-            9. Clinical disorder</div>
-        <input label="9.1" type="checkbox" id="9.1" class="cBx">9.1 Brugada syndrome<br>
-        <input label="9.2" type="checkbox" id="9.2" class="cBx">9.2 Digitalis toxicity<br>
-        <input label="9.3" type="checkbox" id="9.3" class="cBx">9.3 Torsades de Pointes<br>
-        <input label="9.4" type="checkbox" id="9.4" class="cBx">9.4 Hyperkalemia<br>
-        <input label="9.5" type="checkbox" id="9.5" class="cBx">9.5 Hypokalemia<br>
-        <input label="9.6" type="checkbox" id="9.6" class="cBx">9.6 Hypercalcemia<br>
-        <input label="9.7" type="checkbox" id="9.7" class="cBx">9.7 Hypocalcemia<br>
-        <input label="9.8" type="checkbox" id="9.8" class="cBx">9.8 Dextrocardia, mirror image<br>
-        <input label="9.9" type="checkbox" id="9.9" class="cBx">9.9 Acute cor pulmonale including pulmonary embolism<br>
-        <input label="9.10" type="checkbox" id="9.10" class="cBx">9.10 Pericardial effusion<br>
-        <input label="9.11" type="checkbox" id="9.11" class="cBx">9.11 Acute pericarditis<br>
-        <input label="9.12" type="checkbox" id="9.12" class="cBx">9.12 Hypertrophic cardiomyopathy<br>
-        <input label="9.13" type="checkbox" id="9.13" class="cBx">9.13 Central nervous system disorder<br>
-        <input label="9.14" type="checkbox" id="9.14" class="cBx">9.14 Hypothermia
-
-    </div>
-    <div class="col4 round">
-        <div class="head">
-            10. Intraventricular Conduction</div>
-        <input label="10.1" type="checkbox" id="10.1" class="cBx">10.1 RBBB, complete<br>
-        <input label="10.2" type="checkbox" id="10.2" class="cBx">10.2 RBBB, incomplete<br>
-        <input label="10.3" type="checkbox" id="10.3" class="cBx">10.3 Left anterior fascicular block<br>
-        <input label="10.4" type="checkbox" id="10.4" class="cBx">10.4 Left posterior fascicular block<br>
-        <input label="10.5" type="checkbox" id="10.5" class="cBx">10.5 LBBB, complete<br>
-        <input label="10.6" type="checkbox" id="10.6" class="cBx">10.6 LBBB, incomplete<br>
-        <input label="10.7" type="checkbox" id="10.7" class="cBx">10.7 Aberrant conduction (including rate related)<br>
-        <input label="10.8" type="checkbox" id="10.8" class="cBx">10.8 Intraventricular conduction disturbance, non-specified type
-
-        <div class="head">
-            11. Myocardial Infarction</div>
-            <table id="miTable">
-                <tr>
-                    <th></th>
-                    <th>Age recent, or probably acute</th>
-                    <th>Age indeterminate, or probably old</th>
-                </tr>
-                <tr>
-                    <td>Anterolateral</td>
-                    <td>
-                        <input label="11.1" type="checkbox" id="11.1" class="cBx">11.1 
-                    </td>
-                    <td>
-                        <input label="11.2" type="checkbox" id="11.2" class="cBx">11.2 
-                    </td>
-                </tr>
-                <tr>
-                    <td>Anterior or anteroseptal</td>
-                    <td>
-                        <input label="11.3" type="checkbox" id="11.3" class="cBx">11.3 
-                    </td>
-                    <td>
-                        <input label="11.4" type="checkbox" id="11.4" class="cBx">11.4 
-                    </td>
-                </tr>
-                <tr>
-                    <td>Lateral</td>
-                    <td>
-                        <input label="11.5" type="checkbox" id="11.5" class="cBx">11.5 
-                    </td>
-                    <td>
-                        <input label="11.6" type="checkbox" id="11.6" class="cBx">11.6 
-                    </td>
-                </tr>
-                <tr>
-                    <td>Inferior</td>
-                    <td>
-                        <input label="11.7" type="checkbox" id="11.7" class="cBx">11.7
-                    </td>
-                    <td>
-                        <input label="11.8" type="checkbox" id="11.8" class="cBx">11.8 
-                    </td>
-                </tr>
-                <tr>
-                    <td>Posterior</td>
-                    <td>
-                        <input label="11.9" type="checkbox" id="11.9" class="cBx">11.9
-                    </td>
-                    <td>
-                        <input label="11.10" type="checkbox" id="11.10" class="cBx">11.10 
-                    </td>
-                </tr>
-            </table>
-
-        <div class="head">
-            12. ST-T U Abnormalities</div>
-        <input label="12.1" type="checkbox" id="12.1" class="cBx">12.1 Normal variant, early repolarization<br>
-        <input label="12.2" type="checkbox" id="12.2" class="cBx">12.2 Normal variant, juvenile T waves<br>
-        <input label="12.3" type="checkbox" id="12.3" class="cBx">12.3 Non-specific ST and/or T wave abnormalities<br>
-        <input label="12.4" type="checkbox" id="12.4" class="cBx">12.4 ST and/or T wave abnormalities suggesting myocardial ischemia<br>
-        <input label="12.5" type="checkbox" id="12.5" class="cBx">12.5 ST and/or T wave abnormalities suggesting myocardial injury<br>
-        <input label="12.6" type="checkbox" id="12.6" class="cBx">12.6 ST and/or T wave abnormalities suggesting electrolyte disturbances<br>
-        <input label="12.7" type="checkbox" id="12.7" class="cBx">12.7 ST and/or T wave abnormalities secondary to hypertrophy<br>
-        <input label="12.8" type="checkbox" id="12.8" class="cBx">12.8 Prolonged Q-T interval<br>
-        <input label="12.9" type="checkbox" id="12.9" class="cBx">12.9 Prominent U waves
-
-        <div class="head">
-            13. Pacemaker Function</div>
-        <input type="checkbox" id="13.1" class="cBx">13.1 Atrial or coronary sinus pacing<br>
-        <input type="checkbox" id="13.2" class="cBx">13.2 Ventricular demand pacemaker (VVI), normally functioning<br>
-        <input type="checkbox" id="13.3" class="cBx">13.3 Dual-chamber pacemaker (DDD), normally functioning<br>
-        <input type="checkbox" id="13.4" class="cBx">13.4 Pacemaker malfunction, not constantly capturing (atrium or ventricle)<br>
-        <input type="checkbox" id="13.5" class="cBx">13.5 Pacemaker malfunction, not constantly sensing (atrium or ventricle)<br>
-        <input type="checkbox" id="13.6" class="cBx">13.6 Paced morphology consistent with biventricular pacing or CRT<br>
-    </div>
-</div>
-
+                
+                <div class="head">
+                    6. AV Conduction</div>
+                <input type="checkbox" id="6.1" class="cBx"><label for="6.1">6.1 AV Block, 1&deg;</label><br>
+                <input type="checkbox" id="6.2" class="cBx"><label for="6.2">6.2 AV Block, 2&deg; - Mobitz I</label><br>
+                <input type="checkbox" id="6.3" class="cBx"><label for="6.3">6.3 AV Block, 2&deg; - Mobitz II</label><br>
+                <input type="checkbox" id="6.4" class="cBx"><label for="6.4">6.4 AV Block, 2:1</label><br>
+                <input type="checkbox" id="6.5" class="cBx"><label for="6.5">6.5 AV Block, 3&deg;</label><br>
+                <input type="checkbox" id="6.6" class="cBx"><label for="6.6">6.6 Wolff-Parkinson-White pattern</label><br>
+                <input type="checkbox" id="6.7" class="cBx"><label for="6.7">6.7 AV dissociation</label>
+    
+            </div>
+            <div class="col round">
+                <div class="head">
+                    7. Abnormal QRS voltage or axis</div>
+                <input type="checkbox" id="7.1" class="cBx"><label for="7.1">7.1 Low voltage, limb leads</label><br>
+                <input type="checkbox" id="7.2" class="cBx"><label for="7.2">7.2 Low voltage, precordial leads</label><br>
+                <input type="checkbox" id="7.3" class="cBx"><label for="7.3">7.3 Left axis deviation(>-30&deg;)</label><br>
+                <input type="checkbox" id="7.4" class="cBx"><label for="7.4">7.4 Right axis deviation(>+100&deg;)</label><br>
+                <input type="checkbox" id="7.5" class="cBx"><label for="7.5">7.5 Electrical alternans</label>
+    
+                <div class="head">
+                    8. Ventricular hypertrophy</div>
+                <input type="checkbox" id="8.1" class="cBx"><label for="8.1">8.1 Left ventricular hypertrophy</label><br>
+                <input type="checkbox" id="8.2" class="cBx"><label for="8.2">8.2 Right ventricular hypertrophy</label><br>
+                <input type="checkbox" id="8.3" class="cBx"><label for="8.3">8.3 Combined ventricular hypertrophy</label>
+    
+                <div class="head">
+                    9. Clinical disorder</div>
+                <input type="checkbox" id="9.1" class="cBx"><label for="9.1">9.1 Brugada syndrome</label><br>
+                <input type="checkbox" id="9.2" class="cBx"><label for="9.2">9.2 Digitalis toxicity</label><br>
+                <input type="checkbox" id="9.3" class="cBx"><label for="9.3">9.3 Torsades de Pointes</label><br>
+                <input type="checkbox" id="9.4" class="cBx"><label for="9.4">9.4 Hyperkalemia</label><br>
+                <input type="checkbox" id="9.5" class="cBx"><label for="9.5">9.5 Hypokalemia</label><br>
+                <input type="checkbox" id="9.6" class="cBx"><label for="9.6">9.6 Hypercalcemia</label><br>
+                <input type="checkbox" id="9.7" class="cBx"><label for="9.7">9.7 Hypocalcemia</label><br>
+                <input type="checkbox" id="9.8" class="cBx"><label for="9.8">9.8 Dextrocardia, mirror image</label><br>
+                <input type="checkbox" id="9.9" class="cBx"><label for="9.9">9.9 Acute cor pulmonale including pulmonary embolism</label><br>
+                <input type="checkbox" id="9.10" class="cBx"><label for="9.10">9.10 Pericardial effusion</label><br>
+                <input type="checkbox" id="9.11" class="cBx"><label for="9.11">9.11 Acute pericarditis</label><br>
+                <input type="checkbox" id="9.12" class="cBx"><label for="9.12">9.12 Hypertrophic cardiomyopathy</label><br>
+                <input type="checkbox" id="9.13" class="cBx"><label for="9.13">9.13 Central nervous system disorder</label><br>
+                <input type="checkbox" id="9.14" class="cBx"><label for="9.14">9.14 Hypothermia</label>
+    
+            </div>
+            <div class="col round">
+                <div class="head">
+                    10. Intraventricular Conduction</div>
+                <input type="checkbox" id="10.1" class="cBx"><label for="10.1">10.1 RBBB, complete</label><br>
+                <input type="checkbox" id="10.2" class="cBx"><label for="10.2">10.2 RBBB, incomplete</label><br>
+                <input type="checkbox" id="10.3" class="cBx"><label for="10.3">10.3 Left anterior fascicular block</label><br>
+                <input type="checkbox" id="10.4" class="cBx"><label for="10.4">10.4 Left posterior fascicular block</label><br>
+                <input type="checkbox" id="10.5" class="cBx"><label for="10.5">10.5 LBBB, complete</label><br>
+                <input type="checkbox" id="10.6" class="cBx"><label for="10.6">10.6 LBBB, incomplete</label><br>
+                <input type="checkbox" id="10.7" class="cBx"><label for="10.7">10.7 Aberrant conduction (including rate related)</label><br>
+                <input type="checkbox" id="10.8" class="cBx"><label for="10.8">10.8 Intraventricular conduction disturbance, non-specified type</label>
+    
+                <div class="head">
+                    11. Myocardial Infarction</div>
+                    <table id="miTable">
+                        <tr>
+                            <th></th>
+                            <th>Age recent, or probably acute</th>
+                            <th>Age indeterminate, or probably old</th>
+                        </tr>
+                        <tr>
+                            <td>Anterolateral</td>
+                            
+                            <td>
+                                <input type="checkbox" id="11.1" class="cBx">
+                                <label for="11.1">11.1</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="11.2" class="cBx">
+                                <label for="11.2">11.2</label> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Anterior or anteroseptal</td>
+                            <td>
+                                <input type="checkbox" id="11.3" class="cBx">
+                                <label for="11.3">11.3</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="11.4" class="cBx">
+                                <label for="11.4">11.4</label> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lateral</td>
+                            <td>
+                                <input type="checkbox" id="11.5" class="cBx">
+                                <label for="11.5">11.5</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="11.6" class="cBx">
+                                <label for="11.6">11.6</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Inferior</td>
+                            <td>
+                                <input type="checkbox" id="11.7" class="cBx">
+                                <label for="11.7">11.7</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="11.8" class="cBx">
+                                <label for="11.8">11.8</label> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Posterior</td>
+                            <td>
+                                <input type="checkbox" id="11.9" class="cBx">
+                                <label for="11.9">11.9</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="11.10" class="cBx">
+                                <label for="11.10">11.10</label>
+                            </td>
+                        </tr>
+                    </table>
+    
+                <div class="head">
+                    12. ST-T U Abnormalities</div>
+                <input type="checkbox" id="12.1" class="cBx"><label for="12.1">12.1 Normal variant, early repolarization</label><br>
+                <input type="checkbox" id="12.2" class="cBx"><label for="12.2">12.2 Normal variant, juvenile T waves</label><br>
+                <input type="checkbox" id="12.3" class="cBx"><label for="12.3">12.3 Non-specific ST and/or T wave abnormalities</label><br>
+                <input type="checkbox" id="12.4" class="cBx"><label for="12.4">12.4 ST and/or T wave abnormalities suggesting myocardial ischemia</label><br>
+                <input type="checkbox" id="12.5" class="cBx"><label for="12.5">12.5 ST and/or T wave abnormalities suggesting myocardial injury</label><br>
+                <input type="checkbox" id="12.6" class="cBx"><label for="12.6">12.6 ST and/or T wave abnormalities suggesting electrolyte disturbances</label><br>
+                <input type="checkbox" id="12.7" class="cBx"><label for="12.7">12.7 ST and/or T wave abnormalities secondary to hypertrophy</label><br>
+                <input type="checkbox" id="12.8" class="cBx"><label for="12.8">12.8 Prolonged Q-T interval</label><br>
+                <input type="checkbox" id="12.9" class="cBx"><label for="12.9">12.9 Prominent U waves</label>
+    
+                <div class="head">
+                    13. Pacemaker Function</div>
+                <input type="checkbox" id="13.1" class="cBx"><label for="13.1">13.1 Atrial or coronary sinus pacing</label><br>
+                <input type="checkbox" id="13.2" class="cBx"><label for="13.2">13.2 Ventricular demand pacemaker (VVI), normally functioning</label><br>
+                <input type="checkbox" id="13.3" class="cBx"><label for="13.3">13.3 Dual-chamber pacemaker (DDD), normally functioning</label><br>
+                <input type="checkbox" id="13.4" class="cBx"><label for="13.4">13.4 Pacemaker malfunction, not constantly capturing (atrium or ventricle)</label><br>
+                <input type="checkbox" id="13.5" class="cBx"><label for="13.5">13.5 Pacemaker malfunction, not constantly sensing (atrium or ventricle)</label><br>
+                <input type="checkbox" id="13.6" class="cBx"><label for="13.6">13.6 Paced morphology consistent with biventricular pacing or CRT</label><br>
+                </div>
+        </div>
+    
+    <!--form-->
     <!--submit-->
     <form id="audScore" 
     name="audienceScore" 
-    style="padding-bottom:2vmax;padding-top: 2vmax;">
-
+    style="padding-bottom:2vmax;padding-top: 2vmax;width: 100%;">
+    
         <div id="nameInput" class="butt">
             <label for="audienceName">Your Name is
             <input type="text" id="audName" name="audName"></label>
@@ -249,17 +317,32 @@
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" name="audienceTotalScore" 
             style="display:none">
-            <input type="submit" onclick="handleSubmit()" value="Submit" id="submitBut" class="round">
+            <input value="Submit" id="submitBut" class="round" type="submit">
         </div>
     </form>
-
-</div>
-
+    </div>
+    
+    <!--fixed stuffs-->
+        <!--orientation bar-->
+        <div id="oBar">
+            <i id="aRight" onclick="aRotate()" class="fa-regular fa-window-maximize" title="answer sheet to the right" 
+            style="rotate:90deg;font-size: 2vmax;color: #888;cursor: pointer;padding: 0.2vmax;"></i>
+            <i id="aBottom" onclick="aRotate()" class="fa-regular fa-window-maximize" title="answer sheet to the bottom" 
+            style="font-size:2vmax;color: #888;cursor: pointer;rotate: 180deg;padding: 0.2vmax;"></i>
+        </div>
+    
+        <!--bouncy arrow down-->
+        <i class="fa-solid fa-circle-chevron-down fa-bounce" 
+        style='font-size: 3vmax;position: absolute;color:#efefef;
+        text-shadow: #777 4px 4px 8px;' 
+        id="aDown"></i>
+    <!--end sticky bars-->
+    </div>
+    
 <!--top and foot-->
 
 <!--intro page-->
 <div id="card" class="round bgGd">
-    <img id="ecg0" src="ecgs/ecg0.png" style="width:0.1px;height: 0.1px;opacity: 1.0;">    
     <div class="lemon cursive" style="font-size:3vmax;text-align: center;padding-top: 10vmax;">
     CC2023
     <br>
@@ -276,9 +359,9 @@
 </div>
 
 
-
+<div id="outerFoot">
+    <img id="ecg0" src="ecgs/ecg0.png" style="width:0.1px;height: 0.1px;opacity: 1.0;"> 
 <div id='foot'>
-    
     <span class="cursive" style="font-size:1.7vmax;text-align: center;color: #888;letter-spacing: 0.5vw;">
     CC2023</span>
     <img src="ccLogoDark.png" style="width:1.7vmax;text-align: center;display: inline;">
@@ -287,6 +370,7 @@
     </span><br>
     <span style="font-size:1.6vmax;color: #bbb;">
         <sup style="color:#bbb;">x</sup> heartRhythmBox.com</span>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -322,7 +406,7 @@ function sub(){
     const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
     const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
     const database = supabase.createClient(url,key)
-    //console.log (database)
+    console.log (database)
 
     database
     .channel('public:qFeed')
@@ -383,6 +467,7 @@ function ecgLoad(){
     document.getElementById('ecg').style.display = 'block'
     document.getElementById('foot').style.display = 'block'
     document.getElementById('card').style.display = 'none'
+    arrow('on')
     sButt = document.getElementById('submitBut')
     form = document.getElementById('audScore')
     aSheet = document.getElementById('answerSheet')
@@ -400,7 +485,7 @@ function ecgLoad(){
         }
     }
     if (qNo==0)
-        {aSheet.style.display = 'flex';
+        {aSheet.style.display = 'inline-block';
         form.style.display = 'none';
         }
     else if (vote==1){
@@ -503,6 +588,61 @@ function displayName(){
 }
 
 
+//front-end add-on sticky stuff and oBar
+//arrow down
+function arrow(i){
+    if (i=='on'){
+    const sheet = document.getElementById('answerSheet')
+    const rect = sheet.getBoundingClientRect()
+    const aDn = document.getElementById('aDown')
+    aDn.style.left = rect.left + ((rect.right - (rect.left))/2) + 'px'
+    aDn.style.top = rect.bottom - (0.1*rect.height) + 'px'}
+    if (i=='off'){
+        document.getElementById('aDown').style.display = 'none'
+    }
+    
+}
+
+var dirToggle = 'bottom'
+
+function aRotate(){
+    if (dirToggle=='right'){
+        document.getElementById('ecgArea').style.width = '75%' 
+        var sheet = document.getElementById('answerSheet')
+        sheet.style.width = '25%'
+        sheet.style.display = 'inline-block';
+        sheet.style.direction = 'rtl'
+        sheet.style.maxHeight = '92vh'
+        sheet.style.overflowY = 'scroll'
+
+        
+        dirToggle = 'bottom'
+        document.getElementById('aRight').style.display = 'none'
+        document.getElementById('aBottom').style.display = 'inline-block'
+    
+    } else {
+        arrow('off')
+        document.getElementById('workSheet').style.flexWrap = 'wrap'
+        document.getElementById('ecgArea').style.width = '100%'
+        var sheet = document.getElementById('answerSheet')
+        sheet.style.width = '100%'
+        sheet.style.display = 'flex';
+        //sheet.style.flexWrap = 'wrap'
+        sheet.style.direction = 'ltr'
+        sheet.style.maxHeight = 'fit-content'
+        sheet.style.overflow = 'visible'
+
+        //col
+        column = document.getElementsByClassName('col')
+        column[0].style.flex = '29%'
+        column[1].style.flex = '29%'
+        column[2].style.flex = '36%'
+
+        dirToggle = 'right'
+        document.getElementById('aRight').style.display = 'inline-block'
+        document.getElementById('aBottom').style.display = 'none'
+    }
+}
 
 </script>
 </body>
