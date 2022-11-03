@@ -19,7 +19,7 @@
     #ecg {max-width:99%;max-height: 90vh;padding: 0.1vmax;text-align: center;
         margin-left: auto;margin-right: auto;background-color: #f5f5f6;}
     #ecgArea {text-align:center;width: 75%;background-color: #f5f5f6;border-radius: 1vmax;}
-    #answerSheet {width: 25%;overflow-y: scroll;direction: rtl;max-height: 90vh;border-radius: 1vmax;
+    #answerSheet {width: 25%;overflow-y: scroll;direction: rtl;max-height: 92vh;border-radius: 1vmax;
         resize: horizontal;min-width: 25%;background-color: #f5f5f6}
     
     /*scrollbar*/
@@ -44,6 +44,25 @@
     /*orientation bar*/
     #oBar{position: fixed;left:1%;top:1%;text-align: left;padding: 0.5vmax;cursor: pointer;}
     #aRight{display: none;}
+
+    /*responsive*/
+    @media screen and (min-width:900px) and (max-width: 1100px){
+        #ecgArea {width: 100%;}
+        #answerSheet {width: 100%;display: flex;direction: ltr;resize: none;max-height: fit-content;}
+        .col:first-of-type {flex: 29%;} 
+        .col:nth-of-type(2) {flex: 29%;}
+        .col:nth-of-type(3) {flex: 36%;}
+        #obar, #aDown {display: none;}
+        
+    }
+
+    @media screen and (max-width:899px){
+        #ecgArea {width: 100%;}
+        #answerSheet {width: 100%;display: flex;direction: ltr;resize: none;max-height: fit-content;}
+        .row {flex-wrap: wrap;}
+        .col {flex: 100%;}
+        #obar, #aDown {display: none;}
+    }
 
     /*intro*/
     .lemon {color: #c5f000}
@@ -282,7 +301,7 @@ style="padding-bottom:2vmax;padding-top: 2vmax;width: 100%;">
 
     <!--bouncy arrow down-->
     <i class="fa-solid fa-circle-chevron-down fa-bounce" 
-    style='font-size: 3vmax;position: fixed;color:#efefef;
+    style='font-size: 3vmax;position: absolute;color:#efefef;
     text-shadow: #777 4px 4px 8px;' 
     id="aDown"></i>
 <!--end sticky bars-->
@@ -314,7 +333,7 @@ function aRotate(){
         sheet.style.width = '25%'
         sheet.style.display = 'inline-block';
         sheet.style.direction = 'rtl'
-        sheet.style.maxHeight = '90vh'
+        sheet.style.maxHeight = '92vh'
         sheet.style.overflowY = 'scroll'
         sheet.style.resize = 'horizontal'
         
