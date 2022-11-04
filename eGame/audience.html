@@ -628,11 +628,11 @@ function displayName(){
 function arrow(i){
     const aDn = document.getElementById('aDown')
     if (i=='on'){
-    const sheet = document.getElementById('answerSheet')
-    const rect = sheet.getBoundingClientRect()
-    aDn.style.display = 'block'
-    aDn.style.left = rect.left + ((rect.right - (rect.left))/2) + 'px'
-    aDn.style.top = rect.bottom - (0.1*rect.height) + 'px'}
+        const sheet = document.getElementById('answerSheet')
+        const rect = sheet.getBoundingClientRect()
+        aDn.style.display = 'inline-block'
+        aDn.style.left = rect.left + ((rect.right - (rect.left))/2) + 'px'
+        aDn.style.top = rect.bottom - (0.1*rect.height) + 'px'}
     
     if (i=='off'){
         aDn.style.display = 'none'
