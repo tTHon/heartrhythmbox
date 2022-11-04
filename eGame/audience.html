@@ -632,9 +632,9 @@ function arrow(i){
     if (i=='on'){
         const sheet = document.getElementById('answerSheet')
         const rect = sheet.getBoundingClientRect()
-        aDn.style.display = 'inline-block'
         aDn.style.left = rect.left + ((rect.right - (rect.left))/2) + 'px'
         aDn.style.top = rect.bottom - (0.1*rect.height) + 'px'}
+        aDn.style.display = 'block'
     
     if (i=='off'){
         aDn.style.display = 'none'
