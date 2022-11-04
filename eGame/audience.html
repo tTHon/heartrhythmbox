@@ -98,8 +98,14 @@
     #foot {display: none;background-color:#efefef;text-align:center;color: #888;
         padding-bottom: 5vmax;padding-top: 8vmax;border-radius: 1vmax;
         width: 100%;}
-
-    #preLoad {opacity: 1.0;width: 0.1px;height: 0.1px;}    
+    #preLoad {opacity: 1.0;width: 0.1px;height: 0.1px;}   
+    
+    /*animate logo*/
+    @keyframes animateInvert {
+        0% {filter: none}
+        40% {filter: invert(100%)}
+        100% {filter: none}
+    }
 
 </style>
 
@@ -373,7 +379,8 @@
     <div class="lemon cursive" style="font-size:3vmax;text-align: center;padding-top: 10vmax;">
     CC2023
     <br>
-    <img src="ccLogoLemon.png" style="width:3vmax;text-align: center;padding: 2vmax 0;">
+    <img src="ccLogoLemon.png" 
+    style="width:3vmax;text-align: center;padding: 2vmax 0;animation:animateInvert 10s infinite">
     <br>ElectroCardioGame</div><br>
     <div id="welcome">
         Thanks for joining us.<br>
@@ -554,11 +561,6 @@ function afterSubmit(){
     //document.getElementById('answerSheet').style.display = 'none'
     //document.getElementById('foot').style.display = 'none'
     //document.getElementById('audScore').style.display = 'none'
-
-    if (qNo<12){
-    var plus = qNo+1
-    var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
-    document.getElementById('preLoad').src = preLoadSource}
 
     if (submitted){
         document.getElementById('welcome').innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
