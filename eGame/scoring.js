@@ -1,29 +1,36 @@
 var pName = ['DAO','KHAW','OAT']
 var totalQ = 12;
 var keyJson = [
-                {"no":1, "key": '1.1', "score": 2},
-                {"no":1, "key": '1.2', "score": 5},
+                {"no":1, "key": 'Brugada Pattern', "score": 2},
+                {"no":1, "key": 'LAE', "score": 5},
                 {"no":1, "key": '1.3', "score": 3},         
                 {"no":2, "key": '2.1', "score": 3},
-                {"no":2, "key": '2.2', "score": 4},
+                {"no":2, "key": 'RBBB', "score": 4},
                 {"no":2, "key": '2.3', "score": 3},   
-                {"no":3, "key": '3.1', "score": 5},
+                {"no":3, "key": 'TGA', "score": 5},
                 {"no":3, "key": '3.2', "score": 2},
                 {"no":3, "key": '3.3', "score": 3},
                 {"no":4, "key": 'RBBB', "score": 2},
                 {"no":4, "key": '4.1', "score": 2},
-                {"no":4, "key": '4.2', "score": 5},
-                {"no":1, "key": '4.3', "score": 3},         
+                {"no":4, "key": 'CHB', "score": 5},
+                {"no":4, "key": '4.3', "score": 1},         
                 {"no":5, "key": '5.1', "score": 3},
-                {"no":5, "key": '5.2', "score": 4},
-                {"no":6, "key": '6.1', "score": 3},   
+                {"no":5, "key": 'Osborne', "score": 4},
+                {"no":6, "key": '6.1', "score": 3}, 
+                {"no":6, "key": 'VT', "score": 3},   
                 {"no":7, "key": '7.1', "score": 5},
+                {"no":7, "key": 'AF', "score": 5},
                 {"no":8, "key": '8.2', "score": 2},
+                {"no":8, "key": 'STEMI', "score": 2},
                 {"no":9, "key": '9.3', "score": 3},
+                {"no":9, "key": 'Wellen', "score": 3},
                 {"no":10, "key": '10.1', "score": 3},   
                 {"no":10, "key": '10.2', "score": 5},
+                {"no":10, "key": 'de winter', "score": 5},
                 {"no":11, "key": '11.2', "score": 2},
-                {"no":12, "key": '12.3', "score": 3}            
+                {"no":11, "key": 'PVCs', "score": 2},
+                {"no":12, "key": '12.3', "score": 3},  
+                {"no":12, "key": 'HypoK', "score": 3}            
             
             ]
 
@@ -72,8 +79,10 @@ function displayTickBox(n,boxName,labelName){
     var tickBox = document.getElementsByClassName(boxName);
     var label = document.getElementsByClassName(labelName)
     for (var i=0;i<keyA.length;i++){
+
         tickBox[i].style.display = 'block'
         label[i].innerHTML = keyA[i] + ' (' + scoreA[i] + ')'
+
         //for p2 and p3
         tickBox[10+i].style.display = 'block'
         label[10+i].innerHTML = keyA[i] + ' (' + scoreA[i] + ')'
