@@ -13,7 +13,7 @@
 </head>
 <style>
     * {font-family:'Pragati Narrow', sans-serif;color: #333;box-sizing: border-box;}
-    #ecgPage{text-align:center;display: none;}
+    #ecgPage{text-align:center;display: block;max-height: 100vh;overflow: hidden;}
     #workSheet {display:flex;max-height: 92vh;flex-wrap: wrap;background-color: #f5f5f6;border-radius: 1vmax;}
     #title {color: #0f4c81;font-weight: 600;font-size: 3.5vmax;text-align: center;}
     #ecg {max-width:99%;max-height: 90vh;padding: 0.1vmax;text-align: center;
@@ -30,7 +30,7 @@
     background-color: rgba(0, 0, 0, .5);}
 
     .head {font-size: 2vmax;font-weight: 700;padding-top: 1vmax;color: #c5f000;}
-    .col {padding: 0.5vmax;line-height: 140%;color: #f1f1f1;background-color: #0f4c81;direction: ltr;}
+    .col {padding: 0.5vmax;color: #f1f1f1;background-color: #0f4c81;direction: ltr;line-height: 140%;}
     .col label {color: #f1f1f1;}
     .round {border: #aaa solid 0.1vmax;border-radius: 1vmax;}
     .cBx {margin-left: 0.2vmax;margin-right: 0.3vmax;width: 1.3vmax;height: 1.3vmax;}
@@ -40,6 +40,7 @@
     #audScore {background-color:#f5f5f6;border-radius: 1vmax;}
     #submitBut {text-align: center;font-size: 2vmax;cursor: pointer;display: inline-block;}
     .butt {text-align: center;padding: 1vmax;font-size: 2vmax;vertical-align: baseline;}
+    #fakeButt {display: none;}
 
     /*orientation bar*/
     #oBar{position: fixed;left:1%;top:1%;text-align: left;padding: 0.5vmax;cursor: pointer;}
@@ -89,13 +90,14 @@
     /*intro*/
     .lemon {color: #c5f000}
     .cursive {font-family: 'Audiowide', cursive;}
-    #card {background-color: #0f4c81;width: 100%;line-height: 180%;
+    #card {background-color: #0f4c81;width: 100%;height: 100%;
+        line-height: 180%;position: absolute;top: 0;left: 0;z-index: 1;
         display: block;text-align: center;padding: 2vmax 1vmax;}
     #welcome {color: azure;font-size: 2.5vmax;padding:3vmax 1vmax;line-height: 120%;}
     #wait {color: azure;font-size: 2.5vmax;padding:1vmax;}
-    #outerFoot {background-color:none}
     #foot {display: none;background-color:#efefef;text-align:center;color: #888;
-        padding-bottom: 5vmax;padding-top: 8vmax;border-radius: 1vmax;}
+        padding-bottom: 5vmax;padding-top: 8vmax;border-radius: 1vmax;
+        width: 100%;}
 
     #preLoad {opacity: 1.0;width: 0.1px;height: 0.1px;}    
 
@@ -107,8 +109,8 @@
 <div id="ecgPage">
     <div id="workSheet">
         <div id="ecgArea">
-            <div id= 'title'>Question No. 0/12</div>
-            <img id="ecg" src="ecg0.png">
+            <div id= 'title'></div>
+            <img id="ecg">
             <img id="preLoad">
         </div>
     
@@ -317,10 +319,34 @@
         <div class="butt" id="submitInput">
             <input id="totalScore" type="number" name="audienceTotalScore" 
             style="display:none">
-            <input value="Submit" id="submitBut" class="round" type="submit">
+            <input value="Submit" id="submitBut" onclick="handleSubmit()"
+            class="round">
         </div>
     </form>
+
+        <!--fake submit-->
+        <div id="fakeButt" 
+        style="margin:0 auto;width: 100%;padding: 2vmax;
+        background-color:#f5f5f6;font-size: 2vmax;color: #333;">
+        <span class="round">
+            You will be able to submit answer in Q: 4, 8, and 12.
+            </span>
+        </div>
+
+        <div id='foot'>
+            <span class="cursive" style="font-size:1.7vmax;text-align: center;color: #888;letter-spacing: 0.5vw;">
+            CC2023</span>
+            <img src="ccLogoDark.png" style="width:1.7vmax;text-align: center;display: inline;">
+            <span class="cursive" style="font-size:1.7vmax;color: #888;letter-spacing: 0.1vw;">
+                ElectroCardioGame
+            </span><br>
+            <span style="font-size:1.6vmax;color: #bbb;">
+                <sup style="color:#bbb;">x</sup> heartRhythmBox.com</span>
+        </div>
+        
     </div>
+
+
     
     <!--fixed stuffs-->
         <!--orientation bar-->
@@ -337,12 +363,12 @@
         text-shadow: #777 4px 4px 8px;' 
         id="aDown"></i>
     <!--end sticky bars-->
-    </div>
+</div>
     
 <!--top and foot-->
 
 <!--intro page-->
-<div id="card" class="round bgGd">
+<div id="card"> 
     <div class="lemon cursive" style="font-size:3vmax;text-align: center;padding-top: 10vmax;">
     CC2023
     <br>
@@ -359,26 +385,12 @@
 </div>
 
 
-<div id="outerFoot">
-    <img id="ecg0" src="ecgs/ecg0.png" style="width:0.1px;height: 0.1px;opacity: 1.0;"> 
-<div id='foot'>
-    <span class="cursive" style="font-size:1.7vmax;text-align: center;color: #888;letter-spacing: 0.5vw;">
-    CC2023</span>
-    <img src="ccLogoDark.png" style="width:1.7vmax;text-align: center;display: inline;">
-    <span class="cursive" style="font-size:1.7vmax;color: #888;letter-spacing: 0.1vw;">
-        ElectroCardioGame
-    </span><br>
-    <span style="font-size:1.6vmax;color: #bbb;">
-        <sup style="color:#bbb;">x</sup> heartRhythmBox.com</span>
-</div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-window.onbeforeunload = (event) => {
-  event.preventDefault();
-  return event.returnValue = 'onbeforeunload';
-};
+//window.onbeforeunload = (event) => {
+  //event.preventDefault();
+  //return event.returnValue = 'onbeforeunload';
+//};
 
 //global var
 var totalQ = 12
@@ -463,14 +475,19 @@ function handleSubmit(){
 function ecgLoad(){
     //document.getElementById('next').innerHTML = nameEntered;
     displayName();
-    document.getElementById('ecgPage').style.display = 'block'
-    document.getElementById('ecg').style.display = 'block'
-    document.getElementById('foot').style.display = 'block'
+    ecgPage = document.getElementById('ecgPage')
+    ecgPage.style.maxHeight = 'none'
+    ecgPage.style.overflow = 'inherit'
+    //document.getElementById('ecg').style.display = 'block'
+    //document.getElementById('foot').style.display = 'block'
     document.getElementById('card').style.display = 'none'
     arrow('on')
     sButt = document.getElementById('submitBut')
     form = document.getElementById('audScore')
     aSheet = document.getElementById('answerSheet')
+    fButt = document.getElementById ('fakeButt')
+    foot = document.getElementById ('foot')
+    fButt.style.display = 'none'
 
     //clear answersheet
     var input = document.getElementsByClassName('cBx')
@@ -487,11 +504,14 @@ function ecgLoad(){
     if (qNo==0)
         {aSheet.style.display = 'inline-block';
         form.style.display = 'none';
+        fButt.style.display = 'inline-block'
+        foot.style.display = 'inline-block'
         }
     else if (vote==1){
-        form.style.display = 'block';
+        form.style.display = 'inline-block';
         sButt.style.display = 'inline-block'
-        aSheet.style.display = 'flex'
+        aSheet.style.display = 'inline-block'
+        foot.style.display = 'inline-block'
 
         if (qNo>q2Vote[0]){
             document.getElementById('audName').style.display = 'none'
@@ -502,6 +522,9 @@ function ecgLoad(){
         else {
             aSheet.style.display = 'none'
             form.style.display = 'none'
+            document.getElementById('ecgArea').style.width = '100%'
+            document.getElementById('oBar').style.display = 'none'
+            foot.style.display = 'inline-block'
         }
    
 }
@@ -516,20 +539,24 @@ function endGame(){
 
 function afterSubmit(){
     thisScore = calcScore();
+    ecgPage = document.getElementById('ecgPage')
+    ecgPage.style.maxHeight = '100vh'
+    ecgPage.style.overflow = 'hidden'
     document.getElementById('card').style.display = 'block'
-    document.getElementById('answerSheet').style.display = 'none'
-    document.getElementById('foot').style.display = 'none'
-    document.getElementById('audScore').style.display = 'none'
-    document.getElementById('ecg0').style.display = 'none'
+    //document.getElementById('answerSheet').style.display = 'none'
+    //document.getElementById('foot').style.display = 'none'
+    //document.getElementById('audScore').style.display = 'none'
+
     if (qNo<12){
     var plus = qNo+1
     var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
     document.getElementById('preLoad').src = preLoadSource}
 
     if (submitted){
-    document.getElementById('welcome').innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
-    'You got ' + thisScore + ' from this question.' + '<br />' +
-    'Your total score is '+ score + '<br />' }
+        document.getElementById('welcome').innerHTML = nameEntered + ', thanks for joining the vote' + '<br />' + 
+        'You got ' + thisScore + ' from this question.' + '<br />' +
+        'Your total score is '+ score + '<br />' 
+    }
     else {
         document.getElementById('welcome').innerHTML = ''
     }
