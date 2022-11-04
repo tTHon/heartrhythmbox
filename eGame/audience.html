@@ -104,7 +104,6 @@
 </style>
 
 <body>
-
 <!--ecg page-->
 <div id="ecgPage">
     <div id="workSheet">
@@ -353,8 +352,10 @@
         <div id="oBar">
             <i id="aRight" onclick="aRotate()" class="fa-regular fa-window-maximize" title="answer sheet to the right" 
             style="rotate:90deg;font-size: 2vmax;color: #888;cursor: pointer;padding: 0.2vmax;"></i>
-            <i id="aBottom" onclick="aRotate()" class="fa-regular fa-window-maximize" title="answer sheet to the bottom" 
-            style="font-size:2vmax;color: #888;cursor: pointer;rotate: 180deg;padding: 0.2vmax;"></i>
+            <i id="aBottom" onclick="aRotate()" 
+            class="fa-regular fa-window-maximize fa-beat" title="answer sheet to the bottom" 
+            style="font-size:2vmax;color: #888;cursor: pointer;rotate: 180deg;padding: 0.2vmax;
+            --fa-animation-duration:30s"></i>
         </div>
     
         <!--bouncy arrow down-->
@@ -478,16 +479,16 @@ function ecgLoad(){
     ecgPage = document.getElementById('ecgPage')
     ecgPage.style.maxHeight = 'none'
     ecgPage.style.overflow = 'inherit'
-    //document.getElementById('ecg').style.display = 'block'
-    //document.getElementById('foot').style.display = 'block'
     document.getElementById('card').style.display = 'none'
-    arrow('on')
     sButt = document.getElementById('submitBut')
     form = document.getElementById('audScore')
     aSheet = document.getElementById('answerSheet')
     fButt = document.getElementById ('fakeButt')
     foot = document.getElementById ('foot')
     fButt.style.display = 'none'
+    ecgArea = document.getElementById('ecgArea')
+    aSheet.scrollTop = 0
+    oBar = document.getElementById('oBar')
 
     //clear answersheet
     var input = document.getElementsByClassName('cBx')
@@ -506,12 +507,18 @@ function ecgLoad(){
         form.style.display = 'none';
         fButt.style.display = 'inline-block'
         foot.style.display = 'inline-block'
+        ecgArea.style.width = '75'
+        arrow('on')
+        oBar.style.display = 'block'
         }
     else if (vote==1){
+        arrow('on')
+        oBar.style.display = 'block'
         form.style.display = 'inline-block';
         sButt.style.display = 'inline-block'
         aSheet.style.display = 'inline-block'
         foot.style.display = 'inline-block'
+        ecgArea.style.width = '75%'
 
         if (qNo>q2Vote[0]){
             document.getElementById('audName').style.display = 'none'
@@ -522,8 +529,9 @@ function ecgLoad(){
         else {
             aSheet.style.display = 'none'
             form.style.display = 'none'
-            document.getElementById('ecgArea').style.width = '100%'
-            document.getElementById('oBar').style.display = 'none'
+            ecgArea.style.width = '100%'
+            arrow('off')
+            oBar.style.display = 'none'
             foot.style.display = 'inline-block'
         }
    
@@ -618,14 +626,16 @@ function displayName(){
 //front-end add-on sticky stuff and oBar
 //arrow down
 function arrow(i){
+    const aDn = document.getElementById('aDown')
     if (i=='on'){
     const sheet = document.getElementById('answerSheet')
     const rect = sheet.getBoundingClientRect()
-    const aDn = document.getElementById('aDown')
+    aDn.style.display = 'block'
     aDn.style.left = rect.left + ((rect.right - (rect.left))/2) + 'px'
     aDn.style.top = rect.bottom - (0.1*rect.height) + 'px'}
+    
     if (i=='off'){
-        document.getElementById('aDown').style.display = 'none'
+        aDn.style.display = 'none'
     }
     
 }
