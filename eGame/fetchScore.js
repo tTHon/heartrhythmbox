@@ -303,8 +303,9 @@ function showAudience(){
       const aScore = await database.from("Audience")
       .select('*')
       .order('qNo', {ascending:false})
+      .order('created_at', {ascending:false})
       const maxQ = aScore.data[0].qNo
-      console.log(aScore.data.length)
+      //console.log(aScore.data.length)
 
       //count maxQ votes
       voteNo = getVoteNo(maxQ);
