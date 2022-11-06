@@ -258,7 +258,7 @@ function sendScore(){
     const feed = await database.from("pScore").insert({
         qNo: qNo,
         p1Score: totalScore[0].value, p2Score: totalScore[1].value, p3Score: totalScore[2].value,
-        p1Array: finalCheckScore(p1), p2Array: finalCheckScore(p2), p3Array: finalCheckScore(p3)
+        p1Array: finalCheckScore(1), p2Array: finalCheckScore(2), p3Array: finalCheckScore(3)
     })
     console.log(feed)
   }

@@ -139,14 +139,14 @@ function finalCheckScore(pNo){
     var scoreArray = getScoreArray(qNo);
 
     //check if checked;
-    var key0= (pNo-1)*10;
+    var begin = (pNo-1)*10;
 
     var input = document.getElementsByClassName('input')
-    for (let index = key0; index < key0+scoreArray.length; index++) {
-            
-        if (input[index].checked){
+    for (let index =0; index < scoreArray.length; index++) {
+        iNo = index + begin;
+        if (input[iNo].checked){
             pArray.push(index)
-    }
+        }
     }
     return pArray;
 }
