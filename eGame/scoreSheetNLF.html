@@ -206,7 +206,7 @@
     </div>
 
     <div id="sBut" style="margin-left:auto;margin-right:auto;padding: 2vmax;text-align: center;color: #222;">   
-        <input value="SUBMIT" onclick="sendScore()"
+        <input type="submit" value="SUBMIT"
             style="text-align:center;width:fit-content;padding:1vmax;cursor: pointer;
         font-size: 3vmax;">    
     </div>
@@ -227,7 +227,7 @@ padding: 3vmax;">
     Thank you very much!
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="scoring.js"></script>
 <script>
 
@@ -243,28 +243,35 @@ function starter(){
     document.getElementById('intro').style.display = 'none'
 }
 
-function sendScore(){
-    const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-  const database = supabase.createClient(url,key)
-  console.log (database)
+const handleSubmit = (event) => {
+  event.preventDefault();
 
-  //dBase name pScore, fields: qNo, created_at, p1Array, p1Score ...
-
-  totalScore = document.getElementsByClassName('showScore')
+  const myForm = event.target;
+  const formData = new FormData(myForm);
   
-  //insert
-  const sendData = async () => {
-    const feed = await database.from("pScore").insert({
-        qNo: qNo,
-        p1Score: totalScore[0].value, p2Score: totalScore[1].value, p3Score: totalScore[2].value,
-        p1Array: finalCheckScore(p1), p2Array: finalCheckScore(p2), p3Array: finalCheckScore(p3)
-    })
-    console.log(feed)
-  }
-  sendData()
-  qNo++;loadPage()
-}
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString(),
+  })
+    .then((response) => alert(formData.toString))
+    .catch((error) => alert(error));
+  qNo++;
+  if (qNo<totalQ+1){
+    loadPage();
+    }
+  else {document.getElementById('thank').style.display='block'
+    document.getElementById('main').style.opacity='0.2'
+    document.getElementById('playerScoring').style.opacity='0.2'
+    document.getElementById('sBut').style.display = 'none'
+    }
+};
+
+document
+  .querySelector("form")
+  .addEventListener("submit", handleSubmit);
+
+
 
 </script>  
 

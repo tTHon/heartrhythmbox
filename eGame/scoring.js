@@ -39,6 +39,9 @@ function loadPage(){
     resetScore();
     displayTickBox(qNo,'aBox','label');
     currentScore = [0,0,0];
+    p1Array=[]
+    p2Array=[]
+    p3Array=[]
 }
 
 //name and ecg
@@ -131,4 +134,19 @@ function resetScore(){
     }
 }
 
+function finalCheckScore(pNo){
+    var pArray=[]
+    var scoreArray = getScoreArray(qNo);
 
+    //check if checked;
+    var key0= (pNo-1)*10;
+
+    var input = document.getElementsByClassName('input')
+    for (let index = key0; index < key0+scoreArray.length; index++) {
+            
+        if (input[index].checked){
+            pArray.push(index)
+    }
+    }
+    return pArray;
+}
