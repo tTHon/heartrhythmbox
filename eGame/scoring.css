@@ -3,11 +3,10 @@
 #main {padding: 1vmax;color: #222;}
 #ecg {max-width:95%;max-height: 80vh;padding: 1vmax;}
 .aBox {display: none;font-size: 2.5vmax;padding: 1vmax;}
-input[type=checkbox] {vertical-align:baseline;width: 2.8vmax;height: 2.5vmax;}
 input[type="checkbox"] {
-  -webkit-transform: scale(2, 2);
+  -webkit-transform: scale(2.5, 2.5);vertical-align:middle;
 }
-.input {width: 2.8vmax;height: 2.5vmax;}
+label {padding-left: 1vmax;}
 .pContainer {display: flex;padding: 1vmax;}
 .pBox {align-content: center;flex: 33%;padding: 1vmax;
     border: grey solid 0.2vmax;border-radius: 1vmax;}
