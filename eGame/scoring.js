@@ -34,7 +34,8 @@ var keyJson = [
             
             ]
 
-function loadPage(){                
+function loadPage(){     
+    document.getElementById('summary').style.display = 'none'           
     displayName();
     resetScore();
     displayTickBox(qNo,'aBox','label');
@@ -149,4 +150,34 @@ function finalCheckScore(pNo){
         }
     }
     return pArray;
+}
+
+function showSummary(a1,a2,a3,s1,s2,s3){
+    //get key
+    document.getElementById('summary').style.display = 'block'
+    var keyA = getKeyArray(qNo);
+    var scoreA = getScoreArray(qNo);
+    const sum = document.getElementsByClassName('scoreSum')
+    const ssPName = document.getElementsByClassName('scoreSumPName')
+
+    //clear texxt
+    for (let index = 0; index < 3; index++) {
+        sum[index].innerHTML = ""        
+    }
+    
+    addText(a1,s1,0)
+    addText(a2,s2,1)
+    addText(a3,s3,2)
+
+    function addText(array,total,classNo){
+        ssPName[classNo].innerHTML = pName[classNo] + '<br />' 
+        for (i=0;i<array.length;i++){
+            keyNo = array[i]
+            sum[classNo].innerHTML += keyA[keyNo] + ' ' + scoreA[keyNo] + '<br />'
+        }
+        sum[classNo].innerHTML += 'Total Score: ' + total;
+    }
+
+
+
 }

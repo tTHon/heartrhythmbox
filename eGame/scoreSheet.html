@@ -226,6 +226,20 @@ padding: 3vmax;">
 <div id="thank">
     Thank you very much!
 </div>
+<div id="summary">
+    <div id="status"></div>
+    <div id="scoreDetail">
+        <div class="scoreSumPName"></div>
+        <div class="scoreSum"></div>
+        <div class="scoreSumPName"></div>
+        <div class="scoreSum"></div>
+        <div class="scoreSumPName"></div>
+        <div class="scoreSum"></div>
+    </div>
+    <button onclick="loadPage()" style="font-size:2.2vmax;">
+        CLOSE
+    </button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="scoring.js"></script>
@@ -252,18 +266,25 @@ function sendScore(){
   //dBase name pScore, fields: qNo, created_at, p1Array, p1Score ...
 
   totalScore = document.getElementsByClassName('showScore')
-  
+  p1ScoreA = finalCheckScore(1)
+  p2ScoreA = finalCheckScore(2)
+  p3ScoreA = finalCheckScore(3)
   //insert
   const sendData = async () => {
-    const feed = await database.from("pScore").insert({
+    const feed = await database
+        .from("pScore")
+        .insert({
         qNo: qNo,
         p1Score: totalScore[0].value, p2Score: totalScore[1].value, p3Score: totalScore[2].value,
-        p1Array: finalCheckScore(1), p2Array: finalCheckScore(2), p3Array: finalCheckScore(3)
-    })
-    console.log(feed)
+        p1Array: p1ScoreA, p2Array: p2ScoreA, p3Array: p3ScoreA
+        })
+        console.log(feed)
+        document.getElementById('status').innerHTML = 'submitted status: ' + feed.status
   }
+
   sendData()
-  qNo++;loadPage()
+  showSummary(p1ScoreA,p2ScoreA,p3ScoreA,totalScore[0].value,totalScore[1].value,totalScore[2].value);
+  qNo++;
 }
 
 </script>  

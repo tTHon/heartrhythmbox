@@ -4,6 +4,9 @@
 #ecg {max-width:95%;max-height: 80vh;padding: 1vmax;}
 .aBox {display: none;font-size: 2.5vmax;padding: 1vmax;}
 input[type=checkbox] {vertical-align:baseline;width: 2.8vmax;height: 2.5vmax;}
+input[type="checkbox"] {
+  -webkit-transform: scale(2, 2);
+}
 .input {width: 2.8vmax;height: 2.5vmax;}
 .pContainer {display: flex;padding: 1vmax;}
 .pBox {align-content: center;flex: 33%;padding: 1vmax;
@@ -24,3 +27,12 @@ color: #f1f1f1;font-size: 5vmax;
     .pContainer {flex-wrap: wrap;}
     .pBox {flex: 100%;}
   }
+
+#summary {z-index: 1;display: none;position: fixed;left: 15%;top: 5%;width: 80vw;
+  max-height: 90%;overflow-y: scroll;
+background-color: rgba(55,55,55,0.9);font-size: 3vmax;padding: 2vmax;color: #ddd;}
+#status {background-color: rgba(55,55,55,0.9);padding: 1vmax;}
+#scoreDetail {border-top: #555 dashed 0.2vmax;background-color: rgba(55,55,55,0.9);}
+.scoreSum {padding: 1vmax;background-color: rgba(55,55,55,0.9);border-bottom: #aaa dashed 0.2vmax;
+  color: #aaa;font-weight: 400;}
+.scoreSumPName {background-color: rgba(55,55,55,0.9);color: #f1f1f1;font-weight: 700;padding: 1vmax;}
