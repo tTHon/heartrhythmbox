@@ -2,35 +2,53 @@
 //oyqF9n48JsYpRKXk-RaF8GsOgsa4NVrIkMZ9W_b7zrM
 
 var totalQ = 13;
-var p1Score = [];
-var p2Score = [];
-var p3Score = [];
+var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var questionNumber;
 var q2Vote = [4,8,12];
 
-function reFetch(){ 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
-    }
-  };
-  
-  fetch('https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions', options)
-    .then(response => response.json())
-    .then(result =>getScore(result))
-    .catch(error => console.log('error', error));
+function sub(){
+  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
+  const database = supabase.createClient(url,key)
+  console.log (database)
 
-  function getScore(result){
-    //var timeStamp = []
-    for (var i=0;i<result.length;i++){
-      var f = result[i].data;
-      p1Score[f.qNo] = parseInt(f.p1);
-      p2Score[f.qNo] = parseInt(f.p2);
-      p3Score[f.qNo] = parseInt(f.p3);
+  database
+  .channel('public:pScore')
+  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pScore' }, 
+  payload => {
+    console.log('Change received!', payload)
+    reFetch();
+  })
+  .subscribe()
+}
+
+sub();
+
+function reFetch(){ 
+  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
+  const database = supabase.createClient(url,key)
+
+  //getData
+    const getData = async () => {
+      const pScore = await database.from("pScore")
+      .select('*')
+      .order('qNo', {ascending:false})
+      getScore(pScore)
     }
- }
+  getData();
+  
+  function getScore(result){
+    for (var i=0;i<result.data.length;i++){
+      var k = result.data[i]
+      var q = k.qNo;
+      p1S[q] = k.p1Score;
+      p2S[q] = k.p2Score;
+      p3S[q] = k.p3Score;
+    }
+  }
 }
 
 function refresh(gNo, array){
@@ -129,34 +147,34 @@ function showScoreCard(){
   //p1
   for (let i=0;i<=totalQ;i++){
     let cell = row1.insertCell(i)
-    if (p1Score[i]>=0){
-      cell.innerHTML = p1Score[i] 
+    if (p1S[i]>=0){
+      cell.innerHTML = p1S[i] 
     } else {cell.innerHTML = ' '}
 
     if (i==0){cell.innerHTML=player[0]}
-    if (i==totalQ){cell.innerHTML = scoreSum(p1Score)}
+    if (i==totalQ){cell.innerHTML = scoreSum(p1S)}
   }
 
   //p2
   for (let i=0;i<=totalQ;i++){
     let cell = row2.insertCell(i)
-    if (p2Score[i]>=0){
-      cell.innerHTML = p2Score[i] 
+    if (p2S[i]>=0){
+      cell.innerHTML = p2S[i] 
     } else {cell.innerHTML = ' '}
 
     if (i==0){cell.innerHTML=player[1]}
-    if (i==totalQ){cell.innerHTML = scoreSum(p2Score)}
+    if (i==totalQ){cell.innerHTML = scoreSum(p2S)}
   }
 
   //p3
   for (let i=0;i<=totalQ;i++){
     let cell = row3.insertCell(i)
-    if (p3Score[i]>=0){
-      cell.innerHTML = p3Score[i] 
+    if (p3S[i]>=0){
+      cell.innerHTML = p3S[i] 
     } else {cell.innerHTML = ' '}
 
     if (i==0){cell.innerHTML=player[2]}
-    if (i==totalQ){cell.innerHTML = scoreSum(p3Score)}
+    if (i==totalQ){cell.innerHTML = scoreSum(p3S)}
   }
 
   function scoreSum(array){
@@ -168,6 +186,20 @@ function showScoreCard(){
     return sum;
   }
 
+}
+
+function mEnter(){
+  const scoreT = document.getElementById('scoreT');
+  scoreT.style.cursor = 'pointer'
+  scoreT.style.color = 'pink'
+  scoreT.rows[1].cells[1].onclick = function(){
+    const thisCell = scoreT.rows[1].cells[1]
+    thisCell.innerHTML = '';
+    const x = document.createElement('input')
+    x.setAttribute("type",'number')
+    x.setAttribute("value", 0);
+    thisCell.appendChild(x);
+  }
 }
 
 
@@ -282,9 +314,17 @@ function clearQue(){
     .gte ('qNo',0)
   }
 
+  const clearP = async ()=>{
+    const data = await database
+    .from('pScore')
+    .delete()
+    .gte ('qNo',0)
+  }
+
     //console.log(data)
   clearQ();
   clearAud();
+  clearP();
   window.alert('clear')
 }
 

@@ -86,6 +86,7 @@
 #scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 10%;left: 10%;animation: fadeIn 1s;
     position: fixed;z-index: 1;padding: 1vmax;font-size: 3vmax;color: #cdcdcd;}
 #exit {position: fixed;top: 12%;right: 15%;color: #ddd;cursor: pointer;}
+#manual {color: #ddd;cursor: pointer;padding: 0.5vmax;border: none;font-size: 2.2vmax;}
 #scoreT, #scoreT th, #scoreT tr, #scoreT td {padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;}
 
 /*start/stop Q*/
@@ -168,13 +169,13 @@ margin-top: 2vmax;background-color: #0F201F;}
 <!--refresh but-->
 <div class="refBar">
   <div class="refBarFlex">
-    <i id="ref1" class="fa-solid fa-rotate-right refBut" onclick="refresh(1,p1Score)"></i>
+    <i id="ref1" class="fa-solid fa-rotate-right refBut" onclick="refresh(1,p1S)"></i>
   </div>
   <div class="refBarFlex">
-    <i id="ref2" class="fa-solid fa-rotate-right refBut" onclick="refresh(2,p2Score)"></i>
+    <i id="ref2" class="fa-solid fa-rotate-right refBut" onclick="refresh(2,p2S)"></i>
   </div>
   <div class="refBarFlex">
-    <i id="ref3" class="fa-solid fa-rotate-right refBut" onclick="refresh(3,p3Score)"></i>
+    <i id="ref3" class="fa-solid fa-rotate-right refBut" onclick="refresh(3,p3S)"></i>
   </div>
 </div>
 
@@ -241,6 +242,11 @@ margin-top: 2vmax;background-color: #0F201F;}
   <button id="exit" onclick="showMenu()">X</button>
   <table id="scoreT">
   </table>
+  <button id="manual" title="manually enter" onclick="mEnter()">
+    <i class="fa-solid fa-pen"></i>
+  </button>
+
+  </button>
 </div>
 
 <!--start stop Q-->
