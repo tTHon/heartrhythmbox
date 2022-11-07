@@ -83,11 +83,14 @@
 .menuText {color: #ddd;font-size: 1.5vmax;padding: 0;background:none;padding: 0.5vmax;}
 
 /*scorecard*/
-#scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 10%;left: 10%;animation: fadeIn 1s;
-    position: fixed;z-index: 1;padding: 1vmax;font-size: 3vmax;color: #cdcdcd;}
-#exit {position: fixed;top: 12%;right: 15%;color: #ddd;cursor: pointer;}
-#manual {color: #ddd;cursor: pointer;padding: 0.5vmax;border: none;font-size: 2.2vmax;}
-#scoreT, #scoreT th, #scoreT tr, #scoreT td {padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;}
+#scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 5%;left: 5%;animation: fadeIn 1s;
+    position: fixed;z-index: 1;padding: 2vmax;font-size: 3vmax;color: #cdcdcd;width: auto;}
+#manual, #saveChange, #exit {color: #ddd;cursor: pointer;padding: 0.5vmax;border-radius: 0.5vmax;border: #888 solid 0.1vmax;
+  font-size: 2vmax;}
+#saveChange {display: none;}
+#scoreT, #scoreT th, #scoreT tr, #scoreT td {
+  padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;background-color: #333;}
+
 
 /*start/stop Q*/
 #ss {display: none;background-color: rgba(22,22,22,0.8);animation: fadeIn 1s;
@@ -113,7 +116,7 @@ animation: fadeIn 1s;display: none;position: fixed;bottom: 5%;left: 5%;opacity: 
 margin-top: 2vmax;background-color: #0F201F;}
 .aNavItem {padding: 0.5vmax;border: #aaa solid 0.1vmax;font-size: 2vmax;border-radius: 1vmax;
   display: inline;color: #ddd;margin-right: 1vmax;cursor: pointer;}
-.ip {display: none;}
+
 
 /* zoom */
 @keyframes fadeIn {
@@ -239,14 +242,18 @@ margin-top: 2vmax;background-color: #0F201F;}
 <!--scoreCard-->
 <div id="scoreCard">
   Score Card
-  <button id="exit" onclick="showMenu()">X</button>
+  <div style="max-width:85vw;overflow-x: scroll;">
   <table id="scoreT">
   </table>
-  <button id="manual" title="manually enter" onclick="mEnter()">
+  </div>
+  <div style="text-align:center;">
+  <button id="manual" title="manually enter" onclick="mEnterInit()">
     <i class="fa-solid fa-pen"></i>
   </button>
+  <button id="saveChange">Save Change(s)</button>
+  <button id="exit" onclick="showMenu()">Close</button>
+  </div>
 
-  </button>
 </div>
 
 <!--start stop Q-->

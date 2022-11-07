@@ -20,11 +20,25 @@ function sub(){
   payload => {
     console.log('Change received!', payload)
     reFetch();
+    logoBlink('on');
   })
   .subscribe()
 }
 
 sub();
+
+function logoBlink(status){
+  title = document.getElementsByClassName('titleFlex')
+  if (status == 'on'){
+    title[0].style.textShadow = '10px 15px 30px pink, -10px -15px 30px pink'}
+  if (status == 'off'){
+    title[0].style.textShadow = 'none'
+  }
+      
+  }
+    
+
+  
 
 function reFetch(){ 
   const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
@@ -52,7 +66,7 @@ function reFetch(){
 }
 
 function refresh(gNo, array){
-  reFetch()
+  reFetch();logoBlink('off')
   if (questionNumber>=0 && array.length>0)
     {updateScore(gNo,array,questionNumber)}
 }
@@ -113,6 +127,7 @@ function showMenu(){
     //clear scorecard
     card = document.getElementById(scoreCard)
     scoreCard.style.display = 'none'
+    mEnterInit('off')
     scoreT = document.getElementById('scoreT')
     scoreT.deleteRow(-1);
     scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
@@ -128,7 +143,7 @@ function showScoreCard(){
   scoreCard.style.display = 'block'
   scoreT = document.getElementById('scoreT')
   scoreT.deleteRow(-1);
-    scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
+  scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
 
   var player = ['DAO','KHAW','OAT']
   var head = scoreT.insertRow(0);
@@ -149,6 +164,7 @@ function showScoreCard(){
     let cell = row1.insertCell(i)
     if (p1S[i]>=0){
       cell.innerHTML = p1S[i] 
+      cell.onclick = function(){mEnter(1,i)}
     } else {cell.innerHTML = ' '}
 
     if (i==0){cell.innerHTML=player[0]}
@@ -160,6 +176,7 @@ function showScoreCard(){
     let cell = row2.insertCell(i)
     if (p2S[i]>=0){
       cell.innerHTML = p2S[i] 
+      cell.onclick = function(){mEnter(2,i)}
     } else {cell.innerHTML = ' '}
 
     if (i==0){cell.innerHTML=player[1]}
@@ -171,6 +188,7 @@ function showScoreCard(){
     let cell = row3.insertCell(i)
     if (p3S[i]>=0){
       cell.innerHTML = p3S[i] 
+      cell.onclick = function(){mEnter(3,i)}
     } else {cell.innerHTML = ' '}
 
     if (i==0){cell.innerHTML=player[2]}
@@ -188,19 +206,51 @@ function showScoreCard(){
 
 }
 
-function mEnter(){
+edit = 'off'
+function mEnterInit(){
   const scoreT = document.getElementById('scoreT');
-  scoreT.style.cursor = 'pointer'
-  scoreT.style.color = 'pink'
-  scoreT.rows[1].cells[1].onclick = function(){
-    const thisCell = scoreT.rows[1].cells[1]
-    thisCell.innerHTML = '';
-    const x = document.createElement('input')
-    x.setAttribute("type",'number')
-    x.setAttribute("value", 0);
-    thisCell.appendChild(x);
+  const save = document.getElementById('saveChange')
+  if (edit=='off'){
+    edit = 'on'
+    scoreT.style.background = 'pink'
+    scoreT.style.cursor = 'pointer'
+    save.style.display = 'inline'
+  } else {
+    edit= 'off'
+    scoreT.style.background = 'none'
+    scoreT.style.cursor = 'context-menu'
+    save.style.display = 'none'
   }
+
 }
+
+function mEnter(row,col){
+  if (edit=='on'){
+      const scoreT = document.getElementById('scoreT');
+      thisCell = scoreT.rows[row].cells[col]
+      
+      if (thisCell.children.length>0){
+        //thisCell.style.background = 'none'
+        //thisCell.removeChild(thisCell.children[0])
+      }
+      else {
+        oldValue = thisCell.innerHTML
+        thisCell.innerHTML = ''
+        thisCell.style.background = '#121212'
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "text");
+        x.setAttribute("value", oldValue)
+        x.style.color = "#cdcdcd"
+        x.style.fontSize = '3vmax'
+        x.style.width = '4.5vmax'
+        thisCell.appendChild(x);
+        x.focus();
+      }
+    }
+} 
+
+
+
 
 
 function startStopQ(){
@@ -321,10 +371,18 @@ function clearQue(){
     .gte ('qNo',0)
   }
 
-    //console.log(data)
+  //console.log(data)
   clearQ();
   clearAud();
   clearP();
+ 
+  //clear player score array
+  for (let index = 0; index < p1S.length; index++) {
+    p1S[index] = 0;
+    p2S[index] = 0;
+    p3S[index] = 0;
+  }
+
   window.alert('clear')
 }
 
