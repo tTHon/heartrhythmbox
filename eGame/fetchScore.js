@@ -210,16 +210,19 @@ edit = 'off'
 function mEnterInit(){
   const scoreT = document.getElementById('scoreT');
   const save = document.getElementById('saveChange')
+  const undo = document.getElementById('undo')
   if (edit=='off'){
     edit = 'on'
     scoreT.style.background = 'pink'
     scoreT.style.cursor = 'pointer'
     save.style.display = 'inline'
+    undo.style.display = 'inline'
   } else {
     edit= 'off'
     scoreT.style.background = 'none'
     scoreT.style.cursor = 'context-menu'
     save.style.display = 'none'
+    undo.style.display = 'none'
   }
 
 }
@@ -229,11 +232,7 @@ function mEnter(row,col){
       const scoreT = document.getElementById('scoreT');
       thisCell = scoreT.rows[row].cells[col]
       
-      if (thisCell.children.length>0){
-        //thisCell.style.background = 'none'
-        //thisCell.removeChild(thisCell.children[0])
-      }
-      else {
+      if (thisCell.children.length==0){
         oldValue = thisCell.innerHTML
         thisCell.innerHTML = ''
         thisCell.style.background = '#121212'
@@ -243,12 +242,58 @@ function mEnter(row,col){
         x.style.color = "#cdcdcd"
         x.style.fontSize = '3vmax'
         x.style.width = '4.5vmax'
+        x.id = row.toString()+col.toString()
         thisCell.appendChild(x);
         x.focus();
       }
     }
 } 
 
+function saveMEnter(){
+  let inputTag = document.getElementsByTagName('input')
+
+  for (let index = 0; index < inputTag.length; index++) {
+    let inputId = inputTag[index].id
+
+    //pick only input in scoreCard
+    if (inputId.length<=2){
+      let row = Number(inputId.charAt(0))
+      let col = Number(inputId.charAt(1))
+      if (row==1){
+        p1S[col] = Number(inputTag[index].value)
+      }
+      if (row==2){
+        p2S[col] = Number(inputTag[index].value)
+      } 
+      if (row==3){
+        p3S[col] = Number(inputTag[index].value)
+      }
+    }
+  }
+}
+
+function undo(){
+  let inputTag = document.getElementsByTagName('input')
+  for (let index = 0; index < inputTag.length; index++) {
+    let inputId = inputTag[index].id
+
+    //pick only input in scoreCard
+    if (inputId.length<=2){
+      let row = Number(inputId.charAt(0))
+      let col = Number(inputId.charAt(1))
+      if (row==1){
+        inputTag[index].value = p1S[col]
+      }
+      if (row==2){
+        inputTag[index].value = p2S[col]
+      } 
+      if (row==3){
+        inputTag[index].value = p3S[col]
+      }
+    }
+  }
+  showScoreCard();
+}
 
 
 

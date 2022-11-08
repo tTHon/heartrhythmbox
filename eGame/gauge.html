@@ -85,9 +85,9 @@
 /*scorecard*/
 #scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 5%;left: 5%;animation: fadeIn 1s;
     position: fixed;z-index: 1;padding: 2vmax;font-size: 3vmax;color: #cdcdcd;width: auto;}
-#manual, #saveChange, #exit {color: #ddd;cursor: pointer;padding: 0.5vmax;border-radius: 0.5vmax;border: #888 solid 0.1vmax;
+#manual, #saveChange, #exit, #undo {color: #ddd;cursor: pointer;padding: 0.5vmax;border-radius: 0.5vmax;border: #888 solid 0.1vmax;
   font-size: 2vmax;}
-#saveChange {display: none;}
+#saveChange, #undo {display: none;}
 #scoreT, #scoreT th, #scoreT tr, #scoreT td {
   padding: 1vmax;border:#888 solid 0.1vmax;text-align: center;background-color: #333;}
 
@@ -250,7 +250,10 @@ margin-top: 2vmax;background-color: #0F201F;}
   <button id="manual" title="manually enter" onclick="mEnterInit()">
     <i class="fa-solid fa-pen"></i>
   </button>
-  <button id="saveChange">Save Change(s)</button>
+  <button id="undo" title="undo all" onclick="undo()">
+    <i class="fa-solid fa-rotate-left"></i>
+  </button>
+  <button id="saveChange" onclick="saveMEnter()">Save Change(s)</button>
   <button id="exit" onclick="showMenu()">Close</button>
   </div>
 
