@@ -35,3 +35,7 @@ background-color: rgba(55,55,55,0.9);font-size: 3vmax;padding: 2vmax;color: #ddd
 .scoreSum {padding: 1vmax;background-color: rgba(55,55,55,0.9);border-bottom: #aaa dashed 0.2vmax;
   color: #aaa;font-weight: 400;}
 .scoreSumPName {background-color: rgba(55,55,55,0.9);color: #f1f1f1;font-weight: 700;padding: 1vmax;}
+
+#qNav {text-align: center;color: #555;font-size: 3vmax;}
+#dn, #up {cursor:pointer;}
+#dn {display: none;}

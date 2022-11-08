@@ -179,7 +179,35 @@ function showSummary(a1,a2,a3,s1,s2,s3){
         }
         sum[classNo].innerHTML += 'Total Score: ' + total;
     }
+}
 
+function qNav(nav){
+    newQ = qNo+nav;
 
+    if (newQ<0){
+        document.getElementById('dn').style.display = 'none'
+        newQ=0;
+        qNo = newQ;
+        loadPage();
+    }
+    else if (newQ>totalQ){
+        document.getElementById('up').style.display = 'none'
+        newQ = totalQ
+        qNo = newQ;
+        loadPage();
+    }
+    else {
+        document.getElementById('dn').style.display = 'inline'
+        document.getElementById('up').style.display = 'inline'
+        document.getElementById('current').innerHTML = newQ;
+        qNo = newQ;
+        loadPage();
+    }
 
+    if (qNo==0) {
+        document.getElementById('dn').style.display = 'none'       
+    }
+    else if (qNo==totalQ){
+        document.getElementById('up').style.display = 'none'    
+    }
 }
