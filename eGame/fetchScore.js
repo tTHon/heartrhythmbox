@@ -461,12 +461,12 @@ function showAudience(){
       const aScore = await database.from("Audience")
       .select('*')
       .order('qNo', {ascending:false})
-      .order('created_at', {ascending:false})
+      .order('created_at', {ascending:true})
 
       if (aScore.data.length>0){
           maxQ = aScore.data[0].qNo}
       else {maxQ = 0}
-      //console.log(aScore.data.length)
+      console.log(aScore)
 
       //count maxQ votes
       voteNo = getVoteNo(maxQ);
@@ -481,7 +481,7 @@ function showAudience(){
         }
         return count;
       }
-      //audScore [name][score] + sorting
+      //audScore [name][score][timeStamp] + sorting
       var audScore = getAudienceArray(maxQ)
       
       function getAudienceArray(Q){
@@ -491,26 +491,29 @@ function showAudience(){
           if (f.qNo ==Q){
             audName = f.audName
             audScore = parseInt(f.score)
-            toPush = [audName,audScore]
+            time = f.created_at
+            toPush = [audName,audScore,time]
             array.push(toPush)
           }
         }
-        array.sort(function(a,b){
-          if (a[1]>b[1]) {return -1}})
-
         return array;
       }
-
 
     //show score
     var maxItem = 5;
     if (audScore.length<maxItem){maxItem=audScore.length}
     var name2Show = document.getElementsByClassName('aName')
     var score2Show = document.getElementsByClassName('aScore')
+    var time2Show = document.getElementsByClassName('tStamp')
+    for (let i=0;i<time2Show.length;i++){
+      time2Show[i].style.display = 'none'
+    }
+    document.getElementById('tStampH').style.display = 'none'
 
     for (let index = 0; index < maxItem; index++) {
       name2Show[index].innerHTML = audScore[index][0]
       score2Show[index].innerHTML = audScore[index][1]
+      time2Show[index].innerHTML = audScore[index][2]
       name2Show[index].style.visibility = 'hidden'
       score2Show[index].style.visibility = 'hidden'
     }
@@ -525,7 +528,7 @@ function showAItem(n){
   var maxItem = 5;
   var name2Show = document.getElementsByClassName('aName')
   var score2Show = document.getElementsByClassName('aScore')
-  var time = document.getElementsByClassName('tStamp')
+  var time2Show = document.getElementsByClassName('tStamp')
   if (n==99){
     for (let index = 0; index < maxItem; index++) {
       name2Show[index].style.visibility = 'visible'
@@ -534,7 +537,8 @@ function showAItem(n){
   }
   else if(n=='tStamp'){
     for (let index = 0; index < time.length; index++) {
-      time[index].style.display = 'table-cell'      
+      document.getElementById('tStampH').style.display = 'table-cell'
+      time2Show[index].style.display = 'table-cell'      
     }
   }
   else {
