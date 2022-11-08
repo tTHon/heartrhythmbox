@@ -12,7 +12,7 @@ function sub(){
   const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
   const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
   const database = supabase.createClient(url,key)
-  console.log (database)
+  //console.log (database)
 
   database
   .channel('public:pScore')
@@ -38,8 +38,6 @@ function logoBlink(status){
   }
     
 
-  
-
 function reFetch(){ 
   const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
   const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
@@ -58,15 +56,19 @@ function reFetch(){
     for (var i=0;i<result.data.length;i++){
       var k = result.data[i]
       var q = k.qNo;
-      p1S[q] = k.p1Score;
-      p2S[q] = k.p2Score;
-      p3S[q] = k.p3Score;
+      if (q==questionNumber){
+        console.log('q=q')
+        p1S[q] = k.p1Score;
+        p2S[q] = k.p2Score;
+        p3S[q] = k.p3Score;
+        break;
+      }
     }
   }
 }
 
 function refresh(gNo, array){
-  reFetch();logoBlink('off')
+  logoBlink('off')
   if (questionNumber>=0 && array.length>0)
     {updateScore(gNo,array,questionNumber)}
 }
@@ -133,6 +135,11 @@ function showMenu(){
     scoreT.deleteRow(-1);scoreT.deleteRow(-1);scoreT.deleteRow(-1);
     document.getElementById('ss').style.display = 'none'
     document.getElementById('audience').style.display = 'none'
+    //tStamp
+    time = document.getElementsByClassName('tStamp')
+    for (let index = 0; index < time.length; index++) {
+      time[index].style.display = 'none'
+    }    
     document.getElementById('end').innerHTML = 'End Game'
     eGameCount =0;
   }
@@ -207,7 +214,7 @@ function showScoreCard(){
 }
 
 edit = 'off'
-function mEnterInit(){
+function mEnterInit(status){
   const scoreT = document.getElementById('scoreT');
   const save = document.getElementById('saveChange')
   const undo = document.getElementById('undo')
@@ -218,6 +225,13 @@ function mEnterInit(){
     save.style.display = 'inline'
     undo.style.display = 'inline'
   } else {
+    edit= 'off'
+    scoreT.style.background = 'none'
+    scoreT.style.cursor = 'context-menu'
+    save.style.display = 'none'
+    undo.style.display = 'none'
+  }
+  if (status=='off'){
     edit= 'off'
     scoreT.style.background = 'none'
     scoreT.style.cursor = 'context-menu'
@@ -270,6 +284,7 @@ function saveMEnter(){
       }
     }
   }
+  showMenu();mEnterInit('off')
 }
 
 function undo(){
@@ -447,7 +462,10 @@ function showAudience(){
       .select('*')
       .order('qNo', {ascending:false})
       .order('created_at', {ascending:false})
-      const maxQ = aScore.data[0].qNo
+
+      if (aScore.data.length>0){
+          maxQ = aScore.data[0].qNo}
+      else {maxQ = 0}
       //console.log(aScore.data.length)
 
       //count maxQ votes
@@ -463,7 +481,6 @@ function showAudience(){
         }
         return count;
       }
-
       //audScore [name][score] + sorting
       var audScore = getAudienceArray(maxQ)
       
@@ -508,16 +525,16 @@ function showAItem(n){
   var maxItem = 5;
   var name2Show = document.getElementsByClassName('aName')
   var score2Show = document.getElementsByClassName('aScore')
-  var audIp = document.getElementsByClassName('ip')
+  var time = document.getElementsByClassName('tStamp')
   if (n==99){
     for (let index = 0; index < maxItem; index++) {
       name2Show[index].style.visibility = 'visible'
       score2Show[index].style.visibility = 'visible'
     }
   }
-  else if(n=='ip'){
-    for (let index = 0; index < audIp.length; index++) {
-      audIp[index].style.display = 'table-cell'      
+  else if(n=='tStamp'){
+    for (let index = 0; index < time.length; index++) {
+      time[index].style.display = 'table-cell'      
     }
   }
   else {

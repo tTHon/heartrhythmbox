@@ -1,6 +1,8 @@
 var pName = ['DAO','KHAW','OAT']
 var totalQ = 12;
-var keyJson = [
+var keyJson = [ {"no":0, "key": 'no key', "score": 0},
+                {"no":0, "key": 'no key2', "score": 0},
+                {"no":0, "key": 'no key3', "score": 0},
                 {"no":1, "key": 'Brugada Pattern', "score": 2},
                 {"no":1, "key": 'LAE', "score": 5},
                 {"no":1, "key": '1.3', "score": 3},         

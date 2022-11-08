@@ -395,10 +395,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-//window.onbeforeunload = (event) => {
-  //event.preventDefault();
-  //return event.returnValue = 'onbeforeunload';
-//};
+window.onbeforeunload = (event) => {
+  event.preventDefault();
+  return event.returnValue = 'onbeforeunload';
+};
 
 //global var
 var totalQ = 12
@@ -477,11 +477,34 @@ function handleSubmit(){
   submitted=true;
   afterSubmit();
 }
-
 //end submit
- 
+
+function showBigQ(){
+    const t = document.createElement('div')
+    t.innerText = qNo
+    t.style.position = 'fixed'
+    t.style.top = '0';t.style.left = '35vw'
+    t.style.lineHeight = '100%'
+    t.style.fontSize = '70vw'
+    t.style.color = 'rgba(180,180,180)'
+    t.style.zIndex = '2'
+    document.body.appendChild(t);
+
+    //fade in and out
+    opacity = 0.8;
+    for (let index = 0; index <=0.8; index=index+0.01) {
+        setTimeout(function(){
+            opacity = opacity-index
+            t.style.opacity = opacity.toString()
+        },8000*index)
+        
+    }
+}
+
+
+
 function ecgLoad(){
-    //document.getElementById('next').innerHTML = nameEntered;
+    showBigQ();
     displayName();
     ecgPage = document.getElementById('ecgPage')
     ecgPage.style.maxHeight = 'none'
