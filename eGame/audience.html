@@ -426,7 +426,7 @@ function sub(){
     const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
     const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
     const database = supabase.createClient(url,key)
-    console.log (database)
+    //console.log (database)
 
     database
     .channel('public:qFeed')
@@ -479,34 +479,7 @@ function handleSubmit(){
 }
 //end submit
 
-function showBigQ(){
-    const t = document.createElement('div')
-    t.innerText = qNo
-    t.style.position = 'fixed'
-    t.style.top = '0';t.style.left = '35vw'
-    t.style.lineHeight = '100%'
-    t.style.fontSize = '70vw'
-    t.style.color = 'rgba(180,180,180)'
-    t.style.zIndex = '2'
-    document.body.appendChild(t);
-
-    //fade in and out
-    opacity = 0.8;
-    for (let index = 0; index <=0.8; index=index+0.01) {
-        setTimeout(function(){
-            opacity = opacity-index
-            t.style.opacity = opacity.toString()
-        },8000*index)
-        if (index==0.8){
-            t.style.display = 'none'
-        }
-    }
-}
-
-
-
 function ecgLoad(){
-    showBigQ();
     displayName();
     ecgPage = document.getElementById('ecgPage')
     ecgPage.style.maxHeight = 'none'
@@ -639,9 +612,21 @@ function calcScore(){
 }
 
 function displayName(){
-    document.getElementById('title').innerHTML = "Question No. " + qNo + " /" + totalQ;
+    title = document.getElementById('title')
+    ecg = document.getElementById('ecg')
+    title.innerHTML = "Question No. " + qNo + " /" + totalQ;
     var source = "ecgs//ecg"+ qNo.toString()+".png";
-    document.getElementById('ecg').src = source;
+    ecg.src = source;
+
+    //fade in 0-100%
+    for (let i=0;i<=100;i++){
+        setTimeout(function(){
+            let opac = i
+            title.style.opacity = opac.toString() + '%'
+            ecg.style.opacity = opac.toString() + '%'
+        },8*i)
+    }
+
     if (qNo<12){
     var plus = qNo+1
     var preLoadSource = "ecgs//ecg"+ plus.toString()+".png";
