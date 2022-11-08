@@ -497,7 +497,9 @@ function showBigQ(){
             opacity = opacity-index
             t.style.opacity = opacity.toString()
         },8000*index)
-        
+        if (index==0.8){
+            t.style.display = 'none'
+        }
     }
 }
 
@@ -542,7 +544,6 @@ function ecgLoad(){
         oBar.style.display = 'block'
         }
     else if (vote==1){
-        arrow('on')
         oBar.style.display = 'block'
         form.style.display = 'inline-block';
         sButt.style.display = 'inline-block'
