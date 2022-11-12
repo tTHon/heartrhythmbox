@@ -359,9 +359,9 @@
             <i id="aRight" onclick="aRotate()" class="fa-regular fa-window-maximize" title="answer sheet to the right" 
             style="rotate:90deg;font-size: 2vmax;color: #888;cursor: pointer;padding: 0.2vmax;"></i>
             <i id="aBottom" onclick="aRotate()" 
-            class="fa-regular fa-window-maximize fa-shake" title="answer sheet to the bottom" 
+            class="fa-regular fa-window-maximize fa-beat" title="answer sheet to the bottom" 
             style="font-size:2vmax;color: #888;cursor: pointer;rotate: 180deg;padding: 0.2vmax;
-            --fa-animation-duration:2s"></i>
+            --fa-animation-duration:30s"></i>
         </div>
     
         <!--bouncy arrow down-->
@@ -420,7 +420,6 @@ var keyJson = [{"no":0, "key": '1.2', "score": 0},
             {"no":12, "key": '3.2', "score": 2},
             {"no":12, "key": '3.3', "score": 3}]
 var submitted=false;
-
 var supUrl;var supKey;
 
 function getEnv(){
@@ -432,6 +431,9 @@ function getEnv(){
       }
     };
 
+    //https://api.netlify.com/api/v1/accounts/{account_id}/env/{key}
+    //"id": "5ca5f90d40745df93379f428"
+    
     fetch('https://api.netlify.com/api/v1/sites', options)
     .then(response => response.json())
     .then(result => getURL(result))
@@ -445,17 +447,19 @@ function getEnv(){
 }
 
 
-
 //fetch
 function sub(url,key){
+    //const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+    //const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
     const database = supabase.createClient(url,key)
     //console.log (database)
     supKey = key;supUrl=url
+    //console.log(supKey,supUrl)
 
     database
     .channel('public:qFeed')
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'qFeed' }, payload => {
-      //console.log('Change received!', payload)
+      console.log('Change received!', payload)
       qNow = payload.new.questionNo
       //document.getElementById('demo').innerHTML = qNow;
 
@@ -471,14 +475,14 @@ function sub(url,key){
     .subscribe()
 }
 
-getEnv();
-
+getEnv()
 
 //submit
 function handleSubmit(){
+    //const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+    //const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
     const database = supabase.createClient(supUrl,supKey)
-    //console.log (database)
-
+    console.log (supUrl,supKey)
     //get data
     thisScore = calcScore();  
     score = score + thisScore;  
