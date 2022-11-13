@@ -394,6 +394,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="env.js"></script>
 <script>
 window.onbeforeunload = (event) => {
   event.preventDefault();
@@ -421,36 +422,13 @@ var keyJson = [{"no":0, "key": '1.2', "score": 0},
             {"no":12, "key": '3.3', "score": 3}]
 var submitted=false;
 
-var supUrl;var supKey;
-
-function getEnv(){
-  const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer byLDRD12H9zVpadt9nD0PNsUMtY5iqfxm9cvsosk4u8'
-      }
-    };
-
-    fetch('https://api.netlify.com/api/v1/sites', options)
-    .then(response => response.json())
-    .then(result => getURL(result))
-    .catch(err => console.error(err));
-
-    function getURL(result){
-        key = result[0].build_settings.env.SUPABASE_ANON_KEY
-        url = result[0].build_settings.env.SUPABASE_URL
-        sub(url,key)
-    }
-}
-
-
+var supUrl = env[0]
+var supKey = env[1]
 
 //fetch
 function sub(url,key){
-    const database = supabase.createClient(url,key)
+    const database = supabase.createClient(supUrl,supKey)
     //console.log (database)
-    supKey = key;supUrl=url
 
     database
     .channel('public:qFeed')
@@ -471,7 +449,7 @@ function sub(url,key){
     .subscribe()
 }
 
-getEnv();
+sub();
 
 
 //submit
