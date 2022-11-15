@@ -257,16 +257,33 @@ window.onbeforeunload = (event) => {
 
 var qNo = 0;
 document.getElementById('intro').style.display = 'block'
+var supUrl;var supKey;
 
 function starter(){
+    setUpSup()
+    //fetch supValue
+    function setUpSup(){
+        fetch('/.netlify/functions/hello')
+        .then(response => response.json())
+        .then(result =>setUpVar(result))
+        .catch(error => console.log('error', error));
+
+        function setUpVar(data){
+            supUrl = data[0];supKey = data[1]
+            supVar(supUrl,supKey)
+        }
+    }
+
     loadPage();
     document.getElementById('intro').style.display = 'none'
 }
 
+function supVar(url,key){
+    supUrl = url;supKey = key;
+}
+
 function sendScore(){
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-  const database = supabase.createClient(url,key)
+  const database = supabase.createClient(supUrl,supKey)
   console.log (database)
 
   //dBase name pScore, fields: qNo, created_at, p1Array, p1Score ...

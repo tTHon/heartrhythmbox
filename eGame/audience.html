@@ -394,7 +394,6 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="env.js"></script>
 <script>
 window.onbeforeunload = (event) => {
   event.preventDefault();
@@ -421,12 +420,25 @@ var keyJson = [{"no":0, "key": '1.2', "score": 0},
             {"no":12, "key": '3.2', "score": 2},
             {"no":12, "key": '3.3', "score": 3}]
 var submitted=false;
+var supUrl;var supKey;
+setUpSup()
+//fetch supValue
+function setUpSup(){
+    fetch('/.netlify/functions/hello')
+    .then(response => response.json())
+    .then(result =>setUpVar(result))
+    .catch(error => console.log('error', error));
 
-var supUrl = env[0]
-var supKey = env[1]
+    function setUpVar(data){
+        supUrl = data[0];supKey = data[1]
+        sub(supUrl,supKey)
+    }
 
-//fetch
+}
+
+//subscribe
 function sub(url,key){
+    supUrl = url;supKey = key;
     const database = supabase.createClient(supUrl,supKey)
     //console.log (database)
 
@@ -448,8 +460,6 @@ function sub(url,key){
     })
     .subscribe()
 }
-
-sub();
 
 
 //submit

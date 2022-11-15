@@ -8,10 +8,26 @@ var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0];
 var questionNumber;
 var q2Vote = [4,8,12];
 
-function sub(){
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-  const database = supabase.createClient(url,key)
+var supUrl;var supKey;
+setUpSup()
+//fetch supValue
+function setUpSup(){
+    fetch('/.netlify/functions/hello')
+    .then(response => response.json())
+    .then(result =>setUpVar(result))
+    .catch(error => console.log('error', error));
+
+    function setUpVar(data){
+        supUrl = data[0];supKey = data[1]
+        sub(supUrl,supKey)
+        reFetch()
+    }
+
+}
+
+function sub(url,key){
+  supUrl = url;supKey = key;
+  const database = supabase.createClient(supUrl,supKey)
   //console.log (database)
 
   database
@@ -25,8 +41,6 @@ function sub(){
   .subscribe()
 }
 
-sub();
-
 function logoBlink(status){
   title = document.getElementsByClassName('titleFlex')
   if (status == 'on'){
@@ -35,13 +49,11 @@ function logoBlink(status){
     title[0].style.textShadow = 'none'
   }
       
-  }
+}
     
 
 function reFetch(){ 
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-  const database = supabase.createClient(url,key)
+  const database = supabase.createClient(supUrl,supKey)
 
   //getData
     const getData = async () => {
@@ -384,10 +396,8 @@ function startQClick(){
 
 //Question Que
 function sendQue(){
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-  const database = supabase.createClient(url,key)
-  console.log (database)
+  const database = supabase.createClient(supUrl,supKey)
+  //console.log (database)
 
   //q2send
   var q2Send;
@@ -406,10 +416,8 @@ function sendQue(){
 }
 
 function clearQue(){
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-  const database = supabase.createClient(url,key)
-  console.log (database)
+  const database = supabase.createClient(supUrl,supKey)
+  //console.log (database)
 
   const clearQ = async ()=>{
     const data = await database
@@ -452,9 +460,7 @@ function clearQue(){
 function showAudience(){
   document.getElementById('audience').style.display = 'block'  
 
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
-  const database = supabase.createClient(url,key)
+  const database = supabase.createClient(supUrl,supKey)
 
   //getData
   const getData = async () => {
