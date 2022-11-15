@@ -11,18 +11,38 @@
     <div id="url"></div>
     <div id="key"></div>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     
 
-fetch('/.netlify/functions/hello')
+fetch('/.netlify/functions/goodbye')
     .then(response => response.json())
     .then(result =>setUpSup(result))
     .catch(error => console.log('error', error));
 
 function setUpSup(data){
-    document.getElementById('url').innerHTML = data[0]
-    document.getElementById('key').innerHTML = data[1]
+    console.log(data)
+    url = data[0]
+    key = data[1]
+    reFetch(url,key)
+}
+
+function reFetch(url,key){ 
+  const database = supabase.createClient(url,key)
+
+  //getData
+    const getData = async () => {
+      const PW = await database.from("password")
+      .select('moderator')
+      getPW(PW)
+    }
+  getData();
+  
+  function getPW(PW){
+        password = PW.data[0]
+        console.log(password)
+    }
+  
 }
 
 </script>
