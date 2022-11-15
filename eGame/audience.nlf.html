@@ -320,11 +320,11 @@ function fetchQ(){
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
+    Authorization: ''
     }
     };
 
-    fetch('https://api.netlify.com/api/v1/forms/634e14b8e3483f0008fc0ab2/submissions', options)
+    fetch('https://api.netlify.com/api/v1/forms/ID/submissions', options)
     .then(response => response.json())
     .then(result =>sortFeed(result))
     .catch(err => console.error(err));

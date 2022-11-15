@@ -1,5 +1,5 @@
 //tryapis.com
-//oyqF9n48JsYpRKXk-RaF8GsOgsa4NVrIkMZ9W_b7zrM
+
 
 var totalQ = 13;
 var p1Score = [];
@@ -13,11 +13,11 @@ function reFetch(){
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
+      Authorization: 'Bearer '
     }
   };
   
-  fetch('https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions', options)
+  fetch('https://api.netlify.com/api/v1/forms/ID/submissions', options)
     .then(response => response.json())
     .then(result =>getScore(result))
     .catch(error => console.log('error', error));

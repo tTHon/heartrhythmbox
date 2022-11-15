@@ -11,11 +11,11 @@ const oldScore = [0,0,0];
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
+      Authorization: 'Bearer'
     }
   };
 
-  const URL = 'https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions'
+  const URL = 'https://api.netlify.com/api/v1/forms/ID/submissions'
   
   fetch(URL, options)
   .then(response => {return response.json()})

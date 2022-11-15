@@ -1,6 +1,3 @@
-//tryapis.com
-//oyqF9n48JsYpRKXk-RaF8GsOgsa4NVrIkMZ9W_b7zrM
-
 var totalQ = 13;
 var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 

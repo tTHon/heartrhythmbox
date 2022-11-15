@@ -13,11 +13,11 @@ function reFetch(){
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer Tp5sLcLZPjW95uAWeBWFgJmKZ2PtfQSIb6-IwB_NCuQ'
+      Authorization: ''
     }
   };
   
-  fetch('https://api.netlify.com/api/v1/forms/634035b9b348c50008955b1a/submissions', options)
+  fetch('https://api.netlify.com/api/v1/forms/ID/submissions', options)
     .then(response => response.json())
     .then(result =>getScore(result))
     .catch(error => console.log('error', error));
@@ -219,8 +219,6 @@ function startQClick(){
 
 //Question Que
 function sendQue(){
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
   const database = supabase.createClient(url,key)
   console.log (database)
 
@@ -241,8 +239,6 @@ function sendQue(){
 }
 
 function clearQue(){
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
   const database = supabase.createClient(url,key)
   console.log (database)
 
@@ -271,8 +267,6 @@ function clearQue(){
 function showAudience(){
   document.getElementById('audience').style.display = 'block'  
 
-  const url = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-  const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY'
   const database = supabase.createClient(url,key)
 
   //getData
