@@ -10,10 +10,10 @@
 <body>
     <div id="demo">URL = </div>
 </body>
-<script src="env.js"></script>
+
 <script>
-    var key = getEnv();
-document.getElementById('demo').innerHTML = key 
+    fetch('/.netlify/functions/hello')
+    .then (response => console.log(response))
 </script>
 
 </html>
