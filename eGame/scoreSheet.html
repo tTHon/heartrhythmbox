@@ -242,7 +242,7 @@ padding: 3vmax;">
         <div class="scoreSumPName"></div>
         <div class="scoreSum"></div>
     </div>
-    <button onclick="loadPage()" style="font-size:2.2vmax;">
+    <button id="scoreSumClose" style="font-size:2.2vmax;">
         CLOSE
     </button>
 </div>
@@ -259,27 +259,28 @@ var qNo = 0;
 document.getElementById('intro').style.display = 'block'
 var supUrl;var supKey;
 
-function starter(){
-    setUpSup()
-    //fetch supValue
-    function setUpSup(){
-        fetch('/.netlify/functions/hello')
-        .then(response => response.json())
-        .then(result =>setUpVar(result))
-        .catch(error => console.log('error', error));
+setUpSup();    
+    
+//fetch supValue
+function setUpSup(){
+    fetch('/.netlify/functions/hello')
+    .then(response => response.json())
+    .then(result =>setUpVar(result))
+    .catch(error => console.log('error', error));
 
-        function setUpVar(data){
-            supUrl = data[0];supKey = data[1]
-            supVar(supUrl,supKey)
-        }
+    function setUpVar(data){
+        supUrl = data[0];supKey = data[1]
+        supVar(supUrl,supKey)
     }
-
-    loadPage();
-    document.getElementById('intro').style.display = 'none'
 }
 
 function supVar(url,key){
     supUrl = url;supKey = key;
+}
+
+function starter(){
+    loadPage();
+    document.getElementById('intro').style.display = 'none'
 }
 
 function sendScore(){
@@ -307,8 +308,11 @@ function sendScore(){
 
   sendData()
   showSummary(p1ScoreA,p2ScoreA,p3ScoreA,totalScore[0].value,totalScore[1].value,totalScore[2].value);
-  qNo++;
-  qNav(0)
+  document.getElementById('scoreSumClose').onclick = function(){
+    qNo++;
+    qNav(0)
+    document.getElementById('summary').style.display = 'none'
+    }
 }
 
 </script>  

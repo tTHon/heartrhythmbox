@@ -37,7 +37,7 @@ var keyJson = [ {"no":0, "key": 'no key', "score": 0},
             ]
 
 function loadPage(){     
-    document.getElementById('summary').style.display = 'none'           
+    //document.getElementById('summary').style.display = 'none'           
     displayName();
     resetScore();
     displayTickBox(qNo,'aBox','label');
@@ -156,12 +156,14 @@ function finalCheckScore(pNo){
 
 function showSummary(a1,a2,a3,s1,s2,s3){
     //get key
-    document.getElementById('summary').style.display = 'block'
+    summary = document.getElementById('summary')
+    summary.style.display = 'block'
+    summary.scrollIntoView({block: "start"})
     var keyA = getKeyArray(qNo);
     var scoreA = getScoreArray(qNo);
     const sum = document.getElementsByClassName('scoreSum')
     const ssPName = document.getElementsByClassName('scoreSumPName')
-
+    
     //clear texxt
     for (let index = 0; index < 3; index++) {
         sum[index].innerHTML = ""        
