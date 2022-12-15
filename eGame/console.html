@@ -21,7 +21,7 @@
         .nameBar, .scoreBar {flex-wrap: wrap;}
       }
 
-#title {font-size: 2vmax;padding: 0.5vmax;color: #f8f7f5;display: flex;margin-top: 0;opacity: 0.7;
+#title {font-size: 2vmax;padding: 0.5vmax;color: #f8f7f5;margin-top: 0;opacity: 0.7;text-align: center;
   background-color: #383838;width: 100%;}
 .titleFlex {flex: 40%;background-color: #383838;vertical-align: bottom;padding:0 1vmax;}
 .glowing {animation: glow 30s ease-in-out infinite;}
@@ -52,7 +52,7 @@
     100% {text-shadow: none;letter-spacing: 0.1vw;}
   }
 
-.nameBar, .scoreBar {display: flex;width: 100%;padding: 1vmax;}
+.nameBar, .scoreBar {padding: 1vmax;}
 .nameBar {padding-top: 4vmax;}
 .canvasZone {text-align:center;background-color: #333;border-top:#555 solid 0.1vmax;}
 .scoreBar {padding-top: none;}
@@ -83,6 +83,7 @@
 .menuText {color: #ddd;font-size: 1.5vmax;padding: 0;background:none;padding: 0.5vmax;}
 
 /*scorecard*/
+
 #scoreCard{display: none;background-color: rgba(22,22,22,0.8);top: 5%;left: 5%;animation: fadeIn 1s;
     position: fixed;z-index: 1;padding: 2vmax;font-size: 3vmax;color: #cdcdcd;width: auto;}
 #manual, #saveChange, #exit, #undo {color: #ddd;cursor: pointer;padding: 0.5vmax;border-radius: 0.5vmax;border: #888 solid 0.1vmax;
@@ -133,30 +134,32 @@ margin-top: 2vmax;background-color: #0F201F;}
   <div id="main">
 <!--titleBar-->
 <div id="title">
-  <div class="cursive titleFlex" 
-  style="text-align: left;letter-spacing: 0.5vw;cursor: pointer;" onclick="reFetch()">
-    CC2023
-   </div>
+  <span class="cursive" 
+  style="letter-spacing: 0.2vw;cursor: pointer;" onclick="reFetch()">
+    CC2023 &gt;&gt;
+</span>
   <!--img src="x.png" style="width:1.2vmax;vertical-align: middle;"-->
-  <div class="cursive titleFlex glowing" style="text-align:right;">ElectroCardioGame</div>
+  <span class="cursive glowing" style="padding-left: 1vmax;">ElectroCardioGame</span>
 
 </div>
 
 <!--name-->
-<div class="nameBar">
-  <div class="flex33">
-    <div class="pName" style="color: #ff7632">
+<div class="nameBar" style="margin-left: 25vw;margin-right: 25vw">
+
+    <div class="pName" style="color: #ff7632;padding-bottom: 2vmax;text-align: left;width: 50vw;">
       <i class="fa-brands fa-phoenix-framework fa-fw" style="color:#ff7632;border-radius: 3.5vmax;
-      border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
-      DAO</div>
-  </div>
-  <div class="flex33">
+      border: #444 solid 0.2vmax;padding: 0.5vmax;cursor: pointer;" onclick="refresh(1,p1S)"></i>
+      DAO 
+      <span class="score" style="color:#ff7632;float: right;">0</span>
+    </div>
+
+  <div>
     <div class="pName" style="color:#30d5c8">
       <i class="fa-brands fa-wolf-pack-battalion fa-fw" style="color:#30d5c8;border-radius: 3.5vmax;
       border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
       KHAW</div>
   </div>
-  <div class="flex33">
+  <div>
     <div class="pName" style="color:#cbf482">
     <i class="fa-brands fa-firefox-browser fa-fw" style="color:#cbf482;border-radius: 3.5vmax;
     border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
@@ -200,7 +203,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 <div class="itemBar">
   <div id="qNav">
 
-    <i class="fa-solid fa-ellipsis-vertical menuDot " onclick="showMenu()"
+    <i class="fa-solid fa-bars menuDot" onclick="showMenu()"
     style="color:#888;cursor: pointer;"></i>
 
        Question
