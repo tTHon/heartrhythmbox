@@ -8,21 +8,32 @@
 
 </head>
 <body>
+
+
+    Code: <input id="pass" type="text">
+    <input type="submit" value="submit" onclick="checkPassword()">
+
     <div id="url"></div>
     <div id="key"></div>
 </body>
-
 <script>
     
 
-fetch('/.netlify/functions/hello')
+fetch('/.netlify/functions/goodbye')
     .then(response => response.json())
-    .then(result =>setUpSup(result))
+    .then(result =>setUpPW(result))
     .catch(error => console.log('error', error));
 
-function setUpSup(data){
-    document.getElementById('url').innerHTML = data[0]
-    document.getElementById('key').innerHTML = data[1]
+var modPW;var scrPW;
+function setUpPW(data){
+    //console.log(data)
+    modPW = data[0]
+    scrPW = data[1]
+}
+
+function checkPassword(){
+  var pInput = document.getElementById('pass').value;
+  document.getElementById('url').innerHTML = pInput
 }
 
 </script>
