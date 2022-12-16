@@ -78,8 +78,9 @@
 .menuText {color: #ddd;font-size: 1.5vmax;padding: 0;background:none;padding: 0.5vmax;}
 
 /*scorecard*/
-#scoreCard{background-color: rgba(22,22,22,0.8);top: 5%;left: 5%;animation: fadeIn 1s;
-    padding: 2vmax;font-size: 3vmax;color: #cdcdcd;width: auto;}
+#scoreCard{background-color: rgba(22,22,22,0.8);width: fit-content;margin-left: auto;
+  margin-top: 1vmax;margin-right: auto;
+    padding: 2vmax;font-size: 3vmax;color: #cdcdcd;}
 #manual, #saveChange, #exit, #undo {color: #ddd;cursor: pointer;padding: 0.5vmax;border-radius: 0.5vmax;border: #888 solid 0.1vmax;
   font-size: 2vmax;}
 #saveChange, #undo {display: none;}
@@ -88,7 +89,7 @@
 
 
 /*start/stop Q*/
-#ss {background-color: rgba(22,22,22,0.8);animation: fadeIn 1s;
+#ss {background-color: rgba(22,22,22,0.8);max-width: 60vw;margin-left: 20vw;margin-top: 1vmax;
     padding: 1vmax;font-size: 2.2vmax;color: #cdcdcd;}
 #ssContent {display: flex;flex-wrap: wrap;padding: 1vmax;}
 .ssItem {flex-basis: 3vw;text-align: center;padding: 0.5vmax;border: #888 solid 0.1vmax;cursor: pointer;}
@@ -98,8 +99,8 @@
 
 /*top score*/
 .cursive {font-family: 'Audiowide', cursive;}
-#audience {background-color: #0f201f;width: 85%;height: 80%;z-index: 2;padding: 3vmax;
-animation: fadeIn 1s;opacity: 0.9;}
+#audience {background-color: #0f201f;width: fit-content;height: fit-content;padding: 3vmax;
+opacity: 0.9;margin-top: 1vmax;margin-left: auto;margin-right: auto;}
 #audienceTitle {color: #c5f000;font-size: 4vmax;text-align: center;background-color: #0F201F;padding: 2vmax;}
 #audienceTable {font-size: 2.5vmax;color: #f1f1f1;border: none;text-align:center;margin-left: auto;margin-right: auto;}
 #audienceTable tr,#audienceTable td {
@@ -138,9 +139,9 @@ margin-top: 2vmax;background-color: #0F201F;}
 </div>
 
 <!--name-->
-<div class="nameBar" style="margin-left: 25vw;margin-right: 25vw">
+<div class="nameBar" style="margin-left: 20vw;margin-right: 20vw">
 
-    <div class="pName" style="color: #ff7632;padding-bottom: 2vmax;text-align: left;width: 50vw;">
+    <div class="pName" style="color: #ff7632;padding-bottom: 2vmax;text-align: left;width: 60vw;">
       <i class="fa-brands fa-phoenix-framework fa-fw" style="color:#ff7632;border-radius: 3.5vmax;
       border: #444 solid 0.2vmax;padding: 0.5vmax;cursor: pointer;" onclick="refresh(1,p1S)"></i>
       DAO 
@@ -148,7 +149,7 @@ margin-top: 2vmax;background-color: #0F201F;}
     </div>
 
 
-    <div class="pName" style="color:#30d5c8;padding-bottom: 2vmax;text-align: left;width: 50vw;">
+    <div class="pName" style="color:#30d5c8;padding-bottom: 2vmax;text-align: left;width: 60vw;">
       <i class="fa-brands fa-wolf-pack-battalion fa-fw" style="color:#30d5c8;border-radius: 3.5vmax;
       border: #444 solid 0.2vmax;padding: 0.5vmax;cursor: pointer;"></i>
       KHAW
@@ -156,7 +157,7 @@ margin-top: 2vmax;background-color: #0F201F;}
     </div>
 
 
-    <div class="pName" style="color:#cbf482;padding-bottom: 2vmax;text-align: left;width: 50vw;">
+    <div class="pName" style="color:#cbf482;padding-bottom: 2vmax;text-align: left;width: 60vw;">
     <i class="fa-brands fa-firefox-browser fa-fw" style="color:#cbf482;border-radius: 3.5vmax;
     border: #444 solid 0.2vmax;padding: 0.5vmax;"></i>
     OAT
@@ -251,26 +252,6 @@ margin-top: 2vmax;background-color: #0F201F;}
   </div>
 </div-->
 
-<!--scoreCard-->
-<div id="scoreCard">
-  Score Card
-  <div style="max-width:85vw;overflow-x: scroll;">
-  <table id="scoreT">
-  </table>
-  </div>
-  <div style="text-align:center;">
-  <button id="manual" title="manually enter" onclick="mEnterInit()">
-    <i class="fa-solid fa-pen"></i>
-  </button>
-  <button id="undo" title="undo all" onclick="undo()">
-    <i class="fa-solid fa-rotate-left"></i>
-  </button>
-  <button id="saveChange" onclick="saveMEnter()">Save Change(s)</button>
-  <button id="exit" onclick="showMenu()">Close</button>
-  </div>
-
-</div>
-
 <!--start stop Q-->
 <div id="ss">
   <button id="ssExit" style="float:right;color: #aaa;cursor: pointer;" onclick="showMenu()">X</button>
@@ -298,6 +279,27 @@ margin-top: 2vmax;background-color: #0F201F;}
     <span id="end" onclick="endGame()" style="float: right">End Game</span>
 
   <!--/form-->
+</div>
+
+
+<!--scoreCard-->
+<div id="scoreCard">
+  Score Card
+  <div style="max-width:85vw;overflow-x: scroll;">
+  <table id="scoreT">
+  </table>
+  </div>
+  <div style="text-align:center;">
+  <button id="manual" title="manually enter" onclick="mEnterInit()">
+    <i class="fa-solid fa-pen"></i>
+  </button>
+  <button id="undo" title="undo all" onclick="undo()">
+    <i class="fa-solid fa-rotate-left"></i>
+  </button>
+  <button id="saveChange" onclick="saveMEnter()">Save Change(s)</button>
+  <button id="exit" onclick="showMenu()">Close</button>
+  </div>
+
 </div>
 
 <!--form-->
@@ -357,24 +359,8 @@ margin-top: 2vmax;background-color: #0F201F;}
 <script src="fetchScore.js"></script>
 
 <script>
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var vw = window.innerWidth/100;
-var vh = window.innerHeight/100;
 
-//gauge box size 32vw x 50vh
-var radius = 10*vw;var baseY = 30*vh;
-
-createCanvas()
-drawFace(1);
-drawFace(2);
-drawFace(3);
-drawHand(1,-120);
-drawHand(2,-120);
-drawHand(3,-120);
-drawLabel(1);
-drawLabel(2);
-drawLabel(3);
+showScoreCard()
 //clearQue();
 
 
