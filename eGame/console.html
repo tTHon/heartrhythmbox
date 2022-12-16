@@ -69,17 +69,12 @@
 .refBut {padding-left: 0.5vmax;cursor: pointer;}
 
 /*bottom stuff*/
-.itemBar {padding: 1vmax;color: #888;}
-#qNav {font-size: 3vmax;color: #fafafa;vertical-align: bottom;text-align: center;}
-#foot {font-size:1.8vmax;color: #777;flex: 40%;
-  vertical-align: bottom;text-align:right;line-height: 150%;}
-
-/*menu*/
-#menu {visibility: hidden;display: flex;background-color: rgba(22,22,22,0.8);cursor: pointer;
-    position: fixed;z-index: 1;padding: 1vmax;line-height: 100%;}
-.menuItem {padding: 1vmax;background-color: rgba(22,22,22,0.8);width: 33%;vertical-align: bottom;
+.itemBar {padding: 1vmax;color: #888;line-height: 100%;width: fit-content;margin-left: auto;margin-right: auto;
+  display: flex;background-color: rgba(22,22,22,0.8);cursor: pointer;}
+.menuItem {padding: 1vmax;background-color: rgba(22,22,22,0.8);vertical-align: bottom;
   text-align: center;line-height: 100%;}
 .menuItem i {color: #ddd;background-color: rgba(22,22,22,0.8);font-size: 5vmax;padding: 0.5vmax;}
+#qNow, #qAll {font-size: 5vmax;color: #eee;}
 .menuText {color: #ddd;font-size: 1.5vmax;padding: 0;background:none;padding: 0.5vmax;}
 
 /*scorecard*/
@@ -176,7 +171,7 @@ margin-top: 2vmax;background-color: #0F201F;}
   <canvas id="canvas"></canvas>
 </div-->
 <!--refresh but-->
-<div class="refBar">
+<!--div class="refBar">
   <div class="refBarFlex">
     <i id="ref1" class="fa-solid fa-rotate-right refBut" onclick="refresh(1,p1S)"></i>
   </div>
@@ -186,10 +181,10 @@ margin-top: 2vmax;background-color: #0F201F;}
   <div class="refBarFlex">
     <i id="ref3" class="fa-solid fa-rotate-right refBut" onclick="refresh(3,p3S)"></i>
   </div>
-</div>
+</div-->
 
 <!--scoreBar-->
-<div class="scoreBar">
+<!--div class="scoreBar">
   <div class="flex33" style="padding:none">
     <span class="score" style="color:#ff7632">0</span>
   </div>
@@ -200,20 +195,32 @@ margin-top: 2vmax;background-color: #0F201F;}
     <span class="score" style="color:#cbf482">0</span>
   </div>
 
-</div>
+</div-->
 
 
 <!--bottom stuffs-->
 <div class="itemBar">
-  <div id="qNav">
-
-    <i class="fa-solid fa-bars menuDot" onclick="showMenu()"
-    style="color:#888;cursor: pointer;"></i>
-
-       Question
+  <div id="qNav" class="menuItem">
+    <i class="fa-brands fa-quora"></i>
         <span id="qNow">-</span> 
         /
         <span id="qAll">12</span>
+  </div>
+  <div class="menuItem" title="q s/s"  onclick="startStopQ()">
+    <i class="fa-solid fa-stopwatch fa-fw"></i><br>
+    <span class="menuText">questions start/stop</span>
+  </div>
+  <div class="menuItem" title="audience response" onclick="showAudience()">
+    <i class="fa-solid fa-people-line fa-fw"></i><br>
+    <span class="menuText">audience response</span>
+  </div>
+  <div class="menuItem noMobile" title="score cards" onclick="showScoreCard()">
+    <i class="fa-solid fa-list-check fa-fw"></i><br>
+    <span class="menuText">score card</span>
+  </div>
+  <div class="menuItem" title="clear q&score" onclick="clearQue()">
+    <i class="fa-solid fa-eraser fa-fw"></i><br>
+    <span class="menuText">clear records</span>
   </div>
   <!--foot-->
   <!--div id="foot">
@@ -226,7 +233,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 
 
 <!--popUP Menu-->
-<div id="menu">
+<!--div id="menu">
   <div class="menuItem" title="q s/s"  onclick="startStopQ()">
     <i class="fa-solid fa-stopwatch fa-fw"></i></li><br>
     <span class="menuText">questions start/stop</span>
@@ -243,7 +250,7 @@ margin-top: 2vmax;background-color: #0F201F;}
     <i class="fa-solid fa-eraser fa-fw"></i><br>
     <span class="menuText">clear records</span>
   </div>
-</div>
+</div-->
 
 <!--scoreCard-->
 <div id="scoreCard">
