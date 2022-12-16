@@ -65,7 +65,7 @@
 .flex33 {flex: 33%;padding-top: 1vmax;color: #f1f1f1;font-size: 2vmax;
   text-align: center;}
 .flex33 i {color: #ddd;}
-.pName, .score {font-size: 10vmax;}
+.pName, .score {font-size: 50px;}
 .refBut {padding-left: 0.5vmax;cursor: pointer;}
 
 /*bottom stuff*/
@@ -199,7 +199,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 
 
 <!--bottom stuffs-->
-<!--div class="itemBar">
+<div class="itemBar">
   <div id="qNav" class="menuItem">
     <i class="fa-brands fa-quora"></i>
         <span id="qNow">-</span> 
@@ -221,14 +221,14 @@ margin-top: 2vmax;background-color: #0F201F;}
   <div class="menuItem" title="clear q&score" onclick="clearQue()">
     <i class="fa-solid fa-eraser fa-fw"></i><br>
     <span class="menuText">clear records</span>
-  </div-->
+  </div>
   <!--foot-->
   <!--div id="foot">
     <sup>x</sup> heartRhythmBox.com 
     <img src="boxGrey.png" style="width:2.2vmax;vertical-align: middle;">
-  </div>
+  </div-->
 
-</div-->
+</div>
 
 
 
@@ -253,7 +253,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 </div-->
 
 <!--start stop Q-->
-<!--div id="ss">
+<div id="ss">
   <button id="ssExit" style="float:right;color: #aaa;cursor: pointer;" onclick="showMenu()">X</button>
   <div style="text-align:center" id="ssQNo">Current Q: </div>
     <div id="ssContent">
@@ -270,20 +270,20 @@ margin-top: 2vmax;background-color: #0F201F;}
       <div class="ssItem" onclick="startQ(10)">10</div>
       <div class="ssItem" onclick="startQ(11)">11</div>
       <div class="ssItem" onclick="startQ(12)">12*</div>
-  </div-->
+  </div>
   <!--form id="feedQ" name="feedQ"-->
     <!--input id="q2Send" type="number" name="q2Send" style="display:none;"-->
     <!--input id="t2Send" type="number" name="t2Send" style="display:none;"-->
-    <!--input id="start" onclick="startQClick()" style="color:#cdcdcd;"
+    <input id="start" onclick="startQClick()" style="color:#cdcdcd;"
     value="Click Number to Start Q" type="submit">
-    <span id="end" onclick="endGame()" style="float: right">End Game</span-->
+    <span id="end" onclick="endGame()" style="float: right">End Game</span>
 
   <!--/form-->
-<!--/div-->
+</div>
 
 
 <!--scoreCard-->
-<!--div id="scoreCard">
+<div id="scoreCard">
   Score Card
   <div style="max-width:85vw;overflow-x: scroll;">
   <table id="scoreT">
@@ -300,16 +300,16 @@ margin-top: 2vmax;background-color: #0F201F;}
   <button id="exit" onclick="showMenu()">Close</button>
   </div>
 
-</div-->
+</div>
 
 <!--form-->
-<!--form method="POST" id="questionNav" style="display:none;">
+<form method="POST" id="questionNav" style="display:none;">
   <input id="triggerNo" type="text" style="display:none;" name="tNo">
   <input id="submitBut" type="submit" value="Submit" style="display:none">
-</form-->
+</form>
 
 <!--audience-->
-<!--div id="audience">
+<div id="audience">
   <div id="audienceTitle" class="cursive">AUDIENCE TOP SCORE</div>
   <table id="audienceTable">
     <tr>
@@ -352,7 +352,7 @@ margin-top: 2vmax;background-color: #0F201F;}
     <div class="aNavItem" onclick="showMenu()">Close</div>
   </div>
 </div>
-</div-->
+</div>
 
 <!--div id="test" style="color:white"></div-->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -360,7 +360,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 
 <script>
 
-//showScoreCard()
+showScoreCard()
 //clearQue();
 
 
