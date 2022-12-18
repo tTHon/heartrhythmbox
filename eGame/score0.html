@@ -26,7 +26,6 @@ var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0];
 var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var supUrl;var supKey;
 setUpSup();
-reFetch();
 
 //fetch supValue
 function setUpSup(){
@@ -74,6 +73,22 @@ function reFetch(){
     score[2].innerHTML = sum3
   }
 }
+
+function showScore(){
+    sum1=0;sum2=0;sum3=0;
+    var score = document.getElementsByClassName('score')
+    p1S.forEach(function(item){
+	sum1 += item;});
+    p2S.forEach(function(item){
+	sum2 += item;});
+    p3S.forEach(function(item){
+	sum3 += item;});
+    score[0].innerHTML = sum1
+    score[1].innerHTML = sum2
+    score[2].innerHTML = sum3
+}
+
+showScore();
 
 </script>
 </body>
