@@ -97,19 +97,19 @@
 /*top score*/
 .cursive {font-family: 'Audiowide', cursive;}
 #audience {background-color: #0f201f;width: fit-content;height: fit-content;padding: 3vmax;
-opacity: 0.9;margin-top: 1vmax;margin-left: auto;margin-right: auto;}
-#audienceTitle {color: #c5f000;font-size: 4vmax;text-align: center;background-color: #0F201F;padding: 2vmax;}
-#audienceTable {font-size: 2.5vmax;color: #f1f1f1;border: none;text-align:center;margin-left: auto;margin-right: auto;}
+opacity: 0.9;margin-top: 10px;margin-left: auto;margin-right: auto;}
+#audienceTitle {color: #c5f000;font-size: 40px;text-align: center;background-color: #0F201F;padding: 20px;}
+#audienceTable {font-size: 25px;color: #f1f1f1;border: none;text-align:center;margin-left: auto;margin-right: auto;}
 #audienceTable tr,#audienceTable td {
-  border-bottom: #aaa solid 0.1vmax;padding: 0.5vmax;line-height: 110%;}
-#audienceTable th {padding: 0.5vmax;line-height: 110%;font-weight: 600;}
+  border-bottom: #aaa solid 1px;padding: 5px;line-height: 110%;}
+#audienceTable th {padding: 5px;line-height: 110%;font-weight: 600;}
 .aName, .aScore, .aNameH, .aScoreH {min-width: 15vmax;border-bottom: #aaa solid 0.1vmax;}
 .fa-medal {cursor: pointer;}
-#aNavBar {padding: 2vmax 1vmax;text-align: center;margin-left: auto;margin-right: auto;
-margin-top: 2vmax;background-color: #0F201F;}
-.aNavItem {padding: 0.5vmax;border: #aaa solid 0.1vmax;font-size: 2vmax;border-radius: 1vmax;
-  display: inline;color: #ddd;margin-right: 1vmax;cursor: pointer;}
-.tStamp, #tStampH {display: none;font-size: 1.8vmax;}
+#aNavBar {padding: 20px 10px;text-align: center;margin-left: auto;margin-right: auto;
+margin-top: 20px;background-color: #0F201F;}
+.aNavItem {padding: 5px;border: #aaa solid 1px;font-size: 20px;border-radius: 10px;
+  display: inline;color: #ddd;margin-right: 10px;cursor: pointer;}
+.tStamp, #tStampH {display: none;font-size: 18px;}
 
 
 /* zoom */
@@ -209,10 +209,12 @@ margin-top: 2vmax;background-color: #0F201F;}
       <span class="menuText">questions start/stop</span>
     </div>
   </a>
+  <a href="#audience">
   <div class="menuItem" title="audience response" onclick="showAudience()">
     <i class="fa-solid fa-people-line fa-fw"></i><br>
     <span class="menuText">audience response</span>
   </div>
+  </a>
   <div class="menuItem noMobile" title="score cards" onclick="showScoreCard()">
     <i class="fa-solid fa-list-check fa-fw"></i><br>
     <span class="menuText">score card</span>
@@ -283,7 +285,7 @@ margin-top: 2vmax;background-color: #0F201F;}
 </div>
 
 <!--audience-->
-<div id="audience">
+<div title="audience" id="audience">
   <div id="audienceTitle" class="cursive">AUDIENCE TOP SCORE</div>
   <table id="audienceTable">
     <tr>
@@ -323,7 +325,10 @@ margin-top: 2vmax;background-color: #0F201F;}
     <div class="aNavItem" onclick="showAItem('tStamp')" title="show timestamp">
       <i class="fa-solid fa-stopwatch fa-fw"></i>
     </div>
-    <div class="aNavItem" onclick="showMenu()">Close</div>
+    
+    <div class="aNavItem">
+      <a href="#top" style="text-decoration: none;color: #aaa;">Top</a>
+    </div>
   </div>
 </div>
 </div>
