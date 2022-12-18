@@ -27,7 +27,7 @@ var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0];
 var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var supUrl;var supKey;
 setUpSup();
-showScore();
+
 //fetch supValue
 function setUpSup(){
     fetch('/.netlify/functions/hello')
@@ -62,6 +62,12 @@ function reFetch(){
         p3S[q] = k.p3Score;
     }
     console.log(p1S)
+    sum1=0;sum2=0;sum3=0;
+    var score = document.getElementsByClassName('score')
+    p1S.forEach(function(item){
+	sum1 += item;});
+    score[0].innerHTML = sum1
+    console.log(sum1)
   }
 }
 
