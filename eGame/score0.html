@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch score 0</title>
+</head>
+<body>
+    <div>
+        DAO
+    <div class="score">0</div>
+    </div>
+    <div>
+        KHAW
+    <div class="score">0</div>
+    </div>
+    <div>
+        OAT
+    <div class="score">0</div>
+    </div>
+    
+<script>
+var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var supUrl;var supKey;
+setUpSup();
+showScore();
+//fetch supValue
+function setUpSup(){
+    fetch('/.netlify/functions/hello')
+    .then(response => response.json())
+    .then(result =>setUpVar(result))
+    .catch(error => console.log('error', error));
+
+    function setUpVar(data){
+        supUrl = data[0];supKey = data[1]
+        sub(supUrl,supKey)
+        reFetch()
+    }
+}
+
+function reFetch(){ 
+  const database = supabase.createClient(supUrl,supKey)
+
+  //getData
+    const getData = async () => {
+      const pScore = await database.from("pScore")
+      .select('*')
+      .order('qNo', {ascending:false})
+      getScore(pScore)
+    }
+  getData();
+  
+  function getScore(result){
+    for (var i=0;i<result.data.length;i++){
+      var k = result.data[i]
+      var q = k.qNo;
+        p1S[q] = k.p1Score;
+        p2S[q] = k.p2Score;
+        p3S[q] = k.p3Score;
+    }
+  }
+}
+
+function showScore(){
+    var score = document.getElementsByClassName('score')
+    p1S.forEach(function(item){
+	sum += item;
+    return sum;});
+    score[0].innerHTML = sum
+
+}
+</script>
+</body>
+</html>
