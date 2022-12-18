@@ -61,25 +61,20 @@ function reFetch(){
         p2S[q] = k.p2Score;
         p3S[q] = k.p3Score;
     }
-    console.log(p1S)
     sum1=0;sum2=0;sum3=0;
     var score = document.getElementsByClassName('score')
     p1S.forEach(function(item){
 	sum1 += item;});
+    p2S.forEach(function(item){
+	sum2 += item;});
+    p3S.forEach(function(item){
+	sum3 += item;});
     score[0].innerHTML = sum1
-    console.log(sum1)
+    score[1].innerHTML = sum2
+    score[2].innerHTML = sum3
   }
 }
 
-function showScore(){
-    sum1=0;sum2=0;sum3=0;
-    var score = document.getElementsByClassName('score')
-    p1S.forEach(function(item){
-	sum1 += item;});
-    score[0].innerHTML = sum1
-    console.log(sum1)
-
-}
 </script>
 </body>
 </html>
