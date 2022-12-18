@@ -66,6 +66,7 @@
 /*bottom stuff*/
 .itemBar {padding: 10px;color: #888;line-height: 100%;width: fit-content;margin-left: auto;margin-right: auto;
   display: flex;background-color: rgba(22,22,22,0.8);cursor: pointer;margin-top: 50px;}
+.itemBar a {text-decoration: none;}
 .menuItem {padding: 10px;background-color: rgba(22,22,22,0.8);vertical-align: bottom;
   text-align: center;line-height: 100%;}
 .menuItem i {color: #ddd;background-color: rgba(22,22,22,0.8);font-size: 50px;padding: 5px;}
@@ -84,12 +85,13 @@
 
 
 /*start/stop Q*/
-#ss {background-color: rgba(22,22,22,0.8);max-width: 60vw;margin-left: 20vw;margin-top: 1vmax;
+#ss {background-color: rgba(22,22,22,0.8);max-width: 600px;margin-left: auto;
+  margin-top: 1vmax;margin-right: auto;
     padding: 10px;font-size: 22px;color: #cdcdcd;}
 #ssContent {display: flex;flex-wrap: wrap;padding: 1vmax;}
 .ssItem {flex-basis: 30px;text-align: center;padding: 5px;border: #888 solid 1px;cursor: pointer;}
 #start, #end {padding: 5px;border: #888 solid 1px;border-radius: 1px;cursor: pointer;
-  margin: 5px;font-size: 2px;text-align: center;}
+  margin: 5px;font-size: 20px;text-align: center;}
 #stop {display: none;}
 
 /*top score*/
@@ -191,17 +193,22 @@ margin-top: 2vmax;background-color: #0F201F;}
 
 
 <!--bottom stuffs-->
-<div class="itemBar">
-  <div id="qNav" class="menuItem">
+
+<div id="qNav" class="menuItem" style="font-size: 50px;color: #888;
+  width: fit-content;margin-left: auto;margin-right: auto;">
     <i class="fa-brands fa-quora"></i>
         <span id="qNow">-</span> 
         /
         <span id="qAll">12</span>
-  </div>
-  <div class="menuItem" title="q s/s"  onclick="startStopQ()">
-    <i class="fa-solid fa-stopwatch fa-fw"></i><br>
-    <span class="menuText">questions start/stop</span>
-  </div>
+</div>
+
+<div class="itemBar">
+  <a href="#ss">
+    <div class="menuItem" title="q s/s">
+      <i class="fa-solid fa-stopwatch fa-fw"></i><br>
+      <span class="menuText">questions start/stop</span>
+    </div>
+  </a>
   <div class="menuItem" title="audience response" onclick="showAudience()">
     <i class="fa-solid fa-people-line fa-fw"></i><br>
     <span class="menuText">audience response</span>
@@ -245,8 +252,10 @@ margin-top: 2vmax;background-color: #0F201F;}
 </div-->
 
 <!--start stop Q-->
-<div id="ss">
-  <button id="ssExit" style="float:right;color: #aaa;cursor: pointer;" onclick="showMenu()">X</button>
+<div title="ss" id="ss">
+  <a href="#top" style="float:right;color: #aaa;cursor: pointer;">
+    &uArr;
+  </a>
   <div style="text-align:center" id="ssQNo">Current Q: </div>
     <div id="ssContent">
       <div class="ssItem" onclick="startQ(0)">0</div>
@@ -272,33 +281,6 @@ margin-top: 2vmax;background-color: #0F201F;}
 
   <!--/form-->
 </div>
-
-
-<!--scoreCard-->
-<div id="scoreCard">
-  Score Card
-  <div style="max-width:85vw;overflow-x: scroll;">
-  <table id="scoreT">
-  </table>
-  </div>
-  <div style="text-align:center;">
-  <button id="manual" title="manually enter" onclick="mEnterInit()">
-    <i class="fa-solid fa-pen"></i>
-  </button>
-  <button id="undo" title="undo all" onclick="undo()">
-    <i class="fa-solid fa-rotate-left"></i>
-  </button>
-  <button id="saveChange" onclick="saveMEnter()">Save Change(s)</button>
-  <button id="exit" onclick="showMenu()">Close</button>
-  </div>
-
-</div>
-
-<!--form-->
-<form method="POST" id="questionNav" style="display:none;">
-  <input id="triggerNo" type="text" style="display:none;" name="tNo">
-  <input id="submitBut" type="submit" value="Submit" style="display:none">
-</form>
 
 <!--audience-->
 <div id="audience">
@@ -346,9 +328,35 @@ margin-top: 2vmax;background-color: #0F201F;}
 </div>
 </div>
 
+<!--scoreCard-->
+<div id="scoreCard">
+  Score Card
+  <div style="max-width:85vw;overflow-x: scroll;">
+  <table id="scoreT">
+  </table>
+  </div>
+  <div style="text-align:center;">
+  <button id="manual" title="manually enter" onclick="mEnterInit()">
+    <i class="fa-solid fa-pen"></i>
+  </button>
+  <button id="undo" title="undo all" onclick="undo()">
+    <i class="fa-solid fa-rotate-left"></i>
+  </button>
+  <button id="saveChange" onclick="saveMEnter()">Save Change(s)</button>
+  <button id="exit" onclick="showMenu()">Close</button>
+  </div>
+
+</div>
+
+<!--form-->
+<form method="POST" id="questionNav" style="display:none;">
+  <input id="triggerNo" type="text" style="display:none;" name="tNo">
+  <input id="submitBut" type="submit" value="Submit" style="display:none">
+</form>
+
 <!--div id="test" style="color:white"></div-->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="fetchScore.js"></script>
+<script src="consoleJs.js"></script>
 
 <script>
 
