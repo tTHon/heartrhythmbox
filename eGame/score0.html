@@ -19,7 +19,8 @@
         OAT
     <div class="score">0</div>
     </div>
-    
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>    
 <script>
 var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
@@ -60,15 +61,16 @@ function reFetch(){
         p2S[q] = k.p2Score;
         p3S[q] = k.p3Score;
     }
+    console.log(p1S)
   }
 }
 
 function showScore(){
+    sum1=0;sum2=0;sum3=0;
     var score = document.getElementsByClassName('score')
     p1S.forEach(function(item){
-	sum += item;
-    return sum;});
-    score[0].innerHTML = sum
+	sum1 += item;});
+    score[0].innerHTML = sum1
 
 }
 </script>
