@@ -413,9 +413,6 @@ var keyJson = [
             {"no":4, "key": '1.3', "score": 2},
             {"no":4, "key": '3.2', "score": 4},
             {"no":4, "key": '6.7', "score": 4},         
-            {"no":4, "key": '3.1', "score": -4},
-            {"no":4, "key": '3.3', "score": -4},
-            {"no":4, "key": '3.5', "score": -4},
             {"no":8, "key": '1.6', "score": 4},
             {"no":8, "key": '2.2', "score": 4},  
             {"no":8, "key": '3.6', "score": 3},
@@ -623,6 +620,20 @@ function calcScore(){
             }
         }
     })
+
+    //check for AV Block multiple checks item 9-13
+    if (qNo==4){
+        avBlockBegin = 9; avBlockEnd = 13;
+        avBlockCount = 0;
+        for (let i=avBlockBegin;i<=avBlockEnd;i++){
+            if (input[i].checked){
+                avBlockCount++;
+            }
+        }
+        if (avBlockCount>1){
+            thisScore = thisScore - 4
+        }
+    }
     //check for double checked in Q8
     if (qNo==8){
         if (input[5].checked && input[8].checked){
