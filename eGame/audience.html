@@ -417,7 +417,7 @@ var keyJson = [
             {"no":4, "key": '3.3', "score": -4},
             {"no":4, "key": '3.5', "score": -4},
             {"no":8, "key": '1.6', "score": 4},
-            {"no":8, "key": '2.2', "score": 0},  
+            {"no":8, "key": '2.2', "score": 4},  
             {"no":8, "key": '3.6', "score": 3},
             {"no":8, "key": '4.1', "score": 3},   
             {"no":12, "key": '1.1', "score": 2},
@@ -623,6 +623,13 @@ function calcScore(){
             }
         }
     })
+    //check for double checked in Q8
+    if (qNo==8){
+        if (input[5].checked && input[8].checked){
+            thisScore = thisScore - 4
+        }
+    }
+
     //document.getElementById('demo').innerHTML = thisScore;
     return thisScore;
 }
