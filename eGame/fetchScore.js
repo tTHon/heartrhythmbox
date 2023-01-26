@@ -565,6 +565,8 @@ function showScore(gNo,oldS,newS){
       clearInterval(runInterval)
   }
   },100)
+
+  var baseX = (16*vw*(2*gNo-1)); 
   ctx.clearRect(baseX-(15*vw),0,30*vw,10*vh)
 
 }
