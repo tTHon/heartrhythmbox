@@ -225,7 +225,7 @@ padding: 3vmax;">
 
 <div id="intro">
     Hello, SCOREKEEPER.<br><br>
-    <button onclick="starter()" 
+    <button id="beginButt" onclick="starter()" 
     style="font-size:3vmax;color:#222;padding:1vmax;cursor:pointer;border-radius: 1vmax;">
     Please click here to begin.</button>
 </div>
@@ -312,6 +312,11 @@ function sendScore(){
     qNo++;
     qNav(0)
     document.getElementById('summary').style.display = 'none'
+    if (qNo>totalQ){
+        document.getElementById('main').style.display = 'none'
+        document.getElementById('intro').innerHTML = 'Thank You'
+        document.getElementById('beginButt').style.display = 'none'
+    }
     }
 }
 
