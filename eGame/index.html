@@ -13,7 +13,7 @@
     * {background-color:#333;font-family: 'Raleway', sans-serif;}
     #title {max-width: 1000px;text-align: center;font-size: 3.5vmax;
     margin-left: auto;margin-right: auto;margin-top: 8vh;color: #FFD700;}
-    #container {max-width: 1000px;text-align: center;margin-left: auto;margin-right: auto;color: #FFD700;
+    .container {max-width: 1000px;text-align: center;margin-left: auto;margin-right: auto;color: #FFD700;
     padding-bottom: 10vh;}
     .bar {font-size: 4vmax;padding: 1vmax;background-color: #232323;margin: 1vmax;text-align: center;
         color: #FFD700;border-radius: 1vmax;width: auto;margin-left: auto;margin-right: auto;
@@ -22,6 +22,13 @@
 </style>
 
 <body>
+
+<div id="logIn" class="container" style="margin-top: 8vh;line-height: 150%;font-size: 3.5vmax;">
+    <label for="pwd">Please enter the passcode</label><br>
+    <input type="password" id="pwd" name="pwd" style="color: #ddd;font-size: 2.5vmax;"><br>
+    <input type="submit" onclick="checkPwd()" style="color: #ddd;font-size: 2.5vmax;">
+</div>
+<div id="landing">
     <div id="title">
         <img src="ccLogo.png" style="width:2vmax;text-align: center;"><br>
         <span style="font-size:2vmax;color:#ddd;padding-bottom: 0.5vmax;
@@ -30,7 +37,7 @@
             <img src="x.png" style="width:1.2vmax;"> CC2023
         </span><br><br>
         I am a/an...</div>
-    <div id="container">
+    <div class="container">
         <a href="gauge.html" class="link">
         <div class="bar">
             Moderator</div></a>
@@ -41,6 +48,7 @@
            <div class="bar">
             Audience</div></a>
     </div>
+</div>
     <div id="foot" 
 style="font-size:1.6vmax;padding-top: 2vmax;color: #575757;
 text-align: center;border-top: #555 solid 0.1vmax;line-height: 100%;">
@@ -49,5 +57,22 @@ text-align: center;border-top: #555 solid 0.1vmax;line-height: 100%;">
   
 </div>
 
+<script>
+    document.getElementById('landing').style.display = 'none'
+
+function checkPwd(){
+    passWord = document.getElementById('pwd')
+    //console.log(passWord.value)
+    const d = new Date();
+    let date = d.getDate()
+    let year = d.getFullYear()
+    pValue = date+year;
+    //console.log(pValue)
+    if (passWord.value == pValue){
+        document.getElementById('logIn').style.display = 'none'
+        document.getElementById('landing').style.display = 'block'
+    }
+}
+</script>
 </body>
 </html>
