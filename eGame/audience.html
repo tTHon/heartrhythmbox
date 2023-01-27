@@ -612,18 +612,19 @@ function calcScore(){
         }
     }
 
-    var thisScore = 0;var aItem = 0;
+    var thisScore = 0;var correctedItem = 0;
     answer.forEach(function(item){
         for (let index = 0; index < key.length; index++) {
             if (item == key[index]){
                 thisScore = thisScore + (kScore[index])  
-                aItem++;  
+                correctedItem++;  
             } 
         }
     })
     //deduction
-    thisScore = thisScore - (answer.length-aItem)
-
+    if (answer.length>correctedItem){
+        thisScore = thisScore - (answer.length-correctedItem)
+    }
     //check for double checked in Q8
     if (qNo==8){
         if (input[5].checked && input[8].checked){
