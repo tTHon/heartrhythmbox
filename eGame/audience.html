@@ -612,16 +612,17 @@ function calcScore(){
         }
     }
 
-    var thisScore = 0;
+    var thisScore = 0;var aItem = 0;
     answer.forEach(function(item){
         for (let index = 0; index < key.length; index++) {
             if (item == key[index]){
-                thisScore = thisScore + (kScore[index])    
-            } else {
-                thisScore = thisScore -1
-            }
+                thisScore = thisScore + (kScore[index])  
+                aItem++;  
+            } 
         }
     })
+    //deduction
+    thisScore = thisScore - (key.length-aItem)
 
     //check for double checked in Q8
     if (qNo==8){
