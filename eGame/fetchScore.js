@@ -505,21 +505,29 @@ function showAudience(){
 
     //show score
     var maxItem = 5;
-    if (audScore.length<maxItem){maxItem=audScore.length}
-    var name2Show = document.getElementsByClassName('aName')
-    var score2Show = document.getElementsByClassName('aScore')
-    var time2Show = document.getElementsByClassName('tStamp')
+    //if (audScore.length<maxItem){maxItem=audScore.length}
+      var name2Show = document.getElementsByClassName('aName')
+      var score2Show = document.getElementsByClassName('aScore')
+      var time2Show = document.getElementsByClassName('tStamp')
     for (let i=0;i<time2Show.length;i++){
       time2Show[i].style.display = 'none'
     }
     document.getElementById('tStampH').style.display = 'none'
 
     for (let index = 0; index < maxItem; index++) {
+      if (index<audScore.length){
       name2Show[index].innerHTML = audScore[index][0]
       score2Show[index].innerHTML = audScore[index][1]
       time2Show[index].innerHTML = audScore[index][2]
       name2Show[index].style.visibility = 'hidden'
-      score2Show[index].style.visibility = 'hidden'
+      score2Show[index].style.visibility = 'hidden'}
+      else {
+        name2Show[index].innerHTML = ''
+        score2Show[index].innerHTML = ''
+        time2Show[index].innerHTML = ''
+        name2Show[index].style.visibility = 'hidden'
+        score2Show[index].style.visibility = 'hidden'
+      }
     }
     }
 
