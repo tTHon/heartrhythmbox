@@ -463,8 +463,8 @@ function showAudience(){
   const getData = async () => {
       const aScore = await database.from("Audience")
       .select('*')
-      .order('qNo', {ascending:false})
       .order('score', {ascending:false})
+      .order('qNo', {ascending:false})
       .order('created_at', {ascending:true})
 
       if (aScore.data.length>0){
