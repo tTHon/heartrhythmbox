@@ -197,9 +197,8 @@
                     5. Clinical disorder</div>
                 <input type="checkbox" id="5.1" class="cBx"><label for="5.1">5.1 Brugada syndrome</label><br>
                 <input type="checkbox" id="5.2" class="cBx"><label for="5.2">5.2 Digitalis toxicity</label><br>
-                <!--input type="checkbox" id="9.3" class="cBx"><label for="9.3">9.3 Torsades de Pointes</label><br>
-                <input type="checkbox" id="9.4" class="cBx"><label for="9.4">9.4 Hyperkalemia</label><br>
-                <input type="checkbox" id="9.5" class="cBx"><label for="9.5">9.5 Hypokalemia</label><br>
+                <!--input type="checkbox" id="9.3" class="cBx"><label for="9.3">9.3 Torsades de Pointes</label><br-->
+                <!--input type="checkbox" id="9.5" class="cBx"><label for="9.5">9.5 Hypokalemia</label><br>
                 <input type="checkbox" id="9.6" class="cBx"><label for="9.6">9.6 Hypercalcemia</label><br>
                 <input type="checkbox" id="9.7" class="cBx"><label for="9.7">9.7 Hypocalcemia</label><br>
                 <input type="checkbox" id="9.8" class="cBx"><label for="9.8">9.8 Dextrocardia, mirror image</label><br-->
@@ -208,6 +207,7 @@
                 <input type="checkbox" id="5.4" class="cBx"><label for="5.4">5.4 Acute pericarditis</label><br>
                 <!--input type="checkbox" id="9.12" class="cBx"><label for="9.12">9.12 Hypertrophic cardiomyopathy</label><br-->
                 <input type="checkbox" id="5.5" class="cBx"><label for="5.5">5.5 Central nervous system disorder</label><br>
+                <input type="checkbox" id="5.6" class="cBx"><label for="5.6">5.6 Hyperkalemia</label>
                 <!--input type="checkbox" id="9.14" class="cBx"><label for="9.14">9.14 Hypothermia</label-->
     
             </div>
@@ -617,23 +617,12 @@ function calcScore(){
         for (let index = 0; index < key.length; index++) {
             if (item == key[index]){
                 thisScore = thisScore + (kScore[index])    
+            } else {
+                thisScore = thisScore -1
             }
         }
     })
 
-    //check for AV Block multiple checks item 9-13
-    if (qNo==4){
-        avBlockBegin = 9; avBlockEnd = 13;
-        avBlockCount = 0;
-        for (let i=avBlockBegin;i<=avBlockEnd;i++){
-            if (input[i].checked){
-                avBlockCount++;
-            }
-        }
-        if (avBlockCount>1){
-            thisScore = thisScore - 4
-        }
-    }
     //check for double checked in Q8
     if (qNo==8){
         if (input[5].checked && input[8].checked){
