@@ -474,7 +474,7 @@ function showAudience(){
 
       //count maxQ votes
       voteNo = getVoteNo(maxQ);
-      document.getElementById('audienceCount').innerHTML = 'Submitted: '+voteNo
+      document.getElementById('audienceCount').innerHTML = 'Audience No: '+voteNo
       function getVoteNo(Q){
         count=0;
         for (let index = 0; index < aScore.data.length; index++) {
