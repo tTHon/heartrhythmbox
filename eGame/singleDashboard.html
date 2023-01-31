@@ -7,8 +7,7 @@
   <link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
   <meta name="author" content="t'Thon">
   <title>eGame-single dashboard</title>
-  <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
-
+  
 </head>
 
 <style>
@@ -141,14 +140,14 @@ margin: 0;}
 <!--refresh but-->
 <div class="refBar">
   <div class="refBarFlex">
-    <i id="ref1" class="fa-solid fa-rotate-right refBut" onclick="refresh(1,p1S)"></i>
+    <span class="refBut" onclick="refresh(1,p1S)">&#10227;</span>
   </div>
   <div class="refBarFlex">
-    <i id="ref2" class="fa-solid fa-rotate-right refBut" onclick="refresh(2,p2S)"></i>
-  </div>
+    <span class="refBut" onclick="refresh(2,p2S)">&#10227;</span>
+    </div>
   <div class="refBarFlex">
-    <i id="ref3" class="fa-solid fa-rotate-right refBut" onclick="refresh(3,p3S)"></i>
-  </div>
+    <span class="refBut" onclick="refresh(3,p3S)">&#10227;</span>
+    </div>
 </div>
 
 <!--scoreBar-->
@@ -197,10 +196,10 @@ margin: 0;}
   </div>
   <div style="text-align:center;">
   <button id="manual" title="manually enter" onclick="mEnterInit()">
-    <i class="fa-solid fa-pen"></i>
+    Edit
   </button>
   <button id="undo" title="undo all" onclick="undo()">
-    <i class="fa-solid fa-rotate-left"></i>
+    Undo
   </button>
   <button id="saveChange" onclick="saveMEnter()">Save Change(s)</button>
   <button id="exit" onclick="showScoreCard('off')">Close</button>
