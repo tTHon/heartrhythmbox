@@ -614,9 +614,9 @@ function drawLabel(gNo){
   var baseX = (16*vw*(2*gNo-1)); 
   max = (totalQ-1)*10
   //cos 62
-  var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius))-(1.55*vw);
-  var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius))+(1.55*vw);
-  var yPos = baseY+(radius);
+  var xLeft=baseX-(Math.cos(Math.PI*55/180)*(radius))-(1.5*vw);
+  var xRight = baseX+(Math.cos(Math.PI*55/180)*(radius))+(1.5*vw);
+  var yPos = (baseY+(radius))-(0.1*vh);
   ctx.beginPath();
   ctx.fillStyle = "#ddd"
   ctx.font = 2*vw + 'px Raleway, sans-serif'
