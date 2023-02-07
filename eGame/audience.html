@@ -629,6 +629,7 @@ function calcScore(){
         thisScore = thisScore - (answer.length-correctedItem)
     }
     //document.getElementById('demo').innerHTML = thisScore;
+    if (qNo==0){thisScore =0}
     return thisScore;
 }
 
