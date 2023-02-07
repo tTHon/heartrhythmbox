@@ -121,7 +121,7 @@
         </div>
     
     <!--answer sheet-->
-        <div id="answerSheet" onscroll="arrow('off')">
+        <div id="answerSheet">
             <div class="col round">
                 
                 <!--div class="head">
@@ -367,10 +367,10 @@
         </div>
     
         <!--bouncy arrow down-->
-        <i class="fa-solid fa-circle-chevron-down fa-bounce" 
+        <!--i class="fa-solid fa-circle-chevron-down fa-bounce" 
         style='font-size: 3vmax;position: absolute;color:#efefef;
         text-shadow: #777 4px 4px 8px;' 
-        id="aDown"></i>
+        id="aDown"></i-->
     <!--end sticky bars-->
 </div>
     
@@ -549,7 +549,7 @@ function ecgLoad(){
             aSheet.style.display = 'none'
             form.style.display = 'none'
             ecgArea.style.width = '100%'
-            arrow('off')
+            //arrow('off')
             oBar.style.display = 'none'
             foot.style.display = 'inline-block'
         }
@@ -690,7 +690,7 @@ function aRotate(){
         document.getElementById('aBottom').style.display = 'inline-block'
     
     } else {
-        arrow('off')
+        //arrow('off')
         document.getElementById('workSheet').style.flexWrap = 'wrap'
         document.getElementById('ecgArea').style.width = '100%'
         var sheet = document.getElementById('answerSheet')
