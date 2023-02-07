@@ -362,9 +362,9 @@
             <i id="aRight" onclick="aRotate()" class="fa-regular fa-window-maximize" title="answer sheet to the right" 
             style="rotate:90deg;font-size: 2vmax;color: #888;cursor: pointer;padding: 0.2vmax;"></i>
             <i id="aBottom" onclick="aRotate()" 
-            class="fa-regular fa-window-maximize fa-shake" title="answer sheet to the bottom" 
+            class="fa-regular fa-window-maximize fa-beat" title="answer sheet to the bottom" 
             style="font-size:2vmax;color: #888;cursor: pointer;rotate: 180deg;padding: 0.2vmax;
-            --fa-animation-duration:2s;--fa-animation-iteration-count:5"></i>
+            --fa-beat-scale: 2.0;--fa-animation-iteration-count:10"></i>
         </div>
     
         <!--bouncy arrow down-->
@@ -407,7 +407,7 @@ window.onbeforeunload = (event) => {
 //global var
 var totalQ = 12
 var qNo = -1;
-var q2Vote = [4,8,12];
+var q2Vote = [0,4,8,12];
 var score = 0;
 var nameEntered = 'Anonymous';
 var keyJson = [
@@ -521,7 +521,7 @@ function ecgLoad(){
             vote = 1;
         }
     }
-    if (qNo==0)
+    /*if (qNo==0)
         {aSheet.style.display = 'inline-block';
         form.style.display = 'none';
         fButt.style.display = 'inline-block'
@@ -530,7 +530,9 @@ function ecgLoad(){
         arrow('on')
         oBar.style.display = 'block'
         }
-    else if (vote==1){
+    else*/ 
+    if (vote==1){
+        arrow('on')
         oBar.style.display = 'block'
         form.style.display = 'inline-block';
         sButt.style.display = 'inline-block'
@@ -626,13 +628,6 @@ function calcScore(){
     if (answer.length>correctedItem){
         thisScore = thisScore - (answer.length-correctedItem)
     }
-    //check for double checked in Q8
-    if (qNo==8){
-        if (input[5].checked && input[8].checked){
-            thisScore = thisScore - 4
-        }
-    }
-
     //document.getElementById('demo').innerHTML = thisScore;
     return thisScore;
 }
