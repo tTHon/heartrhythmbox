@@ -472,6 +472,7 @@ function sub(url,key){
 
 //fetch
 function getQ(){
+    console.log('getQ')
     const database = supabase.createClient(supUrl,supKey)
 
     //getData
@@ -485,8 +486,10 @@ function getQ(){
 
     function sendQ(recQ){
         if (recQ.data.lenth>0){
+            console.log('recQ>0')
             var k = result.data[0]
             var qNow = k.questionNo;
+            console.log(qNow)
         }
 
         if (qNow<=12){
