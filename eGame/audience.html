@@ -623,6 +623,13 @@ function calcScore(){
             } 
         }
     })
+
+    //for Q8 SVT or VT
+    if (qNo==8) {
+        if (input[5].checked && input[8].checked){
+            thisScore = thisScore - 4;
+        }
+    }
     //deduction
     if (answer.length>correctedItem){
         thisScore = thisScore - (answer.length-correctedItem)
