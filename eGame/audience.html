@@ -631,7 +631,8 @@ function calcScore(){
         var q4Count = 0;
         qGroup = [10,13,15]
         for (let index = 0; index < qGroup.length; index++) {
-            if  (input[index].checked){
+            var j = qGroup[index]
+            if  (input[j].checked){
                 q4Count++;
             }
         }
