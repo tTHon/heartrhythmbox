@@ -542,7 +542,8 @@ function ecgLoad(){
         ecgArea.style.width = '75%'
 
         if (qNo>q2Vote[0]){
-            document.getElementById('audName').style.display = 'none'
+            if (qNo==q2Vote[1]){
+            document.getElementById('audName').style.display = 'none'}
             document.getElementById('nameInput').innerHTML = 
             'Your Name is: '+ nameEntered 
         }
