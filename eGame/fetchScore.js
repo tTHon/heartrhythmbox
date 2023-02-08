@@ -66,7 +66,7 @@ function reFetch(){
       var k = result.data[i]
       var q = k.qNo;
       if (q==questionNumber){
-        console.log('q=q')
+        //console.log('q=q')
         p1S[q] = k.p1Score;
         p2S[q] = k.p2Score;
         p3S[q] = k.p3Score;
@@ -407,7 +407,7 @@ function sendQue(){
     const feed = await database.from("qFeed").insert({
         questionNo: q2Send
     })
-    console.log(feed)
+    //console.log(feed)
   }
   sendData();
 }
@@ -493,11 +493,13 @@ function showAudience(){
         for (let index = 0; index < aScore.data.length; index++) {
           var f = aScore.data[index];
           if (f.qNo ==Q){
-            audName = f.audName
-            audScore = parseInt(f.score)
-            time = f.created_at
-            toPush = [audName,audScore,time]
-            array.push(toPush)
+            if (f.audName!="Anonymous"){
+              audName = f.audName
+              audScore = parseInt(f.score)
+              time = f.created_at
+              toPush = [audName,audScore,time]
+              array.push(toPush)
+            }
           }
         }
         return array;
