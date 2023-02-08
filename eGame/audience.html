@@ -466,6 +466,27 @@ function sub(url,key){
     .subscribe()
 }
 
+//fetch
+function fetchScore(){
+    const database = supabase.createClient(supUrl,supKey)
+
+    //getData
+    const getData = async () => {
+    const fetchQ = await database.from("qFeed")
+    .select('*')
+    .order('questionNo', {ascending:false})
+    sendQ(fetchQ)
+    }
+    getData();
+
+    function sendQ(recQ){
+        if (qNow<=12){
+                qNo = qNow;
+                ecgLoad();
+                }
+    }
+}
+
 
 //submit
 function handleSubmit(){
