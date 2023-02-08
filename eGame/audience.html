@@ -387,7 +387,11 @@
     <div id="welcome">
         Thanks for joining us.<br>
         Please wait here. The game will begin shortly.<br>
-        If you enter the game in the middle of the question, please also wait here for the next question.
+        If you enter the game after the question has begun, 
+        please click here to reload the ECG.
+        <button>
+            reload ECG
+        </button>
     </div>
     <div id="wait"></div>
     <div style="font-size:1.8vmax;color: #021c49">
@@ -467,7 +471,7 @@ function sub(url,key){
 }
 
 //fetch
-function fetchScore(){
+function getQ(){
     const database = supabase.createClient(supUrl,supKey)
 
     //getData
@@ -480,6 +484,11 @@ function fetchScore(){
     getData();
 
     function sendQ(recQ){
+        if (recQ.data.lenth>0){
+            var k = result.data[0]
+            var qNow = k.questionNo;
+        }
+
         if (qNow<=12){
                 qNo = qNow;
                 ecgLoad();
