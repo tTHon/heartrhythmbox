@@ -65,13 +65,13 @@ function reFetch(){
     for (var i=0;i<result.data.length;i++){
       var k = result.data[i]
       var q = k.qNo;
-      if (q==questionNumber){
+      //if (q==questionNumber){
         //console.log('q=q')
         p1S[q] = k.p1Score;
         p2S[q] = k.p2Score;
         p3S[q] = k.p3Score;
-        break;
-      }
+        //break;
+      //}
     }
   }
 }
