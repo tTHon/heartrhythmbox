@@ -406,7 +406,7 @@ window.onbeforeunload = (event) => {
 //global var
 var totalQ = 12
 var qNo = -1;
-var q2Vote = [0,4,8,12];
+var q2Vote = [4,8,12];
 var score = 0;
 var nameEntered = 'Anonymous';
 var keyJson = [
@@ -475,7 +475,7 @@ function handleSubmit(){
     //get data
     thisScore = calcScore();  
     score = score + thisScore;  
-    if (qNo==0)
+    if (qNo==4)
         {if (document.getElementById('audName').value!='')
             {nameEntered = document.getElementById('audName').value;}
             }
