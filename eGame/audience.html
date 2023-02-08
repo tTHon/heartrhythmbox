@@ -475,7 +475,7 @@ function handleSubmit(){
     //get data
     thisScore = calcScore();  
     score = score + thisScore;  
-    if (qNo==4)
+    if (qNo==0)
         {if (document.getElementById('audName').value!='')
             {nameEntered = document.getElementById('audName').value;}
             }
@@ -522,7 +522,7 @@ function ecgLoad(){
             vote = 1;
         }
     }
-    /*if (qNo==0)
+    if (qNo==0)
         {aSheet.style.display = 'inline-block';
         form.style.display = 'none';
         fButt.style.display = 'inline-block'
@@ -531,7 +531,7 @@ function ecgLoad(){
         arrow('on')
         oBar.style.display = 'block'
         }
-    else*/ 
+    else
     if (vote==1){
         //arrow('on')
         oBar.style.display = 'block'
