@@ -637,7 +637,8 @@ function calcScore(){
             }
         }
         //console.log (q4Count)
-        thisScore = thisScore - (4*(q4Count-1))
+        if (q4Count>0){
+        thisScore = thisScore - (4*(q4Count-1))}
     }
 
     //for Q8 SVT or VT
