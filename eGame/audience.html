@@ -473,6 +473,7 @@ function sub(url,key){
 //fetch
 function getQ(){
     console.log('getQ')
+    setupSup();
     const database = supabase.createClient(supUrl,supKey)
 
     //getData
