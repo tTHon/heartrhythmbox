@@ -412,6 +412,8 @@ var nameEntered = 'Anonymous';
 var keyJson = [
             {"no":4, "key": '1.3', "score": 2},
             {"no":4, "key": '3.2', "score": 4},
+            {"no":4, "key": '3.5', "score": 4},
+            {"no":4, "key": '3.7', "score": 4},
             {"no":4, "key": '6.7', "score": 4},         
             {"no":8, "key": '1.6', "score": 4},
             {"no":8, "key": '2.2', "score": 4},  
@@ -623,6 +625,18 @@ function calcScore(){
             } 
         }
     })
+
+    //for Q4 AVB vs 3rd AVB input 10 13 15
+    if (qNo==4){
+        var q4Count = 0;
+        qGroup = [10,13,15]
+        for (let index = 0; index < qGroup.length; index++) {
+            if  (input[index].checked){
+                q4Count++;
+            }
+        }
+        thisScore = thisScore - (4*(q4Count-1))
+    }
 
     //for Q8 SVT or VT
     if (qNo==8) {
