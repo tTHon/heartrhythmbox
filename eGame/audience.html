@@ -415,9 +415,9 @@ var keyJson = [
             {"no":4, "key": '3.5', "score": 4},
             {"no":4, "key": '3.7', "score": 4},
             {"no":4, "key": '6.7', "score": 4},         
-            {"no":8, "key": '1.6', "score": 4},
-            {"no":8, "key": '2.2', "score": 4},  
-            {"no":8, "key": '3.6', "score": 3},
+            {"no":8, "key": '1.6', "score": 6},
+            {"no":8, "key": '2.2', "score": 6},  
+            {"no":8, "key": '3.6', "score": 2},
             {"no":8, "key": '4.1', "score": 3},   
             {"no":12, "key": '1.1', "score": 2},
             {"no":12, "key": '2.2', "score": 4},
@@ -636,14 +636,14 @@ function calcScore(){
                 q4Count++;
             }
         }
-        console.log (q4Count)
+        //console.log (q4Count)
         thisScore = thisScore - (4*(q4Count-1))
     }
 
     //for Q8 SVT or VT
     if (qNo==8) {
         if (input[5].checked && input[8].checked){
-            thisScore = thisScore - 4;
+            thisScore = thisScore - 6;
         }
     }
     //deduction
