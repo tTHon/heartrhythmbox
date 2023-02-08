@@ -473,17 +473,31 @@ function sub(url,key){
 //fetch
 function getQ(){
     console.log('getQ')
-    setupSup();
-    const database = supabase.createClient(supUrl,supKey)
+    
+    function setUpSup(){
+    fetch('/.netlify/functions/hello')
+    .then(response => response.json())
+    .then(result =>setUpVar(result))
+    .catch(error => console.log('error', error));
 
-    //getData
-    const getData = async () => {
-    const fetchQ = await database.from("qFeed")
-    .select('*')
-    .order('questionNo', {ascending:false})
-    sendQ(fetchQ)
+        function setUpVar(data){
+            supUrl = data[0];supKey = data[1]
+            getData(supUrl,supKey)    
+        }
     }
-    getData();
+
+    function getData(supUrl,supKey){
+        const database = supabase.createClient(supUrl,supKey)
+
+        //getData
+        const getData = async () => {
+        const fetchQ = await database.from("qFeed")
+        .select('*')
+        .order('questionNo', {ascending:false})
+        sendQ(fetchQ)
+        }
+        getData();
+    }
 
     function sendQ(recQ){
         if (recQ.data.lenth>0){
