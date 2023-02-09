@@ -285,7 +285,7 @@ function starter(){
 
 function sendScore(){
   const database = supabase.createClient(supUrl,supKey)
-  console.log (database)
+  //console.log (database)
 
   //dBase name pScore, fields: qNo, created_at, p1Array, p1Score ...
 
@@ -302,7 +302,7 @@ function sendScore(){
         p1Score: totalScore[0].value, p2Score: totalScore[1].value, p3Score: totalScore[2].value,
         p1Array: p1ScoreA, p2Array: p2ScoreA, p3Array: p3ScoreA
         })
-        console.log(feed)
+        //console.log(feed)
         document.getElementById('status').innerHTML = 'submitted status: ' + feed.status
   }
 
