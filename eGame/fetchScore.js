@@ -426,7 +426,7 @@ function clearQue(){
     const data = await database
     .from('Audience')
     .delete()
-    .gte ('qNo',0)
+    .gte ('qNo',-1)
   }
 
   const clearP = async ()=>{
