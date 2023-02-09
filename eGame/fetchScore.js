@@ -427,6 +427,7 @@ function clearQue(){
     .from('Audience')
     .delete()
     .gte ('qNo',-1)
+    console.log('clearAud')
   }
 
   const clearP = async ()=>{
