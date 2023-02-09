@@ -473,8 +473,9 @@ function sub(url,key){
 //fetch
 function getQ(){
     console.log('getQ')
+    setupSupMiddle()
     
-    function setUpSup(){
+    function setUpSupMiddle(){
     fetch('/.netlify/functions/hello')
     .then(response => response.json())
     .then(result =>setUpVar(result))
