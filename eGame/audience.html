@@ -505,9 +505,9 @@ function getQ(){
 
     function sendQ(recQ){
         console.log('sendQ was called.')
-        if (recQ.data.lenth>0){
+        if (recQ.data.length>0){
             console.log('recQ>0')
-            var k = result.data[0]
+            var k = recQ.data[0]
             var qNow = k.questionNo;
             console.log(qNow)
         }
