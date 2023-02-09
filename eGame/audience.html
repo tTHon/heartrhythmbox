@@ -388,9 +388,9 @@
         Thanks for joining us.<br>
         Please wait here. The game will begin shortly.<br>
         If you enter the game after the question has begun, 
-        please click here to 
+        you may
         <button onclick="getQ()">
-            reload ECG
+            click here to reload ECG
         </button><br>
         If the question has ended, please wait here for the next question.
     </div>
@@ -510,8 +510,9 @@ function getQ(){
             //console.log('recQ>0')
                 var k = recQ.data[0]
                 var qNow = k.questionNo;
-                if (qNow<100){
-                    var qNow = k.questionNo;;
+                if (qNow>100){
+                    var k = recQ.data[1]
+                    var qNow = k.questionNo;
                 }    
             }
             //console.log(qNow)
