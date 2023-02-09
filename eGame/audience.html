@@ -472,8 +472,8 @@ function sub(url,key){
 
 //fetch
 function getQ(){
-    console.log('getQ')
-    console.log(supUrl,supKey)
+    //console.log('getQ')
+    //console.log(supUrl,supKey)
     getData(supUrl,supKey)
     //setUpSupMiddle()
     
@@ -490,7 +490,7 @@ function getQ(){
     }
 
     function getData(supUrl,supKey){
-        console.log('getData was called')
+        //console.log('getData was called')
         const database = supabase.createClient(supUrl,supKey)
 
         //getData
@@ -504,12 +504,12 @@ function getQ(){
     }
 
     function sendQ(recQ){
-        console.log('sendQ was called.')
+        //console.log('sendQ was called.')
         if (recQ.data.length>0){
             console.log('recQ>0')
             var k = recQ.data[0]
             var qNow = k.questionNo;
-            console.log(qNow)
+            //console.log(qNow)
         }
 
         if (qNow<=12){
