@@ -497,7 +497,7 @@ function getQ(){
         const getData = async () => {
         const fetchQ = await database.from("qFeed")
         .select('*')
-        .order('questionNo', {ascending:false})
+        .order('created_at', {ascending:false})
         sendQ(fetchQ)
         }
         getData();
@@ -506,15 +506,14 @@ function getQ(){
     function sendQ(recQ){
         //console.log('sendQ was called.')
         if (recQ.data.length>0){
-            //console.log('recQ>0')
-            for (let index = 0; index < recQ.data.length; index++) {
-                var k = recQ.data[index]
+            console.log('recQ>0')
+                var k = recQ.data[0]
                 var qNow = k.questionNo;
                 if (qNow<100){
-                    break;
+                    var qNow = k.questionNo;;
                 }    
             }
-            //console.log(qNow)
+            console.log(qNow)
         }
 
         if (qNow<=12){
