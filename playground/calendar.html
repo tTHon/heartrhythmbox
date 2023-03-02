@@ -39,7 +39,11 @@ showCalendar(today)
         //date run
         for (let dte = 1; dte <= 31; dte++) {
             today = new Date(year,month,dte)
-            day = today.getDay()   
+            day = today.getDay()
+
+            //check end of month
+            todate = today.getDate()
+            if (todate!=dte){break}
             displayDate('cTable',wk,day,dte)  
             if (day==6){
                 wk++
