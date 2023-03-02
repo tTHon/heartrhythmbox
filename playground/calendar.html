@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calendar</title>
+</head>
+<style>
+    #cTable {font-size: 3vw;padding: 1vw;border-collapse: collapse;}
+    #cTable td {border: solid 0.2vw #797979;padding: 1vw;}
+    #dayLabel td {border: solid 0.2vw #797979;padding: 0 1vw;}
+</style>
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <h1 id="month"></h1>
+    <h1 id="year"></h1>
+    <table id="cTable">
+        <tr id="dayLabel">
+            <td>Sun</td><td>Mon</td><td>Tue</td>
+            <td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>
+        </tr>
+    </table>
+
+
+<script>
+showCalendar()
+
+
+    function showCalendar(){
+        cTable = document.getElementById('cTable')
+        wk1 = cTable.insertRow(-1)
+        cell = wk1.insertCell(0)
+        cell.innerHTML = 'Total'
+    }
+</script>
+</body>
+</html>
