@@ -14,12 +14,16 @@
 </style>
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <h1 style="text-align: center;">
+        <button onclick="today()">
+            Today
+        </button>
         <span class="cNav" onclick="yearNav(-1)">&#8810;</span>
         <span class="cNav" onclick="monthNav(-1)">&lt;</span>
-        <span id="month"></span>
-        <span id="year"></span>
         <span class="cNav" onclick="monthNav(1)">&gt;</span>
         <span class="cNav" onclick="yearNav(1)">&#8811;</span>
+        <span id="month"></span>
+        <span id="year"></span>
+
     </h1>
 
     <table id="cTable">
@@ -33,10 +37,17 @@
 <script>
 const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
-const now = new Date()    
-showCalendar(now)
-var nowMonth = now.getMonth();
-var nowYear = now.getFullYear();
+var nowMonth;
+var nowYear;
+today();
+
+    function today(){
+        const now = new Date()  
+        nowMonth = now.getMonth();
+        nowYear = now.getFullYear();  
+        clearCalendar('cTable')
+        showCalendar(now)
+    }
 
     function monthNav(nav){
         nowMonth = nowMonth + nav;
@@ -91,13 +102,13 @@ var nowYear = now.getFullYear();
         const wk = cTable.insertRow(-1)
         for (let index = 0; index < 7; index++) {
             const cell = wk.insertCell(index)  
-            cell.style.cursor = 'pointer'  
         }
     }
 
     function displayDate(tableID,wk,col,date2Display){
         const week = document.getElementById(tableID).rows[wk].cells
         week[col].innerHTML = date2Display
+        week[col].style.cursor = 'pointer'
         week[col].onclick = function(){
             alert(date2Display+' '+monthLabel[nowMonth]+' '+nowYear)
         }
