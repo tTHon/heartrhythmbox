@@ -7,13 +7,19 @@
     <title>calendar</title>
 </head>
 <style>
-    #cTable {font-size: 3vw;padding: 1vw;border-collapse: collapse;}
+    #cTable {font-size: 3vw;padding: 1vw;border-collapse: collapse;margin-left: auto;margin-right: auto;}
     #cTable td {border: solid 0.2vw #797979;padding: 1vw;}
-    #dayLabel td {border: solid 0.2vw #797979;padding: 0 1vw;}
+    #dayLabel td {border: solid 0.2vw #797979;padding: 0 1vw;width: 10vw;}
+    #earlier, #later {cursor: pointer;}
 </style>
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-    <h1 id="month"></h1>
-    <h1 id="year"></h1>
+    <h1 style="text-align: center;">
+        <span id="earlier" onclick="monthNav(-1)">&lt;</span>
+        <span id="month"></span>
+        <span id="year"></span>
+        <span id="later" onclick="monthNav(1)">&gt;</span>
+    </h1>
+
     <table id="cTable">
         <tr id="dayLabel">
             <td>Sun</td><td>Mon</td><td>Tue</td>
@@ -25,30 +31,45 @@
 <script>
 const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
-today = new Date()    
-showCalendar(today)
+const now = new Date()    
+showCalendar(now)
+var nowMonth = now.getMonth();
+var nowYear = now.getFullYear();
 
+    function monthNav(nav){
+        nowMonth = nowMonth + nav;
+        newDate = new Date(nowYear, nowMonth)
+        clearCalendar('cTable')
+        showCalendar(newDate)
+    }
 
+    function clearCalendar(tableID){
+        table = document.getElementById(tableID)
+        weeksNumber = table.rows.length
+        for (let index = 0; index < weeksNumber-1; index++) {
+           table.deleteRow(1)
+        }
+    }
     function showCalendar(d){
-        year = d.getFullYear()
-        month = d.getMonth()
+        const year = d.getFullYear()
+        const month = d.getMonth()
         document.getElementById('month').innerHTML = monthLabel[month]
         document.getElementById('year').innerHTML = year
-        wk=1;
-        nextWeek('cTable')
+        wk=0;
+        
         //date run
         for (let dte = 1; dte <= 31; dte++) {
-            today = new Date(year,month,dte)
-            day = today.getDay()
-
+            const today = new Date(year,month,dte)
+            const day = today.getDay()
             //check end of month
-            todate = today.getDate()
+            const todate = today.getDate()
             if (todate!=dte){break}
-            displayDate('cTable',wk,day,dte)  
-            if (day==6){
+            if (day==0){
                 wk++
                 nextWeek('cTable')
-            }    
+            } 
+
+            displayDate('cTable',wk,day,dte)  
         }
     }
 
@@ -56,7 +77,7 @@ showCalendar(today)
         const table = document.getElementById(tableID)
         const wk = cTable.insertRow(-1)
         for (let index = 0; index < 7; index++) {
-            cell = wk.insertCell(index)    
+            const cell = wk.insertCell(index)    
         }
     }
 
