@@ -97,6 +97,9 @@ var nowYear = now.getFullYear();
     function displayDate(tableID,wk,col,date2Display){
         const week = document.getElementById(tableID).rows[wk].cells
         week[col].innerHTML = date2Display
+        week[col].onclick = function(){
+            alert(date2Display+' '+monthLabel[nowMonth]+' '+nowYear)
+        }
     }
 </script>
 </body>
