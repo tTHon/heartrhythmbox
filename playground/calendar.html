@@ -10,14 +10,16 @@
     #cTable {font-size: 3vw;padding: 1vw;border-collapse: collapse;margin-left: auto;margin-right: auto;}
     #cTable td {border: solid 0.2vw #797979;padding: 1vw;}
     #dayLabel td {border: solid 0.2vw #797979;padding: 0 1vw;width: 10vw;}
-    #earlier, #later {cursor: pointer;}
+    .cNav {cursor: pointer;}
 </style>
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <h1 style="text-align: center;">
-        <span id="earlier" onclick="monthNav(-1)">&lt;</span>
+        <span class="cNav" onclick="yearNav(-1)">&#8810;</span>
+        <span class="cNav" onclick="monthNav(-1)">&lt;</span>
         <span id="month"></span>
         <span id="year"></span>
-        <span id="later" onclick="monthNav(1)">&gt;</span>
+        <span class="cNav" onclick="monthNav(1)">&gt;</span>
+        <span class="cNav" onclick="yearNav(1)">&#8811;</span>
     </h1>
 
     <table id="cTable">
@@ -38,6 +40,13 @@ var nowYear = now.getFullYear();
 
     function monthNav(nav){
         nowMonth = nowMonth + nav;
+        newDate = new Date(nowYear, nowMonth)
+        clearCalendar('cTable')
+        showCalendar(newDate)
+    }
+
+    function yearNav(nav){
+        nowYear = nowYear + nav
         newDate = new Date(nowYear, nowMonth)
         clearCalendar('cTable')
         showCalendar(newDate)
