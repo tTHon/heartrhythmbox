@@ -90,7 +90,8 @@ var nowYear = now.getFullYear();
         const table = document.getElementById(tableID)
         const wk = cTable.insertRow(-1)
         for (let index = 0; index < 7; index++) {
-            const cell = wk.insertCell(index)    
+            const cell = wk.insertCell(index)  
+            cell.style.cursor = 'pointer'  
         }
     }
 
