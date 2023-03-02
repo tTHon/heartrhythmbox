@@ -23,14 +23,42 @@
 
 
 <script>
-showCalendar()
+const monthLabel = ['January','February','March','April','May','June',
+'July','August','September','October','November','December']
+today = new Date()    
+showCalendar(today)
 
 
-    function showCalendar(){
-        cTable = document.getElementById('cTable')
-        wk1 = cTable.insertRow(-1)
-        cell = wk1.insertCell(0)
-        cell.innerHTML = 'Total'
+    function showCalendar(d){
+        year = d.getFullYear()
+        month = d.getMonth()
+        document.getElementById('month').innerHTML = monthLabel[month]
+        document.getElementById('year').innerHTML = year
+        wk=1;
+        nextWeek('cTable')
+        //date run
+        for (let dte = 1; dte <= 31; dte++) {
+            today = new Date(year,month,dte)
+            day = today.getDay()   
+            displayDate('cTable',wk,day,dte)  
+            if (day==6){
+                wk++
+                nextWeek('cTable')
+            }    
+        }
+    }
+
+    function nextWeek(tableID){
+        const table = document.getElementById(tableID)
+        const wk = cTable.insertRow(-1)
+        for (let index = 0; index < 7; index++) {
+            cell = wk.insertCell(index)    
+        }
+    }
+
+    function displayDate(tableID,wk,col,date2Display){
+        const week = document.getElementById(tableID).rows[wk].cells
+        week[col].innerHTML = date2Display
     }
 </script>
 </body>
