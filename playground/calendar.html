@@ -55,21 +55,25 @@ var nowYear = now.getFullYear();
         const month = d.getMonth()
         document.getElementById('month').innerHTML = monthLabel[month]
         document.getElementById('year').innerHTML = year
-        wk=0;
-        
+        wk=1;
+        nextWeek('cTable')
+
         //date run
         for (let dte = 1; dte <= 31; dte++) {
             const today = new Date(year,month,dte)
             const day = today.getDay()
-            //check end of month
             const todate = today.getDate()
             if (todate!=dte){break}
-            if (day==0){
+
+            displayDate('cTable',wk,day,dte)  
+
+            //check if tommorrow still in the month
+            const tomorrow = new Date(year,month,dte+1)
+            const tomorrowDate = tomorrow.getDate()
+            if (day==6 && tomorrowDate==dte+1){
                 wk++
                 nextWeek('cTable')
             } 
-
-            displayDate('cTable',wk,day,dte)  
         }
     }
 
