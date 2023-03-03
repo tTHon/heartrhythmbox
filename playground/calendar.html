@@ -7,10 +7,11 @@
     <title>calendar</title>
 </head>
 <style>
-    #cTable {font-size: 3vw;padding: 1vw;border-collapse: collapse;margin-left: auto;margin-right: auto;}
+    #cTable {font-size: 3vw;padding: 1vw;border-collapse: collapse;
+        margin-left: auto;margin-right: auto;margin-top: 2vh;display: none;}
     #cTable td {border: solid 0.2vw #797979;padding: 1vw;}
     #dayLabel td {border: solid 0.2vw #797979;padding: 0 1vw;width: 10vw;}
-    .cNav {cursor: pointer;}
+    .cNav, #startDate, #endDate {cursor: pointer;}
 </style>
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <h1 style="text-align: center;">
@@ -26,6 +27,14 @@
 
     </h1>
 
+    <!--choose the date-->
+    <div style="text-align: center;">
+    <button style="text-align: center;" onclick="displayCalendar('cTable')">
+        &#128197; <span id="startDate">Start Date</span> &nbsp; - &nbsp;
+        <span id="endDate">End Date</span>
+    </button>
+    </div>
+
     <table id="cTable">
         <tr id="dayLabel">
             <td>Sun</td><td>Mon</td><td>Tue</td>
@@ -40,6 +49,10 @@ const monthLabel = ['January','February','March','April','May','June',
 var nowMonth;
 var nowYear;
 today('cTable');
+
+function displayCalendar(tableID){
+    document.getElementById(tableID).style.display = 'table'
+}
 
 function today(tableID){
     const now = new Date()  
