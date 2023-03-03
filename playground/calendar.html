@@ -45,27 +45,34 @@ today();
         const now = new Date()  
         nowMonth = now.getMonth();
         nowYear = now.getFullYear();  
+        var nowDate = now.getDate();
         clearCalendar('cTable')
-        showCalendar(now)
+        let dArray = showCalendar(now);
+        const nowRow = dArray[nowDate][0]
+        const nowCol = dArray[nowDate][1]
+
+        //change bg of Today
+        const week = document.getElementById('cTable').rows[nowRow].cells
+        week[nowCol].style.color = 'red'
     }
 
     function monthNav(nav){
         nowMonth = nowMonth + nav;
-        newDate = new Date(nowYear, nowMonth)
+        var newDate = new Date(nowYear, nowMonth)
         clearCalendar('cTable')
         showCalendar(newDate)
     }
 
     function yearNav(nav){
         nowYear = nowYear + nav
-        newDate = new Date(nowYear, nowMonth)
+        let newDate = new Date(nowYear, nowMonth)
         clearCalendar('cTable')
         showCalendar(newDate)
     }
 
     function clearCalendar(tableID){
-        table = document.getElementById(tableID)
-        weeksNumber = table.rows.length
+        const table = document.getElementById(tableID)
+        const weeksNumber = table.rows.length
         for (let index = 0; index < weeksNumber-1; index++) {
            table.deleteRow(1)
         }
@@ -75,9 +82,9 @@ today();
         const month = d.getMonth()
         document.getElementById('month').innerHTML = monthLabel[month]
         document.getElementById('year').innerHTML = year
-        wk=1;
+        let wk=1;
         nextWeek('cTable')
-
+        var dRowCol = [['row','col']]
         //date run
         for (let dte = 1; dte <= 31; dte++) {
             const today = new Date(year,month,dte)
@@ -86,6 +93,8 @@ today();
             if (todate!=dte){break}
 
             displayDate('cTable',wk,day,dte)  
+            let toPush = [wk,day]
+            dRowCol.push(toPush)
 
             //check if tommorrow still in the month
             const tomorrow = new Date(year,month,dte+1)
@@ -95,6 +104,7 @@ today();
                 nextWeek('cTable')
             } 
         }
+        return dRowCol;
     }
 
     function nextWeek(tableID){
