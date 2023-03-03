@@ -14,7 +14,7 @@
 </style>
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <h1 style="text-align: center;">
-        <button onclick="today()">
+        <button onclick="today('cTable')" style="vertical-align: middle;">
             Today
         </button>
         <span class="cNav" onclick="yearNav(-1)">&#8810;</span>
@@ -39,90 +39,92 @@ const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
 var nowMonth;
 var nowYear;
-today();
+today('cTable');
 
-    function today(){
-        const now = new Date()  
-        nowMonth = now.getMonth();
-        nowYear = now.getFullYear();  
-        var nowDate = now.getDate();
-        clearCalendar('cTable')
-        let dArray = showCalendar(now);
-        const nowRow = dArray[nowDate][0]
-        const nowCol = dArray[nowDate][1]
+function today(tableID){
+    const now = new Date()  
+    nowMonth = now.getMonth();
+    nowYear = now.getFullYear();  
+    var nowDate = now.getDate();
+    clearCalendar(tableID)
+    let dArray = showCalendar(now);
+    const nowRow = dArray[nowDate][0]
+    const nowCol = dArray[nowDate][1]
 
-        //change bg of Today
-        const week = document.getElementById('cTable').rows[nowRow].cells
-        week[nowCol].style.color = 'red'
+    //change color of Today
+    const week = document.getElementById(tableID).rows[nowRow].cells
+    week[nowCol].style.color = 'red'
+}
+
+function monthNav(nav){
+    nowMonth = nowMonth + nav;
+    var newDate = new Date(nowYear, nowMonth)
+    clearCalendar('cTable')
+    showCalendar(newDate)
+}
+
+function yearNav(nav){
+    nowYear = nowYear + nav
+    let newDate = new Date(nowYear, nowMonth)
+    clearCalendar('cTable')
+    showCalendar(newDate)
+}
+
+function clearCalendar(tableID){
+    const tab = document.getElementById(tableID)
+    const weeksNumber = tab.rows.length
+    for (let index = 0; index < weeksNumber-1; index++) {
+        tab.deleteRow(1)
     }
+}
 
-    function monthNav(nav){
-        nowMonth = nowMonth + nav;
-        var newDate = new Date(nowYear, nowMonth)
-        clearCalendar('cTable')
-        showCalendar(newDate)
+function showCalendar(d){
+    const year = d.getFullYear()
+    const month = d.getMonth()
+    document.getElementById('month').innerHTML = monthLabel[month]
+    document.getElementById('year').innerHTML = year
+    let wk=1;
+    nextWeek('cTable')
+    var dRowCol = [['row','col']]
+    //date run
+    for (let dte = 1; dte <= 31; dte++) {
+        const today = new Date(year,month,dte)
+        const day = today.getDay()
+        const todate = today.getDate()
+        if (todate!=dte){break}
+
+        displayDate('cTable',wk,day,dte)  
+        let toPush = [wk,day]
+        dRowCol.push(toPush)
+
+        //check if tommorrow still in the month
+        const tomorrow = new Date(year,month,dte+1)
+        const tomorrowDate = tomorrow.getDate()
+        if (day==6 && tomorrowDate==dte+1){
+            wk++
+            nextWeek('cTable')
+        } 
     }
+    return dRowCol;
+}
 
-    function yearNav(nav){
-        nowYear = nowYear + nav
-        let newDate = new Date(nowYear, nowMonth)
-        clearCalendar('cTable')
-        showCalendar(newDate)
+function nextWeek(tableID){
+    const cTable = document.getElementById(tableID)
+    const wk = cTable.insertRow(-1)
+    for (let index = 0; index < 7; index++) {
+        const cell = wk.insertCell(index)  
     }
+}
 
-    function clearCalendar(tableID){
-        const table = document.getElementById(tableID)
-        const weeksNumber = table.rows.length
-        for (let index = 0; index < weeksNumber-1; index++) {
-           table.deleteRow(1)
-        }
+function displayDate(tableID,wk,col,date2Display){
+    const week = document.getElementById(tableID).rows[wk].cells
+    week[col].innerHTML = date2Display
+    week[col].style.cursor = 'pointer'
+    week[col].onclick = function(){
+        alert(date2Display+' '+monthLabel[nowMonth]+' '+nowYear)
     }
-    function showCalendar(d){
-        const year = d.getFullYear()
-        const month = d.getMonth()
-        document.getElementById('month').innerHTML = monthLabel[month]
-        document.getElementById('year').innerHTML = year
-        let wk=1;
-        nextWeek('cTable')
-        var dRowCol = [['row','col']]
-        //date run
-        for (let dte = 1; dte <= 31; dte++) {
-            const today = new Date(year,month,dte)
-            const day = today.getDay()
-            const todate = today.getDate()
-            if (todate!=dte){break}
+}
 
-            displayDate('cTable',wk,day,dte)  
-            let toPush = [wk,day]
-            dRowCol.push(toPush)
-
-            //check if tommorrow still in the month
-            const tomorrow = new Date(year,month,dte+1)
-            const tomorrowDate = tomorrow.getDate()
-            if (day==6 && tomorrowDate==dte+1){
-                wk++
-                nextWeek('cTable')
-            } 
-        }
-        return dRowCol;
-    }
-
-    function nextWeek(tableID){
-        const table = document.getElementById(tableID)
-        const wk = cTable.insertRow(-1)
-        for (let index = 0; index < 7; index++) {
-            const cell = wk.insertCell(index)  
-        }
-    }
-
-    function displayDate(tableID,wk,col,date2Display){
-        const week = document.getElementById(tableID).rows[wk].cells
-        week[col].innerHTML = date2Display
-        week[col].style.cursor = 'pointer'
-        week[col].onclick = function(){
-            alert(date2Display+' '+monthLabel[nowMonth]+' '+nowYear)
-        }
-    }
 </script>
 </body>
 </html>
