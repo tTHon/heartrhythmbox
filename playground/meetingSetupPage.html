@@ -6,20 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    #dBoard {display:none}    
+</style>
 <body>
-    <div style="text-align: center;">
-        <h1>Start your new meeting scheduling</h1>
-        <form> 
+    <div id="setUp" style="text-align: center;">
+        <h1>Start your new meeting setup</h1>
+       
             <label for="meetingName">Name of the meeting:</label>
             <input type="text" id="meetingName" name="meetingName"><br><br>   
             
             <label for="startDate">Start on: </label>
-            <input type="date" id="startDate">
+            <input type="date" id="startDate" name="startDate">
             <label for="endDate">&nbsp;&nbsp;  Until: </label>
-            <input type="date" id="endDate"><br><br>
-            <input type="submit">
+            <input type="date" id="endDate" name="endDate"><br><br>
+            <input type="submit" onclick="goToDashboard()">
             <input type="reset">
-        </form>
+
     </div>
+    <div id="dBoard">
+        <span id="mName"></span>
+        <span id="mStartDate"></span> <span id="mEndDate"></span> 
+    </div>
+
+<script>
+
+function goToDashboard(){
+    document.getElementById('setUp').style.display = 'none'
+    document.getElementById('dBoard').style.display = 'block'
+    document.getElementById('mName').innerHTML = document.getElementById('meetingName').value
+    document.getElementById('mStartDate').innerHTML = document.getElementById('startDate').value
+    document.getElementById('mEndDate').innerHTML = document.getElementById('endDate').value
+}
+
+
+</script>
 </body>
 </html>

@@ -12,13 +12,30 @@
     #cTable td {border: solid 0.2vw #797979;padding: 1vw;}
     #dayLabel td {border: solid 0.2vw #797979;padding: 0 1vw;width: 10vw;}
     .cNav, #startDate, #endDate {cursor: pointer;}
+    #calendar {display: none;}
 </style>
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+    <div id="setUp" style="text-align: center;">
+        <h1>Setup your new meeting</h1>
+       
+        <label for="meetingName">Name of the meeting:</label>
+        <input type="text" id="meetingName" name="meetingName">
+        <h3 id="dateInput" onclick="displayCalendar('calendar')">
+            &#x1F4C5;
+            <span style="border: #797979 0.1vw solid;padding: 0.2vw;">
+            <span id="startDate">&nbsp;
+                Start on</span>&nbsp;-&nbsp;
+            <span id="endDate">&nbsp;End on&nbsp;</span>
+            </span>
+        </h3>
+
+    </div>
+
+
     <!--choose the date-->
-
-
     <div id="calendar">
-    <h1 style="text-align: center;">
+    <h3>
         <button onclick="today('cTable')" style="vertical-align: middle;">
             Today
         </button>
@@ -29,7 +46,7 @@
         <span id="month"></span>
         <span id="year"></span>
 
-    </h1>
+    </h3>
     <table id="cTable">
         <tr id="dayLabel">
             <td>Sun</td><td>Mon</td><td>Tue</td>
@@ -44,6 +61,8 @@ const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
 var nowMonth;
 var nowYear;
+var beginD;var endD;
+var dRowCol = [['row','col']]
 today('cTable');
 
 function displayCalendar(id){
@@ -56,9 +75,9 @@ function today(tableID){
     nowYear = now.getFullYear();  
     var nowDate = now.getDate();
     clearCalendar(tableID)
-    let dArray = showCalendar(now);
-    const nowRow = dArray[nowDate][0]
-    const nowCol = dArray[nowDate][1]
+    showCalendar(now);
+    const nowRow = dRowCol[nowDate][0]
+    const nowCol = dRowCol[nowDate][1]
 
     //change color of Today
     const week = document.getElementById(tableID).rows[nowRow].cells
@@ -94,7 +113,7 @@ function showCalendar(d){
     document.getElementById('year').innerHTML = year
     let wk=1;
     nextWeek('cTable')
-    var dRowCol = [['row','col']]
+
     //date run
     for (let dte = 1; dte <= 31; dte++) {
         const today = new Date(year,month,dte)
@@ -114,7 +133,6 @@ function showCalendar(d){
             nextWeek('cTable')
         } 
     }
-    return dRowCol;
 }
 
 function nextWeek(tableID){
@@ -130,8 +148,41 @@ function displayDate(tableID,wk,col,date2Display){
     week[col].innerHTML = date2Display
     week[col].style.cursor = 'pointer'
     week[col].onclick = function(){
-        alert(date2Display+' '+monthLabel[nowMonth]+' '+nowYear)
+        showSelectedDate(tableID,wk,col,date2Display)
     }
+}
+
+function showSelectedDate(tableID,wk,col,date2Display){
+    //highlight selected date
+    const week = document.getElementById(tableID).rows[wk].cells
+    week[col].style.background = 'darkblue'
+    week[col].style.color = 'white'
+
+    //update in the box
+    const start = document.getElementById('startDate')
+    const end = document.getElementById('endDate')
+
+    if (beginD==null){
+        start.innerHTML = date2Display + ' ' + monthLabel[nowMonth]+ ' ' + nowYear
+        beginD = new Date(nowYear, nowMonth, date2Display)
+    }
+    else {
+        newDate = new Date(nowYear, nowMonth, date2Display)
+        console.log(newDate-beginD)
+        if (newDate>beginD){
+            endD = newDate;
+            end.innerHTML = date2Display + ' ' + monthLabel[nowMonth]+ ' ' + nowYear
+            //check if duration >2d
+            dateDiff = date2Display-beginD.getDate()
+
+            if (dateDiff>2){
+                for (let index = 0; index < dateDiff; index++) {
+                    
+                }
+            }
+        }
+    }
+    
 }
 
 </script>
