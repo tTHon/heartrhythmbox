@@ -9,8 +9,8 @@
 <style>
     #cTable {font-size: 3vw;padding: 1vw;border-collapse: collapse;
         margin-left: auto;margin-right: auto;margin-top: 2vh;}
-    #cTable td {border: solid 0.2vw #797979;padding: 1vw;}
-    #dayLabel td {border: solid 0.2vw #797979;padding: 0 1vw;width: 10vw;}
+    #cTable td {border: solid 0.2vw #797979;padding: 1vw;width: 10vw;}
+
     .cNav, #startDate, #endDate {cursor: pointer;}
     #calendar {display: none;}
 </style>
@@ -36,7 +36,7 @@
     <!--choose the date-->
     <div id="calendar">
     <h3>
-        <button onclick="today('cTable')" style="vertical-align: middle;">
+        <button onclick="today()" style="vertical-align: middle;">
             Today
         </button>
         <span class="cNav" onclick="yearNav(-1)">&#8810;</span>
@@ -52,6 +52,30 @@
             <td>Sun</td><td>Mon</td><td>Tue</td>
             <td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>
         </tr>
+        <tr>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+        </tr>
+        <tr>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+        </tr>
+        <tr>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+        </tr>
+        <tr>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+        </tr>
+        <tr>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+        </tr>
+        <tr>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+            <td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td><td class="calendarCell"></td>
+        </tr>
     </table>
     </div>
 
@@ -62,128 +86,108 @@ const monthLabel = ['January','February','March','April','May','June',
 var nowMonth;
 var nowYear;
 var beginD;var endD;
-var dRowCol = [['row','col']]
-today('cTable');
+var dateArray = []
+var oneDay = 24*60*60*1000
+
+
+setUpDateArray(dateArray);
+//show today calendar
+const now = new Date()  
+clearCalendar()
+dateRun(now)
+
+function setUpDateArray(array){
+    //total dateCell = 42
+    for (let index = 0; index < 42; index++) {
+        array[index]=""        
+    }
+    //console.log(dateArray)
+}
+
 
 function displayCalendar(id){
     document.getElementById(id).style.display = 'block'
 }
-
-function today(tableID){
-    const now = new Date()  
-    nowMonth = now.getMonth();
-    nowYear = now.getFullYear();  
-    var nowDate = now.getDate();
-    clearCalendar(tableID)
-    showCalendar(now);
-    const nowRow = dRowCol[nowDate][0]
-    const nowCol = dRowCol[nowDate][1]
-
-    //change color of Today
-    const week = document.getElementById(tableID).rows[nowRow].cells
-    week[nowCol].style.color = 'red'
+function today(){
+    clearCalendar()
+    dateRun(now)
 }
 
 function monthNav(nav){
     nowMonth = nowMonth + nav;
     var newDate = new Date(nowYear, nowMonth)
-    clearCalendar('cTable')
-    showCalendar(newDate)
+    clearCalendar()
+    console.log(newDate)
+    dateRun(newDate)
 }
 
 function yearNav(nav){
     nowYear = nowYear + nav
     let newDate = new Date(nowYear, nowMonth)
-    clearCalendar('cTable')
-    showCalendar(newDate)
+    clearCalendar()
+    dateRun(newDate)
 }
 
-function clearCalendar(tableID){
-    const tab = document.getElementById(tableID)
-    const weeksNumber = tab.rows.length
-    for (let index = 0; index < weeksNumber-1; index++) {
-        tab.deleteRow(1)
+function clearCalendar(){
+    setUpDateArray(dateArray);
+    var dateCell = document.getElementsByClassName('calendarCell')
+    for (let index = 0; index < dateCell.length; index++) {
+        dateCell[index].innerHTML = dateArray[index]    
+        dateCell[index].style.color = 'black'    
+        dateCell[index].style.fontWeight = 'normal'
     }
 }
 
-function showCalendar(d){
-    const year = d.getFullYear()
-    const month = d.getMonth()
+function dateRun(d){
+
+    var dateCell = document.getElementsByClassName('calendarCell')
+    
+    //find the starting column
+    const year = d.getFullYear();
+    const month = d.getMonth();
+    nowYear = year;nowMonth = month;
     document.getElementById('month').innerHTML = monthLabel[month]
     document.getElementById('year').innerHTML = year
-    let wk=1;
-    nextWeek('cTable')
-
-    //date run
-    for (let dte = 1; dte <= 31; dte++) {
-        const today = new Date(year,month,dte)
-        const day = today.getDay()
-        const todate = today.getDate()
-        if (todate!=dte){break}
-
-        displayDate('cTable',wk,day,dte)  
-        let toPush = [wk,day]
-        dRowCol.push(toPush)
-
-        //check if tommorrow still in the month
-        const tomorrow = new Date(year,month,dte+1)
-        const tomorrowDate = tomorrow.getDate()
-        if (day==6 && tomorrowDate==dte+1){
-            wk++
-            nextWeek('cTable')
-        } 
-    }
-}
-
-function nextWeek(tableID){
-    const cTable = document.getElementById(tableID)
-    const wk = cTable.insertRow(-1)
-    for (let index = 0; index < 7; index++) {
-        const cell = wk.insertCell(index)  
-    }
-}
-
-function displayDate(tableID,wk,col,date2Display){
-    const week = document.getElementById(tableID).rows[wk].cells
-    week[col].innerHTML = date2Display
-    week[col].style.cursor = 'pointer'
-    week[col].onclick = function(){
-        showSelectedDate(tableID,wk,col,date2Display)
-    }
-}
-
-function showSelectedDate(tableID,wk,col,date2Display){
-    //highlight selected date
-    const week = document.getElementById(tableID).rows[wk].cells
-    week[col].style.background = 'darkblue'
-    week[col].style.color = 'white'
-
-    //update in the box
-    const start = document.getElementById('startDate')
-    const end = document.getElementById('endDate')
-
-    if (beginD==null){
-        start.innerHTML = date2Display + ' ' + monthLabel[nowMonth]+ ' ' + nowYear
-        beginD = new Date(nowYear, nowMonth, date2Display)
-    }
-    else {
-        newDate = new Date(nowYear, nowMonth, date2Display)
-        console.log(newDate-beginD)
-        if (newDate>beginD){
-            endD = newDate;
-            end.innerHTML = date2Display + ' ' + monthLabel[nowMonth]+ ' ' + nowYear
-            //check if duration >2d
-            dateDiff = date2Display-beginD.getDate()
-
-            if (dateDiff>2){
-                for (let index = 0; index < dateDiff; index++) {
-                    
-                }
+    const firstDay = new Date(year, month, 1)
+    const firstCol = firstDay.getDay();
+    const today = new Date()
+        
+    for (let index = 0; index <(42-firstCol); index++) {
+        var mSec = Date.parse(firstDay)+(oneDay*index)
+        var indexDate = new Date(mSec)
+   
+        //check if month is over
+        if (indexDate.getMonth()==month){
+            dateCell[index+firstCol].innerHTML = indexDate.getDate();
+            dateArray[index]=indexDate;
+            //color today
+            if (today.getFullYear()==year && today.getMonth()==month && today.getDate()==indexDate.getDate()){
+                dateCell[index+firstCol].style.color = 'red'
+                dateCell[index+firstCol].style.fontWeight = 'bold'
             }
+        }
+        else {
+            //fill up next month
+            dateCell[index+firstCol].innerHTML = indexDate.getDate(); 
+            dateArray[index]=indexDate;
+            //color next month
+            dateCell[index+firstCol].style.color = '#ababab'                       
         }
     }
     
+    //fill up previous month
+    if (firstCol>0){
+        for (let index = 1; index <= firstCol; index++) {
+            var mSec = Date.parse(firstDay)-(oneDay*index)
+            var indexDate = new Date(mSec)
+            dateCell[firstCol-index].innerHTML = indexDate.getDate(); 
+            dateCell[firstCol-index].style.color = '#ababab'
+            dateArray[index]=indexDate;
+        }
+    }
 }
+
+
 
 </script>
 </body>
