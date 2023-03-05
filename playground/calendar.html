@@ -89,8 +89,8 @@ var beginD;var endD;
 var dateArray = []
 var oneDay = 24*60*60*1000
 
-
 setUpDateArray(dateArray);
+
 //show today calendar
 const now = new Date()  
 clearCalendar()
@@ -160,6 +160,9 @@ function dateRun(d){
         if (indexDate.getMonth()==month){
             dateCell[index+firstCol].innerHTML = indexDate.getDate();
             dateArray[index]=indexDate;
+            dateCell[index+firstCol].style.cursor = 'pointer'
+            dateCell[index+firstCol].onclick = function(){alert(dateArray[index])}
+
             //color today
             if (today.getFullYear()==year && today.getMonth()==month && today.getDate()==indexDate.getDate()){
                 dateCell[index+firstCol].style.color = 'red'
@@ -170,8 +173,10 @@ function dateRun(d){
             //fill up next month
             dateCell[index+firstCol].innerHTML = indexDate.getDate(); 
             dateArray[index]=indexDate;
+            dateCell[index+firstCol].onclick = function(){alert(dateArray[index])}
             //color next month
             dateCell[index+firstCol].style.color = '#ababab'                       
+            dateCell[index+firstCol].style.cursor = 'pointer'
         }
     }
     
@@ -182,8 +187,16 @@ function dateRun(d){
             var indexDate = new Date(mSec)
             dateCell[firstCol-index].innerHTML = indexDate.getDate(); 
             dateCell[firstCol-index].style.color = '#ababab'
+            dateCell[firstCol-index].style.cursor = 'pointer'
             dateArray[index]=indexDate;
+            dateCell[firstCol-index].onclick = function(){alert(dateArray[index])}
         }
+    }
+}
+
+function setMeetingDate(date,index){
+    if (beginD=='null' && endD=='null'){
+        
     }
 }
 
