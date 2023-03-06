@@ -30,6 +30,9 @@
             </span>
         </h3>
 
+        <button onclick="reset()">
+            Reset
+        </button>
     </div>
 
 
@@ -94,6 +97,7 @@ setUpDateArray(dateArray);
 //show today calendar
 const now = new Date()  
 clearCalendar()
+console.log(now)
 dateRun(now)
 
 function setUpDateArray(array){
@@ -107,7 +111,19 @@ function setUpDateArray(array){
 
 function displayCalendar(id){
     document.getElementById(id).style.display = 'block'
+
 }
+
+function reset(){
+    clearCalendar()
+    var newDate = new Date(nowYear, nowMonth)
+    beginD=null;endD=null;
+    dateRun(newDate)
+    document.getElementById('startDate').innerHTML = 'Start On'
+    document.getElementById('endDate').innerHTML = 'End On'
+}
+
+
 function today(){
     clearCalendar()
     dateRun(now)
@@ -117,7 +133,7 @@ function monthNav(nav){
     nowMonth = nowMonth + nav;
     var newDate = new Date(nowYear, nowMonth)
     clearCalendar()
-    console.log(newDate)
+    //console.log(newDate)
     dateRun(newDate)
 }
 
@@ -134,12 +150,12 @@ function clearCalendar(){
     for (let index = 0; index < dateCell.length; index++) {
         dateCell[index].innerHTML = dateArray[index]    
         dateCell[index].style.color = 'black'    
+        dateCell[index].style.background = 'none'
         dateCell[index].style.fontWeight = 'normal'
     }
 }
 
 function dateRun(d){
-
     var dateCell = document.getElementsByClassName('calendarCell')
     
     //find the starting column
@@ -159,21 +175,22 @@ function dateRun(d){
         //check if month is over
         if (indexDate.getMonth()==month){
             dateCell[index+firstCol].innerHTML = indexDate.getDate();
-            dateArray[index]=indexDate;
+            dateArray[index+firstCol]=indexDate;
             dateCell[index+firstCol].style.cursor = 'pointer'
-            dateCell[index+firstCol].onclick = function(){alert(dateArray[index])}
+            dateCell[index+firstCol].onclick = function(){setMeetingDate(index+firstCol)}
 
             //color today
             if (today.getFullYear()==year && today.getMonth()==month && today.getDate()==indexDate.getDate()){
                 dateCell[index+firstCol].style.color = 'red'
                 dateCell[index+firstCol].style.fontWeight = 'bold'
             }
+              
         }
         else {
             //fill up next month
             dateCell[index+firstCol].innerHTML = indexDate.getDate(); 
-            dateArray[index]=indexDate;
-            dateCell[index+firstCol].onclick = function(){alert(dateArray[index])}
+            dateArray[index+firstCol]=indexDate;
+            dateCell[index+firstCol].onclick = function(){setMeetingDate(index+firstCol)}
             //color next month
             dateCell[index+firstCol].style.color = '#ababab'                       
             dateCell[index+firstCol].style.cursor = 'pointer'
@@ -182,20 +199,130 @@ function dateRun(d){
     
     //fill up previous month
     if (firstCol>0){
-        for (let index = 1; index <= firstCol; index++) {
-            var mSec = Date.parse(firstDay)-(oneDay*index)
+        for (let index = 0; index < firstCol; index++) {
+            var mSec = Date.parse(firstDay)-(oneDay*(firstCol-index))
             var indexDate = new Date(mSec)
-            dateCell[firstCol-index].innerHTML = indexDate.getDate(); 
-            dateCell[firstCol-index].style.color = '#ababab'
-            dateCell[firstCol-index].style.cursor = 'pointer'
             dateArray[index]=indexDate;
-            dateCell[firstCol-index].onclick = function(){alert(dateArray[index])}
+            dateCell[index].innerHTML = indexDate.getDate(); 
+            dateCell[index].style.color = '#ababab'
+            dateCell[index].style.cursor = 'pointer'
+            dateCell[index].onclick = function(){setMeetingDate(index)}
+        }
+    }
+    
+    //color meeting date
+    if (beginD!=null)
+        {colorCell(beginD,'blue')}
+    if (endD!=null)
+        {colorCell(endD,'green')}
+    if (beginD!=null && endD!=null){
+        var dateDiff = (endD-beginD)/oneDay
+        for (let index = 1; index < dateDiff; index++) {
+            var newDate = new Date(Date.parse(beginD)+(index*oneDay))
+            colorCell(newDate,'grey')}
+    }
+
+}
+
+function setMeetingDate(arrayIndex){
+    var showStartDate = document.getElementById('startDate')
+    var showEndDate = document.getElementById('endDate')
+    var dateCell = document.getElementsByClassName('calendarCell')
+    var dateClickmSec = Date.parse(dateArray[arrayIndex]);
+    
+
+    //start Date
+    if (beginD==null && endD==null){
+        beginD = dateArray[arrayIndex]
+        //dateCell[arrayIndex].style.background = 'blue'
+        colorCell(beginD,'blue')
+        showStartDate.innerHTML = beginD.toDateString();
+    }
+
+    //endDate
+    if (beginD!=null && dateArray[arrayIndex]>beginD){
+        
+        //expand meeting duration
+        if (endD==null || dateArray[arrayIndex]>endD){
+        endD = dateArray[arrayIndex]
+        //dateCell[arrayIndex].style.background = 'green'
+        colorCell(endD,'green')
+        showEndDate.innerHTML = endD.toDateString();
+        
+        //in between
+        var dateDiff = (endD-beginD)/oneDay
+        //console.log(dateDiff)
+        for (let index = 1; index < dateDiff; index++) {
+            var newDate = new Date(Date.parse(endD)-(index*oneDay))
+            colorCell(newDate,'grey')
+        }
+        }
+
+        //reduce meeting duration
+        if (dateArray[arrayIndex]<endD){
+            var dateRed = (endD-dateArray[arrayIndex])/oneDay
+            for (let index = 1; index < dateRed; index++) {
+                var clearDate = new Date(endD-(index*oneDay))
+                clearCell(clearDate)           
+            }
+            clearCell(endD)
+            endD = dateArray[arrayIndex]
+            showEndDate.innerHTML = endD.toDateString();
+            dateCell[arrayIndex].style.background = 'green'
+        }
+    }
+
+    //new beginD
+    if (beginD!=null && dateArray[arrayIndex]<beginD){
+        clearCell(beginD)
+        beginD = dateArray[arrayIndex]
+        dateCell[arrayIndex].style.background = 'blue'
+        showStartDate.innerHTML = beginD.toDateString();
+        //in between
+        var dateDiff = (endD-beginD)/oneDay
+        for (let index = 1; index < dateDiff; index++) {
+            var newDate = new Date(Date.parse(beginD)+(index*oneDay))
+            colorCell(newDate,'grey')
         }
     }
 }
 
-function setMeetingDate(date,index){
-    if (beginD=='null' && endD=='null'){
+function clearCell(d){
+    var dateCell = document.getElementsByClassName('calendarCell')
+    var clearMonth = d.getMonth();
+    var clearYear = d.getFullYear();
+    var clearDate = d.getDate();
+    for (let index = 0; index < dateArray.length; index++) {
+        var cell = dateArray[index]
+        //console.log(cell)
+        if (d.getFullYear() == cell.getFullYear() && 
+        d.getMonth() == cell.getMonth() &&
+        d.getDate() == cell.getDate())
+        {
+            dateCell[index].style.color = 'black'
+            dateCell[index].style.background = 'none'
+            dateCell[index].style.fontWeight = 'normal'
+        }
+        
+    }
+}
+
+function colorCell(d,color){
+    var dateCell = document.getElementsByClassName('calendarCell')
+    var colorCell = d.getMonth();
+    var colorYear = d.getFullYear();
+    var colorDate = d.getDate();
+    for (let index = 0; index < dateArray.length; index++) {
+        var cell = dateArray[index]
+        //console.log(cell)
+        if (d.getFullYear() == cell.getFullYear() && 
+        d.getMonth() == cell.getMonth() &&
+        d.getDate() == cell.getDate())
+        {
+            //dateCell[index].style.color = 'black'
+            dateCell[index].style.background = color
+            //dateCell[index].style.fontWeight = 'normal'
+        }
         
     }
 }
