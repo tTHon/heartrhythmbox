@@ -11,27 +11,35 @@
         margin-left: auto;margin-right: auto;margin-top: 2vh;}
     #cTable td {border: solid 0.2vw #797979;padding: 1vw;width: 10vw;}
 
-    .cNav, #startDate, #endDate {cursor: pointer;}
-    #calendar {display: none;}
+    .cNav, #dateInput {cursor: pointer;}
+    #calendar {display: none;width: fit-content;margin-left: auto;margin-right: auto;}
+    #sum {display: none;z-index: 10;left: 10%;top: 10%;position: fixed;width: 60%;height: 40%;
+    background-color: #ddd;padding:10%}
+    #nameSum, #start, #end {color: crimson;}
+    #scheduling {display: none;}
+    .line {text-align: center;}
 </style>
 <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 
-    <div id="setUp" style="text-align: center;">
+<div id="setUp">
+    <div style="text-align: center;">
         <h1>Setup your new meeting</h1>
-       
         <label for="meetingName">Name of the meeting:</label>
         <input type="text" id="meetingName" name="meetingName">
+
         <h3 id="dateInput" onclick="displayCalendar('calendar')">
-            &#x1F4C5;
             <span style="border: #797979 0.1vw solid;padding: 0.2vw;">
-            <span id="startDate">&nbsp;
-                Start on</span>&nbsp;-&nbsp;
-            <span id="endDate">&nbsp;End on&nbsp;</span>
+                &#x1F4C5;
+            <span id="startDate">Start On</span>&nbsp;-&nbsp;
+            <span id="endDate">End On</span>&nbsp;
             </span>
         </h3>
 
         <button onclick="reset()">
             Reset
+        </button>
+        <button onclick="submit()">
+            Submit
         </button>
     </div>
 
@@ -42,13 +50,14 @@
         <button onclick="today()" style="vertical-align: middle;">
             Today
         </button>
-        <span class="cNav" onclick="yearNav(-1)">&#8810;</span>
-        <span class="cNav" onclick="monthNav(-1)">&lt;</span>
-        <span class="cNav" onclick="monthNav(1)">&gt;</span>
-        <span class="cNav" onclick="yearNav(1)">&#8811;</span>
         <span id="month"></span>
         <span id="year"></span>
-
+        <span style="float:right">
+            <span class="cNav" onclick="yearNav(-1)">&#8810;</span>
+            <span class="cNav" onclick="monthNav(-1)">&lt;</span>
+            <span class="cNav" onclick="monthNav(1)">&gt;</span>
+            <span class="cNav" onclick="yearNav(1)">&#8811;</span>
+        </span>
     </h3>
     <table id="cTable">
         <tr id="dayLabel">
@@ -82,7 +91,27 @@
     </table>
     </div>
 
+    <!--summary-->
+    <h3 id="sum">
+        Your meeting is <span id="nameSum"></span>.<br>
+        Starting on: 
+        <span id="start"></span>
+        Until: 
+        <span id="end"></span>
+        <div>
+            <button id="back">Back</button>
+            <button id="next">
+                Next
+            </button>
+        </div>
+    </h3>
+</div>
 
+<!--scheduling-->
+<div id="scheduling">
+    <div class="line"></div>
+    <div class="line"></div>
+</div>
 <script>
 const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
@@ -92,6 +121,11 @@ var beginD;var endD;
 var dateArray = []
 var oneDay = 24*60*60*1000
 
+//color
+var beginDColor = 'lightgreen'
+var endDColor = 'pink'
+var midDColor = 'lightgrey'
+
 setUpDateArray(dateArray);
 
 //show today calendar
@@ -100,12 +134,53 @@ clearCalendar()
 console.log(now)
 dateRun(now)
 
+//entering program
+function program(name){
+    pLine = document.getElementsByClassName('line')
+    pLine[0].innerHTML = mName
+    pLine[1].innerHTML = beginD.toDateString() + ' - ' + endD.toDateString();
+}
+
+//submitting setup page
+function submit(){
+    mName = document.getElementById('meetingName').value;
+    if (mName==''){
+        alert('Please enter the name of the meeting.')
+    }
+    else {
+        if (beginD==null){
+            alert('Please enter the start date.')
+        } else {
+            if (endD==null){
+                alert('Please enter the end date.')
+            }
+            else {
+                //summary
+                sum = document.getElementById('sum')
+                sum.style.display = 'block'
+                document.getElementById('nameSum').innerHTML = mName;
+                document.getElementById('start').innerHTML = beginD.toDateString();
+                document.getElementById('end').innerHTML = endD.toDateString();
+                document.getElementById('back').onclick = function(){
+                    sum.style.display='none' }
+                document.getElementById('next').onclick = function(){
+                    //have to setup for data submission to supabase
+                    //go to scheduling phase
+                    document.getElementById('setUp').style.display = 'none'
+                    document.getElementById('scheduling').style.display = 'block'
+                    program(mName)
+                }
+            }
+        }
+    }
+}
+
+
 function setUpDateArray(array){
     //total dateCell = 42
     for (let index = 0; index < 42; index++) {
         array[index]=""        
     }
-    //console.log(dateArray)
 }
 
 
@@ -114,6 +189,7 @@ function displayCalendar(id){
 
 }
 
+
 function reset(){
     clearCalendar()
     var newDate = new Date(nowYear, nowMonth)
@@ -121,6 +197,7 @@ function reset(){
     dateRun(newDate)
     document.getElementById('startDate').innerHTML = 'Start On'
     document.getElementById('endDate').innerHTML = 'End On'
+    document.getElementById('meetingName').value =""
 }
 
 
@@ -149,9 +226,6 @@ function clearCalendar(){
     var dateCell = document.getElementsByClassName('calendarCell')
     for (let index = 0; index < dateCell.length; index++) {
         dateCell[index].innerHTML = dateArray[index]    
-        dateCell[index].style.color = 'black'    
-        dateCell[index].style.background = 'none'
-        dateCell[index].style.fontWeight = 'normal'
     }
 }
 
@@ -174,6 +248,9 @@ function dateRun(d){
    
         //check if month is over
         if (indexDate.getMonth()==month){
+            dateCell[index+firstCol].style.color = 'black'
+            dateCell[index+firstCol].style.background = 'none'
+            dateCell[index+firstCol].style.fontWeight = 'normal'
             dateCell[index+firstCol].innerHTML = indexDate.getDate();
             dateArray[index+firstCol]=indexDate;
             dateCell[index+firstCol].style.cursor = 'pointer'
@@ -182,6 +259,7 @@ function dateRun(d){
             //color today
             if (today.getFullYear()==year && today.getMonth()==month && today.getDate()==indexDate.getDate()){
                 dateCell[index+firstCol].style.color = 'red'
+                dateCell[index+firstCol].style.background = 'none'
                 dateCell[index+firstCol].style.fontWeight = 'bold'
             }
               
@@ -192,7 +270,8 @@ function dateRun(d){
             dateArray[index+firstCol]=indexDate;
             dateCell[index+firstCol].onclick = function(){setMeetingDate(index+firstCol)}
             //color next month
-            dateCell[index+firstCol].style.color = '#ababab'                       
+            dateCell[index+firstCol].style.color = '#ababab'
+            dateCell[index+firstCol].style.background = 'none'                       
             dateCell[index+firstCol].style.cursor = 'pointer'
         }
     }
@@ -205,6 +284,7 @@ function dateRun(d){
             dateArray[index]=indexDate;
             dateCell[index].innerHTML = indexDate.getDate(); 
             dateCell[index].style.color = '#ababab'
+            dateCell[index].style.background = 'none'
             dateCell[index].style.cursor = 'pointer'
             dateCell[index].onclick = function(){setMeetingDate(index)}
         }
@@ -212,14 +292,14 @@ function dateRun(d){
     
     //color meeting date
     if (beginD!=null)
-        {colorCell(beginD,'blue')}
+        {colorCell(beginD,beginDColor)}
     if (endD!=null)
-        {colorCell(endD,'green')}
+        {colorCell(endD,endDColor)}
     if (beginD!=null && endD!=null){
         var dateDiff = (endD-beginD)/oneDay
         for (let index = 1; index < dateDiff; index++) {
             var newDate = new Date(Date.parse(beginD)+(index*oneDay))
-            colorCell(newDate,'grey')}
+            colorCell(newDate,midDColor)}
     }
 
 }
@@ -235,7 +315,7 @@ function setMeetingDate(arrayIndex){
     if (beginD==null && endD==null){
         beginD = dateArray[arrayIndex]
         //dateCell[arrayIndex].style.background = 'blue'
-        colorCell(beginD,'blue')
+        colorCell(beginD,beginDColor)
         showStartDate.innerHTML = beginD.toDateString();
     }
 
@@ -246,7 +326,7 @@ function setMeetingDate(arrayIndex){
         if (endD==null || dateArray[arrayIndex]>endD){
         endD = dateArray[arrayIndex]
         //dateCell[arrayIndex].style.background = 'green'
-        colorCell(endD,'green')
+        colorCell(endD,endDColor)
         showEndDate.innerHTML = endD.toDateString();
         
         //in between
@@ -254,7 +334,7 @@ function setMeetingDate(arrayIndex){
         //console.log(dateDiff)
         for (let index = 1; index < dateDiff; index++) {
             var newDate = new Date(Date.parse(endD)-(index*oneDay))
-            colorCell(newDate,'grey')
+            colorCell(newDate,midDColor)
         }
         }
 
@@ -268,7 +348,7 @@ function setMeetingDate(arrayIndex){
             clearCell(endD)
             endD = dateArray[arrayIndex]
             showEndDate.innerHTML = endD.toDateString();
-            dateCell[arrayIndex].style.background = 'green'
+            dateCell[arrayIndex].style.background = endDColor
         }
     }
 
@@ -276,13 +356,13 @@ function setMeetingDate(arrayIndex){
     if (beginD!=null && dateArray[arrayIndex]<beginD){
         clearCell(beginD)
         beginD = dateArray[arrayIndex]
-        dateCell[arrayIndex].style.background = 'blue'
+        dateCell[arrayIndex].style.background = beginDColor
         showStartDate.innerHTML = beginD.toDateString();
         //in between
         var dateDiff = (endD-beginD)/oneDay
         for (let index = 1; index < dateDiff; index++) {
             var newDate = new Date(Date.parse(beginD)+(index*oneDay))
-            colorCell(newDate,'grey')
+            colorCell(newDate,midDColor)
         }
     }
 }
@@ -330,5 +410,6 @@ function colorCell(d,color){
 
 
 </script>
+
 </body>
 </html>
