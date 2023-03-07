@@ -109,8 +109,16 @@
 
 <!--scheduling-->
 <div id="scheduling">
+    <div id="head">
     <div class="line"></div>
     <div class="line"></div>
+    <div class="line"></div>
+    </div>
+
+    <div id="dayView">
+        
+    </div>
+
 </div>
 <script>
 const monthLabel = ['January','February','March','April','May','June',
@@ -138,7 +146,9 @@ dateRun(now)
 function program(name){
     pLine = document.getElementsByClassName('line')
     pLine[0].innerHTML = mName
-    pLine[1].innerHTML = beginD.toDateString() + ' - ' + endD.toDateString();
+    dayCount = ((endD-beginD)/oneDay)+1
+    pLine[1].innerHTML = beginD.toDateString() + ' - ' + endD.toDateString() 
+    pLine[2].innerHTML = '  Total of ' + dayCount + ' days';
 }
 
 //submitting setup page
