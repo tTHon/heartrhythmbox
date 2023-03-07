@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <style>
-    #container{border: 0.1vmax solid #eee;width: fit-content;}
+    #container{border: 0.1vmax solid #eee;width: fit-content;overflow-y: scroll;}
     #leftCol, #rightCol {border: 0.1vmax solid red}
 </style>
 <body>
@@ -24,6 +24,16 @@
     document.getElementById('container').style.height = tenMin*6*8+'px'
     document.getElementById('leftCol').style.height = tenMin*6*8+'px'
     document.getElementById('rightCol').style.height = tenMin*6*8+'px'
+
+    //right column
+    for (let index = 0; index < 6*24; index++) {
+        const newDiv = document.createElement('div')
+        const parent = document.getElementById('rightCol')
+        parent.appendChild(newDiv)
+        newDiv.style.border = 'solid 0.1vmax black'
+        newDiv.style.height = tenMin + 'px'
+        
+    }
 </script>
 </body>
 </html>
