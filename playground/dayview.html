@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #container{border: 0.1vmax solid #eee;width: fit-content;}
+    #leftCol, #rightCol {border: 0.1vmax solid red}
+</style>
+<body>
+    <div id="container">
+        <div style="display: flex;">
+            <div id='leftCol' style="width:10vw;"></div>
+            <div id='rightCol' style="width:80vw;"></div>
+        </div>
+    </div>
+
+<script>
+    vh = (screen.height)/100
+    tenMin = 1.5*vh
+    document.getElementById('container').style.height = tenMin*6*8+'px'
+    document.getElementById('leftCol').style.height = tenMin*6*8+'px'
+    document.getElementById('rightCol').style.height = tenMin*6*8+'px'
+</script>
+</body>
+</html>
