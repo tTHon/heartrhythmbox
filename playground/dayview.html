@@ -25,6 +25,7 @@
     var container = document.getElementById('container')
     container.style.height = tenMin*6*8+'px'
     document.getElementById('hourView').style.height = tenMin*6*24 + 'px'
+    totalRm = 2;
 
     //hour view
 
@@ -40,7 +41,19 @@
             newDay.setHours(index,0);
             var options = { hour: '2-digit', minute: '2-digit' };
             time = newDay.toLocaleString('en-US', options)
-            newDiv.innerHTML = time}
+
+            //create table row
+            var newRow = document.createElement('tr')
+            newDiv.appendChild(newRow)
+            for (let index = 0; index < totalRm; index++) {
+                var newD = document.createElement('td')
+                newRow.appendChild(newD)
+                //newD.style.border = 'solid 0.1vmax black'
+                if (index==0)
+                    {newD.innerHTML = time}
+            }
+            
+        }
 
         if (index==9){
             newDiv.scrollIntoView();
