@@ -7,8 +7,11 @@
     <title>Document</title>
 </head>
 <style>
-    #container{border: 0.1vmax solid #eee;width: fit-content;overflow-y: scroll;cursor: pointer;}
+    #container{border: 0.1vmax solid #eee;width: 90%;margin-left: auto;margin-right: auto;
+        overflow: scroll;cursor: pointer;}
     #hourView {border: 0.1vmax solid red;font-size: 0.8vmax;}
+    .timeLine{min-width:120px;padding-right: 0.5vw;max-width: 120px;}
+    .roomCol{min-width: 300px;max-width: 300px;}
 </style>
 <body>
     <h1>Day View</h1>
@@ -45,12 +48,20 @@
             //create table row
             var newRow = document.createElement('tr')
             newDiv.appendChild(newRow)
-            for (let index = 0; index < totalRm; index++) {
+            for (let index = 0; index <= totalRm; index++) {
                 var newD = document.createElement('td')
+                
                 newRow.appendChild(newD)
                 //newD.style.border = 'solid 0.1vmax black'
                 if (index==0)
-                    {newD.innerHTML = time}
+                    {
+                    newD.innerHTML = time
+                    newD.className = 'timeLine'
+                    }
+                else {
+                    newD.innerHTML = 'room'+index;
+                    newD.className = 'roomCol';
+                    }
             }
             
         }
