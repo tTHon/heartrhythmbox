@@ -7,33 +7,77 @@
     <title>Document</title>
 </head>
 <style>
-    #container{border: 0.1vmax solid #eee;width: fit-content;overflow-y: scroll;}
-    #leftCol, #rightCol {border: 0.1vmax solid red}
+    #container{border: 0.1vmax solid #eee;width: fit-content;overflow-y: scroll;cursor: pointer;}
+    #hourView {border: 0.1vmax solid red;font-size: 0.8vmax;}
 </style>
 <body>
+    <h1>Day View</h1>
+    <h2 id="timeSelected"></h2>
+    <h2 id="demo"></h2>
     <div id="container">
-        <div style="display: flex;">
-            <div id='leftCol' style="width:10vw;"></div>
-            <div id='rightCol' style="width:80vw;"></div>
+        <div id='hourView' style="width:80vw;overflow:hidden;">
         </div>
     </div>
 
 <script>
     vh = (screen.height)/100
     tenMin = 1.5*vh
-    document.getElementById('container').style.height = tenMin*6*8+'px'
-    document.getElementById('leftCol').style.height = tenMin*6*8+'px'
-    document.getElementById('rightCol').style.height = tenMin*6*8+'px'
+    var container = document.getElementById('container')
+    container.style.height = tenMin*6*8+'px'
+    document.getElementById('hourView').style.height = tenMin*6*24 + 'px'
 
-    //right column
-    for (let index = 0; index < 6*24; index++) {
+    //hour view
+
+    for (let index = 0; index < 24; index=index+0.5) {
         const newDiv = document.createElement('div')
-        const parent = document.getElementById('rightCol')
+        const parent = document.getElementById('hourView')
         parent.appendChild(newDiv)
-        newDiv.style.border = 'solid 0.1vmax black'
-        newDiv.style.height = tenMin + 'px'
-        
+        newDiv.style.height = tenMin*3 + 'px'
+        newDiv.className = 'thirtyMinutes'
+        if (index%1==0){
+            newDiv.style.borderTop = 'solid #797979 0.1vmin'
+            newDay = new Date()
+            newDay.setHours(index,0);
+            var options = { hour: '2-digit', minute: '2-digit' };
+            time = newDay.toLocaleString('en-US', options)
+            newDiv.innerHTML = time}
+
+        if (index==9){
+            newDiv.scrollIntoView();
+        }
+        newDiv.onclick = function(){timeBlock(index)}
+
     }
+    
+function timeBlock(index){
+    var block = document.getElementsByClassName('thirtyMinutes')
+    //clear block
+    for (let index = 0; index < block.length; index++) {
+       block[index].style.backgroundColor = 'white'        
+    }
+    if (index%1!=0){
+        var halfHr = 1}
+    else {halfHr = 0}
+    hr = Math.floor(index)
+    //document.getElementById('timeSelected').innerHTML = index + 'half: ' + halfHr
+    //hilight block that was clocked
+    block[hr*2+halfHr].style.backgroundColor = 'pink'
+}
+
+
+function getCoOrd(index){
+    yCoOrd = event.offsetY
+    //coord to time
+    mins = Math.floor(60*(yCoOrd%(tenMin*6))/100)
+    if (index%1!=0){
+        mins = mins+30}
+    newDay = new Date()
+    newDay.setHours(index,mins);
+    var options = { hour: '2-digit', minute: '2-digit' };
+    time = newDay.toLocaleString('en-US', options)
+    document.getElementById('timeSelected').innerHTML = time 
+}
+
 </script>
 </body>
 </html>
