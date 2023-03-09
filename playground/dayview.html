@@ -7,11 +7,12 @@
     <title>Document</title>
 </head>
 <style>
-    #container{border: 0.1vmax solid #eee;width: 90%;margin-left: auto;margin-right: auto;
-        overflow: scroll;cursor: pointer;}
+    #container{border: 0.1vmax solid #eee;margin-left: auto;margin-right: auto;width: fit-content;
+        cursor: pointer;overflow-x: auto;overflow-y: scroll;}
     #hourView {border: 0.1vmax solid red;font-size: 0.8vmax;}
-    .timeLine{min-width:120px;padding-right: 0.5vw;max-width: 120px;}
-    .roomCol{min-width: 300px;max-width: 300px;}
+    .timeLine{min-width:120px;padding-right: 0.5vw;max-width: 120px;font-size: 2vh;vertical-align: top;}
+    .roomCol{min-width: 300px;max-width: 300px;font-size: 3vh;vertical-align: top;
+    color: brown;padding: 0.1vmax;}
 </style>
 <body>
     <h1>Day View</h1>
@@ -28,7 +29,7 @@
     var container = document.getElementById('container')
     container.style.height = tenMin*6*8+'px'
     document.getElementById('hourView').style.height = tenMin*6*24 + 'px'
-    totalRm = 2;
+    totalRm = 3;
 
     //hour view
 
@@ -48,44 +49,81 @@
             //create table row
             var newRow = document.createElement('tr')
             newDiv.appendChild(newRow)
-            for (let index = 0; index <= totalRm; index++) {
+            for (let j = 0; j <= totalRm; j++) {
                 var newD = document.createElement('td')
                 
                 newRow.appendChild(newD)
                 //newD.style.border = 'solid 0.1vmax black'
-                if (index==0)
+                if (j==0)
                     {
                     newD.innerHTML = time
                     newD.className = 'timeLine'
                     }
                 else {
-                    newD.innerHTML = 'room'+index;
+                    newD.innerHTML = 'room'+j;
                     newD.className = 'roomCol';
                     }
+                newD.style.height = tenMin*3+'px'
+                newD.style.borderLeft = 'solid #ddd 0.1vmax'
+                newD.onclick = function(){timeBlock(index,j)}
             }
             
         }
-
-        if (index==9){
-            newDiv.scrollIntoView();
+        else {
+            //create table row
+            var newRow = document.createElement('tr')
+            newDiv.appendChild(newRow) 
+            for (let j = 0; j <= totalRm; j++) {
+                var newD = document.createElement('td')
+                newRow.appendChild(newD)
+                if (j==0)
+                    {
+                    newD.className = 'timeLine'
+                    }
+                else {
+                    newD.innerHTML = 'room'+j;
+                    newD.className = 'roomCol';
+                    }    
+                newD.style.height = tenMin*3+'px'
+                newD.style.borderLeft = 'solid #ddd 0.1vmax'
+                newD.onclick = function(){timeBlock(index,j)}
+            }
         }
-        newDiv.onclick = function(){timeBlock(index)}
 
+            if (index==9){
+                newDiv.scrollIntoView();
+            }
+        //newDiv.onclick = function(){timeBlock(index)}
+        
     }
     
-function timeBlock(index){
+function timeBlock(index,room){
     var block = document.getElementsByClassName('thirtyMinutes')
+    var col = document.getElementsByClassName('roomCol')
     //clear block
     for (let index = 0; index < block.length; index++) {
        block[index].style.backgroundColor = 'white'        
     }
+    for (let index = 0; index < col.length; index++) {
+       col[index].style.backgroundColor = 'white'        
+    }
+
     if (index%1!=0){
         var halfHr = 1}
     else {halfHr = 0}
     hr = Math.floor(index)
-    //document.getElementById('timeSelected').innerHTML = index + 'half: ' + halfHr
+    blockNo = hr*2+halfHr
+    
     //hilight block that was clocked
-    block[hr*2+halfHr].style.backgroundColor = 'pink'
+    if (room==0){
+        block[blockNo].style.backgroundColor = 'pink'
+        for (let index = 0; index < totalRm; index++) {
+            col[(blockNo*totalRm)+(room+index)].style.backgroundColor = 'pink'               
+        }
+    }
+    else {
+        col[(blockNo*totalRm)+(room-1)].style.backgroundColor = 'pink'
+    }
 }
 
 
