@@ -7,11 +7,11 @@
     <title>Document</title>
 </head>
 <style>
-    #container{border: 0.1vmax solid #eee;margin-left: auto;margin-right: auto;width: fit-content;
-        cursor: pointer;overflow-x: auto;overflow-y: scroll;}
+    #container{border: 0.1vmax solid #eee;margin-left: auto;margin-right: auto;overflow: scroll;
+        cursor: pointer;}
     #hourView {border: 0.1vmax solid red;font-size: 0.8vmax;}
-    .timeLine{min-width:120px;padding-right: 0.5vw;max-width: 120px;font-size: 2vh;vertical-align: top;}
-    .roomCol{min-width: 300px;max-width: 300px;font-size: 3vh;vertical-align: top;
+    .timeLine{padding-right: 0.5vw;font-size: 2vh;vertical-align: top;width: 100px;}
+    .roomCol{font-size: 3vh;vertical-align: top;
     color: brown;padding: 0.1vmax;}
 </style>
 <body>
@@ -19,7 +19,7 @@
     <h2 id="timeSelected"></h2>
     <h2 id="demo"></h2>
     <div id="container">
-        <div id='hourView' style="width:80vw;overflow:hidden;">
+        <div id='hourView'>
         </div>
     </div>
 
