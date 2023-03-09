@@ -7,12 +7,10 @@
     <title>Document</title>
 </head>
 <style>
-    #container{border: 0.1vmax solid #eee;margin-left: auto;margin-right: auto;overflow: scroll;
+    #container{border: 0.1vmax solid #eee;margin-left: auto;margin-right: auto;overflow: scroll;width: 90vw;
         cursor: pointer;}
-    #hourView {border: 0.1vmax solid red;font-size: 0.8vmax;}
-    .timeLine{padding-right: 0.5vw;font-size: 2vh;vertical-align: top;width: 100px;}
-    .roomCol{font-size: 3vh;vertical-align: top;
-    color: brown;padding: 0.1vmax;}
+    .timeLine{padding-right: 0.5vw;font-size: 2vh;vertical-align: top;min-width: 100px;}
+    .roomCol{font-size: 3vh;vertical-align: top;color: brown;padding: 0.1vmax;min-width: 300px;}
 </style>
 <body>
     <h1>Day View</h1>
@@ -40,7 +38,6 @@
         newDiv.style.height = tenMin*3 + 'px'
         newDiv.className = 'thirtyMinutes'
         if (index%1==0){
-            newDiv.style.borderTop = 'solid #797979 0.1vmin'
             newDay = new Date()
             newDay.setHours(index,0);
             var options = { hour: '2-digit', minute: '2-digit' };
@@ -67,7 +64,7 @@
                 newD.style.borderLeft = 'solid #ddd 0.1vmax'
                 newD.onclick = function(){timeBlock(index,j)}
             }
-            
+            newDiv.style.borderTop = 'solid #797979 0.1vmin'
         }
         else {
             //create table row
@@ -93,9 +90,7 @@
             if (index==9){
                 newDiv.scrollIntoView();
             }
-        //newDiv.onclick = function(){timeBlock(index)}
-        
-    }
+   }
     
 function timeBlock(index,room){
     var block = document.getElementsByClassName('thirtyMinutes')
