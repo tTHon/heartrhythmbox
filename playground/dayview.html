@@ -8,9 +8,9 @@
 
 <style>
     button {cursor: pointer;border: none;background-color: white;}
-    #dayTable{margin-left: auto;margin-right: auto;border: 1px solid black;
-    border-collapse: collapse;text-align: center;}
-    #dateCol, .roomCol {border: 1px solid grey;border-collapse: collapse;text-align: center;}
+    #dayTable{max-width: 80vw;min-width: fit-content;margin-left: auto;margin-right: auto;border: 1px solid black;
+    border-collapse: collapse;text-align: center;display: block;overflow: scroll;}
+    #dateCol, .roomCol, #dayTable td {border: 1px solid grey;border-collapse: collapse;}
     #dateCol {min-width: 20vw;}
     .roomCol {min-width: 50vw;}
     #dateMenu, #roomMenu {display: none;position: absolute;z-index: 1;background-color: #f9f9f9;min-width: 20vw;
@@ -25,6 +25,7 @@
         .roomList {min-width: 50vw;border-bottom: #ddd solid 1px;}
         .dateList {border-bottom: #aaa solid 1px;}
     }
+    .sticky {position: sticky;top: 0;}
 
 </style>
 </head>
@@ -32,9 +33,8 @@
 <body>
     <h1 id="meetingName" style="text-align: center;">Meeting Name</h1>
     <h3 id="meetingDate" style="text-align: center;">Meeting Date</h3>
-
     <table id="dayTable">
-        <tr>
+        <tr class="sticky" style="background-color: pink;">
             <th id="dateCol" rowspan="2">
                 <button onclick="displayDateList()">Date&nbsp;&#9662;</button>
                 <div id="dateMenu">
@@ -56,13 +56,86 @@
                 <span style="float: right;cursor: pointer;">&#10000;</span>
             </th>
         </tr>
-        <tr class="noMobile">
+        <tr class="noMobile sticky" style="background-color: pink;">
             <td>Room1</td>
             <td>Room2</td>
         </tr>
+
     </table>
+
     
 <script>
+
+vh = (screen.height)/100
+tenMin = 1.5*vh
+document.getElementById('dayTable').style.height = tenMin*6*8+'px'
+totalRm = 2;
+showHour()
+
+function showHour(){
+        //hour view
+        for (let index = 0; index < 24; index=index+0.5) {
+        const newDiv = document.createElement('div')
+        const parent = document.getElementById('dayTable')
+        parent.appendChild(newDiv)
+        newDiv.style.height = tenMin*3 + 'px'
+        newDiv.className = 'thirtyMinutes'
+        if (index%1==0){
+            newDay = new Date()
+            newDay.setHours(index,0);
+            var options = { hour: '2-digit', minute: '2-digit' };
+            time = newDay.toLocaleString('en-US', options)
+
+            //create table row
+            var newRow = document.createElement('tr')
+            newDiv.appendChild(newRow)
+            for (let j = 0; j <= totalRm; j++) {
+                var newD = document.createElement('td')
+                
+                newRow.appendChild(newD)
+                //newD.style.border = 'solid 0.1vmax black'
+                if (j==0)
+                    {
+                    newD.innerHTML = time
+                    //newD.className = 'timeLine'
+                    }
+                else {
+                    newD.innerHTML = 'room'+j;
+                    //newD.className = 'roomCol';
+                    }
+                newD.style.height = tenMin*3+'px'
+                newD.style.borderLeft = 'solid #ddd 0.1vmax'
+                newD.onclick = function(){timeBlock(index,j)}
+            }
+            newDiv.style.borderTop = 'solid #797979 0.1vmin'
+        }
+        else {
+            //create table row
+            var newRow = document.createElement('tr')
+            newDiv.appendChild(newRow) 
+            for (let j = 0; j <= totalRm; j++) {
+                var newD = document.createElement('td')
+                newRow.appendChild(newD)
+                if (j==0)
+                    {
+                    newD.className = 'timeLine'
+                    }
+                else {
+                    newD.innerHTML = 'room'+j;
+                    //newD.className = 'roomCol';
+                    }    
+                newD.style.height = tenMin*3+'px'
+                newD.style.borderLeft = 'solid #ddd 0.1vmax'
+                newD.onclick = function(){timeBlock(index,j)}
+            }
+        }
+
+            if (index==9){
+                newDiv.scrollIntoView();
+            }
+   }
+
+}
 
 function displayDateList(){
     var menu = document.getElementById('dateMenu')
