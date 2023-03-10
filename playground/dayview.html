@@ -5,136 +5,88 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
+
 <style>
-    #container{border: 0.1vmax solid #eee;margin-left: auto;margin-right: auto;overflow: scroll;width: 90vw;
-        cursor: pointer;}
-    .timeLine{padding-right: 0.5vw;font-size: 2vh;vertical-align: top;min-width: 100px;}
-    .roomCol{font-size: 3vh;vertical-align: top;color: brown;padding: 0.1vmax;min-width: 300px;}
+    button {cursor: pointer;border: none;background-color: white;}
+    #dayTable{margin-left: auto;margin-right: auto;border: 1px solid black;
+    border-collapse: collapse;text-align: center;}
+    #dateCol, .roomCol {border: 1px solid grey;border-collapse: collapse;text-align: center;}
+    #dateCol {min-width: 20vw;}
+    .roomCol {min-width: 50vw;}
+    #dateMenu, #roomMenu {display: none;position: absolute;z-index: 1;background-color: #f9f9f9;min-width: 20vw;
+        border: #ddd 1px solid;border-radius: 1vw;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
+    #dateMenu :hover, #roomMenu :hover {background-color: #ddd;border-radius: 1vw;}
+    .dateList,.roomList {padding: 0.5vw;cursor: pointer;}    
+
+    .mobileOnly {display: none;}
+    @media only screen and (max-width: 768px) {
+        .noMobile {display: none;}
+        .mobileOnly {display: table;}
+        .roomList {min-width: 50vw;border-bottom: #ddd solid 1px;}
+        .dateList {border-bottom: #aaa solid 1px;}
+    }
 </style>
+</head>
+
 <body>
-    <h1>Day View</h1>
-    <h2 id="timeSelected"></h2>
-    <h2 id="demo"></h2>
-    <div id="container">
-        <div id='hourView'>
-        </div>
-    </div>
+    <h1 id="meetingName" style="text-align: center;">Meeting Name</h1>
+    <h3 id="meetingDate" style="text-align: center;">Meeting Date</h3>
 
+    <table id="dayTable">
+        <tr>
+            <th id="dateCol" rowspan="2">
+                <button onclick="displayDateList()">Date&nbsp;&#9662;</button>
+                <div id="dateMenu">
+                    <div class="dateList">Date1</div>        
+                    <div class="dateList">Date2</div>
+                </div>
+            </th>
+            <th class="roomCol mobileOnly">
+                <button onclick="displayRoomList()">Room&nbsp;&#9662;
+                </button>
+                <div id="roomMenu">
+                    <div class="roomList">Room1</div>        
+                    <div class="roomList">Room2</div>
+                </div>
+            </th>
+            <th class="roomCol noMobile" colspan="2">
+                Room
+            </th>
+        </tr>
+        <tr class="noMobile">
+            <td>Room1</td>
+            <td>Room2</td>
+        </tr>
+    </table>
+    
 <script>
-    vh = (screen.height)/100
-    tenMin = 1.5*vh
-    var container = document.getElementById('container')
-    container.style.height = tenMin*6*8+'px'
-    document.getElementById('hourView').style.height = tenMin*6*24 + 'px'
-    totalRm = 3;
 
-    //hour view
+function displayDateList(){
+    var menu = document.getElementById('dateMenu')
 
-    for (let index = 0; index < 24; index=index+0.5) {
-        const newDiv = document.createElement('div')
-        const parent = document.getElementById('hourView')
-        parent.appendChild(newDiv)
-        newDiv.style.height = tenMin*3 + 'px'
-        newDiv.className = 'thirtyMinutes'
-        if (index%1==0){
-            newDay = new Date()
-            newDay.setHours(index,0);
-            var options = { hour: '2-digit', minute: '2-digit' };
-            time = newDay.toLocaleString('en-US', options)
+    //hide room menu
+    document.getElementById('roomMenu').style.display = 'none'
 
-            //create table row
-            var newRow = document.createElement('tr')
-            newDiv.appendChild(newRow)
-            for (let j = 0; j <= totalRm; j++) {
-                var newD = document.createElement('td')
-                
-                newRow.appendChild(newD)
-                //newD.style.border = 'solid 0.1vmax black'
-                if (j==0)
-                    {
-                    newD.innerHTML = time
-                    newD.className = 'timeLine'
-                    }
-                else {
-                    newD.innerHTML = 'room'+j;
-                    newD.className = 'roomCol';
-                    }
-                newD.style.height = tenMin*3+'px'
-                newD.style.borderLeft = 'solid #ddd 0.1vmax'
-                newD.onclick = function(){timeBlock(index,j)}
-            }
-            newDiv.style.borderTop = 'solid #797979 0.1vmin'
-        }
-        else {
-            //create table row
-            var newRow = document.createElement('tr')
-            newDiv.appendChild(newRow) 
-            for (let j = 0; j <= totalRm; j++) {
-                var newD = document.createElement('td')
-                newRow.appendChild(newD)
-                if (j==0)
-                    {
-                    newD.className = 'timeLine'
-                    }
-                else {
-                    newD.innerHTML = 'room'+j;
-                    newD.className = 'roomCol';
-                    }    
-                newD.style.height = tenMin*3+'px'
-                newD.style.borderLeft = 'solid #ddd 0.1vmax'
-                newD.onclick = function(){timeBlock(index,j)}
-            }
-        }
-
-            if (index==9){
-                newDiv.scrollIntoView();
-            }
-   }
-    
-function timeBlock(index,room){
-    var block = document.getElementsByClassName('thirtyMinutes')
-    var col = document.getElementsByClassName('roomCol')
-    //clear block
-    for (let index = 0; index < block.length; index++) {
-       block[index].style.backgroundColor = 'white'        
-    }
-    for (let index = 0; index < col.length; index++) {
-       col[index].style.backgroundColor = 'white'        
-    }
-
-    if (index%1!=0){
-        var halfHr = 1}
-    else {halfHr = 0}
-    hr = Math.floor(index)
-    blockNo = hr*2+halfHr
-    
-    //hilight block that was clocked
-    if (room==0){
-        block[blockNo].style.backgroundColor = 'pink'
-        for (let index = 0; index < totalRm; index++) {
-            col[(blockNo*totalRm)+(room+index)].style.backgroundColor = 'pink'               
-        }
-    }
-    else {
-        col[(blockNo*totalRm)+(room-1)].style.backgroundColor = 'pink'
+    if (menu.style.display == 'block'){
+        menu.style.display = 'none'
+    } else {
+        menu.style.display = 'block'
     }
 }
 
+function displayRoomList(){
+    var menu = document.getElementById('roomMenu')
 
-function getCoOrd(index){
-    yCoOrd = event.offsetY
-    //coord to time
-    mins = Math.floor(60*(yCoOrd%(tenMin*6))/100)
-    if (index%1!=0){
-        mins = mins+30}
-    newDay = new Date()
-    newDay.setHours(index,mins);
-    var options = { hour: '2-digit', minute: '2-digit' };
-    time = newDay.toLocaleString('en-US', options)
-    document.getElementById('timeSelected').innerHTML = time 
+    //hide date menu
+    document.getElementById('dateMenu').style.display = 'none'
+
+    if (menu.style.display == 'block'){
+        menu.style.display = 'none'
+    } else {
+        menu.style.display = 'block'
+    }
 }
-
 </script>
+
 </body>
 </html>
