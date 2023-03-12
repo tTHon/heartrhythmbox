@@ -12,7 +12,7 @@
     border-collapse: collapse;text-align: center;display: block;overflow: scroll;}
     #dateCol, .roomCol, #dayTable td {border: 1px solid grey;border-collapse: collapse;}
     #dateCol {min-width: 20vw;}
-    .roomCol {min-width: 30vw;}
+    .roomCol {min-width: 60vw;}
     #dateMenu, #roomMenu {display: none;position: absolute;z-index: 1;background-color: #f9f9f9;min-width: 20vw;
         border: #ddd 1px solid;border-radius: 1vw;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
     #dateMenu :hover, #roomMenu :hover {background-color: #ddd;border-radius: 1vw;}
@@ -22,8 +22,6 @@
     @media only screen and (max-width: 768px) {
         .noMobile {display: none;}
         .mobileOnly {display: table;}
-        .roomList {min-width: 50vw;border-bottom: #ddd solid 1px;}
-        .dateList {border-bottom: #aaa solid 1px;}
     }
     .sticky {position: sticky;top: 0;z-index: 1;}
 
@@ -42,7 +40,7 @@
                     <div class="dateList">Date2</div>
                 </div>
             </th>
-            <th class="roomCol mobileOnly">
+            <th class="roomCol">
                 <button onclick="displayRoomList()">Room&nbsp;&#9662;
                 </button>
                 <div id="roomMenu">
@@ -50,14 +48,6 @@
                     <div class="roomList">Room2</div>
                     <div class="roomList">Add/Edit</div>
                 </div>
-            </th>
-            <th class="roomCol noMobile">
-                Room1
-                <span style="float: right;cursor: pointer;">&#10000;</span>
-            </th>
-            <th class="roomCol noMobile">
-                Room2
-                <span style="float: right;cursor: pointer;">&#10000;</span>
             </th>
         </tr>
 
@@ -70,7 +60,7 @@ vh = (screen.height)/100
 tenMin = 1.5*vh
 document.getElementById('dayTable').style.height = tenMin*6*9+'px'
 document.getElementById('headerRow').style.height = tenMin*3+'px'
-totalRm = 2;
+totalRm = 1;
 showHour()
 
 function showHour(){
