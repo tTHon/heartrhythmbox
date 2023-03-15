@@ -8,11 +8,12 @@
 
 <style>
     button {cursor: pointer;border: none;background-color: pink;}
-    #dayTable{max-width: 80vw;min-width: fit-content;margin-left: auto;margin-right: auto;border: 1px solid black;
+    #dayTable{max-width: 80vw;min-width: fit-content;margin-left: auto;margin-right: auto;
     border-collapse: collapse;text-align: center;display: block;overflow: scroll;}
-    #dateCol, .roomCol, #dayTable td {border: 1px solid grey;border-collapse: collapse;}
+    #dateCol, .roomCol, #dayTable td {border: 1px solid #ddd;border-collapse: collapse;}
     #dateCol {min-width: 20vw;}
-    .roomCol {min-width: 60vw;}
+    .roomCol {min-width: 60vw;cursor: pointer;}
+    .timeLine {cursor: pointer;}
     #dateMenu, #roomMenu {display: none;position: absolute;z-index: 1;background-color: #f9f9f9;min-width: 20vw;
         border: #ddd 1px solid;border-radius: 1vw;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
     #dateMenu :hover, #roomMenu :hover {background-color: #ddd;border-radius: 1vw;}
@@ -60,69 +61,50 @@ vh = (screen.height)/100
 tenMin = 1.5*vh
 document.getElementById('dayTable').style.height = tenMin*6*9+'px'
 document.getElementById('headerRow').style.height = tenMin*3+'px'
-totalRm = 1;
 showHour()
 
 function showHour(){
-        //hour view
-        for (let index = 0; index < 48; index=index+0.5) {
-            const newRow = document.createElement('tr')
-            const parent = document.getElementById('dayTable')
-            parent.appendChild(newRow)
-            newRow.style.height = tenMin*3 + 'px'
-            //newDiv.className = 'thirtyMinutes'
-            if (index%1==0){
-                newDay = new Date()
-                newDay.setHours(index,0);
-                var options = { hour: '2-digit', minute: '2-digit' };
-                time = newDay.toLocaleString('en-US', options)
+    //hour view
+    for (let index = 0; index < 48; index=index+0.5) {
+        const newRow = document.createElement('tr')
+        const parent = document.getElementById('dayTable')
+        parent.appendChild(newRow)
+        newRow.style.height = tenMin*3 + 'px'
+        newRow.className = 'thirtyMinutes'
 
-            for (let j = 0; j <= totalRm; j++) {
-                var newD = document.createElement('td')
-                
-                newRow.appendChild(newD)
-                //newD.style.border = 'solid 0.1vmax black'
-                if (j==0)
-                    {
+        for (let j = 0; j <= 1; j++) {
+            var newD = document.createElement('td')
+            newRow.appendChild(newD)
+
+            if (j==0)
+                {
+                newD.className = 'timeLine'
+                if (index%1==0){
+                    newDay = new Date()
+                    newDay.setHours(index,0);
+                    var options = { hour: '2-digit', minute: '2-digit' };
+                    time = newDay.toLocaleString('en-US', options)
+                    newRow.style.borderTop = 'solid 3px grey'
                     newD.innerHTML = time
-                    newD.className = 'timeLine'
                     }
-                else {
-                    newD.innerHTML = 'room'+j;
-                    //newD.className = 'roomCol';
-                    }
-                newD.style.height = tenMin*3+'px'
-                newD.style.borderLeft = 'solid #ddd 0.1vmax'
-                newD.onclick = function(){timeBlock(index,j)}
-            }
-            //newDiv.style.borderTop = 'solid #797979 0.1vmin'
+                }
+            else {
+                newD.innerHTML = 'room'+j;
+                newD.className = 'roomCol';
+                }
+            newD.style.height = tenMin*3+'px'
+            newD.style.borderLeft = 'solid #ddd 0.1vmax'
+            newD.onclick = function(){timeBlock(index)}
         }
-        else {
-            //create table row
-            //newDiv.appendChild(newRow) 
-            for (let j = 0; j <= totalRm; j++) {
-                var newD = document.createElement('td')
-                newRow.appendChild(newD)
-                if (j==0)
-                    {
-                    newD.className = 'timeLine'
-                    }
-                else {
-                    newD.innerHTML = 'room'+j;
-                    //newD.className = 'roomCol';
-                    }    
-                newD.style.height = tenMin*3+'px'
-                newD.style.borderLeft = 'solid #ddd 0.1vmax'
-                newD.onclick = function(){timeBlock(index,j)}
-            }
+      
+        if (index==16){
+            newRow.scrollIntoView();
         }
-
-            if (index==16){
-                newRow.scrollIntoView();
-            }
-   }
+    }
 
 }
+
+
 
 function displayDateList(){
     var menu = document.getElementById('dateMenu')
@@ -149,6 +131,19 @@ function displayRoomList(){
         menu.style.display = 'block'
     }
 }
+
+function timeBlock(row){
+    var time = document.getElementsByClassName('thirtyMinutes')
+    
+    //clear
+    for (let index = 0; index < time.length; index++) {
+        time[index].style.backgroundColor = 'white'        
+    }
+
+    time[row*2].style.backgroundColor = 'aqua'
+}
+
+
 </script>
 
 </body>
