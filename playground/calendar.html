@@ -5,35 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>calendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 </head>
 <style>
+    * {background-color: #333;color: #ddd;font-family: 'Rubik', sans-serif;}
+    button {border-radius: 0.5vw;padding: 1vw;}
     #cTable {font-size: 3vw;padding: 1vw;border-collapse: collapse;
         margin-left: auto;margin-right: auto;margin-top: 2vh;}
     #cTable td {border: solid 0.2vw #797979;padding: 1vw;width: 10vw;}
 
     .cNav, #dateInput {cursor: pointer;}
     #calendar {display: none;width: fit-content;margin-left: auto;margin-right: auto;}
-    #sum {display: none;z-index: 10;left: 10%;top: 10%;position: fixed;width: 60%;height: 40%;
+    #dayLabel td {color:aquamarine;font-weight: 700;}
+    #sum {display: none;z-index: 10;left: 10%;top: 10%;position: fixed;width: 60%;height: 40%;color: #333;
     background-color: #ddd;padding:10%}
-    #nameSum, #start, #end {color: crimson;}
+    #nameSum, #start, #end {color: crimson;background-color: #ddd;}
     #scheduling {display: none;}
     .line {text-align: center;}
 </style>
-<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+<body>
 
 <div id="setUp">
     <div style="text-align: center;">
-        <h1>Setup your new meeting</h1>
-        <label for="meetingName">Name of the meeting:</label>
-        <input type="text" id="meetingName" name="meetingName">
+        <div style="font-size: 3vmax;padding: 2vmax;color: aquamarine;">Setup your new meeting</div>
+        <label for="meetingName" style="color: #ddd;font-size: 2vmax;">Name of the meeting:</label>
+        <input type="text" id="meetingName" name="meetingName" style="padding: 0.5vw;border-radius: 0.5vw;">
 
-        <h3 id="dateInput" onclick="displayCalendar('calendar')">
-            <span style="border: #797979 0.1vw solid;padding: 0.2vw;">
+        <div id="dateInput" onclick="displayCalendar('calendar')" 
+        style="font-size: 2vmax;padding: 2vmax;">
+            <span style="border: #797979 0.1vw solid;padding: 0.2vw;border-radius: 0.5vw;">
                 &#x1F4C5;
             <span id="startDate">Start On</span>&nbsp;-&nbsp;
             <span id="endDate">End On</span>&nbsp;
             </span>
-        </h3>
+        </div>
 
         <button onclick="reset()">
             Reset
@@ -93,12 +99,12 @@
 
     <!--summary-->
     <h3 id="sum">
-        Your meeting is <span id="nameSum"></span>.<br>
-        Starting on: 
+        Your meeting name is <span id="nameSum"></span>.<br>
+        Starting on: <br>
         <span id="start"></span>
-        Until: 
+        Until:<br>
         <span id="end"></span>
-        <div>
+        <div style="background-color: #ddd;padding: 2vmax 0;">
             <button id="back">Back</button>
             <button id="next">
                 Next
@@ -120,6 +126,14 @@
     </div>
 
 </div>
+
+    <!--foot-->
+    <div style="border-top: #555 solid 0.1vmax;margin:0;padding: 2vw 5vw;
+    color: #aaa;font-size: 1.5vw;margin-top: 20vh;">
+        &copy;&nbsp;&nbsp;CODE COUTURE
+        <span style="color:#888;float: right;">Your Code Designer</span>
+    </div>
+
 <script>
 const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
@@ -130,9 +144,12 @@ var dateArray = []
 var oneDay = 24*60*60*1000
 
 //color
-var beginDColor = 'lightgreen'
-var endDColor = 'pink'
-var midDColor = 'lightgrey'
+var beginDColor = 'darkgreen'
+var endDColor = 'crimson'
+var midDColor = '#555'
+var thisMonthColor = '#efefef'
+var nextMonthColor = '#555'
+var todayColor = 'red'
 
 setUpDateArray(dateArray);
 
@@ -258,7 +275,7 @@ function dateRun(d){
    
         //check if month is over
         if (indexDate.getMonth()==month){
-            dateCell[index+firstCol].style.color = 'black'
+            dateCell[index+firstCol].style.color = thisMonthColor
             dateCell[index+firstCol].style.background = 'none'
             dateCell[index+firstCol].style.fontWeight = 'normal'
             dateCell[index+firstCol].innerHTML = indexDate.getDate();
@@ -268,7 +285,7 @@ function dateRun(d){
 
             //color today
             if (today.getFullYear()==year && today.getMonth()==month && today.getDate()==indexDate.getDate()){
-                dateCell[index+firstCol].style.color = 'red'
+                dateCell[index+firstCol].style.color = todayColor
                 dateCell[index+firstCol].style.background = 'none'
                 dateCell[index+firstCol].style.fontWeight = 'bold'
             }
@@ -280,7 +297,7 @@ function dateRun(d){
             dateArray[index+firstCol]=indexDate;
             dateCell[index+firstCol].onclick = function(){setMeetingDate(index+firstCol)}
             //color next month
-            dateCell[index+firstCol].style.color = '#ababab'
+            dateCell[index+firstCol].style.color = nextMonthColor
             dateCell[index+firstCol].style.background = 'none'                       
             dateCell[index+firstCol].style.cursor = 'pointer'
         }
@@ -293,7 +310,7 @@ function dateRun(d){
             var indexDate = new Date(mSec)
             dateArray[index]=indexDate;
             dateCell[index].innerHTML = indexDate.getDate(); 
-            dateCell[index].style.color = '#ababab'
+            dateCell[index].style.color = nextMonthColor
             dateCell[index].style.background = 'none'
             dateCell[index].style.cursor = 'pointer'
             dateCell[index].onclick = function(){setMeetingDate(index)}
@@ -324,7 +341,6 @@ function setMeetingDate(arrayIndex){
     //start Date
     if (beginD==null && endD==null){
         beginD = dateArray[arrayIndex]
-        //dateCell[arrayIndex].style.background = 'blue'
         colorCell(beginD,beginDColor)
         showStartDate.innerHTML = beginD.toDateString();
     }
@@ -389,7 +405,7 @@ function clearCell(d){
         d.getMonth() == cell.getMonth() &&
         d.getDate() == cell.getDate())
         {
-            dateCell[index].style.color = 'black'
+            dateCell[index].style.color = thisMonthColor
             dateCell[index].style.background = 'none'
             dateCell[index].style.fontWeight = 'normal'
         }
@@ -409,9 +425,7 @@ function colorCell(d,color){
         d.getMonth() == cell.getMonth() &&
         d.getDate() == cell.getDate())
         {
-            //dateCell[index].style.color = 'black'
             dateCell[index].style.background = color
-            //dateCell[index].style.fontWeight = 'normal'
         }
         
     }
