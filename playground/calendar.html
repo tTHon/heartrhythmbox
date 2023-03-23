@@ -16,6 +16,7 @@
     #cTable td {border: solid 0.2vw #797979;padding: 1vw;width: 10vw;}
 
     .cNav, #dateInput {cursor: pointer;}
+    .cNav {padding: 0 1vw;}
     #calendar {display: none;width: fit-content;margin-left: auto;margin-right: auto;}
     #dayLabel td {color:aquamarine;font-weight: 700;}
     #sum {display: none;z-index: 10;left: 10%;top: 10%;position: fixed;width: 60%;height: 40%;color: #333;
@@ -56,7 +57,7 @@
         <button onclick="today()" style="vertical-align: middle;">
             Today
         </button>
-        <span id="month"></span>
+        <span id="month" style="padding-left: 1vw;"></span>
         <span id="year"></span>
         <span style="float:right">
             <span class="cNav" onclick="yearNav(-1)">&#8810;</span>
