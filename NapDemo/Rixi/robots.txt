@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rixithailand.com/sitemap.xml
+Sitemap: https://rixithailand.com/VDO.xml

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+      >
+      
+<url>
+  <loc>https://www.rixithailand.com/</loc>
+  <lastmod>2019-11-07</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://rixithailand.com/</loc>
+  <lastmod>2019-11-07</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://www.rixithailand.com/hemorrhoidsFAQ</loc>
+  <lastmod>2019-09-15</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://rixithailand.com/hemorrhoidsFAQ</loc>
+  <lastmod>2019-09-15</lastmod>
+  <priority>1.0</priority>
+</url>
+
+<url>
+    <loc>https://www.rixithailand.com</loc>
+    <image:image>
+      <image:loc>https://www.rixithailand.com/media/Rixi/PackShot/rixiBox_device_hemorrhoids.png</image:loc>
+      <image:title>Rixi PackShot | กล่องบรรจุผลิตภัณฑ์ริกซี | Device for Hemorrhoids | เวชภัณฑ์สำหรับบรรเทาอาการริดสีดวงทวารหนัก</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://www.rixithailand.com/media/Rixi/howToUseRixi1.png</image:loc>
+      <image:title>วิธีใช้ริกซี step 1: แช่ช่องฟรีซอย่างน้อย 2 ชั่วโมง ความเย็นจะช่วยให้ริดสีดวงหดตัว ลดอาการปวดบวม</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://www.rixithailand.com/media/Rixi/howToUseRixi2.png</image:loc>
+      <image:title>วิธีใช้ริกซี step 2: "บีบ"เพื่อเปิด ริกซีบรรจุอยู่ในขวดที่มีฝาปิดแบบกันเด็กเปิด "child-proven"</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://www.rixithailand.com/media/Rixi/howToUseRixi3.png</image:loc>
+      <image:title>วิธีใช้ริกซี step 3: สอดเข้าไปในรูทวาร ริกซีช่วยดันริดสีดวงกลับเข้ารูทวาร</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://www.rixithailand.com/media/Rixi/howToUseRixi4.png</image:loc>
+      <image:title>วิธีใช้ริกซี step 4: ทำความสะอาดแท่งริกซี | May reuse</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://www.rixithailand.com/media/noSteroids.png</image:loc>
+      <image:title>ริกซีไม่มีสเตียรอยด์ | Rixi contains no steroids.</image:title>
+    </image:image>
+    
+  </url> 
+  
+
+
+
+
+
+
+</urlset>

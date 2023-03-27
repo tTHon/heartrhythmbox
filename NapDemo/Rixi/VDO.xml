@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+     
+      >
+      
+<url>
+  <loc>https://www.rixithailand.com</loc>
+  <video:video>
+      <video:thumbnail_loc>https://www.rixithailand.com/media/clips/Screenshot.png</video:thumbnail_loc>
+       <video:title>Rixi สำหรับ ริดสีดวงทวารหนัก</video:title>
+       <video:description>การประคบเย็น เป็นสิ่งแรกที่ควรทำ เมื่อริดสีดวงมีอาการบวม และปวด
+Rixi (ริกซี) แท่งเย็นสำหรับประคบเย็นริดสีดวง
+ปลอดภัย ใช้ง่าย ไม่มีสเตียรอยด์</video:description>
+       <video:content_loc>
+           https://www.rixithailand.com/media/clips/ริดสีดวงมาเหรอ.mp4</video:content_loc>
+        <video:duration>64</video:duration>
+       
+       <video:family_friendly>yes</video:family_friendly>
+       <video:live>no</video:live>
+     </video:video>
+   </url>
+
+ 
+  
+
+
+
+
+
+
+</urlset>

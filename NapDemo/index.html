@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<style>
+    * {box-sizing: border-box;margin: 0;}
+    .serif {font-family: 'Gelasio', serif;}
+    .sans {font-family: 'Arimo', sans-serif;}
+    #welcome {
+        background: linear-gradient(to bottom, rgb(255,202,213,0.65),rgb(255,232,243,0.65),rgba(255,242,253,0.9) 25%, rgb(252,252,252) 35%);
+        width: 100%;margin: 0;
+    }
+    #bar, #barOnScroll {padding:5vh 0.5vmax 5vh 5vh;color: #555;font-size: 2vmax;line-height: 80%;display: flex;align-items: center;position: sticky;top: 0;left: 0;z-index: 1;
+    }
+    #barOnScroll {display: none;background-color: #f5f5f5;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
+    #bar {animation: fade 2s ease-out 1}
+    .logo {width: 40%;cursor: pointer;}
+    .hamburger {display: none;}   
+    .menuBar {font-family: 'Arimo', sans-serif;padding-left: 3vmax;font-size: 1.7vmax;text-transform: uppercase;width: 15%;color: #797979;letter-spacing: -0.1vmin;} 
+    .menuMobile {display: none;}
+    #slideShow {height:85vh;width: 100%;border-radius: 1vw;border: rgb(255,182,193) solid 0.1vmax;}
+   
+    @media only screen and (max-width:1000px) {
+        .logo {width: 50%;}
+        #bar, #barOnScroll {border-bottom: rgb(255,182,193) 0.1vmax solid;width: 100%;padding: 1vmax;}
+        .hamburger {text-align: right;font-size: 2.5vmax;width: 50%;display: block;}
+        .menuMobile {width: 100%;background-color: white;text-align: center;
+            color: #555;z-index: 1;position: fixed;font-size: 2.5vmax;padding: 15vh 2vw;
+            text-transform: uppercase;line-height: 120%;animation: floatLeft 1s;}
+        .menuMobile div {padding: 2vmax;border-bottom: #ddd solid 0.1vmax;}
+        .noMobile {display: none;}
+        .closeMenu {display: none;}
+    }    
+
+
+    /*animation*/
+    @keyframes fade {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    @keyframes floatLeft {
+        0% {left: 100%}
+        100% {left: 0%;}
+    }
+    @keyframes floatRight {
+        0% {left: 0%;}
+        100% {left: 100%;}
+    }
+
+
+</style>
+<body>
+    <div id="barOnScroll">
+        <div class="logo" style="text-align: left;" onclick="goToTop()">
+            <span class="serif" style="font-size: 2vmax;color: crimson;">
+                RHYTHM
+            </span>
+            <br>
+            <span class="sans" style="font-size: 1.6vmax;letter-spacing: -0.1vmax;">
+                Life Sciences
+            </span>
+        </div>
+        <div class="hamburger">
+            <span class="ham" onclick="showMenu(0)">
+                <i class="fa-solid fa-bars"></i>
+            </span>
+            <span class="closeMenu" onclick="showMenu(0,'x')">
+            <i class="fa-solid fa-circle-xmark"></i>
+            </span>
+        </div>
+        <div class="menuBar noMobile">about us</div>
+        <div class="menuBar noMobile">key areas</div>
+        <div class="menuBar noMobile">contact us</div>
+    </div>
+    <div class="menuMobile"> 
+        <div>about us</div>
+        <div>key areas</div>
+        <div>contact us</div>
+    </div>
+    <div id="welcome">
+        <div id="bar">
+            <div class="logo" style="text-align: left;" onclick="goToTop()">
+                <span class="serif" style="font-size: 2vmax;color: crimson;">
+                    RHYTHM
+                </span>
+                <br>
+                <span class="sans" style="font-size: 1.6vmax;letter-spacing: -0.1vmax;">
+                    Life Sciences
+                </span>
+            </div>
+            <div class="hamburger" >
+                <span class="ham" onclick="showMenu(1)">
+                    <i class="fa-solid fa-bars"></i>
+                </span>
+                <span class="closeMenu" onclick="showMenu(1,'x')">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </span>
+            </div>
+            <div class="menuBar noMobile">about us</div>
+            <div class="menuBar noMobile">key areas</div>
+            <div class="menuBar noMobile">contact us</div>
+        </div>
+        <div class="menuMobile"> 
+            <div>about us</div>
+            <div>key areas</div>
+            <div>contact us</div>
+        </div>
+        <div id="slideShow">
+
+        </div>
+   </div>
+   <div style="height: 100vh;background-color: aqua;">
+    content
+    </div>
+
+
+<script>
+
+var menu = ['about us','key areas','contact us']
+
+//onscroll -- add shadow to the menubar
+window.onscroll = function(){scrollEffect()}
+
+function scrollEffect(){
+    var bar = document.getElementById('bar')
+    var barScroll = document.getElementById('barOnScroll')
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        bar.style.display = 'none'
+        barScroll.style.display = 'flex'
+    } else {
+            bar.style.display = 'flex'
+            barScroll.style.display = 'none'
+    }
+
+    //close menu
+    var menuMobile = document.getElementsByClassName('menuMobile')
+    for (let index = 0; index < menuMobile.length; index++) {
+        menuMobile[index].style.display = 'none'
+        
+    }
+}
+
+function goToTop(){
+    document.body.scrollIntoView({ behavior: "smooth", block: "start"});
+}
+
+function showMenu(id,x){
+    var menuMobile = document.getElementsByClassName('menuMobile')  
+    var ham = document.getElementsByClassName('ham')
+    var close = document.getElementsByClassName('closeMenu')
+
+    //to close
+    if (x=='x') {
+        //animate right
+        for (let index = 1; index < 100; index++) {
+            setTimeout(function(){
+                menuMobile[id].style.left = index+'%';
+                if (index==99){
+                menuMobile[id].style.display = 'none'  
+                }}
+            ,5*index)   
+        }
+        ham[id].style.display = 'block'
+        close[id].style.display = 'none'
+    }
+    else {
+        menuMobile[id].style.left = '0%'
+        menuMobile[id].style.display = 'block'
+        ham[id].style.display = 'none'
+        close[id].style.display = 'block'
+    }
+}
+
+
+</script>
+</body>
+</html>
