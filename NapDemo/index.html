@@ -11,6 +11,7 @@
 </head>
 <style>
     * {box-sizing: border-box;margin: 0;}
+    a {text-decoration: none;color: inherit;}
     .serif {font-family: 'Gelasio', serif;}
     .sans {font-family: 'Arimo', sans-serif;}
     #welcome {
@@ -21,24 +22,37 @@
     }
     #barOnScroll {display: none;background-color: #f5f5f5;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
     #bar {animation: fade 2s ease-out 1}
-    .logo {width: 40%;cursor: pointer;}
+    .logo {width: 25%;cursor: pointer;}
     .rhythm {font-size: 2vmax;color: crimson;width: fit-content;}
     .LS {font-size: 1.8vmax;text-align: justify;width: fit-content;letter-spacing: -1px;}
     .hamburger {display: none;}   
-    .menuBar {font-family: 'Gelasio', serif;padding-left: 3vmax;font-size: 1.7vmax;text-transform: uppercase;width: 15%;color: #797979;} 
+    .menuBar {font-family: 'Gelasio', serif;padding-left: 1vmax;font-size: 1.9vmax;text-transform: uppercase;width: 20%;color: #797979;} 
     .menuMobile {display: none;}
-    #slideShow {height:85vh;width: 100%;border-radius: 1vw;border: rgb(255,182,193) solid 0.1vmax;}
+    #slideShow {height:85vh;width: 100%;position: relative;
+        border-radius: 1vw;border: rgb(255,182,193) solid 0.1vmax;}
+    .navDot {z-index: 1;}
+    .dot:first-of-type {position: absolute;bottom: 1%;left: 48%;}
+    .dot:nth-of-type(2) {position: absolute;bottom: 1%;left: 50%;}
+    .dot:nth-of-type(3) {position: absolute;bottom: 1%;left: 52%;}
+    .dot i {font-size: 1.2vw;color: #797979;}
+    .slide {object-fit: cover;width: 100%;height: 85vh;display: none;animation: fade 2s ease;}
+    .slide:first-of-type {display: block;}
    
     @media only screen and (max-width:1000px) {
-        .logo {width: 50%;}
+        .logo {width: 50%;line-height: 100%;}
+        .rhythm {font-size: 2.5vmax;}
+        .LS {font-size: 2.2vmax;}
         #bar, #barOnScroll {border-bottom: rgb(255,182,193) 0.1vmax solid;width: 100%;padding: 1vmax;}
         .hamburger {text-align: right;font-size: 2.5vmax;width: 50%;display: block;}
-        .menuMobile {width: 100%;background-color: white;text-align: center;font-family: 'Gelasio', serif;
+        .menuMobile {width: 100%;height: 100%;
+            background-color: white;text-align: center;font-family: 'Gelasio', serif;
             color: #555;z-index: 1;position: fixed;font-size: 2.5vmax;padding: 15vh 2vw;
             text-transform: uppercase;line-height: 120%;animation: floatLeft 1s;}
         .menuMobile div {padding: 2vmax;border-bottom: #ddd solid 0.1vmax;}
+        .menuMobile i, .hamburger i, .closeMenu i {font-size: 2.8vmax;}
         .noMobile {display: none;}
         .closeMenu {display: none;}
+        .dot {display: none;}
     }    
 
 
@@ -75,17 +89,27 @@
                 <i class="fa-solid fa-bars"></i>
             </span>
             <span class="closeMenu" onclick="showMenu(0,'x')">
-            <i class="fa-solid fa-circle-xmark"></i>
+                <i class="fa-solid fa-circle-xmark"></i>
             </span>
         </div>
         <div class="menuBar noMobile">about us</div>
         <div class="menuBar noMobile">key areas</div>
         <div class="menuBar noMobile">contact us</div>
+        <div class="menuBar noMobile">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>&nbsp;
+            <a href=""><i class="fa-brands fa-instagram"></i></a>&nbsp;
+            <a href=""><i class="fa-solid fa-envelope"></i></a>
+        </div>
     </div>
     <div class="menuMobile"> 
         <div>about us</div>
         <div>key areas</div>
         <div>contact us</div>
+        <div style="border: none;">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>&nbsp;&nbsp;
+            <a href=""><i class="fa-brands fa-instagram"></i></a>&nbsp;&nbsp;
+            <a href=""><i class="fa-solid fa-envelope"></i></a>
+        </div>
     </div>
     <div id="welcome">
         <div id="bar">
@@ -111,23 +135,47 @@
             <div class="menuBar noMobile">about us</div>
             <div class="menuBar noMobile">key areas</div>
             <div class="menuBar noMobile">contact us</div>
+            <div class="menuBar noMobile">
+                <a href=""><i class="fa-brands fa-facebook"></i></a>&nbsp;
+                <a href=""><i class="fa-brands fa-instagram"></i></a>&nbsp;
+                <a href=""><i class="fa-solid fa-envelope"></i></a>
+            </div>
         </div>
         <div class="menuMobile"> 
             <div>about us</div>
             <div>key areas</div>
             <div>contact us</div>
+            <div style="border: none;">
+                <a href=""><i class="fa-brands fa-facebook"></i></a>&nbsp;&nbsp;
+                <a href=""><i class="fa-brands fa-instagram"></i></a>&nbsp;&nbsp;
+                <a href=""><i class="fa-solid fa-envelope"></i></a>
+            </div>
         </div>
         <div id="slideShow">
+            <img src="\media\afAblation.png" class="slide">
+            <img src="\media\deviceHF.png" class="slide">
+            <img src="\media\jwave.png" class="slide">
+            <span class="dot"><i class="fa-solid fa-circle"></i></span>
+            <span class="dot"><i class="fa-regular fa-circle"></i></span>
+            <span class="dot"><i class="fa-regular fa-circle"></i></span>
 
         </div>
    </div>
-   <div style="height: 100vh;background-color: aqua;">
+   <div style="height: 100vh;background-color: beige;">
     content
     </div>
 
+    <!--foot-->
+    <div class="sans" style="background-color: #ddd;color: #797979;
+    font-size: 14px;padding: 10vh 2vw;text-align: center;">
+        &copy; CODING of a KIND
+        <br>
+        design to your style &middot; write to your need
+    </div>
 
 <script>
 resizeLS()
+slideShow()
 //onscroll -- add shadow to the menubar
 window.onscroll = function(){scrollEffect()}
 
@@ -143,7 +191,7 @@ function resizeLS(){
         w1 = firstLine[1].clientWidth;
         w2 = secondLine[1].clientWidth;
     }
-    console.log(w1)
+    
     const diff = w2-w1
     const adj = Math.ceil(((w2-w1)/6))
 
@@ -208,6 +256,17 @@ function showMenu(id,x){
     }
 }
 
+function slideShow(){
+    var dot = document.getElementsByClassName('dot')
+    var slide = document.getElementsByClassName('slide')
+    total = 2;current = 0;
+    setInterval(function(){
+        slide[current].style.display = 'none'
+        current ++;
+        if (current>total){current=0}
+        slide[current].style.display = 'block'
+    },3000)
+}
 
 </script>
 </body>
