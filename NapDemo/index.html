@@ -22,8 +22,10 @@
     #barOnScroll {display: none;background-color: #f5f5f5;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
     #bar {animation: fade 2s ease-out 1}
     .logo {width: 40%;cursor: pointer;}
+    .rhythm {font-size: 2vmax;color: crimson;width: fit-content;}
+    .LS {font-size: 1.8vmax;text-align: justify;width: fit-content;letter-spacing: -1px;}
     .hamburger {display: none;}   
-    .menuBar {font-family: 'Arimo', sans-serif;padding-left: 3vmax;font-size: 1.7vmax;text-transform: uppercase;width: 15%;color: #797979;letter-spacing: -0.1vmin;} 
+    .menuBar {font-family: 'Gelasio', serif;padding-left: 3vmax;font-size: 1.7vmax;text-transform: uppercase;width: 15%;color: #797979;} 
     .menuMobile {display: none;}
     #slideShow {height:85vh;width: 100%;border-radius: 1vw;border: rgb(255,182,193) solid 0.1vmax;}
    
@@ -31,7 +33,7 @@
         .logo {width: 50%;}
         #bar, #barOnScroll {border-bottom: rgb(255,182,193) 0.1vmax solid;width: 100%;padding: 1vmax;}
         .hamburger {text-align: right;font-size: 2.5vmax;width: 50%;display: block;}
-        .menuMobile {width: 100%;background-color: white;text-align: center;
+        .menuMobile {width: 100%;background-color: white;text-align: center;font-family: 'Gelasio', serif;
             color: #555;z-index: 1;position: fixed;font-size: 2.5vmax;padding: 15vh 2vw;
             text-transform: uppercase;line-height: 120%;animation: floatLeft 1s;}
         .menuMobile div {padding: 2vmax;border-bottom: #ddd solid 0.1vmax;}
@@ -58,14 +60,15 @@
 </style>
 <body>
     <div id="barOnScroll">
-        <div class="logo" style="text-align: left;" onclick="goToTop()">
-            <span class="serif" style="font-size: 2vmax;color: crimson;">
-                RHYTHM
-            </span>
-            <br>
-            <span class="sans" style="font-size: 1.6vmax;letter-spacing: -0.1vmax;">
-                Life Sciences
-            </span>
+        <div class="logo" onclick="goToTop()">
+                <div class="serif rhythm">
+                    RHYTHM
+                </div>
+                
+                <div class="sans LS">
+                    Life Sciences
+                </div>
+
         </div>
         <div class="hamburger">
             <span class="ham" onclick="showMenu(0)">
@@ -87,13 +90,15 @@
     <div id="welcome">
         <div id="bar">
             <div class="logo" style="text-align: left;" onclick="goToTop()">
-                <span class="serif" style="font-size: 2vmax;color: crimson;">
-                    RHYTHM
-                </span>
-                <br>
-                <span class="sans" style="font-size: 1.6vmax;letter-spacing: -0.1vmax;">
-                    Life Sciences
-                </span>
+
+                    <div class="serif rhythm">
+                        RHYTHM
+                    </div>
+                    
+                    <div class="sans LS">
+                        Life Sciences
+                    </div>
+
             </div>
             <div class="hamburger" >
                 <span class="ham" onclick="showMenu(1)">
@@ -122,11 +127,32 @@
 
 
 <script>
-
-var menu = ['about us','key areas','contact us']
-
+resizeLS()
 //onscroll -- add shadow to the menubar
 window.onscroll = function(){scrollEffect()}
+
+//logo width
+function resizeLS(){
+    const firstLine = document.getElementsByClassName('rhythm')
+    const secondLine = document.getElementsByClassName('LS')
+
+    if (firstLine[0].clientWidth>0){
+        w1 = firstLine[0].clientWidth;
+        w2 = secondLine[0].clientWidth;}
+    else {
+        w1 = firstLine[1].clientWidth;
+        w2 = secondLine[1].clientWidth;
+    }
+    console.log(w1)
+    const diff = w2-w1
+    const adj = Math.ceil(((w2-w1)/6))
+
+    for (let index = 0; index < firstLine.length; index++) {
+        firstLine[index].style.letterSpacing = adj +'px';
+    }
+
+}
+
 
 function scrollEffect(){
     var bar = document.getElementById('bar')
@@ -141,9 +167,13 @@ function scrollEffect(){
 
     //close menu
     var menuMobile = document.getElementsByClassName('menuMobile')
+    var ham = document.getElementsByClassName('ham')
+    var close = document.getElementsByClassName('closeMenu')
     for (let index = 0; index < menuMobile.length; index++) {
         menuMobile[index].style.display = 'none'
-        
+        ham[index].style.display = 'block'
+        close[index].style.display = 'none'
+            
     }
 }
 
