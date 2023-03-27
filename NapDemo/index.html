@@ -21,22 +21,27 @@
     #bar, #barOnScroll {padding:5vh 0.5vmax 5vh 5vh;color: #555;font-size: 2vmax;line-height: 80%;display: flex;align-items: center;position: sticky;top: 0;left: 0;z-index: 1;
     }
     #barOnScroll {display: none;background-color: #f5f5f5;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);}
-    #bar {animation: fade 2s ease-out 1}
-    .logo {width: 25%;cursor: pointer;}
+    #bar {animation: fade 3s ease-out 1}
+    .logo {width: 30%;cursor: pointer;}
     .rhythm {font-size: 2vmax;color: crimson;width: fit-content;}
     .LS {font-size: 1.8vmax;text-align: justify;width: fit-content;letter-spacing: -1px;}
     .hamburger {display: none;}   
-    .menuBar {font-family: 'Gelasio', serif;padding-left: 1vmax;font-size: 1.9vmax;text-transform: uppercase;width: 20%;color: #797979;} 
+    .menuBar {font-family: 'Gelasio', serif;padding-left: 3vmax;font-size: 1.9vmax;text-transform: uppercase;width: fit-content;color: #797979;cursor: pointer;} 
     .menuMobile {display: none;}
-    #slideShow {height:85vh;width: 100%;position: relative;
-        border-radius: 1vw;border: rgb(255,182,193) solid 0.1vmax;}
+    #slideShow {height:85vh;width: 100%;position: relative;background-color: rgba(255,182,193,0.8);
+        border-radius: 1vw;}
     .navDot {z-index: 1;}
-    .dot:first-of-type {position: absolute;bottom: 1%;left: 48%;}
+    .dot {opacity: 0.3;color: #232323;}
+    .dot:first-of-type {position: absolute;bottom: 1%;left: 48%;opacity:1.0;}
     .dot:nth-of-type(2) {position: absolute;bottom: 1%;left: 50%;}
     .dot:nth-of-type(3) {position: absolute;bottom: 1%;left: 52%;}
     .dot i {font-size: 1.2vw;color: #797979;}
-    .slide {object-fit: cover;width: 100%;height: 85vh;display: none;animation: fade 2s ease;}
+    .slide {object-fit: cover;width: 100%;height: 85vh;display: none;animation: fade80 3s ease-out;opacity: 0.8;mix-blend-mode:difference;border-radius: 1vw;}
     .slide:first-of-type {display: block;}
+    .content {display: flex;flex-wrap: wrap;padding: 8vh 1vw;}
+    .contentText, .contentImg {width: 50%;color: #555;}
+    .contentImg {padding: 1vmax;}
+    .contentText {padding: 2vmax;}
    
     @media only screen and (max-width:1000px) {
         .logo {width: 50%;line-height: 100%;}
@@ -53,6 +58,9 @@
         .noMobile {display: none;}
         .closeMenu {display: none;}
         .dot {display: none;}
+        .contentText, .contentImg {width: 100%;}
+        .contentText {padding-bottom: 7vh;}
+        .contentImg {padding: 1vmax;}
     }    
 
 
@@ -60,6 +68,10 @@
     @keyframes fade {
         0% {opacity: 0;}
         100% {opacity: 1;}
+    }
+    @keyframes fade80 {
+        0% {opacity: 0.2;}
+        100% {opacity: 0.8;}
     }
     @keyframes floatLeft {
         0% {left: 100%}
@@ -80,7 +92,7 @@
                 </div>
                 
                 <div class="sans LS">
-                    Life Sciences
+                    Life Science
                 </div>
 
         </div>
@@ -92,9 +104,9 @@
                 <i class="fa-solid fa-circle-xmark"></i>
             </span>
         </div>
-        <div class="menuBar noMobile">about us</div>
-        <div class="menuBar noMobile">key areas</div>
-        <div class="menuBar noMobile">contact us</div>
+        <a href="#aboutUs"><div class="menuBar noMobile">about us</div></a>
+        <a href="#keyAreas"><div class="menuBar noMobile">key areas</div></a>
+        <a href="#contact"><div class="menuBar noMobile">contact</div></a>
         <div class="menuBar noMobile">
             <a href=""><i class="fa-brands fa-facebook"></i></a>&nbsp;
             <a href=""><i class="fa-brands fa-instagram"></i></a>&nbsp;
@@ -102,9 +114,9 @@
         </div>
     </div>
     <div class="menuMobile"> 
-        <div>about us</div>
-        <div>key areas</div>
-        <div>contact us</div>
+        <a href="#aboutUs"><div>about us</div></a>
+        <a href="#keyAreas"><div>key areas</div></a>
+        <a href="#contact"><div>contact</div></a>
         <div style="border: none;">
             <a href=""><i class="fa-brands fa-facebook"></i></a>&nbsp;&nbsp;
             <a href=""><i class="fa-brands fa-instagram"></i></a>&nbsp;&nbsp;
@@ -120,7 +132,7 @@
                     </div>
                     
                     <div class="sans LS">
-                        Life Sciences
+                        Life Science
                     </div>
 
             </div>
@@ -132,9 +144,9 @@
                     <i class="fa-solid fa-circle-xmark"></i>
                 </span>
             </div>
-            <div class="menuBar noMobile">about us</div>
-            <div class="menuBar noMobile">key areas</div>
-            <div class="menuBar noMobile">contact us</div>
+            <a href="#aboutUs"><div class="menuBar noMobile">about us</div></a>
+            <a href="#keyAreas"><div class="menuBar noMobile">key areas</div></a>
+            <a href="#contact"><div class="menuBar noMobile">contact</div></a>
             <div class="menuBar noMobile">
                 <a href=""><i class="fa-brands fa-facebook"></i></a>&nbsp;
                 <a href=""><i class="fa-brands fa-instagram"></i></a>&nbsp;
@@ -142,9 +154,9 @@
             </div>
         </div>
         <div class="menuMobile"> 
-            <div>about us</div>
-            <div>key areas</div>
-            <div>contact us</div>
+            <a href="#aboutUs"><div>about us</div></a>
+            <a href="#keyAreas"><div>key areas</div></a>
+            <a href="#contact"><div>contact</div></a>
             <div style="border: none;">
                 <a href=""><i class="fa-brands fa-facebook"></i></a>&nbsp;&nbsp;
                 <a href=""><i class="fa-brands fa-instagram"></i></a>&nbsp;&nbsp;
@@ -156,15 +168,67 @@
             <img src="\media\deviceHF.png" class="slide">
             <img src="\media\jwave.png" class="slide">
             <span class="dot"><i class="fa-solid fa-circle"></i></span>
-            <span class="dot"><i class="fa-regular fa-circle"></i></span>
-            <span class="dot"><i class="fa-regular fa-circle"></i></span>
+            <span class="dot"><i class="fa-solid fa-circle"></i></span>
+            <span class="dot"><i class="fa-solid fa-circle"></i></span>
 
         </div>
    </div>
-   <div style="height: 100vh;background-color: beige;">
-    content
+
+   <div style="background: linear-gradient(to bottom right, white,#efefef);">
+    <!--aboutUs-->
+    <div id="aboutUs" class="content">
+        <div class="contentText sans">
+            <div class="serif" style="font-size:5vmax;text-align: center;width: fit-content;
+            border-bottom: #555 solid 0.5vmax;margin-left: auto;margin-right: auto;">
+                ABOUT US
+            </div>
+            <div style="font-size: 2.2vmax;padding: 5vh 3vw 0 3vw;text-align: justify;">
+                The company's name comes from shortening the term integrated electronics. Although the company created its first CPU in 1971, Intel's primary business was static random access memory (SRAM) and dynamic random access memory (DRAM) chips.
+            </div>
+        </div>
+        <div class="contentImg">
+            <img src="\media\ACHD.png" style="width: 100%;">
+        </div>
     </div>
 
+    <!--keyAreas-->
+    <div id="keyAreas" class="content">
+        <div class="contentImg">
+            <img src="\media\HBP.png" style="width: 100%;">
+        </div>
+
+        <div class="contentText sans">
+            <div class="serif" style="font-size:5vmax;text-align: center;width: fit-content;
+            border-bottom: #555 solid 0.5vmax;margin-left: auto;margin-right: auto;">
+                KEY AREAS
+            </div>
+            <div style="font-size: 2.2vmax;padding: 5vh 3vw 0 3vw;text-align: justify;">
+                Cardiovascular diseases represent the main commitment of Menarini thanks to the company’s experience of more than 30 years in making innovative cardiovascular drugs available for the patients. 
+            </div>
+        </div>
+
+    </div>
+
+    <!--contactUs-->
+    <div id="contact" class="content">
+        <div class="contentText sans">
+            <div class="serif" style="font-size:5vmax;text-align: center;width: fit-content;
+            border-bottom: #555 solid 0.5vmax;margin-left: auto;margin-right: auto;">
+                CONTACT
+            </div>
+            <div style="font-size: 2.2vmax;padding: 5vh 3vw 0 3vw;text-align: justify;">
+                1234 Road Road, District, Bangkok    
+                <br>
+                Tel: 02-123-4567<br>
+                Email: email@mail.com
+            </div>
+        </div>
+        <div class="contentImg">
+            <img src="\media\epUpdate.png" style="width: 100%;">
+        </div>
+    </div>
+
+    </div>
     <!--foot-->
     <div class="sans" style="background-color: #ddd;color: #797979;
     font-size: 14px;padding: 10vh 2vw;text-align: center;">
@@ -262,9 +326,11 @@ function slideShow(){
     total = 2;current = 0;
     setInterval(function(){
         slide[current].style.display = 'none'
+        dot[current].style.opacity = '0.3'
         current ++;
         if (current>total){current=0}
         slide[current].style.display = 'block'
+        dot[current].style.opacity = '1'
     },3000)
 }
 
