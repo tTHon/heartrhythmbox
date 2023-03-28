@@ -14,17 +14,17 @@
     button {cursor: pointer;border-radius: 0.5vw;padding: 1vw;font-family: 'Rubik', sans-serif;font-weight: 400;}
     #dayTable{max-width: 90vw;width: fit-content;margin-left: auto;margin-right: auto;margin-top: 9vh;background-color: none;
     text-align: center;display: block;overflow: scroll;border-collapse:collapse;}
-    #headerRow th {background: pink;border: #ddd solid 0.2vmax;color: #333;}
-    #headerRow button {background: pink;border: none;color: #333;font-size: 2.2vmax;}
+    #headerRow th {background: aquamarine;border-top:none;color: #333;}
+    #headerRow button {background:aquamarine;border: none;color: #333;font-size: 2.2vmax;}
     #dateCol, .roomCol, #dayTable td {border-right: 1px solid #ddd;}
-    #dateCol {min-width: 20vw;}
+    #dateCol {min-width: 20vw;padding: 0.2vw;}
     #roomCol {min-width: 60vw;cursor: pointer;}
     .timeLine {cursor: pointer;}
     #dateMenu, #roomMenu {display: none;position: absolute;z-index: 1;
-        border-radius: 1vw;box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.4);}
+        border-radius: 1vw;box-shadow: 10px 10px 5px 5px rgba(80,80,80,0.2);}
     #dateMenu :hover, #roomMenu :hover {background-color: black;}
-    .dateList,.roomList {padding: 0.5vw;cursor: pointer;font-size: 2vmax;font-weight: 400;
-        border-bottom: #555 solid 1px;background-color: #444;}    
+    .dateList,.roomList {padding:2vmax 0.2vw;cursor: pointer;font-size: 2vmax;font-weight: 400;
+        border-bottom: #777 solid 2px;background-color: #444;text-overflow: ellipsis;}    
 
     .mobileOnly {display: none;}
     @media only screen and (max-width: 768px) {
@@ -42,14 +42,12 @@
     <table id="dayTable">
         <tr id="headerRow" class="sticky">
             <th id="dateCol">
-                <button onclick="displayDateList()">Date&nbsp;&#9662;</button>
+                <button id="dateListButton" onclick="displayDateList()">Date&nbsp;&#9662;</button>
                 <div id="dateMenu">
-                    <div class="dateList">Date1</div>        
-                    <div class="dateList">Date2</div>
                 </div>
             </th>
             <th id="roomCol">
-                <button onclick="displayRoomList()">Room&nbsp;&#9662;
+                <button id="roomeListButton" onclick="displayRoomList()">Room&nbsp;&#9662;
                 </button>
                 <div id="roomMenu">
                     <div class="roomList">Room1</div>        
@@ -74,6 +72,11 @@ showHour()
 //hideMenu onscroll
 dayTable.onscroll=function(){hideMenu();}
 
+//demo date
+const day1 = new Date(2024,1,16);
+const day2 = new Date(2024,1,17)
+dayList = [day1,day2]
+var selectedDate, selectedRoom;
 
 function showHour(){
     //hour view
@@ -87,14 +90,15 @@ function showHour(){
         for (let j = 0; j <= 1; j++) {
             var newD = document.createElement('td')
             newRow.appendChild(newD)
+            newDay = new Date()
+            var options = { hour: '2-digit', minute: '2-digit' };
+
 
             if (j==0)
                 {
                 newD.className = 'timeLine'
                 if (index%1==0){
-                    newDay = new Date()
                     newDay.setHours(index,0);
-                    var options = { hour: '2-digit', minute: '2-digit' };
                     time = newDay.toLocaleString('en-US', options)
                     newRow.style.borderTop = 'solid 1px #ddd'
                     newD.innerHTML = time
@@ -122,15 +126,39 @@ function showHour(){
 function displayDateList(){
     var menu = document.getElementById('dateMenu')
     var width = document.getElementById('dateCol').clientWidth
+    var dateList = document.getElementsByClassName('dateList')
 
     //hide room menu
     document.getElementById('roomMenu').style.display = 'none'
+    
+    //clear previous list
+    while (dateList.length>0){
+        dateList[0].remove();
+    }
 
     if (menu.style.display == 'block'){
         menu.style.display = 'none'
     } else {
         menu.style.display = 'block'
         menu.style.width = width-5 + 'px'
+        
+        //show date list
+        for (let index = 0; index < dayList.length; index++) {
+            const newDiv = document.createElement('div')
+            menu.appendChild(newDiv)
+            var options = { year: '2-digit', month: 'short', day: 'numeric' };
+            date2Show = dayList[index].toLocaleDateString('en-GB',options);
+            selectedDate = dayList[index]
+            newDiv.innerHTML = date2Show;
+            newDiv.className = 'dateList'
+            newDiv.onclick = function(){dateClick(index)}
+        }
+    }
+
+    function dateClick(index){
+        document.getElementById('dateListButton').innerHTML = dayList[index].toLocaleDateString('en-GB',options) + '&#9662;';
+        menu.style.display ='none'
+        selectedDate = dayList[index]
     }
 }
 
@@ -165,7 +193,10 @@ function timeBlock(row){
         time[index].style.background = '#333'        
     }
 
-    time[row*2].style.background = 'white'
+    time[row*2].style.background = 'crimson'
+
+
+
 }
 
 
