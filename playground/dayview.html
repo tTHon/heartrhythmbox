@@ -10,27 +10,81 @@
 
 <style>
     * {font-family: 'Rubik', sans-serif;color: #ddd;}
-    #container {border: 1px solid #555;overflow-y: scroll;position: relative;}
-    #header {position: sticky;background-color: aquamarine;color: #333;}
-    .band {position: absolute;height: 1px;width: 100%;color: #ddd;}
-    #time, #room {position: absolute;}
+    #container {border: 1px solid #555;overflow-y: scroll;position: relative;width: 90vw;
+        margin-left: auto;margin-right: auto;cursor: pointer;}
+    #header {position: sticky;top: 0;left: 0;z-index: 1;
+        background-color: aquamarine;font-size: 2.2vmax;display: flex;vertical-align: middle;}
+    .band {position: absolute;height: 1px;background-color: #ddd;}
+    #time {width: 30%;text-align: right;}
+    #room {width: 70%;text-align: center;}
+    #time, #room {padding: 1vmax;vertical-align: middle;align-self: center;
+        color: #333;}
+    .timeScale {position:absolute;color: #ddd;font-size: 2vmax;}
     
 </style>
 <body style="background-color: #333;">
     <h1>Day View</h1>
 
-    <div id="container">
+    <div id="container" onclick="getTime(event)">
         <div id="header">
-            <div id="time"></div>
-            <div id="room"></div>
+            <div id="time">Date&nbsp;&blacktriangledown;</div>
+            <div id="room">Room&nbsp;&blacktriangledown;</div>
         </div>
     </div>
 
 <script>
-    vh = (screen.height)/100
+    const vh = (screen.height)/100
+    const vw = (screen.width)/100
+    var vmax;
+    if (vh>vw){vmax=vh}
+    else {vmax=vw}
     tenMin = 1.5*vh;
-    document.getElementById('container').style.height = 6*9*tenMin + 'px'
+    const container = document.getElementById('container')
+    container.style.height = 6*9*tenMin + 'px'
     document.getElementById('header').style.height = tenMin*6 + 'px'
+
+    //postion head
+    const timeCol = document.getElementById('time')
+    const roomCol = document.getElementById('room')
+    
+    //draw line + place timeScale
+    //find left border
+    const roomColLeftBorder = roomCol.offsetLeft;
+    for (let index = 0; index < 48; index++) {
+        const newDiv = document.createElement('div')
+        container.appendChild(newDiv)
+        newDiv.className = 'band'
+        newDiv.style.top = (tenMin*6)*(index+2)+'px'
+        newDiv.style.left = roomColLeftBorder + 'px'
+        newDiv.style.width = roomCol.offsetWidth + 'px'
+
+        //timescale
+        const newDiv2 = document.createElement('div')
+        container.appendChild(newDiv2)
+        newDiv2.className = 'timeScale'
+        newDiv2.style.top = ((tenMin*6)*(index+2))-(1.1*vmax)+'px'
+        newDiv2.style.left = roomColLeftBorder-(6*vmax) + 'px'
+        var hour = Math.round(index/2)
+        if (hour<10){hour='0'+hour}
+        if (index%2!=0){
+            var min = '00'
+        } else {min='30'}
+        
+        newDiv2.innerHTML = hour+'.'+min
+    }
+
+    band = document.getElementsByClassName('band')
+    band[15].scrollIntoView()
+
+function getTime(event){
+    let oneHour = (tenMin*6)
+    let y = event.offsetY - oneHour
+    let scroll = container.scrollTop
+    let hour = ((scroll+y)/(oneHour))
+    alert(hour/2)
+}
+
+
 </script>
 
 </body>
