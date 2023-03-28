@@ -20,6 +20,7 @@
     #time, #room {padding: 1vmax;vertical-align: middle;align-self: center;
         color: #333;}
     .timeScale {position:absolute;color: #ddd;font-size: 2vmax;}
+    .timeClicked {position: absolute;background-color: crimson;}
     
 </style>
 <body style="background-color: #333;">
@@ -80,8 +81,15 @@ function getTime(event){
     let oneHour = (tenMin*6)
     let y = event.offsetY - oneHour
     let scroll = container.scrollTop
-    let hour = ((scroll+y)/(oneHour))
-    alert(hour/2)
+    var hour = (scroll+y)/(oneHour)/2
+    hour = (Math.round(hour*2))/2
+    alert(hour)
+    const newDiv = document.createElement('div')
+    container.appendChild(newDiv)
+    newDiv.className = 'timeClicked'
+    newDiv.style.top = event.offsetY + 'px'
+    newDiv.style.left = '0'
+    newDiv.style.height = oneHour*6 + 'px'
 }
 
 
