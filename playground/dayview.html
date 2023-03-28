@@ -9,198 +9,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 
 <style>
-    * {color: #ddd;font-family: 'Rubik', sans-serif;}
-    #meetingName, #meetingDate {color:aquamarine;}
-    button {cursor: pointer;border-radius: 0.5vw;padding: 1vw;font-family: 'Rubik', sans-serif;font-weight: 400;}
-    #dayTable{max-width: 90vw;width: fit-content;margin-left: auto;margin-right: auto;margin-top: 9vh;background-color: none;
-    text-align: center;display: block;overflow: scroll;border-collapse:collapse;}
-    #headerRow th {background: aquamarine;border-top:none;color: #333;}
-    #headerRow button {background:aquamarine;border: none;color: #333;font-size: 2.2vmax;}
-    #dateCol, .roomCol, #dayTable td {border-right: 1px solid #ddd;}
-    #dateCol {min-width: 20vw;padding: 0.2vw;}
-    #roomCol {min-width: 60vw;cursor: pointer;}
-    .timeLine {cursor: pointer;}
-    #dateMenu, #roomMenu {display: none;position: absolute;z-index: 1;
-        border-radius: 1vw;box-shadow: 10px 10px 5px 5px rgba(80,80,80,0.2);}
-    #dateMenu :hover, #roomMenu :hover {background-color: black;}
-    .dateList,.roomList {padding:2vmax 0.2vw;cursor: pointer;font-size: 2vmax;font-weight: 400;
-        border-bottom: #777 solid 2px;background-color: #444;text-overflow: ellipsis;}    
-
-    .mobileOnly {display: none;}
-    @media only screen and (max-width: 768px) {
-        .noMobile {display: none;}
-        .mobileOnly {display: table;}
-    }
-    .sticky {position: sticky;top: 0;z-index: 1;}
-
+    * {font-family: 'Rubik', sans-serif;color: #ddd;}
+    #container {border: 1px solid #555;overflow-y: scroll;position: relative;}
+    #header {position: sticky;background-color: aquamarine;color: #333;}
+    .band {position: absolute;height: 1px;width: 100%;color: #ddd;}
+    #time, #room {position: absolute;}
+    
 </style>
-</head>
-
 <body style="background-color: #333;">
-    <h1 id="meetingName" style="text-align: center;">Meeting Name</h1>
-    <h3 id="meetingDate" style="text-align: center;">Meeting Date</h3>
-    <table id="dayTable">
-        <tr id="headerRow" class="sticky">
-            <th id="dateCol">
-                <button id="dateListButton" onclick="displayDateList()">Date&nbsp;&#9662;</button>
-                <div id="dateMenu">
-                </div>
-            </th>
-            <th id="roomCol">
-                <button id="roomeListButton" onclick="displayRoomList()">Room&nbsp;&#9662;
-                </button>
-                <div id="roomMenu">
-                    <div class="roomList">Room1</div>        
-                    <div class="roomList">Room2</div>
-                    <div class="roomList">Add/Edit</div>
-                </div>
-            </th>
-        </tr>
+    <h1>Day View</h1>
 
-    </table>
+    <div id="container">
+        <div id="header">
+            <div id="time"></div>
+            <div id="room"></div>
+        </div>
+    </div>
 
-    
 <script>
-
-vh = (screen.height)/100
-tenMin = 1.5*vh
-const dayTable = document.getElementById('dayTable')
-dayTable.style.height = tenMin*6*9+'px'
-document.getElementById('headerRow').style.height = tenMin*3+'px'
-showHour()
-
-//hideMenu onscroll
-dayTable.onscroll=function(){hideMenu();}
-
-//demo date
-const day1 = new Date(2024,1,16);
-const day2 = new Date(2024,1,17)
-dayList = [day1,day2]
-var selectedDate, selectedRoom;
-
-function showHour(){
-    //hour view
-    for (let index = 0; index < 48; index=index+0.5) {
-        const newRow = document.createElement('tr')
-        const parent = document.getElementById('dayTable')
-        parent.appendChild(newRow)
-        newRow.style.height = tenMin*3 + 'px'
-        newRow.className = 'thirtyMinutes'
-
-        for (let j = 0; j <= 1; j++) {
-            var newD = document.createElement('td')
-            newRow.appendChild(newD)
-            newDay = new Date()
-            var options = { hour: '2-digit', minute: '2-digit' };
-
-
-            if (j==0)
-                {
-                newD.className = 'timeLine'
-                if (index%1==0){
-                    newDay.setHours(index,0);
-                    time = newDay.toLocaleString('en-US', options)
-                    newRow.style.borderTop = 'solid 1px #ddd'
-                    newD.innerHTML = time
-                    }
-                }
-            else {
-                newD.innerHTML = 'room'+j;
-                newD.className = 'roomCol';
-                }
-            newD.style.height = tenMin*3+'px'
-            newD.style.borderLeft = 'solid #ddd 1px'
-            newD.style.cursor = 'pointer'
-            newD.onclick = function(){timeBlock(index)}
-        }
-      
-        if (index==16){
-            newRow.scrollIntoView();
-        }
-    }
-
-}
-
-
-
-function displayDateList(){
-    var menu = document.getElementById('dateMenu')
-    var width = document.getElementById('dateCol').clientWidth
-    var dateList = document.getElementsByClassName('dateList')
-
-    //hide room menu
-    document.getElementById('roomMenu').style.display = 'none'
-    
-    //clear previous list
-    while (dateList.length>0){
-        dateList[0].remove();
-    }
-
-    if (menu.style.display == 'block'){
-        menu.style.display = 'none'
-    } else {
-        menu.style.display = 'block'
-        menu.style.width = width-5 + 'px'
-        
-        //show date list
-        for (let index = 0; index < dayList.length; index++) {
-            const newDiv = document.createElement('div')
-            menu.appendChild(newDiv)
-            var options = { year: '2-digit', month: 'short', day: 'numeric' };
-            date2Show = dayList[index].toLocaleDateString('en-GB',options);
-            selectedDate = dayList[index]
-            newDiv.innerHTML = date2Show;
-            newDiv.className = 'dateList'
-            newDiv.onclick = function(){dateClick(index)}
-        }
-    }
-
-    function dateClick(index){
-        document.getElementById('dateListButton').innerHTML = dayList[index].toLocaleDateString('en-GB',options) + '&#9662;';
-        menu.style.display ='none'
-        selectedDate = dayList[index]
-    }
-}
-
-function displayRoomList(){
-    var menu = document.getElementById('roomMenu')
-    var width = document.getElementById('roomCol').clientWidth
-
-    //hide date menu
-    document.getElementById('dateMenu').style.display = 'none'
-
-    if (menu.style.display == 'block'){
-        menu.style.display = 'none'
-    } else {
-        menu.style.display = 'block'
-        menu.style.width = width-5 + 'px'
-    }
-}
-
-function hideMenu(){
-    var date = document.getElementById('dateMenu')
-    var room = document.getElementById('roomMenu')
-    date.style.display = 'none'
-    room.style.display = 'none'
-}
-
-
-function timeBlock(row){
-    var time = document.getElementsByClassName('thirtyMinutes')
-        
-    //clear
-    for (let index = 0; index < time.length; index++) {
-        time[index].style.background = '#333'        
-    }
-
-    time[row*2].style.background = 'crimson'
-
-
-
-}
-
-
+    vh = (screen.height)/100
+    tenMin = 1.5*vh;
+    document.getElementById('container').style.height = 6*9*tenMin + 'px'
+    document.getElementById('header').style.height = tenMin*6 + 'px'
 </script>
 
 </body>
+
 </html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+
+    <style>
+        #container{border: 0.1vmax solid #eee;margin-left: auto;margin-right: auto;overflow: scroll;width: 90vw;
+            cursor: pointer;}
+        .timeLine{padding-right: 0.5vw;font-size: 2vh;vertical-align: top;min-width: 100px;}
+        .roomCol{font-size: 3vh;vertical-align: top;color: brown;padding: 0.1vmax;min-width: 300px;}
+    </style>
+    <body>
+        <h1>Day View</h1>
+        <h2 id="timeSelected"></h2>
+        <h2 id="demo"></h2>
+        <div id="container">
+            <div id='hourView'>
+            </div>
+        </div>
+    
+    <script>
+        vh = (screen.height)/100
+        tenMin = 1.5*vh
+        var container = document.getElementById('container')
+        container.style.height = tenMin*6*8+'px'
+        document.getElementById('hourView').style.height = tenMin*6*24 + 'px'
+        totalRm = 3;
+    
+        //hour view
+    
+        for (let index = 0; index < 24; index=index+0.5) {
+            const newDiv = document.createElement('div')
+            const parent = document.getElementById('hourView')
+            parent.appendChild(newDiv)
+            newDiv.style.height = tenMin*3 + 'px'
+            newDiv.className = 'thirtyMinutes'
+            if (index%1==0){
+                newDay = new Date()
+                newDay.setHours(index,0);
+                var options = { hour: '2-digit', minute: '2-digit' };
+                time = newDay.toLocaleString('en-US', options)
+    
+                //create table row
+                var newRow = document.createElement('tr')
+                newDiv.appendChild(newRow)
+                for (let j = 0; j <= totalRm; j++) {
+                    var newD = document.createElement('td')
+                    
+                    newRow.appendChild(newD)
+                    //newD.style.border = 'solid 0.1vmax black'
+                    if (j==0)
+                        {
+                        newD.innerHTML = time
+                        newD.className = 'timeLine'
+                        }
+                    else {
+                        newD.innerHTML = 'room'+j;
+                        newD.className = 'roomCol';
+                        }
+                    newD.style.height = tenMin*3+'px'
+                    newD.style.borderLeft = 'solid #ddd 0.1vmax'
+                    newD.onclick = function(){timeBlock(index,j)}
+                }
+                newDiv.style.borderTop = 'solid #797979 0.1vmin'
+            }
+            else {
+                //create table row
+                var newRow = document.createElement('tr')
+                newDiv.appendChild(newRow) 
+                for (let j = 0; j <= totalRm; j++) {
+                    var newD = document.createElement('td')
+                    newRow.appendChild(newD)
+                    if (j==0)
+                        {
+                        newD.className = 'timeLine'
+                        }
+                    else {
+                        newD.innerHTML = 'room'+j;
+                        newD.className = 'roomCol';
+                        }    
+                    newD.style.height = tenMin*3+'px'
+                    newD.style.borderLeft = 'solid #ddd 0.1vmax'
+                    newD.onclick = function(){timeBlock(index,j)}
+                }
+            }
+    
+                if (index==9){
+                    newDiv.scrollIntoView();
+                }
+       }
+        
+    function timeBlock(index,room){
+        var block = document.getElementsByClassName('thirtyMinutes')
+        var col = document.getElementsByClassName('roomCol')
+        //clear block
+        for (let index = 0; index < block.length; index++) {
+           block[index].style.backgroundColor = 'white'        
+        }
+        for (let index = 0; index < col.length; index++) {
+           col[index].style.backgroundColor = 'white'        
+        }
+    
+        if (index%1!=0){
+            var halfHr = 1}
+        else {halfHr = 0}
+        hr = Math.floor(index)
+        blockNo = hr*2+halfHr
+        
+        //hilight block that was clocked
+        if (room==0){
+            block[blockNo].style.backgroundColor = 'pink'
+            for (let index = 0; index < totalRm; index++) {
+                col[(blockNo*totalRm)+(room+index)].style.backgroundColor = 'pink'               
+            }
+        }
+        else {
+            col[(blockNo*totalRm)+(room-1)].style.backgroundColor = 'pink'
+        }
+    }
+    
+    
+    function getCoOrd(index){
+        yCoOrd = event.offsetY
+        //coord to time
+        mins = Math.floor(60*(yCoOrd%(tenMin*6))/100)
+        if (index%1!=0){
+            mins = mins+30}
+        newDay = new Date()
+        newDay.setHours(index,mins);
+        var options = { hour: '2-digit', minute: '2-digit' };
+        time = newDay.toLocaleString('en-US', options)
+        document.getElementById('timeSelected').innerHTML = time 
+    }
+    
+    </script>
+    </body>
+
+</html>
