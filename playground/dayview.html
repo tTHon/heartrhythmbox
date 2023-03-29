@@ -9,89 +9,144 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 
 <style>
-    * {font-family: 'Rubik', sans-serif;color: #ddd;}
-    #container {border: 1px solid #555;overflow-y: scroll;position: relative;width: 90vw;
-        margin-left: auto;margin-right: auto;cursor: pointer;}
-    #header {position: sticky;top: 0;left: 0;z-index: 1;
-        background-color: aquamarine;font-size: 2.2vmax;display: flex;vertical-align: middle;}
-    .band {position: absolute;height: 1px;background-color: #ddd;}
-    #time {width: 30%;text-align: right;}
-    #room {width: 70%;text-align: center;}
-    #time, #room {padding: 1vmax;vertical-align: middle;align-self: center;
-        color: #333;}
-    .timeScale {position:absolute;color: #ddd;font-size: 2vmax;}
-    .timeClicked {position: absolute;background-color: crimson;}
-    
+    * {font-family: 'Rubik', sans-serif;color: #ddd;box-sizing: border-box;}
+    #dayTable {display:block;overflow-y: scroll;border: #bbb 1px solid;width: 90vw;margin-left: auto;margin-right: auto;
+        position: relative;}
+    #header {position: sticky;top:0;z-index:1;background-color: aquamarine;}
+    #header th {font-size: 2.5vmax;color: #333;cursor: pointer;}
+    #dateCol, #roomCol {cursor: pointer;}
+    .menuList0,.menuList1 {position: absolute;background-color: #232323;padding: 0;margin: 0;list-style-type: none;
+    box-shadow: 2px 4px 4px 4px rgba(100,100,100,0.5);}
+    .menuList0 li, .menuList1 li {border-bottom: 1px #555 solid;font-size: 2vmax;
+        padding: 3vh 0;}
+    .menuList0 li:hover, .menuList1 li:hover {background-color: black;}
+    .timeLine {text-align: right;}
+    .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
+   
 </style>
 <body style="background-color: #333;">
-    <h1>Day View</h1>
-
-    <div id="container" onclick="getTime(event)">
-        <div id="header">
-            <div id="time">Date&nbsp;&blacktriangledown;</div>
-            <div id="room">Room&nbsp;&blacktriangledown;</div>
-        </div>
+    <div id="title" style="text-align: center;padding: 5vh 2vw;">
+        <div id="meetingName" style="font-size: 4vmax;color:aquamarine;">Meeting Name</div>
+        <div id="meetingDate" style="font-size: 3vmax;color:aquamarine;">Meeting Date</div>
     </div>
 
+
+    <table id="dayTable">
+        <tr id="header">
+            <th id="dateCol" onclick="showMenu(0)">DATE&nbsp;&bigtriangledown;</th>
+            <th id="roomCol" onclick="showMenu(1)">ROOM&nbsp;&bigtriangledown;</th>
+        </tr>
+    </table>
+
+
+
+
 <script>
-    const vh = (screen.height)/100
-    const vw = (screen.width)/100
-    var vmax;
-    if (vh>vw){vmax=vh}
-    else {vmax=vw}
-    tenMin = 1.5*vh;
-    const container = document.getElementById('container')
-    container.style.height = 6*9*tenMin + 'px'
-    document.getElementById('header').style.height = tenMin*6 + 'px'
 
-    //postion head
-    const timeCol = document.getElementById('time')
-    const roomCol = document.getElementById('room')
-    
-    //draw line + place timeScale
-    //find left border
-    const roomColLeftBorder = roomCol.offsetLeft;
-    for (let index = 0; index < 48; index++) {
-        const newDiv = document.createElement('div')
-        container.appendChild(newDiv)
-        newDiv.className = 'band'
-        newDiv.style.top = (tenMin*6)*(index+2)+'px'
-        newDiv.style.left = roomColLeftBorder + 'px'
-        newDiv.style.width = roomCol.offsetWidth + 'px'
+//set up screen viewpoint
+vw = screen.width/100;vh = screen.height/100;
+vmax = getVmax();
 
-        //timescale
-        const newDiv2 = document.createElement('div')
-        container.appendChild(newDiv2)
-        newDiv2.className = 'timeScale'
-        newDiv2.style.top = ((tenMin*6)*(index+2))-(1.1*vmax)+'px'
-        newDiv2.style.left = roomColLeftBorder-(6*vmax) + 'px'
-        var hour = Math.round(index/2)
-        if (hour<10){hour='0'+hour}
-        if (index%2!=0){
-            var min = '00'
-        } else {min='30'}
-        
-        newDiv2.innerHTML = hour+'.'+min
+//demo date & room
+day1 = new Date(2024,01,16)
+day2 = new Date(2024,01,17)
+day3 = new Date(2024,01,18)
+var dates = [day1,day2,day3]
+var rooms = ['Upper Floor','Lower Floor','Add/Edit']
+var menu = [[day1,day2,day3],['Upper Floor','Lower Floor','Add/Edit']]
+
+setupTable()
+
+function showMenu(col){
+    const table = document.getElementById('dayTable')
+    const head = table.rows[0].cells[col]
+
+    //remove oldList
+    const timeMenu = document.getElementsByClassName('menuList0')
+    const roomMenu = document.getElementsByClassName('menuList1')
+    console.log(timeMenu)
+    if (timeMenu.length>0){
+        table.rows[0].cells[0].classList.remove('menuList0')
+        alert('remove')
+        if (timeMenu.hasChildNodes){
+        timeMenu.removeChild(timeMenu.children[0])}
+        //timeMenu.style.display = 'none'
+    }
+    if (roomMenu.length>0){
+        //roomMenu.style.display = 'none'
     }
 
-    band = document.getElementsByClassName('band')
-    band[15].scrollIntoView()
+   
+    const newList = document.createElement('ul')
+    head.appendChild(newList)
+    newList.className = 'menuList'+col
 
-function getTime(event){
-    let oneHour = (tenMin*6)
-    let y = event.offsetY - oneHour
-    let scroll = container.scrollTop
-    var hour = (scroll+y)/(oneHour)/2
-    hour = (Math.round(hour*2))/2
-    alert(hour)
-    const newDiv = document.createElement('div')
-    container.appendChild(newDiv)
-    newDiv.className = 'timeClicked'
-    newDiv.style.top = event.offsetY + 'px'
-    newDiv.style.left = '0'
-    newDiv.style.height = oneHour*6 + 'px'
+    //get coordinate
+    const top = head.style.bottom;
+    const left = head.style.left;
+    const width = head.style.width;
+    newList.style.top = top + 'px';newList.style.left = left + 'px'
+    
+    //add content
+    for (let index = 0; index < menu[col].length; index++) {
+        const newLi = document.createElement('li')
+        newList.appendChild(newLi)
+        newLi.style.width = width;
+
+        //format date
+        if (col==0)
+            {
+            var date2Show = dates[index].toLocaleDateString();
+            newLi.innerHTML = date2Show
+            }
+        else {
+            newLi.innerHTML = rooms[index]
+        }
+    }
 }
 
+
+function setupTable(){
+    //one hour equal to 3vh + header of 9vh
+    const oneHour = 9*vh;
+    
+    //table will show only 8 hour; overflow --scroll
+    const dayTable = document.getElementById('dayTable');
+    dayTable.style.height = (8*oneHour) + 9*vh + 'px';
+    //header height and width
+    const head = document.getElementById('header')
+    head.style.height = 9*vh + 'px';
+    //console.log(dayTable.rows[0].cells.length)
+    const colPad = 1*vmax;
+    dateColW = 2.5*vmax*9 + colPad;
+    dayTable.rows[0].cells[0].style.width = dateColW + 'px';
+    dayTable.rows[0].cells[1].style.width = 90*vw - dateColW + 'px'
+    
+    //create 24hr row
+    for (let index = 0; index <= 24; index++) {
+        const newRow = document.createElement('tr')
+        dayTable.appendChild(newRow)
+        newRow.style.height = oneHour + 'px'
+        const newCell0 = document.createElement('td')
+        newRow.appendChild(newCell0)
+        const newCell1 = document.createElement('td')
+        newRow.appendChild(newCell1)
+        newCell0.innerHTML = index;newCell0.className = 'timeLine'
+        
+        //add line in cell1
+        const newDiv = document.createElement('div')
+        newDiv.className = 'lineDiv'
+        newCell1.appendChild(newDiv)
+    }
+
+    dayTable.rows[8].scrollIntoView();
+}
+
+function getVmax(){
+    var vmax;
+    if (vw>vh) {vmax = vw} else {vmax = vh}
+    return vmax;
+}
 
 </script>
 
