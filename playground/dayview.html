@@ -15,11 +15,11 @@
     #header {position: sticky;top:0;z-index:1;background-color: aquamarine;}
     #header th {font-size: 2.5vmax;color: #333;cursor: pointer;}
     #dateCol, #roomCol {cursor: pointer;}
-    .menuList0,.menuList1 {position: absolute;background-color: #232323;padding: 0;margin: 0;list-style-type: none;
+    .dateMenu,.roomMenu {position: absolute;background-color: #232323;padding: 0;margin: 0;list-style-type: none;
     box-shadow: 2px 4px 4px 4px rgba(100,100,100,0.5);}
-    .menuList0 li, .menuList1 li {border-bottom: 1px #555 solid;font-size: 2vmax;
+    .dateList, .roomList {border-bottom: 1px #555 solid;font-size: 2vmax;
         padding: 3vh 0;}
-    .menuList0 li:hover, .menuList1 li:hover {background-color: black;}
+    .dateList:hover, .roomList:hover {background-color: black;}
     .timeLine {text-align: right;}
     .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
    
@@ -33,8 +33,8 @@
 
     <table id="dayTable">
         <tr id="header">
-            <th id="dateCol" onclick="showMenu(0)">DATE&nbsp;&bigtriangledown;</th>
-            <th id="roomCol" onclick="showMenu(1)">ROOM&nbsp;&bigtriangledown;</th>
+            <th id="dateCol" onclick="showDateMenu()">DATE&nbsp;&bigtriangledown;</th>
+            <th id="roomCol" onclick="showRoomMenu()">ROOM&nbsp;&bigtriangledown;</th>
         </tr>
     </table>
 
@@ -53,54 +53,62 @@ day2 = new Date(2024,01,17)
 day3 = new Date(2024,01,18)
 var dates = [day1,day2,day3]
 var rooms = ['Upper Floor','Lower Floor','Add/Edit']
-var menu = [[day1,day2,day3],['Upper Floor','Lower Floor','Add/Edit']]
 
 setupTable()
 
-function showMenu(col){
+function showDateMenu(){
     const table = document.getElementById('dayTable')
-    const head = table.rows[0].cells[col]
+    const head = document.getElementById('dateCol')
+    const top = head.offsetTop + 10*vh;
+    const left = head.offsetLeft + 0.5*vw;
+    const width = head.offsetWidth - vw;
 
-    //remove oldList
-    const timeMenu = document.getElementsByClassName('menuList0')
-    const roomMenu = document.getElementsByClassName('menuList1')
-    console.log(timeMenu)
-    if (timeMenu.length>0){
-        table.rows[0].cells[0].classList.remove('menuList0')
-        alert('remove')
-        if (timeMenu.hasChildNodes){
-        timeMenu.removeChild(timeMenu.children[0])}
-        //timeMenu.style.display = 'none'
-    }
-    if (roomMenu.length>0){
-        //roomMenu.style.display = 'none'
-    }
+    //to show menu or not
+    const menu = document.getElementsByClassName('dateMenu')
+    const list = document.getElementsByClassName('dateList')
 
-   
-    const newList = document.createElement('ul')
-    head.appendChild(newList)
-    newList.className = 'menuList'+col
+    if (menu.length==0){
+        const newList = document.createElement('div')
+        head.appendChild(newList)
+        newList.className = 'dateMenu'
+        newList.style.visibility = 'visible'
 
-    //get coordinate
-    const top = head.style.bottom;
-    const left = head.style.left;
-    const width = head.style.width;
-    newList.style.top = top + 'px';newList.style.left = left + 'px'
-    
-    //add content
-    for (let index = 0; index < menu[col].length; index++) {
-        const newLi = document.createElement('li')
-        newList.appendChild(newLi)
-        newLi.style.width = width;
-
-        //format date
-        if (col==0)
-            {
-            var date2Show = dates[index].toLocaleDateString();
-            newLi.innerHTML = date2Show
-            }
+        //get coordinate
+        newList.style.top = top + 'px';newList.style.left = left + 'px'
+        newList.style.width = width+'px'
+        }
+    else {
+        if (menu[0].style.visibility =='visible'){
+            menu[0].style.visibility = 'hidden'
+        } 
         else {
-            newLi.innerHTML = rooms[index]
+            menu[0].style.visibility = 'visible'}
+    }
+
+ 
+    //to add items or not
+    if (dates.length>list.length){
+        var diff = dates.length - list.length;
+        var start = (dates.length - diff)-1;
+
+        for (let index = start+1; index < dates.length; index++) {
+            const newLi = document.createElement('li')
+            menu[0].appendChild(newLi)
+            newLi.style.width = width + 'px';
+            newLi.className = 'dateList'
+            //format date
+            var date2Show = dates[index].toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"});
+            newLi.innerHTML = date2Show
+        }
+    }
+
+
+    //date click
+    for (let index = 0; index < list.length; index++) {
+        list[index].onclick = function(){
+            const date2Show = dates[index].toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"});
+            head.innerHTML = date2Show + '&#9661;';
+            showDateMenu();
         }
     }
 }
