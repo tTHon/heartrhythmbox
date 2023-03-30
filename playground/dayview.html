@@ -53,6 +53,8 @@ day2 = new Date(2024,01,17)
 day3 = new Date(2024,01,18)
 var dates = [day1,day2,day3]
 var rooms = ['Upper Floor','Lower Floor','Add/Edit']
+var currentDate = dates[0];
+var currentRoom = rooms[0];
 
 setupTable()
 
@@ -114,6 +116,7 @@ function showRoomMenu(){
     for (let index = 0; index < list.length; index++) {
         list[index].onclick = function(){
             head.innerHTML = rooms[index]+' '+ '&#9661;';
+            currentRoom = rooms[index]
             showRoomMenu();
         }
     }
@@ -178,6 +181,7 @@ function showDateMenu(){
         list[index].onclick = function(){
             const date2Show = dates[index].toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"});
             head.innerHTML = date2Show + ' '+ '&#9661;';
+            currentDate = dates[index]
             showDateMenu();
         }
     }
@@ -201,25 +205,28 @@ function setupTable(){
     dayTable.rows[0].cells[1].style.width = 90*vw - dateColW + 'px'
     
     //create 24hr row
-    for (let index = 0; index <= 24; index++) {
+    for (let index = 0; index < 24; index++) {
         const newRow = document.createElement('tr')
         dayTable.appendChild(newRow)
         newRow.style.cursor = 'pointer'
         newRow.onclick = function(){
-            alert(index)
+            //clear all rows bg
+            for (let index = 1; index < dayTable.rows.length; index++) {
+                dayTable.rows[index].cells[1].style.backgroundColor = 'initial'                
+            }
+            currentDate.setHours(index)
+            newRow.cells[1].style.backgroundColor = 'crimson'
         }
         newRow.style.height = oneHour + 'px'
         const newCell0 = document.createElement('td')
         newRow.appendChild(newCell0)
         const newCell1 = document.createElement('td')
         newRow.appendChild(newCell1)
-        newCell0.innerHTML = index;newCell0.className = 'timeLine'
+        var time2Show = index + ':00'
+        newCell0.innerHTML = time2Show;
+        newCell0.className = 'timeLine'
         newCell1.style.borderTop = 'solid 0.1px #555'
-        
-        //add line in cell1
-        //const newDiv = document.createElement('div')
-        //newDiv.className = 'lineDiv'
-        //newCell1.appendChild(newDiv)
+
     }
 
     dayTable.rows[8].scrollIntoView();
