@@ -13,7 +13,7 @@
     #dayTable {display:block;overflow-y: scroll;border: #bbb 1px solid;width: 90vw;margin-left: auto;margin-right: auto;
         position: relative;}
     #header {position: sticky;top:0;z-index:1;background-color: aquamarine;}
-    #header th {font-size: 2.5vmax;color: #333;cursor: pointer;}
+    #header th {font-size: 2vw;color: #333;cursor: pointer;}
     #dateCol, #roomCol {cursor: pointer;}
     .dateMenu,.roomMenu {position: absolute;background-color: #232323;padding: 0;margin: 0;list-style-type: none;
     box-shadow: 2px 4px 4px 4px rgba(100,100,100,0.5);}
@@ -200,7 +200,7 @@ function setupTable(){
     head.style.height = 9*vh + 'px';
     //console.log(dayTable.rows[0].cells.length)
     const colPad = 1*vmax;
-    dateColW = 2.5*vmax*9 + colPad;
+    dateColW = 2*vw*9 + colPad;
     dayTable.rows[0].cells[0].style.width = dateColW + 'px';
     dayTable.rows[0].cells[1].style.width = 90*vw - dateColW + 'px'
     
@@ -215,6 +215,7 @@ function setupTable(){
                 dayTable.rows[index].cells[1].style.backgroundColor = 'initial'                
             }
             currentDate.setHours(index)
+            alert(currentDate)
             newRow.cells[1].style.backgroundColor = 'crimson'
         }
         newRow.style.height = oneHour + 'px'
