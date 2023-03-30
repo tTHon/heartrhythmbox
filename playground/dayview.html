@@ -20,7 +20,7 @@
     .dateList, .roomList {border-bottom: 1px #555 solid;font-size: 2vmax;
         padding: 3vh 0;}
     .dateList:hover, .roomList:hover {background-color: black;}
-    .timeLine {text-align: right;}
+    .timeLine {text-align: right;vertical-align: top;padding: 0;margin: 0;}
     .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
    
 </style>
@@ -204,20 +204,35 @@ function setupTable(){
     for (let index = 0; index <= 24; index++) {
         const newRow = document.createElement('tr')
         dayTable.appendChild(newRow)
+        newRow.style.cursor = 'pointer'
+        newRow.onclick = function(){
+            alert(index)
+        }
         newRow.style.height = oneHour + 'px'
         const newCell0 = document.createElement('td')
         newRow.appendChild(newCell0)
         const newCell1 = document.createElement('td')
         newRow.appendChild(newCell1)
         newCell0.innerHTML = index;newCell0.className = 'timeLine'
+        newCell1.style.borderTop = 'solid 0.1px #555'
         
         //add line in cell1
-        const newDiv = document.createElement('div')
-        newDiv.className = 'lineDiv'
-        newCell1.appendChild(newDiv)
+        //const newDiv = document.createElement('div')
+        //newDiv.className = 'lineDiv'
+        //newCell1.appendChild(newDiv)
     }
 
     dayTable.rows[8].scrollIntoView();
+    dayTable.onscroll = function(){
+        const roomMenu = document.getElementsByClassName('roomMenu')
+        const dateMenu = document.getElementsByClassName('dateMenu')
+        if (roomMenu.length>0){
+            roomMenu[0].style.visibility = 'hidden'
+        }
+        if (dateMenu.length>0){
+            dateMenu[0].style.visibility = 'hidden'
+        }
+    }
 }
 
 function getVmax(){
