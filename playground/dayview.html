@@ -56,6 +56,69 @@ var rooms = ['Upper Floor','Lower Floor','Add/Edit']
 
 setupTable()
 
+function showRoomMenu(){
+    const table = document.getElementById('dayTable')
+    const head = document.getElementById('roomCol')
+    const top = head.offsetTop + 10*vh;
+    const left = head.offsetLeft + 0.5*vw;
+    const width = head.offsetWidth - vw;
+
+    //to show menu or not
+    const menu = document.getElementsByClassName('roomMenu')
+    const list = document.getElementsByClassName('roomList')
+
+    if (menu.length==0){
+        const newList = document.createElement('div')
+        head.appendChild(newList)
+        newList.className = 'roomMenu'
+        newList.style.visibility = 'visible'
+
+        //get coordinate
+        newList.style.top = top + 'px';newList.style.left = left + 'px'
+        newList.style.width = width+'px'
+        }
+    else {
+        if (menu[0].style.visibility =='visible'){
+            menu[0].style.visibility = 'hidden'
+        } 
+        else {
+            menu[0].style.visibility = 'visible'}
+    }
+
+    //hide other menu
+    const otherM = document.getElementsByClassName('dateMenu');
+    if (otherM.length>0){
+        if (otherM[0].style.visibility=='visible'){
+        otherM[0].style.visibility = 'hidden'
+        }
+    }
+
+ 
+    //to add items or not
+    if (rooms.length>list.length){
+        var diff = rooms.length - list.length;
+        var start = (rooms.length - diff)-1;
+
+        for (let index = start+1; index < rooms.length; index++) {
+            const newLi = document.createElement('li')
+            menu[0].appendChild(newLi)
+            newLi.style.width = width + 'px';
+            newLi.className = 'roomList'
+            //format date
+            newLi.innerHTML = rooms[index]
+        }
+    }
+
+
+    //date click
+    for (let index = 0; index < list.length; index++) {
+        list[index].onclick = function(){
+            head.innerHTML = rooms[index]+' '+ '&#9661;';
+            showRoomMenu();
+        }
+    }
+}
+
 function showDateMenu(){
     const table = document.getElementById('dayTable')
     const head = document.getElementById('dateCol')
@@ -85,6 +148,13 @@ function showDateMenu(){
             menu[0].style.visibility = 'visible'}
     }
 
+    //hide other menu
+    const otherM = document.getElementsByClassName('roomMenu');
+    if (otherM.length>0){
+        if (otherM[0].style.visibility=='visible'){
+        otherM[0].style.visibility = 'hidden'
+        }
+    }
  
     //to add items or not
     if (dates.length>list.length){
@@ -107,7 +177,7 @@ function showDateMenu(){
     for (let index = 0; index < list.length; index++) {
         list[index].onclick = function(){
             const date2Show = dates[index].toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"});
-            head.innerHTML = date2Show + '&#9661;';
+            head.innerHTML = date2Show + ' '+ '&#9661;';
             showDateMenu();
         }
     }
