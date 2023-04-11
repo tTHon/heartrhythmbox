@@ -24,8 +24,10 @@
     .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
     #popUp {position: fixed;visibility: hidden;width: 70vw;height: 70vh;left: 15vw;top: 15vh;background-color:rgba(0,0,0,0.85);
             color: #ddd;font-size: 2.2vmax;padding: 2vmax;z-index: 2;line-height: 150%;}
-    #popUpDate, #popUpRoom {background-color:rgba(0,0,0,0.85);
+    #popUpDate, #popUpRoom, #popUpTime {background-color:rgba(0,0,0,0.85);
             color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
+
+
 
 </style>
 <body style="background-color: #333;">
@@ -49,8 +51,9 @@
         <br>
         <label for="popUpRoom">Room: </label>
         <select id="popUpRoom" name="room"></select>
-
-
+        <br>
+        <label for='popUpTime'>Start: </label>
+        <input type="time" id="popUpTime" name="popUpTime" step="3600">
     </div>
 
 
@@ -261,7 +264,7 @@ function programEnter(cDate){
     document.getElementById('popUp').style.visibility = 'visible'
     //document.getElementById('popUpDate').innerHTML = 'Date: ' + cDate.toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"})
     //document.getElementById('popUpRoom').innerHTML = 'Room: ' + currentRoom
-    //document.getElementById('popUpTime').innerHTML = 'Time: ' + cDate.toLocaleTimeString([],{ hour: "2-digit", minute: "2-digit" })
+    //document.getElementById('popUpTime').innerHTML = 'Time: ' + cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit" })
 
     //date dropdown
     var d = document.getElementById('popUpDate')
@@ -292,8 +295,13 @@ function programEnter(cDate){
         }
         opt.innerHTML = rooms[index];
         opt.style.backgroundColor = 'rgba(0,0,0,0.85)'
-        
     }
+
+    //time
+    var t = document.getElementById('popUpTime')
+    var time2Show = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
+    t.value = time2Show;
+    alert(time2Show)
 }
 
 
