@@ -22,7 +22,11 @@
     .dateList:hover, .roomList:hover {background-color: black;}
     .timeLine {text-align: right;vertical-align: top;padding: 0;margin: 0;}
     .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
-   
+    #popUp {position: fixed;visibility: hidden;width: 70vw;height: 70vh;left: 15vw;top: 15vh;background-color:rgba(0,0,0,0.85);
+            color: #ddd;font-size: 2.2vmax;padding: 2vmax;z-index: 2;line-height: 150%;}
+    #popUpDate, #popUpRoom {background-color:rgba(0,0,0,0.85);
+            color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
+
 </style>
 <body style="background-color: #333;">
     <div id="title" style="text-align: center;padding: 5vh 2vw;">
@@ -38,7 +42,16 @@
         </tr>
     </table>
 
+    <!--popUp-->
+    <div id="popUp">
+        <label for="popUpDate">Date: </label>
+        <select id="popUpDate" name="date"></select>
+        <br>
+        <label for="popUpRoom">Room: </label>
+        <select id="popUpRoom" name="room"></select>
 
+
+    </div>
 
 
 <script>
@@ -215,8 +228,9 @@ function setupTable(){
                 dayTable.rows[index].cells[1].style.backgroundColor = 'initial'                
             }
             currentDate.setHours(index)
-            alert(currentDate)
+            //alert(currentDate)
             newRow.cells[1].style.backgroundColor = 'crimson'
+            programEnter(currentDate)
         }
         newRow.style.height = oneHour + 'px'
         const newCell0 = document.createElement('td')
@@ -242,6 +256,47 @@ function setupTable(){
         }
     }
 }
+
+function programEnter(cDate){
+    document.getElementById('popUp').style.visibility = 'visible'
+    //document.getElementById('popUpDate').innerHTML = 'Date: ' + cDate.toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"})
+    //document.getElementById('popUpRoom').innerHTML = 'Room: ' + currentRoom
+    //document.getElementById('popUpTime').innerHTML = 'Time: ' + cDate.toLocaleTimeString([],{ hour: "2-digit", minute: "2-digit" })
+
+    //date dropdown
+    var d = document.getElementById('popUpDate')
+    for (let index = 0; index < dates.length; index++) {
+        var opt = document.createElement('option')
+        d.appendChild(opt)
+        opt.value = dates[index]
+
+        //preselected date that was clicked
+        if (cDate==dates[index]){
+            opt.setAttribute('selected', 'selected')
+        }
+        var date2Show = dates[index].toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"})
+        opt.innerHTML = date2Show;
+        opt.style.backgroundColor = 'rgba(0,0,0,0.85)'
+    }
+
+    //room
+    var r = document.getElementById('popUpRoom')
+    for (let index = 0; index < rooms.length; index++) {
+        var opt = document.createElement('option')
+        r.appendChild(opt)
+        opt.value = rooms[index]
+
+        //preselected room that was clicked
+        if (currentRoom==rooms[index]){
+            opt.setAttribute('selected', 'selected')
+        }
+        opt.innerHTML = rooms[index];
+        opt.style.backgroundColor = 'rgba(0,0,0,0.85)'
+        
+    }
+}
+
+
 
 function getVmax(){
     var vmax;
