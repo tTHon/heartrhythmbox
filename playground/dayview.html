@@ -25,19 +25,21 @@
     #popUp {position: fixed;visibility: hidden;width: 98vw;height: 98vh;top:1vh;left:1vw;background-color:rgba(0,0,0,0.85);
             color: #ddd;font-size: 2.2vmax;padding: 2vmax 5vmax;z-index: 2;line-height: 150%;}
     #popUp label {color: aquamarine;}
+    #popUp select, #popUp input {cursor: pointer;}
     #popUpDate, #popUpRoom {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #popUpTime, #endTime {background-color: #bbb;color: #333;font-size: 2vmax;padding: 0.1vw;}
     #closePopUp {position: absolute;top: 1vh;right: 1vw;color: #777;background-color: rgba(50,50,50,0.5);
         font-size: 2vmax;cursor: pointer;}
     #sDetail {padding: 1vmax;border-top: #555 solid 0.2vmax;margin-top: 1vh;}
-    #sDetail input {width: 100%;background-color: #eee;color: #333;font-size: 2vmax;padding: 0.1vw;}
+    #sDetail input {background-color: #eee;color: #333;font-size: 2vmax;padding: 0.1vw;cursor: text;
+        word-wrap: break-word;max-width: 100%;overflow-wrap: break-word;}
     #sDetail input:focus {background-color: white;}
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;}
     
 
     @media screen and (max-width:821px) {  
-        #popUp {padding: 1vmax;}
+        #popUp {padding: 1vmax;line-height: 180%;}
     }
     
 </style>
@@ -72,8 +74,10 @@
         <input type="time" id="endTime" name="endTime" step="3600">
         <br>
         <div id="sDetail">
+            
             <label for="title">Title: </label><br>
-            <input type="text" id="title">
+            <input type="text" id="titleName" name="title" value="enter title"
+            onkeypress="resizeTextBox('titleName')">
             <br>
             <label for="speaker1">Speaker #1</label>
             <select id="speaker1" name="speaker1"></select>
@@ -357,6 +361,12 @@ function programEnter(cDate){
     cDate.setMinutes(cDate.getMinutes() + defaultDuration);
     var endTime = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
     document.getElementById('endTime').value = endTime;
+}
+
+function resizeTextBox(id){
+    textBox = document.getElementById(id)
+    text = textBox.value
+    textBox.style.width = text.length*8 + 25 + 'px'
 }
 
 
