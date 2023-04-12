@@ -13,7 +13,7 @@
     #dayTable {display:block;overflow-y: scroll;border: #bbb 1px solid;width: 90vw;margin-left: auto;margin-right: auto;
         position: relative;}
     #header {position: sticky;top:0;z-index:1;background-color: aquamarine;}
-    #header th {font-size: 2vw;color: #333;cursor: pointer;}
+    #header th {font-size: 2vmax;color: #333;cursor: pointer;}
     #dateCol, #roomCol {cursor: pointer;}
     .dateMenu,.roomMenu {position: absolute;background-color: #232323;padding: 0;margin: 0;list-style-type: none;
     box-shadow: 2px 4px 4px 4px rgba(100,100,100,0.5);}
@@ -23,7 +23,7 @@
     .timeLine {text-align: right;vertical-align: top;padding: 0;margin: 0;}
     .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
     #popUp {position: fixed;visibility: hidden;width: 98vw;height: 98vh;top:1vh;left:1vw;background-color:rgba(0,0,0,0.85);
-            color: #ddd;font-size: 2.2vmax;padding: 10vmax;z-index: 2;line-height: 150%;}
+            color: #ddd;font-size: 2.2vmax;padding: 5vmax;z-index: 2;line-height: 150%;}
     #popUpDate, #popUpRoom {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #popUpTime, #endTime {background-color: #bbb;color: #333;font-size: 2vmax;padding: 0.1vw;}
     #closePopUp {position: absolute;top: 1vh;right: 1vw;color: #777;background-color: rgba(50,50,50,0.5);
@@ -60,6 +60,7 @@
         <br>
         <label for='popUpTime'>Start: </label>
         <input type="time" id="popUpTime" name="popUpTime" step="3600">
+        <br>
         <label for="endTime">End: </label>
         <input type="time" id="endTime" name="endTime" step="3600">
     </div>
