@@ -22,18 +22,18 @@
     .dateList:hover, .roomList:hover {background-color: black;}
     .timeLine {text-align: right;vertical-align: top;padding: 0;margin: 0;}
     .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
-    #popUp {position: fixed;visibility: hidden;width: 98vw;height: 98vh;top:1vh;left:1vw;background-color:rgba(0,0,0,0.85);
-            color: #ddd;font-size: 2.2vmax;padding: 2vmax 5vmax;z-index: 2;line-height: 150%;}
+    #popUp {position: fixed;visibility: hidden;width: 98vw;height: 98vh;top:1vh;left:1vw;
+        background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2.2vmax;padding: 2vmax 5vmax;z-index: 2;line-height: 150%;}
     #popUp label {color: aquamarine;}
     #popUp select, #popUp input {cursor: pointer;}
     #popUpDate, #popUpRoom {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #popUpTime, #endTime {background-color: #bbb;color: #333;font-size: 2vmax;padding: 0.1vw;}
     #closePopUp {position: absolute;top: 1vh;right: 1vw;color: #777;background-color: rgba(50,50,50,0.5);
         font-size: 2vmax;cursor: pointer;}
-    #sDetail {padding: 1vmax;border-top: #555 solid 0.2vmax;margin-top: 1vh;}
-    #sDetail input {background-color: #eee;color: #333;font-size: 2vmax;padding: 0.1vw;cursor: text;
-        word-wrap: break-word;max-width: 100%;overflow-wrap: break-word;}
-    #sDetail input:focus {background-color: white;}
+    #sDetail {padding: 1vmax;border: #555 solid 0.2vmax;margin-top: 1vh;max-height: 50vh;overflow-y: scroll;}
+    #sDetail textarea {background-color: #eee;color: #333;font-size: 2vmax;padding: 0.1vw;cursor: text;
+        width: 100%;height: 5vmax;}
+    #sDetail textarea:focus {background-color: white;}
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;}
     
@@ -76,8 +76,9 @@
         <div id="sDetail">
             
             <label for="title">Title: </label><br>
-            <input type="text" id="titleName" name="title" value="enter title"
-            onkeypress="resizeTextBox('titleName')">
+            <textarea id="titleArea">
+                enter title here...
+            </textarea>
             <br>
             <label for="speaker1">Speaker #1</label>
             <select id="speaker1" name="speaker1"></select>
@@ -362,14 +363,6 @@ function programEnter(cDate){
     var endTime = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
     document.getElementById('endTime').value = endTime;
 }
-
-function resizeTextBox(id){
-    textBox = document.getElementById(id)
-    text = textBox.value
-    textBox.style.width = text.length*8 + 25 + 'px'
-}
-
-
 
 function getVmax(){
     var vmax;
