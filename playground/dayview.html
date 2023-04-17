@@ -35,8 +35,8 @@
         width: 100%;height: 5vmax;}
     #sDetail textarea:focus {background-color: white;}
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
-    #sDetail label {color: aquamarine;}
-    
+    #sDetail label {color: aquamarine;padding: 1vmax;}
+    .popUpBr {padding-top: 1vmax;} 
 
     @media screen and (max-width:821px) {  
         #popUp {padding: 1vmax;line-height: 180%;}
@@ -63,41 +63,45 @@
         <button id="closePopUp">X</button>
         <label for="popUpDate">Date: </label>
         <select id="popUpDate" name="date"></select>
-        <br>
+        <div class="popUpBr"></div>
         <label for="popUpRoom">Room: </label>
         <select id="popUpRoom" name="room"></select>
-        <br>
+        <div class="popUpBr"></div>
         <label for='popUpTime'>Start: </label>
         <input type="time" id="popUpTime" name="popUpTime" step="3600">
-        <br>
+        <div class="popUpBr"></div>
         <label for="endTime">End: </label>
         <input type="time" id="endTime" name="endTime" step="3600">
-        <br>
+
+        <div class="popUpBr"></div>
         <div id="sDetail">
             
             <label for="title">Title: </label><br>
-            <textarea id="titleArea">
-                enter title here...
-            </textarea>
-            <br>
+            <form style="text-align: center;line-height: 100%;">
+                <textarea id="titleArea" onfocus="this.value=''">
+                    enter title here...
+                </textarea>
+                <input type="reset" style="line-height: 100%;color: #333;">
+            </form>
+            <div class="popUpBr"></div>
             <label for="speaker1">Speaker #1</label>
             <select id="speaker1" name="speaker1"></select>
-            <br>
+            <div class="popUpBr"></div>
             <label for="speaker2">Speaker #2</label>
             <select id="speaker2" name="speaker2"></select>
-            <br>
+            <div class="popUpBr"></div>
             <label for="speaker3">Speaker #3</label>
             <select id="speaker3" name="speaker3"></select>
             <br>
             <label for="speaker4">Speaker #4</label>
             <select id="speaker4" name="speaker4"></select>
-            <br>
+            <div class="popUpBr"></div>
             <label for="mod1">Moderator #1</label>
             <select id="mod1" name="mod1"></select>
-            <br>
+            <div class="popUpBr"></div>
             <label for="mod2">Moderator #2</label>
             <select id="mod2" name="mod2"></select>
-            <br>
+            <div class="popUpBr"></div>
             <label for="mod3">Moderator #3</label>
             <select id="mod3" name="mod3"></select>
         </div>
@@ -318,7 +322,8 @@ function programEnter(cDate){
 
     //close popUp
     document.getElementById('closePopUp').onclick = function(){
-        pop.style.visibility = 'hidden'
+        if (confirm('Close without save?')){
+            pop.style.visibility = 'hidden'}
     }
 
     //date dropdown
