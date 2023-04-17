@@ -81,7 +81,7 @@
                 <textarea id="titleArea" onfocus="this.value=''">
                     enter title here...
                 </textarea>
-                <input type="reset" style="line-height: 100%;color: #333;">
+                <input type="reset" style="color: #333;">
             </form>
             <div class="popUpBr"></div>
             <label for="speaker1">Speaker #1</label>
@@ -105,6 +105,8 @@
             <label for="mod3">Moderator #3</label>
             <select id="mod3" name="mod3"></select>
         </div>
+        <button id="popUpSave" style="color: #333;">Save</button>
+        <button id="popUpExit" style="color:#333">Exit</button>
     </div>
 
 
@@ -322,6 +324,10 @@ function programEnter(cDate){
 
     //close popUp
     document.getElementById('closePopUp').onclick = function(){
+        if (confirm('Close without save?')){
+            pop.style.visibility = 'hidden'}
+    }
+    document.getElementById('popUpExit').onclick = function(){
         if (confirm('Close without save?')){
             pop.style.visibility = 'hidden'}
     }
