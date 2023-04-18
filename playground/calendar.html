@@ -7,9 +7,10 @@
     <title>calendar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
 </head>
 <style>
-    * {background-color: #333;color: #ddd;font-family: 'Rubik', sans-serif;}
+    * {color: #ddd;font-family: 'Rubik', sans-serif;box-sizing: border-box;}
     button {border-radius: 0.5vw;padding: 1vw;cursor: pointer;}
     #cTable {font-size: 2.5vmax;padding: 1vw;border-collapse: collapse;text-align: center;
         margin-left: auto;margin-right: auto;margin-top: 1vh;}
@@ -28,8 +29,40 @@
     #user {display: none;border: #555 solid 0.1vmax;background-color: #ddd;padding:1vmax;color: #333;}
     #user label {font-size: 2vmax;background-color: inherit;color: inherit;}
     #user input {padding: 0.5vw;border-radius: 0.5vw;border: #797979 solid 0.1vmax;}
+
+    #dayTable {display:block;overflow-y: scroll;border: #bbb 1px solid;width: 90vw;margin-left: auto;margin-right: auto;
+        position: relative;}
+    #header {position: sticky;top:0;z-index:1;background-color: aquamarine;}
+    #header th {font-size: 2vmax;color: #333;cursor: pointer;}
+    #dateCol, #roomCol {cursor: pointer;}
+    .dateMenu,.roomMenu {position: absolute;background-color: #232323;padding: 0;margin: 0;list-style-type: none;
+    box-shadow: 2px 4px 4px 4px rgba(100,100,100,0.5);}
+    .dateList, .roomList {border-bottom: 1px #555 solid;font-size: 2vmax;
+        padding: 3vh 0;}
+    .dateList:hover, .roomList:hover {background-color: black;}
+    .timeLine {text-align: right;vertical-align: top;padding: 0;margin: 0;}
+    .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
+    #popUp {position: fixed;visibility: hidden;width: 98vw;height: 98vh;top:1vh;left:1vw;
+        background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2.2vmax;padding: 2vmax 5vmax;z-index: 2;line-height: 150%;}
+    #popUp label {color: aquamarine;}
+    #popUp select, #popUp input {cursor: pointer;}
+    #popUpDate, #popUpRoom {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
+    #popUpTime, #endTime {background-color: #bbb;color: #333;font-size: 2vmax;padding: 0.1vw;}
+    #closePopUp {position: absolute;top: 1vh;right: 1vw;color: #777;background-color: rgba(50,50,50,0.5);
+        font-size: 2vmax;cursor: pointer;}
+    #sDetail {padding: 1vmax;border: #555 solid 0.2vmax;margin-top: 1vh;max-height: 50vh;overflow-y: scroll;}
+    #sDetail textarea {background-color: #eee;color: #333;font-size: 2vmax;padding: 0.1vw;cursor: text;
+        width: 100%;height: 5vmax;}
+    #sDetail textarea:focus {background-color: white;}
+    #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
+    #sDetail label {color: aquamarine;padding: 1vmax;}
+    .popUpBr {padding-top: 1vmax;} 
+
+    @media screen and (max-width:821px) {  
+        #popUp {padding: 1vmax;line-height: 180%;}
+    }
 </style>
-<body>
+<body style="background-color: #333;">
 
 <div id="setUp">
     <div style="text-align: center;">
@@ -135,14 +168,72 @@
 
 <!--scheduling-->
 <div id="scheduling">
-    <div id="head">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
+    <div id="title" style="text-align: center;padding: 5vh 2vw;">
+        <div id="meetingName" style="font-size: 4vmax;color:aquamarine;">
+            Meeting Name <sup><i class="fa-regular fa-pen-to-square" style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
+        </div>
+        <div id="meetingDate" style="font-size: 3vmax;color:aquamarine;">
+            Meeting Date <sup><i class="fa-regular fa-pen-to-square" style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
+        </div>
     </div>
 
-    <div id="dayView">
-        
+
+    <table id="dayTable">
+        <tr id="header">
+            <th id="dateCol" onclick="showDateMenu()">DATE&nbsp;&bigtriangledown;</th>
+            <th id="roomCol" onclick="showRoomMenu()">ROOM&nbsp;&bigtriangledown;</th>
+        </tr>
+    </table>
+
+    <!--popUp-->
+    <div id="popUp">
+        <button id="closePopUp">X</button>
+        <label for="popUpDate">Date: </label>
+        <select id="popUpDate" name="date"></select>
+        <div class="popUpBr"></div>
+        <label for="popUpRoom">Room: </label>
+        <select id="popUpRoom" name="room"></select>
+        <div class="popUpBr"></div>
+        <label for='popUpTime'>Start: </label>
+        <input type="time" id="popUpTime" name="popUpTime" step="3600">
+        <div class="popUpBr"></div>
+        <label for="endTime">End: </label>
+        <input type="time" id="endTime" name="endTime" step="3600">
+
+        <div class="popUpBr"></div>
+        <div id="sDetail">
+            
+            <label for="title">Title: </label><br>
+            <form style="text-align: center;line-height: 100%;">
+                <textarea id="titleArea" onfocus="this.value=''">
+                    enter title here...
+                </textarea>
+                <input type="reset" style="color: #333;">
+            </form>
+            <div class="popUpBr"></div>
+            <label for="speaker1">Speaker #1</label>
+            <select id="speaker1" name="speaker1"></select>
+            <div class="popUpBr"></div>
+            <label for="speaker2">Speaker #2</label>
+            <select id="speaker2" name="speaker2"></select>
+            <div class="popUpBr"></div>
+            <label for="speaker3">Speaker #3</label>
+            <select id="speaker3" name="speaker3"></select>
+            <br>
+            <label for="speaker4">Speaker #4</label>
+            <select id="speaker4" name="speaker4"></select>
+            <div class="popUpBr"></div>
+            <label for="mod1">Moderator #1</label>
+            <select id="mod1" name="mod1"></select>
+            <div class="popUpBr"></div>
+            <label for="mod2">Moderator #2</label>
+            <select id="mod2" name="mod2"></select>
+            <div class="popUpBr"></div>
+            <label for="mod3">Moderator #3</label>
+            <select id="mod3" name="mod3"></select>
+        </div>
+        <button id="popUpSave" style="color: #333;">Save</button>
+        <button id="popUpExit" style="color:#333">Exit</button>
     </div>
 
 </div>
@@ -178,6 +269,23 @@ setUpDateArray(dateArray);
 const now = new Date()  
 clearCalendar()
 dateRun(now)
+
+//dayview
+//set up screen viewpoint
+vw = screen.width/100;vh = screen.height/100;
+vmax = getVmax();
+
+//demo date & room
+day1 = new Date(2024,01,16)
+day2 = new Date(2024,01,17)
+day3 = new Date(2024,01,18)
+var dates = [day1,day2,day3]
+var rooms = ['Upper Floor','Lower Floor','Add/Edit']
+var currentDate = dates[0];
+var currentRoom = rooms[0];
+var defaultDuration = 60;
+
+setupTable()
 
 //entering program
 function program(name){
@@ -239,8 +347,9 @@ function submit(){
                                     })
 
                                     if (Number(feed.status) <300){
-                                        console.log(feed.status)
-                                        window.location.replace('../playground/dayview.html#top')
+                                        //console.log(feed.status)
+                                        document.getElementById('setUp').style.display = 'none'
+                                        document.getElementById('scheduling').style.display = 'block'
                                     }
                                     if (feed.status=='409'){
                                         alert('This username has been taken.')
@@ -487,6 +596,267 @@ function colorCell(d,color){
         
     }
 }
+
+function showRoomMenu(){
+    const table = document.getElementById('dayTable')
+    const head = document.getElementById('roomCol')
+    const top = head.offsetTop + 10*vh;
+    const left = head.offsetLeft + 0.5*vw;
+    const width = head.offsetWidth - vw;
+
+    //to show menu or not
+    const menu = document.getElementsByClassName('roomMenu')
+    const list = document.getElementsByClassName('roomList')
+
+    if (menu.length==0){
+        const newList = document.createElement('div')
+        head.appendChild(newList)
+        newList.className = 'roomMenu'
+        newList.style.visibility = 'visible'
+
+        //get coordinate
+        newList.style.top = top + 'px';newList.style.left = left + 'px'
+        newList.style.width = width+'px'
+        }
+    else {
+        if (menu[0].style.visibility =='visible'){
+            menu[0].style.visibility = 'hidden'
+        } 
+        else {
+            menu[0].style.visibility = 'visible'}
+    }
+
+    //hide other menu
+    const otherM = document.getElementsByClassName('dateMenu');
+    if (otherM.length>0){
+        if (otherM[0].style.visibility=='visible'){
+        otherM[0].style.visibility = 'hidden'
+        }
+    }
+
+ 
+    //to add items or not
+    if (rooms.length>list.length){
+        var diff = rooms.length - list.length;
+        var start = (rooms.length - diff)-1;
+
+        for (let index = start+1; index < rooms.length; index++) {
+            const newLi = document.createElement('li')
+            menu[0].appendChild(newLi)
+            newLi.style.width = width + 'px';
+            newLi.className = 'roomList'
+            //format date
+            newLi.innerHTML = rooms[index]
+        }
+    }
+
+
+    //date click
+    for (let index = 0; index < list.length; index++) {
+        list[index].onclick = function(){
+            head.innerHTML = rooms[index]+' '+ '&#9661;';
+            currentRoom = rooms[index]
+            showRoomMenu();
+        }
+    }
+}
+
+function showDateMenu(){
+    const table = document.getElementById('dayTable')
+    const head = document.getElementById('dateCol')
+    const top = head.offsetTop + 10*vh;
+    const left = head.offsetLeft + 0.5*vw;
+    const width = head.offsetWidth - vw;
+
+    //to show menu or not
+    const menu = document.getElementsByClassName('dateMenu')
+    const list = document.getElementsByClassName('dateList')
+
+    if (menu.length==0){
+        const newList = document.createElement('div')
+        head.appendChild(newList)
+        newList.className = 'dateMenu'
+        newList.style.visibility = 'visible'
+
+        //get coordinate
+        newList.style.top = top + 'px';newList.style.left = left + 'px'
+        newList.style.width = width+'px'
+        }
+    else {
+        if (menu[0].style.visibility =='visible'){
+            menu[0].style.visibility = 'hidden'
+        } 
+        else {
+            menu[0].style.visibility = 'visible'}
+    }
+
+    //hide other menu
+    const otherM = document.getElementsByClassName('roomMenu');
+    if (otherM.length>0){
+        if (otherM[0].style.visibility=='visible'){
+        otherM[0].style.visibility = 'hidden'
+        }
+    }
+ 
+    //to add items or not
+    if (dates.length>list.length){
+        var diff = dates.length - list.length;
+        var start = (dates.length - diff)-1;
+
+        for (let index = start+1; index < dates.length; index++) {
+            const newLi = document.createElement('li')
+            menu[0].appendChild(newLi)
+            newLi.style.width = width + 'px';
+            newLi.className = 'dateList'
+            //format date
+            var date2Show = dates[index].toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"});
+            newLi.innerHTML = date2Show
+        }
+    }
+
+
+    //date click
+    for (let index = 0; index < list.length; index++) {
+        list[index].onclick = function(){
+            const date2Show = dates[index].toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"});
+            head.innerHTML = date2Show + ' '+ '&#9661;';
+            currentDate = dates[index]
+            showDateMenu();
+        }
+    }
+}
+
+
+function setupTable(){
+    //one hour equal to 3vh + header of 9vh
+    const oneHour = 9*vh;
+    
+    //table will show only 8 hour; overflow --scroll
+    const dayTable = document.getElementById('dayTable');
+    dayTable.style.height = (8*oneHour) + 9*vh + 'px';
+    //header height and width
+    const head = document.getElementById('header')
+    head.style.height = 9*vh + 'px';
+    //console.log(dayTable.rows[0].cells.length)
+    const colPad = 1*vmax;
+    dateColW = 2*vw*9 + colPad;
+    dayTable.rows[0].cells[0].style.width = dateColW + 'px';
+    dayTable.rows[0].cells[1].style.width = 90*vw - dateColW + 'px'
+    
+    //create 24hr row
+    for (let index = 0; index < 24; index++) {
+        const newRow = document.createElement('tr')
+        dayTable.appendChild(newRow)
+        newRow.style.cursor = 'pointer'
+        newRow.onclick = function(){
+            //clear all rows bg
+            for (let index = 1; index < dayTable.rows.length; index++) {
+                dayTable.rows[index].cells[1].style.backgroundColor = 'initial'                
+            }
+            
+            currentDate.setHours(index)
+            //alert(currentDate)
+            newRow.cells[1].style.backgroundColor = 'crimson'
+            programEnter(currentDate)
+        }
+        newRow.style.height = oneHour + 'px'
+        const newCell0 = document.createElement('td')
+        newRow.appendChild(newCell0)
+        const newCell1 = document.createElement('td')
+        newRow.appendChild(newCell1)
+        var time2Show = index + ':00'
+        newCell0.innerHTML = time2Show;
+        newCell0.className = 'timeLine'
+        newCell1.style.borderTop = 'solid 0.1px #555'
+
+    }
+
+    dayTable.rows[8].scrollIntoView();
+    dayTable.onscroll = function(){
+        const roomMenu = document.getElementsByClassName('roomMenu')
+        const dateMenu = document.getElementsByClassName('dateMenu')
+        if (roomMenu.length>0){
+            roomMenu[0].style.visibility = 'hidden'
+        }
+        if (dateMenu.length>0){
+            dateMenu[0].style.visibility = 'hidden'
+        }
+    }
+}
+
+function programEnter(cDate){
+    const pop = document.getElementById('popUp')
+    pop.style.visibility = 'visible'
+    //document.getElementById('popUpDate').innerHTML = 'Date: ' + cDate.toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"})
+    //document.getElementById('popUpRoom').innerHTML = 'Room: ' + currentRoom
+    //document.getElementById('popUpTime').innerHTML = 'Time: ' + cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit" })
+
+    //close popUp
+    document.getElementById('closePopUp').onclick = function(){
+        if (confirm('Close without save?')){
+            pop.style.visibility = 'hidden'}
+    }
+    document.getElementById('popUpExit').onclick = function(){
+        if (confirm('Close without save?')){
+            pop.style.visibility = 'hidden'}
+    }
+    //save
+    document.getElementById('popUpSave').onclick = function(){
+        alert('save')
+        pop.style.visibility = 'hidden'
+    }
+
+
+    //date dropdown
+    var d = document.getElementById('popUpDate')
+    if (d.children.length<dates.length){
+        for (let index = 0; index < dates.length; index++) {
+            var opt = document.createElement('option')
+            d.appendChild(opt)
+            opt.value = dates[index]
+
+            //preselected date that was clicked
+            if (cDate==dates[index]){
+                opt.setAttribute('selected', 'selected')
+            }
+            var date2Show = dates[index].toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"})
+            opt.innerHTML = date2Show;
+            opt.style.backgroundColor = 'rgba(0,0,0,0.85)'
+        }
+    }
+
+    //room
+    var r = document.getElementById('popUpRoom')
+    if (r.children.length<rooms.length){
+        for (let index = 0; index < rooms.length; index++) {
+            var opt = document.createElement('option')
+            r.appendChild(opt)
+            opt.value = rooms[index]
+
+            //preselected room that was clicked
+            if (currentRoom==rooms[index]){
+                opt.setAttribute('selected', 'selected')
+            }
+            opt.innerHTML = rooms[index];
+            opt.style.backgroundColor = 'rgba(0,0,0,0.85)'
+        }
+    }
+
+    //time
+    var time2Show = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
+    document.getElementById('popUpTime').value = time2Show;
+    cDate.setMinutes(cDate.getMinutes() + defaultDuration);
+    var endTime = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
+    document.getElementById('endTime').value = endTime;
+}
+
+function getVmax(){
+    var vmax;
+    if (vw>vh) {vmax = vw} else {vmax = vh}
+    return vmax;
+}
+
+
 
 
 
