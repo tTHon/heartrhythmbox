@@ -10,7 +10,7 @@
 </head>
 <style>
     * {background-color: #333;color: #ddd;font-family: 'Rubik', sans-serif;}
-    button {border-radius: 0.5vw;padding: 1vw;}
+    button {border-radius: 0.5vw;padding: 1vw;cursor: pointer;}
     #cTable {font-size: 2.5vmax;padding: 1vw;border-collapse: collapse;text-align: center;
         margin-left: auto;margin-right: auto;margin-top: 1vh;}
     #cTable td {border: solid 0.2vw #797979;padding: 1vw;width: 11vw;}
@@ -20,11 +20,14 @@
     .cNav {padding: 0 2vw;}
     #calendar {display: none;width: fit-content;margin-left: auto;margin-right: auto;}
     #dayLabel td {color:aquamarine;font-weight: 700;}
-    #sum {display: none;z-index: 10;left: 10%;top: 10%;position: fixed;width: 60%;height: 40%;color: #333;
+    #sum {display: none;z-index: 10;left: 10%;top: 10%;position: fixed;width: 60%;height: fit-content;color: #333;
     background-color: #ddd;padding:10%}
     #nameSum, #start, #end {color: crimson;background-color: #ddd;}
     #scheduling {display: none;}
     .line {text-align: center;}
+    #user {display: none;border: #555 solid 0.1vmax;background-color: #ddd;padding:1vmax;color: #333;}
+    #user label {font-size: 2vmax;background-color: inherit;color: inherit;}
+    #user input {padding: 0.5vw;border-radius: 0.5vw;border: #797979 solid 0.1vmax;}
 </style>
 <body>
 
@@ -103,16 +106,31 @@
     <h3 id="sum">
         Your meeting name is <span id="nameSum"></span>.<br>
         Starting on: <br>
-        <span id="start"></span>
+        <span id="start"></span><br>
         Until:<br>
         <span id="end"></span>
-        <div style="background-color: #ddd;padding: 2vmax 0;">
+
+        <!--create user/login-->
+        <div id="user">
+            Please create username and password<br><br>
+            <label for="username">Username: </label> 
+            <input type="text" id="username" name="username" autofocus><br>
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password">
+            <div style="background-color: #ddd;padding: 2vmax 0;">
+                <button id="backAfter">Back</button>
+                <button id="nextAfter">
+                    Next
+                </button>
+            </div>
+        </div>
+
+        <div id="beforeLogin" style="background-color: #ddd;padding: 2vmax 0;">
             <button id="back">Back</button>
-            <button id="next">
-                Next
-            </button>
+            <button id="next">Next</button>
         </div>
     </h3>
+    
 </div>
 
 <!--scheduling-->
@@ -136,6 +154,7 @@ color: #aaa;font-size: 1.8vmax;margin-top: 20vh;text-align: center;">
     <span style="color:#888;font-size: 1.6vmax;">design to your style &middot; write to your need</span>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
@@ -158,7 +177,6 @@ setUpDateArray(dateArray);
 //show today calendar
 const now = new Date()  
 clearCalendar()
-console.log(now)
 dateRun(now)
 
 //entering program
@@ -193,11 +211,48 @@ function submit(){
                 document.getElementById('back').onclick = function(){
                     sum.style.display='none' }
                 document.getElementById('next').onclick = function(){
-                    //have to setup for data submission to supabase
-                    //go to scheduling phase
-                    document.getElementById('setUp').style.display = 'none'
-                    document.getElementById('scheduling').style.display = 'block'
-                    program(mName)
+                    document.getElementById('beforeLogin').style.display = 'none'
+                    document.getElementById('user').style.display = 'block'
+                    document.getElementById('backAfter').onclick = function(){
+                        sum.style.display='none' }
+                        document.getElementById('nextAfter').onclick = function(){
+                            var uName = document.getElementById('username').value;
+                            var pw = document.getElementById('password').value;
+                            if (uName ==''){
+                                alert('please enter username')
+                            } else {
+                              if (pw==''){
+                                alert('please enter password')
+                              } 
+                            else {
+                                //submit username, password, meetingName, beginD, endD
+                                supUrl = 'https://entgoevitfioaiavmrfb.supabase.co'
+                                supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
+                                const database = supabase.createClient(supUrl,supKey)
+                                //console.log (database)
+                              
+                                //sending data
+                                const sendData = async () => {
+                                    const feed = await database.from("index").insert({
+                                        meetingName: mName, beginD:beginD, endD:endD,
+                                        username: uName, password:pw
+                                    })
+
+                                    if (Number(feed.status) <300){
+                                        console.log(feed.status)
+                                        window.location.replace('../playground/dayview.html#top')
+                                    }
+                                    if (feed.status=='409'){
+                                        alert('This username has been taken.')
+                                    }
+                               
+                                }
+                                sendData();
+
+                              }  
+                            }
+                        }
+                    
                 }
             }
         }
