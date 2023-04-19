@@ -38,7 +38,7 @@
     #header th {font-size: 2vmax;color: #333;cursor: pointer;}
     #dateCol, #roomCol {cursor: pointer;}
     .dateMenu,.roomMenu {position: absolute;background-color: #232323;padding: 0;margin: 0;list-style-type: none;
-    box-shadow: 2px 4px 4px 4px rgba(100,100,100,0.5);}
+    box-shadow: 2px 4px 4px 4px rgba(100,100,100,0.5);overflow-y: scroll;overflow-x: hidden;text-overflow: ellipsis;}
     .dateList, .roomList {border-bottom: 1px #555 solid;font-size: 2vmax;
         padding: 3vh 0;}
     .dateList:hover, .roomList:hover {background-color: black;}
@@ -268,13 +268,6 @@ var thisMonthColor = '#efefef'
 var nextMonthColor = '#555'
 var todayColor = 'red'
 
-setUpDateArray(dateArray);
-
-//show today calendar
-const now = new Date()  
-clearCalendar()
-dateRun(now)
-
 //dayview
 //set up screen viewpoint
 vw = screen.width/100;vh = screen.height/100;
@@ -288,6 +281,19 @@ var currentRoom = rooms[0];
 var defaultDuration = 60;
 
 var mName;
+
+setUpDateArray(dateArray);
+
+//show today calendar
+const now = new Date()  
+clearCalendar()
+dateRun(now)
+
+function checkCookie(){
+    if(document.cookie!=''){
+        
+    };
+}
 
 //entering program
 function program(name){
@@ -357,7 +363,7 @@ function submit(){
                                
                                 }
                                 sendData();
-
+                                document.cookie = uName;
                               }  
                             }
                         }
@@ -613,6 +619,8 @@ function showRoomMenu(){
         head.appendChild(newList)
         newList.className = 'roomMenu'
         newList.style.visibility = 'visible'
+        const oneHour = 9*vh;
+        menu[0].style.maxHeight = 5*oneHour + 'px'
 
         //get coordinate
         newList.style.top = top + 'px';newList.style.left = left + 'px'
@@ -671,12 +679,15 @@ function showDateMenu(){
     //to show menu or not
     const menu = document.getElementsByClassName('dateMenu')
     const list = document.getElementsByClassName('dateList')
+    
 
     if (menu.length==0){
         const newList = document.createElement('div')
         head.appendChild(newList)
         newList.className = 'dateMenu'
         newList.style.visibility = 'visible'
+        const oneHour = 9*vh;
+        menu[0].style.maxHeight = 5*oneHour + 'px'
 
         //get coordinate
         newList.style.top = top + 'px';newList.style.left = left + 'px'
