@@ -281,27 +281,19 @@ var currentRoom = rooms[0];
 var defaultDuration = 60;
 
 var mName;
-
-setUpDateArray(dateArray);
-
-//show today calendar
-const now = new Date()  
-clearCalendar()
-dateRun(now)
+checkCookie();
 
 function checkCookie(){
     if(document.cookie!=''){
-        
-    };
-}
+        alert('no cookie')
+        setUpDateArray(dateArray);
 
-//entering program
-function program(name){
-    pLine = document.getElementsByClassName('line')
-    pLine[0].innerHTML = mName
-    dayCount = ((endD-beginD)/oneDay)+1
-    pLine[1].innerHTML = beginD.toDateString() + ' - ' + endD.toDateString() 
-    pLine[2].innerHTML = '  Total of ' + dayCount + ' days';
+        //show today calendar
+        const now = new Date()  
+        clearCalendar()
+        dateRun(now)
+    }
+    else {alert(document.cookie)}
 }
 
 //submitting setup page
@@ -364,6 +356,7 @@ function submit(){
                                 }
                                 sendData();
                                 document.cookie = uName;
+                                alert(document.cookie)
                               }  
                             }
                         }
