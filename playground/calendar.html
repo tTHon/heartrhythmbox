@@ -59,6 +59,7 @@
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
+    #menuIcon {position: sticky;top:1vh;left: 1vw;}
 
     @media screen and (max-width:821px) {  
         #popUp {padding: 1vmax;line-height: 180%;}
@@ -171,6 +172,9 @@
 
 <!--scheduling-->
 <div id="scheduling">
+    <div id="menuIcon">
+        <i class="fa-solid fa-bars" style="border-radius: 0.5vmax;padding: 0.5vmax;box-shadow: 2px 2px 2px 2px rgba(30,30,30,0.5)"></i>
+    </div>
     <div id="title" style="text-align: center;padding: 5vh 2vw;">
         <div id="meetingName" style="font-size: 4vmax;">
             <span id='mName' style="color:aquamarine;">Meeting Name</span> 
@@ -256,7 +260,7 @@ const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
 var nowMonth;
 var nowYear;
-var beginD;var endD;
+var beginD;var endD;var mName;var userID;
 var dateArray = []
 var oneDay = 24*60*60*1000
 
@@ -280,21 +284,62 @@ var currentDate;
 var currentRoom = rooms[0];
 var defaultDuration = 60;
 
-var mName;
+//checkCookie()
 checkCookie();
 
+//check cookie and proceed accordingly
 function checkCookie(){
-    if(document.cookie!=''){
-        alert('no cookie')
+    console.log(document.cookie.length)
+    if (document.cookie.length==0){
         setUpDateArray(dateArray);
-
         //show today calendar
         const now = new Date()  
         clearCalendar()
         dateRun(now)
     }
-    else {alert(document.cookie)}
+    else {
+        document.getElementById('setUp').style.display = 'none'
+        document.getElementById('scheduling').style.display = 'block'
+
+        var cookie = document.cookie
+        //get meeting info
+        supUrl = 'https://entgoevitfioaiavmrfb.supabase.co'
+        supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
+        const database = supabase.createClient(supUrl,supKey)
+          
+        //get data
+        const fetchData = async () => {
+            const feed = await database
+                .from("index")
+                .select()
+                .eq ('username', cookie)
+            getData(feed)
+        }
+        fetchDate()
+
+        function getData(feed){
+            var match = feed.data[0]
+            //var beginD;var endD;var mName;var userID;
+            userID = match.username;
+            mName = match.meetingName;
+            beginD = match.beginD;
+            endD = match.endD;
+        }
+
+        setupTable()
+        window.scrollTo({top:0,left:0})
+        alert('Your ID: ' + document.cookie)
+    }
 }
+
+function checkCookieDemo(){
+    setUpDateArray(dateArray);
+    //show today calendar
+    const now = new Date()  
+    clearCalendar()
+    dateRun(now) 
+}
+
 
 //submitting setup page
 function submit(){
@@ -348,6 +393,8 @@ function submit(){
                                         document.getElementById('scheduling').style.display = 'block'
                                         setupTable()
                                         window.scrollTo({top:0,left:0})
+                                        document.cookie = uName;
+                                        alert(document.cookie)
                                     }
                                     if (feed.status=='409'){
                                         alert('This ID has been taken.')
@@ -355,8 +402,6 @@ function submit(){
                                
                                 }
                                 sendData();
-                                document.cookie = uName;
-                                alert(document.cookie)
                               }  
                             }
                         }
@@ -793,16 +838,6 @@ function setupTable(){
     }
 
     dayTable.rows[8].scrollIntoView();
-    //dayTable.onscroll = function(){
-        //const roomMenu = document.getElementsByClassName('roomMenu')
-        //const dateMenu = document.getElementsByClassName('dateMenu')
-        //if (roomMenu.length>0){
-           // roomMenu[0].style.visibility = 'hidden'
-        //}
-        //if (dateMenu.length>0){
-           // dateMenu[0].style.visibility = 'hidden'
-       // }
-    //}
 }
 
 function programEnter(cDate){
