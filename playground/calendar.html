@@ -60,7 +60,8 @@
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
 
-    #menuIcon {position:fixed;cursor: pointer;}
+    /*mainmenu*/
+    #menuIcon {position:fixed;cursor: pointer;z-index: 10;}
     #menuIcon i {width:4vmax;text-align: center;border-radius: 0.5vmax;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;}
     #mainMenu {display: none;}
     #xMark {display: none;}
@@ -73,6 +74,7 @@
         .noMobile {display: none;}
         #sum {width: 90%;left: 5%;}
     }
+
 </style>
 <body style="background-color: #333;">
 
@@ -188,12 +190,16 @@
                 <span id="menuUser">UserID</span>
             </div>
             <div>
-                <i class="fa-solid fa-circle-info"></i>
+                <i class="fa-regular fa-pen-to-square"></i>
                 <span>Edit Meeting Name/Date</span>
             </div>
             <div>
                 <i class="fa-solid fa-plus"></i>
                 <span>Add Program</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-list-check"></i>
+                <span>Show Program Summary</span>
             </div>
         </div>
     </div>
