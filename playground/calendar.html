@@ -50,8 +50,8 @@
     #popUp select, #popUp input {cursor: pointer;}
     #popUpDate, #popUpRoom {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #popUpTime, #endTime {background-color: #bbb;color: #333;font-size: 2vmax;padding: 0.1vw;}
-    #closePopUp {position: absolute;top: 1vh;right: 1vw;color: #777;background-color: rgba(50,50,50,0.5);
-        font-size: 2vmax;cursor: pointer;}
+    #closePopUp {position: absolute;top: 1vh;right: 1vw;color: #aaa;background-color: rgba(50,50,50,0.5);
+        font-size: 2vmax;cursor: pointer;border-radius: 0.5vmax;padding: 0.2vmax 0.8vmax;}
     #sDetail {padding: 1vmax;border: #555 solid 0.2vmax;margin-top: 1vh;max-height: 50vh;overflow-y: scroll;}
     #sDetail textarea {background-color: #eee;color: #333;font-size: 2vmax;padding: 0.1vw;cursor: text;
         width: 100%;height: 5vmax;}
@@ -59,7 +59,9 @@
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
-    #menuIcon {position: sticky;top:1vh;left: 1vw;}
+    #menuIcon {position: sticky;top:1vh;left: 1vw;cursor: pointer;}
+    #menuIcon i {border-radius: 0.5vmax;padding:0.6vmax 0.8vmax;font-size:2vmax;background-color: #232323;z-index: 10;}
+    .mainMenu {display: none;}
 
     @media screen and (max-width:821px) {  
         #popUp {padding: 1vmax;line-height: 180%;}
@@ -172,8 +174,11 @@
 
 <!--scheduling-->
 <div id="scheduling">
-    <div id="menuIcon">
-        <i class="fa-solid fa-bars" style="border-radius: 0.5vmax;padding: 0.5vmax;box-shadow: 2px 2px 2px 2px rgba(30,30,30,0.5)"></i>
+    <div id="menuIcon" onclick="showMainMenu()">
+        <i class="fa-solid fa-bars"></i>
+        <div id="mainMenu">meeting medium
+
+        </div>
     </div>
     <div id="title" style="text-align: center;padding: 5vh 2vw;">
         <div id="meetingName" style="font-size: 4vmax;">
@@ -289,7 +294,7 @@ checkCookie();
 
 //check cookie and proceed accordingly
 function checkCookie(){
-    console.log(document.cookie.length)
+    //console.log(document.cookie.length)
     if (document.cookie.length==0){
         setUpDateArray(dateArray);
         //show today calendar
@@ -314,21 +319,20 @@ function checkCookie(){
                 .select()
                 .eq ('username', cookie)
             getData(feed)
+            //console.log(feed)
         }
-        fetchDate()
+        fetchData()
 
         function getData(feed){
             var match = feed.data[0]
             //var beginD;var endD;var mName;var userID;
             userID = match.username;
             mName = match.meetingName;
-            beginD = match.beginD;
-            endD = match.endD;
+            beginD = new Date(match.beginD);
+            endD = new Date(match.endD);
+            setupTable()
+            window.scrollTo({top:0,left:0})
         }
-
-        setupTable()
-        window.scrollTo({top:0,left:0})
-        alert('Your ID: ' + document.cookie)
     }
 }
 
@@ -340,6 +344,13 @@ function checkCookieDemo(){
     dateRun(now) 
 }
 
+function showMainMenu(){
+    var menu = document.getElementsByClassName('mainMenu')
+    for (let index = 0; index < menu.length; index++) {
+        menu[index].style.display = 'inline-block'
+       
+    }
+}
 
 //submitting setup page
 function submit(){
