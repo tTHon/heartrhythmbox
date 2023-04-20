@@ -59,10 +59,15 @@
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
-    #menuIcon {position: sticky;top:1vh;left: 1vw;cursor: pointer;}
-    #menuIcon i {border-radius: 0.5vmax;padding:0.6vmax 0.8vmax;font-size:2vmax;background-color: #232323;z-index: 10;}
-    .mainMenu {display: none;}
 
+    #menuIcon {position:fixed;cursor: pointer;}
+    #menuIcon i {width:4vmax;text-align: center;border-radius: 0.5vmax;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;}
+    #mainMenu {display: none;}
+    #xMark {display: none;}
+    #mainMenu div {margin-top: 1vh;background-color: #232323;padding-right: 1vmax;text-align: left;}
+    #mainMenu i {width:5vmax;border-radius: 0.5vmax;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;color: aquamarine;
+    border-right: #333 solid 1vmax;}
+    
     @media screen and (max-width:821px) {  
         #popUp {padding: 1vmax;line-height: 180%;}
         .noMobile {display: none;}
@@ -174,10 +179,22 @@
 
 <!--scheduling-->
 <div id="scheduling">
-    <div id="menuIcon" onclick="showMainMenu()">
-        <i class="fa-solid fa-bars"></i>
-        <div id="mainMenu">meeting medium
-
+    <div id="menuIcon">
+        <i id="hamburger" class="fa-solid fa-bars" onclick="showMainMenu()"></i>
+        <i id="xMark" class="fa-solid fa-circle-xmark" onclick="showMainMenu('x')"></i>
+        <div id="mainMenu">
+            <div>
+                <i class="fa-solid fa-circle-user"></i>
+                <span id="menuUser">UserID</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Edit Meeting Name/Date</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Program</span>
+            </div>
         </div>
     </div>
     <div id="title" style="text-align: center;padding: 5vh 2vw;">
@@ -255,7 +272,9 @@
 <!--foot-->
 <div style="border-top: #555 solid 0.1vmax;margin:0;padding: 2vw 5vw;
 color: #aaa;font-size: 1.8vmax;margin-top: 20vh;text-align: center;">
-    &copy;&nbsp;&nbsp;CODINDG OF A KIND<br>
+    MeetinG MediuM<br>
+    <span style="border-top: #555 solid 0.1vmax;">
+    &copy;&nbsp;&nbsp;CODINDG OF A KIND</span><br>
     <span style="color:#888;font-size: 1.6vmax;">design to your style &middot; write to your need</span>
 </div>
 
@@ -344,11 +363,20 @@ function checkCookieDemo(){
     dateRun(now) 
 }
 
-function showMainMenu(){
-    var menu = document.getElementsByClassName('mainMenu')
-    for (let index = 0; index < menu.length; index++) {
-        menu[index].style.display = 'inline-block'
-       
+function showMainMenu(option){
+    var menu = document.getElementById('mainMenu')
+    var hamburger = document.getElementById('hamburger')
+    var close = document.getElementById('xMark')
+    document.getElementById('menuUser').innerHTML = 'UserID: ' + userID
+
+    if (option == 'x'){
+        menu.style.display = 'none'
+        hamburger.style.display = 'block'
+        close.style.display = 'none'
+    } else {
+        menu.style.display = 'block'
+        hamburger.style.display = 'none'
+        close.style.display = 'block'
     }
 }
 
