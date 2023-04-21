@@ -61,19 +61,35 @@
     .popUpBr {padding-top: 1vmax;} 
 
     /*mainmenu*/
-    #menuIcon {position:fixed;cursor: pointer;z-index: 10;}
-    #menuIcon i {width:4vmax;text-align: center;border-radius: 0.5vmax;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;}
-    #mainMenu {display: none;}
+    #menuIcon {position:fixed;cursor: pointer;z-index: 10;background-color: rgba(50,50,50,0.9);}
+    #menuIcon i {width:4vmax;text-align: center;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;}
+    #mainMenu {display: none;height: 80vh;padding-right: 1vmax;animation: rollDown 1s;}
     #xMark {display: none;}
-    #mainMenu div {margin-top: 1vh;background-color: #232323;padding-right: 1vmax;text-align: left;}
-    #mainMenu i {width:5vmax;border-radius: 0.5vmax;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;color: aquamarine;
-    border-right: #333 solid 1vmax;}
+    #mainMenu div {margin-top: 1vh;background-color: #232323;padding-right: 1vmax;text-align: left;animation: marginDown 1s;}
+    #mainMenu i {width:5vmax;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;color: aquamarine;
+    border-right: #333 solid 1vmax;animation: fadeIn 2s;}
+    #mainMenu span {animation:fadeIn 2s}
     
     @media screen and (max-width:821px) {  
         #popUp {padding: 1vmax;line-height: 180%;}
         .noMobile {display: none;}
         #sum {width: 90%;left: 5%;}
+        #mainMenu {width: 80vw;}
     }
+
+    @keyframes rollDown {
+        0% {height: 0;}
+        100% {height: 80vh;}
+    }
+    @keyframes marginDown {
+        0% {margin-top: 0;}
+        100% {margin-top: 1vh;}
+    }
+    @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+
 
 </style>
 <body style="background-color: #333;">
@@ -198,6 +214,10 @@
                 <span>Add Program</span>
             </div>
             <div class="menuItem">
+                <i class="fa-solid fa-person-chalkboard"></i>
+                <span>Add Speakers/Moderators</span>
+            </div>
+            <div class="menuItem">
                 <i class="fa-solid fa-list-check"></i>
                 <span>Show Program Summary</span>
             </div>
@@ -278,8 +298,6 @@
 <!--foot-->
 <div style="border-top: #555 solid 0.1vmax;margin:0;padding: 2vw 5vw;
 color: #aaa;font-size: 1.8vmax;margin-top: 20vh;text-align: center;">
-    MeetinG MediuM<br>
-    <span style="border-top: #555 solid 0.1vmax;">
     &copy;&nbsp;&nbsp;CODINDG OF A KIND</span><br>
     <span style="color:#888;font-size: 1.6vmax;">design to your style &middot; write to your need</span>
 </div>
@@ -346,7 +364,7 @@ function checkCookie(){
             getData(feed)
             //console.log(feed)
         }
-        fetchData()
+        //fetchData()
 
         function getData(feed){
             var match = feed.data[0]
