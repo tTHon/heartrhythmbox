@@ -32,7 +32,7 @@
     #user label {font-size: 2vmax;background-color: inherit;color: inherit;}
     #user input {padding: 0.5vw;border-radius: 0.5vw;border: #797979 solid 0.1vmax;}
 
-    #dayTable {display:block;overflow-y: scroll;border: #bbb 1px solid;width: 90vw;margin-left: auto;margin-right: auto;
+    #dayTable {display:block;overflow-y: scroll;border: #bbb 1px solid;width: 88vw;margin-left: auto;margin-right: auto;
         position: relative;}
     #header {position: sticky;top:0;z-index:1;background-color: aquamarine;}
     #header th {font-size: 2vmax;color: #333;cursor: pointer;}
@@ -45,7 +45,7 @@
     .timeLine {text-align: right;vertical-align: top;padding: 0;margin: 0;}
     .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
     #popUp {position: fixed;visibility: hidden;width: 98vw;height: 98vh;top:1vh;left:1vw;
-        background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2.2vmax;padding: 2vmax 5vmax;z-index: 2;line-height: 150%;}
+        background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2.2vmax;padding: 2vmax 5vmax;z-index: 3;line-height: 150%;}
     #popUp label {color: aquamarine;}
     #popUp select, #popUp input {cursor: pointer;}
     #popUpDate, #popUpRoom {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
@@ -61,20 +61,26 @@
     .popUpBr {padding-top: 1vmax;} 
 
     /*mainmenu*/
-    #menuIcon {position:fixed;cursor: pointer;z-index: 10;background-color: rgba(50,50,50,0.9);}
+    #menuIcon {position:fixed;cursor: pointer;z-index: 2;background-color: rgba(50,50,50,0.9);}
     #menuIcon i {width:4vmax;text-align: center;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;}
-    #mainMenu {display: none;height: 80vh;padding-right: 1vmax;animation: rollDown 1s;}
+    #mainMenu {display: none;height: 80vh;padding-right: 1vmax;animation: rollDown 0.4s;}
     #xMark {display: none;}
-    #mainMenu div {margin-top: 1vh;background-color: #232323;padding-right: 1vmax;text-align: left;animation: marginDown 1s;}
+    #mainMenu div {margin-top: 1vh;background-color: #232323;padding-right: 1vmax;text-align: left;}
     #mainMenu i {width:5vmax;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;color: aquamarine;
-    border-right: #333 solid 1vmax;animation: fadeIn 2s;}
-    #mainMenu span {animation:fadeIn 2s}
+    border-right: #333 solid 1vmax;animation: fadeIn 1.2s;}
+    #mainMenu span {animation:fadeIn 1.2s}
+    #selectionBar {padding:2vmax 0 0 0;font-size: 1.8vmax;}
+    #selectionBar i {font-size: 2vmax;color: #8ef5d0;}
+    #selectionBar button {border:none;background-color: #232323;color: #dffff4;}
+
+    #people {width: 80vw;margin-left: auto;margin-right: auto;display: none;}
     
     @media screen and (max-width:821px) {  
         #popUp {padding: 1vmax;line-height: 180%;}
         .noMobile {display: none;}
         #sum {width: 90%;left: 5%;}
-        #mainMenu {width: 80vw;}
+        #mainMenu {width: 95vw;}
+        #selectionBar {display: none;}
     }
 
     @keyframes rollDown {
@@ -199,7 +205,11 @@
 <div id="scheduling">
     <div id="menuIcon">
         <i id="hamburger" class="fa-solid fa-bars" onclick="showMainMenu()"></i>
+        <div style="right: 0.9vmax;position: fixed;top: 0.9vmax;text-align: left;line-height: 100%;font-size: 1.2vmax;color: #55a288;
+        border: #555 solid 0.1vmax;border-radius: 0.4vmax;padding: 0.2vmax;background-color: rgba(0,0,0,0.85);">
+        MeetinG<br>&nbsp;&nbsp;&nbsp;MediuM</div>
         <i id="xMark" class="fa-solid fa-circle-xmark" onclick="showMainMenu('x')"></i>
+        
         <div id="mainMenu">
             <div class="menuItem">
                 <i class="fa-solid fa-circle-user"></i>
@@ -232,6 +242,20 @@
             <span id='mDate' style="color:aquamarine;">Meeting Date</span>  
             <sup><i class="fa-regular fa-pen-to-square" style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
         </div>
+        <div id="selectionBar">
+            <button onclick="managePeople()">
+                <i class="fa-solid fa-person-chalkboard"></i><br>
+                <span>Add Speakers/Moderators</span>
+            </button>
+            <button>
+                <i class="fa-solid fa-plus"></i><br>
+                <span>Add Program</span>
+            </button>
+            <button>
+                <i class="fa-solid fa-list-check"></i><br>
+                <span>Show Program Summary</span>
+            </button>
+        </div>
     </div>
 
 
@@ -240,6 +264,16 @@
             <th id="dateCol" onclick="showDateMenu()">DATE&nbsp;&bigtriangledown;</th>
             <th id="roomCol" onclick="showRoomMenu()">ROOM&nbsp;&bigtriangledown;</th>
         </tr>
+    </table>
+
+    <table id="people">
+        <th>
+            <td>Firstname</td>
+            <td>Lastname</td>
+            <td>Institution</td>
+            <td>Session count</td>
+            <td>Session conflict</td>
+        </th>
     </table>
 
     <!--popUp-->
@@ -308,9 +342,9 @@ const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
 var nowMonth;
 var nowYear;
-var beginD;var endD;var mName;var userID;
 var dateArray = []
 var oneDay = 24*60*60*1000
+var defaultDuration = 60;
 
 //color
 var beginDColor = 'darkgreen'
@@ -325,12 +359,13 @@ var todayColor = 'red'
 vw = screen.width/100;vh = screen.height/100;
 vmax = getVmax();
 
-//date & room
+//major variables -- date/room/speakers/userID
+var beginD;var endD;var mName;var userID;
 var dates = []
 var rooms = ['Room1','Add/Edit']
 var currentDate;
 var currentRoom = rooms[0];
-var defaultDuration = 60;
+var people = []
 
 //checkCookie()
 checkCookie();
@@ -350,6 +385,7 @@ function checkCookie(){
         document.getElementById('scheduling').style.display = 'block'
 
         var cookie = document.cookie
+        userID = cookie;
         //get meeting info
         supUrl = 'https://entgoevitfioaiavmrfb.supabase.co'
         supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
@@ -364,7 +400,7 @@ function checkCookie(){
             getData(feed)
             //console.log(feed)
         }
-        //fetchData()
+        fetchData()
 
         function getData(feed){
             var match = feed.data[0]
@@ -379,13 +415,15 @@ function checkCookie(){
     }
 }
 
-function checkCookieDemo(){
-    setUpDateArray(dateArray);
-    //show today calendar
-    const now = new Date()  
-    clearCalendar()
-    dateRun(now) 
+//speakers/moderator management
+function managePeople(){
+    const dayTable = document.getElementById('dayTable')
+    const people = document.getElementById('people')
+
+    dayTable.style.display = 'none'
+    people.style.display = 'block'
 }
+
 
 function showMainMenu(option){
     var menu = document.getElementById('mainMenu')
@@ -457,7 +495,9 @@ function submit(){
                                         setupTable()
                                         window.scrollTo({top:0,left:0})
                                         document.cookie = uName;
-                                        alert(document.cookie)
+                                        userID = uName;
+
+                                        //alert(document.cookie)
                                     }
                                     if (feed.status=='409'){
                                         alert('This ID has been taken.')
@@ -736,6 +776,7 @@ function showRoomMenu(){
     }
 
     //hide other menu
+    showMainMenu('x')
     const otherM = document.getElementsByClassName('dateMenu');
     if (otherM.length>0){
         if (otherM[0].style.visibility=='visible'){
@@ -803,6 +844,7 @@ function showDateMenu(){
     }
 
     //hide other menu
+    showMainMenu('x')
     const otherM = document.getElementsByClassName('roomMenu');
     if (otherM.length>0){
         if (otherM[0].style.visibility=='visible'){
@@ -854,9 +896,6 @@ function setupTable(){
     }
     currentDate = dates[0]
     
-    
-    
-
     //one hour equal to 3vh + header of 9vh
     const oneHour = 9*vh;
     
@@ -887,6 +926,8 @@ function setupTable(){
             //alert(currentDate)
             newRow.cells[1].style.backgroundColor = 'crimson'
             programEnter(currentDate)
+            //close mainMenu
+            showMainMenu('x')
         }
         newRow.style.height = oneHour + 'px'
         const newCell0 = document.createElement('td')
@@ -906,9 +947,6 @@ function setupTable(){
 function programEnter(cDate){
     const pop = document.getElementById('popUp')
     pop.style.visibility = 'visible'
-    //document.getElementById('popUpDate').innerHTML = 'Date: ' + cDate.toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"})
-    //document.getElementById('popUpRoom').innerHTML = 'Room: ' + currentRoom
-    //document.getElementById('popUpTime').innerHTML = 'Time: ' + cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit" })
 
     //close popUp
     document.getElementById('closePopUp').onclick = function(){
