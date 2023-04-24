@@ -286,10 +286,10 @@
         <select id="popUpRoom" name="room"></select>
         <div class="popUpBr"></div>
         <label for='popUpTime'>Start: </label>
-        <input type="time" id="popUpTime" name="popUpTime" step="3600">
+        <input type="time" id="popUpTime" name="popUpTime" step="1800">
         <div class="popUpBr"></div>
         <label for="endTime">End: </label>
-        <input type="time" id="endTime" name="endTime" step="3600">
+        <input type="time" id="endTime" name="endTime" step="1800">
 
         <div class="popUpBr"></div>
         <div id="sDetail">
@@ -337,6 +337,7 @@ color: #aaa;font-size: 1.8vmax;margin-top: 20vh;text-align: center;">
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="program.js"></script>
 <script>
 const monthLabel = ['January','February','March','April','May','June',
 'July','August','September','October','November','December']
@@ -916,15 +917,22 @@ function setupTable(){
         const newRow = document.createElement('tr')
         dayTable.appendChild(newRow)
         newRow.style.cursor = 'pointer'
+        newRow.onmouseover = function(){
+            newRow.cells[1].style.backgroundColor = 'crimson'
+        }
+        newRow.onmouseleave = function(){
+            for (let index = 1; index < dayTable.rows.length; index++) {
+                dayTable.rows[index].cells[1].style.backgroundColor = 'initial'                
+            }
+        }
         newRow.onclick = function(){
             //clear all rows bg
             for (let index = 1; index < dayTable.rows.length; index++) {
                 dayTable.rows[index].cells[1].style.backgroundColor = 'initial'                
             }
-            
             currentDate.setHours(index)
             //alert(currentDate)
-            newRow.cells[1].style.backgroundColor = 'crimson'
+            //  newRow.cells[1].style.backgroundColor = 'crimson'
             programEnter(currentDate)
             //close mainMenu
             showMainMenu('x')
@@ -959,8 +967,25 @@ function programEnter(cDate){
     }
     //save
     document.getElementById('popUpSave').onclick = function(){
+        //info to save
+        //popUpDate, popUpRoom, popUpTime, endTime, title, speaker1-4, mod1-3
+        var save = {
+            date:document.getElementById('popUpDate').value,
+            room:document.getElementById('popUpRoom').value,
+            startTime:document.getElementById('popUpTime').value,
+            endTime:document.getElementById('endTime').value,
+            title:document.getElementById('titleArea').value,
+            spk1:document.getElementById('speaker1').value,
+            spk2:document.getElementById('speaker2').value,
+            spk3:document.getElementById('speaker3').value,
+            spk4:document.getElementById('speaker4').value,
+            mod1:document.getElementById('mod1').value,
+            mod2:document.getElementById('mod2').value,
+            mod3:document.getElementById('mod3').value
+        }
         alert('save')
         pop.style.visibility = 'hidden'
+        addTopic(save)
     }
 
 
