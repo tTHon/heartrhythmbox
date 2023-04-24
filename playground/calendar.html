@@ -59,6 +59,7 @@
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
+    .topicBar {position:absolute;border: pink solid 0.1vw;}
 
     /*mainmenu*/
     #menuIcon {position:fixed;cursor: pointer;z-index: 2;background-color: rgba(50,50,50,0.9);}
@@ -902,7 +903,7 @@ function setupTable(){
     
     //table will show only 8 hour; overflow --scroll
     const dayTable = document.getElementById('dayTable');
-    dayTable.style.height = (8*oneHour) + 9*vh + 'px';
+    dayTable.style.height = (9*oneHour) + 9*vh + 'px';
     //header height and width
     const head = document.getElementById('header')
     head.style.height = 9*vh + 'px';
@@ -983,7 +984,6 @@ function programEnter(cDate){
             mod2:document.getElementById('mod2').value,
             mod3:document.getElementById('mod3').value
         }
-        alert('save')
         pop.style.visibility = 'hidden'
         addTopic(save)
     }
