@@ -12,9 +12,11 @@ function addTopic(array){
     var endMin = Number(array.endTime.slice(3,5))
     //find starting hour row
     const startRow = dayTable.rows[startHour+1].cells[1]
+    startRow.style.maxHeight = oneHour + 'px'
     const newBar = document.createElement('div')
     startRow.appendChild(newBar)
     var top = oneHour*(startMin/60)
+    if (top==0){top=1}
     newBar.style.top = top + 'px'
     console.log(newBar.style.top)
     //calculate bar height in minutes

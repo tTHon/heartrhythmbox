@@ -43,6 +43,7 @@
         padding: 3vh 0;}
     .dateList:hover, .roomList:hover {background-color: black;}
     .timeLine {text-align: right;vertical-align: top;padding: 0;margin: 0;}
+    .timeLineCell1 {border-top:solid 0.1px #555;padding: 0;margin: 0;vertical-align: top;}
     .lineDiv {height: 1px;background-color:  #555;margin: 0;padding: 0;}
     #popUp {position: fixed;visibility: hidden;width: 98vw;height: 98vh;top:1vh;left:1vw;
         background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2.2vmax;padding: 2vmax 5vmax;z-index: 3;line-height: 150%;}
@@ -60,7 +61,7 @@
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
     .topicBar {position:relative;left: 0;background-color: pink;color: #333;
-        overflow: visible;}
+        overflow: visible;z-index: -1;}
 
     /*mainmenu*/
     #menuIcon {position:fixed;cursor: pointer;z-index: 2;background-color: rgba(50,50,50,0.9);}
@@ -920,7 +921,8 @@ function setupTable(){
         dayTable.appendChild(newRow)
         newRow.style.cursor = 'pointer'
         newRow.onmouseover = function(){
-            newRow.cells[1].style.backgroundColor = 'crimson'
+            newRow.cells[1].style.backgroundColor = 'rgba(220,20,60,0.5)'
+
         }
         newRow.onmouseleave = function(){
             for (let index = 1; index < dayTable.rows.length; index++) {
@@ -947,7 +949,7 @@ function setupTable(){
         var time2Show = index + ':00'
         newCell0.innerHTML = time2Show;
         newCell0.className = 'timeLine'
-        newCell1.style.borderTop = 'solid 0.1px #555'
+        newCell1.className = 'timeLineCell1'
 
     }
 
