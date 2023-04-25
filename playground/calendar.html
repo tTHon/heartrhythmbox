@@ -59,7 +59,8 @@
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
-    .topicBar {position:absolute;border: pink solid 0.1vw;}
+    .topicBar {position:relative;left: 0;background-color: pink;color: #333;
+        overflow: visible;}
 
     /*mainmenu*/
     #menuIcon {position:fixed;cursor: pointer;z-index: 2;background-color: rgba(50,50,50,0.9);}
@@ -296,7 +297,7 @@
         <div id="sDetail">
             
             <label for="title">Title: </label><br>
-            <form style="text-align: center;line-height: 100%;">
+            <form id="titleForm" style="text-align: center;line-height: 100%;">
                 <textarea id="titleArea" onfocus="this.value=''">
                     enter title here...
                 </textarea>
@@ -1030,6 +1031,10 @@ function programEnter(cDate){
     cDate.setMinutes(cDate.getMinutes() + defaultDuration);
     var endTime = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
     document.getElementById('endTime').value = endTime;
+
+    //reset title
+    document.getElementById('titleForm').reset();
+
 }
 
 function getVmax(){
