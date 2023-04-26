@@ -10,9 +10,23 @@ function addTopic(array){
     var startMin = Number(array.startTime.slice(3,5))
     var endHour = Number(array.endTime.slice(0,2))
     var endMin = Number(array.endTime.slice(3,5))
-    //find starting hour row
+    
+    //hour array
+    var hours = []
+    for (let index = startHour; index <= endHour; index++) {
+        hours.push()
+        
+    }
+
+
+    //create new element(s) for each hour
+    for (let index = 0; index < endHour-startHour; index++) {
+        const startRow = dayTable.rows[startHour+1].cells[1]
+        const newBar = document.createElement('div')
+        startRow.appendChild(newBar)
+        
+    }
     const startRow = dayTable.rows[startHour+1].cells[1]
-    startRow.style.maxHeight = oneHour + 'px'
     const newBar = document.createElement('div')
     startRow.appendChild(newBar)
     var top = oneHour*(startMin/60)
