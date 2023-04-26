@@ -14,18 +14,18 @@ function addTopic(array){
     //hour array
     var hours = []
     for (let index = startHour; index <= endHour; index++) {
-        hours.push()
-        
+        hours.push(index)
     }
-
+    console.log(hours)
 
     //create new element(s) for each hour
-    for (let index = 0; index < endHour-startHour; index++) {
-        const startRow = dayTable.rows[startHour+1].cells[1]
+    for (let index = 0; index < hours.length; index++) {
+        var thisHour = hours[index]+1
+        const startRow = dayTable.rows[thisHour].cells[1]
         const newBar = document.createElement('div')
         startRow.appendChild(newBar)
-        
     }
+    
     const startRow = dayTable.rows[startHour+1].cells[1]
     const newBar = document.createElement('div')
     startRow.appendChild(newBar)
