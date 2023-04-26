@@ -1,9 +1,8 @@
 function addTopic(array){
-    console.log(array)
     //one hour equal to 3vh + header of 9vh
     const oneHour = 9*vh;
-    console.log('oneHour = ' + oneHour)
     const dayTable = document.getElementById('dayTable');
+    console.log(oneHour)
     
     //mins display
     var startHour = Number(array.startTime.slice(0,2))
@@ -16,7 +15,7 @@ function addTopic(array){
     for (let index = startHour; index <= endHour; index++) {
         hours.push(index)
     }
-    console.log(hours)
+    //console.log(hours)
 
     //create new element(s) for each hour
     for (let index = 0; index < hours.length; index++) {
@@ -24,22 +23,27 @@ function addTopic(array){
         const startRow = dayTable.rows[thisHour].cells[1]
         const newBar = document.createElement('div')
         startRow.appendChild(newBar)
+        newBar.className = 'topicBar'
+                
+        //top
+        var top, bottom;
+        if (index==0){
+            top = (startMin/60)*oneHour  
+            newBar.innerHTML = array.title
+        } else {
+            top = 0;
+            newBar.style.borderTop = 'none'
+        }
+        if (index==(hours.length-1)){
+            bottom = (endMin/60)*oneHour
+        } else {
+            bottom = oneHour
+            newBar.style.borderBottom = 'none'
+        }
+
+        newBar.style.top = top + 'px'
+        newBar.style.height = (bottom-top) + 'px'
+
     }
-    
-    const startRow = dayTable.rows[startHour+1].cells[1]
-    const newBar = document.createElement('div')
-    startRow.appendChild(newBar)
-    var top = oneHour*(startMin/60)
-    if (top==0){top=1}
-    newBar.style.top = top + 'px'
-    console.log(newBar.style.top)
-    //calculate bar height in minutes
-    var barMin = (60*endHour+endMin)-(60*startHour+startMin)
-    var height = oneHour*(barMin/60)
-    console.log('barMin = '+barMin)
-    newBar.style.height = height + 'px'
-    console.log('height = ' + height)
-    //calculate bar top
-    newBar.className = 'topicBar'
-    newBar.innerHTML = array.title
+
 }

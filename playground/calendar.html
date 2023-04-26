@@ -33,7 +33,7 @@
     #user input {padding: 0.5vw;border-radius: 0.5vw;border: #797979 solid 0.1vmax;}
 
     #dayTable {display:block;overflow-y: scroll;border: #bbb 1px solid;width: 88vw;margin-left: auto;margin-right: auto;
-        position: relative;}
+        position: relative;border-collapse: collapse;}
     #header {position: sticky;top:0;z-index:1;background-color: aquamarine;}
     #header th {font-size: 2vmax;color: #333;cursor: pointer;}
     #dateCol, #roomCol {cursor: pointer;}
@@ -60,7 +60,7 @@
     #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
-    .topicBar {position:relative;left: 0;border: pink solid 0.1vmax;}
+    .topicBar {position:relative;left: 0;border: pink solid 0.3vmax;}
 
     /*mainmenu*/
     #menuIcon {position:fixed;cursor: pointer;z-index: 2;background-color: rgba(50,50,50,0.9);}
@@ -949,6 +949,9 @@ function setupTable(){
         newCell0.innerHTML = time2Show;
         newCell0.className = 'timeLine'
         newCell1.className = 'timeLineCell1'
+        if (index==0){
+            newCell1.style.border = 'none'
+        }
 
     }
 
