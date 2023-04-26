@@ -2,7 +2,7 @@ function addTopic(array){
     //one hour equal to 3vh + header of 9vh
     const oneHour = 9*vh;
     const dayTable = document.getElementById('dayTable');
-    console.log(oneHour)
+    //console.log(oneHour)
     
     //mins display
     var startHour = Number(array.startTime.slice(0,2))
@@ -42,7 +42,14 @@ function addTopic(array){
         }
 
         newBar.style.top = top + 'px'
-        newBar.style.height = (bottom-top) + 'px'
+        var height = bottom-top
+        newBar.style.height = height + 'px'
+
+        //topicBar font-size = 2.5vh
+        fontNow = 2.5*vh
+        if (fontNow>height){
+            newBar.style.fontSize = height-(0.5*vh) + 'px'
+        }
 
     }
 
