@@ -1,11 +1,12 @@
 //date, room, startTime, endTime, title, spk1-4, mod1-3
-var topic= {}
+var topic= []
 
 function addTopic(array){
     //one hour equal to 3vh + header of 9vh
     const oneHour = 9*vh;
     const dayTable = document.getElementById('dayTable');
-    //console.log(oneHour)
+    topic.push(array)
+    console.log(topic)
     
     //mins display
     var startHour = Number(array.startTime.slice(0,2))
@@ -56,4 +57,40 @@ function addTopic(array){
 
     }
 
+}
+
+function isOverlap(array){
+    var overlap = Boolean;
+    for (let index = 0; index < topic.length; index++) {
+        newDate = array.date;
+        oldDate = topic[index].date
+        if (newDate == oldDate
+            && array.room==topic[index].room){
+                newStartTime = stringToTime(newDate,array.startTime)
+                newEndTime = stringToTime(newDate,array.endTime)
+                oldStartTime = stringToTime(oldDate,topic[index].startTime)
+                oldEndTime = stringToTime(oldDate,topic[index].endTime)
+
+                //startTime overlap
+                if (newStartTime>oldStartTime && newStartTime<oldEndTime){
+                    overlap = true;
+                    break;
+                }
+                if (newEndTime>oldStartTime && newEndTime<oldEndTime){
+                    overlap = true;
+                    break;
+                }
+                
+            }
+        return overlap;
+    }
+
+    function stringToTime(date,time){
+        console.log(time)
+        var hour = Number(time.slice(0,2))
+        var min = Number(time.slice(3,5))
+        const t = new Date(date)
+        t.setHours(hour,min)
+        return t;
+    }
 }
