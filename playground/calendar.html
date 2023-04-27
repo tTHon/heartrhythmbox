@@ -971,29 +971,6 @@ function programEnter(cDate){
         if (confirm('Close without save?')){
             pop.style.visibility = 'hidden'}
     }
-    //save
-    document.getElementById('popUpSave').onclick = function(){
-        //info to save
-        //popUpDate, popUpRoom, popUpTime, endTime, title, speaker1-4, mod1-3
-        var save = {
-            date:document.getElementById('popUpDate').value,
-            room:document.getElementById('popUpRoom').value,
-            startTime:document.getElementById('popUpTime').value,
-            endTime:document.getElementById('endTime').value,
-            title:document.getElementById('titleArea').value,
-            spk1:document.getElementById('speaker1').value,
-            spk2:document.getElementById('speaker2').value,
-            spk3:document.getElementById('speaker3').value,
-            spk4:document.getElementById('speaker4').value,
-            mod1:document.getElementById('mod1').value,
-            mod2:document.getElementById('mod2').value,
-            mod3:document.getElementById('mod3').value
-        }
-        pop.style.visibility = 'hidden'
-        addTopic(save)
-    }
-
-
     //date dropdown
     var d = document.getElementById('popUpDate')
     if (d.children.length<dates.length){
@@ -1031,13 +1008,67 @@ function programEnter(cDate){
 
     //time
     var time2Show = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
-    document.getElementById('popUpTime').value = time2Show;
+    var start = document.getElementById('popUpTime')
+    start.value = time2Show;
     cDate.setMinutes(cDate.getMinutes() + defaultDuration);
+    var end = document.getElementById('endTime')
     var endTime = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
-    document.getElementById('endTime').value = endTime;
+    end.value = endTime;
+    //endTime has to be more than startTime
+    start.oninput = function(){
+        var startHour = Number(start.value.slice(0,2))
+        var startMin = Number(start.value.slice(3,5))
+        var endHour = Number(end.value.slice(0,2))
+        var endMin = Number(end.value.slice(3,5))
+        const s = new Date()
+        s.setHours(startHour,startMin)
+        const e = new Date()
+        e.setHours(endHour, endMin)
+        if (s>e){
+            e.setHours(startHour, startMin+defaultDuration)
+            end.value = e.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
+        }
+    }
+
+    end.oninput = function(){
+        var startHour = Number(start.value.slice(0,2))
+        var startMin = Number(start.value.slice(3,5))
+        var endHour = Number(end.value.slice(0,2))
+        var endMin = Number(end.value.slice(3,5))
+        const s = new Date()
+        s.setHours(startHour,startMin)
+        const e = new Date()
+        e.setHours(endHour, endMin)
+        if (e<s){
+            s.setHours(startHour, startMin-defaultDuration)
+            start.value = s.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
+        }
+    }
 
     //reset title
     document.getElementById('titleForm').reset();
+
+    //save
+    document.getElementById('popUpSave').onclick = function(){
+    //info to save
+    //popUpDate, popUpRoom, popUpTime, endTime, title, speaker1-4, mod1-3
+    var save = {
+        date:document.getElementById('popUpDate').value,
+        room:document.getElementById('popUpRoom').value,
+        startTime:document.getElementById('popUpTime').value,
+        endTime:document.getElementById('endTime').value,
+        title:document.getElementById('titleArea').value,
+        spk1:document.getElementById('speaker1').value,
+        spk2:document.getElementById('speaker2').value,
+        spk3:document.getElementById('speaker3').value,
+        spk4:document.getElementById('speaker4').value,
+        mod1:document.getElementById('mod1').value,
+        mod2:document.getElementById('mod2').value,
+        mod3:document.getElementById('mod3').value
+    }
+    pop.style.visibility = 'hidden'
+    addTopic(save)
+    }
 
 }
 
