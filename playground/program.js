@@ -60,7 +60,7 @@ function addTopic(array){
 }
 
 function isOverlap(array){
-    var overlap = Boolean;
+    var overlap = false;
     for (let index = 0; index < topic.length; index++) {
         newDate = array.date;
         oldDate = topic[index].date
