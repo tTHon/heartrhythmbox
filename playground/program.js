@@ -66,31 +66,38 @@ function isOverlap(array){
         oldDate = topic[index].date
         if (newDate == oldDate
             && array.room==topic[index].room){
-                newStartTime = stringToTime(newDate,array.startTime)
-                newEndTime = stringToTime(newDate,array.endTime)
-                oldStartTime = stringToTime(oldDate,topic[index].startTime)
-                oldEndTime = stringToTime(oldDate,topic[index].endTime)
+                newStartTime = stringToTime(newDate,array.startTime);
+                newEndTime = stringToTime(newDate,array.endTime);
+                oldStartTime = stringToTime(oldDate,topic[index].startTime);
+                oldEndTime = stringToTime(oldDate,topic[index].endTime);
+                console.log('newStartTime =' +newStartTime)
+                console.log('newEndTime =' +newEndTime)
+                console.log('oldStartTime =' +oldStartTime)
+                console.log('newEndTime =' +oldEndTime)
 
                 //startTime overlap
                 if (newStartTime>oldStartTime && newStartTime<oldEndTime){
                     overlap = true;
+                    console.log('break1')
                     break;
                 }
                 if (newEndTime>oldStartTime && newEndTime<oldEndTime){
                     overlap = true;
+                    console.log('break2')
                     break;
                 }
-                
             }
-        return overlap;
+      
+        function stringToTime(date,time){
+            //console.log(time)
+            var hour = Number(time.slice(0,2))
+            var min = Number(time.slice(3,5))
+            const t = new Date(date)
+            t.setHours(hour,min)
+            return t;
+        }
     }
 
-    function stringToTime(date,time){
-        console.log(time)
-        var hour = Number(time.slice(0,2))
-        var min = Number(time.slice(3,5))
-        const t = new Date(date)
-        t.setHours(hour,min)
-        return t;
-    }
+    alert(overlap)
+    return(overlap)
 }
