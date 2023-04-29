@@ -1066,11 +1066,11 @@ function programEnter(cDate){
         mod2:document.getElementById('mod2').value,
         mod3:document.getElementById('mod3').value
     }
-    pop.style.visibility = 'hidden'
     if (isOverlap(save)){
             alert('You already have the program during this period.')
         } else {
             addTopic(save)
+            pop.style.visibility = 'hidden'
         }
     }
 }
