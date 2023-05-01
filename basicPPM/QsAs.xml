@@ -25,6 +25,31 @@
     <ref></ref>
 </question-->
 
+<!--undersensing generic-->
+<question>
+    <index>undersensing generic</index>
+    <clinical>VVIR 60-110 bpm</clinical>
+           
+    <qImage>media/undersensing generic.png</qImage>
+    <mainQ>What do you observe?
+        </mainQ>
+    <choices>
+        <a>Ventricular Undersensing</a>
+        <b>Ventricular Oversensing</b>
+        <c>Ventricular non-pacing</c>
+        <d>Both A and C are correct</d>
+        <e>Need more information</e>
+        </choices>
+    <answer>A</answer>
+    <exp>
+    The pacing spikes in the figure occur at exactly 60bpm, with all spikes showing ventricular undersensing and non-capture. This should not be confused with non-pacing, which refers to the lack of delivery of a pacing spike where one is expected.
+    On the 2nd and 6th pacing spikes, they could be intepreted as normal device function with pseudofusion. The spikes occurred almost simultaneously as the QRS complex and fell into ventricular refractory period. Therefore, the spikes could be produce ventricular capture even with normal pacemaker function.
+    On the contrary, other pacing spikes did not fall in ventricular refractory period and should produce ventricular capture if pacemaker function was normal.
+    </exp>
+    <aImage>NA</aImage>
+    <ref>EHRA Book of Pacemaker, ICD, and CRT Troubleshooting</ref>
+</question>
+
 <!--chb ppm mode-->
 <question>
     <index>CHB PPM mode</index>
@@ -354,7 +379,7 @@
 
 <!--undersensing-->
 <question>
-    <index>Undersensing</index>
+    <index>Undersensing what2do</index>
     <clinical>Temporary venous pacemaker. Setting: VVI 75bpm, output 5mA, sensitivity 5 mV. 
         </clinical>
            
