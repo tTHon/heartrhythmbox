@@ -98,6 +98,6 @@ function isOverlap(array){
         }
     }
 
-    alert(overlap)
+    //alert(overlap)
     return(overlap)
 }
