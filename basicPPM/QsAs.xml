@@ -226,6 +226,34 @@
     <ref>https://onlinelibrary.wiley.com/doi/book/10.1002/9781444300659</ref>
 </question>
 
+<!--emi-->
+<question>
+    <index>EMI</index>
+    <clinical>A 65 year-old woman with high-grade AV block s/p dual-chamber pacemaker 4 years ago.
+    Her other past medical history included diabetes and hypertension. She complaint of some palpitation occurred intermittently over the past week.
+    The tracing that occurred approximately the same time as her symptoms was as shown.
+    Pacemaker interrogation revealed normal leads parameters. Battery life remained more than 5 years.
+    </clinical>
+           
+    <qImage>media/emi.png</qImage>
+    <mainQ>What is the next appropriate management?</mainQ>
+    <choices>
+        <a>Initiate anticoagulation</a>
+        <b>Work up for coronary artery disease</b>
+        <c>Schedule for urgent generator change</c>        
+        <d>Check for lead noises during arm exercise</d>
+        <e>Obtain more history of potential electromagnetic interference</e>
+    </choices>
+    <answer>E</answer>
+    <exp>There were non-physiologic signals (ie. cycle length of 100ms) in both A and V leads.
+    Electromechanical interference is most likely. Noises in A lead initiated mode switch from DDD to DDI which was not unexpected.
+    Once the noises resolved, the pacing mode was back to DDD.
+    Patient does not have atrial fibrillation or ventricular arrhythmia. 
+    </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
 <!--noncapture-->
 <question>
     <index>Non-capture</index>
@@ -244,9 +272,8 @@
         <c>Initiate external pacing with cutaneous patches.</c>
         <d>Place a temporary pacemaker.</d>
         <e>Increase the ventricular output of the pacemaker.</e>
-        </choices>
-    <answer>E
-        </answer>
+    </choices>
+    <answer>E</answer>
     <exp>Tracing = loss of ventricular capture in an underlying rhythm of complete heart block. 
         Pacing lead is 15 years old so lead problem is highly possible. 
         Interrogation will reveal and temporary fix the cause if it is readily available as in this case. 
