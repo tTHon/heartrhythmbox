@@ -1065,13 +1065,13 @@ function programEnter(cDate){
     
     //dropdown
     for (let i = 0; i < peopleList.length; i++) {
-        for (let j=0; j<people.length;j++){
         var s = document.getElementById(peopleList[i])   
-        console.log(s)     
         var opt = document.createElement('option')
         s.appendChild(opt)
-        s.value = people[j]
-        s.innerHTML = people[j]
+    
+        for (let j=0; j<people.length;j++){
+                s.value = people[j]
+                s.innerHTML = people[j]
         }
     }
 
