@@ -57,7 +57,7 @@
     #sDetail textarea {background-color: #eee;color: #333;font-size: 2vmax;padding: 0.1vw;cursor: text;
         width: 100%;height: 5vmax;}
     #sDetail textarea:focus {background-color: white;}
-    #sDetail select, #sDetail label {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 2vmax;padding: 0.1vmax;}
+    #sDetail select, #sDetail label, #sDetail option {background-color:rgba(0,0,0,0.85);color: #ddd;font-size: 1.8vmax;padding: 0.1vmax;}
     #sDetail label {color: aquamarine;padding: 1vmax;}
     .popUpBr {padding-top: 1vmax;} 
     .topicBar {position:relative;left: 0;border: pink solid 0.2vmax;font-size: 2.5vh;}
@@ -1065,15 +1065,15 @@ function programEnter(cDate){
     
     //dropdown
     for (let i = 0; i < peopleList.length; i++) {
-        var s = document.getElementById(peopleList[i])   
-        var opt = document.createElement('option')
-        s.appendChild(opt)
-    
+       var s = document.getElementById(peopleList[i])
         for (let j=0; j<people.length;j++){
-                s.value = people[j]
-                s.innerHTML = people[j]
+            var opt = document.createElement('option')
+            s.appendChild(opt)
+            opt.value = people[j]
+            opt.innerHTML = people[j]
         }
     }
+
 
     //save
     document.getElementById('popUpSave').onclick = function(){
