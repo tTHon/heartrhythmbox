@@ -6,7 +6,7 @@ function addTopic(array){
     const oneHour = 9*vh;
     const dayTable = document.getElementById('dayTable');
     topic.push(array)
-    console.log(topic)
+    //console.log(topic)
     
     //mins display
     var startHour = Number(array.startTime.slice(0,2))
@@ -52,7 +52,7 @@ function addTopic(array){
         //topicBar font-size = 2.5vh
         fontNow = 2.5*vh
         if (fontNow>height){
-            newBar.style.fontSize = height-(0.5*vh) + 'px'
+            newBar.style.fontSize =  height-(0.5*vh) + 'px'
         }
 
     }
@@ -70,20 +70,14 @@ function isOverlap(array){
                 newEndTime = stringToTime(newDate,array.endTime);
                 oldStartTime = stringToTime(oldDate,topic[index].startTime);
                 oldEndTime = stringToTime(oldDate,topic[index].endTime);
-                console.log('newStartTime =' +newStartTime)
-                console.log('newEndTime =' +newEndTime)
-                console.log('oldStartTime =' +oldStartTime)
-                console.log('newEndTime =' +oldEndTime)
 
                 //startTime overlap
                 if (newStartTime>oldStartTime && newStartTime<oldEndTime){
                     overlap = true;
-                    console.log('break1')
                     break;
                 }
                 if (newEndTime>oldStartTime && newEndTime<oldEndTime){
                     overlap = true;
-                    console.log('break2')
                     break;
                 }
             }
@@ -98,6 +92,5 @@ function isOverlap(array){
         }
     }
 
-    //alert(overlap)
     return(overlap)
 }

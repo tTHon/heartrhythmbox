@@ -291,7 +291,7 @@
         <input type="time" id="popUpTime" name="popUpTime" step="1800">
         <div class="popUpBr"></div>
         <label for="endTime">End: </label>
-        <input type="time" id="endTime" name="endTime" step="1800">
+        <input type="time" id="endTime" name="endTime" step="1800"><span id="endTimeAlert"></span>
 
         <div class="popUpBr"></div>
         <div id="sDetail">
@@ -375,7 +375,6 @@ checkCookie();
 
 //check cookie and proceed accordingly
 function checkCookie(){
-    //console.log(document.cookie.length)
     if (document.cookie.length==0){
         setUpDateArray(dateArray);
         //show today calendar
@@ -1014,8 +1013,10 @@ function programEnter(cDate){
     var end = document.getElementById('endTime')
     var endTime = cDate.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
     end.value = endTime;
+    var timeAlert = document.getElementById('endTimeAlert')
+
     //endTime has to be more than startTime
-    start.oninput = function(){
+    start.onchange = function(){
         var startHour = Number(start.value.slice(0,2))
         var startMin = Number(start.value.slice(3,5))
         var endHour = Number(end.value.slice(0,2))
@@ -1024,13 +1025,15 @@ function programEnter(cDate){
         s.setHours(startHour,startMin)
         const e = new Date()
         e.setHours(endHour, endMin)
-        if (s>e){
-            e.setHours(startHour, startMin+defaultDuration)
-            end.value = e.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
+        if (e<=s){
+            timeAlert.innerHTML = '&nbsp;'+ '&#9888;'
+        }
+        else {
+            timeAlert.innerHTML = ''
         }
     }
 
-    end.oninput = function(){
+    end.onchange = function(){
         var startHour = Number(start.value.slice(0,2))
         var startMin = Number(start.value.slice(3,5))
         var endHour = Number(end.value.slice(0,2))
@@ -1039,14 +1042,38 @@ function programEnter(cDate){
         s.setHours(startHour,startMin)
         const e = new Date()
         e.setHours(endHour, endMin)
-        if (e<s){
-            s.setHours(startHour, startMin-defaultDuration)
-            start.value = s.toLocaleTimeString([],{hour: "2-digit", minute: "2-digit",hour12:false })
+        if (e<=s){
+            timeAlert.innerHTML = '&nbsp;'+ '&#9888;'
+        }
+        else {
+            timeAlert.innerHTML = ''
         }
     }
-
+ 
     //reset title
     document.getElementById('titleForm').reset();
+
+    //dropdown lists for speakers & moderators -- speaker1-4, mod1-3 
+    var peopleList = ['speaker1', 'speaker2', 'speaker3', 'speaker4',
+                        'mod1' , 'mod2', 'mod3'
+                        ]
+    
+    //demo 20 speakers -- people array
+    for (let index = 0; index < 20; index++) {
+        people.push(index)
+    }
+    
+    //dropdown
+    for (let i = 0; i < peopleList.length; i++) {
+        for (let j=0; j<people.length;j++){
+        var s = document.getElementById(peopleList[i])   
+        console.log(s)     
+        var opt = document.createElement('option')
+        s.appendChild(opt)
+        s.value = people[j]
+        s.innerHTML = people[j]
+        }
+    }
 
     //save
     document.getElementById('popUpSave').onclick = function(){
@@ -1066,12 +1093,19 @@ function programEnter(cDate){
         mod2:document.getElementById('mod2').value,
         mod3:document.getElementById('mod3').value
     }
-    if (isOverlap(save)){
-            alert('You already have the program during this period in this room.')
-        } else {
-            addTopic(save)
-            pop.style.visibility = 'hidden'
+
+    //alert time then overlap
+    if (timeAlert.innerHTML!=''){
+        alert('End Time cannot be earlier than start time.')
         }
+    else {
+            if (isOverlap(save)){
+                alert('You already have the program during this period in this room.')
+            } else {
+                addTopic(save)
+                pop.style.visibility = 'hidden'
+            }
+    }
     }
 }
 
