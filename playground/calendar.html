@@ -283,23 +283,18 @@
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Institution</th>
-                <th class="toBlur">Session count</th>
-                <th class="toBlur">Session conflict</th>
+                <th></th>
             </tr>
             <tr>
-                <td style="cursor: pointer;" onclick="PpInput('on')">+</td>
-                <td>
-                    <input name="fName" id="fName" class="PpForm"></td>
+                <td style="cursor: pointer;" onclick="PpInput('on')" title="add">+</td>
+                <td><input name="fName" id="fName" class="PpForm"></td>
                 <td><input name="lName" id="lName" class="PpForm"></td>
                 <td><input name="inst" id="inst" class="PpForm"></td>
-                <td><i class="fa-solid fa-floppy-disk PpForm" 
-                    style="cursor: pointer;color: #55a288;" title="save" onclick="PpInput('save')">
-                    <span style="font-size: 1.5vw;">Save</span>    
+                <td>
+                    <i class="fa-solid fa-floppy-disk PpForm" style="cursor: pointer;color: #55a288;padding-left: 0.5vmax;" title="save" onclick="PpInput('save')">
                     </i>
-                </td>
-                <td><i class="fa-solid fa-rotate-left PpForm" style="cursor: pointer;color: #55a288;" title="save" 
+                    <i class="fa-solid fa-rotate-left PpForm" style="cursor: pointer;color: #55a288;padding-left: 0.5vmax;" title="save" 
                     onclick="PpInput('reset')">
-                    <span style="font-size: 1.5vw;">Reset</span> </i>
                 </td>
             </tr>
         </table>
@@ -447,10 +442,10 @@ function checkHistory(){
 //speakers/moderator management
 function managePeople(){
     const dayTable = document.getElementById('dayTable')
-    const people = document.getElementById('people')
+    const pp = document.getElementById('people')
 
     dayTable.style.display = 'none'
-    people.style.display = 'block'
+    pp.style.display = 'block'
     document.getElementById('fName').select()
     showMainMenu('x')
 }
@@ -458,16 +453,10 @@ function managePeople(){
 function PpInput(option){
     //option: on, save, reset
     const input = document.getElementsByClassName('PpForm')
-    const blur = document.getElementsByClassName('toBlur')
 
     if (option=='on'){
         for (let index = 0; index < input.length; index++) {
             input[index].style.display = 'table-cell';
-        }
-
-        //blur last 2 header
-        for (let index = 0; index < blur.length; index++) {
-            blur[index].style.opacity = '0'
         }
     }
 
@@ -480,11 +469,49 @@ function PpInput(option){
     }
 
     if (option=='save'){
-        //unblur last 2 header
-        for (let index = 0; index < blur.length; index++) {
-            blur[index].style.opacity = '1'
-        }        
+        var newPp = {
+            fName:document.getElementById('fName').value,
+            lName:document.getElementById('lName').value,
+            inst:document.getElementById('inst').value
+        }
+        people.push(newPp)
+        PpInput('reset')
+        showPp()
     }
+}
+
+function showPp(){
+    const table = document.getElementById('PpTable');
+
+    //clear table first
+
+    for (let i = 0; i < people.length; i++) {
+        var row = document.createElement('tr')
+        table.appendChild(row)
+        
+        for (let j=0;j<5;j++){
+            var cell = document.createElement('td')
+            row.appendChild(cell)
+            if (j==0) {
+                cell.innerHTML = i+1;
+            } 
+            if (j==1){
+                cell.innerHTML = people[i].fName
+            }
+            if (j==2){
+                cell.innerHTML = people[i].lName
+            }
+            if (j==3){
+                cell.innerHTML = people[i].inst
+            }
+            if (j==4){
+                cell.innerHTML = '&#9249'
+            }
+        }
+    }
+
+
+
 }
 
 
