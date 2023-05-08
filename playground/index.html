@@ -13,6 +13,7 @@
     .button {max-width: 400px;padding: 1vmax 2vmax;cursor: pointer;text-align: center;
     border-radius: 2vw;margin-left: auto;margin-right: auto;}
     a {text-decoration: none;}
+    #user {display: none;max-width: 400px;margin-left: auto;margin-right: auto;border: #555 solid 0.1vmax;}
 </style>
 
 <body>
@@ -32,12 +33,24 @@
             Start new meeting
         </div>
         </a>
-        <a href="">
-        <div class="button" 
-        style="background-color: #555;color: #ddd;font-size: 2vmax;margin-top: 2vh;">
-            Sign in
+        <div class="button" onclick="showLogin()"
+        style="background-color: #555;color: #ddd;font-size: 2vmax;
+        margin-top: 2vh;">
+            I have my userID
         </div>
-        </a>
+
+        <div id="user" style="padding: 2vmax 0;text-align: center;font-size: 2vmax;">
+            <label for="username">ID: </label> 
+            <input style="color: #ddd;" type="text" id="username" name="username" autofocus>
+            <br>
+            <div style="padding: 2vmax 0;">
+                <button style="color: #ddd;cursor: pointer;" onclick="showLogin('x')">Back</button>
+                <button style="color: #ddd;cursor: pointer;" onclick="checkUser()">Next</button>
+                <a href="calendar.html">
+                    <button style="display: none;" id="invisible"></button>
+                </a>
+            </div>
+        </div>
     </div>
 
     <!--foot-->
@@ -47,8 +60,50 @@
         <span style="color:#888;font-size: 1.6vmax;">design to your style &middot; write to your need</span>
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-var butt = document.getElementsByClassName('button')
+
+function showLogin(x){
+    const box = document.getElementById('user')
+    if (x=='x'){
+        box.style.display = 'none'
+    } else {
+        box.style.display = 'block'
+    }
+ 
+}
+
+function checkUser(){
+    const u = document.getElementById('username')
+    const userName = u.value
+    
+    //supabase
+    supUrl = 'https://entgoevitfioaiavmrfb.supabase.co'
+    supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
+    const database = supabase.createClient(supUrl,supKey)
+    //get data
+    const fetchData = async () => {
+    const feed = await database
+        .from("index")
+        .select()
+        .eq ('username', userName)
+        doesExist(feed)
+    }
+    fetchData()
+
+    function doesExist(feed){
+        //console.log(feed)
+        if (feed.data.length==0){
+            alert('The userID does not exist.')
+            u.value = ''
+            u.innerHTML = ''
+        } else {
+            sessionStorage.setItem("meetingMedium",userName)
+            document.getElementById('invisible').click()
+        }
+    }
+
+}
 
 
 </script>

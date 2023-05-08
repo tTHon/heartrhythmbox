@@ -371,11 +371,13 @@ var currentRoom = rooms[0];
 var people = []
 
 //checkCookie()
-checkCookie();
+checkHistory();
 
 //check cookie and proceed accordingly
-function checkCookie(){
-    if (document.cookie.length==0){
+function checkHistory(){
+    const uID = sessionStorage.getItem("meetingMedium")
+    console.log(uID)
+    if (uID==null){
         setUpDateArray(dateArray);
         //show today calendar
         const now = new Date()  
@@ -386,8 +388,6 @@ function checkCookie(){
         document.getElementById('setUp').style.display = 'none'
         document.getElementById('scheduling').style.display = 'block'
 
-        var cookie = document.cookie
-        userID = cookie;
         //get meeting info
         supUrl = 'https://entgoevitfioaiavmrfb.supabase.co'
         supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
@@ -398,7 +398,7 @@ function checkCookie(){
             const feed = await database
                 .from("index")
                 .select()
-                .eq ('username', cookie)
+                .eq ('username', uID)
             getData(feed)
             //console.log(feed)
         }
@@ -496,7 +496,7 @@ function submit(){
                                         document.getElementById('scheduling').style.display = 'block'
                                         setupTable()
                                         window.scrollTo({top:0,left:0})
-                                        document.cookie = uName;
+                                        sessionStorage.setItem("meetingMedium",uName)
                                         userID = uName;
 
                                         //alert(document.cookie)
