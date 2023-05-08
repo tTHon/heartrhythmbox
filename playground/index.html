@@ -13,7 +13,8 @@
     .button {max-width: 400px;padding: 1vmax 2vmax;cursor: pointer;text-align: center;
     border-radius: 2vw;margin-left: auto;margin-right: auto;}
     a {text-decoration: none;}
-    #user {display: none;max-width: 400px;margin-left: auto;margin-right: auto;border: #555 solid 0.1vmax;}
+    #user {display: none;max-width: 400px;margin-top: 0.5vmax;
+    margin-left: auto;margin-right: auto;border: #555 solid 0.1vmax;border-radius: 0.4vmax;}
 </style>
 
 <body>
@@ -43,9 +44,9 @@
             <label for="username">ID: </label> 
             <input style="color: #ddd;" type="text" id="username" name="username" autofocus>
             <br>
-            <div style="padding: 2vmax 0;">
-                <button style="color: #ddd;cursor: pointer;" onclick="showLogin('x')">Back</button>
-                <button style="color: #ddd;cursor: pointer;" onclick="checkUser()">Next</button>
+            <div style="padding-top: 2vmax">
+                <button style="color: #ddd;cursor: pointer;border-radius: 0.4vmax;" onclick="showLogin('x')">Back</button>
+                <button style="color: #ddd;cursor: pointer;border-radius: 0.4vmax;" onclick="checkUser()">Next</button>
                 <a href="calendar.html">
                     <button style="display: none;" id="invisible"></button>
                 </a>
@@ -68,7 +69,10 @@ function showLogin(x){
     if (x=='x'){
         box.style.display = 'none'
     } else {
-        box.style.display = 'block'
+        if (box.style.display=='block'){
+            box.style.display = 'none'
+        } else {
+        box.style.display = 'block'}
     }
  
 }

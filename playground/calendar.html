@@ -75,7 +75,12 @@
     #selectionBar i {font-size: 2vmax;color: #8ef5d0;}
     #selectionBar button {border:none;background-color: #232323;color: #dffff4;}
 
-    #people {width: 80vw;margin-left: auto;margin-right: auto;display: none;}
+    #people {display: none;font-size: 1.8vmax;width: 88vw;margin-left: auto;margin-right: auto;text-align: center;}
+    #PpTable {display: block;height: 80vh;position: relative;width: fit-content;max-width: 88vw;overflow: scroll;
+        margin-left: auto;margin-right: auto;text-align: center;}
+    #PpTable, #PpTable th, #PpTable tr, #pPTable td {border: #bbb 1px solid;border-collapse: collapse;}
+    #PpTable th {color: aquamarine;padding: 0.5vmax;position: sticky;}
+    .PpForm {display: none;text-align: left;color: #232323;}
     
     @media screen and (max-width:821px) {  
         #popUp {padding: 1vmax;line-height: 180%;}
@@ -83,6 +88,8 @@
         #sum {width: 90%;left: 5%;}
         #mainMenu {width: 95vw;}
         #selectionBar {display: none;}
+        #people {width: 95vw;}
+        #PpTable {max-width: 95vw;}
     }
 
     @keyframes rollDown {
@@ -186,7 +193,7 @@
         <div id="user">
             Please create a unique ID for your meeting.<br><br>
             <label for="username">ID: </label> 
-            <input style="color: #333;" type="text" id="username" name="username" autofocus><br>
+            <input style="color: #333;" type="text" id="username" name="username"><br>
             <div style="background-color: #ddd;padding: 2vmax 0;">
                 <button id="backAfter" style="color: #333;">Back</button>
                 <button id="nextAfter" style="color: #333;">
@@ -207,9 +214,10 @@
 <div id="scheduling">
     <div id="menuIcon">
         <i id="hamburger" class="fa-solid fa-bars" onclick="showMainMenu()"></i>
+        <a href="index.html">
         <div style="right: 0.9vmax;position: fixed;top: 0.9vmax;text-align: left;line-height: 100%;font-size: 1.2vmax;color: #55a288;
         border: #555 solid 0.1vmax;border-radius: 0.4vmax;padding: 0.2vmax;background-color: rgba(0,0,0,0.85);">
-        MeetinG<br>&nbsp;&nbsp;&nbsp;MediuM</div>
+        MeetinG<br>&nbsp;&nbsp;&nbsp;MediuM</div></a>
         <i id="xMark" class="fa-solid fa-circle-xmark" onclick="showMainMenu('x')"></i>
         
         <div id="mainMenu">
@@ -225,9 +233,9 @@
                 <i class="fa-solid fa-plus"></i>
                 <span>Add Program</span>
             </div>
-            <div class="menuItem">
+            <div class="menuItem" onclick="managePeople()">
                 <i class="fa-solid fa-person-chalkboard"></i>
-                <span>Add Speakers/Moderators</span>
+                <span>Edit Speakers/Moderators</span>
             </div>
             <div class="menuItem">
                 <i class="fa-solid fa-list-check"></i>
@@ -247,7 +255,7 @@
         <div id="selectionBar">
             <button onclick="managePeople()">
                 <i class="fa-solid fa-person-chalkboard"></i><br>
-                <span>Add Speakers/Moderators</span>
+                <span>Edit Speakers/Moderators</span>
             </button>
             <button>
                 <i class="fa-solid fa-plus"></i><br>
@@ -268,15 +276,34 @@
         </tr>
     </table>
 
-    <table id="people">
-        <th>
-            <td>Firstname</td>
-            <td>Lastname</td>
-            <td>Institution</td>
-            <td>Session count</td>
-            <td>Session conflict</td>
-        </th>
-    </table>
+    <div id="people">
+        <table id="PpTable">
+            <tr>
+                <th>No.</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Institution</th>
+                <th class="toBlur">Session count</th>
+                <th class="toBlur">Session conflict</th>
+            </tr>
+            <tr>
+                <td style="cursor: pointer;" onclick="PpInput('on')">+</td>
+                <td>
+                    <input name="fName" id="fName" class="PpForm"></td>
+                <td><input name="lName" id="lName" class="PpForm"></td>
+                <td><input name="inst" id="inst" class="PpForm"></td>
+                <td><i class="fa-solid fa-floppy-disk PpForm" 
+                    style="cursor: pointer;color: #55a288;" title="save" onclick="PpInput('save')">
+                    <span style="font-size: 1.5vw;">Save</span>    
+                    </i>
+                </td>
+                <td><i class="fa-solid fa-rotate-left PpForm" style="cursor: pointer;color: #55a288;" title="save" 
+                    onclick="PpInput('reset')">
+                    <span style="font-size: 1.5vw;">Reset</span> </i>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <!--popUp-->
     <div id="popUp">
@@ -376,7 +403,7 @@ checkHistory();
 //check cookie and proceed accordingly
 function checkHistory(){
     const uID = sessionStorage.getItem("meetingMedium")
-    console.log(uID)
+    //console.log(uID)
     if (uID==null){
         setUpDateArray(dateArray);
         //show today calendar
@@ -424,6 +451,40 @@ function managePeople(){
 
     dayTable.style.display = 'none'
     people.style.display = 'block'
+    document.getElementById('fName').select()
+    showMainMenu('x')
+}
+
+function PpInput(option){
+    //option: on, save, reset
+    const input = document.getElementsByClassName('PpForm')
+    const blur = document.getElementsByClassName('toBlur')
+
+    if (option=='on'){
+        for (let index = 0; index < input.length; index++) {
+            input[index].style.display = 'table-cell';
+        }
+
+        //blur last 2 header
+        for (let index = 0; index < blur.length; index++) {
+            blur[index].style.opacity = '0'
+        }
+    }
+
+    if (option=='reset'){
+        //fName, lName, inst or PpForm 1-3
+        for (let index = 0; index < 3; index++) {
+            input[index].value = ''            
+            input[index].innerHTML = ''
+        }
+    }
+
+    if (option=='save'){
+        //unblur last 2 header
+        for (let index = 0; index < blur.length; index++) {
+            blur[index].style.opacity = '1'
+        }        
+    }
 }
 
 
