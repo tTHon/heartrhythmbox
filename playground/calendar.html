@@ -283,7 +283,7 @@
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Institution</th>
-                <th></th>
+                <th>Tools</th>
             </tr>
             <tr>
                 <td style="cursor: pointer;" onclick="PpInput('on')" title="add">+</td>
@@ -484,6 +484,9 @@ function showPp(){
     const table = document.getElementById('PpTable');
 
     //clear table first
+    while (table.rows.length>2){
+        table.deleteRow(2)
+    }
 
     for (let i = 0; i < people.length; i++) {
         var row = document.createElement('tr')
@@ -497,6 +500,10 @@ function showPp(){
             } 
             if (j==1){
                 cell.innerHTML = people[i].fName
+                cell.onclick = function(){
+                    //editPp(i,j)
+                    alert(j)
+                }
             }
             if (j==2){
                 cell.innerHTML = people[i].lName
@@ -505,7 +512,7 @@ function showPp(){
                 cell.innerHTML = people[i].inst
             }
             if (j==4){
-                cell.innerHTML = '&#9249'
+                cell.innerHTML = '&#X1F5D1;'
             }
         }
     }
