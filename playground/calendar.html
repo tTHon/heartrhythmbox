@@ -451,14 +451,14 @@ function managePeople(option){
 
     dayTable.style.display = 'none'
     pp.style.display = 'block'
-    pp.scrollIntoView();
+    //pp.scrollIntoView();
     if (people.length>0){showPp()}
     showMainMenu('x')
 
     if (option=='x'){
         dayTable.style.display = 'block'
         pp.style.display = 'none'
-        dayTable.rows[8].scrollIntoView();
+        //dayTable.rows[8].scrollIntoView();
         showMainMenu('x')
     }
 }
@@ -498,6 +498,7 @@ function PpInput(option){
 
 function showPp(){
     const table = document.getElementById('PpTable');
+    const oldLength = people.length;
 
     //clear table first
     while (table.rows.length>2){
@@ -526,6 +527,11 @@ function showPp(){
                 cell.innerHTML = '&#128465;'
                 cell.classList.add('PpDel')
                 cell.title = 'delete'
+                cell.onclick = function(){
+                    table.deleteRow(i+2);
+                    people.splice(i,1);
+                    showPp()
+                }
             }
         }
     }
