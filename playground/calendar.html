@@ -301,8 +301,6 @@
                 </td>
             </tr>
         </table>
-        <button onclick="managePeople('x')">Back</button>
-        <button>Save & Exit</button>
     </div>
 
     <!--popUp-->
@@ -451,7 +449,26 @@ function managePeople(option){
 
     dayTable.style.display = 'none'
     pp.style.display = 'block'
-    //pp.scrollIntoView();
+    
+    //fetch people
+    supUrl = 'https://entgoevitfioaiavmrfb.supabase.co'
+    supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
+    const database = supabase.createClient(supUrl,supKey)
+    const fetchData = async () => {
+    const feed = await database
+            .from("index")
+            .select()
+            .eq ('username', uID)
+        feedPeople(feed)
+        //console.log(feed)
+        }
+    fetchData()
+
+    function feedPeople(feed){
+
+    }
+
+
     if (people.length>0){showPp()}
     showMainMenu('x')
 
@@ -460,6 +477,19 @@ function managePeople(option){
         pp.style.display = 'none'
         //dayTable.rows[8].scrollIntoView();
         showMainMenu('x')
+        
+        //submit people
+        const sendData = async () => {
+            const feed = await database.from("people").insert({
+                username: userID,
+                firstname:f,
+                lastname:l,
+                institution:i,
+                combined:c
+            })
+        }
+        sendData()
+
     }
 }
 
