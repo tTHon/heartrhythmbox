@@ -1249,14 +1249,25 @@ function programEnter(cDate){
                         'mod1' , 'mod2', 'mod3'
                         ]
     
-    //demo 20 speakers -- people array
-    //for (let index = 0; index < 20; index++) {
-        //people.push(index)
-    //}
+    //people array -- clear first
+    for (let index = 0; index < peopleList.length; index ++){
+        var key = document.getElementById(peopleList[index])
+        while (key.children.length>0){
+            key.removeChild(key.children[0])
+        }
+    }
+
     
     //dropdown
     for (let i = 0; i < peopleList.length; i++) {
-       var s = document.getElementById(peopleList[i])
+        var s = document.getElementById(peopleList[i])
+        
+        //add blank option
+        var opt = document.createElement('option')
+        s.appendChild(opt)
+        opt.innerHTML = '----'
+        opt.setAttribute('option','disabled')
+
         for (let j=0; j<people.length;j++){
             var opt = document.createElement('option')
             s.appendChild(opt)
