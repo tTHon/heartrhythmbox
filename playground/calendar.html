@@ -363,6 +363,7 @@ color: #aaa;font-size: 1.8vmax;margin-top: 20vh;text-align: center;">
     <span style="color:#888;font-size: 1.6vmax;">design to your style &middot; write to your need</span>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="program.js"></script>
 <script>
@@ -393,6 +394,7 @@ var dates = []
 var rooms = ['Room1','Add/Edit']
 var currentDate;
 var currentRoom = rooms[0];
+//[fName][lName][inst]
 var people = []
 
 //checkCookie()
@@ -456,16 +458,26 @@ function managePeople(option){
     const database = supabase.createClient(supUrl,supKey)
     const fetchData = async () => {
     const feed = await database
-            .from("index")
+            .from("people")
             .select()
-            .eq ('username', uID)
+            .eq ('username', userID)
         feedPeople(feed)
         //console.log(feed)
         }
     fetchData()
 
+    var oFeed;//string
     function feedPeople(feed){
-
+        oFeed = JSON.stringify(feed)
+        for (let index = 0; index < feed.data.length; index++) {
+            const array = feed.data[index];
+            newPp = [
+                [array.fisrtname],
+                [array.lastname],
+                [array.institution]
+            ]
+            people.push(newPp)
+        }
     }
 
 
@@ -478,18 +490,22 @@ function managePeople(option){
         //dayTable.rows[8].scrollIntoView();
         showMainMenu('x')
         
-        //submit people
-        const sendData = async () => {
-            const feed = await database.from("people").insert({
-                username: userID,
-                firstname:f,
-                lastname:l,
-                institution:i,
-                combined:c
-            })
+        //check if people was edited
+        if (oFeed != JSON.stringify(people)){
+            //submit people//fName, lName, inst
+            const sendData = async () => {
+                for (let index = 0; index < people.length; index++) {
+                    const feed = await database.from("people").insert({
+                        username: userID,
+                        firstname:people[index][0],
+                        lastname:people[index][1],
+                        institution:people[index][2],
+                        combined:people[index][0]+people[index][1]+people[index][2]
+                    })
+                }
+            }
+            sendData()
         }
-        sendData()
-
     }
 }
 
