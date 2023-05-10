@@ -395,7 +395,7 @@ var rooms = ['Room1','Add/Edit']
 var currentDate;
 var currentRoom = rooms[0];
 //[fName][lName][inst]
-var people = []
+var people = [];var oFeed = [];
 
 //checkCookie()
 checkHistory();
@@ -420,26 +420,46 @@ function checkHistory(){
         supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
         const database = supabase.createClient(supUrl,supKey)
           
-        //get data
+        //get data and people
         const fetchData = async () => {
             const feed = await database
                 .from("index")
                 .select()
                 .eq ('username', uID)
-            getData(feed)
-            //console.log(feed)
+                getData(feed)
         }
-        fetchData()
+        const fetchPeople = async () => {
+            const feedPp = await database
+                .from("people")
+                .select()
+                .eq ('username', uID)
+                getPeople(feedPp)
+            }
+        fetchData();
+        fetchPeople();
 
-        function getData(feed){
-            var match = feed.data[0]
-            //var beginD;var endD;var mName;var userID;
-            userID = match.username;
-            mName = match.meetingName;
-            beginD = new Date(match.beginD);
-            endD = new Date(match.endD);
-            setupTable()
-            window.scrollTo({top:0,left:0})
+    function getData(feed){
+        var match = feed.data[0]
+        //var beginD;var endD;var mName;var userID;
+        userID = match.username;
+        mName = match.meetingName;
+        beginD = new Date(match.beginD);
+        endD = new Date(match.endD);
+        setupTable()
+        window.scrollTo({top:0,left:0})
+        }
+
+    function getPeople(feed){
+        for (let index = 0; index < feed.data.length; index++) {
+            const array = feed.data[index];
+            newPp = [
+                [array.firstname],
+                [array.lastname],
+                [array.institution]
+            ]
+            people.push(newPp)
+            oFeed.push(newPp)
+        }
         }
     }
 }
@@ -456,72 +476,39 @@ function managePeople(option){
     supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
     const database = supabase.createClient(supUrl,supKey)
 
-    if (option!='x'){
-        //clear people
-        while (people.length>0){
-            people[0].pop()
-        }
-
-        //fetch people
-        const fetchData = async () => {
-        const feed = await database
-                .from("people")
-                .select()
-                .eq ('username', userID)
-            feedPeople(feed)
-        }
-        fetchData()
-
-    var oFeed;//string
-    function feedPeople(feed){
-        oFeed = JSON.stringify(feed)
-        for (let index = 0; index < feed.data.length; index++) {
-            const array = feed.data[index];
-            newPp = [
-                [array.firstname],
-                [array.lastname],
-                [array.institution]
-            ]
-            people.push(newPp)
-            console.log(people)
-        }
-        if (people.length>0){
-            showPp()
-        }
-        }
-    }
-
-    else {
+    if (option=='x'){
         dayTable.style.display = 'block'
         pp.style.display = 'none'
-        //dayTable.rows[8].scrollIntoView();
         showMainMenu('x')
         
         //check if people was edited
-        if (oFeed != JSON.stringify(people)){
+        console.log('oFeed ='+oFeed)
+        console.log('people ='+people)
+
+        if (JSON.stringify(oFeed) != JSON.stringify(people)){
+            confirm('change received')
             //delete old data first
-            const delOldData = async () => {
+            const updateData = async () => {
                 const oldData = await database
                 .from("people")
                 .delete()
                 .eq('username', userID)
-            }
-            delOldData()
-
-            //submit people//fName, lName, inst
-            const sendData = async () => {
+   
                 for (let index = 0; index < people.length; index++) {
                     const feed = await database.from("people").insert({
                         username: userID,
-                        firstname:people[index][0],
-                        lastname:people[index][1],
-                        institution:people[index][2],
+                        firstname:people[index][0].toString(),
+                        lastname:people[index][1].toString(),
+                        institution:people[index][2].toString(),
                         combined:people[index][0]+people[index][1]+people[index][2]
                     })
                 }
             }
-            sendData()
+            updateData()
         }
+    }
+    else {
+        if (people.length>0){showPp()}
     }
     
     showMainMenu('x')
@@ -562,8 +549,7 @@ function PpInput(option){
 
 function showPp(){
     const table = document.getElementById('PpTable');
-    const oldLength = people.length;
-    console.log(people.length)
+    console.log(people)
     //clear table first
     while (table.rows.length>2){
         table.deleteRow(2)
