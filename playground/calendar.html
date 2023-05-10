@@ -451,20 +451,26 @@ function managePeople(option){
 
     dayTable.style.display = 'none'
     pp.style.display = 'block'
-    
-    //fetch people
+
     supUrl = 'https://entgoevitfioaiavmrfb.supabase.co'
     supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
     const database = supabase.createClient(supUrl,supKey)
-    const fetchData = async () => {
-    const feed = await database
-            .from("people")
-            .select()
-            .eq ('username', userID)
-        feedPeople(feed)
-        //console.log(feed)
+
+    if (option!='x'){
+        //clear people
+        while (people.length>0){
+            people[0].pop()
         }
-    fetchData()
+
+        //fetch people
+        const fetchData = async () => {
+        const feed = await database
+                .from("people")
+                .select()
+                .eq ('username', userID)
+            feedPeople(feed)
+        }
+        fetchData()
 
     var oFeed;//string
     function feedPeople(feed){
@@ -477,14 +483,15 @@ function managePeople(option){
                 [array.institution]
             ]
             people.push(newPp)
+            console.log(people)
+        }
+        if (people.length>0){
+            showPp()
+        }
         }
     }
 
-
-    if (people.length>0){showPp()}
-    showMainMenu('x')
-
-    if (option=='x'){
+    else {
         dayTable.style.display = 'block'
         pp.style.display = 'none'
         //dayTable.rows[8].scrollIntoView();
@@ -499,6 +506,7 @@ function managePeople(option){
                 .delete()
                 .eq('username', userID)
             }
+            delOldData()
 
             //submit people//fName, lName, inst
             const sendData = async () => {
@@ -515,6 +523,8 @@ function managePeople(option){
             sendData()
         }
     }
+    
+    showMainMenu('x')
 }
 
 function PpInput(option){
@@ -553,7 +563,7 @@ function PpInput(option){
 function showPp(){
     const table = document.getElementById('PpTable');
     const oldLength = people.length;
-
+    console.log(people.length)
     //clear table first
     while (table.rows.length>2){
         table.deleteRow(2)
