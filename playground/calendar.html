@@ -472,7 +472,7 @@ function managePeople(option){
         for (let index = 0; index < feed.data.length; index++) {
             const array = feed.data[index];
             newPp = [
-                [array.fisrtname],
+                [array.firstname],
                 [array.lastname],
                 [array.institution]
             ]
@@ -492,6 +492,14 @@ function managePeople(option){
         
         //check if people was edited
         if (oFeed != JSON.stringify(people)){
+            //delete old data first
+            const delOldData = async () => {
+                const oldData = await database
+                .from("people")
+                .delete()
+                .eq('username', userID)
+            }
+
             //submit people//fName, lName, inst
             const sendData = async () => {
                 for (let index = 0; index < people.length; index++) {
@@ -1246,9 +1254,9 @@ function programEnter(cDate){
                         ]
     
     //demo 20 speakers -- people array
-    for (let index = 0; index < 20; index++) {
-        people.push(index)
-    }
+    //for (let index = 0; index < 20; index++) {
+        //people.push(index)
+    //}
     
     //dropdown
     for (let i = 0; i < peopleList.length; i++) {
@@ -1256,8 +1264,8 @@ function programEnter(cDate){
         for (let j=0; j<people.length;j++){
             var opt = document.createElement('option')
             s.appendChild(opt)
-            opt.value = people[j]
-            opt.innerHTML = people[j]
+            opt.value = people[j][0]+' '+ people[j][1]+' ('+people[j][2]+')'
+            opt.innerHTML = people[j][0]+' '+ people[j][1]+' ('+people[j][2]+')'
         }
     }
 
