@@ -269,6 +269,10 @@
             <span id='eDate' style="color:aquamarine;">End Date</span>  
             <sup><i id="eDatei" class="fa-regular fa-pen-to-square" onclick="editNameDate('eDate')"
                 style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
+            <div class="hiddenButtons">
+                <button>Submit</button>
+                <button>Cancel</button>
+            </div>
         </div>
         <div id="selectionBar">
             <button onclick="managePeople()">
@@ -1097,11 +1101,11 @@ function showDateMenu(){
 function editNameDate(option){
     //option = name, bDate, eDate, show
     const name = document.getElementById('mName')
-    const bDate = document.getElementById('bDate')
-    const eDate = document.getElementById('eDate')
+    //const bDate = document.getElementById('bDate')
+    //const eDate = document.getElementById('eDate')
     const nameIcon = document.getElementById('mNamei')
-    const bDateIcon = document.getElementById('bDatei')
-    const eDateIcon = document.getElementById('eDatei')
+    //const bDateIcon = document.getElementById('bDatei')
+    //const eDateIcon = document.getElementById('eDatei')
     const hidden = document.getElementsByClassName('hiddenButtons')
     
     if (option == 'show'){
@@ -1118,10 +1122,76 @@ function editNameDate(option){
         name.appendChild(inp)
         inp.style.color = '#555';inp.style.fontSize = '2vmax'
         inp.setAttribute('type','text')
-        inp.setAttribute('value', mName)
+        inp.value = mName
         nameIcon.style.display = 'none'
+        inp.onfocus = function(){
+            inp.value = ''
+        }
         hidden[0].style.display = 'block'
+        //submit button
+        hidden[0].children[0].onclick = function(){
+            var newName = inp.value;
+            if (newName!=mName){
+            if (confirm('You are about to change the meeting name to '+ newName)){
+                mName = newName;
+                }
+            }
+            editNameDate('show');
+            nameIcon.style.display = 'inline-block'
+            hidden[0].style.display = 'none'
+        }
+        //cancel
+        hidden[0].children[1].onclick = function(){
+            editNameDate('show');
+            nameIcon.style.display = 'inline-block'
+            hidden[0].style.display = 'none'
+        }
     }
+
+    if (option == 'bDate' || option == 'eDate'){
+        const edit = document.getElementById(option)   
+        const oldDate = new Date(edit.innerHTML);
+        edit.innerHTML = ''
+        var inp = document.createElement('INPUT')
+        edit.appendChild(inp)
+        inp.style.color = '#555';inp.style.fontSize = '2vmax'
+        inp.setAttribute('type','date')
+        const icon = document.getElementById(option+'i')
+        icon.style.display = 'none'
+        
+        hidden[1].style.display = 'block'
+        //submit button
+        hidden[1].children[0].onclick = function(){
+            var newDate = inp.value;
+            if (sameDate(newDate,oldDate)){
+                if (confirm('You are about to change the meeting name to '+ newDate)){
+                    alert(newDate)
+                }
+            } else {alert('same')}
+            editNameDate('show');
+            icon.style.display = 'inline-block'
+            hidden[1].style.display = 'none'
+        }
+        //cancel
+        hidden[1].children[1].onclick = function(){
+            editNameDate('show');
+            icon.style.display = 'inline-block'
+            hidden[1].style.display = 'none'
+        }
+    }
+
+    function sameDate(date1,date2){
+        var same = Boolean;
+        if (date1.getFullYear()==date2.getFullYear()){
+            if (date1.getMonth()==date2.getMonth()){
+                if (date1.getDate()==date2.getDate()){
+                    same = True;
+                }
+            }
+        }
+        return same;
+    }
+
 }
 
 function setupTable(){
