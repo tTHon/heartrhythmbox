@@ -263,11 +263,9 @@
         </div>
         <div id="meetingDate" style="font-size: 3vmax;color:aquamarine;">
             <span id='bDate' style="color:aquamarine;">Begin Date</span>  
-            <sup><i id="bDatei" class="fa-regular fa-pen-to-square" onclick="editNameDate('bDate')"
-                style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
             &nbsp; - &nbsp;
             <span id='eDate' style="color:aquamarine;">End Date</span>  
-            <sup><i id="eDatei" class="fa-regular fa-pen-to-square" onclick="editNameDate('eDate')"
+            <sup><i id="datei" class="fa-regular fa-pen-to-square" onclick="editNameDate('date')"
                 style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
             <div class="hiddenButtons">
                 <button>Submit</button>
@@ -1101,11 +1099,10 @@ function showDateMenu(){
 function editNameDate(option){
     //option = name, bDate, eDate, show
     const name = document.getElementById('mName')
-    //const bDate = document.getElementById('bDate')
-    //const eDate = document.getElementById('eDate')
+    const bDate = document.getElementById('bDate')
+    const eDate = document.getElementById('eDate')
     const nameIcon = document.getElementById('mNamei')
-    //const bDateIcon = document.getElementById('bDatei')
-    //const eDateIcon = document.getElementById('eDatei')
+    const dateIcon = document.getElementById('datei')
     const hidden = document.getElementsByClassName('hiddenButtons')
     
     if (option == 'show'){
@@ -1148,26 +1145,39 @@ function editNameDate(option){
         }
     }
 
-    if (option == 'bDate' || option == 'eDate'){
-        const edit = document.getElementById(option)   
-        const oldDate = new Date(edit.innerHTML);
-        edit.innerHTML = ''
-        var inp = document.createElement('INPUT')
-        edit.appendChild(inp)
-        inp.style.color = '#555';inp.style.fontSize = '2vmax'
-        inp.setAttribute('type','date')
-        const icon = document.getElementById(option+'i')
-        icon.style.display = 'none'
+    if (option == 'date'){
+        const bDateOld = new Date(bDate.innerHTML);
+        const eDateOld = new Date(eDate.innerHTML)
+        
+        bDate.innerHTML = '';eDate.innerHTML=''
+        
+        var bInp = document.createElement('INPUT')
+        bDate.appendChild(bInp)
+        bInp.style.color = '#555';bInp.style.fontSize = '2vmax'
+        bInp.setAttribute('type','date')
+
+        var eInp = document.createElement('INPUT')
+        eDate.appendChild(eInp)
+        eInp.style.color = '#555';eInp.style.fontSize = '2vmax'
+        eInp.setAttribute('type','date')
+        dateIcon.style.display = 'none'
         
         hidden[1].style.display = 'block'
         //submit button
         hidden[1].children[0].onclick = function(){
-            var newDate = inp.value;
-            if (sameDate(newDate,oldDate)){
-                if (confirm('You are about to change the meeting name to '+ newDate)){
-                    alert(newDate)
+            var newB = bInp.value;var newE = eInp.value
+           //console.log(newDate.length)
+            if ((newDate.length>0) && (!sameDate(newDate,oldDate))){
+                if (confirm('You are about to change the meeting date to '+ newDate)){
+                    if (option =='bDate'){
+                        beginD=new Date(newDate);
+                    }
+                    if (option =='eDate'){
+                        endD=new Date(newDate);
+                    }
                 }
-            } else {alert('same')}
+            } 
+            //else {alert('unchanged')}
             editNameDate('show');
             icon.style.display = 'inline-block'
             hidden[1].style.display = 'none'
@@ -1181,14 +1191,15 @@ function editNameDate(option){
     }
 
     function sameDate(date1,date2){
-        var same = Boolean;
-        if (date1.getFullYear()==date2.getFullYear()){
-            if (date1.getMonth()==date2.getMonth()){
-                if (date1.getDate()==date2.getDate()){
-                    same = True;
-                }
-            }
-        }
+        var same = false;
+        var d1 = new Date(date1)
+        var d2 = new Date(date2)
+
+        if ((d1.getFullYear()==d2.getFullYear()) && (d1.getMonth()==d2.getMonth()) &&
+               (d1.getDate()==d2.getDate())){
+                same=true;
+               }
+        //console.log(same)
         return same;
     }
 
