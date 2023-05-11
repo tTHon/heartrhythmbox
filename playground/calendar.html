@@ -62,6 +62,11 @@
     .popUpBr {padding-top: 1vmax;} 
     .topicBar {position:relative;left: 0;border: pink solid 0.2vmax;font-size: 2.5vh;}
 
+    /*title*/
+    #meetingName {font-size: 4vmax;}
+    .hiddenButtons {display: none;padding-bottom: 5vh;}
+    .hiddenButtons button {background-color:black;}
+
     /*mainmenu*/
     #menuIcon {position:fixed;cursor: pointer;z-index: 2;background-color: rgba(50,50,50,0.9);}
     #menuIcon i {width:4vmax;text-align: center;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;}
@@ -247,13 +252,23 @@
         </div>
     </div>
     <div id="title" style="text-align: center;padding: 5vh 2vw;">
-        <div id="meetingName" style="font-size: 4vmax;">
+        <div id="meetingName">
             <span id='mName' style="color:aquamarine;">Meeting Name</span> 
-            <sup><i class="fa-regular fa-pen-to-square" style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
+            <sup><i id="mNamei" class="fa-regular fa-pen-to-square" onclick="editNameDate('name')" 
+                style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
+            <div class="hiddenButtons">
+                <button>Submit</button>
+                <button>Cancel</button>
+            </div>
         </div>
         <div id="meetingDate" style="font-size: 3vmax;color:aquamarine;">
-            <span id='mDate' style="color:aquamarine;">Meeting Date</span>  
-            <sup><i class="fa-regular fa-pen-to-square" style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
+            <span id='bDate' style="color:aquamarine;">Begin Date</span>  
+            <sup><i id="bDatei" class="fa-regular fa-pen-to-square" onclick="editNameDate('bDate')"
+                style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
+            &nbsp; - &nbsp;
+            <span id='eDate' style="color:aquamarine;">End Date</span>  
+            <sup><i id="eDatei" class="fa-regular fa-pen-to-square" onclick="editNameDate('eDate')"
+                style="font-size: 1.8vmax;cursor: pointer;"></i></sup>
         </div>
         <div id="selectionBar">
             <button onclick="managePeople()">
@@ -715,7 +730,6 @@ function submit(){
     }
 
 
-
 function setUpDateArray(array){
     //total dateCell = 42
     for (let index = 0; index < 42; index++) {
@@ -1080,13 +1094,38 @@ function showDateMenu(){
     }
 }
 
+function editNameDate(option){
+    //option = name, bDate, eDate, show
+    const name = document.getElementById('mName')
+    const bDate = document.getElementById('bDate')
+    const eDate = document.getElementById('eDate')
+    const nameIcon = document.getElementById('mNamei')
+    const bDateIcon = document.getElementById('bDatei')
+    const eDateIcon = document.getElementById('eDatei')
+    const hidden = document.getElementsByClassName('hiddenButtons')
+    
+    if (option == 'show'){
+        // show meeting name and date
+        name.innerHTML = mName;
+        bDate.innerHTML = beginD.toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"});
+        eDate.innerHTML = endD.toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"})
+    }
+
+    if (option == 'name'){
+        //create new input and unhide submit bar
+        name.innerHTML = ''
+        var inp = document.createElement('INPUT')
+        name.appendChild(inp)
+        inp.style.color = '#555';inp.style.fontSize = '2vmax'
+        inp.setAttribute('type','text')
+        inp.setAttribute('value', mName)
+        nameIcon.style.display = 'none'
+        hidden[0].style.display = 'block'
+    }
+}
 
 function setupTable(){
-    //meeting name and date
-    document.getElementById('mName').innerHTML = mName;
-    document.getElementById('mDate').innerHTML =  beginD.toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"}) + '  -  ' +
-    endD.toLocaleDateString("en-GB",{year: "2-digit",month:"short",day:"numeric"})
-
+    editNameDate('show')
     //date and room array
     var dateDiff = (endD-beginD)/oneDay
     for (let index = 0; index <= dateDiff; index++) {
