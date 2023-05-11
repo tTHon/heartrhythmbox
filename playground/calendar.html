@@ -74,6 +74,7 @@
     #selectionBar {padding:2vmax 0 0 0;font-size: 1.8vmax;}
     #selectionBar i {font-size: 2vmax;color: #8ef5d0;}
     #selectionBar button {border:none;background-color: #232323;color: #dffff4;}
+    #invisibleHome {display: none;}
 
     #people {display: none;font-size: 2vmax;width: 88vw;margin-left: auto;margin-right: auto;text-align: center;}
     #people button {background-color: #232323;font-size: 1.8vmax;border-radius: 0.5vmax;margin-top: 0.5vh;}
@@ -219,20 +220,17 @@
 <div id="scheduling">
     <div id="menuIcon">
         <i id="hamburger" class="fa-solid fa-bars" onclick="showMainMenu()"></i>
-        <a href="index.html">
         <div style="right: 0.9vmax;position: fixed;top: 0.9vmax;text-align: left;line-height: 100%;font-size: 1.2vmax;color: #55a288;
-        border: #555 solid 0.1vmax;border-radius: 0.4vmax;padding: 0.2vmax;background-color: rgba(0,0,0,0.85);">
-        MeetinG<br>&nbsp;&nbsp;&nbsp;MediuM</div></a>
+        border: #555 solid 0.1vmax;border-radius: 0.4vmax;padding: 0.2vmax;background-color: rgba(0,0,0,0.85);"
+        onclick="toHome()">
+        MeetinG<br>&nbsp;&nbsp;&nbsp;MediuM</div>
         <i id="xMark" class="fa-solid fa-circle-xmark" onclick="showMainMenu('x')"></i>
-        
+        <a href="index.html" id="invisibleHome"></a>
+
         <div id="mainMenu">
-            <div class="menuItem">
+            <div class="menuItem" onclick="toHome()" title="click to change userID">
                 <i class="fa-solid fa-circle-user"></i>
                 <span id="menuUser">UserID</span>
-            </div>
-            <div class="menuItem">
-                <i class="fa-regular fa-pen-to-square"></i>
-                <span>Edit Meeting Name/Date</span>
             </div>
             <div class="menuItem" onclick="managePeople()">
                 <i class="fa-solid fa-person-chalkboard"></i>
@@ -482,11 +480,10 @@ function managePeople(option){
         showMainMenu('x')
         
         //check if people was edited
-        console.log('oFeed ='+oFeed)
-        console.log('people ='+people)
+        //console.log('oFeed ='+oFeed)
+        //console.log('people ='+people)
 
         if (JSON.stringify(oFeed) != JSON.stringify(people)){
-            confirm('change received')
             //delete old data first
             const updateData = async () => {
                 const oldData = await database
@@ -549,7 +546,7 @@ function PpInput(option){
 
 function showPp(){
     const table = document.getElementById('PpTable');
-    console.log(people)
+    //console.log(people)
     //clear table first
     while (table.rows.length>2){
         table.deleteRow(2)
@@ -578,9 +575,11 @@ function showPp(){
                 cell.classList.add('PpDel')
                 cell.title = 'delete'
                 cell.onclick = function(){
-                    table.deleteRow(i+2);
-                    people.splice(i,1);
-                    showPp()
+                    if (confirm('Delete this entry?')){
+                        table.deleteRow(i+2);
+                        people.splice(i,1);
+                        showPp()
+                    }
                 }
             }
         }
@@ -615,6 +614,14 @@ function showPp(){
     }
 
 
+}
+
+//back to home page 
+function toHome(){
+    if (confirm('You are about to leave this page.')){
+        document.getElementById('invisibleHome').click();
+    }
+    showMainMenu('x')
 }
 
 
