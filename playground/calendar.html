@@ -1151,11 +1151,13 @@ function editNameDate(option){
         
         bDate.innerHTML = '';eDate.innerHTML=''
         
+        //begin Date
         var bInp = document.createElement('INPUT')
         bDate.appendChild(bInp)
         bInp.style.color = '#555';bInp.style.fontSize = '2vmax'
         bInp.setAttribute('type','date')
 
+        //end date
         var eInp = document.createElement('INPUT')
         eDate.appendChild(eInp)
         eInp.style.color = '#555';eInp.style.fontSize = '2vmax'
@@ -1166,26 +1168,34 @@ function editNameDate(option){
         //submit button
         hidden[1].children[0].onclick = function(){
             var newB = bInp.value;var newE = eInp.value
-           //console.log(newDate.length)
-            if ((newDate.length>0) && (!sameDate(newDate,oldDate))){
-                if (confirm('You are about to change the meeting date to '+ newDate)){
-                    if (option =='bDate'){
-                        beginD=new Date(newDate);
+
+        //check if newE newB were changed and valid
+        if ((newE.length>0) && (newB.length>0)){
+            if (newE>=newB){
+                if ((!sameDate(newE,eDateOld)) || (!sameDate(newB,bDateOld))){
+                    var newDate = newB + ' to '+ newE
+                    if (confirm('You are about to change the meeting date to '+ newDate)){
+                        beginD = new Date(newB);
+                        endD = new Date(newE);
+                        outOfDate();    
                     }
-                    if (option =='eDate'){
-                        endD=new Date(newDate);
-                    }
+                } else {
+                    alert('No change has been made.');
+                    outOfDate();
                 }
-            } 
-            //else {alert('unchanged')}
-            editNameDate('show');
-            icon.style.display = 'inline-block'
-            hidden[1].style.display = 'none'
+            } else {
+                alert('End Date has to be later than Begin Date.')
+            }
+        } else {
+                alert('You need to enter the Begin and End dates.')
+            }
         }
         //cancel
-        hidden[1].children[1].onclick = function(){
+        hidden[1].children[1].onclick = function(){outOfDate()}
+
+        function outOfDate(){
             editNameDate('show');
-            icon.style.display = 'inline-block'
+            dateIcon.style.display = 'inline-block'
             hidden[1].style.display = 'none'
         }
     }
