@@ -1,6 +1,10 @@
 //date, room, startTime, endTime, title, spk1-4, mod1-3
 var topic= []
 
+function programSum(){
+    
+}
+
 function addTopic(array){
     //one hour equal to 3vh + header of 9vh
     const oneHour = 9*vh;
