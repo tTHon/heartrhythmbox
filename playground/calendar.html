@@ -81,17 +81,27 @@
     #selectionBar button {border:none;background-color: #232323;color: #dffff4;}
     #invisibleHome {display: none;}
 
+    /*pp*/
     #people {display: none;font-size: 2vmax;width: 88vw;margin-left: auto;margin-right: auto;text-align: center;}
     #people button {background-color: #232323;font-size: 1.8vmax;border-radius: 0.5vmax;margin-top: 0.5vh;}
     #PpTable {display: block;height: 80vh;position: relative;width: fit-content;max-width: 88vw;overflow: scroll;
         margin-left: auto;margin-right: auto;text-align: center;}
-    #PpTable, #PpTable th, #PpTable tr, #pPTable td {border: #bbb 1px solid;border-collapse: collapse;padding: 0.5vmax;}
+    #PpTable, #PpTable th, #PpTable tr, #PpTable td {border: #bbb 1px solid;border-collapse: collapse;padding: 0.5vmax;}
     #PpTable th {color: aquamarine;padding: 0.5vmax;position: sticky;}
     #PpTable td {padding: 0.5vmax 1vmax;}
     .PpDel {color:#55a288;padding:0 0.5vmax;cursor: pointer;font-weight: 900;}
     .PpName {cursor: pointer;}
     .PpName:hover {background-color: black;}
     .PpForm {display: none;text-align: left;color: #232323;}
+
+    /*rm*/
+    #room {font-size: 2vmax;margin-left: auto;margin-right: auto;text-align: center;width: fit-content;}
+    #RmTable, #RmTable th, #RmTable tr {border: #bbb 1px solid;border-collapse: collapse;padding: 0.5vmax;}
+    #RmTable td {padding: 0.5vmax 1vmax;}
+    .RmDel {color:#55a288;padding:0 0.5vmax;cursor: pointer;font-weight: 900;}
+    .RmName {cursor: pointer;}
+    .RmName:hover {background-color: black;}
+    .RmForm {display: none;text-align: left;color: #232323;}
     
     @media screen and (max-width:821px) {  
         #popUp {padding: 1vmax;line-height: 180%;}
@@ -237,13 +247,13 @@
                 <i class="fa-solid fa-circle-user"></i>
                 <span id="menuUser">UserID</span>
             </div>
-            <div class="menuItem" onclick="managePeople('x')">
-                <i class="fa-solid fa-table-list"></i>
-                <span>Program</span>
-            </div>
             <div class="menuItem" onclick="">
                 <i class="fa-solid fa-people-roof"></i>
                 <span>Room</span>
+            </div>
+            <div class="menuItem" onclick="managePeople('x')">
+                <i class="fa-solid fa-table-list"></i>
+                <span>Program</span>
             </div>
             <div class="menuItem" onclick="managePeople()">
                 <i class="fa-solid fa-person-chalkboard"></i>
@@ -277,13 +287,13 @@
             </div>
         </div>
         <div id="selectionBar">
+            <button onclick="manageRoom()">
+                <i class="fa-solid fa-people-roof"></i><br>
+                <span>Room</span>
+            </button>
             <button onclick="managePeople('x')">
                 <i class="fa-solid fa-table-list"></i><br>
                 <span>Program</span>
-            </button>
-            <button onclick="">
-                <i class="fa-solid fa-people-roof"></i><br>
-                <span>Room</span>
             </button>
             <button onclick="managePeople()">
                 <i class="fa-solid fa-person-chalkboard"></i><br>
@@ -321,6 +331,19 @@
                 <td>
                     <span class="PpForm" style="cursor: pointer;color: #55a288;padding-left: 1vmax;font-weight: 900;" title="save" onclick="PpInput('save')">&#128427;</span>
                     <span class="PpForm" style="cursor: pointer;color: #55a288;padding-left: 1vmax;font-weight: 900;" title="reset" onclick="PpInput('reset')">&#10226;</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="room">
+        <table id="RmTable">
+            <tr>
+                <td style="cursor: pointer;" onclick="RmInput('on')" title="add">+</td>
+                <td><input name="RmName" id="RmName" class="RmForm"></td>
+                <td>
+                    <span class="RmForm" style="cursor: pointer;color: #55a288;padding-left: 1vmax;font-weight: 900;" title="save" onclick="RmInput('save')">&#128427;</span>
+                    <span class="RmForm" style="cursor: pointer;color: #55a288;padding-left: 1vmax;font-weight: 900;" title="reset" onclick="RmInput('reset')">&#10226;</span>
                 </td>
             </tr>
         </table>
@@ -487,10 +510,34 @@ function checkHistory(){
     }
 }
 
+//room
+function manageRoom(option){
+    const barItem = document.getElementById('selectionBar').children;
+    //children -- program, room, speaker, summary
+    for (let index = 0; index < barItem.length; index++) {
+       barItem[index].style.boxShadow = 'none'        
+    }
+    barItem[0].style.boxShadow = '2px 4px 4px 4px rgba(100,100,100,0.5)'
+
+    //get position
+    const bottom = barItem[0].offsetTop + barItem[0].offsetHeight;
+    const left = barItem[0].offsetLeft;
+
+    //add new element
+     
+}
+
 //speakers/moderator management
 function managePeople(option){
     const dayTable = document.getElementById('dayTable')
     const pp = document.getElementById('people')
+
+    const barItem = document.getElementById('selectionBar').children;
+    //children -- program, room, speaker, summary
+    for (let index = 0; index < barItem.length; index++) {
+       barItem[index].style.boxShadow = 'none'        
+    }
+    barItem[2].style.boxShadow = '2px 4px 4px 4px rgba(100,100,100,0.5)'
 
     dayTable.style.display = 'none'
     pp.style.display = 'block'
@@ -503,6 +550,10 @@ function managePeople(option){
         dayTable.style.display = 'block'
         pp.style.display = 'none'
         showMainMenu('x')
+        for (let index = 0; index < barItem.length; index++) {
+        barItem[index].style.boxShadow = 'none'        
+        }
+        barItem[1].style.boxShadow = '2px 4px 4px 4px rgba(100,100,100,0.5)'
         
         //check if people was edited
         //console.log('oFeed ='+oFeed)
