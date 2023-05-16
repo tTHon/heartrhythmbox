@@ -237,17 +237,21 @@
                 <i class="fa-solid fa-circle-user"></i>
                 <span id="menuUser">UserID</span>
             </div>
+            <div class="menuItem" onclick="managePeople('x')">
+                <i class="fa-solid fa-table-list"></i>
+                <span>Program</span>
+            </div>
+            <div class="menuItem" onclick="">
+                <i class="fa-solid fa-people-roof"></i>
+                <span>Room</span>
+            </div>
             <div class="menuItem" onclick="managePeople()">
                 <i class="fa-solid fa-person-chalkboard"></i>
-                <span>Edit Speakers/Moderators</span>
-            </div>
-            <div class="menuItem" onclick="managePeople('x')">
-                <i class="fa-solid fa-plus"></i>
-                <span>Add Program</span>
+                <span>Speakers/Moderators</span>
             </div>
             <div class="menuItem">
                 <i class="fa-solid fa-list-check"></i>
-                <span>Show Program Summary</span>
+                <span>Summary</span>
             </div>
         </div>
     </div>
@@ -273,17 +277,21 @@
             </div>
         </div>
         <div id="selectionBar">
+            <button onclick="managePeople('x')">
+                <i class="fa-solid fa-table-list"></i><br>
+                <span>Program</span>
+            </button>
+            <button onclick="">
+                <i class="fa-solid fa-people-roof"></i><br>
+                <span>Room</span>
+            </button>
             <button onclick="managePeople()">
                 <i class="fa-solid fa-person-chalkboard"></i><br>
-                <span>Edit Speakers/Moderators</span>
-            </button>
-            <button onclick="managePeople('x')">
-                <i class="fa-solid fa-plus"></i><br>
-                <span>Add Program</span>
+                <span>Speakers/Moderators</span>
             </button>
             <button>
                 <i class="fa-solid fa-list-check"></i><br>
-                <span>Show Program Summary</span>
+                <span>Summary</span>
             </button>
         </div>
     </div>
