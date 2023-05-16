@@ -1040,7 +1040,7 @@ function showDateMenu(){
     const head = document.getElementById('dateCol')
     const top = head.offsetTop + 10*vh;
     const left = head.offsetLeft + 0.5*vw;
-    const width = head.offsetWidth + 2*vw;
+    const width = head.offsetWidth;
 
     //to show menu or not
     const menu = document.getElementsByClassName('dateMenu')
@@ -1245,7 +1245,7 @@ function setupTable(){
     head.style.height = 9*vh + 'px';
     //console.log(dayTable.rows[0].cells.length)
     const colPad = 1*vmax;
-    dateColW = 2*vw*9 + colPad;
+    dateColW = 20*vw + colPad;
     dayTable.rows[0].cells[0].style.width = dateColW + 'px';
     dayTable.rows[0].cells[1].style.width = 90*vw - dateColW + 'px'
     
