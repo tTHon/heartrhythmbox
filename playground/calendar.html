@@ -36,7 +36,7 @@
         position: relative;border-collapse: collapse;}
     #header {position: sticky;top:0;z-index:1;background-color: aquamarine;}
     #header th {font-size: 2vmax;color: #333;cursor: pointer;}
-    #dateCol, #roomCol {cursor: pointer;}
+    #dateCol, #roomCol {cursor: pointer;font-size: 2vmax;}
     .dateMenu,.roomMenu {position: absolute;background-color: #232323;padding: 0;margin: 0;list-style-type: none;
     box-shadow: 2px 4px 4px 4px rgba(100,100,100,0.5);overflow-y: scroll;overflow-x: hidden;text-overflow: ellipsis;}
     .dateList, .roomList {border-bottom: 1px #555 solid;font-size: 2vmax;
@@ -1040,7 +1040,7 @@ function showDateMenu(){
     const head = document.getElementById('dateCol')
     const top = head.offsetTop + 10*vh;
     const left = head.offsetLeft + 0.5*vw;
-    const width = head.offsetWidth - vw;
+    const width = head.offsetWidth + 2*vw;
 
     //to show menu or not
     const menu = document.getElementsByClassName('dateMenu')
