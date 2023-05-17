@@ -95,7 +95,7 @@
     .PpForm {display: none;text-align: left;color: #232323;}
 
     /*rm*/
-    #room {font-size: 2vmax;margin-left: auto;margin-right: auto;text-align: center;width: fit-content;}
+    #room {font-size: 2vmax;display: none;position: absolute;background-color: #232323;}
     #RmTable, #RmTable th, #RmTable tr {border: #bbb 1px solid;border-collapse: collapse;padding: 0.5vmax;}
     #RmTable td {padding: 0.5vmax 1vmax;}
     .RmDel {color:#55a288;padding:0 0.5vmax;cursor: pointer;font-weight: 900;}
@@ -437,7 +437,7 @@ vmax = getVmax();
 //major variables -- date/room/speakers/userID
 var beginD;var endD;var mName;var userID;
 var dates = []
-var rooms = ['Room1','Add/Edit']
+var rooms = ['Room1']
 var currentDate;
 var currentRoom = rooms[0];
 //[fName][lName][inst]
@@ -512,19 +512,34 @@ function checkHistory(){
 
 //room
 function manageRoom(option){
+    const room = document.getElementById('room')
     const barItem = document.getElementById('selectionBar').children;
-    //children -- program, room, speaker, summary
-    for (let index = 0; index < barItem.length; index++) {
-       barItem[index].style.boxShadow = 'none'        
+    if (room.style.display == 'block'){
+        room.style.display = 'none';
+        barItem[0].style.boxShadow ='none'
     }
-    barItem[0].style.boxShadow = '2px 4px 4px 4px rgba(100,100,100,0.5)'
+    else {
+        //get position
+        const bottom = barItem[0].offsetTop + barItem[0].offsetHeight;
+        const left = barItem[0].offsetLeft;
 
-    //get position
-    const bottom = barItem[0].offsetTop + barItem[0].offsetHeight;
-    const left = barItem[0].offsetLeft;
+        //show room menu
+        room.style.left = left + 'px'
+        room.style.top =  bottom + 'px'
+        room.style.display = 'block'
+        
+        //children -- program, room, speaker, summary
+        for (let index = 0; index < barItem.length; index++) {
+                barItem[index].style.boxShadow = 'none'        
+        }
+        barItem[0].style.boxShadow = '2px 4px 4px 4px rgba(100,100,100,0.5)'
 
-    //add new element
-     
+        //add element
+        const table = document.getElementById('RmTable')
+        var row = document.createElement('tr')
+        table.appendChild(row)
+        
+    }
 }
 
 //speakers/moderator management
