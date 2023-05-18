@@ -95,7 +95,7 @@
     .PpForm {display: none;text-align: left;color: #232323;}
 
     /*rm*/
-    #room {font-size: 2vmax;display: none;position: absolute;background-color: #232323;}
+    #room {font-size: 2vmax;display: none;position: absolute;background-color: #232323;z-index: 2;}
     #RmTable, #RmTable th, #RmTable tr {border: #bbb 1px solid;border-collapse: collapse;padding: 0.5vmax;}
     #RmTable td {padding: 0.5vmax 1vmax;}
     .RmDel {color:#55a288;padding:0 0.5vmax;cursor: pointer;font-weight: 900;}
@@ -340,7 +340,7 @@
         <table id="RmTable">
             <tr>
                 <td style="cursor: pointer;" onclick="RmInput('on')" title="add">+</td>
-                <td><input name="RmName" id="RmName" class="RmForm"></td>
+                <td><input name="rName" id="rName" class="RmForm"></td>
                 <td>
                     <span class="RmForm" style="cursor: pointer;color: #55a288;padding-left: 1vmax;font-weight: 900;" title="save" onclick="RmInput('save')">&#128427;</span>
                     <span class="RmForm" style="cursor: pointer;color: #55a288;padding-left: 1vmax;font-weight: 900;" title="reset" onclick="RmInput('reset')">&#10226;</span>
@@ -514,11 +514,21 @@ function checkHistory(){
 function manageRoom(option){
     const room = document.getElementById('room')
     const barItem = document.getElementById('selectionBar').children;
-    if (room.style.display == 'block'){
+    if (room.style.display == 'block' || option=='x'){
         room.style.display = 'none';
         barItem[0].style.boxShadow ='none'
     }
     else {
+        //close people
+        if (document.getElementById('people').style.display =='block'){
+            managePeople('x')
+        }
+        //clear first row input
+        const input = document.getElementsByClassName('RmForm')
+        for (let index = 0; index < input.length; index++) {
+            input[index].style.display = 'none'            
+        }
+
         //get position
         const bottom = barItem[0].offsetTop + barItem[0].offsetHeight;
         const left = barItem[0].offsetLeft;
@@ -533,12 +543,104 @@ function manageRoom(option){
                 barItem[index].style.boxShadow = 'none'        
         }
         barItem[0].style.boxShadow = '2px 4px 4px 4px rgba(100,100,100,0.5)'
+        showRm()
 
-        //add element
+    }
+
+}
+
+function showRm(){
+    //add element
+    const table = document.getElementById('RmTable')
+    while (table.rows.length>1){
+        table.deleteRow(1)
+    }
+    for (let index = 0; index < rooms.length; index++) {
+        var row = document.createElement('tr');
+        table.appendChild(row);
+        var col = document.createElement('td')        
+        row.appendChild(col)
+        col.innerHTML = index+1;
+        var col2 = document.createElement('td')
+        row.appendChild(col2)
+        col2.innerHTML = rooms[index]
+        col2.classList.add('RmName')
+        col2.onclick = function(){
+            editRm(index+1)
+        }
+        var col3 = document.createElement('td')
+        row.appendChild(col3)
+        col3.innerHTML = '&#128465;'
+        col3.style.cursor = 'pointer'
+        col3.style.color = '#55a288'
+        col3.onclick = function(){
+            if (rooms.length==1){
+                alert('You cannot remove the only room you have')
+            }
+            else {
+                if (confirm('Delete this entry?')){
+                    table.deleteRow(index+1);
+                    rooms.splice(index,1);
+                    showRm()
+                }
+            }
+        }
+    }
+
+    function editRm(row){
         const table = document.getElementById('RmTable')
-        var row = document.createElement('tr')
-        table.appendChild(row)
+        const col2 = table.rows[row].cells[1];
+
+        if (col2.children.length == 0){
+            var oldValue = rooms[row-1]
+            col2.innerHTML = ''
+            var edit = document.createElement('INPUT')
+            col2.appendChild(edit)
+            edit.style.color = "#555"
+            edit.setAttribute("type", "text");
+            edit.setAttribute("value", oldValue);
         
+
+        //change col3 to save icon
+        var col3 = table.rows[row].cells[2]
+        col3.innerHTML = '&#128427;'
+        col3.title = 'save'
+        col3.onclick = function(){
+            rooms[row-1] = edit.value
+            col3.innerHTML = '&#128465;'
+            col3.title = 'delete'
+            edit.remove();
+            showRm();
+            }
+        }
+    }
+}
+
+function RmInput(option){
+//option: on, save, reset
+    const input = document.getElementsByClassName('RmForm')
+
+    if (option=='on'){
+        for (let index = 0; index < input.length; index++) {
+            input[index].style.display = 'table-cell';
+        }
+    }
+
+    if (option=='reset'){
+        input[0].value = ''            
+        input[0].innerHTML = ''
+    
+    }
+
+    if (option=='save'){
+        var newRm = document.getElementById('rName').value
+        rooms.push(newRm)
+        showRm()
+
+        for (let index = 0; index < input.length; index++) {
+            input[index].style.display = 'none';
+        }
+        RmInput('reset')
     }
 }
 
@@ -596,6 +698,7 @@ function managePeople(option){
         }
     }
     else {
+        manageRoom('x')
         if (people.length>0){showPp()}
     }
     
@@ -1037,7 +1140,7 @@ function colorCell(d,color){
 function showRoomMenu(){
     const table = document.getElementById('dayTable')
     const head = document.getElementById('roomCol')
-    const top = head.offsetTop + 10*vh;
+    const top = head.offsetTop + 9.1*vh;
     const left = head.offsetLeft + 0.5*vw;
     const width = head.offsetWidth - vw;
 
@@ -1068,6 +1171,7 @@ function showRoomMenu(){
     //hide other menu
     showMainMenu('x')
     const otherM = document.getElementsByClassName('dateMenu');
+    manageRoom('x')
     if (otherM.length>0){
         if (otherM[0].style.visibility=='visible'){
         otherM[0].style.visibility = 'hidden'
@@ -1104,7 +1208,7 @@ function showRoomMenu(){
 function showDateMenu(){
     const table = document.getElementById('dayTable')
     const head = document.getElementById('dateCol')
-    const top = head.offsetTop + 10*vh;
+    const top = head.offsetTop + 9.1*vh;
     const left = head.offsetLeft + 0.5*vw;
     const width = head.offsetWidth;
 
