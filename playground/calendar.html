@@ -87,9 +87,9 @@
     #people button {background-color: #232323;font-size: 1.8vmax;border-radius: 0.5vmax;margin-top: 0.5vh;}
     #PpTable {display: block;height: 80vh;position: relative;width: fit-content;max-width: 88vw;overflow: scroll;
         margin-left: auto;margin-right: auto;text-align: center;}
-    #PpTable, #PpTable th, #PpTable tr, #PpTable td {border: #bbb 1px solid;border-collapse: collapse;padding: 0.5vmax;}
+    #PpTable, #PpTable th, #PpTable tr, #PpTable td {border: #bbb 1px solid;border-collapse: collapse;padding: 2vmax 0.5vmax;}
     #PpTable th {color: aquamarine;padding: 0.5vmax;position: sticky;}
-    #PpTable td {padding: 0.5vmax 1vmax;}
+    #PpTable td {padding:2vmax 0vmax;}
     .PpDel {color:#55a288;padding:0 0.5vmax;cursor: pointer;font-weight: 900;}
     .PpName {cursor: pointer;}
     .PpName:hover {background-color: black;}
@@ -97,8 +97,9 @@
 
     /*rm*/
     #room {font-size: 2vmax;display: none;position: absolute;background-color: #232323;z-index: 2;}
+    #RmTable {min-width: 30vw;}
     #RmTable, #RmTable th, #RmTable tr {border: #bbb 1px solid;border-collapse: collapse;padding: 0.5vmax;}
-    #RmTable td {padding: 0.5vmax 1vmax;}
+    #RmTable td {padding: 2vmax 1vmax;}
     .RmDel {color:#55a288;padding:0 0.5vmax;cursor: pointer;font-weight: 900;}
     .RmName {cursor: pointer;}
     .RmName:hover {background-color: black;}
@@ -537,7 +538,7 @@ function manageRoom(option){
         const left = barItem[0].offsetLeft;
 
         //show room menu
-        room.style.left = left + 'px'
+        room.style.left = left/2 + 'px'
         room.style.top =  bottom + 'px'
         room.style.display = 'block'
         
@@ -834,6 +835,7 @@ function showMainMenu(option){
         hamburger.style.display = 'block'
         close.style.display = 'none'
     } else {
+        manageRoom('x')
         menu.style.display = 'block'
         hamburger.style.display = 'none'
         close.style.display = 'block'
