@@ -69,17 +69,18 @@
 
     /*mainmenu*/
     #menuIcon {position:fixed;cursor: pointer;z-index: 2;background-color: rgba(50,50,50,0.9);}
-    #menuIcon i {width:4vmax;text-align: center;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;}
+    #menuIcon i {width:4vmax;text-align: center;padding:0.6vmax 0.8vmax;font-size:2.5vmax;background-color: #232323;z-index: 10;}
     #mainMenu {display: none;height: 80vh;padding-right: 1vmax;animation: rollDown 0.4s;}
     #xMark {display: none;}
     #mainMenu div {margin-top: 1vh;background-color: #232323;padding-right: 1vmax;text-align: left;}
-    #mainMenu i {width:5vmax;padding:0.6vmax 0.8vmax;font-size:2.2vmax;background-color: #232323;z-index: 10;color: aquamarine;
+    #mainMenu i {width:5vmax;padding:0.6vmax 0.8vmax;font-size:2.5vmax;background-color: #232323;z-index: 10;color: aquamarine;
     border-right: #333 solid 1vmax;animation: fadeIn 1.2s;}
     #mainMenu span {animation:fadeIn 1.2s}
     #selectionBar {padding:2vmax 0 0 0;font-size: 1.8vmax;}
     #selectionBar i {font-size: 2vmax;color: #8ef5d0;}
-    #selectionBar button {border:none;background-color: #232323;color: #dffff4;}
+    #selectionBar button {border:none;background-color: #232323;color: #dffff4;padding: 1vmax;margin-left: 1vmax;}
     #invisibleHome {display: none;}
+    .menuItem {padding: 2vh;}
 
     /*pp*/
     #people {display: none;font-size: 2vmax;width: 88vw;margin-left: auto;margin-right: auto;text-align: center;}
@@ -108,7 +109,8 @@
         .noMobile {display: none;}
         #sum {width: 90%;left: 5%;}
         #mainMenu {width: 95vw;}
-        #selectionBar {display: none;}
+        /*#selectionBar {display: none;}*/
+        #selectionBar span {display: none;}
         #people {width: 95vw;}
         #PpTable {max-width: 95vw;}
     }
@@ -235,7 +237,7 @@
 <div id="scheduling">
     <div id="menuIcon">
         <i id="hamburger" class="fa-solid fa-bars" onclick="showMainMenu()"></i>
-        <div style="right: 0.9vmax;position: fixed;top: 0.9vmax;text-align: left;line-height: 100%;font-size: 1.2vmax;color: #55a288;
+        <div style="right: 0.9vmax;position: fixed;top: 0.9vmax;text-align: left;line-height: 100%;font-size: 1.5vmax;color: #55a288;
         border: #555 solid 0.1vmax;border-radius: 0.4vmax;padding: 0.2vmax;background-color: rgba(0,0,0,0.85);"
         onclick="toHome()">
         MeetinG<br>&nbsp;&nbsp;&nbsp;MediuM</div>
@@ -247,7 +249,7 @@
                 <i class="fa-solid fa-circle-user"></i>
                 <span id="menuUser">UserID</span>
             </div>
-            <div class="menuItem" onclick="">
+            <div class="menuItem" onclick="manageRoom()">
                 <i class="fa-solid fa-people-roof"></i>
                 <span>Room</span>
             </div>
@@ -523,6 +525,7 @@ function manageRoom(option){
         if (document.getElementById('people').style.display =='block'){
             managePeople('x')
         }
+        showMainMenu('x')
         //clear first row input
         const input = document.getElementsByClassName('RmForm')
         for (let index = 0; index < input.length; index++) {
@@ -667,6 +670,7 @@ function managePeople(option){
         dayTable.style.display = 'block'
         pp.style.display = 'none'
         showMainMenu('x')
+        manageRoom('x')
         for (let index = 0; index < barItem.length; index++) {
         barItem[index].style.boxShadow = 'none'        
         }
