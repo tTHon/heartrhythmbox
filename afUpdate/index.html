@@ -94,17 +94,20 @@
   <amp-auto-ads type="adsense"
   data-ad-client="ca-pub-1548733331544768">
   </amp-auto-ads>
-    <amp-analytics type="gtag" data-credentials="include">
-        <script type="application/json">
-        {
-          "vars" : {
-            "gtag_id": "UA-119340815-1",
-            "config" : {
-              "UA-119340815-1": { "groups": "default" }
-            }
-          }
+  <amp-analytics type="googleanalytics" config="https://amp.analytics-debugger.com/ga4.json" data-credentials="include">
+    <script type="application/json">
+    {
+        "vars": {
+                    "GA4_MEASUREMENT_ID": "G-PHBZ8EJY6J",
+                    "GA4_ENDPOINT_HOSTNAME": "www.google-analytics.com",
+                    "DEFAULT_PAGEVIEW_ENABLED": true,    
+                    "GOOGLE_CONSENT_ENABLED": false,
+                    "WEBVITALS_TRACKING": false,
+                    "PERFORMANCE_TIMING_TRACKING": false,
+                    "SEND_DOUBLECLICK_BEACON": false
         }
-        </script>
+    }
+    </script>
     </amp-analytics>
 
 
