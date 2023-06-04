@@ -237,6 +237,48 @@ var listArray = [
         basic: 0,
         mBasic: 1
     },
+    {
+        name: 'Basic Pacing Concept VDO Clips (Thai)',
+        description: 'Pacemaker Concept Simplified in 8 VDO Clips',
+        link: 'https://www.youtube.com/playlist?list=PLSVT4h46-zUKFeYejS2Js3zWRrVEC_1eG',
+        thumb: 'media/ppmBasicVdo.png',
+        date: new Date(22,09,2),
+        latest: 0,
+        audFav: 0,
+        authFav: 0,
+        QA: 0,
+        gLines: 0,
+        basic: 1,
+        mBasic: 0
+    },
+    {
+        name: 'Wide Complex Tachycardia VDO Clips (Thai)',
+        description: '8 Interesting Points of Approach to Wide Complex Tachycardia',
+        link: 'https://www.youtube.com/playlist?list=PLSVT4h46-zUKvPkxHWtaRUF4oJ9KEccM5',
+        thumb: 'media/wctVdo.png',
+        date: new Date(22,05,30),
+        latest: 0,
+        audFav: 0,
+        authFav: 0,
+        QA: 0,
+        gLines: 0,
+        basic: 1,
+        mBasic: 0
+    },
+    {
+        name: 'Biophysics of Ablation VDO Clips (Thai)',
+        description: 'The Heat, The Freeze, The Temp, and The 3D',
+        link: 'https://www.youtube.com/playlist?list=PLSVT4h46-zUJPJ_3o9fMpVpRtDtPz6f5w',
+        thumb: 'media/ablPhysicsVdo.png',
+        date: new Date(21,10,23),
+        latest: 0,
+        audFav: 0,
+        authFav: 1,
+        QA: 0,
+        gLines: 0,
+        basic: 1,
+        mBasic: 0
+    }
 
 
 ]

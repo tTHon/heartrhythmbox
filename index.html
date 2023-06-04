@@ -34,6 +34,7 @@
 
 #topBar {position: sticky;top: 0;left: 0;display: flex;background-color: #fa7268;padding: 0 1vw;}
 #logo {width: 90vw;color: white;text-align: left;background-color: #fa7268;display: flex;padding: 1vh 0.5vw;}
+#logo img {width: 3vmax;}
 #hamburger {width: 10vw;color: white;text-align: right;align-self: center;padding: 1vw;font-size: 2vmax;cursor: pointer;}
 #about img {padding: 1vmax;vertical-align: middle;}
 #HRB {font-size: 2vmax;color: white;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;}
@@ -50,9 +51,10 @@
 }
 
 @media only screen and (max-width: 1200px) {
-  .item {
-    width: 45%;
-  }
+    #HRB, #hamburger {font-size: 2.5vmax;}
+    #logo img {width: 3.5vmax;}
+    #tagLine {font-size: 2vmax;line-height: 100%;}
+    .item {width: 40%;font-size: 2.2vmax;}
 }
 </style>
 
@@ -64,7 +66,7 @@
         <a href="#top" style="text-decoration: none;"> 
         <div id="logo">
                 <div>
-                    <img src="box coral.png" style="width: 3vmax;">
+                    <img src="box coral.png">
                 </div>
                 <div id="HRB">
                     Heart<span style="font-weight: 700;">RHYTHM</span>Box<br>
