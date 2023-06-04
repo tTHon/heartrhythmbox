@@ -58,8 +58,8 @@ var listArray = [
     {
         name: 'Arrhythmias 2021 Update',
         description: 'ESC Guidelines on PPM/CRT, APAF-CRT, and many more.',
-        link: 'afAblation/index.html',
-        thumb: 'media/afAblation.png',
+        link: 'Update2021/index.html',
+        thumb: 'media/update2021.png',
         date: new Date(21,8,1),
         latest: 0,
         audFav: 0,

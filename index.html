@@ -42,11 +42,16 @@
 #about img {padding: 1vmax;vertical-align: middle;}
 #HRB {font-size: 2vmax;color: white;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;}
 #tagLine {display: none;font-size: 1.5vmax;color: #f7f7f7;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;line-height: 120%;}
+.topic {padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;color:#ff6f61;}
 .itemRow {display: flex;padding: 1vmax;flex-wrap: wrap;}
 .item {font-size: 1.9vmax;width: 20%;cursor: pointer;line-height: 110%;padding: 2vmax;}
 .item a {text-decoration: none;color: #454545;font-weight: 600;}
 .item img {width: 100%;padding: 0.5vmax;border: #ddd 0.1vmin solid;border-radius: 0.5vmax;}
 .date {color: #fa7268;font-weight: 400;font-size: 1.8vmax;}
+
+#filterBar {display: flex;padding-top:2vh;flex-wrap: wrap;}
+.filter {background-color: #ddd;color: #555;padding: 0.5vmax 1vmax;margin:1vh 1vw;
+    border-radius: 1vmax;font-size: 2vmax;cursor: pointer;}
 
 @keyframes fade {
     0% {opacity: 0;}
@@ -57,7 +62,10 @@
     #HRB, #hamburger {font-size: 16px;}
     #logo img {width: 30px;}
     #tagLine {font-size: 14px;line-height: 100%;}
-    .item {width: 40%;font-size: 16px;}
+    .topic {padding-left: 2vw;padding-right:2vw;}
+    .itemRow {justify-content: space-between;}
+    .item {width: 40%;font-size: 16px;padding: 1vmax;}
+    .filter {margin: 1vh 3vw;font-size: 16px;padding:1vmax 2vmax;}
 }
 </style>
 
@@ -96,8 +104,7 @@
 
     <!--the latest-->
     <div id="latest" style="background-color: #fafef5;">
-        <div style="padding: 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;
-        color:#ff6f61;">
+        <div class="topic" style="text-align: left;">
           <div style="border-bottom:#ff6f61 1px solid">
                     Latest
             </div>
@@ -106,8 +113,7 @@
 
     <!--audience favorite-->
     <div id="audFav" style="background-color: #f7f7f7;">
-        <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: right;
-        color:#555;">
+        <div class="topic" style="text-align: right;">
           <div style="border-bottom:#ff6f61 1px solid">
                     Audience Favorites
             </div>
@@ -116,18 +122,25 @@
 
     <!--all-->
     <div id="all" style="background-color: #fafef5;">
-        <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;
-        color:#ff6f61;">
+        <div class="topic" style="text-align: left;">
             <div style="border-bottom:#ff6f61 1px solid">
                     All
             </div>
+            <div id="filterBar">
+                <div class="filter" onclick="showFilter('all')">all</div>
+                <div class="filter" onclick="showFilter('basic')">basic</div>
+                <div class="filter" onclick="showFilter('mBasic')">&gt;basic</div>
+                <div class="filter" onclick="showFilter('QA')">Q&A</div>
+                <div class="filter" onclick="showFilter('gLines')">guidelines</div>
+            </div>
+
         </div>
+
     </div>
 
     <!--author favorite-->
     <div id="authFav" style="background-color: #f7f7f7;">
-        <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: right;
-        color:#555;">
+        <div class="topic" style="text-align: right;">
           <div style="border-bottom:#ff6f61 1px solid">
                     Author Favorites
             </div>
@@ -195,6 +208,94 @@ showAll('all')
 showAuthFav('authFav')
 
 //show items
+function showFilter(option){
+    //remove previous items
+    var section = document.getElementById('all').children
+    for (let index = 0; index < section.length; index++) {
+        if (section[index].classList=='itemRow'){
+            section[index].remove();
+        }
+        
+    }
+
+    if (option =='all'){
+        showAll('all')
+    } 
+    else {
+        var cat = document.getElementById('all')
+        var row = document.createElement('div')
+        cat.appendChild(row)
+        row.classList.add('itemRow')
+
+        if (option == 'basic'){
+            for (let index = 0; index < listArray.length; index++) {
+                if (listArray[index].basic==1){
+                    showFiltered(index)
+                }
+            }
+        }
+        if (option == 'mBasic'){
+            for (let index = 0; index < listArray.length; index++) {
+                if (listArray[index].mBasic==1){
+                    showFiltered(index)
+                }
+            }
+        }
+        if (option == 'QA'){
+            for (let index = 0; index < listArray.length; index++) {
+                if (listArray[index].QA==1){
+                    showFiltered(index)
+                }
+            }
+        }
+        if (option == 'gLines'){
+            for (let index = 0; index < listArray.length; index++) {
+                if (listArray[index].gLines==1){
+                    showFiltered(index)
+                }
+            }
+        }
+    }
+
+
+    function showFiltered(i){
+        sortArray()
+        var thisItem = listArray[i]
+        var card = document.createElement('div')
+        row.appendChild(card)
+        card.classList.add('item')
+
+        //href
+        var att = document.createElement('a')
+        card.appendChild(att)
+        att.href = thisItem.link;
+        att.setAttribute("target","_blank") 
+        att.title = thisItem.name + ' ' + thisItem.description
+
+        //image
+        var thumb = document.createElement('img')
+        att.appendChild(thumb)
+        thumb.src = thisItem.thumb
+
+        //topic name
+        var topic = document.createElement('div')
+        att.appendChild(topic)
+        topic.innerHTML = thisItem.name
+
+        //date
+        var date = document.createElement('div')
+        att.appendChild(date)
+        date.classList.add('date')
+        var month = thisItem.date.getMonth();
+        var year = thisItem.date.getYear();
+        date.innerHTML = month.toString() + '.' + year.toString()
+
+    }
+
+    
+}
+
+
 function showLatest(id){
     sortArray();
     //add new flexRow
