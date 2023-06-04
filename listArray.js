@@ -162,7 +162,7 @@ var listArray = [
         latest: 0,
         audFav: 0,
         authFav: 0,
-        QA: 1,
+        QA: 0,
         gLines: 0,
         basic: 1,
         mBasic: 0

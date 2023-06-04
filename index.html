@@ -52,6 +52,7 @@
 #filterBar {display: flex;padding-top:2vh;flex-wrap: wrap;}
 .filter {background-color: #ddd;color: #555;padding: 0.5vmax 1vmax;margin:1vh 1vw;
     border-radius: 1vmax;font-size: 2vmax;cursor: pointer;}
+#about {background-color: #555;color: white;font-size: 16px;padding: 15vh 3vh}
 
 @keyframes fade {
     0% {opacity: 0;}
@@ -149,7 +150,7 @@
 
 
 <!--footer-->
-<div id="about" style="background-color: #555;color: white;font-size: 16px;padding: 15vh 3vh">
+<div id="about">
     <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
         <div>
             <a href="#top" style="text-decoration:none;color: white;">
@@ -168,13 +169,13 @@
                 style="text-decoration:none;color: white;">
                 <img src="github white.png" style="width: 30px;"></a>
         </div>
-        <div style="font-size: 14px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;color: #eee;text-align: justify;">
+        <div style="font-size: 13px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;color: #eee;text-align: justify;">
             Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
             The page is created mainly for educational purpose. 
             We believe that presentations should be more interactive and easily accessible. 
             No need to register or download. You can access everything at your fingertips.
         </div>
-        <div style="font-size: 14px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;color: #ddd;
+        <div style="font-size: 13px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;color: #ddd;
         text-align: center;font-weight: 700;">
             &copy;&nbsp;&nbsp;CODING OF A KIND<br>
             <span style="font-weight: 400;font-family: 'Satisfy', cursive;">
@@ -226,6 +227,7 @@ function showFilter(option){
         var row = document.createElement('div')
         cat.appendChild(row)
         row.classList.add('itemRow')
+        sortArray()
 
         if (option == 'basic'){
             for (let index = 0; index < listArray.length; index++) {
@@ -259,7 +261,6 @@ function showFilter(option){
 
 
     function showFiltered(i){
-        sortArray()
         var thisItem = listArray[i]
         var card = document.createElement('div')
         row.appendChild(card)
