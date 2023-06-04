@@ -33,7 +33,6 @@ padding-top: 40vh;text-align: center;">
     <a href="https://doi.org/10.1161/CIRCULATIONAHA.111.023846" target="_blank" style="color:#ccc">
       Myerberg et al. Circulation. 2012;125:1043-1052.</a>
   </div>
-
 </div>
 <canvas id="canvas" style="overflow: visible;font-family: 'Abel', sans-serif;" ></canvas>
 
@@ -78,13 +77,45 @@ var colorOut = ['#880808','#d00c0c','#b80b0b','#a00909']
 
 findKeyPara();
 
+//title
+var titleText = document.getElementById('title')
+var refText = document.getElementById('ref')
+titleText.style.display = "block"
+refText.style.display = "block"
+titleText.style.top = 0.2*height + 'px'
+titleText.style.left = 0.1*width + 'px'
+
 //steps move
 var nav = 0;
-var autoPlay =  setInterval(function(){
+autoPlay()
+
+function autoPlay(){
+    
+  if (nav<=1){
+    setInterval(function(){
     nav++
     nextMove()
-  },3500)
-
+  },3000)
+  }
+  if (nav>=2 && nav<3){
+    setInterval(function(){
+    nav++
+    nextMove()
+  },4500)
+  }
+  if (nav>=3 && nav<5){
+    setInterval(function(){
+    nav++
+    nextMove()
+  },5000)
+  }
+  if (nav>=5){
+    setInterval(function(){
+    nav++
+    nextMove()
+  },7000)
+  }
+}
 function nextMove(){
   //nav++
   //title & ref

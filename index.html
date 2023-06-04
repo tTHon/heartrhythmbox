@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Rhythm Box - Clinical Cardiac Elctrophysiology Tutorials</title>
+    <title>Heart Rhythm Box - Clinical Cardiac Elctrophysiology At Your Fingertips</title>
     <link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
   
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,Satisfy&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <meta name="description" content="Online Tutorials on Heart Rhythm Topics.">
   <meta name="keywords" content="Heart, ECG, Electrocardiogram, Arrhythmias, Pacemaker, SVT, VT, ICD, Atrial fibrillation, Defibrillation, Pacemaker,
   Electrophysiology, IBHRE, heart failure, heart rhythm, heart rhythm box, heartrhythmbox, syncope, sudden cardiac arrest">
   <meta name="author" content="t'Thon">
 
+  <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
   
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119340815-1"></script>
@@ -26,612 +27,368 @@
 
 <style>
 * {
-margin: 0;
-padding: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.coral {background-color: #ff6f61;}
+#topBar {position: sticky;top: 0;left: 0;display: flex;background-color: #fa7268;padding: 0 1vw;}
+#logo {width: 90vw;color: white;text-align: left;background-color: #fa7268;display: flex;padding: 1vh 0.5vw;}
+#hamburger {width: 10vw;color: white;text-align: right;align-self: center;padding: 1vw;font-size: 2vmax;cursor: pointer;}
+#about img {padding: 1vmax;vertical-align: middle;}
+#HRB {font-size: 2vmax;color: white;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;}
+#tagLine {display: none;font-size: 1.5vmax;color: #f7f7f7;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;line-height: 120%;}
+.itemRow {display: flex;padding: 1vmax;flex-wrap: wrap;}
+.item {font-size: 1.9vmax;width: 20%;cursor: pointer;line-height: 110%;padding: 2vmax;}
+.item a {text-decoration: none;color: #454545;font-weight: 600;}
+.item img {width: 100%;padding: 0.5vmax;border: #ddd 0.1vmin solid;border-radius: 0.5vmax;}
+.date {color: #fa7268;font-weight: 400;font-size: 1.8vmax;}
 
-/*flexbox */
-.row {display: flex;}
-.rowF {display: flex;padding: 1vmax;border-bottom: #ddd solid 0.5px;}
-.row600 {display: flex;}
-.rowContent {display: flex;padding: 2vmax;border-bottom: #bbb dotted 1px;}
-.rowContent:last-child {border: none;}
-
-@media only screen and (max-width:600px) {
-  .row600, .rowContent {flex-wrap: wrap;}
+@keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
-.colHalf{
-  flex: 50%;
-  -ms-flex: 50%;
-  padding: 1vmax;align-self: center;
+@media only screen and (max-width: 1200px) {
+  .item {
+    width: 45%;
+  }
 }
-
-.col1-4{
-  flex: 25%;
-  -ms-flex: 25%;
-  padding: 1vmax;align-self: center;
-}
-.col3-4{flex: 75%;
-  -ms-flex: 75%;
-  padding: 0.5vmax 1.5vmax;text-align: left;line-height: 120%;
-  align-self: center;
-}
-
-.card {box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-border-radius: 8px;}
-
-.menu {text-decoration: none;padding: 0.1vmin 0.7vmax;color:#ff6f61;border-right: #ddd 1px solid;}
-.sectionH {padding-top: 0.5vmax;
-      background-color: transparent;color: white;font-size: 18px;border: none;
-    }
-.sectionT {
-      font-size: 14px;color: #f1f1f1;padding: 0.5vmax 0.7vmax;
-    }
-
 </style>
+
 </head>
 
-<body style="font-family: 'Montserrat', sans-serif;">
+<body>
     <!--menu-->
-    <div style="position: sticky;top: 0;left: 0;">
-    <a href="#top" style="text-decoration: none;"> 
-    <div class="row" 
-    style="justify-content: center;align-items: center;padding: 0vmax;background-color: #fa7268;">
-      <div style="text-align: right;">
-        <img src="box coral.png" style="width: 5vmax;">
+    <div id="topBar">
+        <a href="#top" style="text-decoration: none;"> 
+        <div id="logo">
+                <div>
+                    <img src="box coral.png" style="width: 3vmax;">
+                </div>
+                <div id="HRB">
+                    Heart<span style="font-weight: 700;">RHYTHM</span>Box<br>
+                </div>
+                <div id="tagLine">
+                    heartRhythmBox
+                    <br>
+                    <span style="font-family: 'Satisfy', cursive;">
+                    electrophysiology at your fingertips</span>
+                </div>
         </div>
-        <div style="font-size: 2.3vmax;color: white;text-align: left;">
-            Heart<span style="font-weight: 700;">RHYTHM</span>Box<br>
+        </a>
+        <div id="hamburger">
+            <i class="fa-solid fa-bars"></i>
         </div>
-    </div></a>
-    <!--menu-->
-    <div class="row card" style="padding-top:0.2vmax;font-size: 1.7vmax;justify-content: center;
-    text-align: center;background-color: white;border-top-left-radius: 0;border-top-right-radius: 0;">
-        <a href="#top" title="home page" class="menu">Home </a>
-        <a href="#latest" title="the latest content" class="menu">The Latest </a>
-        <a href="#earlier" title="the archived content" class="menu">The Earlier </a>
-        <!--a href="teaching.html" title="info on online classes" class="menu" target="_blank">Teaching Portal </a-->
-        <a href="#about" title="who I am and why I am here" class="menu" style="border-right: none;">About Me </a>
-    </div>
-    </div>
-
-    <!--home-->
-    <div class="row600" style="padding-top: 8vh;padding-bottom: 15vh;
-    text-align: center;justify-content: center;">
-         
-          <div class="card" style="font-size: 5vmax;color:#ff6f61;line-height: 100%;background-color:#d7f44a;
-          text-align:left;padding: 0.5vmax 1vmax;align-self: center;">
-               <span style="letter-spacing:1.5vmax">Heart</span><br>
-                <span style="font-weight: 600;">RhythM</span><br>
-                B&nbsp;&nbsp;&nbsp;&nbsp;o&nbsp;&nbsp;&nbsp;&nbsp;X
-          </div>
-          <div style="align-self: center;padding: 2vmax;color: #797979;font-size: 1.75vmax;">
-            <span style="font-size: 2vmax;color: #ff6f61;text-align: left;letter-spacing: 2px;
-            padding: 0.5vmax 0;">is an education website on cardiac electrophyiology.</span>
-            
-            <div style="padding-top: 0.5vmax;line-height: 150%;">
-            . . . updated contents on a variety of topics.<br>
-            . . . Qs&As for board preparation.<br>
-            . . . no cost or subscription required.
-            </div>
-          </div>
     </div>
 
     <!--search console-->
-    <div style="max-width: 600px;margin-left: auto;margin-right: 0;">
-      <script async src="https://cse.google.com/cse.js?cx=007840877810477839873:4bpoeoxktjo"></script>
-              <div class="gcse-search"></div>
-      </div>
+    <div style="max-width: 600px;margin-left: auto;margin-right:auto;padding: 1.5vmax;">
+        <script async src="https://cse.google.com/cse.js?cx=007840877810477839873:4bpoeoxktjo"></script>
+                <div class="gcse-search"></div>
+    </div>
+
 
     <!--the latest-->
     <div id="latest" style="background-color: #fafef5;">
-    <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;
-    color: #555;">
-      <div style="border-bottom:#ff6f61 1px solid">
-      <span style="color:#ff6f61;">
-      The</span>&nbsp;
-      latest</div>
-    </div>
-
-    <!--the list of the latest-->
-
-    <!--IBHRE-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="ibhre\index.html" target="_blank">
-        <img src="media\basicep.png" style="width: 90%;" class="card">
-        </a>
-      </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-          05.23
-          </div>
-          <a href="ibhre\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Basic Electrophysiology for Everyone&nbsp;</span> &bull; 2023 Update
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;line-height: 130%;
-        letter-spacing: -0.1vmin;padding-top:2vmax">
-        Basic EP | ECG | Clinical Practice
-        for cardiac rhythm device specialists and generial cardiologists.
-        </div>
-      </div>
-      
-    </div>
-
-    <!--basic PPM-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="basicPPM/index.html" target="_blank">
-        <img src="media/basicPPM.png" style="width: 90%;" class="card">
-        </a>
-        </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color: #ff6f61;font-size: 1.5vmax;">
-          05.23
-          </div>
-          <a href="basicPPM/index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Basic Pacing Concept: 2023 Update</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-          Qs&As on Basic Pacing Concepts | Updated 2023 -- more questions added
-        </div>
-      </div>
-    </div>
-
-
-    <!--SCD GL 2022 Update-->
-         <div class="rowContent">
-          <div class="col1-4">
-            <a href="SCD GL 2022\index.html" target="_blank">
-            <img src="media/SCD GL 2022.png" style="width: 90%;" class="card">
-            </a>
-          </div>
-          <div class="col3-4">
-              <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-              09.22
-              </div>
-              <a href="ibhre\index.html" target="_blank" 
-              style="text-decoration: none;color: black;">
-            <span style="font-size:2.5vmax;font-weight:400;">
-              <span style="font-weight: 600;font-size: 2.8vmax;">
-              2022 ESC Guidelines for SCD & VA
-            </span></a>
-            <br>
-            <div style="font-size: 1.8vmax;color:#777;font-weight: 300;line-height: 130%;
-            letter-spacing: -0.1vmin;padding-top:2vmax">
-            Focus on CAD & DCM/HNDCM
+        <div style="padding: 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;
+        color:#ff6f61;">
+          <div style="border-bottom:#ff6f61 1px solid">
+                    Latest
             </div>
-          </div>
-          
-        </div>
-   
-    <!--af ablation-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="afAblation/index.html" target="_blank">
-        <img src="media/afAblation.png" style="width: 90%;" class="card">
-        </a>
-      </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-          05.22
-          </div>
-          <a href="afAblation/index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Catheter Ablation for AF</span> &bull; 2022 Update
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;line-height: 130%;
-        letter-spacing: -0.1vmin;padding-top:2vmax">
-        Techniques, Indications, and Complications
-        </div>
-      </div>
-      
-    </div>
-
-   </div>
-
-  <!--the earlier-->
-  <div id="earlier" style="background-color:white;">
-  
-    <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;color: #555;
-    letter-spacing: -0.1vmax;">
-      <div style="border-bottom:#FCB7B2 0.1vmax solid">
-      <span style="color: #fa7268;">
-      The</span>&nbsp;
-      earlier</div>
-    </div>
-
-    <!--the list of the earlier-->
-
-        <!--2021 Update-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="Update2021/index.html" target="_blank">
-        <img src="media/update2021.png" style="width: 90%;" class="card">
-        </a>
-      </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-          08.21
-          </div>
-          <a href="Update2021/index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Arrhythmias</span> &bull; 2021 Update
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;line-height: 130%;
-        letter-spacing: -0.1vmin;padding-top:2vmax">
-        ESC Guidelines on PPM/CRT, APAF-CRT, and many more.
-        </div>
-      </div>
-      
-    </div>
-
-    <!--AA Abl-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="AblAA\index.html" target="_blank">
-        <img src="media\ablaa.png" style="width: 90%;" class="card">
-        </a>
-        </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color: #ff6f61;font-size: 1.5vmax;">
-          05.21
-          </div>
-          <a href="AblAA\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Catheter Ablation for Atrial Flutter & Atrial Tachycardia: 2021 Update</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-          Electrophysiologic Perspectives <br>egm | ablation techniques | electroanatomical mapping
-        </div>
-      </div>
-    </div>
-
-    <!--EP Update-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="epUpdate\index.html" target="_blank">
-        <img src="media\epUpdate.png" style="width: 90%;" class="card">
-        </a>
-        </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color: #ff6f61;font-size: 1.5vmax;">
-          12.20
-          </div>
-          <a href="epUpdate\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          EP Trials Update 2020</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-          Important Trials on Clinical Cardiac Electrophysiology in 2020.
-        </div>
-      </div>
-    </div>
-
-    <!--syncope-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="Syncope\index.html" target="_blank">
-        <img src="media\syncope.png" style="width: 90%;" class="card">
-        </a>
-        </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color: #ff6f61;font-size: 1.5vmax;">
-          09.20
-          </div>
-          <a href="Syncope\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Syncope Review</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-          definitions | risk stratifications | testing | recurrency
-        </div>
-      </div>
-    </div>
-
-    <!--afUpdate-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="afUpdate\index.html" target="_blank">
-        <img src="media\afUpdate.png" style="width: 90%;" class="card">
-        </a>
-        </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color: #ff6f61;font-size: 1.5vmax;">
-          09.20
-          </div>
-          <a href="afUpdate\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          AF Update 09.20</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-          EAST-AFNET 4 Trial | 2020 ESC Guidelines
-        </div>
-      </div>
-    </div>
-
-    <!--AFMx-->
-    <div class="rowContent">
-      <div class="col1-4">
-        <a href="AFMx\index.html" target="_blank">
-        <img src="media/AFMx.png" style="width: 90%;" class="card">
-        </a>
-        </div>
-      <div class="col3-4">
-          <div style="padding:1vmax 0;color: #ff6f61;font-size: 1.5vmax;">
-          07.20
-          </div>
-          <a href="AFMx\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          AF Management: 10 Points to Remember</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-          Things that you may forget, not realize, or not recognize yet.
-        </div>
-      </div>
-    </div>
-
-    <!--CRD tShoot-->
-    <div class="rowContent">
-      <div class="col3-4" style="text-align: right;">
-          <div style="padding:1vmax 0;color: #ff6f61;font-size: 1.5vmax;">
-          04.20
-          </div>
-          <a href="CRD\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Cardiac Rhythm Device Troubleshooting</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-          Interesting Device related ECGs & Device Tracings 
-        </div>
-      </div>
-      <div class="col1-4" style="text-align: right;">
-        <a href="CRD\index.html" target="_blank">
-        <img src="media/CRD.png" style="width: 90%;" class="card">
-        </a>
         </div>
     </div>
 
-    <!--SCD M&F-->
-    <div class="rowContent">
-      <div class="col3-4" style="text-align: right;">
-          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-          03.20
-          </div>
-          <a href="SCD\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Sudden Cardiac Death: Myths & Facts</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-          Basic Understanding of Sudden Cardiac Deaths, Common Causes, Treatments, and Prevention 
-        </div>
-      </div>
-      <div class="col1-4" style="text-align: right;">
-        <a href="SCD\index.html" target="_blank">
-        <img src="media\SCDM&F.png" style="width: 90%;" class="card">
-        </a>
+    <!--audience favorite-->
+    <div id="audFav" style="background-color: #f7f7f7;">
+        <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: right;
+        color:#555;">
+          <div style="border-bottom:#ff6f61 1px solid">
+                    Audience Favorites
+            </div>
         </div>
     </div>
 
-    <!--EP QA-->
-    <div class="rowContent" >
-      <div class="col3-4" style="text-align: right;">
-        <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-        03.20
+    <!--all-->
+    <div id="all" style="background-color: #fafef5;">
+        <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: left;
+        color:#ff6f61;">
+          <div style="border-bottom:#ff6f61 1px solid">
+                    All
+            </div>
         </div>
-        <a href="QA2020\index.html" target="_blank" 
-        style="text-decoration: none;color: black;">
-      <span style="font-size:2.5vmax;font-weight:400;">
-        <span style="font-weight: 600;font-size: 2.8vmax;">
-        Cardiac Electrophysiology Qs&As 2020</span> 
-      </span></a>
-      <br>
-      <div style="font-size: 1.8vmax;color:#777;font-weight: 300;padding-top:2vmax;line-height: 130%;">
-      Aimed for board preparation and quick knowledge update.<br> 
-      Coming in 3 topics (for now): Basic Pacing Concepts, Sudden Cardiac Death, and Top Tracings.
-      </div>
-    </div>
-      <div class="col1-4" style="text-align: right;">
-        <a href="QA2020\index.html" target="_blank">
-        <img src="media\Ep QA.png" style="width: 90%;" class="card">
-        </a>
-        </amp-img>
-      </div>
     </div>
 
-    <!--J wave-->
-    <div class="rowContent">
-      <div class="col3-4" style="text-align: right;">
-          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-          01.20
-          </div>
-          <a href="jWave\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          J-Wave Syndrome&nbsp;</span> 
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;line-height: 130%;
-        letter-spacing: -0.1vmin;padding-top:2vmax">
-        A Brief Introduction with Latest Update on J-wave Syndrome
+    <!--author favorite-->
+    <div id="authFav" style="background-color: #f7f7f7;">
+        <div style="padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;text-align: right;
+        color:#555;">
+          <div style="border-bottom:#ff6f61 1px solid">
+                    Author Favorites
+            </div>
         </div>
-      </div>
-      <div class="col1-4" style="text-align: right;">
-        <a href="jWave\index.html" target="_blank">
-        <img src="media/jwave.png" style="width: 90%;" class="card">
-        </a>
-        
-      </div>
     </div>
 
-
-
-    <!--update H2-->
-    <div class="rowContent">
-      <div class="col3-4" style="text-align: right;">
-          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-          11.19
-          </div>
-          <a href="UpdateH2\updateH2.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Arrhythmias Update&nbsp;</span> H2-2019
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;line-height: 130%;
-        letter-spacing: -0.1vmin;padding-top:2vmax">
-        Trials and Guidelines Update of the 2nd half of 2019.
-        </div>
-      </div>
-      <div class="col1-4" style="text-align: right;">
-        <a href="UpdateH2\updateH2.html" target="_blank">
-        <img src="media\updateH2.png" style="width: 90%;" class="card">
-        </a>
-        
-      </div>
-    </div>
-
-    <!--ecg-->
-    <div class="rowContent">
-      <div class="col3-4" style="text-align: right;">
-          <div style="padding:1vmax 0;color:#ff6f61;font-size: 1.5vmax;">
-          10.19
-          </div>
-          <a href="ECG\index.html" target="_blank" 
-          style="text-decoration: none;color: black;">
-        <span style="font-size:2.5vmax;font-weight:400;">
-          <span style="font-weight: 600;font-size: 2.8vmax;">
-          Non-cardiac Causes&nbsp;</span> of abnormal ECGs.
-        </span></a>
-        <br>
-        <div style="font-size: 1.8vmax;color:#777;font-weight: 300;line-height: 130%;
-        letter-spacing: -0.1vmin;padding-top:2vmax">
-        Abnormal ECGs from lungs & brain pathology, electrolyte abnormalites, and other metabolic derangement.
-        </div>
-      </div>
-      <div class="col1-4" style="text-align: right;">
-        <a href="ECG\index.html" target="_blank">
-        <img src="media\ecg.png" style="width: 90%;" class="card">
-        </a>
-        
-      </div>
-    </div>
-
-    <!--Gd2019-->
-    <div style="padding: 1vmax 3vmax;line-height:100%;text-align: right;">
-    <div style="padding:1vmax 0;color: #fa7268;font-size: 1.5vmax;">
-        05.19
-        </div>
-        <a href="GdLines2019\index.html" target="_blank" 
-        style="text-decoration: none;color: black;">
-      <span style="font-size:2.5vmax;font-weight:400;">
-        Summary of the latest EP
-        <span style="font-weight: 600;font-size: 2.8vmax;">
-        Guidelines</span>
-      </span></a>
-      <br>
-      <div style="font-size: 1.8vmax;color:#777;font-weight: 300;border-bottom: 0.1vmax solid #ddd;
-      letter-spacing: -0.1vmin;padding-top:2vmax;padding-bottom: 2vmax;">
-      Included the Guidelines up to May 2019.
-      </div>
-    </div>
-
-    </div>
 
 <!--footer-->
 <div id="about" style="background-color: #555;color: white;font-size: 18px;padding: 15vh 3vh">
-  <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
+    <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
+        <div>
+            <a href="#top" style="text-decoration:none;color: white;">
+            <b>Top</b> of the page</a>
+        </div>  
+        <div style="padding-bottom: 2vh;">
+                <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+                style="text-decoration:none;color: white;">
+                    <img src="fb.png" style="width: 30px;">
+                </a> 
+                <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
+                target="_blank" style="text-decoration:none;color: white;">
+                    <img src="youTube.png" style="width: 33px;">
+                </a>
+                <a href="https://github.com/tTHon/heartrhythmbox" target="_blank" 
+                style="text-decoration:none;color: white;">
+                <img src="github white.png" style="width: 30px;"></a>
+        </div>
+        <div style="font-size: 16px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;color: #eee;text-align: justify;">
+            Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+            The page is created mainly for educational purpose. 
+            We believe that presentations should be more interactive and easily accessible. 
+            No need to register or download. You can access everything at your fingertips.
+        </div>
+        <div style="font-size: 16px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;color: #ddd;
+        text-align: center;font-weight: 700;">
+            &copy;&nbsp;&nbsp;CODING OF A KIND<br>
+            <span style="font-weight: 400;font-family: 'Satisfy', cursive;">
+            design to your style &middot; write to your need</span>
+        </div>
 
-    <div class="rowF">
-      <a href="#top" style="text-decoration:none;color: white;">
-      <b>Top</b> of the page</a>
-      </div>
 
-    <div class="rowF">
-      <b>follow</b> us at &nbsp;
-      <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
-      style="text-decoration:none;color: white;">
-        <img src="fb.png" style="vertical-align: -3px;width: 23px;">
-      </a> &nbsp;&nbsp;
-      <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
-      target="_blank" style="text-decoration:none;color: white;">
-        <img src="youTube.png" style="width: 25px;">
-      </a>
-    </div>
-
-    <div class="rowF" style="text-align: left;">
-       
-            
-              <h2 class="sectionH">About the page</h2>
-              <p class="sectionT">Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
-                The page is created mainly for educational purpose. 
-                We believe that presentations should be more interactive and easily accessible. 
-                No need to register or download. You can access everything at your fingertips.
-              </p>
-    </div>        
-    <div class="rowF" style="text-align: left;">       
-              <h2 class="sectionH">About the author</h2>
-              <p class="sectionT">
-                <i>t'</i> Thon, the screen name of the author, is a novice web developer,
-                a wine enthusiast, and a cardiac eletrophysiologist by training.<br>
-                <a href="Apiyasawat CV 2022.pdf" target="_blank" style="color:white">
-                Click here to know more about me.</a>
-              </p>
-           
-        
-    </div>
-
-    <div class="rowF" style="border-bottom: none;">
-        <a href="https://github.com/tTHon/heartrhythmbox" target="_blank" 
-        style="text-decoration:none;color: white;">
-        Know more about my code: &nbsp;
-        <img src="github white.png" style="vertical-align: -3px;width: 23px;">
-       
-        </a>
-    </div>
-
-  </div>
 </div>
     
+<script src="listArray.js"></script>
+<script>
+window.onscroll = function(){
+    var bar = document.getElementById('topBar')
+    var HRB = document.getElementById('HRB')
+    var tagLine = document.getElementById('tagLine')
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        bar.style.boxShadow = '0px 8px 16px 0px rgba(0,0,0,0.2)'
+        HRB.style.display = 'none'
+        tagLine.style.display = 'inline-block'
+
+    } else {
+        bar.style.boxShadow = 'none'
+        tagLine.style.display = 'none'
+        HRB.style.display = 'flex'
+    }
+}
+
+showLatest('latest');
+showAudFav('audFav');
+showAll('all')
+showAuthFav('authFav')
+
+//show items
+function showLatest(id){
+    sortArray();
+    //add new flexRow
+    var cat = document.getElementById(id)
+    var row = document.createElement('div')
+    cat.appendChild(row)
+    row.classList.add('itemRow')
+
+
+    for (let index = 0; index < listArray.length; index++) {
+        if (listArray[index].latest==1){
+
+            var thisItem = listArray[index]
+            var card = document.createElement('div')
+            row.appendChild(card)
+            card.classList.add('item')
+
+            //href
+            var att = document.createElement('a')
+            card.appendChild(att)
+            att.href = thisItem.link;
+            att.setAttribute("target","_blank") 
+            att.title = thisItem.name + ' ' + thisItem.description
+
+            //image
+            var thumb = document.createElement('img')
+            att.appendChild(thumb)
+            thumb.src = thisItem.thumb
+
+            //topic name
+            var topic = document.createElement('div')
+            att.appendChild(topic)
+            topic.innerHTML = thisItem.name
+
+            //date
+            var date = document.createElement('div')
+            att.appendChild(date)
+            date.classList.add('date')
+            var month = thisItem.date.getMonth();
+            var year = thisItem.date.getYear();
+            date.innerHTML = month.toString() + '.' + year.toString()
+        }
+        
+    }
+}
+
+
+function showAudFav(id){
+    sortArray('reverse')
+    //add new flexRow
+    var cat = document.getElementById(id)
+    var row = document.createElement('div')
+    cat.appendChild(row)
+    row.classList.add('itemRow')
+    row.style.flexDirection = 'row-reverse'
+
+
+    for (let index = 0; index < listArray.length; index++) {
+        if (listArray[index].audFav==1){
+
+            var thisItem = listArray[index]
+            var card = document.createElement('div')
+            row.appendChild(card)
+            card.classList.add('item')
+
+            //href
+            var att = document.createElement('a')
+            card.appendChild(att)
+            att.href = thisItem.link;
+            att.setAttribute("target","_blank") 
+            att.title = thisItem.name + ' ' + thisItem.description
+
+            //image
+            var thumb = document.createElement('img')
+            att.appendChild(thumb)
+            thumb.src = thisItem.thumb
+
+            //topic name
+            var topic = document.createElement('div')
+            att.appendChild(topic)
+            topic.innerHTML = thisItem.name
+
+            //date
+            var date = document.createElement('div')
+            att.appendChild(date)
+            date.classList.add('date')
+            var month = thisItem.date.getMonth();
+            var year = thisItem.date.getYear();
+            date.innerHTML = month.toString() + '.' + year.toString()
+        }
+        
+    }
+}
+
+function showAll(id){
+    sortArray();
+    //add new flexRow
+    var cat = document.getElementById(id)
+    var row = document.createElement('div')
+    cat.appendChild(row)
+    row.classList.add('itemRow')
+
+
+    for (let index = 0; index < listArray.length; index++) {
+            var thisItem = listArray[index]
+            var card = document.createElement('div')
+            row.appendChild(card)
+            card.classList.add('item')
+
+            //href
+            var att = document.createElement('a')
+            card.appendChild(att)
+            att.href = thisItem.link;
+            att.setAttribute("target","_blank") 
+            att.title = thisItem.name + ' ' + thisItem.description
+
+            //image
+            var thumb = document.createElement('img')
+            att.appendChild(thumb)
+            thumb.src = thisItem.thumb
+
+            //topic name
+            var topic = document.createElement('div')
+            att.appendChild(topic)
+            topic.innerHTML = thisItem.name
+
+            //date
+            var date = document.createElement('div')
+            att.appendChild(date)
+            date.classList.add('date')
+            var month = thisItem.date.getMonth();
+            var year = thisItem.date.getYear();
+            date.innerHTML = month.toString() + '.' + year.toString()
+       
+    }
+}
+
+function showAuthFav(id){
+    sortArray('reverse')
+    //add new flexRow
+    var cat = document.getElementById(id)
+    var row = document.createElement('div')
+    cat.appendChild(row)
+    row.classList.add('itemRow')
+    row.style.flexDirection = 'row-reverse'
+
+
+    for (let index = 0; index < listArray.length; index++) {
+        if (listArray[index].authFav==1){
+
+            var thisItem = listArray[index]
+            var card = document.createElement('div')
+            row.appendChild(card)
+            card.classList.add('item')
+
+            //href
+            var att = document.createElement('a')
+            card.appendChild(att)
+            att.href = thisItem.link;
+            att.setAttribute("target","_blank") 
+            att.title = thisItem.name + ' ' + thisItem.description
+
+            //image
+            var thumb = document.createElement('img')
+            att.appendChild(thumb)
+            thumb.src = thisItem.thumb
+
+            //topic name
+            var topic = document.createElement('div')
+            att.appendChild(topic)
+            topic.innerHTML = thisItem.name
+
+            //date
+            var date = document.createElement('div')
+            att.appendChild(date)
+            date.classList.add('date')
+            var month = thisItem.date.getMonth();
+            var year = thisItem.date.getYear();
+            date.innerHTML = month.toString() + '.' + year.toString()
+        }
+        
+    }
+}
+
+
+//sort by earliest date
+function sortArray(option){
+    if (option=='reverse'){
+        listArray.sort(
+        function(a,b){return a.date.getTime()-b.date.getTime()}
+    )
+    } else{
+    listArray.sort(
+        function(a,b){return b.date.getTime()-a.date.getTime()}
+    )
+    }
+}
+
+</script>
+
 </body>
 </html>
