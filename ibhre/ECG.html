@@ -213,18 +213,21 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
   data-ad-client="ca-pub-1548733331544768">
 </amp-auto-ads>
 
-<amp-analytics type="gtag" data-credentials="include">
+<amp-analytics type="googleanalytics" config="https://amp.analytics-debugger.com/ga4.json" data-credentials="include">
   <script type="application/json">
   {
-    "vars" : {
-      "gtag_id": "G-PHBZ8EJY6J",
-      "config" : {
-        "G-PHBZ8EJY6J": { "groups": "default" }
+      "vars": {
+                  "GA4_MEASUREMENT_ID": "G-PHBZ8EJY6J",
+                  "GA4_ENDPOINT_HOSTNAME": "www.google-analytics.com",
+                  "DEFAULT_PAGEVIEW_ENABLED": true,    
+                  "GOOGLE_CONSENT_ENABLED": false,
+                  "WEBVITALS_TRACKING": false,
+                  "PERFORMANCE_TIMING_TRACKING": false,
+                  "SEND_DOUBLECLICK_BEACON": false
       }
-    }
   }
   </script>
-</amp-analytics>
+  </amp-analytics>
 
   <amp-sidebar id="sidebar" layout="nodisplay" side="left">
     <div style="text-align: left;padding: 0.5vmax;">
