@@ -42,7 +42,7 @@
 #about img {padding: 1vmax;vertical-align: middle;}
 #HRB {font-size: 2vmax;color: white;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;}
 #tagLine {display: none;font-size: 1.5vmax;color: #f7f7f7;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;line-height: 120%;}
-.topic {padding: 8vmax 2vmax;font-size: 2.2vmax;font-weight: 600;color:#ff6f61;}
+.topic {padding: 5vmax 2vmax;font-size: 2.2vmax;font-weight: 600;color:#ff6f61;}
 .itemRow {display: flex;padding: 1vmax;flex-wrap: wrap;}
 .item {font-size: 1.9vmax;width: 20%;cursor: pointer;line-height: 110%;padding: 2vmax;}
 .item a {text-decoration: none;color: #454545;font-weight: 600;}
@@ -53,6 +53,11 @@
 .filter {background-color: #ddd;color: #555;padding: 0.5vmax 1vmax;margin:1vh 1vw;
     border-radius: 1vmax;font-size: 2vmax;cursor: pointer;}
 #about {background-color: #555;color: white;font-size: 16px;padding: 15vh 3vh}
+
+#sideMenu {width: fit-content;position: absolute;right: 0;top: 0;height: 100%;
+    background-color: rgba(100, 100, 100, 0.8);color: #ddd;}
+#sideMenu ul {list-style-type: none;text-align: center;}
+#sideMenu li {padding: 2vmax;border-bottom: #454545 solid 0.1vmax;}
 
 @keyframes fade {
     0% {opacity: 0;}
@@ -67,6 +72,7 @@
     .itemRow {justify-content: space-between;}
     .item {width: 40%;font-size: 17px;padding: 1vmax;}
     .filter {margin: 1vh 3vw;font-size: 16px;padding:1vmax 2vmax;}
+    #sideMenu {width: 100%;}
 }
 </style>
 
@@ -91,9 +97,23 @@
                 </div>
         </div>
         </a>
-        <div id="hamburger">
+        <div id="hamburger" onclick="sideMenu()">
             <i class="fa-solid fa-bars"></i>
         </div>
+    </div>
+    
+    <!--sideMenu-->
+    <div id="sideMenu">
+        <ul>
+            <li>Top of the page</li>
+            <li>Latest</li>
+            <li>Audience Favorites</li>
+            <li>All</li>
+            <li>Author Favorites</li>
+            <li>About</li>
+            <li>facebook</li>
+            <li>Youtube</li>
+        </ul>
     </div>
 
     <!--search console-->
