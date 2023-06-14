@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<style>
+  * {font-family: 'Poppins', sans-serif;margin: 0;}
+  .text {display: none;position: fixed;font-size: 2vmax;text-align: center;}
+</style>
+
+<body>
+
+<div id="demo" style="color: white;"></div>
+<div style="text-align:center">
+  <canvas id="canvas" style="background-color: #333;"></canvas>
+</div>
+<div class="text"></div>
+
+
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const vw = Math.round(window.innerWidth/100);
+const vh = Math.round(window.innerHeight/100);
+const xZero = 50*vw;
+const yZero = 50*vh;
+const size = 1.4*vw;
+const res = 1000;
+
+var dArray, x1A, y1A, d2A, x2A, y2A = [];
+createCanvas();
+
+//setUpArray(x1Mod,y1Mod,x2Mod,y2Mod)
+setUpArray(17,15,12,11)
+console.log(dArray[2])
+//drawCurve(xArray,yArray,dMin,dMax,size,color)
+drawCurve(x1A,y1A,0,1,'#444');
+drawCurve(x2A,y2A,0,1,'#555');
+
+
+//intrinsic factors size 11,9,8,10 = 16,6,33,6 = 61; x10kDa
+const half = 0.55;
+const intrinsic = [['XI',16,'red'],['IX',6,'green'],['VIII',33,'black'],['X',6,'blue']];
+const intUnit = Math.round(1000*(0.55/61))/1000;
+paintIntrinsic();
+
+function paintIntrinsic(){
+    //intrinsic array [name][size][color]
+    var start=0;
+    var end;var color;
+    for (let index = 0; index < intrinsic.length; index++) {
+        end = (intrinsic[index][1]*intUnit) + start;
+        end = Math.round(1000*end)/1000;
+        color = intrinsic[index][2]
+        paintCurve(start,end,color)
+        start = end;
+    }
+}
+
+
+function createCanvas() {
+  const scale = window.devicePixelRatio;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  canvas.width = Math.floor(window.innerWidth * scale*2)
+  canvas.height = Math.floor(window.innerHeight * scale*2)
+  ctx.scale(scale*2,scale*2)
+}
+
+function setUpArray(x1Mod,y1Mod,x2Mod,y2Mod){
+    //y=15cos(t)−3cos(2t)−2cos(3t)−cos(4t)
+    //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
+    //x=17sin^3(t);xMod=mod*sin^3(t)
+    //t = 0 to 2Pi
+    //d = 0 to 2;
+    dArray= [];x1A = [];y1A = [];x2A = [];y2A = [];
+    var dMax = 2;
+    for (let index = 0; index <= res*dMax; index++) {
+        var d = index/res;
+        var t = Math.PI*d;
+        var x1 = x1Mod*Math.pow(Math.sin(t),3);
+        var y1 = (y1Mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t))
+        var x2 = x2Mod*Math.pow(Math.sin(t),3);
+        var y2 = (y2Mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t))
+        dArray.push(d);
+        x1A.push(x1);x2A.push(x2);
+        y1A.push(y1);y2A.push(y2);
+    }
+}
+
+function drawCurve(xArray,yArray,dMin,dMax,color){
+    ctx.beginPath();
+    var start = dArray.indexOf(dMin);
+    var end = dArray.indexOf(dMax)
+    ctx.moveTo(size*xArray[0]+xZero,yZero-(size*yArray[0]));
+
+    for (let index = start+1; index < end; index++) {
+        x1 = (size*xArray[index])+xZero;
+        y1 = yZero-(size*yArray[index]);
+        ctx.lineTo(x1,y1);
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.strokeStyle = color
+    }
+    ctx.closePath()
+}
+
+function paintCurve(dMin,dMax,color){
+    var start = dArray.indexOf(dMin);
+    var end = dArray.indexOf(dMax)  
+    console.log('start' + start)
+    console.log('dMin', dMin) 
+    
+    ctx.beginPath();
+    for (let index = start; index <= end ; index++) {
+        ctx.lineWidth = 1
+        ctx.moveTo(size*x1A[index]+xZero,yZero-(size*y1A[index])); 
+        ctx.lineTo(size*x2A[index]+xZero,yZero-(size*y2A[index])); 
+        ctx.stroke()
+        ctx.strokeStyle = color;
+    }
+    ctx.closePath()
+}
+
+
+
+</script>
+
+</body>
+</html>
