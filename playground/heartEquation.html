@@ -48,24 +48,25 @@ thrombin();
 
 function thrombin(){
     //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
-    //d 0.55-0.99
+    //d 0.55-1
     //thrombin size = 3*10kDa
 
     var x1T = [];var step = [];
     var x2T = [];var y1T = [];var y2T = [];
+    var y1TCurve = [];var y2TCurve = [];
     var count=0;
     
-    //paralell
-    for (let mod = 11;mod<=15;mod=mod+1){
+   //paralell
+    for (let mod = 11;mod<=15;mod=mod+0.1){
       x1T=[];x2T=[];y1T=[];y2T=[];step=[];
-      for (let index = 0.55*res; index <= 0.99*res; index++) {
+      for (let index = 0.55*res; index <= 1*res; index++) {
         var d = index/res;
         var t = Math.PI*d;
         step.push(d);
         //12.1,13
         //y2=y1+1;x2=y2+1.1;x1=y2+2;
         x1T.push((mod+1.9)*Math.pow(Math.sin(t),3));
-        x2T.push((mod+1)*Math.pow(Math.sin(t),3));
+        x2T.push((mod+1.1)*Math.pow(Math.sin(t),3));
         y1T.push(((mod+1)*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
         y2T.push((mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
       }
@@ -76,24 +77,27 @@ function thrombin(){
     //paint thrombin
     function paintThrombin(){
       var start = step.indexOf(0.55);
-      var end = step.indexOf(0.99)  
+      var end = step.indexOf(1)  
       var tSize = Math.round(3*intUnit*1000)/1000;
       var sCount = 0;var tCount =0;
-
+      
       for (let i = start; i <= end ; i++) {
         ctx.beginPath();
           ctx.lineWidth = 1
           ctx.moveTo(size*x1T[i]+xZero,yZero-(size*y1T[i])); 
           ctx.lineTo(size*x2T[i]+xZero,yZero-(size*y2T[i])); 
+
+          var color;
           if (sCount>=tSize){
             ctx.strokeStyle = "#333"
             sCount= sCount+0.001;
             if (sCount>=tSize+0.001){
               sCount=0;tCount++;
+              color = colorRandom();
             }
           }
           else {
-            ctx.strokeStyle = 'pink'
+            ctx.strokeStyle = color
             sCount= sCount+0.001;
           }
           ctx.stroke()
@@ -101,7 +105,16 @@ function thrombin(){
         }
       return tCount;
     }
-    paintIntrinsic();
+    
+
+    //color
+    function colorRandom(){
+      var colorSet = ['rgb(255,0,0)','rgb(255,117,26)','rgb(255,230,0)','rgb(0,255,0)','rgb(255,100,120)']
+      var randomNumber = Math.floor(Math.random() * (4 - 0) ) + 0;
+      var color = colorSet[randomNumber];
+      return color;
+    }
+  paintIntrinsic();
 }
 
 function paintIntrinsic(){
