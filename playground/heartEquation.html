@@ -23,7 +23,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
-const xZero = 50*vw;
+const xZero = 20*vw;
 const yZero = 40*vh;
 const size = 1.4*vw;
 const res = 1000;
@@ -32,7 +32,8 @@ var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas();
 
 //setUpArray(x1Mod,y1Mod,x2Mod,y2Mod)
-setUpArray(17,15,12,11)
+//setUpArray(17,15,12,11)
+setUpArray(20,15,13,9)
 //drawCurve(xArray,yArray,dMin,dMax,size,color)
 drawCurve(x1A,y1A,0,1,'#444');
 drawCurve(x2A,y2A,0,1,'#555');
@@ -43,8 +44,29 @@ const half = 0.55;
 const intrinsic = [['XI',16,'red'],['IX',6,'green'],['VIII',33,'black'],['X',6,'blue']];
 const intUnit = Math.round(1000*(0.55/61))/1000;
 
+nav=0;
+//intrinsic step
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===32) {
+      intrinsicMove()
+    }
+})
+
+function intrinsicMove(){
+  maxInt = intrinsic.length
+  if (nav<maxInt){
+    animateIntrinsic(nav)
+    nav++;
+  } else {
+    thrombin()
+    nav=0;
+  }
+
+}
+
 //IIa
-thrombin();
+//thrombin();
 
 function thrombin(){
     //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
@@ -56,22 +78,33 @@ function thrombin(){
     var y1TCurve = [];var y2TCurve = [];
     var count=0;
     
-   //paralell
-    for (let mod = 11;mod<=15;mod=mod+0.1){
+   //paralell -- 
+   
+    for (let mod = 9;mod<=15;mod=mod+0.1){
+      setTimeout(function(){
       x1T=[];x2T=[];y1T=[];y2T=[];step=[];
       for (let index = 0.55*res; index <= 1*res; index++) {
         var d = index/res;
         var t = Math.PI*d;
         step.push(d);
-        //12.1,13
-        //y2=y1+1;x2=y2+1.1;x1=y2+2;
-        x1T.push((mod+1.9)*Math.pow(Math.sin(t),3));
-        x2T.push((mod+1.1)*Math.pow(Math.sin(t),3));
+        //12.1,13 mod 11-15
+        //y1=y2+1;x2=y2+1.1;x1=y2+2;
+        //x1T.push((mod+1.9)*Math.pow(Math.sin(t),3));
+        //x2T.push((mod+1.1)*Math.pow(Math.sin(t),3));
+        //y1T.push(((mod+1)*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
+        //y2T.push((mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
+      
+        //mod = y1-y2
+        //y1=y2+1, x2=y2+4, x1=y2+5
+        x1T.push((mod+4.9)*Math.pow(Math.sin(t),3));
+        x2T.push((mod+4)*Math.pow(Math.sin(t),3));
         y1T.push(((mod+1)*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
         y2T.push((mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
       }
-      count = count + paintThrombin();
-      console.log(count)
+
+      paintThrombin();
+      }
+      ,800*(mod-8))
     }
 
     //paint thrombin
@@ -81,40 +114,56 @@ function thrombin(){
       var tSize = Math.round(3*intUnit*1000)/1000;
       var sCount = 0;var tCount =0;
       
+      var color = colorRandom();
       for (let i = start; i <= end ; i++) {
-        ctx.beginPath();
+          ctx.beginPath();
           ctx.lineWidth = 1
           ctx.moveTo(size*x1T[i]+xZero,yZero-(size*y1T[i])); 
           ctx.lineTo(size*x2T[i]+xZero,yZero-(size*y2T[i])); 
 
-          var color;
-          if (sCount>=tSize){
-            ctx.strokeStyle = "#333"
-            sCount= sCount+0.001;
-            if (sCount>=tSize+0.001){
-              sCount=0;tCount++;
-              color = colorRandom();
-            }
+          var topRightX, topRightY, bottomRightX, bottomRightY;
+
+          //get x2y2 at the top of the block
+          if (sCount==0){
+            topRightX = x2T[i];topRightY = y2T[i]
           }
-          else {
+
+          if (sCount<tSize){
             ctx.strokeStyle = color
             sCount= sCount+0.001;
+            ctx.stroke()
+            ctx.closePath()
           }
-          ctx.stroke()
-        ctx.closePath()
-        }
-      return tCount;
+          else {
+            ctx.strokeStyle = "#333"
+            sCount= sCount+0.001;
+            color = colorRandom();
+            sCount=0;tCount++;
+            ctx.stroke()
+            ctx.closePath()
+
+            //borderRight
+            bottomRightX = x2T[i];bottomRightY = y2T[i]
+            ctx.beginPath()
+            ctx.moveTo(size*topRightX+xZero,yZero-(size*topRightY)); 
+            ctx.lineTo(size*bottomRightX+xZero,yZero-(size*bottomRightY)); 
+            ctx.stroke()
+            ctx.closePath()
+          }
+   
+      }
     }
     
 
     //color
     function colorRandom(){
-      var colorSet = ['rgb(255,0,0)','rgb(255,117,26)','rgb(255,230,0)','rgb(0,255,0)','rgb(255,100,120)']
-      var randomNumber = Math.floor(Math.random() * (4 - 0) ) + 0;
+      var colorSet = ['#c2a083','#c8aa8f','#ceb39c','#d4bda8','#dac6b5','#e1d0c1',
+                    '#e7d9cd','#ede3da','#f3ece6','#f9f6f3']
+      var randomNumber = Math.floor(Math.random() * (colorSet.length - 0) ) + 0;
       var color = colorSet[randomNumber];
       return color;
     }
-  paintIntrinsic();
+  //paintIntrinsic();
 }
 
 function paintIntrinsic(){
@@ -128,6 +177,32 @@ function paintIntrinsic(){
         paintCurve(start,end,color)
         start = end;
     }
+}
+
+function animateIntrinsic(step){
+  var end;
+  var color = intrinsic[step][2]
+  var start =0;
+  end = (intrinsic[step][1]*intUnit)
+  end = Math.round(1000*end)/1000;
+  
+  //previous step
+  for (let i=0;i<step;i++){
+        start = intrinsic[i][1]*intUnit + start;
+        start = Math.round(1000*start)/1000;
+        end = intrinsic[i+1][1]*intUnit + start;
+        end = Math.round(1000*end)/1000;
+  }
+  paintCurve(start,end,color)
+  //label
+  //middle = dArray.indexOf(Math.round(1000*(((end-start)/2) + start))/1000);
+  //labelX = (size*x1A[middle])+xZero;
+  //console.log(labelX)
+  //labelY = yZero - (y2A[middle]*size) + vh
+  //ctx.font = "30px Arial";
+  //ctx.strokeStyle = 'white'
+  //ctx.fillStyle = 'white'
+  //ctx.strokeText(intrinsic[step][0], labelX, labelY)
 }
 
 
