@@ -21,14 +21,13 @@ const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
-const size = 1.2*vw;
+const size = 1.5*vw;
 const res = 1000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas();
 
 //setUpArray(x1Mod,y1Mod,x2Mod,y2Mod)
-//setUpArray(17,15,12,11)
 setUpArray(20,15,13,9)
 
 //find max X
@@ -36,20 +35,22 @@ x1Max = Math.max.apply(null,x1A);
 x2Max = Math.max.apply(null,x2A);
 xMax = Math.max(x1Max,x2Max)
 
-const xZero = 50*vw-(xMax*size);
+const intZero = 50*vw-(xMax*size);
+const extZero = 50*vw+(xMax*size)
 //drawCurve(xArray,yArray,dMin,dMax,size,color)
-drawCurve(x1A,y1A,0,2,'#444');
-drawCurve(x2A,y2A,0,2,'#555');
-
-
+drawCurve(x1A,y1A,0,1,'#444',intZero);
+drawCurve(x2A,y2A,0,1,'#555',intZero);
+drawCurve(x1A,y1A,1,2,'#444',extZero);
+drawCurve(x2A,y2A,1,2,'#555',extZero);
 
 
 //intrinsic factors size 11,9,8,10 = 16,6,33,6 = 61; x10kDa
 const half = 0.55;
 const intrinsic = [['XI',16,'red'],['IX',6,'green'],['VIII',33,'black'],['X',6,'blue']];
-const extrinsic = [['VII',5,'#800020'],['X',6,'blue']]
-const intUnit = Math.round(1000*(0.55/61))/1000;
+const extrinsic = [['X',6,'blue'],['VII',5,'pink']]
+const intUnit = Math.round(1000*(half/61))/1000;
 
+paintExtrinsic()
 nav=0;
 //intrinsic step
 window.addEventListener("keydown", function(event) {
@@ -65,7 +66,7 @@ function intrinsicMove(){
     animateIntrinsic(nav)
     nav++;
   } else {
-    thrombin()
+    thrombin(intZero)
     nav=0;
   }
 
@@ -73,10 +74,8 @@ function intrinsicMove(){
 
 //IIa
 //thrombin();
-
-function thrombin(){
+function thrombin(xZero){
     //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
-    //d 0.55-1
     //thrombin size = 3*10kDa
 
     var x1T = [];var step = [];
@@ -89,7 +88,7 @@ function thrombin(){
     for (let mod = 9;mod<=15;mod=mod+1){
       setTimeout(function(){
       x1T=[];x2T=[];y1T=[];y2T=[];step=[];
-      for (let index = 0.55*res; index <= 1*res; index++) {
+      for (let index = half*res; index <= 1*res; index++) {
         var d = index/res;
         var t = Math.PI*d;
         step.push(d);
@@ -109,7 +108,7 @@ function thrombin(){
 
     //paint thrombin
     function paintThrombin(){
-      var start = step.indexOf(0.55);
+      var start = step.indexOf(half);
       var end = step.indexOf(1)  
       var tSize = Math.round(3*intUnit*1000)/1000;
       var sCount = 0;var tCount =0;
@@ -166,6 +165,31 @@ function thrombin(){
   //paintIntrinsic();
 }
 
+function paintExtrinsic(){
+    //extrinsic array [name][size][color]
+    //extrinsic curve is from low to high
+    //extrinsic start at 2-half 
+    var start;var color;
+
+    //find start point
+    var end = (1+half) 
+    for (let index = 0; index < extrinsic.length; index++) {
+        end = end+(extrinsic[index][1]*intUnit)
+        end = Math.round(1000*end)/1000;
+        console.log(end)
+    }
+
+    console.log(end)
+    for (let index = 0; index < extrinsic.length; index++) {
+        start = end - (extrinsic[index][1]*intUnit);
+        start = Math.round(1000*start)/1000;
+        color = extrinsic[index][2]
+        paintCurve(start,end,color,extZero)
+        console.log('end = ',end,' start = ', start)
+        end = start;
+    }
+}
+
 function paintIntrinsic(){
     //intrinsic array [name][size][color]
     var start=0;
@@ -174,7 +198,7 @@ function paintIntrinsic(){
         end = (intrinsic[index][1]*intUnit) + start;
         end = Math.round(1000*end)/1000;
         color = intrinsic[index][2]
-        paintCurve(start,end,color)
+        paintCurve(start,end,color,intZero)
         start = end;
     }
 }
@@ -193,7 +217,7 @@ function animateIntrinsic(step){
         end = intrinsic[i+1][1]*intUnit + start;
         end = Math.round(1000*end)/1000;
   }
-  paintCurve(start,end,color)
+  paintCurve(start,end,color,intZero)
   //label
   //middle = dArray.indexOf(Math.round(1000*(((end-start)/2) + start))/1000);
   //labelX = (size*x1A[middle])+xZero;
@@ -236,11 +260,11 @@ function setUpArray(x1Mod,y1Mod,x2Mod,y2Mod){
     }
 }
 
-function drawCurve(xArray,yArray,dMin,dMax,color){
+function drawCurve(xArray,yArray,dMin,dMax,color,xZero){
     ctx.beginPath();
     var start = dArray.indexOf(dMin);
     var end = dArray.indexOf(dMax)
-    ctx.moveTo(size*xArray[0]+xZero,yZero-(size*yArray[0]));
+    ctx.moveTo(size*xArray[start]+xZero,yZero-(size*yArray[start]));
 
     for (let index = start+1; index < end; index++) {
         x1 = (size*xArray[index])+xZero;
@@ -253,7 +277,7 @@ function drawCurve(xArray,yArray,dMin,dMax,color){
     ctx.closePath()
 }
 
-function paintCurve(dMin,dMax,color){
+function paintCurve(dMin,dMax,color,xZero){
     var start = dArray.indexOf(dMin);
     var end = dArray.indexOf(dMax)  
  
