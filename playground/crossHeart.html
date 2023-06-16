@@ -19,9 +19,9 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
-const xZero = 20*vw;
+
 const yZero = 40*vh;
-const size = 1*vw;
+const size = 1.2*vw;
 const res = 1000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
@@ -30,9 +30,18 @@ createCanvas();
 //setUpArray(x1Mod,y1Mod,x2Mod,y2Mod)
 //setUpArray(17,15,12,11)
 setUpArray(20,15,13,9)
+
+//find max X
+x1Max = Math.max.apply(null,x1A);
+x2Max = Math.max.apply(null,x2A);
+xMax = Math.max(x1Max,x2Max)
+
+const xZero = 50*vw-(xMax*size);
 //drawCurve(xArray,yArray,dMin,dMax,size,color)
-drawCurve(x1A,y1A,0,1,'#444');
-drawCurve(x2A,y2A,0,1,'#555');
+drawCurve(x1A,y1A,0,2,'#444');
+drawCurve(x2A,y2A,0,2,'#555');
+
+
 
 
 //intrinsic factors size 11,9,8,10 = 16,6,33,6 = 61; x10kDa
@@ -84,13 +93,7 @@ function thrombin(){
         var d = index/res;
         var t = Math.PI*d;
         step.push(d);
-        //12.1,13 mod 11-15
-        //y1=y2+1;x2=y2+1.1;x1=y2+2;
-        //x1T.push((mod+1.9)*Math.pow(Math.sin(t),3));
-        //x2T.push((mod+1.1)*Math.pow(Math.sin(t),3));
-        //y1T.push(((mod+1)*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
-        //y2T.push((mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
-      
+
         //mod = y1-y2
         //y1=y2+1, x2=y2+4, x1=y2+5
         x1T.push((mod+4.9)*Math.pow(Math.sin(t),3));
