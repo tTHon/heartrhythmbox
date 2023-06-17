@@ -21,7 +21,7 @@ const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
-const size = 1.5*vw;
+const size = 1.2*vw;
 const res = 1000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
@@ -47,18 +47,46 @@ drawCurve(x2A,y2A,1,2,'#555',extZero);
 //intrinsic factors size 11,9,8,10 = 16,6,33,6 = 61; x10kDa
 const half = 0.55;
 const intrinsic = [['XI',16,'red'],['IX',6,'green'],['VIII',33,'black'],['X',6,'blue']];
-const extrinsic = [['X',6,'blue'],['VII',5,'pink']]
+const extrinsic = [['VII',5,'pink'],['X',6,'blue']]
 const intUnit = Math.round(1000*(half/61))/1000;
 
-paintExtrinsic()
 nav=0;
 //intrinsic step
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-      intrinsicMove()
+      allMove(); 
     }
 })
+
+function thrombinBurst(thick){
+  for (let index = 0; index <= thick; index++) {
+      thrombin(intZero-(index),1)   
+      thrombin(extZero+(index),1)    
+  }
+}
+
+function allMove(){
+  maxInt = intrinsic.length
+  maxMove = intrinsic.length + extrinsic.length +1
+  if (nav<maxInt){
+    animateIntrinsic(nav)
+    nav++
+  } else if (nav==maxInt) {
+    thrombin(intZero,1);
+    nav++;
+  } else if (nav<maxMove){
+    animateExtrinsic(nav-(maxInt+1))
+    nav++;
+  } else if (nav==maxMove){
+    thrombin(extZero,1);
+    nav++;
+  } else {
+    thrombinBurst(10);
+    nav++
+  }
+}
+
 
 function intrinsicMove(){
   maxInt = intrinsic.length
@@ -66,7 +94,7 @@ function intrinsicMove(){
     animateIntrinsic(nav)
     nav++;
   } else {
-    thrombin(intZero)
+    thrombin(intZero,1)
     nav=0;
   }
 
@@ -74,7 +102,7 @@ function intrinsicMove(){
 
 //IIa
 //thrombin();
-function thrombin(xZero){
+function thrombin(xZero,line){
     //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
     //thrombin size = 3*10kDa
 
@@ -83,12 +111,19 @@ function thrombin(xZero){
     var y1TCurve = [];var y2TCurve = [];
     var count=0;
     
-   //paralell -- 
-   
+    var dStart, dEnd;
+      //extrinsic pathway -- xZero>50vw
+      if (xZero<50*vw){
+        dStart = half*res;dEnd = 1*res
+      } else {
+        dStart = 1.001*res;dEnd = (1+(1-half))*res
+      } 
+
     for (let mod = 9;mod<=15;mod=mod+1){
       setTimeout(function(){
       x1T=[];x2T=[];y1T=[];y2T=[];step=[];
-      for (let index = half*res; index <= 1*res; index++) {
+
+      for (let index = dStart; index <= dEnd; index++) {
         var d = index/res;
         var t = Math.PI*d;
         step.push(d);
@@ -101,22 +136,30 @@ function thrombin(xZero){
         y2T.push((mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t)));
       }
 
-      paintThrombin();
+      paintThrombin(dStart/res,dEnd/res,1);
       }
       ,80*(mod-8))
     }
 
     //paint thrombin
-    function paintThrombin(){
-      var start = step.indexOf(half);
-      var end = step.indexOf(1)  
+    function paintThrombin(s,e){
+      //var start = step.indexOf(half);
+      //var end = step.indexOf(1)
+      var start = step.indexOf(s);
+      var end = step.indexOf(e)  
       var tSize = Math.round(3*intUnit*1000)/1000;
+      console.log(start)
+      if (xZero>50*vw){
+        var fwd = (e-s)%(tSize+0.001);
+        fwd = Math.ceil(fwd*1000)/1000;
+        start = step.indexOf(s+fwd)
+      }
       var sCount = 0;var tCount =0;
       
       var color = colorRandom();
       for (let i = start; i <= end ; i++) {
           ctx.beginPath();
-          ctx.lineWidth = 1
+          ctx.lineWidth = line;
           ctx.moveTo(size*x1T[i]+xZero,yZero-(size*y1T[i])); 
           ctx.lineTo(size*x2T[i]+xZero,yZero-(size*y2T[i])); 
 
@@ -166,28 +209,47 @@ function thrombin(xZero){
 }
 
 function paintExtrinsic(){
-    //extrinsic array [name][size][color]
-    //extrinsic curve is from low to high
-    //extrinsic start at 2-half 
-    var start;var color;
+  //extrinsic array [name][size][color]
+  //extrinsic curve is from low to high
 
-    //find start point
-    var end = (1+half) 
-    for (let index = 0; index < extrinsic.length; index++) {
-        end = end+(extrinsic[index][1]*intUnit)
-        end = Math.round(1000*end)/1000;
-        console.log(end)
-    }
+  
+  //factor X
+  var start10 = 2-half;
+  var end10 = start10 + (extrinsic[1][1]*intUnit)
+  end10 = Math.round(end10*1000)/1000
+  var color10 = extrinsic[1][2]
+  paintCurve(start10,end10,color10,extZero)
 
-    console.log(end)
-    for (let index = 0; index < extrinsic.length; index++) {
-        start = end - (extrinsic[index][1]*intUnit);
-        start = Math.round(1000*start)/1000;
-        color = extrinsic[index][2]
-        paintCurve(start,end,color,extZero)
-        console.log('end = ',end,' start = ', start)
-        end = start;
+  //factor VII
+  var start7 = end10;
+  var end7 = start7+(extrinsic[0][1]*intUnit)
+  end7 = Math.round(end7*1000)/1000
+  var color7 = extrinsic[0][2]
+  paintCurve(start7,end7,color7,extZero)
+}
+
+function animateExtrinsic(step){
+  if (step<=1){
+    //factor X
+    var start10 = 0.001+(2-half);
+    start10 = Math.round(start10*1000)/1000
+    console.log(start10)
+    var end10 = start10 + (extrinsic[1][1]*intUnit)
+    end10 = Math.round(end10*1000)/1000
+    var color10 = extrinsic[1][2];
+    //factor VII
+    var start7 = end10;
+    var end7 = start7+(extrinsic[0][1]*intUnit)
+    end7 = Math.round(end7*1000)/1000
+    var color7 = extrinsic[0][2]
+    if (step==0){
+      paintCurve(start7,end7,color7,extZero);      
     }
+    if (step==1){
+      paintCurve(start10,end10,color10,extZero);
+    }
+  }
+
 }
 
 function paintIntrinsic(){
@@ -218,15 +280,6 @@ function animateIntrinsic(step){
         end = Math.round(1000*end)/1000;
   }
   paintCurve(start,end,color,intZero)
-  //label
-  //middle = dArray.indexOf(Math.round(1000*(((end-start)/2) + start))/1000);
-  //labelX = (size*x1A[middle])+xZero;
-  //console.log(labelX)
-  //labelY = yZero - (y2A[middle]*size) + vh
-  //ctx.font = "30px Arial";
-  //ctx.strokeStyle = 'white'
-  //ctx.fillStyle = 'white'
-  //ctx.strokeText(intrinsic[step][0], labelX, labelY)
 }
 
 
