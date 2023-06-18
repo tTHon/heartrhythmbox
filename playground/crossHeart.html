@@ -21,34 +21,45 @@ const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
-const size = 1.2*vw;
+const size = 1.3 *vw;
 const res = 1000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
-createCanvas();
-
+createCanvas(1);
+//grid(10)
 //setUpArray(x1Mod,y1Mod,x2Mod,y2Mod)
 setUpArray(20,15,13,9)
 
 //find max X
 x1Max = Math.max.apply(null,x1A);
 x2Max = Math.max.apply(null,x2A);
-xMax = Math.max(x1Max,x2Max)
+xMax = Math.max(x1Max,x2Max);
+xMin = Math.min.apply(null,x1A)
+
+y1Min = Math.min.apply(null,y1A);
+y2Min = Math.min.apply(null,y2A);
+yMin = Math.min(y1Min,y2Min)
 
 const intZero = 50*vw-(xMax*size);
 const extZero = 50*vw+(xMax*size)
 //drawCurve(xArray,yArray,dMin,dMax,size,color)
 drawCurve(x1A,y1A,0,1,'#444',intZero);
-drawCurve(x2A,y2A,0,1,'#555',intZero);
+drawCurve(x2A,y2A,0,1,'#444',intZero);
 drawCurve(x1A,y1A,1,2,'#444',extZero);
-drawCurve(x2A,y2A,1,2,'#555',extZero);
-
+drawCurve(x2A,y2A,1,2,'#444',extZero);
 
 //intrinsic factors size 11,9,8,10 = 16,6,33,6 = 61; x10kDa
 const half = 0.55;
-const intrinsic = [['XI',16,'red'],['IX',6,'green'],['VIII',33,'black'],['X',6,'blue']];
-const extrinsic = [['VII',5,'pink'],['X',6,'blue']]
+const intrinsic = [['XI',16,'#3fac00'],['IX',6,'#fed0e9'],['VIII',33,'#d76ba6'],['X',6,'#870070']];
+const extrinsic = [['TF',3,'#e9ba03'],['VII',5,'#3e090c'],['X',6,'#870070']]
 const intUnit = Math.round(1000*(half/61))/1000;
+
+title();
+
+paintIntrinsic();
+paintExtrinsic();
+thrombin(intZero);
+thrombin(extZero)
 
 nav=0;
 //intrinsic step
@@ -58,6 +69,21 @@ window.addEventListener("keydown", function(event) {
       allMove(); 
     }
 })
+
+function title(){
+  ctx.beginPath();
+  ctx.font = 2.5*vw + 'px Poppins';
+  ctx.fillStyle = "white";
+
+  //intrinsic
+  ctx.fillText('Intrinsic Pathway',intZero,yZero+(yMin*size)+(2*vh));
+  
+  //extrinsic
+  ctx.textAlign = "right";
+  ctx.fillText('Extrinsic Pathway',extZero,yZero+(yMin*size)+(2*vh))
+  ctx.closePath();
+  ctx.textAlign = 'left'
+}
 
 function thrombinBurst(thick){
   for (let index = 0; index <= thick; index++) {
@@ -102,7 +128,7 @@ function intrinsicMove(){
 
 //IIa
 //thrombin();
-function thrombin(xZero,line){
+function thrombin(xZero){
     //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
     //thrombin size = 3*10kDa
 
@@ -114,9 +140,9 @@ function thrombin(xZero,line){
     var dStart, dEnd;
       //extrinsic pathway -- xZero>50vw
       if (xZero<50*vw){
-        dStart = half*res;dEnd = 1*res
+        dStart = half*res;dEnd = 1*res;
       } else {
-        dStart = 1.001*res;dEnd = (1+(1-half))*res
+        dStart = 1.001*res;dEnd = (1+(1-half))*res;
       } 
 
     for (let mod = 9;mod<=15;mod=mod+1){
@@ -137,7 +163,18 @@ function thrombin(xZero,line){
       }
 
       paintThrombin(dStart/res,dEnd/res,1);
+      //label II
+      var thrombinY;
+      if (xZero<50*vw && mod==15){
+        thrombinY = labelIntrinsic(half,1,4,intZero)
       }
+      if (xZero>50*vw && mod==15){
+        labelExtrinsic(1.001,1+(1-half),3,thrombinY)
+      }
+
+
+      }
+      
       ,80*(mod-8))
     }
 
@@ -148,7 +185,7 @@ function thrombin(xZero,line){
       var start = step.indexOf(s);
       var end = step.indexOf(e)  
       var tSize = Math.round(3*intUnit*1000)/1000;
-      console.log(start)
+
       if (xZero>50*vw){
         var fwd = (e-s)%(tSize+0.001);
         fwd = Math.ceil(fwd*1000)/1000;
@@ -159,7 +196,7 @@ function thrombin(xZero,line){
       var color = colorRandom();
       for (let i = start; i <= end ; i++) {
           ctx.beginPath();
-          ctx.lineWidth = line;
+          ctx.lineWidth = 1;
           ctx.moveTo(size*x1T[i]+xZero,yZero-(size*y1T[i])); 
           ctx.lineTo(size*x2T[i]+xZero,yZero-(size*y2T[i])); 
 
@@ -201,6 +238,7 @@ function thrombin(xZero,line){
     function colorRandom(){
       var colorSet = ['#c2a083','#c8aa8f','#ceb39c','#d4bda8','#dac6b5','#e1d0c1',
                     '#e7d9cd','#ede3da','#f3ece6','#f9f6f3']
+
       var randomNumber = Math.floor(Math.random() * (colorSet.length - 0) ) + 0;
       var color = colorSet[randomNumber];
       return color;
@@ -212,44 +250,172 @@ function paintExtrinsic(){
   //extrinsic array [name][size][color]
   //extrinsic curve is from low to high
 
-  
   //factor X
-  var start10 = 2-half;
-  var end10 = start10 + (extrinsic[1][1]*intUnit)
+  var start10 = (2-half)+0.001;
+  start10 = Math.round(start10*1000)/1000
+  var end10 = start10 + (extrinsic[2][1]*intUnit)
   end10 = Math.round(end10*1000)/1000
-  var color10 = extrinsic[1][2]
-  paintCurve(start10,end10,color10,extZero)
-
+  var color10 = extrinsic[2][2]
+  
   //factor VII
   var start7 = end10;
-  var end7 = start7+(extrinsic[0][1]*intUnit)
+  var end7 = start7+(extrinsic[1][1]*intUnit)
   end7 = Math.round(end7*1000)/1000
-  var color7 = extrinsic[0][2]
+  var color7 = extrinsic[1][2]
+  
+  //TF
+  var start3 = end7;
+  var end3 = start3+(extrinsic[0][1]*intUnit) 
+  end3 = Math.round(end3*1000)/1000;
+  var color3 = extrinsic[0][2]
+  paintCurve(start3,end3,color3,extZero)
   paintCurve(start7,end7,color7,extZero)
+  paintCurve(start10,end10,color10,extZero)
+  labelExtrinsic(start3,end3,0)
+  labelExtrinsic(start7,end7,1)
+  labelExtrinsic(start10,end10,2)
 }
 
 function animateExtrinsic(step){
-  if (step<=1){
+  if (step<=extrinsic.length){
     //factor X
-    var start10 = 0.001+(2-half);
+    var start10 = (2-half)+0.001;
     start10 = Math.round(start10*1000)/1000
-    console.log(start10)
-    var end10 = start10 + (extrinsic[1][1]*intUnit)
+    var end10 = start10 + (extrinsic[2][1]*intUnit)
     end10 = Math.round(end10*1000)/1000
-    var color10 = extrinsic[1][2];
+    var color10 = extrinsic[2][2]
+    
     //factor VII
     var start7 = end10;
-    var end7 = start7+(extrinsic[0][1]*intUnit)
+    var end7 = start7+(extrinsic[1][1]*intUnit)
     end7 = Math.round(end7*1000)/1000
-    var color7 = extrinsic[0][2]
+    var color7 = extrinsic[1][2]
+    
+
+    //TF
+    var start3 = end7;
+    var end3 = start3+(extrinsic[0][1]*intUnit) 
+    end3 = Math.round(end3*1000)/1000;
+    var color3 = extrinsic[0][2]
+
+    //paintCurve(dMin,dMax,color,xZero,animate)    
     if (step==0){
-      paintCurve(start7,end7,color7,extZero);      
+      paintCurve(start3,end3,color3,extZero,1)
     }
     if (step==1){
-      paintCurve(start10,end10,color10,extZero);
+      paintCurve(start7,end7,color7,extZero,1)
+    }
+    if (step==2){
+      paintCurve(start10,end10,color10,extZero,1)
     }
   }
 
+}
+
+function labelExtrinsic(start,end,i,thrombinY){
+  var s = dArray.indexOf(start);
+  var e = dArray.indexOf(end)  
+
+  ctx.beginPath();
+  ctx.font = 2*vw + 'px Poppins';ctx.fillStyle = "#f1f1f1";
+
+  //factor III or TF
+  if (i==0){
+    var x = extZero+size*(x1A[s]+((x2A[s]-x1A[s])/2))-(0.7*vw);
+    var y = yZero-size*((y2A[s])+((y1A[s]-y2A[s])/2))-(0.3*vw);
+    var text = extrinsic[i][0]
+    ctx.fillText(text,x,y);
+  }
+  if (i==1){
+    var x = extZero+size*(x1A[s]+((x2A[s]-x1A[s])/2))-(0.5*vw);
+    var y = yZero-size*((y2A[s])+((y1A[s]-y2A[s])/2))-(vw);
+    var text = extrinsic[i][0]
+    ctx.fillText(text,x,y);
+  }
+  if (i==2){
+    var x = extZero+size*(x1A[s]+((x2A[s]-x1A[s])/2))-(0.5*vw);
+    var y = yZero-size*((y2A[s])+((y1A[s]-y2A[s])/2))-(1.4*vw);
+    var text = extrinsic[i][0]
+    ctx.fillText(text,x,y);
+  }
+  if (i==3){
+    var x = extZero+size*(x1A[e]+((x2A[s]-x1A[e])/2));
+    var y = yZero-size*((y1A[e])+((y1A[s]-y1A[e])/2))-(vw);
+    ctx.fillStyle = '#333';ctx.font =5*vw + 'px Poppins';
+    ctx.fillText('II',x,y);
+  }
+  ctx.closePath();
+}
+
+function labelIntrinsic(start,end,i,xZero){  
+  //const intrinsic = [['XI'],['IX'],['VIII'],['X']];
+  var s = dArray.indexOf(start);
+  var e = dArray.indexOf(end)  
+
+  ctx.beginPath();
+  ctx.font = 2*vw + 'px Poppins';ctx.fillStyle = "#dddddd";
+  //factor XI midway Y 
+  if (i==0){
+    //size*x1A[index]+xZero,yZero-(size*y1A[index])
+    var x = size*x2A[s]+xZero-(0.2*vw)
+    var y = yZero-size*((y2A[s])+((y1A[s]-y2A[s])/2))-(2*vw);
+    var text = intrinsic[i][0]
+    ctx.fillText(text,x,y);
+  }
+  if (i==1){
+    //size*x1A[index]+xZero,yZero-(size*y1A[index])
+    var x = size*x1A[s]+xZero-(0.2*vw)
+    var y = yZero-size*((y2A[s])+((y1A[s]-y2A[s])/2));
+    var text = intrinsic[i][0]
+    ctx.fillText(text,x,y);
+  }
+  if (i==2){
+    var x = xZero+size*((x1A[s])+((x1A[e]-x1A[s])/2));
+    var y = yZero-size*((y1A[s])+((y1A[e]-y1A[s])/2));
+    var text = intrinsic[i][0]
+    ctx.fillText(text,x,y);
+  }
+  if (i==3){
+    var x = xZero+size*((x1A[e])+((x2A[e]-x1A[e])/2));
+    var y = yZero-size*((y1A[e])+((y1A[s]-y1A[e])/2))+(0.2*vw);
+    var text = intrinsic[i][0]
+    ctx.fillText(text,x,y);
+  }
+  if (i==4){
+    var x = xZero+size*((x2A[s])+((x1A[e]-x2A[s])/2));
+    var y = yZero-size*((y1A[e])+((y1A[s]-y1A[e])/2))+(0.2*vw);
+    //console.log(y)
+    ctx.fillStyle = '#333';ctx.font = 5*vw + 'px Poppins';
+    ctx.fillText('II',x,y);
+  }
+
+  ctx.closePath();
+
+  //legend;
+  var scale = 2;
+  ctx.fillStyle = "#dddddd";ctx.font = 2*vw + 'px Poppins';
+  var x = extZero - (scale*5*vw);
+  var y = yZero-(yMin*size)+10*vh;
+  var y1Index = dArray.indexOf(half)
+  var y2Index = dArray.indexOf(half+intUnit)
+  var y2 = y+ Math.abs((y1A[y2Index]-y1A[y1Index])*scale*size)
+  ctx.beginPath();
+  ctx.moveTo(x,y);
+  ctx.lineTo(x,y2);
+  ctx.lineWidth =scale;
+  ctx.strokeStyle = '#eee';
+  ctx.stroke();
+  ctx.closePath();
+  //horizontal cap
+  capSize = vw/scale
+  ctx.beginPath();
+  ctx.moveTo(x-capSize,y);ctx.lineTo(x+capSize,y);
+  ctx.stroke();
+  ctx.moveTo(x-capSize,y2);ctx.lineTo(x+capSize,y2)
+  ctx.stroke();
+  ctx.closePath();
+  //label
+  ctx.fillText(' = 20 kDa',x+(scale*vw),y2);
 }
 
 function paintIntrinsic(){
@@ -261,6 +427,7 @@ function paintIntrinsic(){
         end = Math.round(1000*end)/1000;
         color = intrinsic[index][2]
         paintCurve(start,end,color,intZero)
+        labelIntrinsic(start,end,index,intZero)
         start = end;
     }
 }
@@ -279,17 +446,41 @@ function animateIntrinsic(step){
         end = intrinsic[i+1][1]*intUnit + start;
         end = Math.round(1000*end)/1000;
   }
-  paintCurve(start,end,color,intZero)
+  //paintCurve(dMin,dMax,color,xZero,animate)
+  paintCurve(start,end,color,intZero,1)
+  labelIntrinsic(start,end,index,intZero)
 }
 
 
-function createCanvas() {
+function createCanvas(mag) {
   const scale = window.devicePixelRatio;
   canvas.style.width = window.innerWidth + 'px';
   canvas.style.height = window.innerHeight + 'px';
-  canvas.width = Math.floor(window.innerWidth * scale*2)
-  canvas.height = Math.floor(window.innerHeight * scale*2)
-  ctx.scale(scale*2,scale*2)
+  canvas.width = Math.floor(window.innerWidth * scale*mag)
+  canvas.height = Math.floor(window.innerHeight * scale*mag)
+  ctx.scale(scale*mag,scale*mag)
+}
+
+function grid(n){
+  ctx.beginPath();
+  ctx.strokeStyle = '#222'
+  ctx.lineWidth = 1;
+  
+  for (let index = 0; index < 100; index=index+n) {
+    ctx.moveTo(index*vw,0*vh);
+    ctx.lineTo(index*vw,100*vh);  
+    ctx.stroke()
+  }
+  ctx.closePath();
+
+  ctx.beginPath()
+  ctx.strokeStyle = '#222'
+  ctx.lineWidth = 1;
+  for (let index = 0; index < 100; index=index+n) {
+    ctx.moveTo(0*vw,index*vh);
+    ctx.lineTo(100*vw,index*vh);  
+    ctx.stroke()
+  }
 }
 
 function setUpArray(x1Mod,y1Mod,x2Mod,y2Mod){
@@ -330,24 +521,70 @@ function drawCurve(xArray,yArray,dMin,dMax,color,xZero){
     ctx.closePath()
 }
 
-function paintCurve(dMin,dMax,color,xZero){
+function paintCurve(dMin,dMax,color,xZero,animate){
     var start = dArray.indexOf(dMin);
     var end = dArray.indexOf(dMax)  
- 
+
+    if (animate==1){
+      ctx.beginPath();
+      for (let index = start; index <= end ; index++) {
+        setTimeout(function(){
+          ctx.lineWidth = 1
+          ctx.moveTo(size*x1A[index]+xZero,yZero-(size*y1A[index])); 
+          ctx.lineTo(size*x2A[index]+xZero,yZero-(size*y2A[index])); 
+          ctx.stroke()
+          var grd = ctx.createLinearGradient(
+            size*x1A[index]+xZero,yZero-(size*y1A[index]),
+            size*x2A[index]+xZero,yZero-(size*y2A[index])
+          )
+          grd.addColorStop(0,color)
+          grd.addColorStop(1,'#333')
+          ctx.strokeStyle = grd;
+        }, 100/index)
+      }
+      ctx.closePath()
+  } else {
     ctx.beginPath();
-    for (let index = start; index <= end ; index++) {
-      setTimeout(function(){
-        ctx.lineWidth = 1
-        ctx.moveTo(size*x1A[index]+xZero,yZero-(size*y1A[index])); 
-        ctx.lineTo(size*x2A[index]+xZero,yZero-(size*y2A[index])); 
-        ctx.stroke()
-        ctx.strokeStyle = color;
-      }, 100/index)
+      for (let index = start; index <= end ; index++) {
+          ctx.lineWidth = 1
+          ctx.moveTo(size*x1A[index]+xZero,yZero-(size*y1A[index])); 
+          ctx.lineTo(size*x2A[index]+xZero,yZero-(size*y2A[index])); 
+          ctx.stroke()
+          var grd = ctx.createLinearGradient(
+            size*x1A[index]+xZero,yZero-(size*y1A[index]),
+            size*x2A[index]+xZero,yZero-(size*y2A[index])
+          )
+          var stop1 = darker(color,0.8)
+          var stop2 = darker(color,0.7)
+          grd.addColorStop(0,stop1)
+          grd.addColorStop(0.3,color)
+          grd.addColorStop(1,stop2)
+          ctx.strokeStyle = grd;
     }
-    ctx.closePath()
+      ctx.closePath()
+  }
 }
 
+function darker(color,darker){
+  String(color)
 
+  const hex = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f']
+  var red1 = color[1];var red2 = color[2]
+  red = hex.indexOf(red1)*16 + hex.indexOf(red2) 
+  console.log(red)
+  var green1 = color[3];var green2 = color[4]
+  green = hex.indexOf(green1) *16 + hex.indexOf(green2) 
+  var blue1 = color[5];var blue2 = color[6]
+  blue = hex.indexOf(blue1)*16 + hex.indexOf(blue2) 
+
+  //d = how dark  
+  red = Math.round(darker*red);green = Math.round(darker*green);
+  blue = Math.round(darker*blue);
+  String(red);String(green);String(blue)
+  var dColor = 'rgb(' +red +','+ green + ',' + blue + ')'
+  console.log(dColor)
+  return dColor
+}
 
 </script>
 
