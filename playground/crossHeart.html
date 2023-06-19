@@ -21,7 +21,7 @@ const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
-const size = 1.3 *vw;
+const size = 1.5 *vw;
 const res = 1000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
@@ -50,16 +50,20 @@ drawCurve(x2A,y2A,1,2,'#444',extZero);
 
 //intrinsic factors size 11,9,8,10 = 16,6,33,6 = 61; x10kDa
 const half = 0.55;
-const intrinsic = [['XI',16,'#3fac00'],['IX',6,'#fed0e9'],['VIII',33,'#d76ba6'],['X',6,'#870070']];
-const extrinsic = [['TF',3,'#e9ba03'],['VII',5,'#3e090c'],['X',6,'#870070']]
+//const intrinsic = [['XI',16,'#3fac00'],['IX',6,'#d76ba6'],['VIII',33,'#181818'],['X',6,'#b70070']];
+//const extrinsic = [['TF',3,'#e9ba03'],['VII',5,'#45090c'],['X',6,'#b70070']]
+const intrinsic = [['XI',16,'#b18f48'],['IX',6,'#ca4a3e'],['VIII',33,'#22515c'],['X',6,'#8c305b']];
+const extrinsic = [['TF',3,'#43a0b6'],['VII',5,'#c78c8f'],['X',6,'#8c305b']]
 const intUnit = Math.round(1000*(half/61))/1000;
 
-title();
-
-paintIntrinsic();
+//title();
+tissueFactorCell();
+//paintIntrinsic();
 paintExtrinsic();
-thrombin(intZero);
-thrombin(extZero)
+//thrombin(center,label)
+//thrombin(intZero);
+//thrombin(extZero);
+//platelet();
 
 nav=0;
 //intrinsic step
@@ -76,13 +80,39 @@ function title(){
   ctx.fillStyle = "white";
 
   //intrinsic
-  ctx.fillText('Intrinsic Pathway',intZero,yZero+(yMin*size)+(2*vh));
+  ctx.fillText('Intrinsic Pathway',intZero,yZero+(yMin*size)+(3*vh));
   
   //extrinsic
   ctx.textAlign = "right";
-  ctx.fillText('Extrinsic Pathway',extZero,yZero+(yMin*size)+(2*vh))
+  ctx.fillText('Extrinsic Pathway',extZero,yZero+(yMin*size)+(3*vh))
   ctx.closePath();
   ctx.textAlign = 'left'
+
+  //legend;
+  var scale = 2;
+  ctx.fillStyle = "#dddddd";ctx.font = 2*vw + 'px Poppins';
+  var x = extZero - (scale*5*vw);
+  var y = yZero-(yMin*size)+10*vh;
+  var y1Index = dArray.indexOf(half)
+  var y2Index = dArray.indexOf(half+intUnit)
+  var y2 = y+ Math.abs((y1A[y2Index]-y1A[y1Index])*scale*size)
+  ctx.beginPath();
+  ctx.moveTo(x,y);
+  ctx.lineTo(x,y2);
+  ctx.lineWidth =scale;
+  ctx.strokeStyle = '#eee';
+  ctx.stroke();
+  ctx.closePath();
+  //horizontal cap
+  capSize = vw/scale
+  ctx.beginPath();
+  ctx.moveTo(x-capSize,y);ctx.lineTo(x+capSize,y);
+  ctx.stroke();
+  ctx.moveTo(x-capSize,y2);ctx.lineTo(x+capSize,y2)
+  ctx.stroke();
+  ctx.closePath();
+  //label
+  ctx.fillText(' = 20 kDa',x+(scale*vw),y2);
 }
 
 function thrombinBurst(thick){
@@ -126,9 +156,124 @@ function intrinsicMove(){
 
 }
 
-//IIa
+
+function platelet(){
+  const dMin = 0.10;
+  const dMax = 0.55; 
+  var dPltA = []; x1pA= []; x2pA= []; 
+  y1pA= []; y2pA = [];
+  for (let index = res*dMin; index <= res*dMax; index++) {
+        var dPlt = index/res;
+        var piPlt = Math.PI*dPlt;
+        var x1p = 12*Math.pow(Math.sin(piPlt),3);
+        var y1p = (8*Math.cos(piPlt))-(3*Math.cos(2*piPlt))-(2*Math.cos(3*piPlt))-(Math.cos(4*piPlt))
+        var x2p = 8*Math.pow(Math.sin(piPlt),3);
+        //var y2p = (yMod*Math.cos(piPlt))-(3*Math.cos(2*piPlt))-(2*Math.cos(3*piPlt))-(Math.cos(yMod2*piPlt))
+        var y2p = (8*Math.cos(piPlt))-(3*Math.cos(2*piPlt))-(2*Math.cos(3*piPlt))-(Math.cos(1.2*piPlt))
+
+        dPltA.push(dPlt);
+        x1pA.push(x1p);x2pA.push(x2p);
+        y1pA.push(y1p);y2pA.push(y2p);
+    }
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#818B95'
+  var start = dPltA.indexOf(dMin);
+  var end = dPltA.indexOf(dMax)
+  var x0 = size*x1pA[start]+intZero;
+  var y0 = yZero-(size*y1pA[start]);
+  var x1,y1;
+  ctx.moveTo(x0,y0);
+
+  for (let index = start+1; index < end; index++) {
+        x1 = (size*x1pA[index])+intZero;
+        y1 = yZero-(size*y1pA[index]);
+        ctx.lineTo(x1, y1);
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        x0 = x1;y0 = y1;
+    }
+
+  //return
+  for (let index = end; index >= start; index=index-25) {
+    x1 = (size*x2pA[index])+intZero;
+    y1 = yZero-(size*y2pA[index]);
+    ctx.lineTo(x1, y1);
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    x0 = x1;y0 = y1;
+  }
+  ctx.closePath()
+
+  //label
+  ctx.beginPath();
+  ctx.font = 2*vw + 'px Poppins';ctx.fillStyle = "#f1f1f1";
+  ctx.fillText('Platelet',intZero+size*x2pA[start]+(2*vw),yZero-size*y2pA[start]-(1.2*vw));
+  ctx.closePath();
+
+  setTimeout(function(){
+    legs()
+  },2000)
+
+  function legs(){
+    //add legs
+    ctx.beginPath();
+    ctx.strokeStyle = '#818B95'
+    x0 = size*x1pA[start]+intZero;
+    y0 = yZero-(size*y1pA[start]);
+
+    for (let index = start; index <= end+10; index=index+20) {
+      x1 = (size*x2A[index])+intZero;
+      y1 = yZero-(size*y2A[index]);
+     
+      ctx.moveTo(x0,y0);
+      ctx.quadraticCurveTo(x1,y1,size*x1pA[index]+intZero,yZero-(size*y1pA[index]));
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      x0=x1;y0=y1;
+    }
+    ctx.closePath();
+    //last point
+    ctx.beginPath();
+
+    for (let i=0;i<=100;i=i+20){
+    ctx.moveTo(size*x2A[end+i]+intZero,yZero-(size*y2A[end+i]))
+    //ctx.lineTo(size*x1pA[end]+intZero,yZero-(size*y1pA[end]))
+    ctx.quadraticCurveTo(size*x2A[end+i]+intZero+i/10,yZero-(size*y2A[end+i]),size*x1pA[end]+intZero,yZero-(size*y1pA[end]))
+    ctx.lineWidth = 1;
+    ctx.stroke();}
+    ctx.closePath();
+
+  }
+}
+
+function tissueFactorCell(){
+  //radial-gradient(circle at 65% 15%, white 1px, aqua 3%, 
+  //darkblue 60%, aqua 100%); 
+  ctx.beginPath();
+  var x = extZero;
+  var y = yZero;
+  // Radii of the white glow.
+  innerRadius = 0.4*size,
+  outerRadius = 2*size,
+    // Radius of the entire circle.
+  radius = 1.5*size;
+  console.log(radius)
+
+  var gradient = ctx.createRadialGradient(x+10, y-10, innerRadius, x, y, outerRadius);
+  gradient.addColorStop(0, '#fdfaf1');
+  gradient.addColorStop(1, '#43a0b6');
+
+  ctx.arc(x, y, radius, 0, 2 * Math.PI);
+
+  ctx.fillStyle = gradient;
+  ctx.fill();
+  ctx.closePath();
+}
+
+
 //thrombin();
-function thrombin(xZero){
+function thrombin(xZero,label){
     //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
     //thrombin size = 3*10kDa
 
@@ -165,17 +310,16 @@ function thrombin(xZero){
       paintThrombin(dStart/res,dEnd/res,1);
       //label II
       var thrombinY;
-      if (xZero<50*vw && mod==15){
-        thrombinY = labelIntrinsic(half,1,4,intZero)
+      if (label!=0){
+        if (xZero<50*vw && mod==15){
+          thrombinY = labelIntrinsic(half,1,4,intZero)
+        }
+        if (xZero>50*vw && mod==15){
+          labelExtrinsic(1.001,1+(1-half),3,thrombinY)
+        }
+        }
       }
-      if (xZero>50*vw && mod==15){
-        labelExtrinsic(1.001,1+(1-half),3,thrombinY)
-      }
-
-
-      }
-      
-      ,80*(mod-8))
+    ,200*(mod-8))
     }
 
     //paint thrombin
@@ -390,32 +534,6 @@ function labelIntrinsic(start,end,i,xZero){
   }
 
   ctx.closePath();
-
-  //legend;
-  var scale = 2;
-  ctx.fillStyle = "#dddddd";ctx.font = 2*vw + 'px Poppins';
-  var x = extZero - (scale*5*vw);
-  var y = yZero-(yMin*size)+10*vh;
-  var y1Index = dArray.indexOf(half)
-  var y2Index = dArray.indexOf(half+intUnit)
-  var y2 = y+ Math.abs((y1A[y2Index]-y1A[y1Index])*scale*size)
-  ctx.beginPath();
-  ctx.moveTo(x,y);
-  ctx.lineTo(x,y2);
-  ctx.lineWidth =scale;
-  ctx.strokeStyle = '#eee';
-  ctx.stroke();
-  ctx.closePath();
-  //horizontal cap
-  capSize = vw/scale
-  ctx.beginPath();
-  ctx.moveTo(x-capSize,y);ctx.lineTo(x+capSize,y);
-  ctx.stroke();
-  ctx.moveTo(x-capSize,y2);ctx.lineTo(x+capSize,y2)
-  ctx.stroke();
-  ctx.closePath();
-  //label
-  ctx.fillText(' = 20 kDa',x+(scale*vw),y2);
 }
 
 function paintIntrinsic(){
@@ -448,7 +566,7 @@ function animateIntrinsic(step){
   }
   //paintCurve(dMin,dMax,color,xZero,animate)
   paintCurve(start,end,color,intZero,1)
-  labelIntrinsic(start,end,index,intZero)
+  labelIntrinsic(start,end,step,intZero)
 }
 
 
@@ -537,8 +655,11 @@ function paintCurve(dMin,dMax,color,xZero,animate){
             size*x1A[index]+xZero,yZero-(size*y1A[index]),
             size*x2A[index]+xZero,yZero-(size*y2A[index])
           )
-          grd.addColorStop(0,color)
-          grd.addColorStop(1,'#333')
+          var stop1 = darker(color,0.9)
+          var stop2 = darker(color,0.85)
+          grd.addColorStop(0,stop1)
+          grd.addColorStop(0.25,color)
+          grd.addColorStop(1,stop2)
           ctx.strokeStyle = grd;
         }, 100/index)
       }
@@ -554,10 +675,10 @@ function paintCurve(dMin,dMax,color,xZero,animate){
             size*x1A[index]+xZero,yZero-(size*y1A[index]),
             size*x2A[index]+xZero,yZero-(size*y2A[index])
           )
-          var stop1 = darker(color,0.8)
-          var stop2 = darker(color,0.7)
+          var stop1 = darker(color,0.9)
+          var stop2 = darker(color,0.85)
           grd.addColorStop(0,stop1)
-          grd.addColorStop(0.3,color)
+          grd.addColorStop(0.25,color)
           grd.addColorStop(1,stop2)
           ctx.strokeStyle = grd;
     }
@@ -571,7 +692,6 @@ function darker(color,darker){
   const hex = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f']
   var red1 = color[1];var red2 = color[2]
   red = hex.indexOf(red1)*16 + hex.indexOf(red2) 
-  console.log(red)
   var green1 = color[3];var green2 = color[4]
   green = hex.indexOf(green1) *16 + hex.indexOf(green2) 
   var blue1 = color[5];var blue2 = color[6]
@@ -582,7 +702,6 @@ function darker(color,darker){
   blue = Math.round(darker*blue);
   String(red);String(green);String(blue)
   var dColor = 'rgb(' +red +','+ green + ',' + blue + ')'
-  console.log(dColor)
   return dColor
 }
 
