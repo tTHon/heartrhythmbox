@@ -86,6 +86,50 @@ function stepMove(){
         thrombin2Plt();
         pltAnimate();
     }
+    if (nav==3){
+      factorXFocus();
+    }
+}
+
+function factorXFocus (){
+    var start = half - (intrinsic[3][1]*intUnit);
+    start = Math.round(start*1000)/1000;
+    var end = 0.55;
+    paintCurve(start,end,'#003049',intZero);
+    labelIntrinsic(start,end,3,intZero);
+
+    //animate line to platelet
+    var radius = 3*size;
+
+    //get index of start+ and end-
+    var s = dArray.indexOf(start);
+    var e = dArray.indexOf(end)
+    var pltX = (size*x2A[0])+intZero + 2*radius;
+    var pltY = yZero-(size*y2A[0]);
+
+    for (let index = size; index <= radius; index++) {
+      setTimeout(() => {
+        var x2= pltX + Math.cos((15/180)*Math.PI)*index;
+      var y2 = pltY + Math.sin((15/180)*Math.PI)*index;
+
+      for (let index = s+8; index < e-8; index++) {
+        var x1 = x2A[index]*size + intZero;
+        var y1 = yZero - (size*y2A[index])
+        //var x3 = x2A[e-10]*size + intZero;
+        //var y3 = yZero - (size*y2A[e-10])
+
+        ctx.strokeStyle = 'rgba(0,50,73,0.5)'; 
+        ctx.beginPath();
+        ctx.moveTo(x1,y1);
+        ctx.lineTo(x2,y2);
+        ctx.stroke()
+        ctx.closePath();
+            
+      }
+      }, 1800/index);
+      
+    }
+
 }
 
 function thrombin2Plt(){
@@ -97,7 +141,6 @@ function thrombin2Plt(){
 
     //plt x,y
     var radius = 3*size;
-    console.log(radius)
     var pltX = (size*x2A[0])+intZero + 2*radius;
     var pltY = yZero-(size*y2A[0]);
     for (let index = begin; index < end; index=index+(tSize)*res) {
@@ -107,26 +150,25 @@ function thrombin2Plt(){
         y1 = yZero - (y1A[index]*size);
 
 
-        //random angle; animate radius
-        for (let j = 1; j <= radius; j++) {
-            var angle = Math.floor(Math.random() * (95 - 86) ) + 85;
-            x2= pltX + Math.cos((angle/180)*Math.PI)*j;
-            y2 = pltY + Math.sin((angle/180)*Math.PI)*j;
+        var angle = Math.floor(Math.random() * (95 - 86) ) + 85;
+            x2= pltX + Math.cos((angle/180)*Math.PI)*radius;
+            y2 = pltY + Math.sin((angle/180)*Math.PI)*radius;
             
             ctx.beginPath();
+            ctx.strokeStyle = '#ababab'
             ctx.moveTo(x0,y0);
             //ctx.lineTo(x1,y1);
-            ctx.quadraticCurveTo(x0,y0+j,x2,y2)
-            ctx.stroke();ctx.strokeStyle = '#ddd'
+            ctx.quadraticCurveTo(x0,y0+radius,x2,y2)
+            ctx.stroke();
             ctx.closePath();
 
             ctx.beginPath();
             ctx.moveTo(x1,y1);
-            ctx.quadraticCurveTo(x1,y1+j,x2,y2);
-            ctx.stroke();ctx.strokeStyle = '#ccc';
+            ctx.quadraticCurveTo(x1,y1+radius,x2,y2);
+            ctx.stroke();ctx.strokeStyle = '#555';
             ctx.closePath();
           
-        }
+ 
     }
 }
 
@@ -244,23 +286,30 @@ function pltAnimate(){
             ctx.strokeStyle = 'maroon'
             ctx.fill();ctx.stroke();
             ctx.closePath;
-       }, 3000/index);
+
+            ctx.beginPath();
+          ctx.font = 1.5*vw + 'px Poppins';ctx.fillStyle = "#f1f1f1";
+          var lineHeight = 1.5*vw;
+          ctx.textAlign = 'center'
+          ctx.fillText('Platelet',(size*x2A[0])+intZero + 2*radius,yZero-(size*y2A[0]));
+          ctx.closePath();
+       }, 1000/index);
     }
-/*
-    for (let index = 0; index < 3; index++) {
-        setTimeout(() => {
+
+       setTimeout(() => {
             //additional plt
             ctx.beginPath();
-            ctx.arc(x-(index*vw),y+(index*vw),radius,0,2*Math.PI);
+            ctx.arc(x-(radius),y+(0.5*radius),0.85*radius,0,2*Math.PI);
             ctx.fillStyle = gradient;
             ctx.fill();
             ctx.stroke();            
-            ctx.strokeStyle = 'red'
-            ctx.closePath;            
-        }, 2000/(index+1));
-       
-    }*/
-  
+            ctx.strokeStyle = 'rgb(600,0,0)';
+            ctx.lineWidth = 5;
+            ctx.closePath;          
+          
+        }, 500);
+
+ 
 }
 
 function platelet(){
