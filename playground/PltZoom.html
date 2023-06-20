@@ -97,6 +97,7 @@ function thrombin2Plt(){
 
     //plt x,y
     var radius = 3*size;
+    console.log(radius)
     var pltX = (size*x2A[0])+intZero + 2*radius;
     var pltY = yZero-(size*y2A[0]);
     for (let index = begin; index < end; index=index+(tSize)*res) {
@@ -106,23 +107,26 @@ function thrombin2Plt(){
         y1 = yZero - (y1A[index]*size);
 
 
-        //random angle
-        var angle = Math.floor(Math.random() * (95 - 86) ) + 85;
-        x2= pltX + Math.cos((angle/180)*Math.PI)*radius;
-        y2 = pltY + Math.sin((angle/180)*Math.PI)*radius;
-        
-        ctx.beginPath();
-        ctx.moveTo(x0,y0);
-        //ctx.lineTo(x1,y1);
-        ctx.quadraticCurveTo(x0,y0+radius,x2,y2)
-        ctx.stroke();ctx.strokeStyle = '#ddd'
-        ctx.closePath();
+        //random angle; animate radius
+        for (let j = 1; j <= radius; j++) {
+            var angle = Math.floor(Math.random() * (95 - 86) ) + 85;
+            x2= pltX + Math.cos((angle/180)*Math.PI)*j;
+            y2 = pltY + Math.sin((angle/180)*Math.PI)*j;
+            
+            ctx.beginPath();
+            ctx.moveTo(x0,y0);
+            //ctx.lineTo(x1,y1);
+            ctx.quadraticCurveTo(x0,y0+j,x2,y2)
+            ctx.stroke();ctx.strokeStyle = '#ddd'
+            ctx.closePath();
 
-        ctx.beginPath();
-        ctx.moveTo(x1,y1);
-        ctx.quadraticCurveTo(x1,y1+radius,x2,y2);
-        ctx.stroke();ctx.strokeStyle = '#ccc';
-        ctx.closePath();
+            ctx.beginPath();
+            ctx.moveTo(x1,y1);
+            ctx.quadraticCurveTo(x1,y1+j,x2,y2);
+            ctx.stroke();ctx.strokeStyle = '#ccc';
+            ctx.closePath();
+          
+        }
     }
 }
 
@@ -204,6 +208,7 @@ function thrombinBurst(thick){
 }
 
 function pltAnimate(){
+
     var end = dArray.indexOf(0.55)
 
     // Radii of the white glow.
@@ -235,12 +240,13 @@ function pltAnimate(){
             ctx.beginPath();
             ctx.arc(x, y, radius, 0, 2 * Math.PI);
             ctx.fillStyle = gradient;
-            ctx.strokeStyle = 'red'
+            ctx.lineWidth = 1+ (index/25)
+            ctx.strokeStyle = 'maroon'
             ctx.fill();ctx.stroke();
             ctx.closePath;
        }, 3000/index);
     }
-
+/*
     for (let index = 0; index < 3; index++) {
         setTimeout(() => {
             //additional plt
@@ -253,7 +259,7 @@ function pltAnimate(){
             ctx.closePath;            
         }, 2000/(index+1));
        
-    }
+    }*/
   
 }
 
