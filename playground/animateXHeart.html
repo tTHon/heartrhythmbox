@@ -22,7 +22,7 @@ const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
 const size = 1.3 *vw;
-const res = 1000;
+const res = 100;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas(2);
@@ -56,12 +56,12 @@ const intrinsic = [['XI',16,'#b18f48'],['IX',6,'#ca4a3e'],['VIII',33,'#22515c'],
 const extrinsic = [['TF',3,'#43a0b6'],['VII',5,'#c78c8f'],['X',6,'#8c305b']]
 const intUnit = Math.round(1000*(half/61))/1000;
 
-title();
-paintIntrinsic(1);
-paintExtrinsic(1);
+//title();
+//paintIntrinsic(1);
+//paintExtrinsic(1);
 //thrombin(center,label)
-thrombin(intZero);
-thrombin(extZero);
+//thrombin(intZero);
+//thrombin(extZero);
 //platelet();
 //tissueFactorCell();
 
@@ -71,10 +71,26 @@ window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
       //subTitle();
-      //animateHeart()
+      animateHeart()
     }
 })
 
+function animateHeart(){
+  for (let index = 1; index <= xMax; index++) {
+    setTimeout(() => {
+    intZero = 50*vw-(xMax*size) + (index*size);
+    extZero = 50*vw+(xMax*size) - (index*size);
+    ctx.clearRect(0,0,100*vw,100*vh)
+    drawCurve(x1A,y1A,0,1,'#aaa',intZero);
+    drawCurve(x2A,y2A,0,1,'#aaa',intZero);
+    drawCurve(x1A,y1A,1,2,'#aaa',extZero);
+    drawCurve(x2A,y2A,1,2,'#aaa',extZero);      
+    }, 10);
+
+  }
+
+
+}
 
 function title(){
   ctx.font = 2.5*vw + 'px Poppins';
