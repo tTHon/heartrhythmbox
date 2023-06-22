@@ -99,6 +99,16 @@ function stepMove(){
   if (nav==3){
     animateHeart()
   }
+  if (nav==4){
+    fBorder('#333333')
+    intZero = intZero +1;
+    extZero = extZero-1;
+    paintIntrinsic(1);
+    paintExtrinsic(1);
+    thrombin(intZero,1);
+    thrombin(extZero,1);
+    subTitle('up');
+  }
 }
 
 function animateHeart(){
@@ -116,7 +126,6 @@ function animateHeart(){
     fBorder();  
   
     }, 100);
-
   }
 }
 
@@ -128,8 +137,9 @@ function wipeFactors(){
     cleanThrombin(intZero);cleanThrombin(extZero);
 
     function wipeAll(zero){
-      for (let index = 0; index < dArray.length; index++) {
 
+     for (let index = 0; index < dArray.length; index++) {
+           
         //not wiping fX
         if (zero<50*vw){
           var keptS = half - intrinsic[3][1]*intUnit + 0.005;
@@ -148,14 +158,16 @@ function wipeFactors(){
 
         if (index<kStart || index>kEnd){
           ctx.beginPath();
-          ctx.lineWidth = 5;
+          ctx.lineWidth = 2;
           ctx.moveTo(size*x1A[index]+zero,yZero-(size*y1A[index])); 
           ctx.lineTo(size*x2A[index]+zero,yZero-(size*y2A[index])); 
-          ctx.stroke();ctx.strokeStyle = color;
+          ctx.stroke();ctx.strokeStyle = color
           ctx.closePath()
-        }
+        }          
+       }
+
       }
-    }
+  
 
     function cleanThrombin(xZero){
 
@@ -211,7 +223,6 @@ function fBorder(color){
   extEnd = Math.round(extEnd*1000)/1000;
   extStartIndex = dArray.indexOf(extStart);
   extEndIndex = dArray.indexOf(extEnd);
-  console.log(extEndIndex)
   //x0 = size*x1A[intStartIndex]+intZero;y0 = yZero-(size*y1A[intStartIndex]);
   //x1 = size*x2A[intStartIndex]+intZero;y1 = yZero-(size*y2A[intStartIndex]);
   //x2 = size*x1A[intEndIndex]+intZero;y2 = yZero-(size*y1A[intEndIndex]);
@@ -223,10 +234,9 @@ function fBorder(color){
 
   x4 = size*x1A[extStartIndex]+extZero;y4 = yZero-(size*y1A[extStartIndex]);
   x5 = size*x2A[extStartIndex]+extZero;y5 = yZero-(size*y2A[extStartIndex]);
-  x6 = size*x1A[extEndIndex]+extZero;y6 = yZero-(size*y1A[extEndIndex]);
+  x6 = size*x2A[extEndIndex]+extZero;y6 = yZero-(size*y2A[extEndIndex]);
   x7 = size*x1A[extEndIndex]+extZero;y7 = yZero-(size*y1A[extEndIndex]);
 
-  x6 = size*x1A[extStartIndex]+extZero;y6 = yZero-(size*y1A[extStartIndex]);
   ctx.beginPath();
   ctx.moveTo(x0,y0);  
   ctx.lineTo(x1,y1);
@@ -366,17 +376,21 @@ function title(){
   ctx.fillText(' = 20 kDa',x+(scale*vw),y2);
 }
 
-function subTitle(){
+function subTitle(option){
   ctx.font = 2.5*vw + 'px Poppins';
   ctx.beginPath();
   ctx.fillStyle = "#eddf9a";
 
   var y = yZero+(yMin*size)+(3*vh);
-  var lineHeight = 2.5*vw
+  var lineHeight = 2.5*vw;
+  var left,right,up;
+  if (option =='up'){left=10*vw;right=9*vw;up=lineHeight}
+  else {left=0;right=0;up=0
+  }
   //intrinsic
-  ctx.fillText('Pathologic Thrombosis',intZero-7*vw,y+lineHeight);
+  ctx.fillText('Pathologic Thrombosis',intZero-7*vw + right,y+lineHeight-up);
   //extrinsic
-  ctx.fillText('Physiologic Hemostasis',extZero-22*vw,y+lineHeight)
+  ctx.fillText('Physiologic Hemostasis',extZero-22*vw - left,y+lineHeight-up)
   ctx.closePath();
 }
 
@@ -385,18 +399,6 @@ function thrombinBurst(thick){
       thrombin(intZero-(index),1)   
       thrombin(extZero+(index),1)    
   }
-}
-
-function intrinsicMove(){
-  maxInt = intrinsic.length
-  if (nav<maxInt){
-    animateIntrinsic(nav)
-    nav++;
-  } else {
-    thrombin(intZero,1)
-    nav=0;
-  }
-
 }
 
 function platelet(){
@@ -493,13 +495,13 @@ function thrombin(xZero,label){
     //thrombin size = 3*10kDa
 
     var x1T = [];var step = [];
-    var x2T = [];var y1T = [];var y2T = [];
+    var x2T = [];var y1T = [];var y2T = []; 
     var y1TCurve = [];var y2TCurve = [];
     var count=0;
     
     var dStart, dEnd;
       //extrinsic pathway -- xZero>50vw
-      if (xZero<50*vw){
+      if (xZero==intZero){
         dStart = half*res;dEnd = 1*res;
       } else {
         dStart = 1.001*res;dEnd = (1+(1-half))*res;
@@ -524,13 +526,12 @@ function thrombin(xZero,label){
 
       paintThrombin(dStart/res,dEnd/res,1);
       //label II
-      var thrombinY;
       if (label!=0){
-        if (xZero<50*vw && mod==15){
-          thrombinY = labelIntrinsic(half,1,4,intZero)
+        if (xZero==intZero && mod==15){
+          labelIntrinsic(half,1,4,intZero)
         }
-        if (xZero>50*vw && mod==15){
-          labelExtrinsic(1.001,1+(1-half),3,thrombinY)
+        if (xZero==extZero && mod==15){
+          labelExtrinsic(1.001,1+(1-half),3)
         }
         }
     }

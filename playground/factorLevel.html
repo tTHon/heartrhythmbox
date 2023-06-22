@@ -70,12 +70,14 @@ nav=0;
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-        block('int',3,0.8)
-        block('int',1,0.8)
-        block('ext',2,0.8)
-        block('ext',1,0.8)
-        thrombinBlock(intZero,0.8)
-        thrombinBlock(extZero,0.8)
+        //block('int',3,0.8)
+        //block('int',1,0.8)
+        //block('ext',2,0.8)
+        //block('ext',1,0.8)
+        //thrombinBlock(intZero,0.8)
+        //thrombinBlock(extZero,0.8)
+        boostExtFactor(1,1.5)
+        boostExtFactor(0,1.5)
     }
 })
 
@@ -256,7 +258,39 @@ function thrombinBlock(xZero,blockLevel){
 }
 
 
+function boostExtFactor(arrayIndex,boostLevel){
+  //factor X
+  var start10 = (2-half)+0.001;
+  start10 = Math.round(start10*1000)/1000
+  var end10 = start10 + (extrinsic[2][1]*intUnit)
+  end10 = Math.round(end10*1000)/1000
+  var color10 = extrinsic[2][2]
+  
+  //factor VII
+  var start7 = end10;
+  var end7 = start7+(extrinsic[1][1]*intUnit)
+  end7 = Math.round(end7*1000)/1000
+  var color7 = extrinsic[1][2]
+  
+  //TF
+  var start3 = end7;
+  var end3 = start3+(extrinsic[0][1]*intUnit) 
+  end3 = Math.round(end3*1000)/1000;
+  var color3 = extrinsic[0][2]
 
+  if (arrayIndex == 0){
+    paintCurve(start3,end3,color3,extZero,boostLevel)
+    labelExtrinsic(start3,end3,0)
+  }
+  if (arrayIndex == 1){
+    paintCurve(start7,end7,color7,extZero,boostLevel)
+    labelExtrinsic(start7,end7,1)
+  }
+  if (arrayIndex ==2){
+    paintCurve(start10,end10,color10,extZero,boostLevel)
+    labelExtrinsic(start10,end10,2)
+  }
+}
 
 
 function title(){
@@ -305,18 +339,6 @@ function thrombinBurst(thick){
       thrombin(intZero-(index),1)   
       thrombin(extZero+(index),1)    
   }
-}
-
-function intrinsicMove(){
-  maxInt = intrinsic.length
-  if (nav<maxInt){
-    animateIntrinsic(nav)
-    nav++;
-  } else {
-    thrombin(intZero,1)
-    nav=0;
-  }
-
 }
 
 
@@ -608,32 +630,12 @@ function drawCurve(xArray,yArray,dMin,dMax,color,xZero){
     ctx.closePath()
 }
 
-function paintCurve(dMin,dMax,color,xZero,animate){
+function paintCurve(dMin,dMax,color,xZero,boost){
     var start = dArray.indexOf(dMin);
     var end = dArray.indexOf(dMax)  
+    if (boost !=null){boostValue = boost*size}
+    else {boostValue = 0}
 
-    if (animate==1){
-      ctx.beginPath();
-      for (let index = start; index <= end ; index++) {
-        setTimeout(function(){
-          ctx.lineWidth = 1
-          var x0 = size*x1A[index]+xZero;var y0 = yZero-(size*y1A[index]);
-          var x1 = size*x2A[index]+xZero;var y1 = yZero-(size*y2A[index]);
-          ctx.moveTo(x0,y0); 
-          //ctx.lineTo(x1,y1); 
-          ctx.quadraticCurveTo(x0,y0+size,x1,y1)
-          ctx.stroke()
-          var grd = ctx.createLinearGradient(x0,y0,x1,y1)
-          var stop1 = darker(color,0.8)
-          var stop2 = darker(color,1.2)
-          grd.addColorStop(0,stop1)
-          grd.addColorStop(0.25,color)
-          grd.addColorStop(1,stop2)
-          ctx.strokeStyle = grd;
-        }, 500)
-      }
-      ctx.closePath()
-  } else {
     ctx.beginPath();
       for (let index = start; index <= end ; index++) {
           ctx.lineWidth = 1
@@ -641,7 +643,7 @@ function paintCurve(dMin,dMax,color,xZero,animate){
           var x1 = size*x2A[index]+xZero;var y1 = yZero-(size*y2A[index]);
           ctx.moveTo(x0,y0); 
           //ctx.lineTo(x1,y1); 
-          ctx.quadraticCurveTo(x0,y0+size,x1,y1)
+          ctx.quadraticCurveTo(x0,y0+size,x1+boostValue,y1)
           ctx.stroke()
           var grd = ctx.createLinearGradient(x0,y0,x1,y1)
           var stop1 = darker(color,0.8)
@@ -652,8 +654,8 @@ function paintCurve(dMin,dMax,color,xZero,animate){
 
          ctx.strokeStyle = grd;
     }
-      ctx.closePath()
-  }
+    ctx.closePath()
+  
 }
 
 function darker(color,darker){
