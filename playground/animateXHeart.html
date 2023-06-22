@@ -196,7 +196,7 @@ function fBorder(color){
   ctx.lineWidth = 2;
   ctx.strokeStyle = color;
 
-  //paintX merged
+  //paintX 
   var tenSize = intrinsic[3][1]*intUnit;
   intStart = half - tenSize;
   intStart = Math.round(intStart*1000)/1000;
@@ -223,12 +223,18 @@ function fBorder(color){
   ctx.beginPath();
   ctx.moveTo(x0,y0);  
   ctx.lineTo(x1,y1);
-  ctx.lineTo(x2,y2);
-  ctx.lineTo(x3,y3);
-  ctx.lineTo(x4,y4);
   ctx.lineTo(x5,y5);
   ctx.lineTo(x6,y6)
   ctx.lineTo(x0,y0);
+  ctx.fillStyle = '#8c305b';ctx.fill();
+  ctx.closePath();
+
+  ctx.beginPath();
+  ctx.moveTo(x1,y1);
+  ctx.lineTo(x2,y2);
+  ctx.lineTo(x3,y3);
+  ctx.lineTo(x4,y4);
+  ctx.lineTo(x1,y1);
   ctx.fillStyle = '#8c305b';ctx.fill();
   ctx.closePath();
 
@@ -252,6 +258,32 @@ function fBorder(color){
         add = Math.round(add*1000)/1000
         next = dArray.indexOf(add);
       }
+  }
+
+  //extrinsic
+  var next = dArray.indexOf(1.45);
+  var add = 1.45;
+  for (let index = extrinsic.length;index>=0;index--) {
+      ctx.beginPath();
+      x0 = extZero+x1A[next]*size;
+      y0 = yZero- size*y1A[next];
+      ctx.moveTo(x0,y0)
+      x1 = extZero+x2A[next]*size;
+      y1 = yZero- size*y2A[next];
+      ctx.lineTo(extZero+x2A[next]*size,yZero- size*y2A[next])
+      //ctx.quadraticCurveTo(x0,y0+size,x1,y1)
+      ctx.stroke();      
+      ctx.closePath();
+      if (index==0){
+        toAdd = Math.round(extrinsic[index][1] * intUnit * 1000)/1000;
+        //labelExtrinsic(add,add+toAdd,index)        
+      } else {
+        toAdd = Math.round(extrinsic[index-1][1] * intUnit * 1000)/1000;
+        labelExtrinsic(add,add+toAdd,index-1)}
+      add = add + toAdd;
+      add = Math.round(add*1000)/1000
+      next = dArray.indexOf(add);
+   
   }
 }
 
