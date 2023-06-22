@@ -22,7 +22,7 @@ const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
 const size = 1.3 *vw;
-const res = 100;
+const res = 1000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas(2);
@@ -56,12 +56,12 @@ const intrinsic = [['XI',16,'#b18f48'],['IX',6,'#ca4a3e'],['VIII',33,'#22515c'],
 const extrinsic = [['TF',3,'#43a0b6'],['VII',5,'#c78c8f'],['X',6,'#8c305b']]
 const intUnit = Math.round(1000*(half/61))/1000;
 
-//title();
-//paintIntrinsic(1);
-//paintExtrinsic(1);
+title();
+paintIntrinsic(1);
+paintExtrinsic(1);
 //thrombin(center,label)
-//thrombin(intZero);
-//thrombin(extZero);
+thrombin(intZero);
+thrombin(extZero);
 //platelet();
 //tissueFactorCell();
 
@@ -70,10 +70,33 @@ nav=0;
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-      //subTitle();
-      animateHeart()
+      nav++;  
+      stepMove()
     }
 })
+
+function stepMove(){
+  if (nav==1){
+    subTitle()
+  }
+  if (nav==2){
+    wipeFactors();
+    lowResCurve(x1A,y1A,0,1,'#ccc',intZero);
+      setTimeout(() => {
+        fBorder();
+        lowResCurve(x2A,y2A,0,1,'#ccc',intZero);  
+      },100);
+      setTimeout(() => {
+        lowResCurve(x1A,y1A,1.001,2,'#ccc',extZero);        
+      }, 200);
+
+      setTimeout(() => {
+        lowResCurve(x2A,y2A,1.001,2,'#ccc',extZero);     
+      }, 300);
+      setTimeout(() => {
+      }, 400);
+  }
+}
 
 function animateHeart(){
   for (let index = 1; index <= xMax; index++) {
@@ -81,16 +104,175 @@ function animateHeart(){
     intZero = 50*vw-(xMax*size) + (index*size);
     extZero = 50*vw+(xMax*size) - (index*size);
     ctx.clearRect(0,0,100*vw,100*vh)
-    drawCurve(x1A,y1A,0,1,'#aaa',intZero);
-    drawCurve(x2A,y2A,0,1,'#aaa',intZero);
-    drawCurve(x1A,y1A,1,2,'#aaa',extZero);
-    drawCurve(x2A,y2A,1,2,'#aaa',extZero);      
+
+    //draw low res curve
+    //lowResCurve(x1A,y1A,0,1,'#aaa',intZero);
+    //lowResCurve(x2A,y2A,0,1,'#aaa',intZero);
+    //lowResCurve(x1A,y1A,1,2,'#aaa',extZero);
+    //lowResCurve(x2A,y2A,1,2,'#aaa',extZero);  
+
+  
     }, 10);
 
   }
-
-
 }
+
+function wipeFactors(){
+    var color = '#333';
+
+    //wipe
+    wipeAll(intZero);wipeAll(extZero);
+    cleanThrombin(intZero);cleanThrombin(extZero);
+
+    function wipeAll(zero){
+      for (let index = 0; index < dArray.length; index++) {
+
+        //not wiping fX
+        if (zero<50*vw){
+          var keptS = half - intrinsic[3][1]*intUnit + 0.005;
+          keptS = Math.round(keptS*1000)/1000;
+          keptE = half;
+          keptE = Math.round(keptE*1000)/1000;
+        }
+        else {
+          var keptS = 1+ (1-half) 
+          keptS = Math.round(keptS*1000)/1000;
+          var keptE = keptS + intrinsic[3][1]*intUnit - 0.005;
+          keptE = Math.round(keptE*1000)/1000;
+        }  
+        kStart = dArray.indexOf(keptS);
+        kEnd = dArray.indexOf(keptE);
+
+        if (index<kStart || index>kEnd){
+          ctx.beginPath();
+          ctx.lineWidth = 5;
+          ctx.moveTo(size*x1A[index]+zero,yZero-(size*y1A[index])); 
+          ctx.lineTo(size*x2A[index]+zero,yZero-(size*y2A[index])); 
+          ctx.stroke();ctx.strokeStyle = color;
+          ctx.closePath()
+        }
+      }
+    }
+
+    function cleanThrombin(xZero){
+
+      if (xZero<50*vw){
+        s = half;e = 1;
+      } else {
+        s = 1.001;e = (1+(1-half));
+      } 
+
+      var start = dArray.indexOf(s);
+      var end = dArray.indexOf(e);
+      
+      //clean the remainder
+      ctx.beginPath();
+      var y0 = yZero-(size*y1A[start]);
+      ctx.moveTo(0,y0);ctx.lineTo(100*vw,y0);
+      ctx.lineTo(100*vw,100*vh);ctx.lineTo(0,100*vh)
+      ctx.fillStyle = color;ctx.fill();
+      ctx.closePath();
+
+      //re-label
+      ctx.beginPath();
+      ctx.fillStyle = '#ddd';ctx.font =5*vw + 'px Poppins';
+ 
+      if (xZero<50*vw){
+        var x = intZero+size*((x2A[start])+((x1A[end]-x2A[start])/2));
+        var y = yZero-size*((y1A[end])+((y1A[start]-y1A[end])/2))+(0.2*vw);
+      }
+      else {
+        var x = xZero+size*(x1A[end]+((x2A[start]-x1A[end])/2));
+        var y = yZero-size*((y1A[end])+((y1A[start]-y1A[end])/2))-(vw);
+      }
+
+      ctx.fillText('II',x,y);
+      ctx.closePath();
+       
+      }
+}
+   
+function fBorder(color){
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = color;
+
+  //paintX merged
+  var tenSize = intrinsic[3][1]*intUnit;
+  intStart = half - tenSize;
+  intStart = Math.round(intStart*1000)/1000;
+  intEnd = Math.round(half*1000)/1000;
+  intStartIndex = dArray.indexOf(intStart);
+  intEndIndex = dArray.indexOf(intEnd);
+  extStart = 1+(1-half);extEnd = extStart + tenSize;
+  extStart = Math.round(extStart*1000)/1000;
+  extEnd = Math.round(extEnd*1000)/1000;
+  extStartIndex = dArray.indexOf(extStart);
+  extEndIndex = dArray.indexOf(extEnd);
+  //x0 = size*x1A[intStartIndex]+intZero;y0 = yZero-(size*y1A[intStartIndex]);
+  //x1 = size*x2A[intStartIndex]+intZero;y1 = yZero-(size*y2A[intStartIndex]);
+  //x2 = size*x1A[intEndIndex]+intZero;y2 = yZero-(size*y1A[intEndIndex]);
+  //x3 = size*x2A[intEndIndex]+intZero;y3 = yZero-(size*y2A[intEndIndex]);
+  x0 = size*x2A[intStartIndex]+intZero;y0 = yZero-(size*y2A[intStartIndex]);
+  x1 = size*x1A[intStartIndex]+intZero;y1 = yZero-(size*y1A[intStartIndex]);
+  x2 = size*x2A[extEndIndex]+extZero;y2 = yZero-(size*y2A[extEndIndex]);
+  x3 = size*x1A[extEndIndex]+extZero;y3 = yZero-(size*y1A[extEndIndex]);
+  x3 = size*x2A[extStartIndex]+extZero;y3 = yZero-(size*y2A[extStartIndex]);
+  x4 = size*x1A[extStartIndex]+extZero;y4 = yZero-(size*y1A[extStartIndex]);
+  x5 = size*x1A[intEndIndex]+intZero;y5 = yZero-(size*y1A[intEndIndex]);
+  x6 = size*x2A[intEndIndex]+intZero;y6 = yZero-(size*y2A[intEndIndex]);
+  ctx.beginPath();
+  ctx.moveTo(x0,y0);  
+  ctx.lineTo(x1,y1);
+  ctx.lineTo(x2,y2);
+  ctx.lineTo(x3,y3);
+  ctx.lineTo(x4,y4);
+  ctx.lineTo(x5,y5);
+  ctx.lineTo(x6,y6)
+  ctx.lineTo(x0,y0);
+  ctx.fillStyle = '#8c305b';ctx.fill();
+  ctx.closePath();
+
+  //intrinsic
+  var add =0;var next = 0;
+  for (let index = 0; index <= intrinsic.length; index++) {
+      ctx.beginPath();
+      x0 = intZero+x1A[next]*size;
+      y0 = yZero- size*y1A[next];
+      ctx.moveTo(x0,y0)
+      x1 = intZero+x2A[next]*size;
+      y1 = yZero- size*y2A[next];
+      ctx.lineTo(intZero+x2A[next]*size,yZero- size*y2A[next])
+      //ctx.quadraticCurveTo(x0,y0+size,x1,y1)
+      ctx.stroke();      
+      ctx.closePath();
+      if (index<intrinsic.length){
+        toAdd = Math.round(intrinsic[index][1] * intUnit * 1000)/1000;
+        labelIntrinsic(add,add+toAdd,index,intZero)
+        add = add + toAdd;
+        add = Math.round(add*1000)/1000
+        next = dArray.indexOf(add);
+      }
+  }
+}
+
+function lowResCurve(xArray,yArray,dMin,dMax,color,xZero){
+    ctx.beginPath();
+    var start = dArray.indexOf(dMin);
+    var end = dArray.indexOf(dMax)
+    ctx.moveTo(size*xArray[start]+xZero,yZero-(size*yArray[start]));
+    
+    for (let index = start+1; index < end; index=index+10) {
+      setTimeout(() => {
+        x1 = (size*xArray[index])+xZero;
+        y1 = yZero-(size*yArray[index]);
+        ctx.lineTo(x1,y1);
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.strokeStyle = color                
+      }, 10);
+    }
+    ctx.closePath()
+  }
 
 function title(){
   ctx.font = 2.5*vw + 'px Poppins';
@@ -441,7 +623,7 @@ function animateExtrinsic(step){
 
 }
 
-function labelExtrinsic(start,end,i,thrombinY){
+function labelExtrinsic(start,end,i){
   var s = dArray.indexOf(start);
   var e = dArray.indexOf(end)  
 
