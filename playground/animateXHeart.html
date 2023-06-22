@@ -81,20 +81,23 @@ function stepMove(){
   }
   if (nav==2){
     wipeFactors();
-    lowResCurve(x1A,y1A,0,1,'#ccc',intZero);
+    lowResCurve(x1A,y1A,0,1,'#ccc',intZero,1);
       setTimeout(() => {
         fBorder();
-        lowResCurve(x2A,y2A,0,1,'#ccc',intZero);  
+        lowResCurve(x2A,y2A,0,1,'#ccc',intZero,1);  
       },100);
       setTimeout(() => {
-        lowResCurve(x1A,y1A,1.001,2,'#ccc',extZero);        
+        lowResCurve(x1A,y1A,1.001,2,'#ccc',extZero,1);        
       }, 200);
 
       setTimeout(() => {
-        lowResCurve(x2A,y2A,1.001,2,'#ccc',extZero);     
+        lowResCurve(x2A,y2A,1.001,2,'#ccc',extZero,1);     
       }, 300);
       setTimeout(() => {
       }, 400);
+  }
+  if (nav==3){
+    animateHeart()
   }
 }
 
@@ -106,13 +109,13 @@ function animateHeart(){
     ctx.clearRect(0,0,100*vw,100*vh)
 
     //draw low res curve
-    //lowResCurve(x1A,y1A,0,1,'#aaa',intZero);
-    //lowResCurve(x2A,y2A,0,1,'#aaa',intZero);
-    //lowResCurve(x1A,y1A,1,2,'#aaa',extZero);
-    //lowResCurve(x2A,y2A,1,2,'#aaa',extZero);  
-
+    lowResCurve(x1A,y1A,0,1,'#aaa',intZero);
+    lowResCurve(x2A,y2A,0,1,'#aaa',intZero);
+    lowResCurve(x1A,y1A,1,2,'#aaa',extZero);
+    lowResCurve(x2A,y2A,1,2,'#aaa',extZero);  
+    fBorder();  
   
-    }, 10);
+    }, 100);
 
   }
 }
@@ -208,33 +211,37 @@ function fBorder(color){
   extEnd = Math.round(extEnd*1000)/1000;
   extStartIndex = dArray.indexOf(extStart);
   extEndIndex = dArray.indexOf(extEnd);
+  console.log(extEndIndex)
   //x0 = size*x1A[intStartIndex]+intZero;y0 = yZero-(size*y1A[intStartIndex]);
   //x1 = size*x2A[intStartIndex]+intZero;y1 = yZero-(size*y2A[intStartIndex]);
   //x2 = size*x1A[intEndIndex]+intZero;y2 = yZero-(size*y1A[intEndIndex]);
   //x3 = size*x2A[intEndIndex]+intZero;y3 = yZero-(size*y2A[intEndIndex]);
   x0 = size*x2A[intStartIndex]+intZero;y0 = yZero-(size*y2A[intStartIndex]);
   x1 = size*x1A[intStartIndex]+intZero;y1 = yZero-(size*y1A[intStartIndex]);
-  x2 = size*x2A[extEndIndex]+extZero;y2 = yZero-(size*y2A[extEndIndex]);
-  x3 = size*x1A[extEndIndex]+extZero;y3 = yZero-(size*y1A[extEndIndex]);
-  x3 = size*x2A[extStartIndex]+extZero;y3 = yZero-(size*y2A[extStartIndex]);
+  x2 = size*x1A[intEndIndex]+intZero;y2 = yZero-(size*y1A[intEndIndex]);
+  x3 = size*x2A[intEndIndex]+intZero;y3 = yZero-(size*y2A[intEndIndex]);
+
   x4 = size*x1A[extStartIndex]+extZero;y4 = yZero-(size*y1A[extStartIndex]);
-  x5 = size*x1A[intEndIndex]+intZero;y5 = yZero-(size*y1A[intEndIndex]);
-  x6 = size*x2A[intEndIndex]+intZero;y6 = yZero-(size*y2A[intEndIndex]);
+  x5 = size*x2A[extStartIndex]+extZero;y5 = yZero-(size*y2A[extStartIndex]);
+  x6 = size*x1A[extEndIndex]+extZero;y6 = yZero-(size*y1A[extEndIndex]);
+  x7 = size*x1A[extEndIndex]+extZero;y7 = yZero-(size*y1A[extEndIndex]);
+
+  x6 = size*x1A[extStartIndex]+extZero;y6 = yZero-(size*y1A[extStartIndex]);
   ctx.beginPath();
   ctx.moveTo(x0,y0);  
   ctx.lineTo(x1,y1);
-  ctx.lineTo(x5,y5);
-  ctx.lineTo(x6,y6)
+  ctx.lineTo(x2,y2)
+  ctx.lineTo(x3,y3)
   ctx.lineTo(x0,y0);
   ctx.fillStyle = '#8c305b';ctx.fill();
   ctx.closePath();
 
   ctx.beginPath();
-  ctx.moveTo(x1,y1);
-  ctx.lineTo(x2,y2);
-  ctx.lineTo(x3,y3);
-  ctx.lineTo(x4,y4);
-  ctx.lineTo(x1,y1);
+  ctx.moveTo(x4,y4);
+  ctx.lineTo(x5,y5);
+  ctx.lineTo(x6,y6);
+  ctx.lineTo(x7,y7);
+  ctx.lineTo(x4,y4)
   ctx.fillStyle = '#8c305b';ctx.fill();
   ctx.closePath();
 
@@ -287,12 +294,13 @@ function fBorder(color){
   }
 }
 
-function lowResCurve(xArray,yArray,dMin,dMax,color,xZero){
+function lowResCurve(xArray,yArray,dMin,dMax,color,xZero,animate){
     ctx.beginPath();
     var start = dArray.indexOf(dMin);
     var end = dArray.indexOf(dMax)
     ctx.moveTo(size*xArray[start]+xZero,yZero-(size*yArray[start]));
     
+    if (animate==1){
     for (let index = start+1; index < end; index=index+10) {
       setTimeout(() => {
         x1 = (size*xArray[index])+xZero;
@@ -302,6 +310,17 @@ function lowResCurve(xArray,yArray,dMin,dMax,color,xZero){
         ctx.stroke();
         ctx.strokeStyle = color                
       }, 10);
+      }
+    } else {
+      for (let index = start+1; index < end; index=index+10) {
+        x1 = (size*xArray[index])+xZero;
+        y1 = yZero-(size*yArray[index]);
+        ctx.lineTo(x1,y1);
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.strokeStyle = color                
+
+      }
     }
     ctx.closePath()
   }
