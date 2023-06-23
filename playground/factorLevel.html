@@ -22,10 +22,10 @@ const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
 const size = 1.3 *vw;
-const res = 1000;
+const res = 2000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
-createCanvas(2);
+createCanvas(1);
 //grid(10)
 //setUpArray(x1Mod,y1Mod,x2Mod,y2Mod)
 setUpArray(20,15,13,9)
@@ -111,7 +111,7 @@ var gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
 //animate additional plt
    //final = ctx.arc(x-(2*radius),y+(2*radius),0.85*radius,0,2*Math.PI);
   var startX = 1;var startY = 0.5;
-  var addX = x-(radius); var addY= y+(0.5*radius);var addR = 0.85;
+  var addX = x-(radius); var addY= y+(0.8*radius);var addR = 0.85;
   for (let index = 0; index <= 0.5; index= index+0.01) {
     setTimeout(() => {
 
@@ -123,7 +123,7 @@ var gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
         ctx.closePath();
         
         ctx.beginPath();
-        addX = x-(radius*(startX+index));addY = y+((0.5+index)*radius);
+        addX = x-(radius*(startX+index));addY = y+((0.8+index)*radius);
         addR = 0.85-(index/3)
         ctx.arc(addX,addY,addR*radius,0,2*Math.PI);
         gradient = ctx.createRadialGradient(addX, addY, innerRadius, addX, addY, 2*outerRadius);
@@ -173,6 +173,7 @@ for (let index = 0; index < 100; index++) {
       ctx.closePath();      
 
     //legs
+    /*
     for (let index = 0; index <= 100; index=index+100) {
       ctx.beginPath()
       ctx.moveTo(size*x2A[index]+intZero,yZero-(size*y2A[index]));
@@ -186,7 +187,39 @@ for (let index = 0; index < 100; index++) {
       var lineHeight = 1.5*vw;
       ctx.textAlign = 'center'
       ctx.fillText('Platelet',x,y);
-      ctx.closePath();}
+      ctx.closePath();
+    }*/
+
+  //1pi-2pi, 0-1/6Pi
+  var angle = [0,1,1.3,1.6,1.8];
+  const degree = Math.PI*10/180;
+  for (let index = 0; index < angle.length; index++) {
+    //var mod = Math.floor(Math.random()*(0.05-(-0.05)+(-0.05)));\
+    var ang = angle[index]*Math.PI;
+    pltX0 = x+Math.cos(ang)*radius;pltX1 = x+Math.cos(ang+degree)*radius;
+    pltY0 = y+Math.sin(ang)*radius;pltY1= y+Math.sin(ang+degree)*radius;
+    pltX2 = x+Math.cos(ang)*radius*2.3;pltY2= y+Math.sin(ang+degree)*2.2*radius;
+    ctx.beginPath()
+    ctx.moveTo(pltX1,pltY1);
+    ctx.quadraticCurveTo(pltX2,pltY2+(size),pltX2,pltY2);
+    ctx.strokeStyle = 'red';ctx.fillStyle='maroon'
+    ctx.fill();
+    ctx.stroke();
+    ctx.closePath();
+    ctx.beginPath()
+    ctx.moveTo(pltX0,pltY0)
+    ctx.quadraticCurveTo(pltX2,pltY2+(size),pltX2,pltY2);
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
+    ctx.closePath();
+  }
+  ctx.beginPath();
+      ctx.font = 1.5*vw + 'px Poppins';ctx.fillStyle = "#232323";
+      var lineHeight = 1.5*vw;
+      ctx.textAlign = 'center'
+      ctx.fillText('Platelet',x,y);
+      ctx.closePath(); 
+
     }
 }
 
@@ -232,7 +265,7 @@ for (let index = 0; index < 250; index++) {
    setTimeout(() => {
         //additional plt
         ctx.beginPath();
-        ctx.arc(x-(radius),y+(0.5*radius),0.85*radius,0,2*Math.PI);
+        ctx.arc(x-(radius),y+(0.8*radius),0.85*radius,0,2*Math.PI);
         ctx.fillStyle = gradient;
         ctx.fill();
         ctx.stroke();            
@@ -249,6 +282,7 @@ for (let index = 0; index < 250; index++) {
     }, 500);
 
     //legs
+    /*
     for (let index = 0; index <= end; index=index+20) {
       ctx.beginPath()
       ctx.moveTo(size*x2A[index]+intZero,yZero-(size*y2A[index]));
@@ -263,7 +297,36 @@ for (let index = 0; index < 250; index++) {
       ctx.textAlign = 'center'
       ctx.fillText('Platelet',x,y);
       ctx.closePath();
+  }*/
+    //1pi-2pi, 0-1/6Pi
+    var angle = [0,1,1.3,1.6,1.8];
+  const degree = Math.PI*10/180;
+  for (let index = 0; index < angle.length; index++) {
+    //var mod = Math.floor(Math.random()*(0.05-(-0.05)+(-0.05)));\
+    var ang = angle[index]*Math.PI;
+    pltX0 = x+Math.cos(ang)*radius;pltX1 = x+Math.cos(ang+degree)*radius;
+    pltY0 = y+Math.sin(ang)*radius;pltY1= y+Math.sin(ang+degree)*radius;
+    pltX2 = x+Math.cos(ang)*radius*2.3;pltY2= y+Math.sin(ang+degree)*2.2*radius;
+    ctx.beginPath()
+    ctx.moveTo(pltX1,pltY1);
+    ctx.quadraticCurveTo(pltX2,pltY2+(size),pltX2,pltY2);
+    ctx.strokeStyle = 'red';ctx.fillStyle='maroon'
+    ctx.fill();
+    ctx.stroke();
+    ctx.closePath();
+    ctx.beginPath()
+    ctx.moveTo(pltX0,pltY0)
+    ctx.quadraticCurveTo(pltX2,pltY2+(size),pltX2,pltY2);
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
+    ctx.closePath();
   }
+  ctx.beginPath();
+      ctx.font = 1.5*vw + 'px Poppins';ctx.fillStyle = "#232323";
+      var lineHeight = 1.5*vw;
+      ctx.textAlign = 'center'
+      ctx.fillText('Platelet',x,y);
+      ctx.closePath();
 
 
 }
@@ -467,7 +530,7 @@ function boostIntFactor(arrayIndex,boostLevel){
             var d = index/res;
             var t = Math.PI*d;
             var x3 = 10*Math.pow(Math.sin(t),3);
-            var y3 = (6*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t))
+            var y3 = (8*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t))
             dArray.push(d);
             x3A.push(x3);
             y3A.push(y3);
