@@ -62,6 +62,7 @@ thrombin(intZero);
 thrombin(extZero);
 paintIntrinsic();
 paintExtrinsic();
+pltAgg()
 //platelet();
 //tissueFactorCell();
 
@@ -76,10 +77,187 @@ window.addEventListener("keydown", function(event) {
         //block('ext',1,0.8)
         //thrombinBlock(intZero,0.8)
         //thrombinBlock(extZero,0.8)
-        boostExtFactor(1,1.5)
-        boostExtFactor(0,1.5)
+        //boostExtFactor(1,1.5)
+        //boostExtFactor(0,1.5)
+        pltBlock()
     }
 })
+
+function pltBlock(){
+
+var end = dArray.indexOf(0.55)
+
+// Radii of the white glow.
+var innerRadius = 0.8*size;
+var outerRadius = 3.2*size;
+// Radius of the entire circle.
+var radius = 3*size;
+
+var x = (size*x2A[0])+intZero + 2*radius;
+var y = yZero-(size*y2A[0]);
+var gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
+
+//animate additional plt
+   //final = ctx.arc(x-(2*radius),y+(2*radius),0.85*radius,0,2*Math.PI);
+
+  var startX = 1;var startY = 0.5;
+  var addX = x-(radius); var addY= y+(0.5*radius);var addR = 0.85;
+  for (let index = 0; index <= 1; index= index+0.01) {
+    setTimeout(() => {
+
+        //clear
+        ctx.beginPath();
+        ctx.fillStyle = '#333';ctx.strokeStyle='#333'
+        ctx.arc(addX,addY,addR*radius,0,2*Math.PI);
+        ctx.fill();ctx.stroke();
+        ctx.closePath();
+        
+        ctx.beginPath();
+        addX = x-(radius*(startX+index));addY = y+((0.5+index)*radius);
+        addR = 0.85-(index/4)
+        ctx.arc(addX,addY,addR*radius,0,2*Math.PI);
+        gradient = ctx.createRadialGradient(addX, addY, innerRadius, addX, addY, 2*outerRadius);
+        gradient.addColorStop(0, 'rgb(141,150,150)');
+        gradient.addColorStop(0.5, 'red');
+        ctx.fillStyle = gradient;
+        ctx.fill();  
+        ctx.lineWidth = 1;
+        ctx.stroke();            
+        ctx.strokeStyle = 'rgb(200,0,0)';
+        ctx.closePath;  
+      }, 600);
+      }
+
+//color1 = f1fafa - 241,250,250; color2 = 800000 - 128,0,0
+var red = 241;var green = 250; var blue = 250;
+for (let index = 0; index < 100; index++) {
+  setTimeout(() => {
+        if (red>=64){red = red-1;}
+        else {red=64}
+        green = green- 1;
+        blue = blue -1;        
+        var newColor = 'rgb(' + red + ',' + green + ',' + blue + ')';
+        innerRadius = innerRadius + (index/50)*vw;
+        if (innerRadius>0.5*outerRadius){innerRadius = 0.5*outerRadius}
+        gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, 2*outerRadius);
+        gradient.addColorStop(0, newColor);
+        gradient.addColorStop(0.5, 'red');
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = gradient;
+        ctx.lineWidth = 1
+        ctx.strokeStyle = 'maroon'
+        ctx.fill();ctx.stroke();
+        ctx.closePath;
+        pltLabel();
+      }, 100*index);
+  }
+
+  function pltLabel(){
+      ctx.beginPath(); 
+      ctx.font = 1.5*vw + 'px Poppins';ctx.fillStyle = "#f1f1f1";
+      var lineHeight = 1.5*vw;
+      ctx.textAlign = 'center'
+      ctx.fillText('Platelet',(size*x2A[0])+intZero + 2*radius,yZero-(size*y2A[0]));
+      ctx.closePath();      
+
+    //legs
+    for (let index = 0; index <= end; index=index+100) {
+      ctx.beginPath()
+      ctx.moveTo(size*x2A[index]+intZero,yZero-(size*y2A[index]));
+      ctx.lineTo(x,y);
+      ctx.lineTo(size*x2A[index+3]+intZero,yZero-(size*y2A[index+3]));
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      ctx.closePath();      
+      ctx.beginPath();
+      ctx.font = 1.5*vw + 'px Poppins';ctx.fillStyle = "#232323";
+      var lineHeight = 1.5*vw;
+      ctx.textAlign = 'center'
+      ctx.fillText('Platelet',x,y);
+      ctx.closePath();}
+    }
+}
+
+
+function pltAgg(){
+
+var end = dArray.indexOf(0.55)
+
+// Radii of the white glow.
+var innerRadius = 0.8*size;
+var outerRadius = 3.2*size;
+// Radius of the entire circle.
+var radius = 3*size;
+
+var x = (size*x2A[0])+intZero + 2*radius;
+var y = yZero-(size*y2A[0]);
+var gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
+
+//color1 = f1fafa - 241,250,250; color2 = 800000 - 128,0,0
+var red = 241;var green = 250; var blue = 250;
+for (let index = 0; index < 250; index++) {
+        if (red>=64){red = red-1;}
+        else {red=64}
+        green = green- 1;
+        blue = blue -1;        
+        var newColor = 'rgb(' + red + ',' + green + ',' + blue + ')';
+        innerRadius = innerRadius + (index/50)*vw;
+        if (innerRadius>0.5*outerRadius){innerRadius = 0.5*outerRadius}
+        gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, 2*outerRadius);
+        gradient.addColorStop(0, newColor);
+        gradient.addColorStop(1, 'red');
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = gradient;
+        ctx.lineWidth = 1
+        ctx.strokeStyle = 'maroon'
+        ctx.fill();ctx.stroke();
+        ctx.closePath;
+
+}
+
+   setTimeout(() => {
+        //additional plt
+        ctx.beginPath();
+        ctx.arc(x-(radius),y+(0.5*radius),0.85*radius,0,2*Math.PI);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.stroke();            
+        ctx.strokeStyle = 'rgb(600,0,0)';
+        ctx.lineWidth = 5;
+        ctx.closePath;    
+        ctx.beginPath();
+      ctx.font = 1.5*vw + 'px Poppins';ctx.fillStyle = "#f1f1f1";
+      var lineHeight = 1.5*vw;
+      ctx.textAlign = 'center'
+      ctx.fillText('Platelet',(size*x2A[0])+intZero + 2*radius,yZero-(size*y2A[0]));
+      ctx.closePath();      
+      
+    }, 500);
+
+    //legs
+    for (let index = 0; index <= end; index=index+20) {
+      ctx.beginPath()
+      ctx.moveTo(size*x2A[index]+intZero,yZero-(size*y2A[index]));
+      ctx.lineTo(x,y);
+      ctx.lineTo(size*x2A[index+3]+intZero,yZero-(size*y2A[index+3]));
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      ctx.closePath();      
+      ctx.beginPath();
+      ctx.font = 1.5*vw + 'px Poppins';ctx.fillStyle = "#232323";
+      var lineHeight = 1.5*vw;
+      ctx.textAlign = 'center'
+      ctx.fillText('Platelet',x,y);
+      ctx.closePath();
+  }
+
+
+}
+
 
 function block(side,fIndex,blockLevel){
     var color = '#101010';
@@ -279,6 +457,7 @@ function boostExtFactor(arrayIndex,boostLevel){
   var color3 = extrinsic[0][2]
 
   if (arrayIndex == 0){
+    //animate boost
     paintCurve(start3,end3,color3,extZero,boostLevel)
     labelExtrinsic(start3,end3,0)
   }
