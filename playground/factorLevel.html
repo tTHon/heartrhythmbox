@@ -62,7 +62,7 @@ thrombin(intZero);
 thrombin(extZero);
 paintIntrinsic();
 paintExtrinsic();
-pltAgg()
+//pltAgg()
 //platelet();
 //tissueFactorCell();
 
@@ -77,11 +77,21 @@ window.addEventListener("keydown", function(event) {
         //block('ext',1,0.8)
         //thrombinBlock(intZero,0.8)
         //thrombinBlock(extZero,0.8)
-        //boostExtFactor(1,1.5)
-        //boostExtFactor(0,1.5)
-        pltBlock()
+      nav++;
+      stepMove();
     }
 })
+
+function stepMove(){
+  if (nav==1){
+    boostExtFactor(1,1.5)
+    boostExtFactor(0,1.5)
+    boostIntFactor(2,1.5)
+  }
+  if (nav==2){
+    pltBlock()
+  }
+}
 
 function pltBlock(){
 
@@ -99,10 +109,9 @@ var gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
 
 //animate additional plt
    //final = ctx.arc(x-(2*radius),y+(2*radius),0.85*radius,0,2*Math.PI);
-
   var startX = 1;var startY = 0.5;
   var addX = x-(radius); var addY= y+(0.5*radius);var addR = 0.85;
-  for (let index = 0; index <= 1; index= index+0.01) {
+  for (let index = 0; index <= 0.5; index= index+0.01) {
     setTimeout(() => {
 
         //clear
@@ -114,7 +123,7 @@ var gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
         
         ctx.beginPath();
         addX = x-(radius*(startX+index));addY = y+((0.5+index)*radius);
-        addR = 0.85-(index/4)
+        addR = 0.85-(index/3)
         ctx.arc(addX,addY,addR*radius,0,2*Math.PI);
         gradient = ctx.createRadialGradient(addX, addY, innerRadius, addX, addY, 2*outerRadius);
         gradient.addColorStop(0, 'rgb(141,150,150)');
@@ -435,6 +444,67 @@ function thrombinBlock(xZero,blockLevel){
     }
 }
 
+function boostIntFactor(arrayIndex,boostLevel){
+    //intrinsic array [name][size][color]
+    var start=0;
+    var end;var color;
+
+    for (let index = 0; index < intrinsic.length; index++) {
+
+        end = (intrinsic[index][1]*intUnit) + start;
+        end = Math.round(1000*end)/1000;
+        color = intrinsic[index][2];
+
+        //draw thicker curve
+
+        if (index == arrayIndex){
+
+        //create new array = x3  
+        x3A = [];y3A = [];
+        var dMax = 1;
+        for (let index = 0; index <= res*dMax; index++) {
+            var d = index/res;
+            var t = Math.PI*d;
+            var x3 = 10*Math.pow(Math.sin(t),3);
+            var y3 = (6*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t))
+            dArray.push(d);
+            x3A.push(x3);
+            y3A.push(y3);
+          }
+
+        //paintCurve(start,end,color,intZero);
+        //drawCurve(x1A,y1A,start,end,'red',intZero)
+        ctx.beginPath();
+        var s = dArray.indexOf(start);
+        var e = dArray.indexOf(end)
+        ctx.moveTo(size*x3A[s]+intZero,yZero-(size*y3A[s]));
+
+        for (let index = s+1; index < e; index++) {
+            x1 = (size*x3A[index])+intZero;
+            y1 = yZero-(size*y3A[index]);
+            x0 = (size*x1A[index])+intZero;
+            y0 = yZero-(size*y1A[index]);
+
+          ctx.moveTo(x0,y0); 
+          var grd = ctx.createLinearGradient(x0,y0,x1,y1);
+          var stop1 = darker(color,0.8);
+          var stop2 = darker(color,1.2);
+          ctx.quadraticCurveTo(x0,y0+size,x1,y1)
+          grd.addColorStop(0,stop1)
+          grd.addColorStop(0.25,color)
+          grd.addColorStop(1,stop2)
+
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.strokeStyle = grd;        
+        }
+        ctx.closePath()
+        labelIntrinsic(start,end,arrayIndex,intZero)
+        break;
+        }
+        start = end;
+    }
+}
 
 function boostExtFactor(arrayIndex,boostLevel){
   //factor X
@@ -812,7 +882,7 @@ function drawCurve(xArray,yArray,dMin,dMax,color,xZero){
 function paintCurve(dMin,dMax,color,xZero,boost){
     var start = dArray.indexOf(dMin);
     var end = dArray.indexOf(dMax)  
-    if (boost !=null){boostValue = boost*size}
+    if (boost !=null){boostValue = boost*(size*2)}
     else {boostValue = 0}
 
     ctx.beginPath();
@@ -821,16 +891,15 @@ function paintCurve(dMin,dMax,color,xZero,boost){
           var x0 = size*x1A[index]+xZero;var y0 = yZero-(size*y1A[index]);
           var x1 = size*x2A[index]+xZero;var y1 = yZero-(size*y2A[index]);
           ctx.moveTo(x0,y0); 
-          //ctx.lineTo(x1,y1); 
+          var grd = ctx.createLinearGradient(x0,y0,x1,y1);
+          var stop1 = darker(color,0.8);
+          var stop2 = darker(color,1.2);
           ctx.quadraticCurveTo(x0,y0+size,x1+boostValue,y1)
-          ctx.stroke()
-          var grd = ctx.createLinearGradient(x0,y0,x1,y1)
-          var stop1 = darker(color,0.8)
-          var stop2 = darker(color,1.2)
           grd.addColorStop(0,stop1)
           grd.addColorStop(0.25,color)
           grd.addColorStop(1,stop2)
 
+        ctx.stroke();
          ctx.strokeStyle = grd;
     }
     ctx.closePath()
