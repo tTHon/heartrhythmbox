@@ -62,7 +62,7 @@ thrombin(intZero);
 thrombin(extZero);
 paintIntrinsic();
 paintExtrinsic();
-//pltAgg()
+pltAgg()
 //platelet();
 //tissueFactorCell();
 
@@ -84,15 +84,13 @@ window.addEventListener("keydown", function(event) {
 
 function stepMove(){
   if (nav==1){
+    pltBlock()
+
+  }
+  if (nav==2){
     boostExtFactor(1,1.5)
     boostExtFactor(0,1.5)
     boostIntFactor(2,1.5)
-  }
-  if (nav==2){
-    pltAgg()
-  }
-  if (nav==3){
-    pltBlock()
   }
 }
 
@@ -175,7 +173,7 @@ for (let index = 0; index < 100; index++) {
       ctx.closePath();      
 
     //legs
-    for (let index = 0; index <= end; index=index+100) {
+    for (let index = 0; index <= 100; index=index+100) {
       ctx.beginPath()
       ctx.moveTo(size*x2A[index]+intZero,yZero-(size*y2A[index]));
       ctx.lineTo(x,y);
