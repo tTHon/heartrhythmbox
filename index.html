@@ -38,7 +38,7 @@
 #topBar {position: sticky;top: 0;left: 0;display: flex;background-color: #fa7268;padding: 0 1vw;}
 #logo {width: 90vw;color: white;text-align: left;background-color: #fa7268;display: flex;padding: 1vh 0.5vw;}
 #logo img {width: 3vmax;}
-#hamburger {width: 10vw;color: white;text-align: right;align-self: center;padding: 1vw;font-size: 2vmax;cursor: pointer;display: none;}
+#hamburger {width: 10vw;color: white;text-align: right;align-self: center;padding: 1vw;font-size: 2.2vmax;cursor: pointer;display: block;}
 #about img {padding: 1vmax;vertical-align: middle;}
 #HRB {font-size: 2vmax;color: white;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;}
 #tagLine {display: none;font-size: 1.5vmax;color: #f7f7f7;text-align: left;align-self: center;padding-left: 0.5vw;animation: fade 1s;line-height: 120%;}
@@ -54,8 +54,8 @@
     border-radius: 1vmax;font-size: 2vmax;cursor: pointer;}
 #about {background-color: #555;color: white;font-size: 16px;padding: 15vh 3vh}
 
-#sideMenu {width: fit-content;position: absolute;right: 0;top: 0;height: 100%;display: none;
-    background-color: rgba(100, 100, 100, 0.8);color: #ddd;}
+#sideMenu {width: fit-content;position:fixed;right: 0;top: 0;height: 100%;display: none;z-index:2;
+    background-color: rgba(200, 200, 200, 0.95);color: #232323;}
 #sideMenu ul {list-style-type: none;text-align: center;}
 #sideMenu li {padding: 2vmax;border-bottom: #454545 solid 0.1vmax;}
 
@@ -97,7 +97,8 @@
                 </div>
         </div>
         </a>
-        <div id="hamburger" onclick="sideMenu()">
+        <div id="hamburger">
+        <!--onclick="sideMenu()"-->
             <i class="fa-solid fa-bars"></i>
         </div>
     </div>
@@ -227,6 +228,12 @@ showLatest('latest');
 showAudFav('audFav');
 showAll('all')
 showAuthFav('authFav')
+
+function sideMenu(){
+    const menu = document.getElementById('sideMenu');
+    menu.style.display = 'block'
+    console.log(menu)
+}
 
 //show items
 function showFilter(option){
