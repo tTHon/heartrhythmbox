@@ -6,7 +6,7 @@ var listArray = [
         thumb: 'media/basicep.png',
         date: new Date(23,6,2),
         latest: 1,
-        audFav: 0,
+        audFav: 1,
         authFav: 0,
         QA: 0,
         gLines: 0,
