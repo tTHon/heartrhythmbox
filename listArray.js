@@ -34,7 +34,7 @@ var listArray = [
         thumb: 'media/SCD GL 2022.png',
         date: new Date(22,9,1),
         latest: 0,
-        audFav: 1,
+        audFav: 0,
         authFav: 0,
         QA: 0,
         gLines: 1,
