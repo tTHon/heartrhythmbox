@@ -54,14 +54,23 @@
     border-radius: 1vmax;font-size: 2vmax;cursor: pointer;}
 #about {background-color: #555;color: white;font-size: 16px;padding: 15vh 3vh}
 
-#sideMenu {width: fit-content;position:fixed;right: 0;top: 0;height: 100%;display: none;z-index:2;
-    background-color: rgba(200, 200, 200, 0.95);color: #232323;}
+#sideMenu {width: 1000px;position:fixed;right: 0;top: 0;height: 100%;display: none;z-index:2;font-size: 24px;
+    background-color: rgba(200, 200, 200, 0.95);color: #232323;animation:flyRightFit 1s;}
 #sideMenu ul {list-style-type: none;text-align: center;}
-#sideMenu li {padding: 2vmax;border-bottom: #454545 solid 0.1vmax;}
+#sideMenu li {padding: 2vmin;border-bottom: #555 solid 0.1vmin;cursor: pointer;}
 
 @keyframes fade {
     0% {opacity: 0;}
     100% {opacity: 1;}
+}
+@keyframes flyRightFit {
+    0% {width: 0;}
+    100% {width: 1000px;}
+}
+
+@keyframes flyRight100 {
+    0% {width: 0;}
+    100% {width: 100%;}
 }
 
 @media only screen and (max-width: 1200px) {
@@ -72,7 +81,7 @@
     .itemRow {justify-content: space-between;}
     .item {width: 40%;font-size: 17px;padding: 1vmax;}
     .filter {margin: 1vh 3vw;font-size: 16px;padding:1vmax 2vmax;}
-    #sideMenu {width: 100%;}
+    #sideMenu {width: 100%;animation: flyRight100 1s;}
 }
 </style>
 
@@ -97,8 +106,7 @@
                 </div>
         </div>
         </a>
-        <div id="hamburger">
-        <!--onclick="sideMenu()"-->
+        <div id="hamburger" onclick="sideMenu()">
             <i class="fa-solid fa-bars"></i>
         </div>
     </div>
@@ -106,14 +114,42 @@
     <!--sideMenu-->
     <div id="sideMenu">
         <ul>
-            <li>Top of the page</li>
-            <li>Latest</li>
-            <li>Audience Favorites</li>
-            <li>All</li>
-            <li>Author Favorites</li>
-            <li>About</li>
-            <li>facebook</li>
-            <li>Youtube</li>
+            <li style="text-align: right;">
+                <i class="fa-regular fa-circle-xmark" style="font-size: 35px;" onclick="sideMenu('x')">
+                </i>
+            </li>
+            <a href="#top" style="text-decoration:none;color: inherit;" onclick="sideMenu('x')">
+                <li>Top of the page</li>
+            </a>
+            <a href="#latest" style="text-decoration:none;color: inherit;" onclick="sideMenu('x')">
+               <li>Latest</li>
+            </a>
+            <a href="#audFav" style="text-decoration:none;color: inherit;" onclick="sideMenu('x')">
+               <li>Audience Favorites</li>
+            </a>   
+            <a href="#all" style="text-decoration:none;color: inherit;" onclick="sideMenu('x')">
+                <li>All</li>
+            </a>
+            <a href="#authFav" style="text-decoration:none;color: inherit;" onclick="sideMenu('x')">
+                <li>Author Favorites</li>
+            </a>
+            <a href="#about" style="text-decoration:none;color: inherit;" onclick="sideMenu('x')">
+                <li>About</li>
+            </a>
+            <li onclick="sideMenu('x')">
+                <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+                style="text-decoration:none;">
+                    <img src="fbGrey.png" style="width: 35px;padding-right: 20px;">
+                </a> 
+                <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
+                target="_blank" style="text-decoration:none;">
+                    <img src="youTube.png" style="width: 38px;padding-right: 20px;">
+                </a>
+                <a href="https://github.com/tTHon/heartrhythmbox" target="_blank" 
+                style="text-decoration:none;">
+                <img src="githubGrey.png" style="width: 35px;"></a>
+            </li>
+
         </ul>
     </div>
 
@@ -229,10 +265,12 @@ showAudFav('audFav');
 showAll('all')
 showAuthFav('authFav')
 
-function sideMenu(){
+function sideMenu(option){
     const menu = document.getElementById('sideMenu');
-    menu.style.display = 'block'
-    console.log(menu)
+    if (option=='x'){
+        menu.style.display = 'none'     
+    } else {
+    menu.style.display = 'block'}
 }
 
 //show items
