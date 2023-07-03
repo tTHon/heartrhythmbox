@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .dot {border-radius: 1vmax;width: 1vmax;height: 1vmax;
+        border: solid aquamarine 0.1vmax;
+        background-color: aquamarine;position: fixed;}
+    #paraSym {position: fixed;top: 50vh;left: 0;width: 100vw;height: 50vh;border: blue solid 0.1vmin;}
+</style>
+
+<body>
+    <div id="paraSym">
+
+    </div>
+
+<script>
+const quant = 1;
+addDot(quant,'paraSym')
+
+function addDot(quant,where){
+    const box = document.getElementById(where);
+    //have to get 'where' location
+    for (let index = 0; index < quant; index++) {
+        var newSpan = document.createElement('span');
+        box.appendChild(newSpan);
+        newSpan.classList.add('dot');
+        newSpan.style.left = '100px'
+        newSpan.style.top = '55vh'
+    }
+}
+</script>
+</body>
+</html>

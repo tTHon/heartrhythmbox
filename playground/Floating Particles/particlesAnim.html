@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particles Animation</title>
+</head>
+<body>
+    <canvas id="canvas" style="background-color: white;"></canvas>
+
+      
+      
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const vw = Math.round(window.innerWidth/100);
+const vh = Math.round(window.innerHeight/100);
+
+//array of coordinates [x][y][size][color]
+var particleArray = [];
+var blueColor = ['#191970','#002147','#00308F'];
+var maxSize = 0.5*vh;
+
+createCanvas(1);
+placeParticle(particleArray,blueColor,maxSize,100,80*vh,100*vh);
+floatUp(particleArray,50*vh)
+
+
+function floatUp(array,maxY){
+    for (let index = 0; index < array.length; index++) {
+        var x = array[index][0];
+        var beginY = array[index][1];
+        var size = array[index][2];
+        var color = array[index][3];
+        var endY = maxY + Math.floor(Math.random() * (Math.abs(beginY-maxY)));
+        floatAnim(x,beginY,x,endY,color,size);
+    }
+}
+
+function floatAnim(beginX,beginY,endX,endY,color,size){
+    //up or down
+    var direction;
+    if (beginY>endY){
+        direction = -1;
+    } else {direction = 1}
+    var distance = Math.abs(endY-beginY);
+    var x = beginX;var y = beginY;
+    for (let index = 0; index <= distance; index=index+2) {
+        setTimeout(() => {
+            drawParticle(x,y,1.4*size,'white');
+            y = beginY+(index*direction);
+            drawParticle(x,y,size,color);
+        }, index);
+    }        
+    //drawParticle(endX,endY,size,color);
+
+}
+
+
+function placeParticle(pArray,cArray,maxSize,quant,minY,maxY){
+    for (let index = 0; index <= quant; index++) {
+        var x = Math.floor(Math.random() * (100*vw));        
+        var y = Math.floor(Math.random() * (maxY - minY) ) + minY;
+        var color = cArray[Math.floor(Math.random()*cArray.length)]
+        var size = Math.floor(Math.random()*(maxSize-1)) + 1;
+        pArray.push([x,y,size,color])
+        drawParticle(x,y,size,color)
+    }
+    
+}
+
+function drawParticle(x,y,size,color){
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, 2 * Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+function createCanvas(mag) {
+  const scale = window.devicePixelRatio;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  canvas.width = Math.floor(window.innerWidth * scale*mag)
+  canvas.height = Math.floor(window.innerHeight * scale*mag)
+  ctx.scale(scale*mag,scale*mag)
+}
+
+
+</script>
+</body>
+</html>
