@@ -18,7 +18,7 @@
     </div>
 
 <script>
-const quant = 1;
+const quant = 100;
 addDot(quant,'paraSym')
 
 function addDot(quant,where){
@@ -28,7 +28,7 @@ function addDot(quant,where){
         var newSpan = document.createElement('span');
         box.appendChild(newSpan);
         newSpan.classList.add('dot');
-        newSpan.style.left = '100px'
+        newSpan.style.left = '100'+index + 'px'
         newSpan.style.top = '55vh'
     }
 }
