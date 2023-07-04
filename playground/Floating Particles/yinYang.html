@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    * {margin: 0;}
+</style>
+</head>
+<body>
+    <canvas id="canvas" style="background-color: slategray;"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const vw = Math.round(window.innerWidth/100);
+const vh = Math.round(window.innerHeight/100);
+createCanvas(1)
+
+const radius = 20*vw;
+const centerX = 50*vw;
+const centerY = 40*vh
+
+baseAnimation()
+
+function baseAnimation(){
+    //0.45-0.55
+    const min = 0.45;
+    const max = 0.55;
+    var left = min;
+    var fwd = 0.01;
+
+    setInterval(() => {
+        ctx.clearRect(0,0,100*vw,100*vh);
+        drawLeft(left,'#cbfefe');
+        drawRight(1-left,'#f69005');   
+        left = left + fwd; 
+        if (left>max){
+            left=max;fwd = -0.01;
+        }
+        if (left<min){
+            left=min;fwd = 0.01;
+        }
+    }, time);
+
+}
+
+function drawLeft(ratio,color){
+    //arc left
+    ctx.beginPath();
+    ctx.arc(centerX,centerY+(radius*(1-ratio)),radius*ratio, 1.5*Math.PI, 0.5*Math.PI);
+    ctx.arc(centerX,centerY, radius, 0.5 * Math.PI, 1.5 * Math.PI);
+    ctx.arc(centerX,centerY-(radius*ratio),radius*(1-ratio), 1.5*Math.PI, 0.5*Math.PI,true);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawRight(ratio,color){
+    //arc right
+    ctx.beginPath();
+    ctx.arc(centerX,centerY-(radius*(1-ratio)),radius*ratio,0.5*Math.PI,1.5*Math.PI);
+    ctx.arc(centerX,centerY,radius, 1.5*Math.PI,0.5*Math.PI);
+    ctx.arc(centerX,centerY+(radius*ratio),radius*(1-ratio),0.5*Math.PI,1.5*Math.PI,true);
+    ctx.fillStyle = color
+    ctx.fill();
+    ctx.closePath()
+}
+
+
+
+function createCanvas(mag) {
+  const scale = window.devicePixelRatio;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  canvas.width = Math.floor(window.innerWidth * scale*mag)
+  canvas.height = Math.floor(window.innerHeight * scale*mag)
+  ctx.scale(scale*mag,scale*mag)
+}
+</script>
+    
+</body>
+</html>
