@@ -3,47 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>yinYang</title>
 <style>
     * {margin: 0;}
 </style>
 </head>
 <body>
-    <canvas id="canvas" style="background-color: slategray;"></canvas>
+    <canvas id="canvas" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);"></canvas>
 
 <script>
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
-createCanvas(1)
+const fireColor = ['#801100','#b62203','#d73502','#fc6400','#ff7500','#FAC000'];
 
-const radius = 20*vw;
+createCanvas(1);
+
+const radius = 30*vw;
 const centerX = 50*vw;
 const centerY = 40*vh
 
-baseAnimation()
+//baseAnimation()
+//drawLeft(0.45,'#cbfefe');
+//drawRight(0.45,'#f69005');
+
+var h = 0;
+setInterval(() => {
+    var fire = getFireGrd(h);
+    drawLeft(0.45,fire);
+    h=h+0.1;
+}, 50);
 
 function baseAnimation(){
     //0.45-0.55
     const min = 0.45;
     const max = 0.55;
+    const maxStep = 15;
+    const gap = 0.01;
     var left = min;
     var fwd = 0.01;
+    var step = 0;
+
+    var fire = getFireGrd(1.2);
+
+    //const ice = ctx.createRadialGradient(centerX,centerY-(radius*0.5),radius,centerX+(radius),centerY+(radius),radius);
+    const ice= ctx.createLinearGradient(centerX,centerY-radius,centerX,centerY+radius,);
+    ice.addColorStop(0, '#3f7eb3');
+    ice.addColorStop(0.1,'#6ba7cc');
+    ice.addColorStop(0.2,'#aedbf0');
+    ice.addColorStop(0.3,'#fafeff');
+    ice.addColorStop(0.4,'#e2fcff');
+    ice.addColorStop(0.5,'#cbf1fa');
+    //ice.addColorStop(1,'slategray'); 
 
     setInterval(() => {
         ctx.clearRect(0,0,100*vw,100*vh);
-        drawLeft(left,'#cbfefe');
-        drawRight(1-left,'#f69005');   
+        drawLeft(left-gap,fire);
+        drawRight(1-left-gap,ice);   
         left = left + fwd; 
+        step++;
         if (left>max){
-            left=max;fwd = -0.01;
+            left=max;
         }
         if (left<min){
-            left=min;fwd = 0.01;
+            left=min;
         }
-    }, time);
+        if (step>maxStep){
+            step = 0;
+            if (left>=max){fwd = -0.01;}
+            if (left<=min){fwd = 0.01;}
+        }
+    }, 200);
 
+}
+
+function getFireGrd(hot){
+    var base = hot/10;
+    if (base>0.5){base=0.5}
+    const fire = ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius);
+    fire.addColorStop(base, fireColor[0]);
+    fire.addColorStop(base+0.1,fireColor[1]);
+    fire.addColorStop(base+0.2,fireColor[2]);
+    fire.addColorStop(base+0.3,fireColor[3]);
+    fire.addColorStop(base+0.4,fireColor[4]);
+    fire.addColorStop(base+0.5,fireColor[5]);
+    return fire;
 }
 
 function drawLeft(ratio,color){
@@ -63,10 +108,12 @@ function drawRight(ratio,color){
     ctx.arc(centerX,centerY-(radius*(1-ratio)),radius*ratio,0.5*Math.PI,1.5*Math.PI);
     ctx.arc(centerX,centerY,radius, 1.5*Math.PI,0.5*Math.PI);
     ctx.arc(centerX,centerY+(radius*ratio),radius*(1-ratio),0.5*Math.PI,1.5*Math.PI,true);
-    ctx.fillStyle = color
+    ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath()
 }
+
+
 
 
 
