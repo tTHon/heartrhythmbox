@@ -20,27 +20,21 @@ const fireColor = ['#801100','#b62203','#d73502','#fc6400','#ff7500','#FAC000'];
 
 createCanvas(1);
 
-const radius = 30*vw;
+const radius = 20*vw;
 const centerX = 50*vw;
 const centerY = 40*vh
 
-//baseAnimation()
+baseAnimation()
 //drawLeft(0.45,'#cbfefe');
 //drawRight(0.45,'#f69005');
 
-var h = 0;
-setInterval(() => {
-    var fire = getFireGrd(h);
-    drawLeft(0.45,fire);
-    h=h+0.1;
-}, 50);
 
 function baseAnimation(){
     //0.45-0.55
     const min = 0.45;
     const max = 0.55;
     const maxStep = 15;
-    const gap = 0.01;
+    var gap = 0;
     var left = min;
     var fwd = 0.01;
     var step = 0;
@@ -63,6 +57,7 @@ function baseAnimation(){
         drawRight(1-left-gap,ice);   
         left = left + fwd; 
         step++;
+
         if (left>max){
             left=max;
         }
