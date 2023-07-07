@@ -17,16 +17,31 @@ const ctx = canvas.getContext("2d");
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 const fireColor = ['#801100','#b62203','#d73502','#fc6400','#ff7500','#FAC000'];
+const iceColor = ['#3f7eb3','#6ba7cc','#aedbf0','#fafeff','#e2fcff','#cbf1fa'];
 
 createCanvas(1);
 
 const radius = 20*vw;
 const centerX = 50*vw;
-const centerY = 40*vh
+const centerY = 40*vh;
 
-baseAnimation()
-//drawLeft(0.45,'#cbfefe');
-//drawRight(0.45,'#f69005');
+nav=0;
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===32) {
+      nav++;  
+      stepMove()
+    }
+})
+
+//baseAnimation()
+function stepMove(){
+    if (nav==1){
+        dysAutonomia(0.38,0.55,0.4,0);}
+    if (nav==2){
+        dysAutonomia(0.38,0.55,0.4,1);
+    }
+}
 
 
 function baseAnimation(){
@@ -39,17 +54,8 @@ function baseAnimation(){
     var fwd = 0.01;
     var step = 0;
 
-    var fire = getFireGrd(1.2);
-
-    //const ice = ctx.createRadialGradient(centerX,centerY-(radius*0.5),radius,centerX+(radius),centerY+(radius),radius);
-    const ice= ctx.createLinearGradient(centerX,centerY-radius,centerX,centerY+radius,);
-    ice.addColorStop(0, '#3f7eb3');
-    ice.addColorStop(0.1,'#6ba7cc');
-    ice.addColorStop(0.2,'#aedbf0');
-    ice.addColorStop(0.3,'#fafeff');
-    ice.addColorStop(0.4,'#e2fcff');
-    ice.addColorStop(0.5,'#cbf1fa');
-    //ice.addColorStop(1,'slategray'); 
+    var fire = getFireGrd(2);
+    var ice = getIceGrd(2);
 
     setInterval(() => {
         ctx.clearRect(0,0,100*vw,100*vh);
@@ -73,17 +79,84 @@ function baseAnimation(){
 
 }
 
+function dysAutonomia(maxL,maxR,minR,freeze){
+    
+    var fire = getFireGrd(2);
+    var ice = getIceGrd(2);
+
+    //step 0 -- together
+    drawLeft(0.5,fire);
+    drawRight(0.5,ice);
+
+    //step 1 -- separated;
+    var left = 0.5;var right = 0.5;
+    var end = Math.max(0.5-maxL,0.5-maxR);
+    var step1 = setInterval(() => {
+        for (let index = 0; index <= end; index=index+0.01) {
+        left = left - index;
+        if (left<maxL){left=maxL};
+        right = right + index;
+        if (right>maxR){right=maxR}
+
+        ctx.clearRect(0,0,100*vw,100*vh);
+        drawLeft(left,fire);
+        drawRight(right,ice);
+      } 
+    }, 200);
+    clearInterval(step1);
+
+    //step2
+    //step2 -- animated ice
+    var step = 0;var maxStep = 10+(maxR-minR)*10;var fwd = 0.01;
+    var right = maxR+step;var left = maxL;
+    var count = 0;
+    var step2 = setInterval(function(){
+        animateIce();count++;
+        if (count==20){
+        console.log(count)
+        clearInterval(step2);
+    }
+        },100)
+
+
+    function animateIce(){
+            ctx.clearRect(0,0,100*vw,100*vh);
+            right = right + fwd;
+            step++;
+            if (right<minR){
+                right = minR;left = left+0.01}
+            if (right>maxR){
+                right = maxR;left = left-0.01};
+            if (step>maxStep){
+                step = 0;
+                if (right>=maxR){fwd = -0.01;}
+                if (right<=minR){fwd = 0.01;}
+            }
+            drawLeft(left,fire);
+            drawRight(right,ice);
+
+    }
+}
+
 function getFireGrd(hot){
-    var base = hot/10;
-    if (base>0.5){base=0.5}
+
     const fire = ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius);
-    fire.addColorStop(base, fireColor[0]);
-    fire.addColorStop(base+0.1,fireColor[1]);
-    fire.addColorStop(base+0.2,fireColor[2]);
-    fire.addColorStop(base+0.3,fireColor[3]);
-    fire.addColorStop(base+0.4,fireColor[4]);
-    fire.addColorStop(base+0.5,fireColor[5]);
+    for (let index = 0; index < fireColor.length; index++) {
+        var hotFactor = (hot + index)/10;
+        if (hotFactor>1){hotFactor =1}
+        fire.addColorStop(hotFactor, fireColor[index]);
+    }
     return fire;
+}
+
+function getIceGrd(cold){
+    const ice= ctx.createLinearGradient(centerX,centerY-radius,centerX,centerY+radius,);
+    for (let index = 0; index < fireColor.length; index++) {
+        var coldFactor = (cold + index)/10;
+        if (coldFactor>1){coldFactor =1}
+        ice.addColorStop(coldFactor, iceColor[index]);
+    }
+    return ice;
 }
 
 function drawLeft(ratio,color){
@@ -108,11 +181,7 @@ function drawRight(ratio,color){
     ctx.closePath()
 }
 
-
-
-
-
-function createCanvas(mag) {
+ function createCanvas(mag) {
   const scale = window.devicePixelRatio;
   canvas.style.width = window.innerWidth + 'px';
   canvas.style.height = window.innerHeight + 'px';
