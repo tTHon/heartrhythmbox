@@ -26,6 +26,7 @@ const centerX = 50*vw;
 const centerY = 40*vh;
 
 nav=0;
+dysAutonomia(0.38,0.55,0.4,1)
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
@@ -37,12 +38,112 @@ window.addEventListener("keydown", function(event) {
 //baseAnimation()
 function stepMove(){
     if (nav==1){
-        dysAutonomia(0.38,0.55,0.4,0);}
+        trigger(1);}
     if (nav==2){
-        dysAutonomia(0.38,0.55,0.4,1);
+        paraSymOverLoad();
     }
+
 }
 
+//fireRatio and fireGrd
+//iceRatio, starting grd and ending grd
+function iceUp(fire,fireGrd,ice,from,to){
+    
+    var fireColor = getFireGrd(fireGrd);
+    var right = ice;
+    
+    for (let index = from; index <= to; index=index +0.5) {
+        setTimeout(() => {
+            var iceColor = getIceGrd(index);
+            ctx.clearRect(0,0,100*vw,100*vh);
+            trigger(0);
+            drawLeft(fire,fireColor);
+            drawRight(right,iceColor); 
+            right = right + 0.02;
+            if (right+fire>=1){right = 1-fire};
+        }, 100*index);
+    }
+
+}
+
+function paraSymOverLoad(){
+    var left = 0.26;var right = 0.55;
+    var ice = 1;
+    const coldLevel = 8;
+    var fireColor = getFireGrd(1);
+    var iceColor = getIceGrd(ice);
+    const fireDown = 0.1;
+    const step = 2*Math.ceil((right-fireDown)/0.02);
+   
+    for (let index = 0; index <step; index++) {
+        setTimeout(() => {
+            ice = ice + (coldLevel/step);
+            if (ice>=coldLevel){ice = coldLevel}
+            iceColor = getIceGrd(ice);
+            ctx.clearRect(0,0,100*vw,100*vh);
+            trigger(0);
+            drawLeft(left,fireColor);
+            drawRight(right,iceColor); 
+            right = right + 0.01;left = left-(left-fireDown)/step;
+            if (left<=fireDown){left=fireDown}
+            if (right+fireDown>=1){right = 1-fireDown};
+        }, 50*index);
+    }
+
+}
+
+function trigger(animate){
+    const trgRadius = 0.25*radius;
+    const trgCenter = 10*vw;
+    ctx.beginPath();
+    ctx.arc(trgCenter,trgCenter,trgRadius, 0, 2 * Math.PI);
+    ctx.strokeStyle = '#e8e9ea';ctx.lineWidth = 1;ctx.fillStyle = '#e8e9ea'
+    ctx.stroke();
+    ctx.font = 3.25*vw + 'px Arial';
+    ctx.textAlign = 'left';
+    ctx.fillText(" Trig",trgCenter-trgRadius,trgCenter-0.5*vw);
+    ctx.fillText("gers",trgCenter-2*vw,trgCenter + 2*vw);
+    ctx.closePath(); 
+
+
+    //line animation
+    //line to fire
+
+    if (animate==1){
+    //const lineColor = ['#1b2735','#313c49','#45825d','#8d939a','#a3a8ae','#e8e9ea']
+    setTimeout(() => {
+        var angle = Math.PI * 15 /180;
+        //line to fire
+        ctx.beginPath();
+        ctx.moveTo(trgCenter,trgCenter+trgRadius);
+        ctx.quadraticCurveTo(trgCenter,centerY,centerX-radius,centerY);
+        ctx.strokeStyle = '#a3a8ae';
+        ctx.stroke();
+        //line to ice
+        ctx.moveTo(trgCenter+Math.cos(angle)*trgRadius,trgCenter-(Math.sin(angle)*trgRadius));
+        ctx.quadraticCurveTo(centerX+1.5*radius,centerY-1.5*radius,centerX+radius,centerY);
+        ctx.strokeStyle = '#a3a8ae';
+        ctx.stroke();
+        ctx.closePath();          
+    }, 500);
+    } else {
+        var angle = Math.PI * 15 /180;
+        //line to fire
+        ctx.beginPath();
+        ctx.moveTo(trgCenter,trgCenter+trgRadius);
+        ctx.quadraticCurveTo(trgCenter,centerY,centerX-radius,centerY);
+        ctx.strokeStyle = '#a3a8ae';
+        ctx.stroke();
+        //line to ice
+        ctx.moveTo(trgCenter+Math.cos(angle)*trgRadius,trgCenter-(Math.sin(angle)*trgRadius));
+        ctx.quadraticCurveTo(centerX+1.5*radius,centerY-1.5*radius,centerX+radius,centerY);
+        ctx.strokeStyle = '#a3a8ae';
+        ctx.stroke();
+        ctx.closePath();   
+    }
+
+
+}
 
 function baseAnimation(){
     //0.45-0.55
@@ -79,10 +180,10 @@ function baseAnimation(){
 
 }
 
-function dysAutonomia(maxL,maxR,minR,freeze){
+function dysAutonomia(maxL,maxR,minR,loop){
     
-    var fire = getFireGrd(2);
-    var ice = getIceGrd(2);
+    var fire = getFireGrd(1);
+    var ice = getIceGrd(1);
 
     //step 0 -- together
     drawLeft(0.5,fire);
@@ -97,7 +198,6 @@ function dysAutonomia(maxL,maxR,minR,freeze){
         if (left<maxL){left=maxL};
         right = right + index;
         if (right>maxR){right=maxR}
-
         ctx.clearRect(0,0,100*vw,100*vh);
         drawLeft(left,fire);
         drawRight(right,ice);
@@ -112,8 +212,8 @@ function dysAutonomia(maxL,maxR,minR,freeze){
     var count = 0;
     var step2 = setInterval(function(){
         animateIce();count++;
-        if (count==20){
-        console.log(count)
+
+        if (loop>0 && count>=(maxStep*loop)){
         clearInterval(step2);
     }
         },100)
@@ -150,8 +250,8 @@ function getFireGrd(hot){
 }
 
 function getIceGrd(cold){
-    const ice= ctx.createLinearGradient(centerX,centerY-radius,centerX,centerY+radius,);
-    for (let index = 0; index < fireColor.length; index++) {
+    const ice= ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius,);
+    for (let index = 0; index < iceColor.length; index++) {
         var coldFactor = (cold + index)/10;
         if (coldFactor>1){coldFactor =1}
         ice.addColorStop(coldFactor, iceColor[index]);
