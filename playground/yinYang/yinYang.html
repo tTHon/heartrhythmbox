@@ -26,7 +26,8 @@ const centerX = 50*vw;
 const centerY = 40*vh;
 
 nav=0;
-dysAutonomia(0.38,0.55,0.4,1)
+dysAutonomia(0.38,0.55,0.4,1);
+majorLabel('#3f7eb3');
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
@@ -42,8 +43,69 @@ function stepMove(){
     if (nav==2){
         paraSymOverLoad();
     }
+    if (nav==3){
+        pSymEffect();
+    }
 
 }
+
+function pSymEffect(){
+    const pRad = 0.2*radius;
+    const beginX = centerX + radius + pRad + vw;
+    const beginY = centerY - pRad*3;
+    ctx.textAlign = 'center';ctx.textBaseline = "middle";
+    ctx.font = 3*vw + 'px Arial';
+    ctx.fillStyle = '#ddd'
+    //#1
+    ctx.beginPath();
+    ctx.arc(beginX,beginY,pRad,0, 2 * Math.PI);
+    ctx.strokeStyle = '#ddd'
+    ctx.stroke();
+    ctx.fillText('↓SV',beginX,beginY);
+    ctx.closePath()
+    //#2
+    ctx.beginPath();
+    ctx.arc(beginX + pRad*2 + vw,beginY,pRad,0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fillText('↓HR',beginX + pRad*2 + vw,beginY);
+    ctx.closePath();
+    //#3
+    ctx.beginPath();
+    ctx.arc(beginX,beginY + pRad*2 + vw,pRad,0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fillText('↓SVR',beginX,beginY + pRad*2 + vw);
+    ctx.closePath();
+    //#4
+    ctx.beginPath();
+    ctx.arc(beginX + pRad*2 + vw,beginY + pRad*2 + vw,pRad,0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fillText('↓BP',beginX + pRad*2 + vw,beginY + pRad*2 + vw);
+    ctx.closePath();
+
+    setTimeout(() => {
+        ctx.beginPath();
+        ctx.moveTo(beginX + pRad + vw,beginY + pRad*3 + vw);
+        ctx.quadraticCurveTo(centerX + (radius+pRad*4),
+        centerY + (radius+pRad*4),centerX+pRad,centerY + (radius+pRad*1.8));
+        ctx.stroke();
+        ctx.closePath();
+    }, 600);
+
+    setTimeout(() => {
+        ctx.beginPath();
+        ctx.arc(centerX,centerY + (radius+pRad*1.8),pRad*1.2,0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.fillStyle = '#1b2735';ctx.fill();
+        ctx.fillStyle = '#ddd';
+        ctx.textAlign = 'right';
+        ctx.font = 3*vw + 'px Arial'; 
+        ctx.fillText('Syn',centerX+vw,centerY + (radius+pRad*1.8)-vw);
+        ctx.textAlign = 'left';
+        ctx.fillText('cope',centerX-2*vw,centerY + (radius+pRad*1.8)+1.2*vw);
+        ctx.closePath(); 
+    }, 1200);
+}
+
 
 //fireRatio and fireGrd
 //iceRatio, starting grd and ending grd
@@ -82,6 +144,7 @@ function paraSymOverLoad(){
             iceColor = getIceGrd(ice);
             ctx.clearRect(0,0,100*vw,100*vh);
             trigger(0);
+            majorLabel('#3f7eb3');
             drawLeft(left,fireColor);
             drawRight(right,iceColor); 
             right = right + 0.01;left = left-(left-fireDown)/step;
@@ -112,7 +175,7 @@ function trigger(animate){
     if (animate==1){
     //const lineColor = ['#1b2735','#313c49','#45825d','#8d939a','#a3a8ae','#e8e9ea']
     setTimeout(() => {
-        var angle = Math.PI * 15 /180;
+        var angle = Math.PI * 30 /180;
         //line to fire
         ctx.beginPath();
         ctx.moveTo(trgCenter,trgCenter+trgRadius);
@@ -121,13 +184,13 @@ function trigger(animate){
         ctx.stroke();
         //line to ice
         ctx.moveTo(trgCenter+Math.cos(angle)*trgRadius,trgCenter-(Math.sin(angle)*trgRadius));
-        ctx.quadraticCurveTo(centerX+1.5*radius,centerY-1.5*radius,centerX+radius,centerY);
+        ctx.quadraticCurveTo(centerX-radius/2,trgCenter-3*trgRadius,centerX+radius*Math.cos(angle*2),centerY-radius*Math.sin(angle*2));
         ctx.strokeStyle = '#a3a8ae';
         ctx.stroke();
         ctx.closePath();          
     }, 500);
     } else {
-        var angle = Math.PI * 15 /180;
+        var angle = Math.PI * 30 /180;
         //line to fire
         ctx.beginPath();
         ctx.moveTo(trgCenter,trgCenter+trgRadius);
@@ -136,7 +199,7 @@ function trigger(animate){
         ctx.stroke();
         //line to ice
         ctx.moveTo(trgCenter+Math.cos(angle)*trgRadius,trgCenter-(Math.sin(angle)*trgRadius));
-        ctx.quadraticCurveTo(centerX+1.5*radius,centerY-1.5*radius,centerX+radius,centerY);
+        ctx.quadraticCurveTo(centerX-radius/2,trgCenter-3*trgRadius,centerX+radius*Math.cos(angle*2),centerY-radius*Math.sin(angle*2));
         ctx.strokeStyle = '#a3a8ae';
         ctx.stroke();
         ctx.closePath();   
@@ -199,6 +262,7 @@ function dysAutonomia(maxL,maxR,minR,loop){
         right = right + index;
         if (right>maxR){right=maxR}
         ctx.clearRect(0,0,100*vw,100*vh);
+        majorLabel('#3f7eb3');
         drawLeft(left,fire);
         drawRight(right,ice);
       } 
@@ -221,6 +285,7 @@ function dysAutonomia(maxL,maxR,minR,loop){
 
     function animateIce(){
             ctx.clearRect(0,0,100*vw,100*vh);
+            majorLabel('#3f7eb3');
             right = right + fwd;
             step++;
             if (right<minR){
@@ -257,6 +322,29 @@ function getIceGrd(cold){
         ice.addColorStop(coldFactor, iceColor[index]);
     }
     return ice;
+}
+
+function majorLabel(color){
+    //angle left = 110
+    const fontSize = 2.5*vw;
+    const xLeft = centerX + Math.cos(Math.PI * 110/180) * radius - 0.5*fontSize;
+    const yLeft = centerY + Math.sin(Math.PI * 110/180) * radius;
+    ctx.beginPath();
+    ctx.font = fontSize + 'px Arial';
+    ctx.textAlign = 'right';ctx.fillStyle = color
+    ctx.fillText('Sympathetic',xLeft-fontSize,yLeft);
+    
+    //right angle = 70
+    const xRight = centerX + Math.cos(Math.PI * 70/180) * radius + 0.5*fontSize;
+    const yRight = centerY + Math.sin(Math.PI * 70/180) * radius;
+    ctx.textAlign = 'left';
+    ctx.fillText('Parasympathetic',xRight+fontSize,yRight);
+
+    ctx.font = 0.7*fontSize + 'px Arial';
+    ctx.textAlign = 'right';
+    ctx.fillText('nervous system',xLeft-fontSize,yLeft+0.7*fontSize);
+    ctx.textAlign = 'left';
+    ctx.fillText('nervous system',xRight+fontSize,yRight+0.7*fontSize);
 }
 
 function drawLeft(ratio,color){
