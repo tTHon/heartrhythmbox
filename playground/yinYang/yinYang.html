@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>yinYang</title>
 <style>
-    * {margin: 0;}
+    * {margin: 0;};
+    #cHolder {width: 100vw;height: 100vh;}
+    .number {position: fixed;border-radius: 1.5vw;display: table-cell;vertical-align: middle;
+        width: 3vw;height: 3vw;border: solid 0.1vw pink;z-index: 5;
+        background-color: pink;color:#555;
+        font-family: Arial, Helvetica, sans-serif;font-size: 2vw;text-align: center;
+        cursor: pointer;
+    }
+    .noText {display: inline-block;vertical-align: middle;line-height: normal;}
 </style>
 </head>
 <body>
-    <canvas id="canvas" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);"></canvas>
-
+    <div id="cHolder" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);">
+        <canvas id="canvas">
+        </canvas>
+    </div>
+    
 <script>
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -26,8 +37,14 @@ const centerX = 50*vw;
 const centerY = 40*vh;
 
 nav=0;
+drawNumber(1);
+drawNumber(2);
+drawNumber(3);
+drawNumber(4);
+drawNumber(5);
+drawNumber(6);
 dysAutonomia(0.38,0.55,0.4,1);
-majorLabel('#3f7eb3');
+//majorLabel('#3f7eb3');
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
@@ -42,7 +59,7 @@ function stepMove(){
         //trigger(1);
         //paraSymOverLoad(1);
         pSymEffect('all');
-        drawNumber();
+        drawNumber(1);
     }
     if (nav==2){
         paraSymOverLoad(1);
@@ -51,27 +68,52 @@ function stepMove(){
         pSymEffect('all');
     }
     if (nav==4){
-        drawNumber();
+        drawNumber(1);
     }
 
 }
 
 function drawNumber(number){
-    const r = 1.5*vw;
-    //#1
-    const x1 = centerX + radius + 12*vw;
-    const y1 = centerY + radius + 5*vw;
-    ctx.beginPath();
-    ctx.arc(x1,y1,r,0, 2* Math.PI);
-    ctx.fillStyle = '#FFC0CB';
-    ctx.closePath();ctx.fill();
-    ctx.beginPath();
-    ctx.textBaseline = 'middle';
-    ctx.font =  2*vw + 'px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#555'
-    ctx.fillText('1',x1,y1);
-    ctx.closePath();
+    const position = [
+        [centerX + radius + 10.5*vw,centerY + radius + 3.5*vw],
+        [centerX + radius + 16.5*vw, centerY + 2*vw],
+        [centerX + radius + 16.5*vw, centerY -3.5*vw],
+        [centerX - 1.5*vw,centerY - 1.5*vw],
+        [centerX - 0.9*radius-1.5*vw,centerY - 1.5*vw],
+        [centerX - radius -9.5*vw,centerY - 4.5*vw]
+    ]
+    
+    const circle = document.createElement('div');
+    const holder = document.getElementById('cHolder')
+    holder.appendChild(circle);
+    circle.classList.add('number');
+    circle.style.left = position[number-1][0] + 'px';
+    circle.style.top = position[number-1][1] + 'px';
+    const span = document.createElement('span');
+    circle.appendChild(span)
+    span.classList.add('noText')
+    span.innerHTML = number;
+
+    circle.onclick = function(){
+        animateCircle(number-1)
+    }
+
+    function animateCircle(key){
+        const beginR = 1.5*vw;
+        const nClass = document.getElementsByClassName('number')
+        for (let index = beginR; index >= 0; index--) {
+            setTimeout(() => {
+                nClass[key].style.borderRadius = index + 'px';
+
+                if (key==3 || key==4){
+                    nClass[key].style.boxShadow = "-2px 2px 15px rgba(50,50,50,0.9)"
+                } else {
+                    nClass[key].style.boxShadow = "-1px 1px 10px rgba(255,192,203,0.8)"       
+                }                
+            }, 1200/index);
+    
+        }
+    }
 }
 
 
