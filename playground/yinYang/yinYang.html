@@ -39,73 +39,191 @@ window.addEventListener("keydown", function(event) {
 //baseAnimation()
 function stepMove(){
     if (nav==1){
-        trigger(1);}
+        //trigger(1);
+        //paraSymOverLoad(1);
+        pSymEffect('all');
+        drawNumber();
+    }
     if (nav==2){
-        paraSymOverLoad();
+        paraSymOverLoad(1);
     }
     if (nav==3){
-        pSymEffect();
+        pSymEffect('all');
+    }
+    if (nav==4){
+        drawNumber();
     }
 
 }
 
-function pSymEffect(){
-    const pRad = 0.2*radius;
-    const beginX = centerX + radius + pRad + vw;
-    const beginY = centerY - pRad*3;
-    ctx.textAlign = 'center';ctx.textBaseline = "middle";
-    ctx.font = 3*vw + 'px Arial';
-    ctx.fillStyle = '#ddd'
+function drawNumber(number){
+    const r = 1.5*vw;
     //#1
+    const x1 = centerX + radius + 12*vw;
+    const y1 = centerY + radius + 5*vw;
     ctx.beginPath();
-    ctx.arc(beginX,beginY,pRad,0, 2 * Math.PI);
-    ctx.strokeStyle = '#ddd'
-    ctx.stroke();
-    ctx.fillText('↓SV',beginX,beginY);
-    ctx.closePath()
-    //#2
+    ctx.arc(x1,y1,r,0, 2* Math.PI);
+    ctx.fillStyle = '#FFC0CB';
+    ctx.closePath();ctx.fill();
     ctx.beginPath();
-    ctx.arc(beginX + pRad*2 + vw,beginY,pRad,0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.fillText('↓HR',beginX + pRad*2 + vw,beginY);
+    ctx.textBaseline = 'middle';
+    ctx.font =  2*vw + 'px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#555'
+    ctx.fillText('1',x1,y1);
     ctx.closePath();
-    //#3
-    ctx.beginPath();
-    ctx.arc(beginX,beginY + pRad*2 + vw,pRad,0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.fillText('↓SVR',beginX,beginY + pRad*2 + vw);
-    ctx.closePath();
-    //#4
-    ctx.beginPath();
-    ctx.arc(beginX + pRad*2 + vw,beginY + pRad*2 + vw,pRad,0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.fillText('↓BP',beginX + pRad*2 + vw,beginY + pRad*2 + vw);
-    ctx.closePath();
-
-    setTimeout(() => {
-        ctx.beginPath();
-        ctx.moveTo(beginX + pRad + vw,beginY + pRad*3 + vw);
-        ctx.quadraticCurveTo(centerX + (radius+pRad*4),
-        centerY + (radius+pRad*4),centerX+pRad,centerY + (radius+pRad*1.8));
-        ctx.stroke();
-        ctx.closePath();
-    }, 600);
-
-    setTimeout(() => {
-        ctx.beginPath();
-        ctx.arc(centerX,centerY + (radius+pRad*1.8),pRad*1.2,0, 2 * Math.PI);
-        ctx.stroke();
-        ctx.fillStyle = '#1b2735';ctx.fill();
-        ctx.fillStyle = '#ddd';
-        ctx.textAlign = 'right';
-        ctx.font = 3*vw + 'px Arial'; 
-        ctx.fillText('Syn',centerX+vw,centerY + (radius+pRad*1.8)-vw);
-        ctx.textAlign = 'left';
-        ctx.fillText('cope',centerX-2*vw,centerY + (radius+pRad*1.8)+1.2*vw);
-        ctx.closePath(); 
-    }, 1200);
 }
 
+
+function clearSyncope(){
+    paraSymOverLoad('still');
+    var trigHex = '#e2fcff';
+    var syncHex = '#e2fcff';
+    var left = 0.1;var right = 0.9;
+    var fireColor = getFireGrd(1);
+    var iceColor = getIceGrd(8);
+    //const fireUp = 4;
+    //const iceDown = 2;
+
+    //fireBase 0.1 to 0.5
+    for (let index = 0; index < 40; index++) {
+        setTimeout(() => {
+            ctx.clearRect(0,0,100*vw,100*vh);
+            var opac = 1-(index/50);
+            trigColor = toRGB(trigHex,opac);
+            syncColor = toRGB(syncHex,opac);
+            trigger(trigColor);
+            syncopeText('text',syncColor);
+
+            fireColor = getFireGrd(1+(index/10));
+            iceColor = getIceGrd(8-(index/6));
+            drawLeft(left,fireColor);
+            drawRight(right,iceColor);  
+            left = left+0.01;if (left>=0.5){left=0.5};
+            right = right-0.01;if (right<=0.5){right=0.5};
+
+            if (index==39){
+                //arrow
+                const topX = 10*vw - (radius/4) - 0.5*vw;
+                const aWidth = (centerX-radius)-(topX+12*vw);
+                ctx.clearRect(topX + 12*vw,centerY-2*vw,aWidth,5*vw);
+            }
+        }, 50*index);
+    }
+}
+
+function toRGB(color,opacity){
+    String(color);
+    const hex = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f']
+    var red1 = color[1];var red2 = color[2];
+    red = hex.indexOf(red1)*16 + hex.indexOf(red2) ;
+    var green1 = color[3];var green2 = color[4];
+    green = hex.indexOf(green1) *16 + hex.indexOf(green2); 
+    var blue1 = color[5];var blue2 = color[6];
+    blue = hex.indexOf(blue1)*16 + hex.indexOf(blue2);
+    String(red);String(green);String(blue)
+    var rgbaColor = 'rgba(' +red +','+ green + ',' + blue + ',' + opacity+')';
+    return rgbaColor;
+}
+
+function syncopeText(option,color){
+    const fSize = 2.8*vw;
+    const syncY = centerY+radius+2.5*fSize+vw;
+    const syncTop = syncY-1.5*fSize-vw;
+    const syncBottom = syncY+vw;
+    const syncMid = 0.5*(syncBottom-syncTop) + syncTop;
+    const arrowX = centerX + radius + 2*vw;
+    const arrowWidth = 4*vw;  
+    const x1 = arrowX+arrowWidth+vw;
+    const midTextX = x1+fSize;
+    const bottomTextY = centerY+2.2*fSize;
+    const cap = Math.round((syncMid-bottomTextY)*0.2);
+    //text
+    if (option =='text'){
+    ctx.beginPath();
+    ctx.textBaseline = 'bottom';
+    ctx.font =  1.5*fSize + 'px Arial';
+    ctx.textAlign = 'center';
+    if (color==null){
+        color = '#e2fcff';
+    }
+    ctx.fillStyle = color;
+    ctx.fillText ('SYNCOPE',centerX,syncY);
+    ctx.fill();
+    ctx.closePath();
+    bracket(centerX-4.5*fSize-vw,syncTop,centerX-4.5*fSize-vw,syncBottom,'#e2fcff','left');
+    bracket(centerX+4.5*fSize+vw,syncTop,centerX+4.5*fSize+vw,syncBottom,'#e2fcff','right');
+    }
+
+    if (option =='line'){
+        ctx.beginPath();
+        ctx.strokeStyle = '#ababab';
+        ctx.moveTo(midTextX,bottomTextY+vw);
+        ctx.lineTo(midTextX,syncMid-cap);
+        ctx.moveTo(centerX+4.5*fSize+2*vw,syncMid);
+        ctx.lineTo(midTextX-cap,syncMid);
+        ctx.arcTo(midTextX,syncMid,midTextX,syncMid-cap,cap);
+        ctx.stroke();
+        arrow(midTextX-cap,syncMid,centerX+4.5*fSize+2*vw,syncMid,'#ababab','left');
+        ctx.closePath();
+    }
+}
+
+function pSymEffect(option){
+    if (option=='all'){
+    const arrowX = centerX + radius + 2*vw;
+    const arrowWidth = 4*vw;    
+    const fSize = 2.8*vw;
+    arrow(arrowX,centerY,arrowX+arrowWidth,centerY,'#ababab');
+
+    const x1 = arrowX+arrowWidth+vw;
+    ctx.beginPath();
+    ctx.textBaseline = 'bottom';
+    ctx.font =  fSize + 'px Arial';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#ddd';
+    ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
+    ctx.fillText('↓HR',x1+vw,centerY);
+    ctx.fillText('↓SVR',x1+vw,centerY+1.1*fSize);
+    ctx.fillText('↓BP',x1+vw,centerY+2.2*fSize);
+    ctx.fill();
+    ctx.closePath();
+
+    const syncY = centerY+radius+2.5*fSize+vw;
+    const syncTop = syncY-1.5*fSize-vw;
+    const syncBottom = syncY+vw;
+    const syncMid = 0.5*(syncBottom-syncTop) + syncTop;
+    //connecting line
+    setTimeout(() => {
+        syncopeText('line')
+    }, 600);
+    //syncope
+    setTimeout(() => {
+        syncopeText('text');    
+    }, 1200);
+    }
+
+    if (option == 'effect'){
+        const arrowX = centerX + radius + 2*vw;
+        const arrowWidth = 4*vw;    
+        const fSize = 2.8*vw;
+        arrow(arrowX,centerY,arrowX+arrowWidth,centerY,'#ababab');
+
+        const x1 = arrowX+arrowWidth+vw;
+        ctx.beginPath();
+        ctx.textBaseline = 'bottom';
+        ctx.font =  fSize + 'px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#ddd';
+        ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
+        ctx.fillText('↓HR',x1+vw,centerY);
+        ctx.fillText('↓SVR',x1+vw,centerY+1.1*fSize);
+        ctx.fillText('↓BP',x1+vw,centerY+2.2*fSize);
+        ctx.fill();
+        ctx.closePath();
+    }
+
+}
 
 //fireRatio and fireGrd
 //iceRatio, starting grd and ending grd
@@ -128,7 +246,7 @@ function iceUp(fire,fireGrd,ice,from,to){
 
 }
 
-function paraSymOverLoad(){
+function paraSymOverLoad(animate){
     var left = 0.26;var right = 0.55;
     var ice = 1;
     const coldLevel = 8;
@@ -137,40 +255,86 @@ function paraSymOverLoad(){
     const fireDown = 0.1;
     const step = 2*Math.ceil((right-fireDown)/0.02);
    
+    if (animate ==1){
     for (let index = 0; index <step; index++) {
         setTimeout(() => {
             ice = ice + (coldLevel/step);
             if (ice>=coldLevel){ice = coldLevel}
             iceColor = getIceGrd(ice);
             ctx.clearRect(0,0,100*vw,100*vh);
-            trigger(0);
-            majorLabel('#3f7eb3');
+            trigger(iceColor);
             drawLeft(left,fireColor);
             drawRight(right,iceColor); 
+            majorLabel('#32648f');
             right = right + 0.01;left = left-(left-fireDown)/step;
             if (left<=fireDown){left=fireDown}
             if (right+fireDown>=1){right = 1-fireDown};
         }, 50*index);
     }
+    } else {
+        for (let index = 0; index <step; index++) {
 
+            ice = ice + (coldLevel/step);
+            if (ice>=coldLevel){ice = coldLevel}
+            iceColor = getIceGrd(ice);
+            ctx.clearRect(0,0,100*vw,100*vh);
+            drawLeft(left,fireColor);
+            drawRight(right,iceColor); 
+            majorLabel('#32648f');
+            right = right + 0.01;left = left-(left-fireDown)/step;
+            if (left<=fireDown){left=fireDown}
+            if (right+fireDown>=1){right = 1-fireDown};
+        }
+    }   
 }
 
-function trigger(){
+function trigger(color){
     const trgX = 10*vw;
     ctx.beginPath();
     ctx.font = 3.25*vw + 'px Arial';
-    ctx.textAlign = 'left';ctx.textBaseline = 'middle'
+    ctx.textAlign = 'left';ctx.textBaseline = 'bottom';
+    if (color==null){
+        color='#ddd'
+    }
+    ctx.fillStyle = color;
     ctx.fillText(" Trig",trgX - (radius/4),centerY);
     ctx.fillText("gers",trgX-2*vw,centerY + 2.75*vw);
     //bracket
-    const topLeftX = trgX - (radius/4) - vw;const topLeftY = centerY - 3.25*vw;
-    const bottomLeftX = topLeftX;const bottomLeftY = centerY + 5*vw + vh;
-    bracket(topLeftX,topLeftY,bottomLeftX,bottomLeftY,'#ddd', 'left');
-    bracket(topLeftX + 12*vw,topLeftY,topLeftX + 12*vw,bottomLeftY,'#ddd','right')
+    const topX = trgX - (radius/4) - 0.5*vw;
+    const topY = centerY - 4*vw;
+    const bottomX = topX;
+    const bottomY = centerY + 3.25*vw + vh;
+    bracket(topX,topY,bottomX,bottomY,'#ababab', 'left');
+    bracket(topX + 11*vw,topY,topX + 11*vw,bottomY,'#ababab','right');
+    arrow(topX + 12*vw,centerY,centerX- radius - 2*vw,centerY);
+
+    //example of trigger
+}
+
+function arrow(x1,y1,x2,y2,color,side){
+    //cal distance = sqRt (x2-x1)2 + (y2-y1)2
+    const d = Math.sqrt(((x2-x1)*(x2-x1)+((y2-y1)*(y2-y1))));
+    var arrow = 0.1*d;
+    if (side=='left'){
+        var head = -1
+    } else {var head = 1}
+    if (arrow<2*vw){arrow=2*vw}
+    const angle = 30/180 * Math.PI ;
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x2,y2);
+    //arrowTop
+    ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-Math.cos(angle)*arrow*head,y2-Math.sin(angle)*arrow);
+    //arrowBottom
+    ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-Math.cos(angle)*arrow*head,y2+Math.sin(angle)*arrow);
+    ctx.stroke();
 }
 
 function bracket(x1,y1,x2,y2,color,side){
-    var capWidth = 0.2*(y2-y1);
+    const capWidth = 0.2*(y2-y1);
     if (side=='left'){
     //top
     ctx.beginPath();
@@ -203,59 +367,6 @@ function bracket(x1,y1,x2,y2,color,side){
         ctx.stroke();
         ctx.closePath();
     }
-}
-
-function triggerRound(animate){
-    const trgRadius = 0.25*radius;
-    const trgCenter = 10*vw;
-    ctx.beginPath();
-    ctx.arc(trgCenter,trgCenter,trgRadius, 0, 2 * Math.PI);
-    ctx.strokeStyle = '#e8e9ea';ctx.lineWidth = 1;ctx.fillStyle = '#e8e9ea'
-    ctx.stroke();
-    ctx.font = 3.25*vw + 'px Arial';
-    ctx.textAlign = 'left';
-    ctx.fillText(" Trig",trgCenter-trgRadius,trgCenter-0.5*vw);
-    ctx.fillText("gers",trgCenter-2*vw,trgCenter + 2*vw);
-    ctx.closePath(); 
-
-
-    //line animation
-    //line to fire
-
-    if (animate==1){
-    //const lineColor = ['#1b2735','#313c49','#45825d','#8d939a','#a3a8ae','#e8e9ea']
-    setTimeout(() => {
-        var angle = Math.PI * 30 /180;
-        //line to fire
-        ctx.beginPath();
-        ctx.moveTo(trgCenter,trgCenter+trgRadius);
-        ctx.quadraticCurveTo(trgCenter,centerY,centerX-radius,centerY);
-        ctx.strokeStyle = '#a3a8ae';
-        ctx.stroke();
-        //line to ice
-        ctx.moveTo(trgCenter+Math.cos(angle)*trgRadius,trgCenter-(Math.sin(angle)*trgRadius));
-        ctx.quadraticCurveTo(centerX-radius/2,trgCenter-3*trgRadius,centerX+radius*Math.cos(angle*2),centerY-radius*Math.sin(angle*2));
-        ctx.strokeStyle = '#a3a8ae';
-        ctx.stroke();
-        ctx.closePath();          
-    }, 500);
-    } else {
-        var angle = Math.PI * 30 /180;
-        //line to fire
-        ctx.beginPath();
-        ctx.moveTo(trgCenter,trgCenter+trgRadius);
-        ctx.quadraticCurveTo(trgCenter,centerY,centerX-radius,centerY);
-        ctx.strokeStyle = '#a3a8ae';
-        ctx.stroke();
-        //line to ice
-        ctx.moveTo(trgCenter+Math.cos(angle)*trgRadius,trgCenter-(Math.sin(angle)*trgRadius));
-        ctx.quadraticCurveTo(centerX-radius/2,trgCenter-3*trgRadius,centerX+radius*Math.cos(angle*2),centerY-radius*Math.sin(angle*2));
-        ctx.strokeStyle = '#a3a8ae';
-        ctx.stroke();
-        ctx.closePath();   
-    }
-
-
 }
 
 function baseAnimation(){
@@ -375,18 +486,21 @@ function getIceGrd(cold){
 }
 
 function majorLabel(color){
-    //angle left = 110
+    //angle from midline
+    const angle = 25;
+    //left 
     const fontSize = 2*vw;
-    const xLeft = centerX + Math.cos(Math.PI * 110/180) * radius - 0.5*fontSize;
-    const yLeft = centerY + Math.sin(Math.PI * 110/180) * radius;
+    const xLeft = centerX + Math.cos(Math.PI * (90+angle)/180) * radius - 0.5*fontSize;
+    const yLeft = centerY + Math.sin(Math.PI * (90+angle)/180) * radius;
     ctx.beginPath();
     ctx.font = fontSize + 'px Arial';
+    ctx.textBaseline = 'middle';
     ctx.textAlign = 'right';ctx.fillStyle = color
     ctx.fillText('Sympathetic',xLeft-fontSize,yLeft);
     
-    //right angle = 70
-    const xRight = centerX + Math.cos(Math.PI * 70/180) * radius + 0.5*fontSize;
-    const yRight = centerY + Math.sin(Math.PI * 70/180) * radius;
+    //right
+    const xRight = centerX + Math.cos(Math.PI * (90-angle)/180) * radius + 0.5*fontSize;
+    const yRight = centerY + Math.sin(Math.PI * (90-angle)/180) * radius;
     ctx.textAlign = 'left';
     ctx.fillText('Parasympathetic',xRight+fontSize,yRight);
 
