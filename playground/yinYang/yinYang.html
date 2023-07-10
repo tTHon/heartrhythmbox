@@ -37,14 +37,9 @@ const centerX = 50*vw;
 const centerY = 40*vh;
 
 nav=0;
-drawNumber(1);
-drawNumber(2);
-drawNumber(3);
-drawNumber(4);
-drawNumber(5);
-drawNumber(6);
-dysAutonomia(0.38,0.55,0.4,1);
-//majorLabel('#3f7eb3');
+
+dysAutonomia(0.38,0.55,0.4,5);
+majorLabel('#3f7eb3');
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
@@ -56,10 +51,7 @@ window.addEventListener("keydown", function(event) {
 //baseAnimation()
 function stepMove(){
     if (nav==1){
-        //trigger(1);
-        //paraSymOverLoad(1);
-        pSymEffect('all');
-        drawNumber(1);
+        trigger(1);
     }
     if (nav==2){
         paraSymOverLoad(1);
@@ -69,6 +61,11 @@ function stepMove(){
     }
     if (nav==4){
         drawNumber(1);
+        drawNumber(2);
+        drawNumber(3);
+        drawNumber(4);
+        drawNumber(5);
+        drawNumber(6);
     }
 
 }
