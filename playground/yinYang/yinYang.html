@@ -155,7 +155,57 @@ function paraSymOverLoad(){
 
 }
 
-function trigger(animate){
+function trigger(){
+    const trgX = 10*vw;
+    ctx.beginPath();
+    ctx.font = 3.25*vw + 'px Arial';
+    ctx.textAlign = 'left';ctx.textBaseline = 'middle'
+    ctx.fillText(" Trig",trgX - (radius/4),centerY);
+    ctx.fillText("gers",trgX-2*vw,centerY + 2.75*vw);
+    //bracket
+    const topLeftX = trgX - (radius/4) - vw;const topLeftY = centerY - 3.25*vw;
+    const bottomLeftX = topLeftX;const bottomLeftY = centerY + 5*vw + vh;
+    bracket(topLeftX,topLeftY,bottomLeftX,bottomLeftY,'#ddd', 'left');
+    bracket(topLeftX + 12*vw,topLeftY,topLeftX + 12*vw,bottomLeftY,'#ddd','right')
+}
+
+function bracket(x1,y1,x2,y2,color,side){
+    var capWidth = 0.2*(y2-y1);
+    if (side=='left'){
+    //top
+    ctx.beginPath();
+    ctx.moveTo(x1+capWidth,y1);
+    //ctx.lineTo(x1+vw,y1);
+    ctx.arcTo(x1,y1,x1,y1+capWidth,capWidth);
+    //ctx.lineTo(x2,y2);
+    ctx.strokeStyle = color;
+    ctx.stroke();
+    ctx.closePath();
+    //bottom
+    ctx.beginPath();
+    ctx.moveTo(x2+capWidth,y2);
+    ctx.arcTo(x2,y2,x2,y2-capWidth,capWidth);
+    ctx.stroke();
+    ctx.closePath();
+    }
+    else {
+        //top
+        ctx.beginPath();
+        ctx.moveTo(x1-capWidth,y1);
+        ctx.arcTo(x1,y1,x1,y1+capWidth,capWidth);
+        ctx.strokeStyle = color;
+        ctx.stroke();
+        ctx.closePath();
+        //bottom
+        ctx.beginPath();
+        ctx.moveTo(x2-capWidth,y2);
+        ctx.arcTo(x2,y2,x2,y2-capWidth,capWidth);
+        ctx.stroke();
+        ctx.closePath();
+    }
+}
+
+function triggerRound(animate){
     const trgRadius = 0.25*radius;
     const trgCenter = 10*vw;
     ctx.beginPath();
@@ -326,7 +376,7 @@ function getIceGrd(cold){
 
 function majorLabel(color){
     //angle left = 110
-    const fontSize = 2.5*vw;
+    const fontSize = 2*vw;
     const xLeft = centerX + Math.cos(Math.PI * 110/180) * radius - 0.5*fontSize;
     const yLeft = centerY + Math.sin(Math.PI * 110/180) * radius;
     ctx.beginPath();
