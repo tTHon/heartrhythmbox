@@ -8,7 +8,7 @@
 
 <style>
     * {margin: 0;};
-    .block {width: 100%;};
+    .block {width: 100%;;};
     /*color*/
     .darkBlue {background-color: #082b3a}
     .indigo {background-color: #1c444c}
@@ -44,6 +44,13 @@
         font-family: 'Quicksand', sans-serif;
         color: #888;font-size: 1.5vmax;text-align: center;
     }
+    #brainCord {
+        display: flex;
+        color: #e2fcff;font-size: 2vmax;text-align: center;
+        font-family: 'Quicksand', sans-serif;
+    }
+    #brainCord img {width:70%};
+    #brainCord div {vertical-align: center;}
 </style>
 
 </head>
@@ -64,14 +71,39 @@
     </div>
 
     <!--sym/parasym interplay-->
-    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);height: 100vh;">
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%)">
         <div class="topic">The Interplay between sym- & parasympathetic system</div>
         <canvas class="canvas">
         </canvas>
+    </div>
+
+    <!--syncope vs SCD -- cerebral blood flow-->
+    <div class="block" style="background-color: #232323;">
+        <div class="topic" style="padding-top:3vmax;">
+            The thin line between Syncope and Sudden Cardiac Death
+        </div>
+        <canvas class="canvas"></canvas>
+        <div id="brainCord">
+            <div>A<br>
+                <img src="media\brainCordA.png">
+            </div>
+            <div>B<br>
+                <img src="media\brainCordB.png">
+            </div>
+            <div>C<br>
+                <img src="media\brainCordC.png">
+            </div>
+            <div>D<br>
+                <img src="media\brainCordD.png">
+            </div>
+            <div>
+                <img src="media\label.png" style="width: 100%;">
+            </div>
+        </div>
         <div class="ref">
-        <a href="https://doi.org/10.1161/01.cir.102.23.2898" target="_blank">
-            Circulation 2000.
-        </a>
+            <a href="https://doi.org/10.3389/fcvm.2020.00036" target="_blank">
+                Front Cardiovasc Med 2020.
+            </a>
         </div>
     </div>
     
@@ -80,8 +112,141 @@ const block = document.getElementsByClassName('block');
 const canvas = document.getElementsByClassName('canvas')
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
+const vmin = Math.min(vw,vh)
 canvas0();
 canvas1();
+canvas2();
+
+function canvas2(){
+    const ctx = canvas[2].getContext("2d");
+    const scale = window.devicePixelRatio;
+    canvas[2].style.width = window.innerWidth + 'px';
+    canvas[2].style.height = 50*vmin + 'px';
+    canvas[2].width = Math.floor(window.innerWidth * scale*1);
+    canvas[2].height = Math.floor(50*vmin * scale*1);
+    ctx.scale(scale*1,scale*1);
+
+    const centerX = 50*vw;const centerY = 10*vh;
+    const radius = 35*vmin;
+    const angle1 = 45/180 * Math.PI;
+    const angle2 = 25/180 * Math.PI;
+    const h = Math.sin(angle1)*radius
+
+    document.getElementById('brainCord').style.marginLeft = radius/2 + 'px';
+    document.getElementById('brainCord').style.marginRight = radius/2 + 'px';
+
+    //A to D
+    ctx.beginPath();
+    ctx.moveTo(centerX - Math.cos(angle2)*radius,centerY);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius,centerY);
+    ctx.moveTo(centerX - Math.cos(angle2)*radius,centerY + h);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius,centerY + h);
+    ctx.strokeStyle = '#eee';ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.strokeStyle = '#555';ctx.lineWidth =1;
+    ctx.moveTo(centerX - Math.cos(angle2)*radius,centerY + 0.25*h);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius,centerY + 0.25*h);
+
+    ctx.moveTo(centerX - Math.cos(angle2)*radius,centerY + 0.5*h);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius,centerY + 0.5*h);
+
+    ctx.moveTo(centerX - Math.cos(angle2)*radius,centerY + 0.75*h);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius,centerY + 0.75*h);
+
+    ctx.stroke();
+    ctx.closePath();
+
+
+    ctx.beginPath();
+    ctx.moveTo(centerX - Math.cos(angle2)*radius,centerY);
+    ctx.lineTo(centerX,centerY + Math.sin(angle1)*radius);
+    ctx.lineTo(centerX,centerY + Math.sin(angle2)*radius);
+    ctx.lineTo(centerX - Math.cos(angle1)*radius,centerY);
+
+    var grd = ctx.createLinearGradient(centerX - Math.cos(angle2)*radius,centerY,
+    centerX,centerY + Math.sin(angle2)*radius);
+    grd.addColorStop(0.25,'green');
+    grd.addColorStop(0.5,'yellow');
+    grd.addColorStop(0.75,'orange');
+    grd.addColorStop(1,'red');
+    ctx.fillStyle = grd;
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.moveTo(centerX + Math.cos(angle2)*radius,centerY);
+    ctx.lineTo(centerX,centerY+Math.sin(angle1)*radius);
+    ctx.lineTo(centerX,centerY+ Math.sin(angle2)*radius);
+    ctx.lineTo(centerX + Math.cos(angle1)*radius,centerY);
+
+    var grd = ctx.createLinearGradient(centerX + Math.cos(angle2)*radius,centerY,
+    centerX,centerY + Math.sin(angle2)*radius);
+    grd.addColorStop(0.25,'green');
+    grd.addColorStop(0.5,'yellow');
+    grd.addColorStop(0.75,'orange');
+    grd.addColorStop(1,'red');
+    ctx.fillStyle = grd;
+    ctx.fill();
+    ctx.closePath();
+
+    //label
+    ctx.beginPath();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.font = 1.5*vw + 'px Quicksand';
+    ctx.fillText('Normal Level',centerX,centerY-0.5*vw);
+    ctx.textBaseline = 'top';
+    ctx.font = 1.5*vw + 'px Quicksand';
+    ctx.fillText('Below Normal Level',centerX,centerY+0.5*vw);
+    ctx.fillStyle='#ababab';ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.font = 1.8*vw + 'px Quicksand';
+    ctx.fillText('A',centerX - Math.cos(angle2)*radius,centerY + 0.25*h);
+    ctx.fillText('B',centerX - Math.cos(angle2)*radius,centerY + 0.5*h);
+    ctx.fillText('C',centerX - Math.cos(angle2)*radius,centerY + 0.75*h);
+    ctx.fillText('D',centerX - Math.cos(angle2)*radius,centerY + h);
+    ctx.textAlign = 'right';
+    ctx.fillText('Cerebral Blood Flow',centerX- Math.cos(angle2)*radius,centerY);
+
+    //coma line
+    ctx.moveTo(centerX,centerY+Math.sin(angle1)*radius);
+    //ctx.arc(centerX,centerY+Math.sin(angle1)*radius,0.2*vw,0,2*Math.PI);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius,centerY+Math.sin(angle1)*radius);
+    //ctx.arc(centerX + Math.cos(angle2)*radius,centerY+Math.sin(angle1)*radius,0.2*vw,0,2*Math.PI);
+    ctx.moveTo(centerX + Math.cos(angle2)*radius,centerY+Math.sin(angle1)*radius);
+    ctx.lineTo((centerX + Math.cos(angle2)*radius)-vw,centerY+Math.sin(angle1)*radius-vh);
+    ctx.moveTo(centerX + Math.cos(angle2)*radius,centerY+Math.sin(angle1)*radius);
+    ctx.lineTo((centerX + Math.cos(angle2)*radius)-vw,centerY+Math.sin(angle1)*radius+vh);
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'red';ctx.fillStyle = 'red';
+    ctx.stroke();ctx.fill();
+    ctx.fillStyle='#ababab';ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.font = 1.8*vw + 'px Quicksand';
+    ctx.fillText('Coma or Sudden Cardiac Death',centerX + Math.cos(angle2)*radius,
+    centerY+Math.sin(angle1)*radius+vw);
+    ctx.closePath();
+
+    //syncope line
+    ctx.beginPath();
+    ctx.moveTo(centerX,centerY+Math.sin(angle1)*radius);
+    //ctx.arc(centerX,centerY+Math.sin(angle1)*radius,0.2*vw,0,2*Math.PI);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius,centerY);
+    //ctx.arc(centerX + Math.cos(angle2)*radius,centerY,0.2*vw,0,2*Math.PI);
+    ctx.moveTo(centerX + Math.cos(angle2)*radius,centerY);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius - 0.5*vw ,centerY + 1.8*vh);
+    ctx.moveTo(centerX + Math.cos(angle2)*radius,centerY);
+    ctx.lineTo(centerX + Math.cos(angle2)*radius - 1.8*vh ,centerY - 0.5*vw);
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#d1ffbd';ctx.fillStyle = '#d1ffbd';
+    ctx.font = 2*vw + 'px Quicksand';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('SYNCOPE',centerX + Math.cos(angle2)*radius,centerY-vw);
+    ctx.stroke();ctx.fill();
+    
+}
 
 function canvas1(){
     const ctx = canvas[1].getContext("2d");
@@ -92,7 +257,7 @@ function canvas1(){
     canvas[1].height = Math.floor(0.8*window.innerHeight * scale*1);
     ctx.scale(scale*1,scale*1);
 
-    const radius = 30*vh;
+    const radius = 30*vmin;
     const centerX = 50*vw;
     const centerY = 40*vh;
     const min = 0.4;
@@ -142,7 +307,7 @@ function canvas0(){
 
     const radius = 5*vw;
     const centerX = 50*vw;
-    const centerY = 30*vh;
+    const centerY = 25*vh;
 
     //baseAnimation
     //0.45-0.55
