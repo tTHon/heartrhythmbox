@@ -18,21 +18,26 @@
 
     #title {
         color: pink;
-        font-size: 5vmax;text-align: center;
+        font-size: 6vmax;text-align: center;
         font-family: 'Quicksand', sans-serif;
         letter-spacing: 1px;
     }
     #subTitle {
         color: #e2fcff;
         text-align: center;
-        font-size: 2.5vmax;font-weight: 900;
-        letter-spacing: 4px;
+        font-size: 2.5vmax;
+        letter-spacing: 5px;
         font-family: 'Quicksand', sans-serif;
     }
     #logoPanel {
         padding-top: 5vmax;text-align: center;
         font-family: 'Quicksand', sans-serif;
         color: #888;font-size: 1.5vmax;
+    }
+    .topic {
+        font-family: 'Quicksand', sans-serif;
+        color: #e2fcff;font-size: 3vmax;
+        text-align: center;
     }
 </style>
 
@@ -49,8 +54,15 @@
         </div>
         <div id="logoPanel">
             <img src="boxGreyRect.png" style="width: 2vmax;">
-            <span>heartRhythmBox.com</span>
+            <span style="vertical-align: 5px;">heartRhythmBox.com</span>
         </div>
+    </div>
+
+    <!--sym/parasym interplay-->
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);height: 100vh;">
+        <div class="topic">The Interplay between sym- & parasympathetic system</div>
+        <canvas class="canvas">
+        </canvas>
     </div>
     
 <script>
@@ -59,6 +71,55 @@ const canvas = document.getElementsByClassName('canvas')
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 canvas0();
+canvas1();
+
+function canvas1(){
+    const ctx = canvas[1].getContext("2d");
+    const scale = window.devicePixelRatio;
+    canvas[1].style.width = window.innerWidth + 'px';
+    canvas[1].style.height = 0.8*window.innerHeight + 'px';
+    canvas[1].width = Math.floor(window.innerWidth * scale*1);
+    canvas[1].height = Math.floor(0.8*window.innerHeight * scale*1);
+    ctx.scale(scale*1,scale*1);
+
+    const radius = 30*vh;
+    const centerX = 50*vw;
+    const centerY = 40*vh;
+    const min = 0.4;
+    const max = 0.6;
+    const maxStep = 20;
+    var gap = 0;
+    var left = min;
+    var fwd = 0.01;
+    var step = 0;
+
+    var gd = 0;
+    var fire = getFireGrd(1,centerX,centerY,radius,1);
+    var ice = getIceGrd(1,centerX,centerY,radius,1);
+
+    setInterval(() => {
+        ctx.clearRect(0,0,100*vw,100*vh);
+        var leftGd = ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius);
+        majorLabel(1,centerX,centerY,radius,'#e2faff')
+        drawLeft(1,centerX,centerY,radius, left-gap,fire);
+        drawRight(1,centerX,centerY,radius,1-left-gap,ice);   
+        left = left + fwd; 
+        step++;
+        gd = step/25;
+
+        if (left>max){
+            left=max;
+        }
+        if (left<min){
+            left=min;
+        }
+        if (step>maxStep){
+            step = 0;
+            if (left>=max){fwd = -0.01;}
+            if (left<=min){fwd = 0.01;}
+        }
+    }, 200);
+}
 
 function canvas0(){
     const ctx = canvas[0].getContext("2d");
@@ -134,6 +195,57 @@ function drawRight(key,centerX,centerY,radius,ratio,color){
     ctx.fillStyle = color;
     ctx.fill();
     ctx.closePath()
+}
+
+function getFireGrd(key,centerX,centerY,radius,hot){
+    const ctx = canvas[key].getContext("2d");
+    const fireColor = ['#801100','#b62203','#d73502','#fc6400','#ff7500','#FAC000'];
+    const fire = ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius);
+    for (let index = 0; index < fireColor.length; index++) {
+        var hotFactor = (hot + index)/10;
+        if (hotFactor>1){hotFactor =1}
+        fire.addColorStop(hotFactor, fireColor[index]);
+    }
+    return fire;
+}
+
+function getIceGrd(key,centerX,centerY,radius,cold){
+    const ctx = canvas[key].getContext("2d");
+    const iceColor = ['#3f7eb3','#6ba7cc','#aedbf0','#fafeff','#e2fcff','#cbf1fa'];
+    const ice= ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius,);
+    for (let index = 0; index < iceColor.length; index++) {
+        var coldFactor = (cold + index)/10;
+        if (coldFactor>1){coldFactor =1}
+        ice.addColorStop(coldFactor, iceColor[index]);
+    }
+    return ice;
+}
+
+function majorLabel(key,centerX,centerY,radius,color){
+    const ctx = canvas[key].getContext("2d");
+    //angle from midline
+    const angle = 25;
+    //left 
+    const fontSize = 2*vw;
+    const xLeft = centerX + Math.cos(Math.PI * (90+angle)/180) * radius - 0.5*fontSize;
+    const yLeft = centerY + Math.sin(Math.PI * (90+angle)/180) * radius;
+    ctx.beginPath();
+    ctx.font = fontSize + 'px Quicksand';
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'right';ctx.fillStyle = color
+    ctx.fillText('Sympathetic',xLeft-fontSize,yLeft);
+
+    //right
+    const xRight = centerX + Math.cos(Math.PI * (90-angle)/180) * radius + 0.5*fontSize;
+    const yRight = centerY + Math.sin(Math.PI * (90-angle)/180) * radius;
+    ctx.textAlign = 'left';
+    ctx.fillText('Parasympathetic',xRight+fontSize,yRight);
+
+    ctx.font = 0.7*fontSize + 'px Quicksand';
+    ctx.textAlign = 'right';
+    ctx.fillText('nervous system',xLeft-fontSize,yLeft+0.7*fontSize);
+    ctx.textAlign = 'left';
+    ctx.fillText('nervous system',xRight+fontSize,yRight+0.7*fontSize);
 }
 
 </script>
