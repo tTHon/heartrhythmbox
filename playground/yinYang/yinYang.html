@@ -7,7 +7,7 @@
 <style>
     * {margin: 0;};
     #cHolder {width: 100vw;height: 100vh;}
-    .number {position: fixed;border-radius: 1.5vw;display: table-cell;vertical-align: middle;
+    .number {position:absolute;border-radius: 1.5vw;display: table-cell;vertical-align: middle;
         width: 3vw;height: 3vw;border: solid 0.1vw pink;z-index: 5;
         background-color: pink;color:#555;
         font-family: Arial, Helvetica, sans-serif;font-size: 2vw;text-align: center;
@@ -17,7 +17,7 @@
 </style>
 </head>
 <body>
-    <div id="cHolder" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);">
+    <div id="cHolder" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);">
         <canvas id="canvas">
         </canvas>
     </div>
@@ -38,7 +38,8 @@ const centerY = 40*vh;
 
 nav=0;
 
-dysAutonomia(0.38,0.55,0.4,5);
+//dysAutonomia(0.38,0.55,0.4,5);
+baseAnimation();
 majorLabel('#3f7eb3');
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
@@ -418,8 +419,8 @@ function baseAnimation(){
     var fwd = 0.01;
     var step = 0;
 
-    var fire = getFireGrd(2);
-    var ice = getIceGrd(2);
+    var fire = getFireGrd(1);
+    var ice = getIceGrd(1);
 
     setInterval(() => {
         ctx.clearRect(0,0,100*vw,100*vh);

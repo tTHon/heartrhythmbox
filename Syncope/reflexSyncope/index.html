@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treatment of Reflex Syncope</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+
+<style>
+    * {margin: 0;};
+    .block {width: 100%;};
+    /*color*/
+    .darkBlue {background-color: #082b3a}
+    .indigo {background-color: #1c444c}
+    .yellow {background-color: #f2cf49}
+    .orange {background-color: #E36E53}
+    .cyan {background-color: #3F9DA4;}
+
+    #title {
+        color: pink;
+        font-size: 5vmax;text-align: center;
+        font-family: 'Quicksand', sans-serif;
+        letter-spacing: 1px;
+    }
+    #subTitle {
+        color: #e2fcff;
+        text-align: center;
+        font-size: 2.5vmax;font-weight: 900;
+        letter-spacing: 4px;
+        font-family: 'Quicksand', sans-serif;
+    }
+    #logoPanel {
+        padding-top: 5vmax;text-align: center;
+        font-family: 'Quicksand', sans-serif;
+        color: #888;font-size: 1.5vmax;
+    }
+</style>
+
+</head>
+<body>
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);height: 100vh;">
+        <canvas class="canvas">
+        </canvas>
+        <div id="subTitle">
+            Management of
+        </div>
+        <div id="title">
+            BENIGN SYNCOPE
+        </div>
+        <div id="logoPanel">
+            <img src="boxGreyRect.png" style="width: 2vmax;">
+            <span>heartRhythmBox.com</span>
+        </div>
+    </div>
+    
+<script>
+const block = document.getElementsByClassName('block');
+const canvas = document.getElementsByClassName('canvas')
+const vw = Math.round(window.innerWidth/100);
+const vh = Math.round(window.innerHeight/100);
+canvas0();
+
+function canvas0(){
+    const ctx = canvas[0].getContext("2d");
+    const scale = window.devicePixelRatio;
+    canvas[0].style.width = window.innerWidth + 'px';
+    canvas[0].style.height = 0.42* window.innerHeight + 'px';
+    canvas[0].width = Math.floor(window.innerWidth * scale*1);
+    canvas[0].height = Math.floor(0.42*window.innerHeight * scale*1);
+    ctx.scale(scale*1,scale*1);
+
+    const radius = 5*vw;
+    const centerX = 50*vw;
+    const centerY = 30*vh;
+
+    //baseAnimation
+    //0.45-0.55
+    const min = 0.4;
+    const max = 0.6;
+    const maxStep = 20;
+    var gap = 0;
+    var left = min;
+    var fwd = 0.01;
+    var step = 0;
+
+    var gd = 0;
+
+
+    setInterval(() => {
+        ctx.clearRect(0,0,100*vw,100*vh);
+        var leftGd = ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius);
+        leftGd.addColorStop(gd, '#1c444c');
+        leftGd.addColorStop(1, '#3F9DA4')
+        drawLeft(0,centerX,centerY,radius, left-gap,leftGd);
+        drawRight(0,centerX,centerY,radius,1-left-gap,'#e2fcff');   
+        left = left + fwd; 
+        step++;
+        gd = step/25;
+
+        if (left>max){
+            left=max;
+        }
+        if (left<min){
+            left=min;
+        }
+        if (step>maxStep){
+            step = 0;
+            if (left>=max){fwd = -0.01;}
+            if (left<=min){fwd = 0.01;}
+        }
+    }, 200);
+
+}
+
+function drawLeft(key,centerX,centerY,radius,ratio,color){
+    const ctx = canvas[key].getContext("2d");
+    //arc left
+    ctx.beginPath();
+    ctx.arc(centerX,centerY+(radius*(1-ratio)),radius*ratio, 1.5*Math.PI, 0.5*Math.PI);
+    ctx.arc(centerX,centerY, radius, 0.5 * Math.PI, 1.5 * Math.PI);
+    ctx.arc(centerX,centerY-(radius*ratio),radius*(1-ratio), 1.5*Math.PI, 0.5*Math.PI,true);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawRight(key,centerX,centerY,radius,ratio,color){
+    const ctx = canvas[key].getContext("2d");
+    //arc right
+    ctx.beginPath();
+    ctx.arc(centerX,centerY-(radius*(1-ratio)),radius*ratio,0.5*Math.PI,1.5*Math.PI);
+    ctx.arc(centerX,centerY,radius, 1.5*Math.PI,0.5*Math.PI);
+    ctx.arc(centerX,centerY+(radius*ratio),radius*(1-ratio),0.5*Math.PI,1.5*Math.PI,true);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.closePath()
+}
+
+</script>
+</body>
+</html>
