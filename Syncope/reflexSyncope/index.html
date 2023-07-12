@@ -7,8 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
 <style>
-    * {margin: 0;};
-    .block {width: 100%;;};
+    /*
+    body::-webkit-scrollbar{
+    display: none;}*/
+
+    * {margin: 0;max-width: 1920px;
+        font-family: 'Quicksand', sans-serif;};
+
+    .block {width: 100%};
     /*color*/
     .darkBlue {background-color: #082b3a}
     .indigo {background-color: #1c444c}
@@ -37,20 +43,24 @@
     .topic {
         font-family: 'Quicksand', sans-serif;
         color: #e2fcff;font-size: 3vmax;
-        text-align: center;
+        text-align: center;padding: 1vmax;
     }
     .ref, .ref a {
         padding: 2vmax;
         font-family: 'Quicksand', sans-serif;
-        color: #888;font-size: 1.5vmax;text-align: center;
+        color: #666;font-size: 1.4vmax;text-align: center;
     }
     #brainCord {
         display: flex;
+        align-content: center;align-self: center;text-align: center;
         color: #e2fcff;font-size: 2vmax;text-align: center;
         font-family: 'Quicksand', sans-serif;
     }
-    #brainCord img {width:70%};
-    #brainCord div {vertical-align: center;}
+    #brainCord div {align-items: center;align-self: center;}
+    .bCordImg {align-self: center;}
+    #benignS {display: flex;}
+    #benignS div {flex: 50%;color: #e2fcff;font-size: 2vmax;}
+
 </style>
 
 </head>
@@ -70,13 +80,6 @@
         </div>
     </div>
 
-    <!--sym/parasym interplay-->
-    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%)">
-        <div class="topic">The Interplay between sym- & parasympathetic system</div>
-        <canvas class="canvas">
-        </canvas>
-    </div>
-
     <!--syncope vs SCD -- cerebral blood flow-->
     <div class="block" style="background-color: #232323;">
         <div class="topic" style="padding-top:3vmax;">
@@ -84,56 +87,101 @@
         </div>
         <canvas class="canvas"></canvas>
         <div id="brainCord">
+            <div>
+                <img src="media\label.png" class="bCordImg">
+            </div>
             <div>A<br>
-                <img src="media\brainCordA.png">
+                <img src="media\brainCordA.png" class="bCordImg">
             </div>
             <div>B<br>
-                <img src="media\brainCordB.png">
+                <img src="media\brainCordB.png" class="bCordImg">
             </div>
             <div>C<br>
-                <img src="media\brainCordC.png">
+                <img src="media\brainCordC.png" class="bCordImg">
             </div>
             <div>D<br>
-                <img src="media\brainCordD.png">
+                <img src="media\brainCordD.png"  class="bCordImg">
             </div>
-            <div>
-                <img src="media\label.png" style="width: 100%;">
-            </div>
-        </div>
+         </div>
         <div class="ref">
             <a href="https://doi.org/10.3389/fcvm.2020.00036" target="_blank">
                 Front Cardiovasc Med 2020.
             </a>
         </div>
     </div>
+
+    <!--benign syncope-->
+    <div class="block" style="background-color: #232323;">
+        <div id="benignS">
+            <div style="font-size: 5vmax;text-align: center;
+            padding: 10vmax 3vmax;background-color: #f2cf49;color: #082b3a;"">
+                Reflex Syncope <br>
+                has a benign prognosis.
+            </div>
+            <div style="background-color: #3F9DA4;color: #1b2735;
+            text-align: center;padding: 10vmax 3vmax;align-content: center;">
+                <span style="border-bottom: #082b3a solid 0.1vmax;padding-top: 1vmax;">
+                    HR (95%CI) for all-cause mortality</span>
+                <br>
+                <div style="font-size: 3vmax;color:#232323;font-weight: 900;padding-top: 2vmax;">
+                    Cardiac Syncope: 1.43
+                    <span style="font-size: 2vmax;font-weight: 400;color: red;">
+                    (1.25-1.64)</span>
+                </div>
+                <div style="font-size: 3vmax;color:#232323;font-weight: 900;padding-bottom: 3vmax;">
+                Reflex Syncope: 1.17 
+                <span style="font-size: 2vmax;color:#555;font-weight: 400;background-color:#3F9DA4;">
+                (0.95-1.44)
+                </span>
+                </div>
+                <a href="https://www.nejm.org/doi/full/10.1056/nejmoa012407" target="_blank" 
+                class="ref">
+                    NEJM 2002.
+                </a>
+            </div>
+        </div>
+    </div>
     
+
+    <!--sym/parasym interplay-->
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding-bottom: 2vmax;">
+        <div class="topic">The Interplay between sym- & parasympathetic system</div>
+        <canvas class="canvas">
+        </canvas>
+    </div>
+
 <script>
 const block = document.getElementsByClassName('block');
 const canvas = document.getElementsByClassName('canvas')
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 const vmin = Math.min(vw,vh)
-canvas0();
-canvas1();
-canvas2();
+canvas0(0);
+canvas1(1);
+canvas2(2);
 
-function canvas2(){
-    const ctx = canvas[2].getContext("2d");
+/*syncope vs SCD*/
+function canvas1(key){
+    const ctx = canvas[key].getContext("2d");
     const scale = window.devicePixelRatio;
-    canvas[2].style.width = window.innerWidth + 'px';
-    canvas[2].style.height = 50*vmin + 'px';
-    canvas[2].width = Math.floor(window.innerWidth * scale*1);
-    canvas[2].height = Math.floor(50*vmin * scale*1);
+    const centerX = 50*vw;const centerY = 12*vh;
+    const radius = 35*vmin;
+    const cHeight = centerY + radius + 2*vh;
+    canvas[key].style.width = window.innerWidth + 'px';
+    canvas[key].style.height = cHeight + 'px';
+    canvas[key].width = Math.floor(window.innerWidth * scale*1);
+    canvas[key].height = Math.floor(cHeight * scale*1);
     ctx.scale(scale*1,scale*1);
 
-    const centerX = 50*vw;const centerY = 10*vh;
-    const radius = 35*vmin;
+    document.getElementById('brainCord').style.marginLeft = centerX - 3*2*radius/4 + 'px';
+    const img = document.getElementsByClassName('bCordImg');
+    for (let index = 0; index < img.length; index++) {
+        img[index].style.width = 2*radius/4 + 'px';        
+    }
+
     const angle1 = 45/180 * Math.PI;
     const angle2 = 25/180 * Math.PI;
     const h = Math.sin(angle1)*radius
-
-    document.getElementById('brainCord').style.marginLeft = radius/2 + 'px';
-    document.getElementById('brainCord').style.marginRight = radius/2 + 'px';
 
     //A to D
     ctx.beginPath();
@@ -248,18 +296,20 @@ function canvas2(){
     
 }
 
-function canvas1(){
-    const ctx = canvas[1].getContext("2d");
-    const scale = window.devicePixelRatio;
-    canvas[1].style.width = window.innerWidth + 'px';
-    canvas[1].style.height = 0.8*window.innerHeight + 'px';
-    canvas[1].width = Math.floor(window.innerWidth * scale*1);
-    canvas[1].height = Math.floor(0.8*window.innerHeight * scale*1);
-    ctx.scale(scale*1,scale*1);
-
+/*sym parasym*/
+function canvas2(key){
+    const ctx = canvas[key].getContext("2d");
     const radius = 30*vmin;
     const centerX = 50*vw;
     const centerY = 40*vh;
+    const cHeight = centerY + radius + 5*vh;
+    const scale = window.devicePixelRatio;
+    canvas[key].style.width = window.innerWidth + 'px';
+    canvas[key].style.height = cHeight + 'px';
+    canvas[key].width = Math.floor(window.innerWidth * scale*1);
+    canvas[key].height = Math.floor(cHeight * scale*1);
+    ctx.scale(scale*1,scale*1);
+
     const min = 0.4;
     const max = 0.6;
     const maxStep = 20;
@@ -269,15 +319,15 @@ function canvas1(){
     var step = 0;
 
     var gd = 0;
-    var fire = getFireGrd(1,centerX,centerY,radius,1);
-    var ice = getIceGrd(1,centerX,centerY,radius,1);
+    var fire = getFireGrd(key,centerX,centerY,radius,1);
+    var ice = getIceGrd(key,centerX,centerY,radius,1);
 
     setInterval(() => {
         ctx.clearRect(0,0,100*vw,100*vh);
         var leftGd = ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius);
-        majorLabel(1,centerX,centerY,radius,'#e2faff')
-        drawLeft(1,centerX,centerY,radius, left-gap,fire);
-        drawRight(1,centerX,centerY,radius,1-left-gap,ice);   
+        majorLabel(key,centerX,centerY,radius,'#e2faff')
+        drawLeft(key,centerX,centerY,radius, left-gap,fire);
+        drawRight(key,centerX,centerY,radius,1-left-gap,ice);   
         left = left + fwd; 
         step++;
         gd = step/25;
@@ -298,16 +348,16 @@ function canvas1(){
 
 function canvas0(){
     const ctx = canvas[0].getContext("2d");
-    const scale = window.devicePixelRatio;
-    canvas[0].style.width = window.innerWidth + 'px';
-    canvas[0].style.height = 0.42* window.innerHeight + 'px';
-    canvas[0].width = Math.floor(window.innerWidth * scale*1);
-    canvas[0].height = Math.floor(0.42*window.innerHeight * scale*1);
-    ctx.scale(scale*1,scale*1);
-
     const radius = 5*vw;
     const centerX = 50*vw;
     const centerY = 25*vh;
+    const cHeight = centerY + radius + 2*vh;
+    const scale = window.devicePixelRatio;
+    canvas[0].style.width = window.innerWidth + 'px';
+    canvas[0].style.height = cHeight + 'px';
+    canvas[0].width = Math.floor(window.innerWidth * scale*1);
+    canvas[0].height = Math.floor(cHeight * scale*1);
+    ctx.scale(scale*1,scale*1);
 
     //baseAnimation
     //0.45-0.55
