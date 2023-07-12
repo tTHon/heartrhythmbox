@@ -15,6 +15,7 @@
         font-family: 'Quicksand', sans-serif;};
 
     .block {width: 100%;min-height: 100vh};
+    .canvas {border: solid 1vmax red;}
     /*color*/
     .darkBlue {background-color: #082b3a}
     .indigo {background-color: #1c444c}
@@ -67,7 +68,8 @@
     #movieBlk {flex:0.75;align-self: center;text-align: center;}
     #defRefSyn {color: #e2fcff;font-size: 2vmax;padding-top: 3vh;visibility: hidden;
         text-align:left;line-height: 110%;border-top: #3F9DA4 solid 0.1vmin;}
-    #qRefSyn {padding-bottom: 1vh;color:#f2cf49}   
+    #qRefSyn {padding-bottom: 1vh;color:#f2cf49};
+       
     #controlBar {font-size: 2.2vmax;color: #232323;
     width: fit-content;margin-left: auto;margin-right: auto;}
     #controlBar span {cursor: pointer;
@@ -137,12 +139,12 @@
     <div class="block" style="background-color: #232323;min-height: 100vh;padding-top: 5vmax;">
         <div id="benignS">
             <div style="font-size: 5vmax;text-align: center;line-height: 110%;border-radius: 2vmax;
-            padding: 10vmax 3vmax;background-color: #f2cf49;color: #082b3a;margin: 0.5vmax;">
+            padding: 10vmax 3vmax;background-color: #f2cf49;color: #082b3a;">
                 <span style="font-weight: 900;">Reflex Syncope</span>
                 <br>
                 has a benign prognosis.
             </div>
-            <div style="background-color: #3F9DA4;color: #1b2735;border-radius: 2vmax;margin: 0.5vmax;
+            <div style="background-color: #3F9DA4;color: #1b2735;border-radius: 2vmax;
             text-align: center;padding: 10vmax 3vmax;align-content: center;">
                 <span style="border-bottom: #082b3a solid 0.1vmax;padding-top: 1vmax;">
                     HR (95%CI) for all-cause mortality</span>
@@ -200,7 +202,7 @@
     
 
     <!--sym/parasym interplay-->
-    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax;
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
     min-height: 100vh;">
         <div class="topic" style="padding-top: 5vmax;">The Interplay between sym- & parasympathetic system</div>
         <canvas class="canvas">
@@ -208,14 +210,14 @@
     </div>
 
     <!--ref Syn animation-->
-    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax;
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
     min-height: 100vh;">
-        <div class="topic" style="padding-top: 3vmax;color: pink;font-size: 4vmax;">
+        <div class="topic" style="padding-top: 1vmax;color: pink;font-size: 4vmax;">
             REFLEX SYNCOPE
         </div>
-        <div id="controlBar">
-           <span title="play" onclick="refSynAnim('1')">&#9655;</span>&nbsp;&nbsp;
-           <span title="reload" onclick="refSynAnim('0')">&#10227;</span>
+        <div id="controlBar" style="width: fit-content;margin-left: auto;margin-right: auto;">
+           <span title="play" onclick="canvas3(3,'1')">&#9655;</span>&nbsp;&nbsp;
+           <span title="reload" onclick="canvas3(3,'0')">&#10227;</span>
         </div>
         <canvas class="canvas">
         </canvas>
@@ -282,6 +284,7 @@ const vmin = Math.min(vw,vh)
 canvas0(0);
 canvas1(1);
 canvas2(2);
+canvas3(3,-1)
 
 /*syncope vs SCD*/
 function canvas1(key){
@@ -520,6 +523,411 @@ function canvas0(){
     }, 200);
 
 }
+
+var nav=0;
+function canvas3(key,option){
+    const ctx = canvas[key].getContext("2d");
+    const radius = 30*vmin;
+    const centerX = 50*vw;
+    const centerY = 10*vh + radius;
+    //const cHeight = centerY + radius + 5*vh;
+    const scale = window.devicePixelRatio;
+    canvas[key].style.width = window.innerWidth + 'px';
+    canvas[key].style.height = window.innerHeight + 'px';
+    canvas[key].width = Math.floor(window.innerWidth * scale*1);
+    canvas[key].height = Math.floor(window.innerHeight * scale*1);
+    ctx.scale(scale*1,scale*1);
+
+    if (option==-1){
+        dysAutonomia(0.38,0.55,0.4,1); 
+        majorLabel(key,centerX,centerY,radius,'#3f7eb3');
+    }
+    
+    if (option==0){
+        nav=0;
+        dysAutonomia(0.38,0.55,0.4,1);
+    }
+    if (option==1){
+        nav++;
+        stepMove();
+    }
+
+    function stepMove(){
+        if (nav==1){
+            trigger();
+        }
+        if (nav==2){
+            paraSymOverLoad(1);
+        }
+        if (nav==3){
+            pSymEffect('all');
+        }
+        if (nav==4){
+            clearSyncope();
+            nav=0;
+        }
+      
+    }
+
+    function dysAutonomia(maxL,maxR,minR,loop){
+    //dysAutonomia(0.38,0.55,0.4,5);    
+    var fire = getFireGrd(key,centerX,centerY,radius,1);
+    var ice = getIceGrd(key,centerX,centerY,radius,1);
+
+    //key,centerX,centerY,radius,ratio,color
+    //step 0 -- together
+    drawLeft(key,centerX,centerY,radius,0.5,fire);
+    drawRight(key,centerX,centerY,radius,0.5,ice);
+
+    //step 1 -- separated;
+    var left = 0.5;var right = 0.5;
+    var end = Math.max(0.5-maxL,0.5-maxR);
+    var step1 = setInterval(() => {
+        for (let index = 0; index <= end; index=index+0.01) {
+        left = left - index;
+        if (left<maxL){left=maxL};
+        right = right + index;
+        if (right>maxR){right=maxR}
+        ctx.clearRect(0,0,100*vw,100*vh);
+        majorLabel(key,centerX,centerY,radius,'#3f7eb3');
+        drawLeft(key,centerX,centerY,radius,left,fire);
+        drawRight(key,centerX,centerY,radius,right,ice);
+      } 
+    }, 200);
+    clearInterval(step1);
+
+    //step2
+    //step2 -- animated ice
+    var step = 0;var maxStep = 10+(maxR-minR)*10;var fwd = 0.01;
+    var right = maxR+step;var left = maxL;
+    var count = 0;
+    var step2 = setInterval(function(){
+        animateIce();count++;
+
+        if (loop>0 && count>=(maxStep*loop)){
+        clearInterval(step2);
+    }
+        },100)
+
+
+    function animateIce(){
+            ctx.clearRect(0,0,100*vw,100*vh);
+            majorLabel(key,centerX,centerY,radius,'#3f7eb3');
+            right = right + fwd;
+            step++;
+            if (right<minR){
+                right = minR;left = left+0.01}
+            if (right>maxR){
+                right = maxR;left = left-0.01};
+            if (step>maxStep){
+                step = 0;
+                if (right>=maxR){fwd = -0.01;}
+                if (right<=minR){fwd = 0.01;}
+            }
+            drawLeft(key,centerX,centerY,radius,left,fire);
+            drawRight(key,centerX,centerY,radius,right,ice);
+
+    }
+    }
+
+    function trigger(color){
+        const trgX = 10*vw;
+        ctx.beginPath();
+        ctx.font = 3.25*vw + 'px Quicksand';
+        ctx.textAlign = 'left';ctx.textBaseline = 'bottom';
+        if (color==null){
+            color='#ddd'
+        }
+        ctx.fillStyle = color;
+        ctx.fillText(" Trig",trgX - (radius/4),centerY);
+        ctx.fillText("gers",trgX-2*vw,centerY + 2.75*vw);
+        //bracket
+        const topX = trgX - (radius/4) - 0.5*vw;
+        const topY = centerY - 4*vw;
+        const bottomX = topX;
+        const bottomY = centerY + 3.25*vw + vh;
+        bracket(topX,topY,bottomX,bottomY,'#ababab', 'left');
+        bracket(topX + 11*vw,topY,topX + 11*vw,bottomY,'#ababab','right');
+        arrow(topX + 12*vw,centerY,centerX- radius - 2*vw,centerY);
+
+    //example of trigger
+    }
+
+    function bracket(x1,y1,x2,y2,color,side){
+    const capWidth = 0.2*(y2-y1);
+    if (side=='left'){
+    //top
+    ctx.beginPath();
+    ctx.moveTo(x1+capWidth,y1);
+    //ctx.lineTo(x1+vw,y1);
+    ctx.arcTo(x1,y1,x1,y1+capWidth,capWidth);
+    //ctx.lineTo(x2,y2);
+    ctx.strokeStyle = color;
+    ctx.stroke();
+    ctx.closePath();
+    //bottom
+    ctx.beginPath();
+    ctx.moveTo(x2+capWidth,y2);
+    ctx.arcTo(x2,y2,x2,y2-capWidth,capWidth);
+    ctx.stroke();
+    ctx.closePath();
+    }
+    else {
+        //top
+        ctx.beginPath();
+        ctx.moveTo(x1-capWidth,y1);
+        ctx.arcTo(x1,y1,x1,y1+capWidth,capWidth);
+        ctx.strokeStyle = color;
+        ctx.stroke();
+        ctx.closePath();
+        //bottom
+        ctx.beginPath();
+        ctx.moveTo(x2-capWidth,y2);
+        ctx.arcTo(x2,y2,x2,y2-capWidth,capWidth);
+        ctx.stroke();
+        ctx.closePath();
+    }
+}
+
+    function arrow(x1,y1,x2,y2,color,side){
+    //cal distance = sqRt (x2-x1)2 + (y2-y1)2
+    const d = Math.sqrt(((x2-x1)*(x2-x1)+((y2-y1)*(y2-y1))));
+    var arrow = 0.1*d;
+    if (side=='left'){
+        var head = -1
+    } else {var head = 1}
+    if (arrow<2*vw){arrow=2*vw}
+    const angle = 30/180 * Math.PI ;
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.moveTo(x1,y1);
+    ctx.lineTo(x2,y2);
+    //arrowTop
+    ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-Math.cos(angle)*arrow*head,y2-Math.sin(angle)*arrow);
+    //arrowBottom
+    ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-Math.cos(angle)*arrow*head,y2+Math.sin(angle)*arrow);
+    ctx.stroke();
+}
+
+    function clearSyncope(){
+        paraSymOverLoad('still');
+        var trigHex = '#e2fcff';
+        var syncHex = '#e2fcff';
+        var left = 0.1;var right = 0.9;
+        var fireColor = getFireGrd(key,centerX,centerY,radius,1);
+        var iceColor = getIceGrd(key,centerX,centerY,radius,8);
+        //const fireUp = 4;
+        //const iceDown = 2;
+
+        //fireBase 0.1 to 0.5
+        for (let index = 0; index < 40; index++) {
+            setTimeout(() => {
+                ctx.clearRect(0,0,100*vw,100*vh);
+                var opac = 1-(index/50);
+                trigColor = toRGB(trigHex,opac);
+                syncColor = toRGB(syncHex,opac);
+                trigger(trigColor);
+                syncopeText('text',syncColor);
+
+                fireColor = getFireGrd(1+(index/10));
+                iceColor = getIceGrd(8-(index/6));
+                drawLeft(key,centerX,centerY,radius,fireColor);
+                drawRight(key,centerX,centerY,radius,iceColor);  
+                left = left+0.01;if (left>=0.5){left=0.5};
+                right = right-0.01;if (right<=0.5){right=0.5};
+
+                if (index==39){
+                    //arrow
+                    const topX = 10*vw - (radius/4) - 0.5*vw;
+                    const aWidth = (centerX-radius)-(topX+12*vw);
+                    ctx.clearRect(topX + 12*vw,centerY-2*vw,aWidth,5*vw);
+                }
+            }, 50*index);
+        }
+    }
+
+    function toRGB(color,opacity){
+        String(color);
+        const hex = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f']
+        var red1 = color[1];var red2 = color[2];
+        red = hex.indexOf(red1)*16 + hex.indexOf(red2) ;
+        var green1 = color[3];var green2 = color[4];
+        green = hex.indexOf(green1) *16 + hex.indexOf(green2); 
+        var blue1 = color[5];var blue2 = color[6];
+        blue = hex.indexOf(blue1)*16 + hex.indexOf(blue2);
+        String(red);String(green);String(blue)
+        var rgbaColor = 'rgba(' +red +','+ green + ',' + blue + ',' + opacity+')';
+        return rgbaColor;
+    }
+
+    function syncopeText(option,color){
+        const fSize = 2.8*vw;
+        const syncY = centerY+radius+2.5*fSize+vw;
+        const syncTop = syncY-1.5*fSize-vw;
+        const syncBottom = syncY+vw;
+        const syncMid = 0.5*(syncBottom-syncTop) + syncTop;
+        const arrowX = centerX + radius + 2*vw;
+        const arrowWidth = 4*vw;  
+        const x1 = arrowX+arrowWidth+vw;
+        const midTextX = x1+fSize;
+        const bottomTextY = centerY+2.2*fSize;
+        const cap = Math.round((syncMid-bottomTextY)*0.2);
+        //text
+        if (option =='text'){
+        ctx.beginPath();
+        ctx.textBaseline = 'bottom';
+        ctx.font =  1.5*fSize + 'px Arial';
+        ctx.textAlign = 'center';
+        if (color==null){
+            color = '#e2fcff';
+        }
+        ctx.fillStyle = color;
+        ctx.fillText ('SYNCOPE',centerX,syncY);
+        ctx.fill();
+        ctx.closePath();
+        bracket(centerX-4.5*fSize-vw,syncTop,centerX-4.5*fSize-vw,syncBottom,'#e2fcff','left');
+        bracket(centerX+4.5*fSize+vw,syncTop,centerX+4.5*fSize+vw,syncBottom,'#e2fcff','right');
+        }
+
+        if (option =='line'){
+            ctx.beginPath();
+            ctx.strokeStyle = '#ababab';
+            ctx.moveTo(midTextX,bottomTextY+vw);
+            ctx.lineTo(midTextX,syncMid-cap);
+            ctx.moveTo(centerX+4.5*fSize+2*vw,syncMid);
+            ctx.lineTo(midTextX-cap,syncMid);
+            ctx.arcTo(midTextX,syncMid,midTextX,syncMid-cap,cap);
+            ctx.stroke();
+            arrow(midTextX-cap,syncMid,centerX+4.5*fSize+2*vw,syncMid,'#ababab','left');
+            ctx.closePath();
+        }
+    }
+
+    function pSymEffect(option){
+        if (option=='all'){
+        const arrowX = centerX + radius + 2*vw;
+        const arrowWidth = 4*vw;    
+        const fSize = 2.8*vw;
+        arrow(arrowX,centerY,arrowX+arrowWidth,centerY,'#ababab');
+
+        const x1 = arrowX+arrowWidth+vw;
+        ctx.beginPath();
+        ctx.textBaseline = 'bottom';
+        ctx.font =  fSize + 'px Arial';
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#ddd';
+        ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
+        ctx.fillText('↓HR',x1+vw,centerY);
+        ctx.fillText('↓SVR',x1+vw,centerY+1.1*fSize);
+        ctx.fillText('↓BP',x1+vw,centerY+2.2*fSize);
+        ctx.fill();
+        ctx.closePath();
+
+        const syncY = centerY+radius+2.5*fSize+vw;
+        const syncTop = syncY-1.5*fSize-vw;
+        const syncBottom = syncY+vw;
+        const syncMid = 0.5*(syncBottom-syncTop) + syncTop;
+        //connecting line
+        setTimeout(() => {
+            syncopeText('line')
+        }, 600);
+        //syncope
+        setTimeout(() => {
+            syncopeText('text');    
+        }, 1200);
+        }
+
+        if (option == 'effect'){
+            const arrowX = centerX + radius + 2*vw;
+            const arrowWidth = 4*vw;    
+            const fSize = 2.8*vw;
+            arrow(arrowX,centerY,arrowX+arrowWidth,centerY,'#ababab');
+
+            const x1 = arrowX+arrowWidth+vw;
+            ctx.beginPath();
+            ctx.textBaseline = 'bottom';
+            ctx.font =  fSize + 'px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#ddd';
+            ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
+            ctx.fillText('↓HR',x1+vw,centerY);
+            ctx.fillText('↓SVR',x1+vw,centerY+1.1*fSize);
+            ctx.fillText('↓BP',x1+vw,centerY+2.2*fSize);
+            ctx.fill();
+            ctx.closePath();
+        }
+
+    }
+
+//fireRatio and fireGrd
+//iceRatio, starting grd and ending grd
+    function iceUp(fire,fireGrd,ice,from,to){
+    
+    var fireColor = getFireGrd(fireGrd);
+    var right = ice;
+    
+    for (let index = from; index <= to; index=index +0.5) {
+        setTimeout(() => {
+            var iceColor = getIceGrd(index);
+            ctx.clearRect(0,0,100*vw,100*vh);
+            trigger(0);
+            drawLeft(fire,fireColor);
+            drawRight(right,iceColor); 
+            right = right + 0.02;
+            if (right+fire>=1){right = 1-fire};
+        }, 100*index);
+    }
+
+}
+
+    function paraSymOverLoad(animate){
+    var left = 0.26;var right = 0.55;
+    var ice = 1;
+    const coldLevel = 8;
+    var fireColor = getFireGrd(key,centerX,centerY,radius,1);
+    var iceColor = getIceGrd(key,centerX,centerY,radius,ice);
+    const fireDown = 0.1;
+    const step = 2*Math.ceil((right-fireDown)/0.02);
+   
+    if (animate ==1){
+    for (let index = 0; index <step; index++) {
+        setTimeout(() => {
+            ice = ice + (coldLevel/step);
+            if (ice>=coldLevel){ice = coldLevel}
+            iceColor = getIceGrd(key,centerX,centerY,radius,ice);
+            ctx.clearRect(0,0,100*vw,100*vh);
+            trigger(iceColor);
+            drawLeft(key,centerX,centerY,radius,left,fireColor);
+            drawRight(key,centerX,centerY,radius,right,iceColor); 
+            majorLabel(key,centerX,centerY,radius,'#32648f');
+            right = right + 0.01;left = left-(left-fireDown)/step;
+            if (left<=fireDown){left=fireDown}
+            if (right+fireDown>=1){right = 1-fireDown};
+        }, 50*index);
+    }
+    } else {
+        for (let index = 0; index <step; index++) {
+
+            ice = ice + (coldLevel/step);
+            if (ice>=coldLevel){ice = coldLevel}
+            iceColor = getIceGrd(key,centerX,centerY,radius,ice);
+            ctx.clearRect(0,0,100*vw,100*vh);
+            drawLeft(key,centerX,centerY,radius,left,fireColor);
+            drawRight(key,centerX,centerY,radius,right,iceColor); 
+            majorLabel(key,centerX,centerY,radius,'#32648f');
+            right = right + 0.01;left = left-(left-fireDown)/step;
+            if (left<=fireDown){left=fireDown}
+            if (right+fireDown>=1){right = 1-fireDown};
+        }
+    }   
+}
+
+
+
+}
+
 
 function drawLeft(key,centerX,centerY,radius,ratio,color){
     const ctx = canvas[key].getContext("2d");
