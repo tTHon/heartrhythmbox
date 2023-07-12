@@ -14,7 +14,7 @@
     * {margin: 0;max-width: 1920px;
         font-family: 'Quicksand', sans-serif;};
 
-    .block {width: 100%};
+    .block {width: 100%;min-height: 100vh};
     /*color*/
     .darkBlue {background-color: #082b3a}
     .indigo {background-color: #1c444c}
@@ -61,11 +61,34 @@
     #benignS {display: flex;}
     #benignS div {flex: 50%;color: #e2fcff;font-size: 2vmax;}
 
+    #movieBar {display: flex;padding: 7vmax 1vmax 2vmax 1vmax;}
+    #textBlk {flex:0.25;color: #e2fcff;font-size: 5vmax;padding: 1vw;
+        align-self: center;text-align: center;}
+    #movieBlk {flex:0.75;align-self: center;text-align: center;}
+    #defRefSyn {color: #e2fcff;font-size: 2vmax;padding-top: 3vh;visibility: hidden;
+        text-align:left;line-height: 110%;border-top: #3F9DA4 solid 0.1vmin;}
+    #qRefSyn {padding-bottom: 1vh;color:#f2cf49}   
+    #controlBar {font-size: 2.2vmax;color: #232323;
+    width: fit-content;margin-left: auto;margin-right: auto;}
+    #controlBar span {cursor: pointer;
+        background-color: #ddd;padding:0 2vmin;border-radius: 0.2vw;}
+
+    #endPage {padding: 3vmax;background-color: #555;text-align: center;
+        color: #ddd;
+    }
+    #endPage a {color: #ddd;}
+    
+    @media only screen and (max-width: 820px) {
+        #benignS {flex-wrap: wrap;}
+        #movieBar {flex-wrap: wrap;}
+    }
+
 </style>
 
 </head>
 <body>
-    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);height: 100vh;">
+    <div class="block" style="background:radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);
+    height: 100vh;">
         <canvas class="canvas">
         </canvas>
         <div id="subTitle">
@@ -81,7 +104,7 @@
     </div>
 
     <!--syncope vs SCD -- cerebral blood flow-->
-    <div class="block" style="background-color: #232323;">
+    <div class="block" style="background-color: #232323;min-height: 100vh;">
         <div class="topic" style="padding-top:3vmax;">
             The thin line between Syncope and Sudden Cardiac Death
         </div>
@@ -111,27 +134,31 @@
     </div>
 
     <!--benign syncope-->
-    <div class="block" style="background-color: #232323;">
+    <div class="block" style="background-color: #232323;min-height: 100vh;padding-top: 5vmax;">
         <div id="benignS">
-            <div style="font-size: 5vmax;text-align: center;
-            padding: 10vmax 3vmax;background-color: #f2cf49;color: #082b3a;"">
-                Reflex Syncope <br>
+            <div style="font-size: 5vmax;text-align: center;line-height: 110%;border-radius: 2vmax;
+            padding: 10vmax 3vmax;background-color: #f2cf49;color: #082b3a;margin: 0.5vmax;">
+                <span style="font-weight: 900;">Reflex Syncope</span>
+                <br>
                 has a benign prognosis.
             </div>
-            <div style="background-color: #3F9DA4;color: #1b2735;
+            <div style="background-color: #3F9DA4;color: #1b2735;border-radius: 2vmax;margin: 0.5vmax;
             text-align: center;padding: 10vmax 3vmax;align-content: center;">
                 <span style="border-bottom: #082b3a solid 0.1vmax;padding-top: 1vmax;">
                     HR (95%CI) for all-cause mortality</span>
                 <br>
-                <div style="font-size: 3vmax;color:#232323;font-weight: 900;padding-top: 2vmax;">
+                <div class="orange" style="font-size: 3vmax;color:#232323;
+                font-weight: 600;margin-top: 2vmax;vertical-align: middle;padding: 1vw;
+                border-radius: 1vw;">
                     Cardiac Syncope: 1.43
-                    <span style="font-size: 2vmax;font-weight: 400;color: red;">
+                    <span style="font-size: 2vmax;font-weight: 900;">
                     (1.25-1.64)</span>
                 </div>
-                <div style="font-size: 3vmax;color:#232323;font-weight: 900;padding-bottom: 3vmax;">
-                Reflex Syncope: 1.17 
-                <span style="font-size: 2vmax;color:#555;font-weight: 400;background-color:#3F9DA4;">
-                (0.95-1.44)
+                <div class="indigo" style="font-size: 3vmax;color:#e2fcff;font-weight: 900;
+                margin-top: 1vmax;vertical-align: middle;padding: 1vw;border-radius: 1vw;">
+                    Reflex Syncope: 1.17 
+                <span style="font-size: 2vmax;;font-weight: 400;">
+                    (0.95-1.44)
                 </span>
                 </div>
                 <a href="https://www.nejm.org/doi/full/10.1056/nejmoa012407" target="_blank" 
@@ -141,16 +168,112 @@
             </div>
         </div>
     </div>
+
+    <!--what is reflex syncope-->
+    <div class="block indigo">
+        <div id="movieBar">
+            <div id="textBlk">
+                <div id="qRefSyn">
+                What is Reflex Syncope?
+                </div>
+                <div id="defRefSyn">
+                    - Syncope due to failure of neural reflex to control BP.<br>
+                    - Including vasovagal syncope, situational syncope, and carotid sinus syndrome.
+                </div>
+            </div>
+            <div id="movieBlk">
+                <video id="sully" controls style="width: 100%;">
+                    <source src="media\SullySyncope.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <div class="ref" style="padding-bottom: 2vmax;color: #888;">
+            <a href="https://doi.org/10.1111/jce.13266" target="_blank" style="color: #888;">
+                J Cardiovasc Electrophysiol. 2017 Sep;28(9):1088-1097.
+            </a> and
+            <a href="https://www.pixar.com/feature-films/monsters-inc" style="color: #888;">
+                When Sully Thought Boo Dies. Monsters, Inc; Pixar.
+            </a>
+        </div>
+
+    </div>
     
 
     <!--sym/parasym interplay-->
-    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding-bottom: 2vmax;">
-        <div class="topic">The Interplay between sym- & parasympathetic system</div>
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax;
+    min-height: 100vh;">
+        <div class="topic" style="padding-top: 5vmax;">The Interplay between sym- & parasympathetic system</div>
         <canvas class="canvas">
         </canvas>
     </div>
 
+    <!--ref Syn animation-->
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax;
+    min-height: 100vh;">
+        <div class="topic" style="padding-top: 3vmax;color: pink;font-size: 4vmax;">
+            REFLEX SYNCOPE
+        </div>
+        <div id="controlBar">
+           <span title="play" onclick="refSynAnim('1')">&#9655;</span>&nbsp;&nbsp;
+           <span title="reload" onclick="refSynAnim('0')">&#10227;</span>
+        </div>
+        <canvas class="canvas">
+        </canvas>
+    </div>
+
+<!--end page-->
+<div id="endPage" class="block">
+    <div id="about">
+        <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
+            <div style="padding-bottom: 2vh;">
+                <a href="#top" style="text-decoration:none;color: white;">
+                    &uarr;&nbsp;<b>Top</b> of the page</a>
+            </div>  
+            <div style="padding-bottom: 2vh;">
+                    <a href="https://heartRhythmBox.com/" target="_blank" 
+                    style="text-decoration:none;color: white;">
+                        <img src="boxGrey.png" style="width: 37px;">
+                    </a> &nbsp;&nbsp;
+                    <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
+                    target="_blank" style="text-decoration:none;color: white;">
+                        <img src="youTube.png" style="width: 38px;">
+                    </a>
+            </div>
+            <div style="font-size: 13px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;color: #eee;text-align: justify;">
+                Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+                The page is created mainly for educational purpose. 
+                We believe that presentations should be more interactive and easily accessible. 
+                No need to register or download. You can access everything at your fingertips.
+            </div>
+            <div style="font-size: 13px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;color: #ddd;
+            text-align: center;font-weight: 700;">
+                &copy;&nbsp;&nbsp;CODING OF A KIND<br>
+                <span style="font-weight: 400;">
+                design to your style &middot; write to your need</span>
+            </div>
+    
+    
+    </div>
+</div>
+
 <script>
+
+//detect orientation change
+window.addEventListener("orientationchange", function() {
+            location.reload();
+        });
+
+//nav
+window.addEventListener("keydown", function(event) {
+    event.preventDefault();
+    if (event.keyCode===40) {
+      next(1)
+    }
+    if (event.keyCode===38) {
+      next(-1)
+    }
+})
+
 const block = document.getElementsByClassName('block');
 const canvas = document.getElementsByClassName('canvas')
 const vw = Math.round(window.innerWidth/100);
@@ -301,7 +424,7 @@ function canvas2(key){
     const ctx = canvas[key].getContext("2d");
     const radius = 30*vmin;
     const centerX = 50*vw;
-    const centerY = 40*vh;
+    const centerY = 10*vh + radius;
     const cHeight = centerY + radius + 5*vh;
     const scale = window.devicePixelRatio;
     canvas[key].style.width = window.innerWidth + 'px';
@@ -472,6 +595,51 @@ function majorLabel(key,centerX,centerY,radius,color){
     ctx.textAlign = 'left';
     ctx.fillText('nervous system',xRight+fontSize,yRight+0.7*fontSize);
 }
+
+var bNo = 0;  
+function next(no){
+  n = Number(no);
+  //check which box is in the view
+  const box = document.getElementsByClassName('block');
+  var i;
+  for (i=0;i<box.length;i++){
+    var top = box[i].getBoundingClientRect().top;
+    if (top<window.innerHeight/2){
+      bNo=i;
+    }
+  }
+
+  if (n==1 || n==-1){
+      bNo = n + bNo;
+      if (bNo<0){
+        window.scrollTo(0,0);bNo=-1;
+      }
+      if (bNo>=box.length){
+        var end = document.getElementsByID('endPage')
+        end[0].scrollIntoView({behavior:"smooth", block:"start"})
+        bNo=box.length+1;
+      }
+    
+      box[bNo].scrollIntoView({behavior:"smooth", block:"start"});
+      //autoplay vdo on bNo3
+      const sullyClip = document.getElementById('sully')
+      const def = document.getElementById('defRefSyn');
+      if (bNo==3){
+        sullyClip.play();
+        def.style.opacity = 0;
+        def.style.visibility = 'visible';
+        for (let index = 0; index <=1 ; index=index+0.1) {
+            setTimeout(() => {
+                def.style.opacity = index;                
+            }, index*1000+3000);
+           
+        }
+      } else {
+        sullyClip.load();
+        def.style.visibility = 'hidden';
+      }
+  }
+} 
 
 </script>
 </body>
