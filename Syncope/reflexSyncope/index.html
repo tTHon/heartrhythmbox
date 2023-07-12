@@ -538,6 +538,13 @@ function canvas3(key,option){
     canvas[key].height = Math.floor(window.innerHeight * scale*1);
     ctx.scale(scale*1,scale*1);
 
+    setTimeout(() => {
+        dysAutonomia(0.38,0.55,0.4,1); 
+    }, 1000);
+    setTimeout(() => {
+        trigger();
+    }, 4000);
+    /*
     if (option==-1){
         dysAutonomia(0.38,0.55,0.4,1); 
         majorLabel(key,centerX,centerY,radius,'#3f7eb3');
@@ -551,7 +558,7 @@ function canvas3(key,option){
         nav++;
         stepMove();
     }
-
+*/
     function stepMove(){
         if (nav==1){
             trigger();
