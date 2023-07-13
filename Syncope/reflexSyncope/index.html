@@ -1198,7 +1198,28 @@ function majorLabel(key,centerX,centerY,radius,color){
     ctx.fillText('nervous system',xRight+fontSize,yRight+0.7*fontSize);
 }
 
+//slide changing
 var bNo = 0;  
+window.onscroll = function(){
+    //check which box is in the view
+    const box = document.getElementsByClassName('block');
+    var i;
+    for (i=0;i<box.length;i++){
+        var top = box[i].getBoundingClientRect().top;
+        if (top<window.innerHeight/2){
+        bNo=i;
+        }
+    }
+
+    //autoplay vdo on bNo3
+    const sullyClip = document.getElementById('sully')
+    const def = document.getElementById('defRefSyn');
+        if (bNo==3){
+        sullyClip.play();
+        def.style.visibility = 'visible';}
+
+}
+
 function next(no){
   n = Number(no);
   //check which box is in the view
