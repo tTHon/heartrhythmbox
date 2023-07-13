@@ -70,10 +70,15 @@
         text-align:left;line-height: 110%;border-top: #3F9DA4 solid 0.1vmin;}
     #qRefSyn {padding-bottom: 1vh;color:#f2cf49};
        
-    #controlBar {font-size: 2.2vmax;color: #232323;
-    width: fit-content;margin-left: auto;margin-right: auto;}
-    #controlBar span {cursor: pointer;
-        background-color: #ddd;padding:0 2vmin;border-radius: 0.2vw;}
+    #synPlay, #synReload, #synAuto {cursor: pointer;font-size: 2vmax;}
+
+    .number {position:absolute;border-radius: 1.5vw;display: table-cell;vertical-align: middle;
+        width: 3vw;height: 3vw;border: solid 0.1vw pink;z-index: 5;
+        background-color: pink;color:#555;
+        font-family: Arial, Helvetica, sans-serif;font-size: 2vw;text-align: center;
+        cursor: pointer;
+    }
+    .noText {display: inline-block;vertical-align: middle;line-height: normal;}
 
     #endPage {padding: 3vmax;background-color: #555;text-align: center;
         color: #ddd;
@@ -204,24 +209,35 @@
     <!--sym/parasym interplay-->
     <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
     min-height: 100vh;">
-        <div class="topic" style="padding-top: 5vmax;">The Interplay between sym- & parasympathetic system</div>
+        <div class="topic" style="padding-top: 2vmax;">The Interplay between sym- & parasympathetic system</div>
         <canvas class="canvas">
         </canvas>
     </div>
 
     <!--ref Syn animation-->
     <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
-    min-height: 100vh;">
-        <div class="topic" style="padding-top: 1vmax;color: pink;font-size: 4vmax;">
+    min-height: 100vh;position: relative;">
+        <div class="topic" style="color: pink;font-size: 4vmax;text-align: left;">
             REFLEX SYNCOPE
-        </div>
-        <div id="controlBar" style="width: fit-content;margin-left: auto;margin-right: auto;">
-           <span title="play" onclick="canvas3(3,'1')">&#9655;</span>&nbsp;&nbsp;
-           <span title="reload" onclick="canvas3(3,'0')">&#10227;</span>
+            <span id="controlBar" style="float: right;vertical-align: top;padding-top: 1vmax;padding-right: 1vmax;
+            cursor: pointer;font-size: 2vmax;background-color:#1b2735;color: #ababab;">
+                <span id="synPlay" title="play" style="padding-left: 1vmax;padding-right: 1vmax;">&#x3e;</span>&nbsp;&nbsp;
+                <span id="synReload" title="reload" style="padding-left: 1vmax;padding-right: 1vmax;">&#10227;</span>
+                <span id="synAuto" title="autoplay" style="padding-left: 2vmax;padding-right: 1vmax;">&#913;</span>
+           </span>
         </div>
         <canvas class="canvas">
         </canvas>
     </div>
+
+    <div id="synAnim" class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
+    min-height: 100vh;position: relative;">
+        <div class="topic" style="color: pink;font-size: 4vmax;text-align: left;">
+            REFLEX SYNCOPE
+        <canvas class="canvas">
+        </canvas>
+    </div>
+
 
 <!--end page-->
 <div id="endPage" class="block">
@@ -284,7 +300,8 @@ const vmin = Math.min(vw,vh)
 canvas0(0);
 canvas1(1);
 canvas2(2);
-canvas3(3,-1)
+canvas3(3);
+canvas3(4);
 
 /*syncope vs SCD*/
 function canvas1(key){
@@ -427,7 +444,7 @@ function canvas2(key){
     const ctx = canvas[key].getContext("2d");
     const radius = 30*vmin;
     const centerX = 50*vw;
-    const centerY = 10*vh + radius;
+    const centerY = 5*vh + radius;
     const cHeight = centerY + radius + 5*vh;
     const scale = window.devicePixelRatio;
     canvas[key].style.width = window.innerWidth + 'px';
@@ -525,11 +542,11 @@ function canvas0(){
 }
 
 var nav=0;
-function canvas3(key,option){
+function canvas3(key){
     const ctx = canvas[key].getContext("2d");
     const radius = 30*vmin;
     const centerX = 50*vw;
-    const centerY = 10*vh + radius;
+    const centerY = 2*vh + radius;
     //const cHeight = centerY + radius + 5*vh;
     const scale = window.devicePixelRatio;
     canvas[key].style.width = window.innerWidth + 'px';
@@ -537,28 +554,103 @@ function canvas3(key,option){
     canvas[key].width = Math.floor(window.innerWidth * scale*1);
     canvas[key].height = Math.floor(window.innerHeight * scale*1);
     ctx.scale(scale*1,scale*1);
+    var step1;var step2;
+    var autoInterval1, autoInterval2, autoInterval3, autoInterval4, autoInterval5;
+    var drawNumberInterval;
+    clearInterval(step1);
+    clearInterval(step2);
+    clearInterval(autoInterval1);
+    clearInterval(autoInterval2);
+    clearInterval(autoInterval3);
+    clearInterval(autoInterval4);
+    clearInterval(autoInterval5);
+    clearInterval(drawNumberInterval);
 
-    setTimeout(() => {
-        dysAutonomia(0.38,0.55,0.4,1); 
-    }, 1000);
-    setTimeout(() => {
+    if (key==4){
+        paraSymOverLoad('still');
         trigger();
-    }, 4000);
-    /*
-    if (option==-1){
-        dysAutonomia(0.38,0.55,0.4,1); 
-        majorLabel(key,centerX,centerY,radius,'#3f7eb3');
+        pSymEffect('still');
+
+        for (let index = 1; index <=6; index++) {
+            drawNumberInterval = setTimeout(() =>{
+                drawNumber(index);
+                }, 2000 + (index*600))
+        }
     }
-    
-    if (option==0){
-        nav=0;
-        dysAutonomia(0.38,0.55,0.4,1);
-    }
-    if (option==1){
-        nav++;
-        stepMove();
-    }
-*/
+
+    if (key==3){
+        dysAutonomia(0.38,0.55,0.4,5); 
+        const play = document.getElementById('synPlay');
+        const reload = document.getElementById('synReload');
+        const auto = document.getElementById('synAuto');
+         
+        play.onclick = function(){
+            auto.style.color = 'inherit';
+            reload.style.color = 'inherit';
+            play.style.color = 'pink';
+            nav++;
+            clearInterval(step1);
+            clearInterval(step2);
+            clearInterval(autoInterval1);
+            clearInterval(autoInterval2);
+            clearInterval(autoInterval3);
+            clearInterval(autoInterval4);
+            clearInterval(autoInterval5);
+            stepMove();
+        }
+
+        reload.onclick = function(){
+            auto.style.color = 'inherit';
+            reload.style.color = 'pink';
+            play.style.color = 'inherit';
+            nav=0;
+            clearInterval(step1);
+            clearInterval(step2);
+            clearInterval(autoInterval1);
+            clearInterval(autoInterval2);
+            clearInterval(autoInterval3);
+            clearInterval(autoInterval4);
+            clearInterval(autoInterval5);
+            dysAutonomia(0.38,0.55,0.4,1); 
+        }
+
+        auto.onclick = function(){
+            auto.style.color = 'pink';
+            reload.style.color = 'inherit';
+            play.style.color = 'inherit';
+            nav=0;
+            clearInterval(step1);
+            clearInterval(step2);
+            clearInterval(autoInterval1);
+            clearInterval(autoInterval2);
+            clearInterval(autoInterval3);
+            clearInterval(autoInterval4);
+            clearInterval(autoInterval5);
+            dysAutonomia(0.38,0.55,0.4,1); 
+
+            autoInterval1 = 
+                setTimeout(() => {
+                    trigger();
+                }, 1000);
+            autoInterval2 =
+                setTimeout(() => {
+                    paraSymOverLoad(1);
+                }, 5000);
+            autoInterval3 = 
+                setTimeout(() => {
+                    pSymEffect('all');
+                }, 10000);
+            autoInterval4 = 
+                setTimeout(() => {
+                    clearSyncope();
+                }, 15000);
+            autoInterval5 = 
+                setTimeout(() => {
+                    dysAutonomia(0.38,0.55,0.4,3);;
+                }, 20000);
+        }
+        auto.click();
+
     function stepMove(){
         if (nav==1){
             trigger();
@@ -571,70 +663,91 @@ function canvas3(key,option){
         }
         if (nav==4){
             clearSyncope();
+        }
+        if (nav==5){
+            dysAutonomia(0.38,0.55,0.4,1);
+        }
+        if (nav==6){
+            paraSymOverLoad('still');
+            trigger();
+            pSymEffect('still');
+
+            for (let index = 1; index <=6; index++) {
+                drawNumberInterval = setTimeout(() =>{
+                    drawNumber(index);
+                    }, 2000 + (index*600))
+            }
             nav=0;
+        }
         }
       
     }
 
     function dysAutonomia(maxL,maxR,minR,loop){
-    //dysAutonomia(0.38,0.55,0.4,5);    
-    var fire = getFireGrd(key,centerX,centerY,radius,1);
-    var ice = getIceGrd(key,centerX,centerY,radius,1);
+        //dysAutonomia(0.38,0.55,0.4,5);    
+        var fire = getFireGrd(key,centerX,centerY,radius,1);
+        var ice = getIceGrd(key,centerX,centerY,radius,1);
 
-    //key,centerX,centerY,radius,ratio,color
-    //step 0 -- together
-    drawLeft(key,centerX,centerY,radius,0.5,fire);
-    drawRight(key,centerX,centerY,radius,0.5,ice);
+        if (loop!=0){
+         //key,centerX,centerY,radius,ratio,color
+        //step 0 -- together
+        drawLeft(key,centerX,centerY,radius,0.5,fire);
+        drawRight(key,centerX,centerY,radius,0.5,ice);
 
-    //step 1 -- separated;
-    var left = 0.5;var right = 0.5;
-    var end = Math.max(0.5-maxL,0.5-maxR);
-    var step1 = setInterval(() => {
-        for (let index = 0; index <= end; index=index+0.01) {
-        left = left - index;
-        if (left<maxL){left=maxL};
-        right = right + index;
-        if (right>maxR){right=maxR}
-        ctx.clearRect(0,0,100*vw,100*vh);
-        majorLabel(key,centerX,centerY,radius,'#3f7eb3');
-        drawLeft(key,centerX,centerY,radius,left,fire);
-        drawRight(key,centerX,centerY,radius,right,ice);
-      } 
-    }, 200);
-    clearInterval(step1);
-
-    //step2
-    //step2 -- animated ice
-    var step = 0;var maxStep = 10+(maxR-minR)*10;var fwd = 0.01;
-    var right = maxR+step;var left = maxL;
-    var count = 0;
-    var step2 = setInterval(function(){
-        animateIce();count++;
-
-        if (loop>0 && count>=(maxStep*loop)){
-        clearInterval(step2);
-    }
-        },100)
-
-
-    function animateIce(){
+        //step 1 -- separated;
+        var left = 0.5;var right = 0.5;
+        var end = Math.max(0.5-maxL,0.5-maxR);
+        step1 = setInterval(() => {
+            for (let index = 0; index <= end; index=index+0.01) {
+            left = left - index;
+            if (left<maxL){left=maxL};
+            right = right + index;
+            if (right>maxR){right=maxR}
             ctx.clearRect(0,0,100*vw,100*vh);
             majorLabel(key,centerX,centerY,radius,'#3f7eb3');
-            right = right + fwd;
-            step++;
-            if (right<minR){
-                right = minR;left = left+0.01}
-            if (right>maxR){
-                right = maxR;left = left-0.01};
-            if (step>maxStep){
-                step = 0;
-                if (right>=maxR){fwd = -0.01;}
-                if (right<=minR){fwd = 0.01;}
-            }
             drawLeft(key,centerX,centerY,radius,left,fire);
             drawRight(key,centerX,centerY,radius,right,ice);
+        } 
+        }, 200);
+        clearInterval(step1);
 
-    }
+        //step2
+        //step2 -- animated ice
+        var step = 0;var maxStep = 10+(maxR-minR)*10;var fwd = 0.01;
+        var right = maxR+step;var left = maxL;
+        var count = 0;
+        step2 = setInterval(function(){
+            animateIce();count++;
+
+            if (loop>0 && count>=(maxStep*loop)){
+            clearInterval(step2);
+        }
+            },100)
+        } else {
+            drawLeft(key,centerX,centerY,radius,0.5-maxL,fire);
+            drawRight(key,centerX,centerY,radius,maxR,ice); 
+          
+        } 
+        
+
+        function animateIce(){
+                ctx.clearRect(0,0,100*vw,100*vh);
+                majorLabel(key,centerX,centerY,radius,'#3f7eb3');
+                right = right + fwd;
+                step++;
+                if (right<minR){
+                    right = minR;left = left+0.01}
+                if (right>maxR){
+                    right = maxR;left = left-0.01};
+                if (step>maxStep){
+                    step = 0;
+                    if (right>=maxR){fwd = -0.01;}
+                    if (right<=minR){fwd = 0.01;}
+                }
+                drawLeft(key,centerX,centerY,radius,left,fire);
+                drawRight(key,centerX,centerY,radius,right,ice);
+
+        }
     }
 
     function trigger(color){
@@ -738,10 +851,10 @@ function canvas3(key,option){
                 trigger(trigColor);
                 syncopeText('text',syncColor);
 
-                fireColor = getFireGrd(1+(index/10));
-                iceColor = getIceGrd(8-(index/6));
-                drawLeft(key,centerX,centerY,radius,fireColor);
-                drawRight(key,centerX,centerY,radius,iceColor);  
+                fireColor = getFireGrd(key,centerX,centerY,radius,1+(index/10));
+                iceColor = getIceGrd(key,centerX,centerY,radius,8-(index/6));
+                drawLeft(key,centerX,centerY,radius,left,fireColor);
+                drawRight(key,centerX,centerY,radius,right,iceColor);  
                 left = left+0.01;if (left>=0.5){left=0.5};
                 right = right-0.01;if (right<=0.5){right=0.5};
 
@@ -771,7 +884,7 @@ function canvas3(key,option){
 
     function syncopeText(option,color){
         const fSize = 2.8*vw;
-        const syncY = centerY+radius+2.5*fSize+vw;
+        const syncY = centerY+radius+2*fSize+vw;
         const syncTop = syncY-1.5*fSize-vw;
         const syncBottom = syncY+vw;
         const syncMid = 0.5*(syncBottom-syncTop) + syncTop;
@@ -785,7 +898,7 @@ function canvas3(key,option){
         if (option =='text'){
         ctx.beginPath();
         ctx.textBaseline = 'bottom';
-        ctx.font =  1.5*fSize + 'px Arial';
+        ctx.font =  1.5*fSize + 'px quicksand';
         ctx.textAlign = 'center';
         if (color==null){
             color = '#e2fcff';
@@ -822,7 +935,7 @@ function canvas3(key,option){
         const x1 = arrowX+arrowWidth+vw;
         ctx.beginPath();
         ctx.textBaseline = 'bottom';
-        ctx.font =  fSize + 'px Arial';
+        ctx.font =  fSize + 'px quicksand';
         ctx.textAlign = 'left';
         ctx.fillStyle = '#ddd';
         ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
@@ -846,6 +959,34 @@ function canvas3(key,option){
         }, 1200);
         }
 
+        if (option == 'still'){
+            const arrowX = centerX + radius + 2*vw;
+        const arrowWidth = 4*vw;    
+        const fSize = 2.8*vw;
+        arrow(arrowX,centerY,arrowX+arrowWidth,centerY,'#ababab');
+
+        const x1 = arrowX+arrowWidth+vw;
+        ctx.beginPath();
+        ctx.textBaseline = 'bottom';
+        ctx.font =  fSize + 'px quicksand';
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#ddd';
+        ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
+        ctx.fillText('↓HR',x1+vw,centerY);
+        ctx.fillText('↓SVR',x1+vw,centerY+1.1*fSize);
+        ctx.fillText('↓BP',x1+vw,centerY+2.2*fSize);
+        ctx.fill();
+        ctx.closePath();
+
+        const syncY = centerY+radius+2.5*fSize+vw;
+        const syncTop = syncY-1.5*fSize-vw;
+        const syncBottom = syncY+vw;
+        const syncMid = 0.5*(syncBottom-syncTop) + syncTop;
+
+        syncopeText('line');
+        syncopeText('text');    
+        }
+
         if (option == 'effect'){
             const arrowX = centerX + radius + 2*vw;
             const arrowWidth = 4*vw;    
@@ -855,7 +996,7 @@ function canvas3(key,option){
             const x1 = arrowX+arrowWidth+vw;
             ctx.beginPath();
             ctx.textBaseline = 'bottom';
-            ctx.font =  fSize + 'px Arial';
+            ctx.font =  fSize + 'px quicksand';
             ctx.textAlign = 'left';
             ctx.fillStyle = '#ddd';
             ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
@@ -872,7 +1013,7 @@ function canvas3(key,option){
 //iceRatio, starting grd and ending grd
     function iceUp(fire,fireGrd,ice,from,to){
     
-    var fireColor = getFireGrd(fireGrd);
+    var fireColor = getFireGrd(key,centerX,centerY,radius,fireGrd);
     var right = ice;
     
     for (let index = from; index <= to; index=index +0.5) {
@@ -880,8 +1021,8 @@ function canvas3(key,option){
             var iceColor = getIceGrd(index);
             ctx.clearRect(0,0,100*vw,100*vh);
             trigger(0);
-            drawLeft(fire,fireColor);
-            drawRight(right,iceColor); 
+            drawLeft(key,centerX,centerY,radius,fire,fireColor);
+            drawRight(key,centerX,centerY,radius,right,iceColor); 
             right = right + 0.02;
             if (right+fire>=1){right = 1-fire};
         }, 100*index);
@@ -931,7 +1072,51 @@ function canvas3(key,option){
     }   
 }
 
+    function drawNumber(number){
+        const vmax = Math.max(vw,vh);
+        const newY = centerY + 5*vmax;
+        const newX = centerX + 0.5*vmax;
+        const position = [
+            [newX + radius + 10.5*vw,newY + radius + 3.5*vw],
+            [newX + radius + 15.5*vw, newY + 4*vw],
+            [newX + radius + 15.5*vw, newY -vw],
+            [centerX,newY+ 4*vh],
+            [newX - 0.9*radius-1.5*vw,newY - 1.5*vw],
+            [newX - radius -9.5*vw,newY - 3*vw]
+        ]
+        
+        const circle = document.createElement('div');
+        const holder = document.getElementById('synAnim');
+        holder.appendChild(circle);
+        circle.classList.add('number');
+        circle.style.left = position[number-1][0] + 'px';
+        circle.style.top = position[number-1][1] + 'px';
+        const span = document.createElement('span');
+        circle.appendChild(span)
+        span.classList.add('noText')
+        span.innerHTML = number;
 
+        circle.onclick = function(){
+            animateCircle(number-1)
+        }
+
+        function animateCircle(n){
+            const beginR = 1.5*vw;
+            const nClass = document.getElementsByClassName('number')
+            for (let index = beginR; index >= 0; index--) {
+                setTimeout(() => {
+                    nClass[n].style.borderRadius = index + 'px';
+
+                    if (n==3 || n==4){
+                        nClass[n].style.boxShadow = "-2px 2px 15px rgba(50,50,50,0.9)"
+                    } else {
+                        nClass[n].style.boxShadow = "-1px 1px 10px rgba(255,192,203,0.8)"       
+                    }                
+                }, 1200/index);
+        
+            }
+        }
+    }
 
 }
 
@@ -1053,8 +1238,12 @@ function next(no){
         sullyClip.load();
         def.style.visibility = 'hidden';
       }
-  }
-} 
+      if (bNo==4){
+        canvas3(3)
+      }
+
+    } 
+}
 
 </script>
 </body>

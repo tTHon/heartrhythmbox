@@ -38,7 +38,7 @@ const centerY = 40*vh;
 
 nav=0;
 
-dysAutonomia(0.38,0.55,0.4,5);
+dysAutonomia(0.38,0.55,0.4,1);
 //baseAnimation();
 majorLabel('#3f7eb3');
 window.addEventListener("keydown", function(event) {
@@ -52,7 +52,7 @@ window.addEventListener("keydown", function(event) {
 //baseAnimation()
 function stepMove(){
     if (nav==1){
-        trigger(1);
+        trigger();
     }
     if (nav==2){
         paraSymOverLoad(1);
@@ -63,15 +63,29 @@ function stepMove(){
     if (nav==4){
         clearSyncope();
     }
-    /*
+    
     if (nav==5){
-        drawNumber(1);
-        drawNumber(2);
-        drawNumber(3);
-        drawNumber(4);
-        drawNumber(5);
-        drawNumber(6);
-    }*/
+        paraSymOverLoad('still');
+        trigger();
+        
+        
+        for (let index = 0; index <=6; index++) {
+            if (index==0){
+                pSymEffect('all');
+            }
+            else {
+                setTimeout(() =>{
+                    drawNumber(index);
+                }, 2000 + (index*600))
+            }
+        }
+        //drawNumber(1);
+        //drawNumber(2);
+        //drawNumber(3);
+        //drawNumber(4);
+        //drawNumber(5);
+        //drawNumber(6);
+    }
 
 }
 
