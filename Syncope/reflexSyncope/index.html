@@ -567,18 +567,15 @@ function canvas3(key,option){
     ctx.scale(scale*1,scale*1);
     var step1;var step2;
     var autoInterval1, autoInterval2, autoInterval3, autoInterval4, autoInterval5;
-    var drawNumberInterval;
-    clearInterval(step1);
-    clearInterval(step2);
-    clearInterval(autoInterval1);
-    clearInterval(autoInterval2);
-    clearInterval(autoInterval3);
-    clearInterval(autoInterval4);
-    clearInterval(autoInterval5);
-    clearInterval(drawNumberInterval);
-
     
     if (key==4){
+        clearInterval(step1);
+        clearInterval(step2);
+        clearInterval(autoInterval1);
+        clearInterval(autoInterval2);
+        clearInterval(autoInterval3);
+        clearInterval(autoInterval4);
+        clearInterval(autoInterval5);
         paraSymOverLoad('still');
         trigger();
         pSymEffect('still');
@@ -599,7 +596,14 @@ function canvas3(key,option){
     }
 
     if (key==3){
-        dysAutonomia(0.38,0.55,0.4,5); 
+        clearInterval(step1);
+        clearInterval(step2);
+        clearInterval(autoInterval1);
+        clearInterval(autoInterval2);
+        clearInterval(autoInterval3);
+        clearInterval(autoInterval4);
+        clearInterval(autoInterval5);
+        dysAutonomia(0.38,0.55,0.4,10); 
         const play = document.getElementById('synPlay');
         const reload = document.getElementById('synReload');
         const auto = document.getElementById('synAuto');
