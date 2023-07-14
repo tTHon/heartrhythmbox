@@ -603,7 +603,28 @@ function canvas3(key,option){
         clearInterval(autoInterval3);
         clearInterval(autoInterval4);
         clearInterval(autoInterval5);
-        dysAutonomia(0.38,0.55,0.4,10); 
+        dysAutonomia(0.38,0.55,0.4,3); 
+        autoInterval1 = 
+                setTimeout(() => {
+                    trigger();
+                }, 10000);
+            autoInterval2 =
+                setTimeout(() => {
+                    paraSymOverLoad(1);
+                }, 5000);
+            autoInterval3 = 
+                setTimeout(() => {
+                    pSymEffect('all');
+                }, 10000);
+            autoInterval4 = 
+                setTimeout(() => {
+                    clearSyncope();
+                }, 15000);
+            autoInterval5 = 
+                setTimeout(() => {
+                    dysAutonomia(0.38,0.55,0.4,3);;
+                }, 20000);
+
         const play = document.getElementById('synPlay');
         const reload = document.getElementById('synReload');
         const auto = document.getElementById('synAuto');
@@ -643,6 +664,7 @@ function canvas3(key,option){
             clearInterval(autoInterval5);
             dysAutonomia(0.38,0.55,0.4,1); 
 
+ 
             autoInterval1 = 
                 setTimeout(() => {
                     trigger();
@@ -1236,6 +1258,10 @@ window.onscroll = function(){
         if (bNo==3){
         sullyClip.play();
         def.style.visibility = 'visible';}
+    //autoplay on bNo4
+    if (bNo==4){
+        canvas3(3);
+    }
 
 }
 
