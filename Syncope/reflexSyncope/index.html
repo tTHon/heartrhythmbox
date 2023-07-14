@@ -14,8 +14,8 @@
     * {margin: 0;max-width: 1920px;
         font-family: 'Quicksand', sans-serif;};
 
-    .block {width: 100%;min-height: 100vh};
-    .canvas {border: solid 1vmax red;}
+    .block {min-height: 100vh;position: relative};
+
     /*color*/
     .darkBlue {background-color: #082b3a}
     .indigo {background-color: #1c444c}
@@ -32,14 +32,14 @@
     #subTitle {
         color: #e2fcff;
         text-align: center;
-        font-size: 2.5vmax;
+        font-size: 2.8vmax;
         letter-spacing: 5px;
         font-family: 'Quicksand', sans-serif;
     }
     #logoPanel {
         padding-top: 5vmax;text-align: center;
         font-family: 'Quicksand', sans-serif;
-        color: #888;font-size: 1.5vmax;
+        color: #888;font-size: 2vmax;
     }
     .topic {
         font-family: 'Quicksand', sans-serif;
@@ -72,13 +72,14 @@
        
     #synPlay, #synReload, #synAuto {cursor: pointer;font-size: 2vmax;}
 
-    .number {position:absolute;border-radius: 1.5vw;display: table-cell;vertical-align: middle;
-        width: 3vw;height: 3vw;border: solid 0.1vw pink;z-index: 5;
-        background-color: pink;color:#555;
-        font-family: Arial, Helvetica, sans-serif;font-size: 2vw;text-align: center;
-        cursor: pointer;
+    .number {position:absolute;border-radius: 1.6vw;display: table-cell;vertical-align: middle;
+        width: 3.2vw;height: 3.2vw;border: solid 0.1vw #ddd;z-index: 5;
+        background-color: #ddd;color:#555;
+        font-size: 2.2vw;text-align: center;font-weight: 600;
+        cursor: pointer;vertical-align: middle;align-content: center;
     }
-    .noText {display: inline-block;vertical-align: middle;line-height: normal;}
+    .noText {display: inline-block;vertical-align: middle;align-self: center;
+        line-height:90%}
 
     #endPage {padding: 3vmax;background-color: #555;text-align: center;
         color: #ddd;
@@ -90,13 +91,15 @@
         #movieBar {flex-wrap: wrap;}
         #textBlk {flex: 1;}
         #movieBlk {display: none;}
+        .noMobile, .number, .noText {display: none;}
     }
 
 </style>
 
 </head>
 <body>
-    <div class="block" style="background:radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);
+    <div class="block" 
+    style="background:radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);
     height: 100vh;">
         <canvas class="canvas">
         </canvas>
@@ -228,16 +231,16 @@
                 <span id="synAuto" title="autoplay" style="padding-left: 2vmax;padding-right: 1vmax;">&#913;</span>
            </span>
         </div>
-        <canvas class="canvas">
+        <canvas class="canvas noMobile">
         </canvas>
     </div>
 
     <div id="synAnim" class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
     min-height: 100vh;position: relative;">
-        <div class="topic" style="color: pink;font-size: 4vmax;text-align: left;">
-            REFLEX SYNCOPE
-        <canvas class="canvas">
-        </canvas>
+        <div class="topic" style="color: pink;font-size: 4vmax;text-align: center;">
+            How to REVERSE Reflex Syncope        
+        <canvas class="canvas noMobile"></canvas>
+        </div>
     </div>
 
 
@@ -303,7 +306,7 @@ canvas0(0);
 canvas1(1);
 canvas2(2);
 canvas3(3);
-canvas3(4);
+canvas3(4,'all');
 
 /*syncope vs SCD*/
 function canvas1(key){
@@ -312,9 +315,10 @@ function canvas1(key){
     const centerX = 50*vw;const centerY = 12*vh;
     const radius = 35*vmin;
     const cHeight = centerY + radius + 2*vh;
-    canvas[key].style.width = window.innerWidth + 'px';
+    const cWidth = window.innerWidth - 2*vw
+    canvas[key].style.width = cWidth + 'px';
     canvas[key].style.height = cHeight + 'px';
-    canvas[key].width = Math.floor(window.innerWidth * scale*1);
+    canvas[key].width = Math.floor(cWidth * scale*1);
     canvas[key].height = Math.floor(cHeight * scale*1);
     ctx.scale(scale*1,scale*1);
 
@@ -448,10 +452,11 @@ function canvas2(key){
     const centerX = 50*vw;
     const centerY = 5*vh + radius;
     const cHeight = centerY + radius + 5*vh;
+    const cWidth = window.innerWidth - 2*vw
     const scale = window.devicePixelRatio;
-    canvas[key].style.width = window.innerWidth + 'px';
+    canvas[key].style.width = cWidth + 'px';
     canvas[key].style.height = cHeight + 'px';
-    canvas[key].width = Math.floor(window.innerWidth * scale*1);
+    canvas[key].width = Math.floor(cWidth * scale*1);
     canvas[key].height = Math.floor(cHeight * scale*1);
     ctx.scale(scale*1,scale*1);
 
@@ -470,7 +475,7 @@ function canvas2(key){
     setInterval(() => {
         ctx.clearRect(0,0,100*vw,100*vh);
         var leftGd = ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius);
-        majorLabel(key,centerX,centerY,radius,'#e2faff')
+        majorLabel(key,centerX,centerY,radius,'#e2faff',3*vw)
         drawLeft(key,centerX,centerY,radius, left-gap,fire);
         drawRight(key,centerX,centerY,radius,1-left-gap,ice);   
         left = left + fwd; 
@@ -491,16 +496,18 @@ function canvas2(key){
     }, 200);
 }
 
+//small yinYang
 function canvas0(){
     const ctx = canvas[0].getContext("2d");
-    const radius = 5*vw;
+    const radius = 7*vw;
     const centerX = 50*vw;
     const centerY = 25*vh;
     const cHeight = centerY + radius + 2*vh;
+    const cWidth = window.innerWidth - 2*vw
     const scale = window.devicePixelRatio;
-    canvas[0].style.width = window.innerWidth + 'px';
+    canvas[0].style.width = cWidth + 'px';
     canvas[0].style.height = cHeight + 'px';
-    canvas[0].width = Math.floor(window.innerWidth * scale*1);
+    canvas[0].width = Math.floor(cWidth * scale*1);
     canvas[0].height = Math.floor(cHeight * scale*1);
     ctx.scale(scale*1,scale*1);
 
@@ -544,16 +551,18 @@ function canvas0(){
 }
 
 var nav=0;
-function canvas3(key){
+//syncope
+function canvas3(key,option){
     const ctx = canvas[key].getContext("2d");
     const radius = 30*vmin;
     const centerX = 50*vw;
     const centerY = 2*vh + radius;
     //const cHeight = centerY + radius + 5*vh;
     const scale = window.devicePixelRatio;
-    canvas[key].style.width = window.innerWidth + 'px';
+    const cWidth = window.innerWidth - 2*vw
+    canvas[key].style.width = cWidth + 'px';
     canvas[key].style.height = window.innerHeight + 'px';
-    canvas[key].width = Math.floor(window.innerWidth * scale*1);
+    canvas[key].width = Math.floor(cWidth * scale*1);
     canvas[key].height = Math.floor(window.innerHeight * scale*1);
     ctx.scale(scale*1,scale*1);
     var step1;var step2;
@@ -568,16 +577,25 @@ function canvas3(key){
     clearInterval(autoInterval5);
     clearInterval(drawNumberInterval);
 
+    
     if (key==4){
         paraSymOverLoad('still');
         trigger();
         pSymEffect('still');
-
+        
+        if (option=='all'){
         for (let index = 1; index <=6; index++) {
+            /*
             drawNumberInterval = setTimeout(() =>{
                 drawNumber(index);
-                }, 2000 + (index*600))
+                }, 2000 + (index*600))*/
+            drawNumber(index)
+            }
         }
+        if (Number.isInteger(option)){
+            drawNumber(option,option)
+        }
+
     }
 
     if (key==3){
@@ -587,9 +605,6 @@ function canvas3(key){
         const auto = document.getElementById('synAuto');
          
         play.onclick = function(){
-            auto.style.color = 'inherit';
-            reload.style.color = 'inherit';
-            play.style.color = 'pink';
             nav++;
             clearInterval(step1);
             clearInterval(step2);
@@ -602,9 +617,6 @@ function canvas3(key){
         }
 
         reload.onclick = function(){
-            auto.style.color = 'inherit';
-            reload.style.color = 'pink';
-            play.style.color = 'inherit';
             nav=0;
             clearInterval(step1);
             clearInterval(step2);
@@ -617,9 +629,6 @@ function canvas3(key){
         }
 
         auto.onclick = function(){
-            auto.style.color = 'pink';
-            reload.style.color = 'inherit';
-            play.style.color = 'inherit';
             nav=0;
             clearInterval(step1);
             clearInterval(step2);
@@ -633,7 +642,7 @@ function canvas3(key){
             autoInterval1 = 
                 setTimeout(() => {
                     trigger();
-                }, 1000);
+                }, 2000);
             autoInterval2 =
                 setTimeout(() => {
                     paraSymOverLoad(1);
@@ -651,7 +660,6 @@ function canvas3(key){
                     dysAutonomia(0.38,0.55,0.4,3);;
                 }, 20000);
         }
-        auto.click();
 
     function stepMove(){
         if (nav==1){
@@ -706,7 +714,7 @@ function canvas3(key){
             right = right + index;
             if (right>maxR){right=maxR}
             ctx.clearRect(0,0,100*vw,100*vh);
-            majorLabel(key,centerX,centerY,radius,'#3f7eb3');
+            majorLabel(key,centerX,centerY,radius,'#3f7eb3',2*vw);
             drawLeft(key,centerX,centerY,radius,left,fire);
             drawRight(key,centerX,centerY,radius,right,ice);
         } 
@@ -734,7 +742,7 @@ function canvas3(key){
 
         function animateIce(){
                 ctx.clearRect(0,0,100*vw,100*vh);
-                majorLabel(key,centerX,centerY,radius,'#3f7eb3');
+                majorLabel(key,centerX,centerY,radius,'#3f7eb3',2*vw);
                 right = right + fwd;
                 step++;
                 if (right<minR){
@@ -1051,7 +1059,7 @@ function canvas3(key){
             trigger(iceColor);
             drawLeft(key,centerX,centerY,radius,left,fireColor);
             drawRight(key,centerX,centerY,radius,right,iceColor); 
-            majorLabel(key,centerX,centerY,radius,'#32648f');
+            majorLabel(key,centerX,centerY,radius,'#32648f',2*vw);
             right = right + 0.01;left = left-(left-fireDown)/step;
             if (left<=fireDown){left=fireDown}
             if (right+fireDown>=1){right = 1-fireDown};
@@ -1066,7 +1074,7 @@ function canvas3(key){
             ctx.clearRect(0,0,100*vw,100*vh);
             drawLeft(key,centerX,centerY,radius,left,fireColor);
             drawRight(key,centerX,centerY,radius,right,iceColor); 
-            majorLabel(key,centerX,centerY,radius,'#32648f');
+            majorLabel(key,centerX,centerY,radius,'#32648f',2*vw);
             right = right + 0.01;left = left-(left-fireDown)/step;
             if (left<=fireDown){left=fireDown}
             if (right+fireDown>=1){right = 1-fireDown};
@@ -1074,17 +1082,17 @@ function canvas3(key){
     }   
 }
 
-    function drawNumber(number){
+    function drawNumber(number,hilight){
         const vmax = Math.max(vw,vh);
         const newY = centerY + 5*vmax;
         const newX = centerX + 0.5*vmax;
         const position = [
             [newX + radius + 10.5*vw,newY + radius + 3.5*vw],
-            [newX + radius + 15.5*vw, newY + 4*vw],
-            [newX + radius + 15.5*vw, newY -vw],
+            [newX + radius + 15.5*vw, newY + 5*vw],
+            [newX + radius + 14*vw, newY - 0.5*vw],
             [centerX,newY+ 4*vh],
-            [newX - 0.9*radius-1.5*vw,newY - 1.5*vw],
-            [newX - radius -9.5*vw,newY - 3*vw]
+            [newX - 0.9*radius-1*vw,newY - 1.5*vw],
+            [newX - radius -9.5*vw,newY - vw]
         ]
         
         const circle = document.createElement('div');
@@ -1102,9 +1110,17 @@ function canvas3(key){
             animateCircle(number-1)
         }
 
+        if (hilight!=null){
+            animateCircle(number-1)
+        }
+
         function animateCircle(n){
             const beginR = 1.5*vw;
-            const nClass = document.getElementsByClassName('number')
+            const nClass = document.getElementsByClassName('number');
+            nClass[n].style.fontSize = 2.4*vmax + 'px';
+            nClass[n].style.color = 'black';
+            nClass[n].style.backgroundColor = 'pink';
+            nClass[n].style.border = 'solid pink 0.1vmax'
             for (let index = beginR; index >= 0; index--) {
                 setTimeout(() => {
                     nClass[n].style.borderRadius = index + 'px';
@@ -1171,12 +1187,11 @@ function getIceGrd(key,centerX,centerY,radius,cold){
     return ice;
 }
 
-function majorLabel(key,centerX,centerY,radius,color){
+function majorLabel(key,centerX,centerY,radius,color,fontSize){
     const ctx = canvas[key].getContext("2d");
     //angle from midline
     const angle = 25;
     //left 
-    const fontSize = 2*vw;
     const xLeft = centerX + Math.cos(Math.PI * (90+angle)/180) * radius - 0.5*fontSize;
     const yLeft = centerY + Math.sin(Math.PI * (90+angle)/180) * radius;
     ctx.beginPath();
