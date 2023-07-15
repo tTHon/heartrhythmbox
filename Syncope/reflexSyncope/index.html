@@ -596,14 +596,15 @@ function canvas3(key,option){
     }
 
     if (key==3){
-        clearInterval(step1);
-        clearInterval(step2);
-        clearInterval(autoInterval1);
-        clearInterval(autoInterval2);
-        clearInterval(autoInterval3);
-        clearInterval(autoInterval4);
-        clearInterval(autoInterval5);
+        clearTimeout(step1);
+        clearTimeout(step2);
+        clearTimeout(autoInterval1);
+        clearTimeout(autoInterval2);
+        clearTimeout(autoInterval3);
+        clearTimeout(autoInterval4);
+        clearTimeout(autoInterval5);
         dysAutonomia(0.38,0.55,0.4,3); 
+        /*
         autoInterval1 = 
                 setTimeout(() => {
                     trigger();
@@ -624,59 +625,69 @@ function canvas3(key,option){
                 setTimeout(() => {
                     dysAutonomia(0.38,0.55,0.4,3);;
                 }, 20000);
-
+*/
         const play = document.getElementById('synPlay');
         const reload = document.getElementById('synReload');
         const auto = document.getElementById('synAuto');
          
         play.onclick = function(){
-            nav++;
-            clearInterval(step1);
-            clearInterval(step2);
-            clearInterval(autoInterval1);
-            clearInterval(autoInterval2);
-            clearInterval(autoInterval3);
-            clearInterval(autoInterval4);
-            clearInterval(autoInterval5);
+            clearTO();
+            playAnim();
+        }
+
+        function playAnim(){
+            play.style.color = 'pink';
+            relaod.style.color = 'inherit';
+            auto.style.color = 'inherit';
             stepMove();
+            nav++;
+        }
+
+        function clearTO(){
+            clearTimeout(step1);
+            clearTimeout(step2);
+            clearTimeout(autoInterval1);
+            clearTimeout(autoInterval2);
+            clearTimeout(autoInterval3);
+            clearTimeout(autoInterval4);
+            clearTimeout(autoInterval5);
         }
 
         reload.onclick = function(){
-            nav=0;
-            clearInterval(step1);
-            clearInterval(step2);
-            clearInterval(autoInterval1);
-            clearInterval(autoInterval2);
-            clearInterval(autoInterval3);
-            clearInterval(autoInterval4);
-            clearInterval(autoInterval5);
+            play.style.color = 'inherit';
+            relaod.style.color = 'pink';
+            auto.style.color = 'inherit';
+            clearTO();
+            reloadAnim()
+        }
+
+        function reloadAnim(){
             dysAutonomia(0.38,0.55,0.4,1); 
         }
 
         auto.onclick = function(){
-            nav=0;
-            clearInterval(step1);
-            clearInterval(step2);
-            clearInterval(autoInterval1);
-            clearInterval(autoInterval2);
-            clearInterval(autoInterval3);
-            clearInterval(autoInterval4);
-            clearInterval(autoInterval5);
-            dysAutonomia(0.38,0.55,0.4,1); 
+            play.style.color = 'inherit';
+            relaod.style.color = 'inherit';
+            auto.style.color = 'pink';
+            clearTO();
+            autoAnim();
+        }
 
- 
+        function autoAnim(){
+            dysAutonomia(0.38,0.55,0.4,5); 
+
             autoInterval1 = 
                 setTimeout(() => {
                     trigger();
-                }, 2000);
+                }, 6000);
             autoInterval2 =
                 setTimeout(() => {
                     paraSymOverLoad(1);
-                }, 5000);
+                }, 8000);
             autoInterval3 = 
                 setTimeout(() => {
                     pSymEffect('all');
-                }, 10000);
+                }, 12000);
             autoInterval4 = 
                 setTimeout(() => {
                     clearSyncope();
@@ -688,6 +699,9 @@ function canvas3(key,option){
         }
 
     function stepMove(){
+        if (nav==0){
+            dysAutonomia(0.38,0.55,0.4,1);
+        }
         if (nav==1){
             trigger();
         }
@@ -702,19 +716,9 @@ function canvas3(key,option){
         }
         if (nav==5){
             dysAutonomia(0.38,0.55,0.4,1);
-        }
-        if (nav==6){
-            paraSymOverLoad('still');
-            trigger();
-            pSymEffect('still');
-
-            for (let index = 1; index <=6; index++) {
-                drawNumberInterval = setTimeout(() =>{
-                    drawNumber(index);
-                    }, 2000 + (index*600))
-            }
             nav=0;
         }
+
         }
       
     }
@@ -1255,12 +1259,17 @@ window.onscroll = function(){
     //autoplay vdo on bNo3
     const sullyClip = document.getElementById('sully')
     const def = document.getElementById('defRefSyn');
-        if (bNo==3){
-        sullyClip.play();
-        def.style.visibility = 'visible';}
+        if (bNo==3 && !sullyClip.onplay){
+            sullyClip.play();
+            def.style.visibility = 'visible';
+        } else {
+        sullyClip.pause();
+        sullyClip.currentTime = 0;
+        def.style.visibility = 'hidden';
+        }
     //autoplay on bNo4
-    if (bNo==4){
-        canvas3(3);
+    if (bNo==5){
+        //canvas3(3);
     }
 
 }
@@ -1292,7 +1301,7 @@ function next(no){
       //autoplay vdo on bNo3
       const sullyClip = document.getElementById('sully')
       const def = document.getElementById('defRefSyn');
-      if (bNo==3){
+      if (bNo==3 && !sullyClip.onplay){
         sullyClip.play();
         def.style.opacity = 0;
         def.style.visibility = 'visible';
@@ -1303,12 +1312,15 @@ function next(no){
            
         }
       } else {
-        sullyClip.load();
+        sullyClip.pause();
+        sullyClip.currentTime = 0;
         def.style.visibility = 'hidden';
       }
-      if (bNo==4){
-        canvas3(3)
-      }
+      //if (bNo==5){
+        //canvas3(3,'auto')
+      //} else  {
+        //canvas3(3,'reload')
+      //}
 
     } 
 }
