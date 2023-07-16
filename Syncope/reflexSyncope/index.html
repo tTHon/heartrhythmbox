@@ -223,8 +223,7 @@
     </div>
 
     <!--ref Syn animation-->
-    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
-    min-height: 100vh;position: relative;">
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;">
         <div class="topic" style="color: pink;font-size: 4vmax;text-align: left;">
             REFLEX SYNCOPE
             <span id="controlBar" style="float: right;vertical-align: top;padding-top: 1vmax;padding-right: 1vmax;
@@ -241,8 +240,7 @@
         </canvas>
     </div>
 
-    <div id="synAnim" class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
-    min-height: 100vh;position: relative;">
+    <div id="synAnim" class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;position: relative;">
         <div class="topic" style="color: pink;font-size: 4vmax;text-align: center;">
             How to REVERSE Reflex Syncope        
         <canvas class="canvas noMobile"></canvas>
@@ -800,8 +798,8 @@ function canvas3(key,option){
 
     function trigger(color){
         const trgX = 10*vw;
-        ctx.beginPath();
         ctx.font = 3.25*vw + 'px Quicksand';
+        ctx.beginPath();
         ctx.textAlign = 'left';ctx.textBaseline = 'bottom';
         if (color==null){
             color='#ddd'
