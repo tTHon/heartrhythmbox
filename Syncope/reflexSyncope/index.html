@@ -85,6 +85,7 @@
         color: #ddd;
     }
     #endPage a {color: #ddd;}
+    .mobileOnly {display: none;}
     
     @media only screen and (max-width: 820px) {
         #benignS {flex-wrap: wrap;}
@@ -93,6 +94,8 @@
         #movieBlk {display: none;}
         .noMobile, .number, .noText {display: none;}
         #defRefSyn {visibility: visible;}
+        #controlBar {display: none;}
+        .mobileOnly {display: block;}
     }
 
 </style>
@@ -231,6 +234,9 @@
                 <span id="synAuto" title="autoplay" style="padding-left: 2vmax;padding-right: 1vmax;">&#913;</span>
            </span>
         </div>
+        <video controls style="width: 100%;" class="mobileOnly">
+            <source src="media/syncope.mp4" type="video/mp4">
+        </video>
         <canvas class="canvas noMobile">
         </canvas>
     </div>
