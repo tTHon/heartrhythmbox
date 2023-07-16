@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>yinYang</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 <style>
     * {margin: 0;background: rgba(0,0,0,0)};
     #cHolder {width: 100vw;height: 100vh;background-color: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);}
     .number {position:absolute;border-radius: 1.5vw;display: table-cell;vertical-align: middle;
         width: 3vw;height: 3vw;border: solid 0.1vw pink;z-index: 5;
         background-color: pink;color:#555;
-        font-family: Arial, Helvetica, sans-serif;font-size: 2vw;text-align: center;
-        cursor: pointer;
+        cursor: pointer;text-align: center;
+        font-family: 'Quicksand', sans-serif;font-size: 2vmax;
     }
-    .noText {display: inline-block;vertical-align: middle;line-height: normal;}
+    .noText {display: inline-block;vertical-align: middle;line-height: normal;font-family: 'Quicksand', sans-serif;}
 </style>
 </head>
 <body>
@@ -31,20 +32,26 @@ const fireColor = ['#801100','#b62203','#d73502','#fc6400','#ff7500','#FAC000'];
 const iceColor = ['#3f7eb3','#6ba7cc','#aedbf0','#fafeff','#e2fcff','#cbf1fa'];
 
 createCanvas(1);
+alert(window.innerWidth)
 
-const radius = 27*vw;
+const radius = 18*vw;
 const centerX = 50*vw;
-const centerY = 48*vh;
+const centerY = 35*vh;
 
 nav=0;
 //canvas0();
-//dysAutonomia(0.38,0.55,0.4,1);
+dysAutonomia(0.38,0.55,0.4,5);
 //baseAnimation();
+//paraSymOverLoad('still');
+//trigger();
 //majorLabel('#3f7eb3');
+//pSymEffect('all');
+
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-        canvas0()
+        nav++;
+        stepMove();
     }
 })
 
@@ -62,7 +69,11 @@ function stepMove(){
     if (nav==4){
         clearSyncope();
     }
-    
+
+    if (nav==5){
+        dysAutonomia(0.38,0.55,0.4,1);  
+    }
+    /*
     if (nav==5){
         paraSymOverLoad('still');
         trigger();
@@ -84,7 +95,7 @@ function stepMove(){
         //drawNumber(4);
         //drawNumber(5);
         //drawNumber(6);
-    }
+    }*/
 
 }
 
@@ -199,7 +210,7 @@ function syncopeText(option,color){
     if (option =='text'){
     ctx.beginPath();
     ctx.textBaseline = 'bottom';
-    ctx.font =  1.5*fSize + 'px Arial';
+    ctx.font =  1.5*fSize + 'px quicksand';
     ctx.textAlign = 'center';
     if (color==null){
         color = '#e2fcff';
@@ -236,7 +247,7 @@ function pSymEffect(option){
     const x1 = arrowX+arrowWidth+vw;
     ctx.beginPath();
     ctx.textBaseline = 'bottom';
-    ctx.font =  fSize + 'px Arial';
+    ctx.font =  fSize + 'px quicksand';
     ctx.textAlign = 'left';
     ctx.fillStyle = '#ddd';
     ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
@@ -269,7 +280,7 @@ function pSymEffect(option){
         const x1 = arrowX+arrowWidth+vw;
         ctx.beginPath();
         ctx.textBaseline = 'bottom';
-        ctx.font =  fSize + 'px Arial';
+        ctx.font =  fSize + 'px quicksand';
         ctx.textAlign = 'left';
         ctx.fillStyle = '#ddd';
         ctx.fillText('↓SV',x1+vw,centerY-1.1*fSize);
@@ -348,7 +359,7 @@ function paraSymOverLoad(animate){
 function trigger(color){
     const trgX = 10*vw;
     ctx.beginPath();
-    ctx.font = 3.25*vw + 'px Arial';
+    ctx.font = 3.25*vw + 'px quicksand';
     ctx.textAlign = 'left';ctx.textBaseline = 'bottom';
     if (color==null){
         color='#ddd'
@@ -483,7 +494,8 @@ function baseAnimation(){
     setInterval(() => {
         ctx.clearRect(0,0,100*vw,100*vh);
         drawLeft(left-gap,fire);
-        drawRight(1-left-gap,ice);   
+        drawRight(1-left-gap,ice); 
+        majorLabel('#3f7eb3');  
         left = left + fwd; 
         step++;
 
@@ -591,7 +603,7 @@ function majorLabel(color){
     const xLeft = centerX + Math.cos(Math.PI * (90+angle)/180) * radius - 0.5*fontSize;
     const yLeft = centerY + Math.sin(Math.PI * (90+angle)/180) * radius;
     ctx.beginPath();
-    ctx.font = fontSize + 'px Arial';
+    ctx.font = fontSize + 'px quicksand';
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'right';ctx.fillStyle = color
     ctx.fillText('Sympathetic',xLeft-fontSize,yLeft);
@@ -602,7 +614,7 @@ function majorLabel(color){
     ctx.textAlign = 'left';
     ctx.fillText('Parasympathetic',xRight+fontSize,yRight);
 
-    ctx.font = 0.7*fontSize + 'px Arial';
+    ctx.font = 0.7*fontSize + 'px quicksand';
     ctx.textAlign = 'right';
     ctx.fillText('nervous system',xLeft-fontSize,yLeft+0.7*fontSize);
     ctx.textAlign = 'left';
