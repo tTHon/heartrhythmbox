@@ -603,7 +603,7 @@ function canvas3(key,option){
         clearTimeout(autoInterval3);
         clearTimeout(autoInterval4);
         clearTimeout(autoInterval5);
-        dysAutonomia(0.38,0.55,0.4,3); 
+        //dysAutonomia(0.38,0.55,0.4,3); 
         /*
         autoInterval1 = 
                 setTimeout(() => {
@@ -630,6 +630,22 @@ function canvas3(key,option){
         const reload = document.getElementById('synReload');
         const auto = document.getElementById('synAuto');
          
+        if (option=='auto'){
+            play.style.color = '#ababab';
+            reload.style.color = '#ababab';
+            auto.style.color = 'pink';
+            clearTO();
+            autoAnim();
+        }
+
+        if (option=='reload'){
+            play.style.color = '#ababab';
+            reload.style.color = 'pink';
+            auto.style.color = '#ababab';
+            clearTO();
+            reloadAnim()    
+        }
+
         play.onclick = function(){
             clearTO();
             playAnim();
@@ -637,8 +653,8 @@ function canvas3(key,option){
 
         function playAnim(){
             play.style.color = 'pink';
-            relaod.style.color = 'inherit';
-            auto.style.color = 'inherit';
+            reload.style.color = '#ababab';
+            auto.style.color = '#ababab';
             stepMove();
             nav++;
         }
@@ -654,9 +670,9 @@ function canvas3(key,option){
         }
 
         reload.onclick = function(){
-            play.style.color = 'inherit';
-            relaod.style.color = 'pink';
-            auto.style.color = 'inherit';
+            play.style.color = '#ababab';
+            reload.style.color = 'pink';
+            auto.style.color = '#ababab';
             clearTO();
             reloadAnim()
         }
@@ -666,8 +682,8 @@ function canvas3(key,option){
         }
 
         auto.onclick = function(){
-            play.style.color = 'inherit';
-            relaod.style.color = 'inherit';
+            play.style.color = '#ababab';
+            reload.style.color = '#ababab';
             auto.style.color = 'pink';
             clearTO();
             autoAnim();
@@ -1269,7 +1285,9 @@ window.onscroll = function(){
         }
     //autoplay on bNo4
     if (bNo==5){
-        //canvas3(3);
+        canvas3(3,'auto');
+    } else {
+        canvas3(3,'reload')
     }
 
 }
@@ -1316,11 +1334,11 @@ function next(no){
         sullyClip.currentTime = 0;
         def.style.visibility = 'hidden';
       }
-      //if (bNo==5){
-        //canvas3(3,'auto')
-      //} else  {
-        //canvas3(3,'reload')
-      //}
+      if (bNo==5){
+        canvas3(3,'auto')
+      } else  {
+        canvas3(3,'reload')
+      }
 
     } 
 }
