@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>yinYang</title>
 <style>
-    * {margin: 0;};
-    #cHolder {width: 100vw;height: 100vh;}
+    * {margin: 0;background: rgba(0,0,0,0)};
+    #cHolder {width: 100vw;height: 100vh;background-color: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);}
     .number {position:absolute;border-radius: 1.5vw;display: table-cell;vertical-align: middle;
         width: 3vw;height: 3vw;border: solid 0.1vw pink;z-index: 5;
         background-color: pink;color:#555;
@@ -17,8 +17,8 @@
 </style>
 </head>
 <body>
-    <div id="cHolder" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);">
-        <canvas id="canvas">
+    <div id="cHolder" style="background: none;">
+        <canvas id="canvas" style="background:#1b2735;">
         </canvas>
     </div>
     
@@ -32,20 +32,19 @@ const iceColor = ['#3f7eb3','#6ba7cc','#aedbf0','#fafeff','#e2fcff','#cbf1fa'];
 
 createCanvas(1);
 
-const radius = 20*vw;
+const radius = 27*vw;
 const centerX = 50*vw;
-const centerY = 40*vh;
+const centerY = 48*vh;
 
 nav=0;
-
-dysAutonomia(0.38,0.55,0.4,1);
+//canvas0();
+//dysAutonomia(0.38,0.55,0.4,1);
 //baseAnimation();
-majorLabel('#3f7eb3');
+//majorLabel('#3f7eb3');
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-      nav++;  
-      stepMove()
+        canvas0()
     }
 })
 
@@ -426,6 +425,47 @@ function bracket(x1,y1,x2,y2,color,side){
         ctx.closePath();
     }
 }
+
+function canvas0(){
+    //baseAnimation
+    //0.45-0.55
+    const min = 0.4;
+    const max = 0.6;
+    const maxStep = 20;
+    var gap = 0;
+    var left = min;
+    var fwd = 0.01;
+    var step = 0;
+
+    var gd = 0;
+
+
+    setInterval(() => {
+        ctx.clearRect(0,0,100*vw,100*vh);
+        var leftGd = ctx.createLinearGradient(centerX,centerY+radius,centerX,centerY-radius);
+        leftGd.addColorStop(gd, '#1c444c');
+        leftGd.addColorStop(1, '#3F9DA4')
+        drawLeft(left-gap,leftGd);
+        drawRight(1-left-gap,'#e2fcff');   
+        left = left + fwd; 
+        step++;
+        gd = step/25;
+
+        if (left>max){
+            left=max;
+        }
+        if (left<min){
+            left=min;
+        }
+        if (step>maxStep){
+            step = 0;
+            if (left>=max){fwd = -0.01;}
+            if (left<=min){fwd = 0.01;}
+        }
+    }, 200);
+
+}
+
 
 function baseAnimation(){
     //0.45-0.55
