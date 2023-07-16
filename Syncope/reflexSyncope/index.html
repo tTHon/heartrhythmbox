@@ -11,7 +11,7 @@
     body::-webkit-scrollbar{
     display: none;}*/
 
-    * {margin: 0;max-width: 1920px;
+    * {margin: 0;max-width: 1600px;margin-left: auto;margin-right: auto;
         font-family: 'Quicksand', sans-serif;};
 
     .block {min-height: 100vh;position: relative};
@@ -92,6 +92,7 @@
         #textBlk {flex: 1;}
         #movieBlk {display: none;}
         .noMobile, .number, .noText {display: none;}
+        #defRefSyn {visibility: visible;}
     }
 
 </style>
@@ -116,7 +117,7 @@
     </div>
 
     <!--syncope vs SCD -- cerebral blood flow-->
-    <div class="block" style="background-color: #232323;min-height: 100vh;">
+    <div class="block" style="background-color: #232323;">
         <div class="topic" style="padding-top:3vmax;">
             The thin line between Syncope and Sudden Cardiac Death
         </div>
@@ -146,7 +147,7 @@
     </div>
 
     <!--benign syncope-->
-    <div class="block" style="background-color: #232323;min-height: 100vh;padding-top: 5vmax;">
+    <div class="block" style="background-color: #232323;padding-top: 5vmax;">
         <div id="benignS">
             <div style="font-size: 5vmax;text-align: center;line-height: 110%;border-radius: 2vmax;
             padding: 10vmax 3vmax;background-color: #f2cf49;color: #082b3a;">
@@ -212,10 +213,9 @@
     
 
     <!--sym/parasym interplay-->
-    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;
-    min-height: 100vh;">
+    <div class="block" style="background: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 2vmax 0;">
         <div class="topic" style="padding-top: 2vmax;">The Interplay between sym- & parasympathetic system</div>
-        <canvas class="canvas">
+        <canvas class="canvas noMobile">
         </canvas>
     </div>
 
@@ -280,7 +280,6 @@
 </div>
 
 <script>
-
 //detect orientation change
 window.addEventListener("orientationchange", function() {
             location.reload();
@@ -299,13 +298,16 @@ window.addEventListener("keydown", function(event) {
 
 const block = document.getElementsByClassName('block');
 const canvas = document.getElementsByClassName('canvas')
-const vw = Math.round(window.innerWidth/100);
+var vw = Math.round(window.innerWidth/100);
+if (window.innerWidth>1600){
+    vw = Math.round(1600/100);
+}
 const vh = Math.round(window.innerHeight/100);
 const vmin = Math.min(vw,vh)
 canvas0(0);
 canvas1(1);
 canvas2(2);
-canvas3(3);
+canvas3(3,'reload');
 canvas3(4,'all');
 
 /*syncope vs SCD*/
@@ -315,7 +317,8 @@ function canvas1(key){
     const centerX = 50*vw;const centerY = 12*vh;
     const radius = 35*vmin;
     const cHeight = centerY + radius + 2*vh;
-    const cWidth = window.innerWidth - 2*vw
+    var cWidth = window.innerWidth - 2*vw;
+    if (window.innerWidth>1600){cWidth = 1600;}
     canvas[key].style.width = cWidth + 'px';
     canvas[key].style.height = cHeight + 'px';
     canvas[key].width = Math.floor(cWidth * scale*1);
@@ -452,7 +455,8 @@ function canvas2(key){
     const centerX = 50*vw;
     const centerY = 5*vh + radius;
     const cHeight = centerY + radius + 5*vh;
-    const cWidth = window.innerWidth - 2*vw
+    var cWidth = window.innerWidth - 2*vw;
+    if (window.innerWidth>1600){cWidth = 1600;};
     const scale = window.devicePixelRatio;
     canvas[key].style.width = cWidth + 'px';
     canvas[key].style.height = cHeight + 'px';
@@ -503,7 +507,8 @@ function canvas0(){
     const centerX = 50*vw;
     const centerY = 25*vh;
     const cHeight = centerY + radius + 2*vh;
-    const cWidth = window.innerWidth - 2*vw
+    var cWidth = window.innerWidth - 2*vw;
+    if (window.innerWidth>1600){cWidth = 1600;}
     const scale = window.devicePixelRatio;
     canvas[0].style.width = cWidth + 'px';
     canvas[0].style.height = cHeight + 'px';
@@ -551,6 +556,7 @@ function canvas0(){
 }
 
 var nav=0;
+var playStatus;
 //syncope
 function canvas3(key,option){
     const ctx = canvas[key].getContext("2d");
@@ -559,7 +565,8 @@ function canvas3(key,option){
     const centerY = 2*vh + radius;
     //const cHeight = centerY + radius + 5*vh;
     const scale = window.devicePixelRatio;
-    const cWidth = window.innerWidth - 2*vw
+    var cWidth = window.innerWidth - 2*vw;
+    if (window.innerWidth>1600){cWidth = 1600;};
     canvas[key].style.width = cWidth + 'px';
     canvas[key].style.height = window.innerHeight + 'px';
     canvas[key].width = Math.floor(cWidth * scale*1);
@@ -596,36 +603,8 @@ function canvas3(key,option){
     }
 
     if (key==3){
-        clearTimeout(step1);
-        clearTimeout(step2);
-        clearTimeout(autoInterval1);
-        clearTimeout(autoInterval2);
-        clearTimeout(autoInterval3);
-        clearTimeout(autoInterval4);
-        clearTimeout(autoInterval5);
-        //dysAutonomia(0.38,0.55,0.4,3); 
-        /*
-        autoInterval1 = 
-                setTimeout(() => {
-                    trigger();
-                }, 10000);
-            autoInterval2 =
-                setTimeout(() => {
-                    paraSymOverLoad(1);
-                }, 5000);
-            autoInterval3 = 
-                setTimeout(() => {
-                    pSymEffect('all');
-                }, 10000);
-            autoInterval4 = 
-                setTimeout(() => {
-                    clearSyncope();
-                }, 15000);
-            autoInterval5 = 
-                setTimeout(() => {
-                    dysAutonomia(0.38,0.55,0.4,3);;
-                }, 20000);
-*/
+        playStatus = option;
+        
         const play = document.getElementById('synPlay');
         const reload = document.getElementById('synReload');
         const auto = document.getElementById('synAuto');
@@ -647,6 +626,7 @@ function canvas3(key,option){
         }
 
         play.onclick = function(){
+            playStatus = 'play'
             clearTO();
             playAnim();
         }
@@ -670,6 +650,7 @@ function canvas3(key,option){
         }
 
         reload.onclick = function(){
+            playStatus = 'reload'
             play.style.color = '#ababab';
             reload.style.color = 'pink';
             auto.style.color = '#ababab';
@@ -678,10 +659,11 @@ function canvas3(key,option){
         }
 
         function reloadAnim(){
-            dysAutonomia(0.38,0.55,0.4,1); 
+            dysAutonomia(0.38,0.55,0.4,0); 
         }
 
         auto.onclick = function(){
+            playStatus = 'auto';
             play.style.color = '#ababab';
             reload.style.color = '#ababab';
             auto.style.color = 'pink';
@@ -691,7 +673,7 @@ function canvas3(key,option){
 
         function autoAnim(){
             dysAutonomia(0.38,0.55,0.4,5); 
-
+            
             autoInterval1 = 
                 setTimeout(() => {
                     trigger();
@@ -710,7 +692,11 @@ function canvas3(key,option){
                 }, 15000);
             autoInterval5 = 
                 setTimeout(() => {
-                    dysAutonomia(0.38,0.55,0.4,3);;
+                    dysAutonomia(0.38,0.55,0.4,3);
+                    playStatus = 'reload';
+                    play.style.color = '#ababab';
+                    reload.style.color = 'pink';
+                    auto.style.color = '#ababab';
                 }, 20000);
         }
 
@@ -1283,12 +1269,11 @@ window.onscroll = function(){
         sullyClip.currentTime = 0;
         def.style.visibility = 'hidden';
         }
-    //autoplay on bNo4
+    //autoplay on bNo5
     if (bNo==5){
-        canvas3(3,'auto');
-    } else {
-        canvas3(3,'reload')
-    }
+        if (playStatus!='auto')
+            canvas3(3,'auto');
+    } 
 
 }
 
@@ -1334,12 +1319,10 @@ function next(no){
         sullyClip.currentTime = 0;
         def.style.visibility = 'hidden';
       }
-      if (bNo==5){
-        canvas3(3,'auto')
-      } else  {
-        canvas3(3,'reload')
-      }
-
+      if (bNo==5) {
+        if (playStatus!='auto')
+            canvas3(3,'auto');
+      } 
     } 
 }
 
