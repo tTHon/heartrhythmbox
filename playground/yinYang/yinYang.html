@@ -6,7 +6,7 @@
     <title>yinYang</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 <style>
-    * {margin: 0;background: rgba(0,0,0,0)};
+    * {margin: 0;};
     #cHolder {width: 100vw;height: 100vh;background-color: radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);}
     .number {position:absolute;border-radius: 1.5vw;display: table-cell;vertical-align: middle;
         width: 3vw;height: 3vw;border: solid 0.1vw pink;z-index: 5;
@@ -19,7 +19,7 @@
 </head>
 <body>
     <div id="cHolder" style="background: none;">
-        <canvas id="canvas" style="background:#1b2735;">
+        <canvas id="canvas" style="background:#009933;">
         </canvas>
     </div>
     
@@ -31,17 +31,16 @@ const vh = Math.round(window.innerHeight/100);
 const fireColor = ['#801100','#b62203','#d73502','#fc6400','#ff7500','#FAC000'];
 const iceColor = ['#3f7eb3','#6ba7cc','#aedbf0','#fafeff','#e2fcff','#cbf1fa'];
 
-createCanvas(1);
-alert(window.innerWidth)
+createCanvas(2);
 
-const radius = 18*vw;
+const radius = 20*vw;
 const centerX = 50*vw;
-const centerY = 35*vh;
+const centerY = 45*vh;
 
 nav=0;
 //canvas0();
-dysAutonomia(0.38,0.55,0.4,5);
-//baseAnimation();
+//dysAutonomia(0.38,0.55,0.4,5);
+baseAnimation();
 //paraSymOverLoad('still');
 //trigger();
 //majorLabel('#3f7eb3');
@@ -495,7 +494,7 @@ function baseAnimation(){
         ctx.clearRect(0,0,100*vw,100*vh);
         drawLeft(left-gap,fire);
         drawRight(1-left-gap,ice); 
-        majorLabel('#3f7eb3');  
+        majorLabel('#e2fcff');  
         left = left + fwd; 
         step++;
 
@@ -599,7 +598,7 @@ function majorLabel(color){
     //angle from midline
     const angle = 25;
     //left 
-    const fontSize = 2*vw;
+    const fontSize = 2.5*vw;
     const xLeft = centerX + Math.cos(Math.PI * (90+angle)/180) * radius - 0.5*fontSize;
     const yLeft = centerY + Math.sin(Math.PI * (90+angle)/180) * radius;
     ctx.beginPath();
