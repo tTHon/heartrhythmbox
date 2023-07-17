@@ -62,7 +62,7 @@ thrombin(intZero);
 thrombin(extZero);
 paintIntrinsic();
 paintExtrinsic();
-pltAgg()
+//pltAgg()
 //platelet();
 //tissueFactorCell();
 
@@ -71,12 +71,10 @@ nav=0;
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-        //block('int',3,0.8)
+        block('int',3,0.8)
         //block('int',1,0.8)
-        //block('ext',2,0.8)
+        block('ext',2,0.8)
         //block('ext',1,0.8)
-        //thrombinBlock(intZero,0.8)
-        //thrombinBlock(extZero,0.8)
       nav++;
       stepMove();
     }
@@ -84,8 +82,9 @@ window.addEventListener("keydown", function(event) {
 
 function stepMove(){
   if (nav==1){
-    pltBlock()
-
+    //pltBlock()
+    thrombinBlock(intZero,0.8)
+        thrombinBlock(extZero,0.8)
   }
   if (nav==2){
     boostExtFactor(1,1.5)
@@ -376,7 +375,7 @@ function block(side,fIndex,blockLevel){
             grd.addColorStop(1,stop2)
             ctx.strokeStyle = grd;
             labelIntrinsic(fStart,fEnd,fIndex,intZero);   
-            }, 2*index)
+            }, index/2)
         }
         ctx.closePath()
     }
@@ -418,7 +417,7 @@ function block(side,fIndex,blockLevel){
             grd.addColorStop(1,stop2)
             ctx.strokeStyle = grd;
             labelExtrinsic(fStart,fEnd,fIndex,extZero);   
-            }, 2*(2000-index))
+            }, 10*(1000-index))
         }
         ctx.closePath()
        

@@ -19,20 +19,24 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
-const xZero = 20*vw;
-const yZero = 40*vh;
+const xZero = 30*vw;
+const yZero = 60*vh;
 const size = 1*vw;
-const res = 1000;
+const res = 200;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas();
+ctx.rotate(-15 * Math.PI/180)
 
 //setUpArray(x1Mod,y1Mod,x2Mod,y2Mod)
 //setUpArray(17,15,12,11)
 setUpArray(20,15,13,9)
+
 //drawCurve(xArray,yArray,dMin,dMax,size,color)
-drawCurve(x1A,y1A,0,1,'#444');
-drawCurve(x2A,y2A,0,1,'#555');
+//drawCurve(x1A,y1A,0,2,'#454545');
+//drawCurve(x2A,y2A,0,2,'#455455');
+
+colorAll();  
 
 
 //intrinsic factors size 11,9,8,10 = 16,6,33,6 = 61; x10kDa
@@ -40,7 +44,7 @@ const half = 0.55;
 const intrinsic = [['XI',16,'red'],['IX',6,'green'],['VIII',33,'black'],['X',6,'blue']];
 const extrinsic = [['VII',5,'#800020'],['X',6,'blue']]
 const intUnit = Math.round(1000*(0.55/61))/1000;
-
+/*
 nav=0;
 //intrinsic step
 window.addEventListener("keydown", function(event) {
@@ -49,7 +53,7 @@ window.addEventListener("keydown", function(event) {
       intrinsicMove()
     }
 })
-
+*/
 function intrinsicMove(){
   maxInt = intrinsic.length
   if (nav<maxInt){
@@ -64,6 +68,87 @@ function intrinsicMove(){
 
 //IIa
 //thrombin();
+
+function multipleCurve(){
+  //basecurve: setUpArray(20,15,13,9)
+  dArray= [];x1A = [];y1A = [];x2A = [];y2A = [];
+    var dMax = 2;
+    for (let index = 0; index <= res*dMax; index++) {
+        var d = index/res;
+        var t = Math.PI*d;
+        var x1 = x1Mod*Math.pow(Math.sin(t),3);
+        var y1 = (y1Mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t))
+        var x2 = x2Mod*Math.pow(Math.sin(t),3);
+        var y2 = (y2Mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t))
+        dArray.push(d);
+        x1A.push(x1);x2A.push(x2);
+        y1A.push(y1);y2A.push(y2);
+    }
+
+}
+
+function getX(mod,d){
+  var t = Math.PI*d;
+  var x = x1Mod*Math.pow(Math.sin(t),3);
+  return (x);
+}
+function getY(mod,d){
+  var t = Math.PI*d;
+  var y1 = (y1Mod*Math.cos(t))-(3*Math.cos(2*t))-(2*Math.cos(3*t))-(Math.cos(4*t))
+}
+
+function colorAll(){
+  var start = dArray.indexOf(0);
+  var mid = dArray.indexOf(1);
+  var end = dArray.indexOf(2); 
+  const xMid = size*x1A[mid]+xZero;
+  const yMid = yZero-(size*y1A[mid])
+  //blank out area 0.25-0.75
+  const bStart = dArray.indexOf(0.25);
+  const bEnd = dArray.indexOf(0.75);
+  
+    for (let index = start; index <end ; index++) {
+      ctx.beginPath();
+        ctx.lineWidth = 1;
+        var x0 = size*x1A[index]+xZero;var y0 = yZero-(size*y1A[index]);
+        var x1 = size*x2A[index]+xZero;var y1 = yZero-(size*y2A[index]);
+        ctx.moveTo(x0,y0); 
+        ctx.quadraticCurveTo(x0,y0+size,x1,y1);
+        var grd = ctx.createLinearGradient(xZero,yZero,xMid,yMid);
+        if (index>bStart && index<bEnd){
+          
+          grd.addColorStop(0, '#555');
+          grd.addColorStop(0.5, '#444');
+          grd.addColorStop(1, '#333');          
+          ctx.strokeStyle = grd;
+          ctx.stroke();  
+          ctx.closePath();
+        }
+        else {
+        grd.addColorStop(0, '#bbb');
+        grd.addColorStop(0.5, '#999');
+        grd.addColorStop(1, '#555');
+        ctx.strokeStyle = grd;
+        ctx.stroke();         
+        ctx.closePath();  
+      }
+    }
+
+
+    function colorRandom(){
+      //var colorSet = ['#c2a083','#c8aa8f','#ceb39c','#d4bda8','#dac6b5','#e1d0c1',
+                    //'#e7d9cd','#ede3da','#f3ece6','#f9f6f3'];
+      var colorSet = ['#a6a39E','#Bab6b2','#ccc6c4','#d3d3d2','#e5e1d6',
+      '#bbbcb6']
+      var randomNumber = Math.floor(Math.random() * (colorSet.length - 0) ) + 0;
+      var color = colorSet[randomNumber];
+      return color;
+    }
+
+
+
+
+}
 
 function thrombin(){
     //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
@@ -207,9 +292,9 @@ function createCanvas() {
   const scale = window.devicePixelRatio;
   canvas.style.width = window.innerWidth + 'px';
   canvas.style.height = window.innerHeight + 'px';
-  canvas.width = Math.floor(window.innerWidth * scale*2)
-  canvas.height = Math.floor(window.innerHeight * scale*2)
-  ctx.scale(scale*2,scale*2)
+  canvas.width = Math.floor(window.innerWidth * scale*1)
+  canvas.height = Math.floor(window.innerHeight * scale*1)
+  ctx.scale(scale*1,scale*1)
 }
 
 function setUpArray(x1Mod,y1Mod,x2Mod,y2Mod){
@@ -236,7 +321,8 @@ function setUpArray(x1Mod,y1Mod,x2Mod,y2Mod){
 function drawCurve(xArray,yArray,dMin,dMax,color){
     ctx.beginPath();
     var start = dArray.indexOf(dMin);
-    var end = dArray.indexOf(dMax)
+    var end = dArray.indexOf(dMax);
+    var mid = dArray.indexOf(1)
     ctx.moveTo(size*xArray[0]+xZero,yZero-(size*yArray[0]));
 
     for (let index = start+1; index < end; index++) {
@@ -244,9 +330,16 @@ function drawCurve(xArray,yArray,dMin,dMax,color){
         y1 = yZero-(size*yArray[index]);
         ctx.lineTo(x1,y1);
         ctx.lineWidth = 1;
-        ctx.stroke();
-        ctx.strokeStyle = color
     }
+    console.log(end)
+    var grd = ctx.createLinearGradient(size*xArray[0]+xZero,yZero-(size*yArray[0]),
+    size*xArray[mid]+xZero,yZero-(size*yArray[mid]));
+    grd.addColorStop(0, '#ddd');
+    grd.addColorStop(0.5, '#f1f1f1');
+    grd.addColorStop(1, '#333');
+    
+    ctx.strokeStyle = grd;
+    ctx.stroke();
     ctx.closePath()
 }
 
