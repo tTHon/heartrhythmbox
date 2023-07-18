@@ -10,7 +10,7 @@
 <body>
 
 <div style="text-align:center">
-  <canvas id="canvas" style="background-color: #333;"></canvas>
+  <canvas id="canvas" style="background-color: #009933;"></canvas>
 </div>
 
 
@@ -21,8 +21,8 @@ const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
-const size = 1.3 *vw;
-const res = 2000;
+const size = 1.2 *vw;
+const res = 1000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas(1);
@@ -71,16 +71,18 @@ nav=0;
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-        block('int',3,0.8)
-        //block('int',1,0.8)
-        block('ext',2,0.8)
-        //block('ext',1,0.8)
-      nav++;
       stepMove();
+      nav++;
     }
 })
 
 function stepMove(){
+  if (nav==0){
+    block('int',3,0.8)
+        block('int',1,0.8)
+        block('ext',2,0.8)
+        block('ext',1,0.8)
+  }
   if (nav==1){
     //pltBlock()
     thrombinBlock(intZero,0.8)
@@ -621,9 +623,9 @@ function title(){
 
   //legend;
   var scale = 2;
-  ctx.fillStyle = "#dddddd";ctx.font = 2*vw + 'px Poppins';
-  var x = extZero - (scale*5*vw);
-  var y = yZero-(yMin*size)+10*vh;
+  ctx.fillStyle = "#aaa";ctx.font = 2*vw + 'px Poppins';
+  var x = extZero - (scale*5*vw)+20*vw;
+  var y = yZero-(yMin*size)-2*vh;
   var y1Index = dArray.indexOf(half)
   var y2Index = dArray.indexOf(half+intUnit)
   var y2 = y+ Math.abs((y1A[y2Index]-y1A[y1Index])*scale*size)
@@ -631,7 +633,7 @@ function title(){
   ctx.moveTo(x,y);
   ctx.lineTo(x,y2);
   ctx.lineWidth =scale;
-  ctx.strokeStyle = '#eee';
+  ctx.strokeStyle = '#aaa';
   ctx.stroke();
   ctx.closePath();
   //horizontal cap
