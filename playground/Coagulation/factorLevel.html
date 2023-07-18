@@ -10,7 +10,7 @@
 <body>
 
 <div style="text-align:center">
-  <canvas id="canvas" style="background-color: #333;"></canvas>
+  <canvas id="canvas" style="background-color: #009933;"></canvas>
 </div>
 
 
@@ -78,16 +78,16 @@ window.addEventListener("keydown", function(event) {
 
 function stepMove(){
   if (nav==0){
-    block('int',3,0.8)
+    //block('int',3,0.8)
         //block('int',1,0.8)
-        block('ext',2,0.8)
+        //block('ext',2,0.8)
         //block('ext',1,0.8)
   }
   if (nav==1){
     thrombinBlock(intZero,0.8)
     thrombinBlock(extZero,0.8)
   }
-  if (nav==2){
+  if (nav==1){
     block('int',3,0.8)
     block('int',1,0.8)
     block('ext',2,0.8)
