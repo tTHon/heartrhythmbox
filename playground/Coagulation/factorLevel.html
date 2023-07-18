@@ -10,7 +10,7 @@
 <body>
 
 <div style="text-align:center">
-  <canvas id="canvas" style="background-color: #009933;"></canvas>
+  <canvas id="canvas" style="background-color: #333;"></canvas>
 </div>
 
 
@@ -22,7 +22,7 @@ const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
 const size = 1.2 *vw;
-const res = 1000;
+const res = 2000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas(1);
@@ -79,16 +79,23 @@ window.addEventListener("keydown", function(event) {
 function stepMove(){
   if (nav==0){
     block('int',3,0.8)
-        block('int',1,0.8)
+        //block('int',1,0.8)
         block('ext',2,0.8)
-        block('ext',1,0.8)
+        //block('ext',1,0.8)
   }
   if (nav==1){
-    //pltBlock()
     thrombinBlock(intZero,0.8)
-        thrombinBlock(extZero,0.8)
+    thrombinBlock(extZero,0.8)
   }
   if (nav==2){
+    block('int',3,0.8)
+    block('int',1,0.8)
+    block('ext',2,0.8)
+    block('ext',1,0.8)
+    //pltBlock()
+
+  }
+  if (nav==3){
     boostExtFactor(1,1.5)
     boostExtFactor(0,1.5)
     boostIntFactor(2,1.5)
