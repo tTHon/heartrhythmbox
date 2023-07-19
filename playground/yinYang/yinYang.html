@@ -39,11 +39,11 @@ const centerY = 45*vh;
 
 nav=0;
 //canvas0();
-dysAutonomia(0.38,0.55,0.4,5);
+dysAutonomia(0.38,0.55,0.4,10);
 //baseAnimation();
 //paraSymOverLoad('still');
 //trigger();
-majorLabel('#3f7eb3');
+//majorLabel('#3f7eb3');
 //pSymEffect('all');
 
 window.addEventListener("keydown", function(event) {
@@ -72,8 +72,8 @@ function stepMove(){
     if (nav==5){
         dysAutonomia(0.38,0.55,0.4,1);  
     }
-    /*
-    if (nav==5){
+    
+    if (nav==6){
         paraSymOverLoad('still');
         trigger();
         
@@ -85,7 +85,7 @@ function stepMove(){
             else {
                 setTimeout(() =>{
                     drawNumber(index);
-                }, 2000 + (index*600))
+                }, 3000 + (600))
             }
         }
         //drawNumber(1);
@@ -94,7 +94,7 @@ function stepMove(){
         //drawNumber(4);
         //drawNumber(5);
         //drawNumber(6);
-    }*/
+    }
 
 }
 
@@ -598,7 +598,7 @@ function majorLabel(color){
     //angle from midline
     const angle = 25;
     //left 
-    const fontSize = 2.5*vw;
+    const fontSize = 2*vw;
     const xLeft = centerX + Math.cos(Math.PI * (90+angle)/180) * radius - 0.5*fontSize;
     const yLeft = centerY + Math.sin(Math.PI * (90+angle)/180) * radius;
     ctx.beginPath();
