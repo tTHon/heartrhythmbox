@@ -19,7 +19,7 @@
 </head>
 <body>
     <div id="cHolder" style="background: none;">
-        <canvas id="canvas" style="background:#009933;">
+        <canvas id="canvas" style="background:#232323;">
         </canvas>
     </div>
     
@@ -69,10 +69,10 @@ function stepMove(){
         clearSyncope();
     }
 
-    if (nav==5){
+    if (nav==6){
         dysAutonomia(0.38,0.55,0.4,1);  
     }
-    /*
+    
     if (nav==5){
         paraSymOverLoad('still');
         trigger();
@@ -94,7 +94,7 @@ function stepMove(){
         //drawNumber(4);
         //drawNumber(5);
         //drawNumber(6);
-    }*/
+    }
 
 }
 
@@ -598,25 +598,25 @@ function majorLabel(color){
     //angle from midline
     const angle = 25;
     //left 
-    const fontSize = 2.5*vw;
+    const fontSize = 2*vw;
     const xLeft = centerX + Math.cos(Math.PI * (90+angle)/180) * radius - 0.5*fontSize;
     const yLeft = centerY + Math.sin(Math.PI * (90+angle)/180) * radius;
     ctx.beginPath();
     ctx.font = fontSize + 'px quicksand';
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'right';ctx.fillStyle = color
+    ctx.textBaseline = 'middle';ctx.fillStyle = '#b62203'
+    ctx.textAlign = 'right';
     ctx.fillText('Sympathetic',xLeft-fontSize,yLeft);
     
     //right
     const xRight = centerX + Math.cos(Math.PI * (90-angle)/180) * radius + 0.5*fontSize;
     const yRight = centerY + Math.sin(Math.PI * (90-angle)/180) * radius;
-    ctx.textAlign = 'left';
+    ctx.textAlign = 'left';ctx.fillStyle = color;
     ctx.fillText('Parasympathetic',xRight+fontSize,yRight);
 
     ctx.font = 0.7*fontSize + 'px quicksand';
-    ctx.textAlign = 'right';
+    ctx.textAlign = 'right';ctx.fillStyle = '#b62203'
     ctx.fillText('nervous system',xLeft-fontSize,yLeft+0.7*fontSize);
-    ctx.textAlign = 'left';
+    ctx.textAlign = 'left';ctx.fillStyle = color;
     ctx.fillText('nervous system',xRight+fontSize,yRight+0.7*fontSize);
 }
 
