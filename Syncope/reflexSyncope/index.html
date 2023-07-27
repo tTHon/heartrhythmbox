@@ -53,9 +53,11 @@
         padding: 10vmax;
     }
     .stepTitle {
-        background-color: pink;
         font-size: 3vmax;
         margin-top:3vh;padding: 1vmax;
+        z-index: 2;
+        border-radius: 1vmax;
+        box-shadow: 5px 5px 5px rgba(80,80,80,0.5);
     }
 
     #endPage {padding: 3vmax;background-color: #555;text-align: center;
@@ -173,7 +175,7 @@
 
     <!--block #8; array no 7-->
     <div class="block">
-        <div class="stepTitle">
+        <div class="stepTitle orange" style="color: #e2fcff;">
             #1 Counterpressure Maneuover to delay or prevent reflex syncope.
         </div>
         <div style="padding: 2vmax;text-align: center;
@@ -184,6 +186,23 @@
                 J R Army Med Corps 2015;161:180–186.
             </a>
         </div>
+        <ul style="font-size: 3vmax;color: #e2fcff;padding: 1vmax;list-style-position: inside;
+        background-color: #E36E53;max-width: 900px;margin-left: auto;margin-right: auto;">
+            <li style="padding: 0.5vmax;">
+                <b>15mmHg</b> increase in standing SBP
+            </li>
+            <li style="padding: 0.5vmax;">
+                <b>34%</b> relative reduction in recurrence rate
+            </li>
+            <li style="padding: 0.5vmax;">
+                Less effective in the elderly and those with minimal prodromal period.
+            </li>
+            <div class="ref">
+                <a href="https://doi.org/10.3389/fcvm.2022.1016420" target="_blank">
+                    Front. Cardiovasc. Med., 13 October 2022
+                </a>
+            </div>
+        </ul>
     </div>
  
 
@@ -221,6 +240,7 @@
             </div>
     
     
+    </div>
     </div>
 </div>
 
@@ -332,6 +352,13 @@ window.onscroll = function(){
         if (top<window.innerHeight/2){
         bNo=i;
         }
+    }
+
+    const ahead = 7;
+    const title = document.getElementsByClassName('stepTitle')
+    if (bNo==7){
+        title[bNo-ahead].style.position = 'sticky'
+        title[bNo-ahead].style.top = '0'
     }
 
 }
