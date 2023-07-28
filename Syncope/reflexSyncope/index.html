@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
 <style>
-    * {margin: 0;max-width: 1600px;margin-left: auto;margin-right: auto;font-family: 'Quicksand', sans-serif;}
+    * {margin: 0;font-family: 'Quicksand', sans-serif;}
     .block {background:radial-gradient(ellipse at bottom, #1b2735 0%, #082b3a 100%);padding: 1vmax;
         border: solid #121b24 1px};
 
@@ -49,6 +49,11 @@
         color: #666;font-size: 1.4vmax;text-align: center;
     }
 
+    .tableRef {
+        font-family: 'Quicksand', sans-serif;vertical-align: super;
+        color: #666;font-size: 1.4vmax;
+    }
+
     .largePad {
         padding: 10vmax;
     }
@@ -57,8 +62,23 @@
         margin-top:3vh;padding: 1vmax;
         z-index: 2;
         border-radius: 1vmax;
-        box-shadow: 5px 5px 5px rgba(80,80,80,0.5);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
     }
+
+    #pharmTable, .bigTable {font-size: 2vmax;color: #e2fcff;padding: 1vmax;
+        margin-top: 2vh;margin-left: auto;margin-right: auto;}
+    #pharmTable td, .bigTable td {padding: 0.5vmax;}
+    #pharmTable td, .bigTable td  {border-bottom: #1c444c solid 0.1vmax;}
+    .smallTable {font-size: 1.6vmax;color: #ddd;
+        padding: 1vmax 2vmax;width: fit-content;margin-left: auto;margin-right: auto;}
+    .smallTable td {padding: 0 0.5vmax;}
+
+    
+    .ppmSub {color: #3F9DA4;font-size: 3vmax;font-weight: 600;
+        text-align: center;letter-spacing: 2px;padding: 4vmax;}
+    .imgFixH {width: 90%;height: auto;max-height: 60vh;object-fit: contain;padding: 2vmax;}
+    .flex2 {display: flex;}
+    .flex2 div {flex: 50%;}
 
     #endPage {padding: 3vmax;background-color: #555;text-align: center;
         color: #ddd;
@@ -69,6 +89,7 @@
     @media only screen and (max-width: 820px) {
         .mobileOnly {display: block;}
         .largePad {padding: 10vh 3vmax;}
+        .flex2 {flex-wrap: wrap;}
     }
 
 </style>
@@ -103,19 +124,19 @@
         </div>
     </div>
 
-    <div class="yellow largePad">
+    <div class="yellow largePad" style="margin-left: auto;margin-right: auto;">
         <div style="font-size: 4vmax;text-align: center;;border-bottom: #1c444c solid 1vmin;font-weight: 600;color: #1c444c;padding: 1vmax;">
             Reflex Syncope has a benign prognosis.
         </div>
-        <div style="font-size: 2.8vmax;border-bottom: #e2fcff solid 0.1vmin;
-        color: #e2fcff;width: fit-content;padding:2vmax 1vmax 0.5vmax 1vmax;">
+        <div style="font-size: 2.8vmax;border-bottom: #555 solid 0.1vmin;margin-left: auto;margin-right: auto;
+        color: #555;width: fit-content;padding:2vmax 1vmax 0.5vmax 1vmax;">
             HR (95%CI) for all-cause mortality</div>
         <br>
-        <div class="orange" style="font-size: 3.2vmax;width: fit-content;padding: 2vmax;">
+        <div class="orange" style="font-size: 3.2vmax;width: fit-content;padding: 2vmax;margin-left: auto;margin-right: auto;">
         Cardiac Syncope: 1.43 (1.25-1.64)
         </div>
         <br>
-        <div class="indigo" style="font-size: 3.2vmax;width: fit-content;padding: 2vmax;color: #e2fcff;">
+        <div class="indigo" style="font-size: 3.2vmax;width: fit-content;padding: 2vmax;color: #e2fcff;margin-left: auto;margin-right: auto;">
             Reflex Syncope: 1.17 (0.95-1.14)
         </div>
         <div class="ref">
@@ -205,24 +226,297 @@
         </ul>
     </div>
 
-    <!--block #9; array no 7-->
+    <!--block #9; array no 7--med-->
     <div class="block">
         <div class="stepTitle" style="color:#082b3a;background-color: pink;">
             #2 Pharmacological Treatment of Reflex Syncope
         </div>
 
-        <table>
-            <th>
-                <td>Treatment</td>
+        <table id="pharmTable">
+            <tr class="cyan" style="font-size: 2.2vmax;font-weight: 600;">
+                <td>Treatment
+                    <a href="https://doi.org/10.1136/heartjnl-2020-318261" class="tableRef">
+                        1
+                    </a>
+                </td>
                 <td>Mechanism of Action</td>
-                <td>Results from RCT(s)</td>
-                <td>Guidelines Recommendation</td>
-            </th>
+                <td style="text-align: center;">Results from RCT(s)</td>
+                <td style="text-align: center;">Guidelines Recommendation
+                    <a href="https://doi.org/10.1093/eurheartj/ehy037" class="tableRef">
+                       2     
+                    </a>
+                </td>
+            </tr>
             <tr>
                 <td>De-prescribing of antihypertensive meds</td>
-                <td>Redice </td>
+                <td>Reduce orthostatic hypotension</td>
+                <td style="text-align: center;">
+                    <b>HR (syncope/pre-syncope)</b>
+                    <br>
+                    0.40 (0.16- 1.00)
+                    <a href="https://doi.org/10.1136/heartjnl-2016-309865" class="tableRef">3</a>
+                </td>
+                <td style="text-align: center;">IIa <br>(older w/ htn meds)</td>
+            </tr>
+            <tr>
+                <td>Midodrine</td>
+                <td>Selective alpha-receptor agonist</td>
+                <td style="text-align: center;">
+                    <b>HR (time to 1st syncope)</b><br>
+                    0.59 (0.37-0.96)
+                    <a href="https://doi.org/10.7326/m20-5415" class="tableRef">4</a>
+                </td>
+                <td style="text-align: center;">
+                    IIb <br>
+                    (younger & low BP)
+                </td>
+            </tr>
+            <tr>
+                <td>Fludrocortisone</td>
+                <td>Mineralocorticoid-like action</td>
+                <td style="text-align: center;">
+                    <b>HR (syncope; after 2wk of drug)</b>
+                    <br>
+                    0.51 (0.28-0.89)
+                    <a href="https://doi.org/10.1016/j.jacc.2016.04.030" class="tableRef">5</a>
+                    </td>
+                <td style="text-align: center;">
+                    IIb<br>
+                    (younger & low BP)
+                </td>
+            </tr>
+            <tr>
+                <td>Theophylline</td>
+                <td>Adenosine blockade</td>
+                <td style="text-align: center;">No RCT. In a case series, asystolic pause reduced from 9.6 to 1.1/yr.
+                    <a href="https://doi.org/10.1016/j.ijcard.2019.03.043" class="tableRef">6</a>
+                </td>
+                <td style="text-align: center;">No recommendation</td>
+            </tr>
+            <tr>
+                <td>Atomoxetine</td>
+                <td>NE transporter inhibition</td>
+                <td style="text-align: center;">
+                    <b>Episodes of syncope/presyncope at 3mos</b><br>
+                    2 (drug) vs 4 (placebo); p&lt;0.0017
+                    <a href="https://doi.org/10.1016/j.ijcha.2021.100789" class="tableRef">7</a>
+                </td>
+                <td style="text-align: center;">No recommendation</td>
+            </tr>
+            <tr>
+                <td>Droxidopa</td>
+                <td>Synthetic NE prodrug</td>
+                <td style="text-align: center;">Symptoms improvement in neurogenic OH (assessed by questionnaire), P=0.0038
+                    <a href="https://doi.org/10.1212/wnl.0000000000000615" class="tableRef">8</a>
+                </td>
+                <td style="text-align: center;">No recommendation</td>
             </tr>
         </table>
+
+        <!--ref Table-->
+        <table class="smallTable">
+            <tr>
+                <td>
+                    <a href="https://doi.org/10.1136/heartjnl-2020-318261" class="tableRef">
+                        1. Brignole M, Rivasi G. Heart 2021;107:864–873.
+                    </a>
+                </td>
+                <td>
+                    <a href="https://doi.org/10.1093/eurheartj/ehy037" class="tableRef">
+                        2. 2018 ESC Guidelines for Syncope     
+                     </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://doi.org/10.1136/heartjnl-2016-309865" class="tableRef">
+                        3. Solari, et al. Heart 2017;103:449-455.
+                    </a>
+                </td>
+                <td>
+                    <a href="https://doi.org/10.7326/m20-5415" class="tableRef">
+                        4. Sheldon et al. POST 4. Ann Intern Med. 2021 Oct;174(10):1349-1356.
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://doi.org/10.1016/j.jacc.2016.04.030" class="tableRef">
+                        5. Sheldon et al. POST 2. J Am Coll Cardiol 2016;68:1–9.
+                    </a>
+                </td>
+                <td>
+                    <a href="https://doi.org/10.1016/j.ijcard.2019.03.043" class="tableRef">
+                        6. Brignole et al. Int J Cardiol. 2019 Aug 15;289:70-73.
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://doi.org/10.1016/j.ijcha.2021.100789" class="tableRef">
+                        7. Tajdini et al. Int J Cardiol Heart Vasc. 2021 May 8;34:100789.
+                    </a>
+                </td>
+                <td>
+                    <a href="https://doi.org/10.1212/wnl.0000000000000615" class="tableRef">
+                        8. Kaufmann et al. Neurology. 2014 Jul 22; 83(4): 328–335.
+                    </a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!--PPM-->
+    <div class="block">
+        <div class="stepTitle" style="color:#082b3a;background-color: pink;">
+            #3 Pacemaker for Cardio-inhibitory type of Reflex Syncope
+        </div>
+        <div class="ppmSub">
+            PPM vs. No PPM<br>
+            <img src="media/ppmNoPPM.png" style="max-width: 400px;padding: 1vmax;">
+        </div>
+        <table class="bigTable" style="text-align: center;margin-top: 0;padding-top: 0;">
+            <tr class="indigo">
+                <td>Trials</td>    
+                <td>1yr Recurrence Rate (PPM vs. No PPM)</td>
+                <td>Statistical Significance</td>
+            </tr>
+            <tr>
+                <td>RCT:<br>
+                    PPM vs no PPM
+                    <a href="https://doi.org/10.1016/0002-9149(92)90860-2" target="_blank" class="tableRef">
+                        1
+                    </a>    
+                </td>
+                <td>0% vs. 36%</td>
+                <td>P &lt;0.001</td>
+            </tr>
+            <tr>
+                <td>RCT:<br>
+                    PPM vs Atenolol
+                    <a href="https://doi.org/10.1161/hc2601.091708" target="_blank" class="tableRef">
+                        2
+                    </a>
+                </td>
+                <td>
+                    3% vs. 24%
+                </td>
+                <td>
+                    OR 0.13<br>
+                    95%CI 0.03-0.63
+                </td>
+            </tr>
+
+        </table>
+        <table class="smallTable" style="padding-bottom: 4vh;">
+            <tr>
+                <td>
+                    <a href="https://doi.org/10.1016/0002-9149(92)90860-2" target="_blank" class="tableRef">
+                        1. Brignole et al. Am J Cardiol. 1992 Apr 15;69(12):1039-43.
+                    </a> 
+                </td>
+                <td>
+                    <a href="https://doi.org/10.1161/hc2601.091708" target="_blank" class="tableRef">
+                        2. Ammirati et al. Circulation. 2001 Jul 3;104(1):52-7.
+                    </a> 
+                </td>
+            </tr>
+        </table>
+        <div class="ppmSub" style="border-top: #e2fcff solid 0.1vmin;">
+            PPM <span style="color: lawngreen;">ON</span> vs. PPM <span style="color:red">OFF</span><br>
+            <img src="media/ppmOnOff.png" style="max-width: 400px;padding: 1vmax;">
+        </div>
+        <table class="bigTable" style="text-align: center;">
+            <tr class="orange">
+                <td>
+                    Trials
+                </td>
+                <td>
+                    1yr Recurrence Rate (PPM ON vs OFF)
+                </td>
+                <td>
+                    HR (95%CI)
+                </td>
+            </tr>
+            <tr>
+                <td>ISSUE 3
+                    <a href="https://doi.org/10.1161/circulationaha.111.082313" target="_blank"
+                    class="tableRef">1</a>
+                </td>
+                <td>25% vs. 37%</td>
+                <td>0.43 (0.04-0.81)</td>
+            </tr>
+            <tr>
+                <td>BIOSYNC CLS
+                    <a href="https://doi.org/10.1093/eurheartj/ehaa936" target="_blank"
+                    class="tableRef">
+                    2
+                    </a>
+                </td>
+                <td>19% vs. 53%</td>
+                <td>0.23 (0.11-0.47)</td>
+            </tr>
+        </table>
+        <table class="smallTable">
+            <tr>
+                <td>
+                    <a href="https://doi.org/10.1161/circulationaha.111.082313" target="_blank"
+                    class="tableRef">
+                    1. Brignole et al. Circulation. 2012 May 29;125(21):2566-71. 
+                </a>
+                </td>
+                <td>
+                    <a href="https://doi.org/10.1093/eurheartj/ehaa936" target="_blank"
+                    class="tableRef">
+                    2. Brignole et al. Eur Heart J. 2021 Feb 1;42(5):508-516.
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!--CNA-->
+    <div class="block">
+        <div class="stepTitle" style="color:#082b3a;background-color: pink;">
+            #4 Cardioneural Ablation for Reflex Syncope
+        </div>
+        <div class="flex2">
+            <div style="padding: 2vmax;font-size: 4vmax;
+            color: white;font-weight: 600;text-transform: uppercase;
+            vertical-align: middle;align-self: center;">
+                The small brain within the heart
+                <div 
+                style="font-size: 2vmax;color: #3F9DA4;padding-top: 1vmax;
+                text-transform: none;">
+                    The heart is not just a pump. It has its neural network or 
+                    intrinsic cardiac nervous system.             
+                </div>
+                <div class="ref" style="text-align: justify;text-transform: none;">
+                    <a href="https://doi.org/10.1016%2Fj.jaccas.2021.02.018" target="_blank">
+                        Aksu et al. JACC Case Rep 2021.
+                    </a>
+                </div>
+            </div>
+            <div>
+                <img src="media/littleBrain.png" class="imgFixH ">
+            </div>
+        </div>
+        <div style="padding:5vmax 1vmax;">
+            <img src="media/targetCNA.png" class="imgFixH">
+            <div class="yellow" style="font-size: 2.5vmax;width: fit-content;
+            font-weight: 600;padding: 0 0.5vmax;">
+                Target for Cardioneual Ablation is...
+            </div>
+            <div style="color: #f2cf49;font-size: 3.5vmax;padding:1vmax 0.5vmax;font-weight: 600;">
+                SUPERIOR PARASEPTAL AND THE INFERIOR PARASEPTAL GANGLIA.
+            </div>
+            <div class="ref" style="text-align: left;padding:0;">
+                <a href="https://doi.org/10.1161/CIRCEP.116.004638" target="_blank">
+                    Circ Arrhythm Electrophysiol. 2017 Feb;10(2):e004638.
+                </a>
+            </div>
+        </div>
     </div>
  
 
@@ -289,7 +583,8 @@ function canvas0(){
     const centerY = 25*vh;
     const cHeight = centerY + radius + 2*vh;
     var cWidth = window.innerWidth - 2*vw;
-    if (window.innerWidth>1600){cWidth = 1600;}
+    /*
+    if (window.innerWidth>1600){cWidth = 1600;}*/
     const scale = window.devicePixelRatio;
     canvas[0].style.width = cWidth + 'px';
     canvas[0].style.height = cHeight + 'px';
@@ -376,11 +671,28 @@ window.onscroll = function(){
 
     const ahead = 7;
     const title = document.getElementsByClassName('stepTitle')
-    if (bNo==7){
-        title[bNo-ahead].style.position = 'sticky'
-        title[bNo-ahead].style.top = '0'
+    /*7-12*/
+    stepStart = 7;stepEnd = 12;
+    if (bNo>=stepStart && bNo<=stepEnd){
+        for (let index = 0; index < title.length; index++) {
+            title[index].style.borderTopLeftRadius = '1vmax';
+            title[index].style.borderTopRightRadius = '1vmax';            
+        }
+        var thisStep = bNo-ahead;
+        var top = box[bNo].getBoundingClientRect().top;
+        if (top<=0){
+        title[thisStep].style.position = 'sticky';
+        title[thisStep].style.top = '0';
+        title[thisStep].style.borderTopLeftRadius = '0';
+        title[thisStep].style.borderTopRightRadius = '0';}
     }
-
+    else {
+        for (let index = 0; index < title.length; index++) {
+            title[index].style.position = 'relative';
+            title[index].style.borderTopLeftRadius = '1vmax';
+            title[index].style.borderTopRightRadius = '1vmax';            
+        }
+    }
 }
 
 </script>
