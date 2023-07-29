@@ -66,7 +66,8 @@
     }
 
     #pharmTable, .bigTable {font-size: 2vmax;color: #e2fcff;padding: 1vmax;
-        margin-top: 2vh;margin-left: auto;margin-right: auto;}
+        margin-top: 2vh;margin-left: auto;margin-right: auto;    
+    }
     #pharmTable td, .bigTable td {padding: 0.5vmax;}
     #pharmTable td, .bigTable td  {border-bottom: #1c444c solid 0.1vmax;}
     .smallTable {font-size: 1.6vmax;color: #ddd;
@@ -79,6 +80,10 @@
     .imgFixH {width: 90%;height: auto;max-height: 60vh;object-fit: contain;padding: 2vmax;}
     .flex2 {display: flex;}
     .flex2 div {flex: 50%;}
+    .cnaList {font-size: 3vmax;font-weight: 600;padding: 2vmax;}
+    .cnaList div {padding: 1vmax;text-align: center;border-radius: 0.5vmax;}
+    .cnaList ul {border-top:#121b24 solid 0.1vmax;text-align: justify;}
+    .cnaList li {font-weight: 400;padding: 1vmax;border-bottom:#1b2735 dashed 0.1vmax}
 
     #endPage {padding: 3vmax;background-color: #555;text-align: center;
         color: #ddd;
@@ -98,7 +103,7 @@
 <body>
     <div class="block" style="height: 100vh;">
         
-        <canvas class="canvas">
+        <canvas class="canvas" style="padding: none;margin: none;">
         </canvas>
         <div class="subTitle">
             Management of
@@ -232,87 +237,88 @@
             #2 Pharmacological Treatment of Reflex Syncope
         </div>
 
-        <table id="pharmTable">
-            <tr class="cyan" style="font-size: 2.2vmax;font-weight: 600;">
-                <td>Treatment
-                    <a href="https://doi.org/10.1136/heartjnl-2020-318261" class="tableRef">
-                        1
-                    </a>
-                </td>
-                <td>Mechanism of Action</td>
-                <td style="text-align: center;">Results from RCT(s)</td>
-                <td style="text-align: center;">Guidelines Recommendation
-                    <a href="https://doi.org/10.1093/eurheartj/ehy037" class="tableRef">
-                       2     
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>De-prescribing of antihypertensive meds</td>
-                <td>Reduce orthostatic hypotension</td>
-                <td style="text-align: center;">
-                    <b>HR (syncope/pre-syncope)</b>
-                    <br>
-                    0.40 (0.16- 1.00)
-                    <a href="https://doi.org/10.1136/heartjnl-2016-309865" class="tableRef">3</a>
-                </td>
-                <td style="text-align: center;">IIa <br>(older w/ htn meds)</td>
-            </tr>
-            <tr>
-                <td>Midodrine</td>
-                <td>Selective alpha-receptor agonist</td>
-                <td style="text-align: center;">
-                    <b>HR (time to 1st syncope)</b><br>
-                    0.59 (0.37-0.96)
-                    <a href="https://doi.org/10.7326/m20-5415" class="tableRef">4</a>
-                </td>
-                <td style="text-align: center;">
-                    IIb <br>
-                    (younger & low BP)
-                </td>
-            </tr>
-            <tr>
-                <td>Fludrocortisone</td>
-                <td>Mineralocorticoid-like action</td>
-                <td style="text-align: center;">
-                    <b>HR (syncope; after 2wk of drug)</b>
-                    <br>
-                    0.51 (0.28-0.89)
-                    <a href="https://doi.org/10.1016/j.jacc.2016.04.030" class="tableRef">5</a>
+        <div style="max-width: 100%;overflow-x: scroll;">
+            <table id="pharmTable">
+                <tr class="cyan" style="font-size: 2.2vmax;font-weight: 600;">
+                    <td>Treatment
+                        <a href="https://doi.org/10.1136/heartjnl-2020-318261" class="tableRef">
+                            1
+                        </a>
                     </td>
-                <td style="text-align: center;">
-                    IIb<br>
-                    (younger & low BP)
-                </td>
-            </tr>
-            <tr>
-                <td>Theophylline</td>
-                <td>Adenosine blockade</td>
-                <td style="text-align: center;">No RCT. In a case series, asystolic pause reduced from 9.6 to 1.1/yr.
-                    <a href="https://doi.org/10.1016/j.ijcard.2019.03.043" class="tableRef">6</a>
-                </td>
-                <td style="text-align: center;">No recommendation</td>
-            </tr>
-            <tr>
-                <td>Atomoxetine</td>
-                <td>NE transporter inhibition</td>
-                <td style="text-align: center;">
-                    <b>Episodes of syncope/presyncope at 3mos</b><br>
-                    2 (drug) vs 4 (placebo); p&lt;0.0017
-                    <a href="https://doi.org/10.1016/j.ijcha.2021.100789" class="tableRef">7</a>
-                </td>
-                <td style="text-align: center;">No recommendation</td>
-            </tr>
-            <tr>
-                <td>Droxidopa</td>
-                <td>Synthetic NE prodrug</td>
-                <td style="text-align: center;">Symptoms improvement in neurogenic OH (assessed by questionnaire), P=0.0038
-                    <a href="https://doi.org/10.1212/wnl.0000000000000615" class="tableRef">8</a>
-                </td>
-                <td style="text-align: center;">No recommendation</td>
-            </tr>
-        </table>
-
+                    <td>Mechanism of Action</td>
+                    <td style="text-align: center;">Results from RCT(s)</td>
+                    <td style="text-align: center;">Guidelines Recommendation
+                        <a href="https://doi.org/10.1093/eurheartj/ehy037" class="tableRef">
+                        2     
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>De-prescribing of antihypertensive meds</td>
+                    <td>Reduce orthostatic hypotension</td>
+                    <td style="text-align: center;">
+                        <b>HR (syncope/pre-syncope)</b>
+                        <br>
+                        0.40 (0.16- 1.00)
+                        <a href="https://doi.org/10.1136/heartjnl-2016-309865" class="tableRef">3</a>
+                    </td>
+                    <td style="text-align: center;">IIa <br>(older w/ htn meds)</td>
+                </tr>
+                <tr>
+                    <td>Midodrine</td>
+                    <td>Selective alpha-receptor agonist</td>
+                    <td style="text-align: center;">
+                        <b>HR (time to 1st syncope)</b><br>
+                        0.59 (0.37-0.96)
+                        <a href="https://doi.org/10.7326/m20-5415" class="tableRef">4</a>
+                    </td>
+                    <td style="text-align: center;">
+                        IIb <br>
+                        (younger & low BP)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fludrocortisone</td>
+                    <td>Mineralocorticoid-like action</td>
+                    <td style="text-align: center;">
+                        <b>HR (syncope; after 2wk of drug)</b>
+                        <br>
+                        0.51 (0.28-0.89)
+                        <a href="https://doi.org/10.1016/j.jacc.2016.04.030" class="tableRef">5</a>
+                        </td>
+                    <td style="text-align: center;">
+                        IIb<br>
+                        (younger & low BP)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Theophylline</td>
+                    <td>Adenosine blockade</td>
+                    <td style="text-align: center;">No RCT. In a case series, asystolic pause reduced from 9.6 to 1.1/yr.
+                        <a href="https://doi.org/10.1016/j.ijcard.2019.03.043" class="tableRef">6</a>
+                    </td>
+                    <td style="text-align: center;">No recommendation</td>
+                </tr>
+                <tr>
+                    <td>Atomoxetine</td>
+                    <td>NE transporter inhibition</td>
+                    <td style="text-align: center;">
+                        <b>Episodes of syncope/presyncope at 3mos</b><br>
+                        2 (drug) vs 4 (placebo); p&lt;0.0017
+                        <a href="https://doi.org/10.1016/j.ijcha.2021.100789" class="tableRef">7</a>
+                    </td>
+                    <td style="text-align: center;">No recommendation</td>
+                </tr>
+                <tr>
+                    <td>Droxidopa</td>
+                    <td>Synthetic NE prodrug</td>
+                    <td style="text-align: center;">Symptoms improvement in neurogenic OH (assessed by questionnaire), P=0.0038
+                        <a href="https://doi.org/10.1212/wnl.0000000000000615" class="tableRef">8</a>
+                    </td>
+                    <td style="text-align: center;">No recommendation</td>
+                </tr>
+            </table>
+        </div>
         <!--ref Table-->
         <table class="smallTable">
             <tr>
@@ -374,8 +380,10 @@
         </div>
         <div class="ppmSub">
             PPM vs. No PPM<br>
-            <img src="media/ppmNoPPM.png" style="max-width: 400px;padding: 1vmax;">
+            <img src="media/ppmNoPPM.png" style="max-width: 400px;
+            padding: 1vmax;width: 90%;">
         </div>
+        <div style="max-width: 100%;overflow-x: scroll;">
         <table class="bigTable" style="text-align: center;margin-top: 0;padding-top: 0;">
             <tr class="indigo">
                 <td>Trials</td>    
@@ -409,6 +417,7 @@
             </tr>
 
         </table>
+        </div>
         <table class="smallTable" style="padding-bottom: 4vh;">
             <tr>
                 <td>
@@ -425,8 +434,10 @@
         </table>
         <div class="ppmSub" style="border-top: #e2fcff solid 0.1vmin;">
             PPM <span style="color: lawngreen;">ON</span> vs. PPM <span style="color:red">OFF</span><br>
-            <img src="media/ppmOnOff.png" style="max-width: 400px;padding: 1vmax;">
+            <img src="media/ppmOnOff.png" style="max-width: 400px;
+            padding: 1vmax;width: 90%;">
         </div>
+        <div style="max-width: 100%;overflow-x: scroll;">
         <table class="bigTable" style="text-align: center;">
             <tr class="orange">
                 <td>
@@ -458,6 +469,7 @@
                 <td>0.23 (0.11-0.47)</td>
             </tr>
         </table>
+        </div>
         <table class="smallTable">
             <tr>
                 <td>
@@ -504,19 +516,213 @@
         </div>
         <div style="padding:5vmax 1vmax;">
             <img src="media/targetCNA.png" class="imgFixH">
-            <div class="yellow" style="font-size: 2.5vmax;width: fit-content;
+            <a href="https://doi.org/10.1161/CIRCEP.116.004638" target="_blank" 
+            class="ref" style="padding:0;">
+                    Circ Arrhythm Electrophysiol. 2017.
+            </a>
+            <div class="yellow" style="font-size: 2.5vmax;width: fit-content;margin-top: 3vmax;
             font-weight: 600;padding: 0 0.5vmax;">
-                Target for Cardioneual Ablation is...
+                Targets for Cardioneual Ablation is...
             </div>
             <div style="color: #f2cf49;font-size: 3.5vmax;padding:1vmax 0.5vmax;font-weight: 600;">
                 SUPERIOR PARASEPTAL AND THE INFERIOR PARASEPTAL GANGLIA.
             </div>
-            <div class="ref" style="text-align: left;padding:0;">
-                <a href="https://doi.org/10.1161/CIRCEP.116.004638" target="_blank">
-                    Circ Arrhythm Electrophysiol. 2017 Feb;10(2):e004638.
+            <div class="yellow" style="font-size: 2.5vmax;width: fit-content;margin-top: 4vmax;
+            font-weight: 600;padding: 0 0.5vmax;">
+                Targets for Cardioneual Ablation can be identified by...
+            </div>
+            <div style="color: #f2cf49;font-size: 3.5vmax;padding:1vmax 0.5vmax;font-weight: 600;">
+                ANATOMY, FRAGMENTED SIGNALS, AND RESPONSE TO STIMULATION.
+            </div>
+            <img src="media/cnaFragmented.png" class="imgFixH">
+            <div class="ref">
+                <a href="https://doi.org/10.4022/jafib.2394" target="_blank">
+                    Hu et al. J Atr Fibrillation. 2020.
+                </a>and
+                <a href="https://doi.org/10.1007/s10840-020-00840-9" target="_blank">
+                    Calo et al. J Interv Card Electrophysiol. 2021.
                 </a>
             </div>
         </div>
+        <div style="padding: 5vmax 1vmax;">
+            <img src="media/cnaRCT.png" class="imgFixH">
+        </div>
+
+        <div style="font-size: 3vmax;padding: 1vmax;color: #f2cf49;">
+            Knowns & Unknowns of CardioNeural Ablation
+        </div>
+        <div class="flex2 cnaList">
+            <div class="cyan">
+                Knowns
+                <ul style="list-style: none;">
+                    <li>Not for vasodepressor type.</li>
+                    <li>Not for patients with intrinsic SA or AV node dysfunction.</li>
+                    <li>Complications included injury to phrenic nerve, coronary artery, and other complications similar to SVT ablation</li>
+                    <li>Reflex syncope has a benign prognosis.</li>
+                </ul>
+            </div>
+            <div class="yellow">
+                Unknowns
+                <ul style="list-style: none;">
+                    <li>
+                        Long-term effects of re-innervation and high heart rate.
+                    </li>
+                    <li>RA vs. Bi-atrial Approach</li>
+                    <li>Endpoint???</li>
+                    <li>Therapeutic Fashion vs. Evidence-based Treatment</li>
+                </ul>
+            </div>
+        </div>
+        <Table class="smallTable">
+            <tr>
+                <td>
+                <a href="https://doi.org/10.1161/CIRCEP.116.004638" target="_blank" 
+                class="tableRef">
+                        Rivarola et al. Circ Arrhythm Electrophysiol. 2017.
+                </a>
+                </td>
+                <td>
+                    <a href="https://doi.org/10.1161/circep.120.009747" target="_blank"
+                    class="tableRef">
+                    Debruyne et al. Circ Arrhythm Electrophysiol. 2021
+                </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://doi.org/10.1016/j.jaccas.2022.04.021" target="_blank"
+                    class="tableRef">
+                    Scanavacca et al. JACC Case Rep. 2022.
+                    </a>
+                </td>
+                <td>
+                    <a href="https://doi.org/10.1093/europace/euad033" target="_blank"
+                    class="tableRef">
+                    Brignole et al. Europace 2023.
+                </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://www.medscape.com/viewarticle/992552" target="_blank"
+                    class="tableRef">
+                    Mandrola JM. Medscape 2023.
+                    </a>
+                </td>
+            </tr>
+        </Table>
+    </div>
+
+    <!--yoga-->
+    <div class="block">
+        <div class="stepTitle" style="color:#082b3a;background-color: pink;">
+            #5 Yoga therapy to prevent recurrent reflex syncope
+        </div>
+        <div style="text-align: center;padding: 2vmax;">
+            <img src="media/yogaPose.png" class="imgFixH" 
+            style="border: #1c444c solid 0.1vmax;border-radius: 0.5vmax;">
+        </div>
+        <div style="max-width: 100%;overflow-x: scroll;">
+            <table class="bigTable" style="text-align: center;">
+                <tr class="yellow" style="font-weight: 600;">
+                    <td rowspan="2">Trials</td>
+                    <td rowspan="2">Inclusions</td>
+                    <td rowspan="2">Yoga Protocol</td>
+                    <td colspan="2">Mean Syncope Episodes 
+                        <br>(Yoga vs. Control)
+                    </td>
+                </tr>
+                <tr class="yellow" style="font-weight: 600;">
+                    <td>6wks</td>
+                    <td>1yr</td>
+                </tr>
+                <tr>
+                    <td>RCT, N=97</td>
+                    <td>Reflex syncope 3+/yr,<br>
+                        age 12-60 yr
+                    </td>
+                    <td rowspan="2">
+                        Instructed; 
+                        breathing & postures exercises<br>
+                        60mins/d x 5/wk
+                    </td>
+                    <td>0.8 vs 1.8
+                        <br>P &lt;0.001
+                    </td>
+                    <td>
+                        1.1 vs 3.8
+                        <br>P &lt;0.001
+                    </td>
+                </tr>
+                <tr>
+                    <td>RCT, N=55</td>
+                    <td>Reflex syncope 2+/3mo,<br> 
+                        age 15-70yr
+                    </td>
+                    <td>0.17 vs 0.45<br>
+                        P =0.04
+                    </td>
+                    <td>
+                        0.70 vs 2.52<br>
+                        P &lt;0.01
+                    </td>
+                </tr>
+            </table>
+        </div>
+            <a href="https://doi.org/10.1093/europace/euab054" target="_blank" class="ref">
+                Shenthar et al. Europace 2021.
+            </a>
+            <a href="https://doi.org/10.1016/j.jacep.2021.09.007" target="_blank" class="ref">
+                Sharma et al. JACC Clin Electrophysiol 2022.
+            </a>
+
+        <div style="padding:1vmax;border: #ddd solid 0.1vmax;border-radius: 0.5vmax;margin-top: 5vmax;">
+            <div style="color: #f2cf49;font-size: 3.5vmax;
+            font-weight: 600;margin-top: 3vmax;">
+                "Tadasana" Yoga Maneuver
+            </div>
+            <div style="font-size: 2.2vmax;width: fit-content;color: #3F9DA4;background-color: #121b24;
+            font-weight: 600;padding: 0 0.5vmax;">
+                a very simple yoga pose for prevention of reflex syncope: an RCT
+            </div>
+            <div style="padding:1vmax;text-align: center;">
+                <img src="media/tadasana.png" class="imgFixH">
+            </div>
+            <a href="https://doi.org/10.1016/j.jacep.2021.12.007" target="_blank" class="ref">
+                Rao et al. JACC Clin Electrophysiol 2022.
+            </a>
+        </div>
+    </div>
+
+    <!--trigger-->
+    <div class="block">
+        <div class="stepTitle" style="color:#082b3a;background-color: pink;">
+            #6 Avoid Triggers
+        </div>
+        <img src="media/avoidTriggers.png" class="imgFixH">
+    </div>
+
+    <!--conclusions-->
+    <div class="block">
+        <div style="font-size: 5vmax;color:#e2fcff;font-weight: 600;
+        text-align: center;padding: 2vmax;letter-spacing: 4px;">
+        CONCLUSIONS
+        </div>
+        <ul style="list-style: none;padding: 3vmax 1vmax 6vmax 1vmax;color: white;
+        font-size: 2.5vmax;font-weight: 600;width: 1024;margin-left: auto;margin-right: auto;">
+            <li class="yellow" style="padding: 2vmax;">
+                Reflex Syncope is a benign condition.
+            </li>
+            <li class="orange" style="padding: 2vmax;">
+                Current strategy to prevent reflex syncope include medications,
+                pacemaker, exercise maneuvers, and etc.<br>
+                None of the above are highly effective.
+            </li>
+            <li class="cyan" style="padding: 2vmax;">
+                Cardioneural ablation is a new and promising therapeutic option. 
+                Long-term effects and side effects have yet to be established. 
+            </li>
+        </ul>
     </div>
  
 
@@ -566,23 +772,20 @@ window.addEventListener("orientationchange", function() {
 
 const block = document.getElementsByClassName('block');
 const canvas = document.getElementsByClassName('canvas')
-var vw = Math.round(window.innerWidth/100);
-if (window.innerWidth>1600){
-    vw = Math.round(1600/100);
-}
-const vh = Math.round(window.innerHeight/100);
-const vmin = Math.min(vw,vh)
 canvas0(0);
 
 
 //small yinYang
 function canvas0(){
     const ctx = canvas[0].getContext("2d");
+    var vw = Math.round(window.innerWidth/100);
+    const vh = Math.round(window.innerHeight/100);
+    const vmin = Math.min(vw,vh)
     const radius = 7*vw;
-    const centerX = 50*vw;
+    const centerX = 45*vw;
     const centerY = 25*vh;
-    const cHeight = centerY + radius + 2*vh;
-    var cWidth = window.innerWidth - 2*vw;
+    const cHeight = centerY + radius;
+    var cWidth = window.innerWidth;
     /*
     if (window.innerWidth>1600){cWidth = 1600;}*/
     const scale = window.devicePixelRatio;
