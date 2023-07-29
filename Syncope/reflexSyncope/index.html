@@ -782,18 +782,18 @@ function canvas0(){
     const vh = Math.round(window.innerHeight/100);
     const vmin = Math.min(vw,vh)
     const radius = 7*vw;
-    const centerX = 45*vw;
+    const centerX = 50*vw-10;
     const centerY = 25*vh;
     const cHeight = centerY + radius;
-    var cWidth = window.innerWidth;
+    var cWidth = window.innerWidth-20;
     /*
     if (window.innerWidth>1600){cWidth = 1600;}*/
-    const scale = window.devicePixelRatio;
+    const scale = (window.devicePixelRatio);
     canvas[0].style.width = cWidth + 'px';
     canvas[0].style.height = cHeight + 'px';
-    canvas[0].width = Math.floor(cWidth * scale*1);
-    canvas[0].height = Math.floor(cHeight * scale*1);
-    ctx.scale(scale*1,scale*1);
+    canvas[0].width = Math.floor(cWidth * scale);
+    canvas[0].height = Math.floor(cHeight * scale);
+    ctx.scale(scale,scale);
 
     //baseAnimation
     //0.45-0.55
