@@ -4,13 +4,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 <style>
-  * {font-family: 'Poppins', sans-serif;margin: 0;}
+  * {font-family: 'Poppins', sans-serif;margin: 0;background-color: #009933;}
 </style>
 
 <body>
 
-<div style="text-align:center">
-  <canvas id="canvas" style="background-color: #333333;"></canvas>
+<div style="text-align:center;background-color: #009933;">
+  <canvas id="canvas" style="background-color: #009933;"></canvas>
 </div>
 
 
@@ -22,7 +22,7 @@ const vh = Math.round(window.innerHeight/100);
 
 const yZero = 40*vh;
 var size = 1.3 *vw;
-const res = 1000;
+const res = 2000;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas(2);
@@ -62,8 +62,9 @@ paintIntrinsic(intrinsic);
 paintExtrinsic(extrinsic);
 thrombin(intZero,1,'grey');
 thrombin(extZero,1,'grey');
-platelet();
-tissueFactorCell();
+thrombinBurst(10)
+//platelet();
+//tissueFactorCell();
 
 nav=0;
 //intrinsic step
@@ -77,16 +78,24 @@ window.addEventListener("keydown", function(event) {
 
 function stepMove(){
     if (nav==0){
+      platelet();
+      tissueFactorCell();
+    }
+
+    if (nav==1){
         wipeExt();
     }
-    if (nav==1){
+    if (nav==2){
         zoomInt();
     }
-    if (nav==2){
-        thrombin2Plt();
-        pltAnimate();
-    }
     if (nav==3){
+        thrombin2Plt();
+    }
+    if (nav==4){
+      pltAnimate();
+      thrombinBurstInt(20)
+    }
+    if (nav==5){
       factorXFocus();
     }
 }
@@ -155,7 +164,7 @@ function thrombin2Plt(){
             y2 = pltY + Math.sin((angle/180)*Math.PI)*radius;
             
             ctx.beginPath();
-            ctx.strokeStyle = '#ababab'
+            ctx.strokeStyle = '#ccc'
             ctx.moveTo(x0,y0);
             //ctx.lineTo(x1,y1);
             ctx.quadraticCurveTo(x0,y0+radius,x2,y2)
@@ -165,7 +174,7 @@ function thrombin2Plt(){
             ctx.beginPath();
             ctx.moveTo(x1,y1);
             ctx.quadraticCurveTo(x1,y1+radius,x2,y2);
-            ctx.stroke();ctx.strokeStyle = '#555';
+            ctx.stroke();ctx.strokeStyle = '#ddd';
             ctx.closePath();
           
  
@@ -198,6 +207,7 @@ function zoomInt(){
     ctx.clearRect(0, 0, 100*vw, 100*vh);
     paintIntrinsic(intrinsic,1);
     thrombin(intZero,0,'grey');
+    thrombinBurstInt(10);
     platelet()            
 }
 
@@ -244,8 +254,14 @@ function title(){
 
 function thrombinBurst(thick){
   for (let index = 0; index <= thick; index++) {
-      thrombin(intZero-(index),1)   
-      thrombin(extZero+(index),1)    
+      thrombin(intZero-(index),1,'grey')   
+      thrombin(extZero+(index),1,'grey')    
+  }
+}
+
+function thrombinBurstInt(thick){
+  for (let index = 0; index <= thick; index++) {
+      thrombin(intZero-(index),1,'grey')   
   }
 }
 
