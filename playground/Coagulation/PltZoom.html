@@ -62,7 +62,7 @@ paintIntrinsic(intrinsic);
 paintExtrinsic(extrinsic);
 thrombin(intZero,1,'grey');
 thrombin(extZero,1,'grey');
-thrombinBurst(10)
+//thrombinBurst(10)
 //platelet();
 //tissueFactorCell();
 
@@ -71,12 +71,29 @@ nav=0;
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-        stepMove()
+        stepMoveMhv()
         nav++;
     }
 })
 
-function stepMove(){
+function stepMoveMhv(){
+  if (nav==0){
+    paintIntrinsic(intColor);
+  }
+  if (nav==1){
+    thrombin(intZero,1);
+  }
+  if (nav==2){
+    thrombinBurstInt(50);
+  }
+  if (nav==3){
+    paintExtrinsic(extColor);
+    thrombin(extZero,1);
+    thrombinBurstExt(10)
+  }
+}
+
+function stepMovePlt(){
     if (nav==0){
       platelet();
       tissueFactorCell();
@@ -93,7 +110,7 @@ function stepMove(){
     }
     if (nav==4){
       pltAnimate();
-      thrombinBurstInt(20)
+      thrombinBurstInt(20,'grey')
     }
     if (nav==5){
       factorXFocus();
@@ -259,9 +276,14 @@ function thrombinBurst(thick){
   }
 }
 
-function thrombinBurstInt(thick){
+function thrombinBurstInt(thick,color){
   for (let index = 0; index <= thick; index++) {
-      thrombin(intZero-(index),1,'grey')   
+      thrombin(intZero-(index),1,color)   
+  }
+}
+function thrombinBurstExt(thick,color){
+  for (let index = 0; index <= thick; index++) {
+    thrombin(extZero+(index),1,color)      
   }
 }
 
