@@ -10,7 +10,7 @@
 <body>
 
 <div style="text-align:center">
-  <canvas id="canvas" style="background-color: #333;"></canvas>
+  <canvas id="canvas" style="background-color: #009933;"></canvas>
 </div>
 
 
@@ -54,6 +54,10 @@ const half = 0.55;
 //const extrinsic = [['TF',3,'#e9ba03'],['VII',5,'#45090c'],['X',6,'#b70070']]
 const intrinsic = [['XI',16,'#b18f48'],['IX',6,'#ca4a3e'],['VIII',33,'#22515c'],['X',6,'#8c305b']];
 const extrinsic = [['TF',3,'#43a0b6'],['VII',5,'#c78c8f'],['X',6,'#8c305b']]
+
+
+const intGrey = [['XI',16,'red'],['IX',6,'#858585'],['VIII',33,'#746d69'],['X',6,'#5b676d']];
+const extGrey = [['TF',3,'#aaaaaa'],['VII',5,'#858585'],['X',6,'#5b676d']]
 const intUnit = Math.round(1000*(half/61))/1000;
 
 title();
@@ -100,7 +104,7 @@ function stepMove(){
     animateHeart()
   }
   if (nav==4){
-    fBorder('#333333')
+    fBorder('#009933')
     intZero = intZero +1;
     extZero = extZero-1;
     paintIntrinsic(1);
@@ -108,6 +112,12 @@ function stepMove(){
     thrombin(intZero,1);
     thrombin(extZero,1);
     subTitle('up');
+  }
+  if (nav==5){
+    paintExtrinsic(1,'grey');
+    paintIntrinsic(1,'grey')
+    thrombin(intZero,1,'grey');
+    thrombin(extZero,1,'grey');
   }
 }
 
@@ -133,7 +143,7 @@ function animateHeart(){
 }
 
 function wipeFactors(){
-    var color = '#333';
+    var color = '#009933';
 
     //wipe
     wipeAll(intZero);wipeAll(extZero);
@@ -315,22 +325,22 @@ function lowResCurve(xArray,yArray,dMin,dMax,color,xZero,animate){
     ctx.moveTo(size*xArray[start]+xZero,yZero-(size*yArray[start]));
     
     if (animate==1){
-    for (let index = start+1; index < end; index=index+10) {
+    for (let index = start+1; index < end; index=index+5) {
       setTimeout(() => {
         x1 = (size*xArray[index])+xZero;
         y1 = yZero-(size*yArray[index]);
         ctx.lineTo(x1,y1);
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1;
         ctx.stroke();
         ctx.strokeStyle = color                
       }, 10);
       }
     } else {
-      for (let index = start+1; index < end; index=index+10) {
+      for (let index = start+1; index < end; index=index+5) {
         x1 = (size*xArray[index])+xZero;
         y1 = yZero-(size*yArray[index]);
         ctx.lineTo(x1,y1);
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 1;
         ctx.stroke();
         ctx.strokeStyle = color                
 
@@ -494,7 +504,7 @@ function tissueFactorCell(){
 
 
 //thrombin();
-function thrombin(xZero,label){
+function thrombin(xZero,label,cSet){
     //y=yMod*cos(t)−3cos(2t)−2cos(3t)−cos(4t)
     //thrombin size = 3*10kDa
 
@@ -555,7 +565,7 @@ function thrombin(xZero,label){
       }
       var sCount = 0;var tCount =0;
       
-      var color = colorRandom();
+      var color = colorRandom(cSet);
       for (let i = start; i <= end ; i++) {
           ctx.beginPath();
           ctx.lineWidth = 1;
@@ -578,7 +588,7 @@ function thrombin(xZero,label){
           else {
             ctx.strokeStyle = "#333"
             sCount= sCount+0.001;
-            color = colorRandom();
+            color = colorRandom(cSet);
             sCount=0;tCount++;
             ctx.stroke()
             ctx.closePath()
@@ -597,9 +607,14 @@ function thrombin(xZero,label){
     
 
     //color
-    function colorRandom(){
-      var colorSet = ['#c2a083','#c8aa8f','#ceb39c','#d4bda8','#dac6b5','#e1d0c1',
+    function colorRandom(cSet){
+      var colorful = ['#c2a083','#c8aa8f','#ceb39c','#d4bda8','#dac6b5','#e1d0c1',
                     '#e7d9cd','#ede3da','#f3ece6','#f9f6f3']
+      var grey =  ['#a6a39E','#Bab6b2','#ccc6c4','#d3d3d2','#e5e1d6','#bbbcb6'          
+        ]
+      if (cSet == 'grey'){
+        var colorSet = grey;
+      } else {var colorSet = colorful}      
 
       var randomNumber = Math.floor(Math.random() * (colorSet.length - 0) ) + 0;
       var color = colorSet[randomNumber];
@@ -608,7 +623,7 @@ function thrombin(xZero,label){
   //paintIntrinsic();
 }
 
-function paintExtrinsic(label){
+function paintExtrinsic(label,grey){
   //extrinsic array [name][size][color]
   //extrinsic curve is from low to high
 
@@ -618,18 +633,26 @@ function paintExtrinsic(label){
   var end10 = start10 + (extrinsic[2][1]*intUnit)
   end10 = Math.round(end10*1000)/1000
   var color10 = extrinsic[2][2]
-  
+  if (grey =='grey'){
+    var color10 = extGrey[2][2]
+  }
   //factor VII
   var start7 = end10;
   var end7 = start7+(extrinsic[1][1]*intUnit)
   end7 = Math.round(end7*1000)/1000
-  var color7 = extrinsic[1][2]
+  var color7 = extrinsic[1][2];
+  if (grey =='grey'){
+    var color7 = extGrey[1][2]
+  }
   
   //TF
   var start3 = end7;
   var end3 = start3+(extrinsic[0][1]*intUnit) 
   end3 = Math.round(end3*1000)/1000;
   var color3 = extrinsic[0][2]
+  if (grey =='grey'){
+    var color3 = extGrey[0][2]
+  }
   paintCurve(start3,end3,color3,extZero)
   paintCurve(start7,end7,color7,extZero)
   paintCurve(start10,end10,color10,extZero)
@@ -759,14 +782,17 @@ function labelIntrinsic(start,end,i,xZero){
   ctx.closePath();
 }
 
-function paintIntrinsic(label){
+function paintIntrinsic(label,grey){
     //intrinsic array [name][size][color]
     var start=0;
     var end;var color;
     for (let index = 0; index < intrinsic.length; index++) {
         end = (intrinsic[index][1]*intUnit) + start;
         end = Math.round(1000*end)/1000;
-        color = intrinsic[index][2]
+        color = intrinsic[index][2];
+        if (grey=='grey'){
+          color = intGrey[index][2];
+        }
         paintCurve(start,end,color,intZero)
         if (label==1)
             {labelIntrinsic(start,end,index,intZero)}

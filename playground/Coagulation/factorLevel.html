@@ -62,10 +62,9 @@ thrombin(intZero);
 thrombin(extZero);
 paintIntrinsic();
 paintExtrinsic();
-boostIntFactor(0,1.5)
-boostIntFactor(1,1.5)
-boostIntFactor(2,1.5)
-//pltAgg()
+//boostIntFactor(0,1.5)
+//boostIntFactor(1,1.5)
+pltAgg()
 
 
 nav=0;
@@ -80,28 +79,26 @@ window.addEventListener("keydown", function(event) {
 
 function stepMove(){
   if (nav==0){
-    //block('int',3,0.8)
-        //block('int',1,0.8)
-        //block('ext',2,0.8)
-        //block('ext',1,0.8)
+    boostIntFactor(2,1.5)
+    boostExtFactor(1,1.5)
   }
   if (nav==1){
-    thrombinBlock(intZero,0.8)
-    thrombinBlock(extZero,0.8)
+    //thrombinBlock(intZero,0.8)
+    //thrombinBlock(extZero,0.8)
+    pltBlock()
   }
-  if (nav==1){
+  /*
+  if (nav==2){
     block('int',3,0.8)
     block('int',1,0.8)
     block('ext',2,0.8)
     block('ext',1,0.8)
-    //pltBlock()
-
-  }
+    }
   if (nav==3){
     boostExtFactor(1,1.5)
     boostExtFactor(0,1.5)
     boostIntFactor(2,1.5)
-  }
+  }*/
 }
 
 function pltBlock(){
