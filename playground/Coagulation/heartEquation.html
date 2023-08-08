@@ -10,7 +10,7 @@
 <body>
 
 <div style="text-align:center">
-  <canvas id="canvas" style="background-color: #333;"></canvas>
+  <canvas id="canvas" style="background-color: #19283d;"></canvas>
 </div>
 
 
@@ -117,17 +117,17 @@ function colorAll(){
         var grd = ctx.createLinearGradient(xZero,yZero,xMid,yMid);
         if (index>bStart && index<bEnd){
           
-          grd.addColorStop(0, '#555');
-          grd.addColorStop(0.5, '#444');
-          grd.addColorStop(1, '#333');          
+          grd.addColorStop(0, '#e0d9be');
+          grd.addColorStop(0.5, '#5a7995');
+          grd.addColorStop(1, '#19283d');          
           ctx.strokeStyle = grd;
           ctx.stroke();  
           ctx.closePath();
         }
         else {
-        grd.addColorStop(0, '#bbb');
-        grd.addColorStop(0.5, '#999');
-        grd.addColorStop(1, '#555');
+        grd.addColorStop(0, '#e0d9be');
+        grd.addColorStop(0.5, '#5a7995');
+        grd.addColorStop(1, '#19283d');
         ctx.strokeStyle = grd;
         ctx.stroke();         
         ctx.closePath();  
