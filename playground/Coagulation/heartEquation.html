@@ -10,7 +10,7 @@
 <body>
 
 <div style="text-align:center">
-  <canvas id="canvas" style="background-color: #19283d;"></canvas>
+  <canvas id="canvas" style="background-color: #009933;"></canvas>
 </div>
 
 
@@ -20,17 +20,17 @@ const ctx = canvas.getContext("2d");
 const vw = Math.round(window.innerWidth/100);
 const vh = Math.round(window.innerHeight/100);
 const xZero = 30*vw;
-const yZero = 60*vh;
-const size = 1*vw;
+const yZero = 30*vh;
+const size = 1.2*vw;
 const res = 200;
 
 var dArray, x1A, y1A, d2A, x2A, y2A = [];
 createCanvas();
-ctx.rotate(-15 * Math.PI/180)
+//ctx.rotate(-15 * Math.PI/180)
 
 //setUpArray(x1Mod,y1Mod,x2Mod,y2Mod)
 //setUpArray(17,15,12,11)
-setUpArray(20,15,13,9)
+setUpArray(20,15,15,14)
 
 //drawCurve(xArray,yArray,dMin,dMax,size,color)
 //drawCurve(x1A,y1A,0,2,'#454545');
@@ -117,17 +117,17 @@ function colorAll(){
         var grd = ctx.createLinearGradient(xZero,yZero,xMid,yMid);
         if (index>bStart && index<bEnd){
           
-          grd.addColorStop(0, '#e0d9be');
-          grd.addColorStop(0.5, '#5a7995');
-          grd.addColorStop(1, '#19283d');          
+          grd.addColorStop(0, '#333');
+          grd.addColorStop(0.5, '#444');
+          grd.addColorStop(1, '#555');          
           ctx.strokeStyle = grd;
           ctx.stroke();  
           ctx.closePath();
         }
         else {
-        grd.addColorStop(0, '#e0d9be');
-        grd.addColorStop(0.5, '#5a7995');
-        grd.addColorStop(1, '#19283d');
+        grd.addColorStop(0, '#333');
+        grd.addColorStop(0.5, '#444');
+        grd.addColorStop(1, '#555');
         ctx.strokeStyle = grd;
         ctx.stroke();         
         ctx.closePath();  

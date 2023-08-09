@@ -80,6 +80,14 @@
      height: 45vw;
     }
 
+    .conclusion {
+      background: #232323 url(media/heartRing.png) no-repeat center;
+      background-size: 70vw;
+      position: relative;
+      width: 72vw;
+      height: 45vw;
+    }
+
     .headLine {font-size: 2.8vmax;text-align: center;margin-left: auto;margin-right: auto;color: #19283d;line-height: 120%;
       padding-top: 8vmax;padding-bottom:0.5vh;padding-left: 0.5vh;padding-right: 0.5vh;
       max-width: 900px;width: fit-content;border-bottom: #fa7268 solid 0.25vmax;}
@@ -785,6 +793,71 @@
     3. In a phase 2 study, Asundexian, an oral factor XI inhibitor, was associated with lower rate of bleeding than Apixaban in patients with AF.
   </div>
   </div>
+
+  <!--4 conclusion-->
+  <div class="lightBlue">
+    <div id="no4" class="headLine">
+      Conclusions
+    </div>
+  
+    <amp-carousel id="carousel4"
+        height="1200"
+        layout="fixed-height"
+        type="slides"
+        on="slideChange:carousel4Selector.toggle(index=event.index, value=true)"
+        >
+   
+      <!--perfect clot-->
+      <div class="conclusion">
+        <div style="width: 100%;height: 100%;overflow-y: scroll;">
+        <div style="width: fit-content;margin-left: auto;margin-right: auto;padding:1.5vmax;">
+          <div style="font-size: 3vmax;color: #e0d9be;padding-top: 2vh;padding-left: 1vmax;">
+            Perfect Clot requires:
+          </div>
+          <ol style="list-style-type:decimal-leading-zero;padding: 1vmax;
+          color: #d8d8d8;list-style-position: inside;font-size: 2vmax;">
+            <li style="padding-top: 1vh;">Right amount of coagulation factors</li>
+            <li style="padding-top: 1vh;">Right steps of platelet activation</li>
+            <li style="padding-top: 1vh;">Right amount and pattern of thrombin generation</li>
+          </ol>
+        </div>
+        </div>
+      </div>
+      <!--NOAC-->
+      <div class="conclusion">
+        <div style="width: 100%;height: 100%;overflow-y: scroll;">
+        <div style="width: fit-content;margin-left: auto;margin-right: auto;padding:1vmax;">
+          <div style="font-size: 3vmax;color: #fa7268;padding-top: 2vh;padding-left: 1vmax;">
+            NOAC 2023 Update
+          </div>
+          <ol style="list-style-type:decimal-leading-zero;padding: 1vmax;color: #d8d8d8;list-style-position: inside;
+          font-size: 2vmax;">
+            <li style="padding-top: 1vh;">
+              NOAC may be resumed within 4-7d after acute ischemic stroke with AF.
+            </li>
+            <li style="padding-top: 1vh;">
+              Role of OAC in AF on dialysis remains unsettled.
+            </li>
+            <li style="padding-top: 1vh;">
+              FXI inhibitor may serve as a hemostasis-sparing anticoagulant.
+            </li>
+          </ol>
+        </div>
+        </div>
+      </div>
+  
+  
+    </amp-carousel>
+  
+    <amp-selector id="carousel4Selector" class="tabs" role=tablist on="select:carousel4.goToSlide(index=event.targetOption)"
+      layout="container" style="text-align: center;">
+        <span option='0' class="dots" selected></span>
+        <span option='1' class="dots"></span>
+    </amp-selector>
+  
+    <div class="caption" style="text-align: left;">
+    </div>
+    </div>
 
   <!--footer-->
   <div style="background: #ddd;font-size: 1.4vmax;padding:5vmax 3vmax;color:#555;line-height: 200%;text-align: center;">
