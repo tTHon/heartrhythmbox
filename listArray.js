@@ -1,9 +1,23 @@
 var listArray = [
     {
+        name: 'Management of Reflex Syncope',
+        description: 'Update in management of reflex syncope',
+        link: 'syncope/reflexsyncope/index.html',
+        thumb: 'media/reflexSyncope.png',
+        date: new Date(23,9,9),
+        latest: 1,
+        audFav: 0,
+        authFav: 0,
+        QA: 0,
+        gLines: 0,
+        basic: 1,
+        mBasic: 0
+    },
+    {
         name: 'The Perfect Clot & How to Block It',
         description: 'NOACs Update 2023',
         link: 'perfectclot/index.html',
-        thumb: 'media/basicPPM.png',
+        thumb: 'media/perfectClot.png',
         date: new Date(23,9,9),
         latest: 1,
         audFav: 0,
