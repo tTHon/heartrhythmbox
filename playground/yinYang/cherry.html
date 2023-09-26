@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cherry picking</title>
+<style>
+    * {margin: 0;};
+</style>
+</head>
+<body>
+    <canvas id="canvas">
+    </canvas>
+    
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const vw = Math.round(window.innerWidth/100);
+const vh = Math.round(window.innerHeight/100);
+
+createCanvas(2);
+drawFirstBranch();
+
+function drawFirstBranch(){
+    const x0 = 2*vw;
+    const y0 = 20*vh;
+    const mainRadius = 1.5*vw;
+    const length = 25;
+    ctx.fill();
+    for (let index = 0; index < length; index=index+0.5) {
+        var randomX = 1+Math.random()/50;
+        var randomY = 1+Math.random()/50;
+        drawCircle(x0+(index*vw*randomX),y0*randomY,mainRadius,'black')       
+    }
+}
+
+
+
+function drawCircle(x,y,r,color){
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,2*Math.PI);
+    ctx.fillStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 20;
+    ctx.fill();
+}
+
+function createCanvas(mag) {
+  const scale = window.devicePixelRatio;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  canvas.width = Math.floor(window.innerWidth * scale*mag)
+  canvas.height = Math.floor(window.innerHeight * scale*mag)
+  ctx.scale(scale*mag,scale*mag)
+}
+</script>
+    
+</body>
+</html>
