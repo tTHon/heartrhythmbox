@@ -20,27 +20,28 @@ const vh = Math.round(window.innerHeight/100);
 const maxX = 95*vw;
 
 createCanvas(2);
-drawFirstBranch();
+drawBranch();
 //drawSecondBranch(27*vw,20*vh,2.2*vw,0.8,25);
 
-function drawFirstBranch(){
+function drawBranch(){
     const x0 = 3.5*vw;
     const y0 = 20*vh;
-    const mainRadius = 2*vw;
+    const mainRadius = 1.5*vw;
     const minRadius = 5;
-    const length = 70*vw;
-    const branchColor = '#5c250c'
+    const length = 720;
+    const branchColor = '#4d3d2d'
     var startX = x0;
     var startY = y0;
     var radius = mainRadius;
-    for (let index = 0; index <= length; index=index+0.1*vw) {
+    var bArray = [];
+    for (let index = 0; index <= length; index++) {
         var angle = (Math.random())*Math.PI/20 - Math.random()/20;
         var moreCurve = 0;
         if (index%8 <3) {moreCurve = Math.random()*0.2}
         var randomX = Math.cos(angle)*0.3*vw;
         var randomY = Math.sin(angle)*0.3*vw - (moreCurve);
         startX = startX+randomX;
-        startY = startY-randomY;
+        startY = startY-randomY - (index*0.0001*vw);
         radius = radius * 0.997;
         if (radius<minRadius){radius = minRadius}
 
@@ -50,11 +51,38 @@ function drawFirstBranch(){
         grd.addColorStop(0.5,'#7c503c');
         grd.addColorStop(1,branchColor); 
         drawEllipse(startX,startY,radius,grd);
+        //branching
+        if (index%60==0 && index>0 && index<250){
+            bArray.push([startX,startY,radius])
+        }
     }
+
+    //STEM
     var stemGrd = ctx.createLinearGradient(x0-radius,y0-radius,x0,y0+radius);
-        stemGrd.addColorStop(0,'#2d1206');
-        stemGrd.addColorStop(1,'#401908');
+    stemGrd.addColorStop(0,'#7c503c');
+    stemGrd.addColorStop(1,'#401908');
     drawEllipse(x0,y0,mainRadius,stemGrd);
+
+    //branching marker
+    for (let index = 0; index < bArray.length; index++) {
+        var branchingX = bArray[index][0];
+        var branchingY = bArray[index][1];
+        var branchingR = bArray[index][2];
+        ctx.beginPath();
+        ctx.moveTo(branchingX,branchingY+(0.8*branchingR))
+        var factor = Math.round(Math.random()*10)+index;
+        if (factor%2==0){
+            factor = factor * -1
+        }
+        ctx.quadraticCurveTo(branchingX+(factor*radius),branchingY+(3*radius),branchingX,branchingY+25*radius)
+        ctx.strokeStyle = 'brown';
+        ctx.lineWidth = 5;
+        ctx.shadowColor = '#323232';
+        ctx.shadowBlur = 2;
+        ctx.stroke();
+    }
+
+
 }
 
 
@@ -65,7 +93,9 @@ function drawEllipse(x,y,r,color){
     ctx.fillStyle = color;
     ctx.shadowColor = '#2d1206';
     ctx.shadowBlur = 1;
-    ctx.fill();}
+    ctx.fill();
+    ctx.closePath();
+    }
 }
 
 function createCanvas(mag) {
