@@ -1,29 +1,76 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
+    <meta name="author" content="t'Thon">
+    <title>eGame-dashboard</title>
+    <script src="https://kit.fontawesome.com/2c3e1e841c.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+  </head>
+
+<style>
+  * {background-color:#333;font-family: 'Raleway', sans-serif;margin: 0;}
+</style>
 
 <body>
 
-<div id="demo"></div>
-<div style="text-align:center">
-  <canvas id="canvas" style="border:0.1vw solid black;"></canvas>
-</div>
-
-
+  <canvas id="canvas">
+  </canvas>
 
 <script>
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var vw = window.innerWidth/100;
-var vh = window.innerHeight/100;
-var radius = 35*vh;
-var centerX = 20*vw;var centerY= 50*vh;
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const vw = window.innerWidth/100;
+const vh = window.innerHeight/100;
+const meterU = 5*vh;
+const meterNo = 3;const scale = 10;
+const meterPad = vh;
+const meterBlock = 100*vw/(meterNo);
+const meterW = meterBlock/3;
+const baseY = 75*vh;
+var meterX = getMetersPosition();
 
-createCanvas()
-drawFace();
-drawHand(-80);
-drawLabel('Unsafe to Perform','Safe to Perform');
+createCanvas();
+console.log(meterX);
+drawMeter();
 
+//find coordinates to place each meter
+function getMetersPosition(){
+  var array = [];
 
+  //get X position
+  for (let index = 0; index < meterNo; index++) {
+      var x = meterBlock*index + ((meterBlock-meterW)/2);  
+      array.push(x);
+    }
+  return array;
+
+}
+
+function drawMeter(){
+    //draw meter block
+    for (let index = 0; index < meterNo; index++) {
+      ctx.beginPath();
+      ctx.rect(meterX[index],baseY-(scale*(meterU+meterPad)),meterW,scale*(meterU+meterPad)-meterPad)
+      ctx.fillStyle = '#222';ctx.fill();
+      ctx.closePath();
+      
+      //draw meter unit
+      for (let j = scale; j >0; j=j-1) {
+        ctx.beginPath();
+        ctx.rect(meterX[index],baseY-(j*(meterU+meterPad)),meterW,meterU);
+        ctx.fillStyle = 'black';ctx.fill();
+        ctx.font = '24px Raleway';
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#ababab';
+        ctx.fillText(j,meterX[index]-10,(baseY-(j*(meterU+meterPad)))+0.75*meterU);
+        ctx.closePath();
+      }
+    }
+}
 
 function createCanvas() {
   const scale = window.devicePixelRatio;
@@ -34,142 +81,6 @@ function createCanvas() {
   ctx.scale(scale*2,scale*2)
 }
 
-function drawLabel(bottom,top){
-  ctx.beginPath();
-  ctx.textAlign = "right";ctx.fillStyle = "#333"
-  var xPos = 20*vw;
-  var hand = 0.8*radius
-  var bottomPos = 50*vh+hand;
-  var topPos = 50*vh-hand;
-  ctx.font = 'bold '+ 2*vw + 'px Arial'
-  ctx.fillText (bottom,xPos,bottomPos) 
-  ctx.fillText (top,xPos,topPos) 
-}
-
-function drawFace() {
-  var xPos=20*vw;var yPos = 50*vh;
-
-  //red
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, Math.PI*50/180, Math.PI*80/180);
-  ctx.fillStyle = 'red';
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
-
-  //orange
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, Math.PI*20/180, 50/180*Math.PI);
-  ctx.fillStyle = 'orange';
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
-
-//yellow
-ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 330/180*Math.PI, 20/180*Math.PI);
-  ctx.fillStyle = 'yellow';
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
-
-//green
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 280/180*Math.PI,330/180*Math.PI);
-  ctx.fillStyle = 'green';
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
-
-  //draw arc blank
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius*0.5, 0, 2*Math.PI);
-  ctx.fillStyle = 'white';
-  ctx.fill();  
-
-  //draw center
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius*0.1, 0, 2*Math.PI);
-  ctx.fillStyle = '#333';
-  ctx.fill();
-
-
-}
-
-function drawHand(degree) {
-    var length = 0.8*radius;
-    var xPos=20*vw;var yPos = 50*vh;
-    ctx.beginPath();
-    ctx.lineWidth = vw;
-    ctx.lineCap = "round";
-    xEnd = length*Math.cos(Math.PI*degree/180);
-    yEnd = length*Math.sin(Math.PI*degree/180);
-    ctx.moveTo(xPos,yPos);
-    ctx.lineTo(xPos+xEnd,yPos-yEnd);
-    ctx.strokeStyle = '#333'
-    ctx.stroke();
-}
-
-function moveHand(degreeS,degreeEnd){
-
-  //go2End+2
-    var distance = (degreeEnd-degreeS)+5;
-    var tEnd=1;
-    var moveInterval=setInterval(function(){
-      clearFace();
-      drawFace();
-      drawHand(degreeS+tEnd)
-      drawLabel('Unsafe to Perform','Safe to Perform');
-      tEnd++;
-      if (tEnd>=distance){
-      clearInterval(moveInterval)
-      shakeMinus();
-      shakePlus();
-    }
-    },30*tEnd/distance)
-
-  
-  
-  //shake-2
-  function shakeMinus(){
-  var tBack=1;
-  var shakeBack=setInterval(function(){
-    clearFace();
-    drawFace();
-    drawHand((degreeEnd+5)-tBack)
-    drawLabel('Unsafe to Perform','Safe to Perform');
-    tBack++;
-    if (tBack>=10){
-    clearInterval(shakeBack)
-    }
-  },tBack)
-  }
-
-  //shake+2
-  function shakePlus(){
-  var tFwd=1;
-  var shakeFwd=setInterval(function(){
-    clearFace();
-    drawFace();
-    drawHand((degreeEnd-5)+tFwd)
-    drawLabel('Unsafe to Perform','Safe to Perform');
-    tFwd++;
-    if (tFwd>=10){
-    clearInterval(shakeFwd)
-    clearFace();
-    drawFace();
-    drawHand(degreeEnd)
-    drawLabel('Unsafe to Perform','Safe to Perform');
-    }
-  },tFwd*50)
-  }
-
-}
-
-function clearFace(){
-  var xPos=20*vw;var yPos = 50*vh;
-  ctx.fillStyle = 'white';
-  ctx.beginPath();
-  ctx.arc(xPos, yPos, radius, 270/180*Math.PI,90/180*Math.PI);
-  ctx.lineTo(xPos, yPos)
-  ctx.fill();
-}
 
 </script>
 
