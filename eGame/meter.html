@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<div id="demo"></div>
+<div style="text-align:center">
+  <canvas id="canvas" style="border:0.1vw solid black;"></canvas>
+</div>
+
+
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var vw = window.innerWidth/100;
+var vh = window.innerHeight/100;
+var radius = 35*vh;
+var centerX = 20*vw;var centerY= 50*vh;
+
+createCanvas()
+drawFace();
+drawHand(-80);
+drawLabel('Unsafe to Perform','Safe to Perform');
+
+
+
+function createCanvas() {
+  const scale = window.devicePixelRatio;
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  canvas.width = Math.floor(window.innerWidth * scale*2)
+  canvas.height = Math.floor(window.innerHeight * scale*2)
+  ctx.scale(scale*2,scale*2)
+}
+
+function drawLabel(bottom,top){
+  ctx.beginPath();
+  ctx.textAlign = "right";ctx.fillStyle = "#333"
+  var xPos = 20*vw;
+  var hand = 0.8*radius
+  var bottomPos = 50*vh+hand;
+  var topPos = 50*vh-hand;
+  ctx.font = 'bold '+ 2*vw + 'px Arial'
+  ctx.fillText (bottom,xPos,bottomPos) 
+  ctx.fillText (top,xPos,topPos) 
+}
+
+function drawFace() {
+  var xPos=20*vw;var yPos = 50*vh;
+
+  //red
+  ctx.beginPath();
+  ctx.arc(xPos, yPos, radius, Math.PI*50/180, Math.PI*80/180);
+  ctx.fillStyle = 'red';
+  ctx.lineTo(xPos, yPos)
+  ctx.fill();
+
+  //orange
+  ctx.beginPath();
+  ctx.arc(xPos, yPos, radius, Math.PI*20/180, 50/180*Math.PI);
+  ctx.fillStyle = 'orange';
+  ctx.lineTo(xPos, yPos)
+  ctx.fill();
+
+//yellow
+ctx.beginPath();
+  ctx.arc(xPos, yPos, radius, 330/180*Math.PI, 20/180*Math.PI);
+  ctx.fillStyle = 'yellow';
+  ctx.lineTo(xPos, yPos)
+  ctx.fill();
+
+//green
+  ctx.beginPath();
+  ctx.arc(xPos, yPos, radius, 280/180*Math.PI,330/180*Math.PI);
+  ctx.fillStyle = 'green';
+  ctx.lineTo(xPos, yPos)
+  ctx.fill();
+
+  //draw arc blank
+  ctx.beginPath();
+  ctx.arc(xPos, yPos, radius*0.5, 0, 2*Math.PI);
+  ctx.fillStyle = 'white';
+  ctx.fill();  
+
+  //draw center
+  ctx.beginPath();
+  ctx.arc(xPos, yPos, radius*0.1, 0, 2*Math.PI);
+  ctx.fillStyle = '#333';
+  ctx.fill();
+
+
+}
+
+function drawHand(degree) {
+    var length = 0.8*radius;
+    var xPos=20*vw;var yPos = 50*vh;
+    ctx.beginPath();
+    ctx.lineWidth = vw;
+    ctx.lineCap = "round";
+    xEnd = length*Math.cos(Math.PI*degree/180);
+    yEnd = length*Math.sin(Math.PI*degree/180);
+    ctx.moveTo(xPos,yPos);
+    ctx.lineTo(xPos+xEnd,yPos-yEnd);
+    ctx.strokeStyle = '#333'
+    ctx.stroke();
+}
+
+function moveHand(degreeS,degreeEnd){
+
+  //go2End+2
+    var distance = (degreeEnd-degreeS)+5;
+    var tEnd=1;
+    var moveInterval=setInterval(function(){
+      clearFace();
+      drawFace();
+      drawHand(degreeS+tEnd)
+      drawLabel('Unsafe to Perform','Safe to Perform');
+      tEnd++;
+      if (tEnd>=distance){
+      clearInterval(moveInterval)
+      shakeMinus();
+      shakePlus();
+    }
+    },30*tEnd/distance)
+
+  
+  
+  //shake-2
+  function shakeMinus(){
+  var tBack=1;
+  var shakeBack=setInterval(function(){
+    clearFace();
+    drawFace();
+    drawHand((degreeEnd+5)-tBack)
+    drawLabel('Unsafe to Perform','Safe to Perform');
+    tBack++;
+    if (tBack>=10){
+    clearInterval(shakeBack)
+    }
+  },tBack)
+  }
+
+  //shake+2
+  function shakePlus(){
+  var tFwd=1;
+  var shakeFwd=setInterval(function(){
+    clearFace();
+    drawFace();
+    drawHand((degreeEnd-5)+tFwd)
+    drawLabel('Unsafe to Perform','Safe to Perform');
+    tFwd++;
+    if (tFwd>=10){
+    clearInterval(shakeFwd)
+    clearFace();
+    drawFace();
+    drawHand(degreeEnd)
+    drawLabel('Unsafe to Perform','Safe to Perform');
+    }
+  },tFwd*50)
+  }
+
+}
+
+function clearFace(){
+  var xPos=20*vw;var yPos = 50*vh;
+  ctx.fillStyle = 'white';
+  ctx.beginPath();
+  ctx.arc(xPos, yPos, radius, 270/180*Math.PI,90/180*Math.PI);
+  ctx.lineTo(xPos, yPos)
+  ctx.fill();
+}
+
+</script>
+
+</body>
+</html>
