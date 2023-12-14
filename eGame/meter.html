@@ -13,28 +13,41 @@
 
 <style>
   * {background-color:#333;font-family: 'Raleway', sans-serif;margin: 0;}
+  .nameBar {width: 100%;font-size: 3vmax;text-align: center;margin: 0.1vmax;
+    border-radius: 1vw;cursor: pointer;
+  background-color: #222;padding: 1vmax;}
 </style>
 
 <body>
-
-  <canvas id="canvas">
+  <!--button onclick="meterMove(1,2,4)" style="color: white;">Move</button-->
+  <canvas id="canvas" style="border: white 0.1vw solid;">
   </canvas>
+
+  <!--player bar-->
+  <div style="display: flex;">
+    <div class="nameBar" style="color: #30d5c8;">Khaw</div>
+    <div class="nameBar" style="color:#ff7632">Tao</div>
+    <div  class="nameBar" style="color: #cbf482;">Jan</div>
+  </div>
 
 <script>
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const vw = window.innerWidth/100;
 const vh = window.innerHeight/100;
+const canvasHeight = 0.62;
 const meterU = 5*vh;
 const meterNo = 3;const scale = 10;
 const meterPad = vh;
 const meterBlock = 100*vw/(meterNo);
 const meterW = meterBlock/3;
-const baseY = 75*vh;
+const baseY = 61*vh;
 var meterX = getMetersPosition();
+var activeP;
+var itemScore = 0;
+var totalScore = [];
 
 createCanvas();
-console.log(meterX);
 drawMeter();
 
 //find coordinates to place each meter
@@ -73,16 +86,23 @@ function drawMeter(){
 }
 
 function meterMove(mNo,start,end){
-  
+    if (end>10){end=10};
+    if (start<0){start=0};
+    for (let index = start; index < end; index++) {
+        ctx.beginPath();
+        ctx.rect(meterX[mNo],baseY-((index+1)*(meterU+meterPad)),meterW,meterU);
+        ctx.fillStyle = 'red';ctx.fill();
+        ctx.closePath();      
+    }
 }
 
 function createCanvas() {
-  const scale = window.devicePixelRatio;
+  const res = window.devicePixelRatio;
   canvas.style.width = window.innerWidth + 'px';
-  canvas.style.height = window.innerHeight + 'px';
-  canvas.width = Math.floor(window.innerWidth * scale*2)
-  canvas.height = Math.floor(window.innerHeight * scale*2)
-  ctx.scale(scale*2,scale*2)
+  canvas.style.height = canvasHeight * window.innerHeight + 'px';
+  canvas.width = Math.floor(window.innerWidth * res*2)
+  canvas.height = Math.floor(window.innerHeight * canvasHeight * res*2)
+  ctx.scale(res*2,res*2)
 }
 
 
