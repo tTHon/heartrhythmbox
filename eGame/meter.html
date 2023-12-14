@@ -25,9 +25,9 @@
 
   <!--player bar-->
   <div style="display: flex;">
-    <div class="nameBar" style="color: #30d5c8;">Khaw</div>
-    <div class="nameBar" style="color:#ff7632">Tao</div>
-    <div  class="nameBar" style="color: #cbf482;">Jan</div>
+    <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">Khaw</div>
+    <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">Tao</div>
+    <div  class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">Jan</div>
   </div>
 
 <script>
@@ -50,6 +50,20 @@ var totalScore = [];
 createCanvas();
 drawMeter();
 
+//select player
+function whoIsOn(no){
+  activeP = no;
+  clearCanvas();
+  drawMeter();
+  hiLightMeter(activeP);
+  //hilight Name
+  var name = document.getElementsByClassName('nameBar');
+  for (let index = 0; index < name.length; index++) {
+    name[index].style.border = 'none';    
+  }
+  name[no].style.border = 'solid white 0.1vmax';
+}
+
 //find coordinates to place each meter
 function getMetersPosition(){
   var array = [];
@@ -60,6 +74,20 @@ function getMetersPosition(){
       array.push(x);
     }
   return array;
+
+}
+
+function hiLightMeter(no){
+  for (let j = scale; j >0; j=j-1) {
+        ctx.beginPath();
+        ctx.rect(meterX[no],baseY-(j*(meterU+meterPad)),meterW,meterU);
+        ctx.fillStyle = 'black';ctx.fill();
+        ctx.font = '24px Raleway';
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#ababab';
+        ctx.fillText(j,meterX[no]-10,(baseY-(j*(meterU+meterPad)))+0.75*meterU);
+        ctx.closePath();
+      }
 
 }
 
@@ -75,10 +103,10 @@ function drawMeter(){
       for (let j = scale; j >0; j=j-1) {
         ctx.beginPath();
         ctx.rect(meterX[index],baseY-(j*(meterU+meterPad)),meterW,meterU);
-        ctx.fillStyle = 'black';ctx.fill();
+        ctx.fillStyle = '#212121';ctx.fill();
         ctx.font = '24px Raleway';
         ctx.textAlign = 'right';
-        ctx.fillStyle = '#ababab';
+        ctx.fillStyle = '#555';
         ctx.fillText(j,meterX[index]-10,(baseY-(j*(meterU+meterPad)))+0.75*meterU);
         ctx.closePath();
       }
@@ -103,6 +131,13 @@ function createCanvas() {
   canvas.width = Math.floor(window.innerWidth * res*2)
   canvas.height = Math.floor(window.innerHeight * canvasHeight * res*2)
   ctx.scale(res*2,res*2)
+}
+
+function clearCanvas(){
+  ctx.beginPath()
+  ctx.rect(0,0,100*vw,baseY);
+  ctx.fillStyle = '#333';ctx.fill();
+  ctx.closePath();
 }
 
 
