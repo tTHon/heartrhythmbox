@@ -15,10 +15,10 @@
   * {background-color:#333;font-family: 'Raleway', sans-serif;margin: 0;}
   .nameBar {width: 100%;font-size: 3vmax;text-align: center;margin: 0.1vmax;
     border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;}
-  .scoringBar {padding: 1vmax 2vmax;align-content: center;align-items: center;
-    text-align: center;background-color: #333;flex: 1;}
-  .scoreButt {background-color:#5b4305;color: #f2f2f2;font-size: 3vmax;
-  border-radius: 1vw;text-align: center;box-shadow: #333 2px 2px 8px 8px;}
+  .scoreButt {color: #f2f2f2;font-size: 3vmax;padding: 0.5vmax 2vmax;
+  border-radius: 1vw;text-align: center;margin-left: 1.5vw;cursor: pointer;}
+  .bonusButt {color: lightpink;font-size: 3vmax; padding: 0.5vmax 1vmax;margin-left: 0.5vw;
+  border-radius: 2vw;cursor: pointer;}
 </style>
 
 <body>
@@ -34,11 +34,21 @@
   </div>
 
   <!--scoring bar-->
-  <div style="text-align: center;display: flex;width: 100%;padding: 1vmax;">
-    <div class="scoringBar"><button class="scoreButt">+1</button></div>
-    <div class="scoringBar"><button class="scoreButt">+2</button></div>
-    <div class="scoringBar"><button class="scoreButt">+3</button></div>
+  <div style="text-align: center;width: 100%;padding: 2vmax;">
+    <span style="float: left;">
+      <button class="bonusButt">x1</button>
+      <button class="bonusButt">x2</button>
+      <button class="bonusButt">x3</button>
+    </span>
+    
+    <button class="scoreButt" onclick="scoreUp(1)">+1</button>
+    <button class="scoreButt" onclick="scoreUp(2)">+2</button>
+    <button class="scoreButt" onclick="scoreUp(3)">+3</button>
+    <button class="scoreButt" onclick="scoreUp(4)">+4</button>
+    <button class="scoreButt">edit</button>
   </div>
+
+  <div id="sumScore"></div>
 
 
 <script>
@@ -54,12 +64,52 @@ const meterBlock = 100*vw/(meterNo);
 const meterW = meterBlock/3;
 const baseY = 61*vh;
 var meterX = getMetersPosition();
+const totalQ = 13;
+var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var qNo = 1;
+var bonus = 1;
 var activeP;
-var itemScore = 0;
-var totalScore = [];
 
 createCanvas();
 drawMeter();
+
+//add score
+function scoreUp(score){
+  score = score * bonus;
+  var start = getCurrentQScore();
+  meterMove(activeP,start,start+score);
+  updateScore(start+score);
+  document.getElementById('sumScore').innerHTML = p1S + p2S + p3S
+
+  function getCurrentQScore(){
+    var s;
+    if (activeP==0){
+      s= p1S[qNo-1];
+    }
+    if (activeP==1){
+      s= p2S[qNo-1];
+    }
+    if (activeP==2){
+      s= p3S[qNo-1];
+    }
+    return s;
+  }
+
+  function updateScore(newScore){
+    if (activeP==0){
+      p1S[qNo-1]=newScore;
+    }
+    if (activeP==1){
+      p2S[qNo-1]=newScore;
+    }
+    if (activeP==2){
+      p3S[qNo-1]=newScore;
+    }
+
+  }
+}
 
 //select player
 function whoIsOn(no){
