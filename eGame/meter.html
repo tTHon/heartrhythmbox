@@ -15,40 +15,61 @@
   * {background-color:#333;font-family: 'Raleway', sans-serif;margin: 0;}
   .nameBar {width: 100%;font-size: 3vmax;text-align: center;margin: 0.1vmax;
     border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;}
+  .score {font-size: 2.5vmax;padding: 0.5vmax;margin-top: 0.5vh;}
   .scoreButt {color: #f2f2f2;font-size: 3vmax;padding: 0.5vmax 2vmax;
   border-radius: 1vw;text-align: center;margin-left: 1.5vw;cursor: pointer;}
-  .bonusButt {color: lightpink;font-size: 3vmax; padding: 0.5vmax 1vmax;margin-left: 0.5vw;
-  border-radius: 2vw;cursor: pointer;}
+  .bonusButt {color: lightpink;font-size: 3vmax; padding:1vmax;margin-left: 1.5vw;
+  border-radius: 2vw;cursor: pointer;border: black 0.1vw solid;}
+  #qNav {font-size: 2.2vmax;padding: 0.5vmax;margin-top: 2vmax;text-align: center;
+  color: pink;border-top: solid #555 0.1vmax;}
+  #qNav button {color: pink;font-size: 2.2vmax;padding: 0.5vmax 1vmax;border-radius: 1vmax;}
 </style>
 
 <body>
-  <!--button onclick="meterMove(1,2,4)" style="color: white;">Move</button-->
-  <canvas id="canvas" style="border: white 0.1vw solid;">
+  
+  <canvas id="canvas">
   </canvas>
 
   <!--player bar-->
   <div style="display: flex;">
-    <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">Khaw</div>
-    <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">Tao</div>
-    <div class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">Jan</div>
+    <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">
+      Khaw
+      <div class="score">Score</div>
+    </div>
+    <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">
+      Tao
+      <div class="score">Score</div>
+    </div>
+    <div class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">
+      Jan
+      <div class="score">Score</div>
+    </div>
   </div>
 
+  <div style="border: #ddd solid 0.1vmax;margin:3vmax 0.5vmax 0.5vmax 0.5vmax;
+  background-color: black;">
   <!--scoring bar-->
-  <div style="text-align: center;width: 100%;padding: 2vmax;">
+  <div style="text-align: center;padding: 2vmax;">
     <span style="float: left;">
-      <button class="bonusButt">x1</button>
-      <button class="bonusButt">x2</button>
-      <button class="bonusButt">x3</button>
+      <button class="bonusButt" onclick="bonusButt(1)">x1</button>
+      <button class="bonusButt" onclick="bonusButt(2)">x2</button>
+      <button class="bonusButt" onclick="bonusButt(3)">x3</button>
     </span>
     
     <button class="scoreButt" onclick="scoreUp(1)">+1</button>
     <button class="scoreButt" onclick="scoreUp(2)">+2</button>
     <button class="scoreButt" onclick="scoreUp(3)">+3</button>
     <button class="scoreButt" onclick="scoreUp(4)">+4</button>
-    <button class="scoreButt">edit</button>
+    <button class="scoreButt">&#9998;</button>
   </div>
 
-  <div id="sumScore"></div>
+  <div id="qNav">
+    <button onclick="nav(-1)">&lt;</button>
+    Q: <span id="currentQ"></span>&nbsp;/<span id="totalQ"></span>&nbsp;
+    <button onclick="nav(+1)">&gt;</button>
+  </div>
+
+  </div>
 
 
 <script>
@@ -68,12 +89,35 @@ const totalQ = 13;
 var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
-var qNo = 1;
+var maxScore = [10,10,10,10,10,10,10,10,10,10,10,10,10]
+var qNo = 0;
 var bonus = 1;
 var activeP;
 
 createCanvas();
 drawMeter();
+nav(0);
+
+//qNav
+function nav(no){
+   
+  qNo = qNo + no;
+  if (qNo>totalQ){qNo = totalQ};
+  if (qNo<0){qNo = 0};
+  document.getElementById('currentQ').innerHTML = qNo;
+  document.getElementById('totalQ').innerHTML = totalQ;
+  drawMeter();
+  bonusButt(1)
+}
+
+function bonusButt(x){
+  bonus = x;
+  const butt = document.getElementsByClassName('bonusButt');
+  for (let index = 0; index < butt.length; index++) {
+    butt[index].style.border = 'black 0.1vw solid';    
+  }
+  butt[x-1].style.border = 'white 0.2vmax solid';
+}
 
 //add score
 function scoreUp(score){
@@ -98,17 +142,29 @@ function scoreUp(score){
   }
 
   function updateScore(newScore){
+    score = document.getElementsByClassName('score')
+    if (newScore>maxScore[qNo-1]){newScore=maxScore[qNo-1]}
     if (activeP==0){
       p1S[qNo-1]=newScore;
+      score[0].innerHTML = sumScore(p1S);
     }
     if (activeP==1){
       p2S[qNo-1]=newScore;
+      score[1].innerHTML = sumScore(p2S);
     }
     if (activeP==2){
       p3S[qNo-1]=newScore;
+      score[2].innerHTML = sumScore(p3S);
     }
-
   }
+}
+
+function sumScore(array){
+  let sum = 0;
+  for (let index = 0; index < array.length; index++) {
+    sum += array[index];
+  }
+  return sum;
 }
 
 //select player
