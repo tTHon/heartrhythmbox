@@ -14,8 +14,11 @@
 <style>
   * {background-color:#333;font-family: 'Raleway', sans-serif;margin: 0;}
   .nameBar {width: 100%;font-size: 3vmax;text-align: center;margin: 0.1vmax;
-    border-radius: 1vw;cursor: pointer;
-  background-color: #222;padding: 1vmax;}
+    border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;}
+  .scoringBar {padding: 1vmax 2vmax;align-content: center;align-items: center;
+    text-align: center;background-color: #333;flex: 1;}
+  .scoreButt {background-color:#5b4305;color: #f2f2f2;font-size: 3vmax;
+  border-radius: 1vw;text-align: center;box-shadow: #333 2px 2px 8px 8px;}
 </style>
 
 <body>
@@ -27,8 +30,16 @@
   <div style="display: flex;">
     <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">Khaw</div>
     <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">Tao</div>
-    <div  class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">Jan</div>
+    <div class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">Jan</div>
   </div>
+
+  <!--scoring bar-->
+  <div style="text-align: center;display: flex;width: 100%;padding: 1vmax;">
+    <div class="scoringBar"><button class="scoreButt">+1</button></div>
+    <div class="scoringBar"><button class="scoreButt">+2</button></div>
+    <div class="scoringBar"><button class="scoreButt">+3</button></div>
+  </div>
+
 
 <script>
 const canvas = document.getElementById("canvas");
@@ -53,7 +64,6 @@ drawMeter();
 //select player
 function whoIsOn(no){
   activeP = no;
-  clearCanvas();
   drawMeter();
   hiLightMeter(activeP);
   //hilight Name
@@ -93,6 +103,7 @@ function hiLightMeter(no){
 
 function drawMeter(){
     //draw meter block
+    clearCanvas();
     for (let index = 0; index < meterNo; index++) {
       ctx.beginPath();
       ctx.rect(meterX[index],baseY-(scale*(meterU+meterPad)),meterW,scale*(meterU+meterPad)-meterPad)
