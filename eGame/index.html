@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
+        <meta name="author" content="t'Thon">
+        <title>eGame-dashboard</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {font-family: 'Noto Sans Thai', sans-serif;;background-color:#333;margin: 0;}
+    .nameBar {width: 100%;font-size: 3vmax;text-align: center;margin: 0.1vmax;
+    border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;font-weight: 300;}
+    .score {font-size: 2.5vmax;padding: 0.5vmax;margin-top: 0.5vh;font-weight: 400;}
+</style>
+<body>
+<!--player bar-->
+<div>
+    <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">
+        ข้าว
+      <div class="score">Score</div>
+    </div>
+    <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">
+      เต่า
+      <div class="score">Score</div>
+    </div>
+    <div class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">
+      แจน
+      <div class="score">Score</div>
+    </div>
+</div>
+    
+</body>
+</html>
