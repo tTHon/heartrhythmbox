@@ -12,26 +12,178 @@
 </head>
 <style>
     * {font-family: 'Noto Sans Thai', sans-serif;;background-color:#333;margin: 0;}
-    .nameBar {width: 100%;font-size: 3vmax;text-align: center;margin: 0.1vmax;
-    border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;font-weight: 300;}
-    .score {font-size: 2.5vmax;padding: 0.5vmax;margin-top: 0.5vh;font-weight: 400;}
+    .nameBar {font-size: 5vmax;margin: 1vmax;vertical-align: middle;
+    border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;font-weight: 600;}
+    .score {font-size: 2.5vmax;padding: 0 1vmax;font-weight: 300;border-radius: 1vw;color: white;margin-left: 2vw;vertical-align:middle;}
+    .scoreTable {font-size: 2vmax;font-weight: 300;text-align: center;color: #aaa;}
+    .scoreTable td {border: solid #555 0.1vw;padding: 0.5vmax 1.2vmax;}
+    #meter {padding: 2vmax;display: none;border-left: solid 0.1vw #555;}  
+    #meterTable {color: pink;font-size: 3vmax;text-align: center;}
+    #meterTable td {padding: 0.5vmax;}
+    .bar {height: 5vh;background-color: black;width: 30vw;}
+    #timer {border-left: solid 0.1vw #555;display: none;padding: 1vmax;text-align: center;}
+    #currentScore {background-color: #222;color: #ddd;text-align: center;
+      font-size: 3vmax;padding: 0.5vmax;border-radius: 1vmax;}
+
+
 </style>
 <body>
 <!--player bar-->
-<div>
-    <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">
-        ข้าว
-      <div class="score">Score</div>
+<div style="display: flex;vertical-align: middle;">
+  <div>
+      <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">
+          ข้าว<span class="score">Score</span>
+          <table class="scoreTable">
+          </table>
+      </div>
+      <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">
+        เต่า<span class="score">Score</span>
+        <table class="scoreTable">
+        </table>
+      </div>
+      <div class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">
+        แจน<span class="score">Score</span>
+        <table class="scoreTable">
+        </table>
+      </div>
+  </div>
+  <div id='meter'>
+      <table id="meterTable">
+        <tr>
+          <td>10</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>9</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>8</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>7</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>6</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>5</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>4</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>3</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>2</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>1</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>0</td><td class="bar"></td>
+        </tr>
+      </table>
+  </div>
+  <div id="timer">
+    <div id="currentScore">0</div>
+    <div>
+      <canvas id="canvas">
+      </canvas>
+      <br>
+      <button>Start</button>
+      <button>+1</button>
+      <button>+2</button>
+      <button>+3</button>
     </div>
-    <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">
-      เต่า
-      <div class="score">Score</div>
-    </div>
-    <div class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">
-      แจน
-      <div class="score">Score</div>
-    </div>
+  </div>
 </div>
+
+<script>
+const totalQ = 13;
+var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+var maxScore = [10,10,10,10,10,10,10,10,10,10,10,10,10]
+var qNo = 0;
+var bonus = 1;
+var activeP;
+
+createScoreTable();
+
+function whoIsOn(no){
+  //hide score table
+  const t = document.getElementsByClassName('scoreTable');
+  for (let index = 0; index < t.length; index++) {
+    t[index].style.display = 'none';
+    
+  }
+  const meter = document.getElementById('meter');
+  meter.style.display = 'inline'
+  var h = meter.clientHeight;
+  var nameBar = document.getElementsByClassName('nameBar');
+  for (let index = 0; index < nameBar.length; index++) {
+    nameBar[index].style.height = h/4+'px';
+    nameBar[index].style.border ='none'
+  }
+  nameBar[no].style.border = 'white 0.5vmax solid';
+
+  document.getElementById('timer').style.display = 'inline';
+  createTimer(60);
+}
+
+function createTimer(time){
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const res = window.devicePixelRatio;
+  canvas.style.width = 0.3 * window.innerWidth + 'px';
+  canvas.style.height = 0.4 * window.innerHeight + 'px';
+  canvas.width = Math.floor(0.3*window.innerWidth * res*2)
+  canvas.height = Math.floor(0.4*window.innerHeight * res*2)
+  ctx.scale(res*2,res*2)
+  const vw = window.innerWidth/100;
+  const vh = window.innerHeight/100;
+  ctx.beginPath();
+  ctx.arc(15*vw,20*vh,10*vw,0,2*Math.PI);
+  ctx.lineWidth = 4*vw;
+  ctx.strokeStyle = '#aaa';ctx.stroke();
+  ctx.textAlign = 'center';
+  ctx.font = '60px Noto Sans Thai';ctx.fillStyle = 'pink'
+  ctx.fillText(time,15*vw,22*vh);
+}
+
+
+function createScoreTable(id){
+  var t = document.getElementsByClassName('scoreTable')
+
+  for (let index = 0; index < t.length ; index++) {
+    var head = t[index].insertRow(0);
+    var row1 = t[index].insertRow(1);
+    for (let j = 0; j < totalQ; j++) {
+      let cell0 = head.insertCell(j);
+      let cell1 = row1.insertCell(j);
+      if (j==0){
+        cell0.innerHTML = 'Q'
+        cell1.innerHTML = 'Score'
+        cell0.style.fontWeight = '400';
+        cell1.style.fontWeight = '400';
+      } else
+        {cell0.innerHTML = j;
+          cell0.style.fontWeight = '300';
+        cell1.style.fontWeight = '300';
+      if (index==0){
+        cell1.innerHTML = p1S[j];
+      }
+      if (index==1){
+        cell1.innerHTML = p2S[j];
+      }
+      if (index==2){
+        cell1.innerHTML = p3S[j];
+      }}
+    }
+  }
+ 
+}
+</script>
     
 </body>
 </html>
