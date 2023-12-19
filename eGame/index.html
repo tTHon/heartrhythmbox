@@ -12,18 +12,31 @@
 </head>
 <style>
     * {font-family: 'Noto Sans Thai', sans-serif;;background-color:#333;margin: 0;}
-    .nameBar {font-size: 5vmax;margin: 1vmax;vertical-align: middle;
+    .nameBar {font-size: 6vmax;margin: 1vmax;vertical-align: middle;
     border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;font-weight: 600;}
-    .score {font-size: 2.5vmax;padding: 0 1vmax;font-weight: 300;border-radius: 1vw;color: white;margin-left: 2vw;vertical-align:middle;}
-    .scoreTable {font-size: 2vmax;font-weight: 300;text-align: center;color: #aaa;}
+    .score {font-size: 3vmax;padding: 0 1vmax;font-weight: 300;border-radius: 1vw;color: white;vertical-align:middle;color: #f5f5f5;}
+    .scoreTable {font-size: 2vmax;font-weight: 300;text-align: center;color: #aaa;display: none;}
     .scoreTable td {border: solid #555 0.1vw;padding: 0.5vmax 1.2vmax;}
-    #meter {padding: 2vmax;display: none;border-left: solid 0.1vw #555;}  
-    #meterTable {color: pink;font-size: 3vmax;text-align: center;}
+    .thisQScore {margin-left: 4vw;font-size: 3vmax;background-color: #222;color: white;font-weight: 300;text-align: right;}
+    #meter {padding: 2vmax;border-left: solid 0.1vw #555;display: none;}  
+    #meterTable {color: pink;font-size: 2vmax;text-align: center;border-bottom: #111 solid 0.2vmax;}
     #meterTable td {padding: 0.5vmax;}
-    .bar {height: 5vh;background-color: black;width: 30vw;}
-    #timer {border-left: solid 0.1vw #555;display: none;padding: 1vmax;text-align: center;}
-    #currentScore {background-color: #222;color: #ddd;text-align: center;
-      font-size: 3vmax;padding: 0.5vmax;border-radius: 1vmax;}
+    .bar {background-color: black;width: 20vw;}
+    #timer {border-left: solid 0.1vw #555;padding: 1vmax;text-align: center;font-size: 2.5vmax;}
+    #runTime {background-color: #222;color: pink;text-align: center;font-weight: 300;text-shadow: #333 2px;
+      font-size: 6vmax;padding: 2vmax;width: 25vw;
+      border-radius: 1vmax;cursor: pointer;margin: 1vmax;}
+    #startTimer, #pauseTimer, #resetTimer {font-size:2.5vmax;color: #ddd;border-radius: 2vmax;
+      padding:1vmax 1.5vmax;display: none;vertical-align: middle;cursor: pointer;}
+    #bonusBar, #addScore {border-top: #454545 dotted 0.1vw;margin-top: 1vh;display: none;
+      border-bottom: #454545 dotted 0.1vw;margin-bottom: 1vh;}
+    .bonusBut {color: #aaa;font-size: 2.5vmax;border-radius: 1vmax;padding: 0.5vmax;cursor: pointer;
+      margin:1vmax 0.5vmax;vertical-align: middle;cursor: pointer;border: black 0.1vmax solid;}
+    .scoreBut {color: #eee;font-size: 2.5vmax;border-radius: 1vmax;padding: 1vmax;
+      margin: 1vmax 0.5vmax;vertical-align: middle;cursor: pointer;cursor: pointer;}
+    #qNav {margin-top: 2vh;color: #aaa;padding: 1vmax;text-align: center;font-size: 2vmax;}
+    #qNav button {color: #aaa;font-weight: 400;font-size: 3vmax;border-radius: 1vmax;padding:0 2vmax;}
+  
 
 
 </style>
@@ -32,20 +45,51 @@
 <div style="display: flex;vertical-align: middle;">
   <div>
       <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">
-          ข้าว<span class="score">Score</span>
+          ข้าว<span class="thisQScore">+0</span>
+          <div class="score"></div>
           <table class="scoreTable">
           </table>
       </div>
       <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">
-        เต่า<span class="score">Score</span>
+        เต่า<span class="thisQScore">+0</span>
+        <div class="score"></div>
         <table class="scoreTable">
         </table>
       </div>
       <div class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">
-        แจน<span class="score">Score</span>
+        แจน<span class="thisQScore">+0</span>
+        <div class="score"></div>
         <table class="scoreTable">
         </table>
       </div>
+  </div>  
+  <div id="timer">
+    &#9201;<br>
+    <button id="runTime" onclick="runTimer('standBy')">timer</button>
+    <br>
+    <button id="startTimer" onclick="runTimer('start')">&#9654;</button>
+    <button id="pauseTimer" onclick="runTimer('pause')" style="letter-spacing: -0.5vmax;
+    vertical-align: middle;text-align: left;">||</button>
+    <button id="resetTimer" onclick="runTimer('reset')">&#8634;</button>
+    <div id="bonusBar" style="border-top: #454545 dotted 0.1vw;margin-top: 1vh;">
+        <button class="bonusBut" onclick="setBonus(1)">X1</button>
+        <button class="bonusBut" onclick="setBonus(2)">X2</button>
+        <button class="bonusBut" onclick="setBonus(3)">X3</button>
+    </div>
+
+    <div id="addScore">
+      <button class="scoreBut" onclick="addScore(1)">+1</button>
+      <button class="scoreBut" onclick="addScore(2)">+2</button>
+      <button class="scoreBut" onclick="addScore(3)">+3</button>
+    </div>
+    <div id="qNav">
+      <button onclick="qNav(-1)">&lt;</button>
+      Q: 
+      <span id="thisQ"></span>
+      /
+      <span id="totalQ"></span>
+      <button onclick="qNav(+1)">&gt;</button>
+    </div>
   </div>
   <div id='meter'>
       <table id="meterTable">
@@ -79,76 +123,261 @@
         <tr>
           <td>1</td><td class="bar"></td>
         </tr>
-        <tr>
-          <td>0</td><td class="bar"></td>
-        </tr>
       </table>
   </div>
-  <div id="timer">
-    <div id="currentScore">0</div>
-    <div>
-      <canvas id="canvas">
-      </canvas>
-      <br>
-      <button>Start</button>
-      <button>+1</button>
-      <button>+2</button>
-      <button>+3</button>
-    </div>
-  </div>
+
+
 </div>
 
 <script>
-const totalQ = 13;
+const totalQ = 12;
+const maxScore = 10;
+const color = ['#30d5c8','#ff7632','#cbf482'];
 var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
-var maxScore = [10,10,10,10,10,10,10,10,10,10,10,10,10]
 var qNo = 0;
-var bonus = 1;
+var bonus;
 var activeP;
+var activePScore;
+var currentQScore = 0;
+var timeAtPause;
+const timeLimitArray = [30,10,10];
+var timeLimit;
 
-createScoreTable();
+addBasicInfo();
+
+function qNav(n){
+  qNo = qNo + n;
+  if (qNo>totalQ) {qNo = totalQ};
+  if (qNo<0) {qNo=0};
+  document.getElementById('thisQ').innerHTML = qNo;
+  resetMeter();
+  resetCurrentScore();
+  resetActiveP();
+  document.getElementById('runTime').innerHTML = 'timer';
+  runTimer('standBy');
+}
+
+function resetActiveP(){
+  activeP = null;
+  const name = document.getElementsByClassName('nameBar');
+  for (let index = 0; index < name.length; index++) {
+    name[index].style.border = 'none'    
+  }
+}
+
+function resetCurrentScore(){
+  const thisScore = document.getElementsByClassName('thisQScore');
+  for (let index = 0; index < thisScore.length; index++) {
+    thisScore[index].innerHTML = '+0'
+    
+  }
+}
+
+function resetMeter(){
+  const bar = document.getElementsByClassName('bar');
+  for (let index = 0; index < bar.length; index++) {
+    bar[index].style.backgroundColor = 'black'    
+  }
+}
+
+function getTotalScore(pNo){
+  var total;
+  if (pNo==0){
+    total = 0;
+    p1S.forEach(item => {
+      total = total + item;
+    });
+  }
+  if (pNo==1){
+    total = 0;
+    p2S.forEach(item => {
+      total = total + item;
+    });
+  }
+  if (pNo==2){
+    total = 0;
+    p3S.forEach(item => {
+      total = total + item;
+    });
+  }
+  return total;
+
+}
+
+function addBasicInfo(){
+  document.getElementById('thisQ').innerHTML = qNo;
+  document.getElementById('totalQ').innerHTML = totalQ;
+  const pScore = document.getElementsByClassName('score')
+  for (let index = 0; index < pScore.length; index++) {
+    var total = getTotalScore(index)
+    pScore[index].innerHTML = 'Total: ' + total;
+    
+  }
+}
+
+function addScore(n){
+    const thisQ = document.getElementsByClassName('thisQScore');
+    const total = document.getElementsByClassName('score');
+    var thisColor = color[activeP];
+
+    //check overMax Score
+    if (currentQScore+n>10){
+      n = 10-currentQScore;
+    }
+
+    //paint meter
+    const bar = document.getElementsByClassName('bar');
+    for (let index = 1; index <= n; index++) {
+      bar[10-(currentQScore+index)].style.backgroundColor = thisColor; 
+    }
+
+    activePScore = activePScore + (n*bonus);
+    currentQScore = currentQScore + n;
+    thisQ[activeP].innerHTML = '+' + activePScore;
+
+    //add score to total array
+    updatePlayerScore(activeP,activePScore);
+
+    //update total score
+    var totalScore = getTotalScore(activeP);
+    total[activeP].innerHTML = 'Total: ' + totalScore;
+
+    function updatePlayerScore(pNo,newScore){
+      if (pNo==0){
+        p1S[qNo]= newScore;
+      }
+      if (pNo==1){
+        p2S[qNo]= newScore;
+      }
+      if (pNo==2){
+        p3S[qNo]= newScore;
+      }
+    }
+
+}
+
+
+function setBonus(x){
+  bonus = x;
+  timeLimit = timeLimitArray[x-1];
+  runTimer('standBy',timeLimit);
+
+  //hiLight bonus but
+  const but = document.getElementsByClassName('bonusBut');
+  for (let index = 0; index < but.length; index++) {
+    but[index].style.border = 'black 0.1vmax solid'
+  }
+  but[x-1].style.border = '#ddd 0.2vmax double';
+}
 
 function whoIsOn(no){
   //hide score table
   const t = document.getElementsByClassName('scoreTable');
   for (let index = 0; index < t.length; index++) {
-    t[index].style.display = 'none';
-    
+     t[index].style.display = 'none';
   }
+
+  activeP = no;activePScore = 0;
   const meter = document.getElementById('meter');
   meter.style.display = 'inline'
-  var h = meter.clientHeight;
   var nameBar = document.getElementsByClassName('nameBar');
   for (let index = 0; index < nameBar.length; index++) {
-    nameBar[index].style.height = h/4+'px';
     nameBar[index].style.border ='none'
   }
   nameBar[no].style.border = 'white 0.5vmax solid';
 
   document.getElementById('timer').style.display = 'inline';
-  createTimer(60);
+  if (timeLimit==null){
+    timeLimit=timeLimitArray[0];
+    setBonus(1)
+  }
+  runTimer('standBy',timeLimit);
 }
 
-function createTimer(time){
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
-  const res = window.devicePixelRatio;
-  canvas.style.width = 0.3 * window.innerWidth + 'px';
-  canvas.style.height = 0.4 * window.innerHeight + 'px';
-  canvas.width = Math.floor(0.3*window.innerWidth * res*2)
-  canvas.height = Math.floor(0.4*window.innerHeight * res*2)
-  ctx.scale(res*2,res*2)
-  const vw = window.innerWidth/100;
-  const vh = window.innerHeight/100;
-  ctx.beginPath();
-  ctx.arc(15*vw,20*vh,10*vw,0,2*Math.PI);
-  ctx.lineWidth = 4*vw;
-  ctx.strokeStyle = '#aaa';ctx.stroke();
-  ctx.textAlign = 'center';
-  ctx.font = '60px Noto Sans Thai';ctx.fillStyle = 'pink'
-  ctx.fillText(time,15*vw,22*vh);
+
+//mode standBy start pause reset 
+function runTimer(mode,time){
+  const timer = document.getElementById('runTime');
+  const play = document.getElementById('startTimer');
+  const pause = document.getElementById('pauseTimer');
+  const reset = document.getElementById('resetTimer');
+  const bonus = document.getElementById('bonusBar');
+  const score = document.getElementById('addScore')
+  if (time == null){time = timeLimitArray[0]}
+
+  if (mode=='standBy'){
+    timer.innerHTML = time;
+    bonus.style.display = 'block';
+    t = time;
+    play.style.display = 'inline';
+    pause.style.display = 'none';
+    reset.style.display = 'none';
+    score.style.display = 'none';
+  }
+  else {
+    var count = t;
+    play.style.display = 'none';
+    pause.style.display = 'inline';
+    reset.style.display = 'inline';
+    score.style.display = 'block';
+    document.getElementById('meter').style.display = 'block'
+
+    if (mode=='start'){
+      if (activeP==null) {
+        alert('Please select the active player first.');
+        runTimer('standBy', timeLimit)
+      }
+      else {
+      timeCount();}
+    }
+    if (mode=='reset'){
+      resetCount();
+    }
+    if (mode=='pause'){
+      pauseCount();
+    }
+
+    function timeCount(){
+      bonus.style.display = 'none'
+      timer.innerHTML = count;
+      if (count>0){
+      timeout = setTimeout(timeCount, 1000);
+      timeAtPause = count;
+      count = count - 1;}
+      else {
+        pause.style.display = 'none';
+        reset.style.display = 'none';
+        clearTimeout(timeout);
+        timer.innerHTML = 'time&apos;s up';
+        score.style.display = 'none'
+      }
+    }
+
+    function resetCount(){
+      clearTimeout(timeout);
+      count = t;
+      timer.innerHTML = count;
+      pause.innerHTML = '||';
+      timeCount();
+    }
+
+    function pauseCount(){
+      if (pause.innerHTML=='||'){
+          pause.innerHTML = '&#9654;';
+          clearTimeout(timeout);
+        }
+      else {
+          pause.innerHTML = '||';
+          count = timeAtPause;
+          timeCount();
+        }
+
+      }
+
+  }
+
 }
 
 
