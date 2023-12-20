@@ -8,17 +8,17 @@
         <link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
         <meta name="author" content="t'Thon">
         <title>eGame-dashboard</title>
-        <link href="https://fonts.googleapis.com/css2?family=Athiti&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <style>
-    * {font-family: 'Athiti', sans-serif;;background-color:#333;margin: 0;}
-    #player {display: flex;}
-    .nameBar {font-size: 6vmax;margin: 0.5vmax;vertical-align: middle;flex: 1;
+    * {font-family: 'Noto Sans Thai', sans-serif;;background-color:#333;margin: 0;}
+    #player, #timer, #meter {flex: 1;}
+    .nameBar {font-size: 6vmax;margin: 1vmax;vertical-align: middle;
     border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;font-weight: 600;}
-    .score {font-size: 3vmax;padding: 0 1vmax;border-radius: 1vw;vertical-align:middle;color: #f5f5f5;}
-    .scoreTable {font-size: 2vmax;text-align: center;color: #aaa;display: none;margin-top: 1vh;padding: 1vmax;}
+    .score {font-size: 3vmax;padding: 0 1vmax;font-weight: 300;border-radius: 1vw;color: white;vertical-align:middle;color: #f5f5f5;}
+    .scoreTable {font-size: 2vmax;font-weight: 300;text-align: center;color: #aaa;display: none;margin-top: 1vh;padding: 1vmax;}
     .scoreTable td {border: solid #555 0.1vw;padding: 0.5vmax 1.2vmax;}
-    .thisQScore {margin-left: 4vw;font-size: 3.5vmax;background-color: #222;color: white;text-align: right;}
+    .thisQScore {margin-left: 4vw;font-size: 3vmax;background-color: #222;color: white;font-weight: 300;text-align: right;}
     #meter {padding: 2vmax;border: solid 0.1vw #555;font-size: 2.5vmax;border-radius: 6%;
       text-align: center;color: pink;}  
     #meterTable {color: pink;font-size: 2vmax;text-align: center;
@@ -27,7 +27,7 @@
     .bar {background-color: black;width: 20vw;color: #333;}
     #timer {border: solid 0.1vw #555;padding: 1vmax;text-align: center;border-radius: 6%;
       font-size: 2.5vmax;width: 100%;}
-    #runTime {background-color: #222;color: pink;text-align: center;text-shadow: #333 2px;
+    #runTime {background-color: #222;color: pink;text-align: center;font-weight: 300;text-shadow: #333 2px;
       font-size: 6vmax;padding: 2vmax;width: 25vw;
       border-radius: 1vmax;cursor: pointer;margin: 1vmax;}
     #startTimer, #pauseTimer, #resetTimer {font-size:2.5vmax;color: #ddd;border-radius: 2vmax;
@@ -38,95 +38,105 @@
       margin:1vmax 0.5vmax;vertical-align: middle;cursor: pointer;border: black 0.1vmax solid;}
     .scoreBut {font-size: 2.5vmax;border-radius: 1vmax;padding: 1vmax;width: 100%;background-color: #555;color: #f5f5f5;
       margin: 1vmax 0.5vmax;vertical-align: middle;cursor: pointer;cursor: pointer;}
-    #qNav {color: #ccc;text-align: center;font-size: 2vmax;display: flex;border-radius: 1vmax;
-    margin: 0.5vmax;background-color: black;border: #555 solid 0.1vmax;}
-    #qNav div {flex: 1;align-self: center;border-radius: 1vmax;background-color: #555;}
-    #qNav div:nth-of-type(2) {background-color: black;}
-    #qNav div:first-of-type, #qNav div:nth-of-type(3) {cursor: pointer;}
+    #qNav {margin-top: 2vh;color: #aaa;padding: 1vmax;text-align: center;font-size: 2vmax;}
+    #qNav button {color: #aaa;font-weight: 400;font-size: 3vmax;border-radius: 1vmax;padding:0 2vmax;}
+  
 
-    #playGround {background-color: #302222;margin: 1vmax 0.5vmax;
-      border-radius: 1vmax;}
-    #thinkMode {background-color: #302222;display: flex;border-radius: 1vmax;}
-    #thinkModeSelection {background-color: #302222;list-style-type: none;flex: 1;
-      border-radius: 1vmax;padding: 1vmax;text-align: center;align-self: center;}
-    #thinkModeSelection li {background: #302222;color: #ddd;font-size: 4vmax;
-      cursor: pointer;padding: 1vmax;border-bottom: #aaa 0.1vw dotted;}
-    #thinkModeTimer {flex: 1;background-color: #302222;border-radius: 1vmax;text-align: center;padding: 1vmax;display: none;}
-    #thinkTime {background: #302222;font-size: 10vmax;font-weight: 600;color: pink;}
-    #thinkControlBar {margin-top: 1vh;border-radius: 1vmax;}
-    #thinkControlBar button {color: #f5f5f5;font-size: 3vmax;border: none;
-      vertical-align: middle;text-shadow: black 4px 2px;cursor: pointer;padding-left: 1vmax;}
-    #standByThink {background-color: #302222;color: #f5f5f5;font-size: 3vmax;cursor: pointer;
-      padding: 1vmax;border: #ddd solid 0.1vmax;border-radius: 1vmax;}
-    #pauseThink, #stopThink, #resetThink {display: none;color: #f5f5f5;}
-    #playTimer, #playMeter {display: none;}
 
 </style>
 <body>
 <!--player bar-->
+<div style="display: flex;vertical-align: middle;">
   <div id="player">
       <div class="nameBar" style="color: #30d5c8;" onclick="whoIsOn(0)">
           ข้าว<span class="thisQScore">+0</span>
-          <div class="score">Total:</div>
+          <div class="score"></div>
       </div>
-
+      <table class="scoreTable">
+      </table>
       <div class="nameBar" style="color:#ff7632" onclick="whoIsOn(1)">
         เต่า<span class="thisQScore">+0</span>
-        <div class="score">Total:</div>
+        <div class="score"></div>
       </div>
-
+      <table class="scoreTable">
+      </table>
       <div class="nameBar" style="color: #cbf482;" onclick="whoIsOn(2)">
         แจน<span class="thisQScore">+0</span>
-        <div class="score">Total:</div>
+        <div class="score"></div>
       </div>
-
+      <table class="scoreTable">
+      </table>
+      <button id="scoreTableToggle" 
+      style="margin: 1vmax;color: #aaa;border-radius: 20%;cursor: pointer;" onclick="showScoreTable()">
+        &#128393;</button>
   </div>    
-
-<!--qNav bar-->
-<div id="qNav">
-    <div onclick="qNav(-1)">
-      &lt;
+  <div id='meter'>
+      Question #<span id="meterQ"></span> Scoring
+      <table id="meterTable">
+        <tr>
+          <td>10</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>9</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>8</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>7</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>6</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>5</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>4</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>3</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>2</td><td class="bar"></td>
+        </tr>
+        <tr>
+          <td>1</td><td class="bar"></td>
+        </tr>
+      </table>
+  </div>
+  <div id="timer">
+    &#9201;<br>
+    <button id="runTime" onclick="runTimer('standBy')">timer</button>
+    <br>
+    <button id="startTimer" onclick="runTimer('start')">&#9654;</button>
+    <button id="pauseTimer" onclick="runTimer('pause')" style="letter-spacing: -0.5vmax;
+    vertical-align: middle;text-align: left;">||</button>
+    <button id="resetTimer" onclick="runTimer('reset')">&#8634;</button>
+    <div id="bonusBar" style="border-top: #454545 dotted 0.1vw;margin-top: 1vh;">
+        <button class="bonusBut" onclick="setBonus(1)">X1</button>
+        <button class="bonusBut" onclick="setBonus(2)">X2</button>
+        <button class="bonusBut" onclick="setBonus(3)">X3</button>
     </div>
-    <div>
+
+    <div id="addScore">
+      <button class="scoreBut" onclick="addScore(1)">+1</button>
+      <button class="scoreBut" onclick="addScore(2)">+2</button>
+      <button class="scoreBut" onclick="addScore(3)">+3</button>
+    </div>
+    <div id="qNav">
+      <button onclick="qNav(-1)">&lt;</button>
       Q: 
       <span id="thisQ"></span>
       /
       <span id="totalQ"></span>
+      <button onclick="qNav(+1)">&gt;</button>
     </div>
-    <div onclick="qNav(+1)">
-      &gt;
-    </div>
-</div>
-
-<!--playground-->
-<div id="playGround">
-  <!--think-->
-  <div id='thinkMode'>
-      <ul id="thinkModeSelection">
-          <li class="thinkList" onclick="thinkMode('on')">THINK</li>
-          <li class="thinkList" onclick="thinkMode('off')">PLAY</li>
-      </ul>
-      <div id="thinkModeTimer">
-        <button id="standByThink" onclick="thinkTimer('start')">
-          &#9201;&nbsp;<span id="thinkTime"></span> 
-          <span style="font-size: 2vmax;color: #aaa;background-color: #302222;">seconds</span></button>
-        <div id="thinkControlBar">
-          <button id="startThink" onclick="thinkTimer('start')">&#9654;</button>
-          <button id="pauseThink" onclick="thinkTimer('pause')">&#8741;</button>
-          <button id="stopThink" onclick="thinkTimer('stop')">&#9724;</button>
-          <button id="resetThink" onclick="thinkTimer('reset')">&#8634;</button>
-        </div>
-      </div>
-      <div id="playTimer">
-        playtimer
-      </div>
-      <div id="playmeter">
-        playmeter
-      </div>
   </div>
 
-</div>
 
+
+</div>
 
 <script>
 const totalQ = 12;
@@ -143,100 +153,8 @@ var currentQScore = 0;
 var timeAtPause;
 const timeLimitArray = [30,10,10];
 var timeLimit;
-const thinkTime = 30;
 
 addBasicInfo();
-
-function thinkMode(mode){
-  const list = document.getElementsByClassName('thinkList')
-  const thinkT = document.getElementById('thinkModeTimer')
-  if (mode=='on'){
-      list[0].style.color = 'pink';
-      list[0].style.fontWeight = '600'
-      list[1].style.color = '#ddd';
-      list[1].style.fontWeight = '400';
-      thinkT.style.display ='block';
-      thinkTimer('standBy')
-  } 
-  if (mode=='off') {
-    list[0].style.color = '#ddd';
-    list[0].style.fontWeight = '400'
-    list[1].style.color = 'pink';
-    list[1].style.fontWeight = '600';
-    thinkT.style.display = 'none'
-  }
-}
-
-function thinkTimer(mode){
-  const time = document.getElementById('thinkTime');
-  const start = document.getElementById('startThink');
-  const stop = document.getElementById('stopThink');
-  const pause = document.getElementById('pauseThink');
-  const reset = document.getElementById('resetThink');
-
-  if (mode=='standBy'){
-    time.innerHTML = thinkTime;
-    stop.style.display ='none';
-    pause.style.display = 'none';
-    reset.style.display = 'none';
-    start.style.display = 'inline';
-  } else {
-    var count = thinkTime;    
-    if (mode=='start'){
-      thinkCount();
-      stop.style.display ='inline';
-      pause.style.display = 'inline';
-      reset.style.display = 'inline';
-      start.style.display = 'none';
-    }
-    if (mode=='reset'){
-      resetCount();
-    }
-    if (mode=='pause'){
-      pauseCount();
-    }
-    if (mode=='stop'){
-      clearTimeout(timeout);
-      thinkTimer('standBy');
-    }
-
-  }
-
-  function thinkCount(){
-      time.innerHTML = count;
-      if (count>0){
-      timeout = setTimeout(thinkCount, 1000);
-      timeAtPause = count;
-      count = count - 1;}
-      else {
-        clearTimeout(timeout);
-      }
-    }
-
-    function resetCount(){
-      clearTimeout(timeout);
-      count = thinkTime;
-      time.innerHTML = count;
-      thinkCount();
-      pause.style.color = '#f5f5f5'
-      pause.innerHTML = '&#8741;';
-    }
-
-    function pauseCount(){
-      if (pause.style.color == 'white'){
-          pause.style.color = '#f5f5f5'
-          pause.innerHTML = '&#8741;';
-          count = timeAtPause;
-          thinkCount();
-     }
-      else {
-        pause.style.color = 'white'
-        pause.innerHTML = '&#9654;';
-        clearTimeout(timeout);
-        }
-      }
-
-}
 
 function qNav(n){
   qNo = qNo + n;
@@ -306,7 +224,7 @@ function getTotalScore(pNo){
 function addBasicInfo(){
   document.getElementById('thisQ').innerHTML = qNo;
   document.getElementById('totalQ').innerHTML = totalQ;
-  //document.getElementById('meterQ').innerHTML = qNo;
+  document.getElementById('meterQ').innerHTML = qNo;
   const pScore = document.getElementsByClassName('score')
   for (let index = 0; index < pScore.length; index++) {
     var total = getTotalScore(index)
@@ -371,10 +289,6 @@ function setBonus(x){
 }
 
 function whoIsOn(no){
-  if (activeP==no){
-    resetActiveP();
-  }
-  else {
   //hide score table
   const t = document.getElementsByClassName('scoreTable');
   //showScoreTable();
@@ -395,7 +309,6 @@ function whoIsOn(no){
     setBonus(1)
   }
   runTimer('standBy',timeLimit);
-  }
 }
 
 
