@@ -19,11 +19,14 @@
     .scoreTable {font-size: 2vmax;text-align: center;color: #aaa;display: none;margin-top: 1vh;padding: 1vmax;}
     .scoreTable td {border: solid #555 0.1vw;padding: 0.5vmax 1.2vmax;}
     .thisQScore {margin-left: 4vw;font-size: 3.5vmax;background-color: #222;color: white;text-align: right;}
-    #meter {padding: 0.5vmax 2vmax;font-size: 2vmax;color: pink;width: 48vw;}  
-    #meterTable {color: pink;font-size: 1.8vmax;text-align:right;border-bottom: #111 solid 0.2vmax;}
-    .bar {background-color: black;width: 10vw;padding: none;}
-    #meterTable tr, #meterTable td {padding: none;border-collapse: collapse;margin: none;}
-    #timer {padding: 1vmax;text-align: center;font-size: 2.5vmax;width: 48vw;}
+    #meter {padding: 0 2vmax;font-size: 2vmax;color: pink;}  
+    #meterTable {color: pink;font-size: 2vmax;text-align:center;
+      margin-left: auto;margin-right: auto;}
+    #meterTable, #meterTable td, #meterTable tr {border-collapse: collapse;
+      padding: 0 0.5vmax;text-align: center;line-height: 120%;}
+    .bar {background-color: black;width: 15vw;padding: none;
+      height: min-content;border-bottom: 0.1vmax #555 dotted;}
+    #timer {padding: 1vmax;text-align: center;font-size: 2.5vmax;}
     #runTime {color: pink;text-align: center;font-size: 6vmax;border:none;cursor: pointer;}
     #startTimer, #pauseTimer, #resetTimer {font-size:2.5vmax;color: #ddd;
       border-radius: 2vmax;border: none;text-shadow: black 4px 2px;
@@ -36,26 +39,31 @@
       margin: 1vmax 0.5vmax;vertical-align: middle;cursor: pointer;cursor: pointer;}
     #qNav {color: #ccc;text-align: center;font-size: 2vmax;display: flex;border-radius: 1vmax;
     margin: 0.5vmax;background-color: black;border: #555 solid 0.1vmax;}
-    #qNav div {flex: 1;align-self: center;border-radius: 1vmax;background-color: #555;}
+    #qNav div {flex: 1;align-self: center;background-color: #555;}
     #qNav div:nth-of-type(2) {background-color: black;}
     #qNav div:first-of-type, #qNav div:nth-of-type(3) {cursor: pointer;}
+    #qNav div:first-of-type {border-radius: 1vmax 0 0 1vmax;}
+    #qNav div:nth-of-type(3) {border-radius: 0 1vmax 1vmax 0;}
 
     #playGround {background-color: #302222;margin: 0.5vmax;
       border-radius: 1vmax;}
-    #thinkMode {background-color: #302222;display: flex;border-radius: 1vmax;}
-    #thinkModeSelection {background-color: #302222;list-style-type: none;flex: 1;
-      border-radius: 1vmax;padding: 1vmax;text-align: center;align-self: center;}
-    #thinkModeSelection li {background: #302222;color: #ddd;font-size: 4vmax;
-      cursor: pointer;padding: 1vmax;border-bottom: #aaa 0.1vw dotted;}
-    #thinkModeTimer {flex: 1;background-color: #302222;border-radius: 1vmax;text-align: center;padding: 1vmax;display: none;}
+    #thinkModeTimer {background-color: #302222;border-radius: 1vmax;text-align: center;padding: 1vmax;}
     #thinkTime {background: #302222;font-size: 10vmax;font-weight: 600;color: pink;}
-    #thinkControlBar {margin-top: 1vh;border-radius: 1vmax;}
+    #thinkControlBar {margin-top: 1vh;border-radius: 1vmax;background: #302222;}
     #thinkControlBar button {color: #f5f5f5;font-size: 3vmax;border: none;
-      vertical-align: middle;text-shadow: black 4px 2px;cursor: pointer;padding-left: 1vmax;}
+      background-color: #302222;
+      vertical-align: middle;text-shadow: black 4px 4px;cursor: pointer;padding-left: 1vmax;}
     #standByThink {background-color: #302222;color: #f5f5f5;font-size: 3vmax;cursor: pointer;
       padding: 1vmax;border: #ddd solid 0.1vmax;border-radius: 1vmax;}
     #pauseThink, #stopThink, #resetThink {display: none;color: #f5f5f5;}
-    #playTimer, #playMeter {display: none;}
+    #playMode {display: none;margin-bottom: 1vmax;background-color: #302222;min-height: 40vh;
+    margin-left: auto;margin-right: auto;text-align: center;padding: 1vmax;width: fit-content;}
+    .modeNav {color: #aaa;font-size: 2vmax;padding: 0.5vmax;float: right;margin: 0.5vmax;
+    border: #555 solid 0.1vmax;border-radius: 1vmax;cursor: pointer;}
+    .circle {width: 2vmax;height: 2vmax;padding:0 1vmax;font-weight: 600;
+      border-radius: 50%;background-color: black;}
+    .modeNav:nth-of-type(2) {display: none;}
+    #playTimer, #playMeter {width: 40vw;box-shadow: #333 4px 4px;}
 
 </style>
 <body>
@@ -96,16 +104,11 @@
 
 <!--playground-->
 <div id="playGround">
-  <!--think-->
-  <div id='thinkMode'>
-      <ul id="thinkModeSelection">
-          <li class="thinkList" onclick="thinkMode('on')">THINK</li>
-          <li class="thinkList" onclick="thinkMode('off')">PLAY</li>
-      </ul>
       <div id="thinkModeTimer">
-        <button id="standByThink" onclick="thinkTimer('start')">
-          &#9201;&nbsp;<span id="thinkTime"></span> 
-          <span style="font-size: 2vmax;color: #aaa;background-color: #302222;">seconds</span></button>
+          <button id="standByThink" onclick="thinkTimer('start')">
+            &#9201;&nbsp;<span id="thinkTime"></span> 
+            <span style="font-size: 2vmax;color: #aaa;background-color: #302222;">seconds</span>
+          </button>
         <div id="thinkControlBar">
           <button id="startThink" onclick="thinkTimer('start')">&#9654;</button>
           <button id="pauseThink" onclick="thinkTimer('pause')">&#8741;</button>
@@ -113,69 +116,83 @@
           <button id="resetThink" onclick="thinkTimer('reset')">&#8634;</button>
         </div>
       </div>
-      <div id="playTimer">
-        <div id="timer">
-          <div  onclick="runTimer('standBy')" 
-          style="font-size: 2vmax;color: #aaa;border-radius: 1vmax;padding: 0 2vmax;
-          border: #aaa solid 0.1vmax;vertical-align: middle;width: fit-content;margin-left: auto;margin-right: auto;">&#9201;
-            <button id="runTime">timer</button>
-          </div>
-          <button id="startTimer" onclick="runTimer('start')">&#9654;</button>
-          <button id="pauseTimer" onclick="runTimer('pause')">&#8741;</button>
-          <button id="resetTimer" onclick="runTimer('reset')">&#8634;</button>
-          <div id="bonusBar" style="border-top: #454545 dotted 0.1vw;margin-top: 1vh;">
-              <button class="bonusBut" onclick="setBonus(1)">X1</button>
-              <button class="bonusBut" onclick="setBonus(2)">X2</button>
-              <button class="bonusBut" onclick="setBonus(3)">X3</button>
-          </div>
-      
-          <div id="addScore">
-            <button class="scoreBut" onclick="addScore(1)">+1</button>
-            <button class="scoreBut" onclick="addScore(2)">+2</button>
-            <button class="scoreBut" onclick="addScore(3)">+3</button>
+
+      <!--play-->
+      <div id="playMode">
+        <div id="playTimer">
+          <div id="timer">
+            <div  onclick="runTimer('standBy')" 
+            style="font-size: 2vmax;color: #aaa;border-radius: 1vmax;padding: 0 2vmax;
+            border: #aaa solid 0.1vmax;vertical-align: middle;width: fit-content;margin-left: auto;margin-right: auto;">&#9201;
+              <button id="runTime">timer</button>
+            </div>
+            <button id="startTimer" onclick="runTimer('start')">&#9654;</button>
+            <button id="pauseTimer" onclick="runTimer('pause')">&#8741;</button>
+            <button id="resetTimer" onclick="runTimer('reset')">&#8634;</button>
+            <div id="bonusBar" style="border-top: #454545 dotted 0.1vw;margin-top: 1vh;">
+                <button class="bonusBut" onclick="setBonus(1)">X1</button>
+                <button class="bonusBut" onclick="setBonus(2)">X2</button>
+                <button class="bonusBut" onclick="setBonus(3)">X3</button>
+            </div>
+        
+            <div id="addScore">
+              <button class="scoreBut" onclick="addScore(1)">+1</button>
+              <button class="scoreBut" onclick="addScore(2)">+2</button>
+              <button class="scoreBut" onclick="addScore(3)">+3</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div id="playMeter">
-        <div id='meter'>
-          Question #<span id="meterQ"></span> Scoring
-          <table id="meterTable">
-            <tr>
-              <td>10</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>9</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>8</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>7</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>6</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>5</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>4</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>3</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>2</td><td class="bar"></td>
-            </tr>
-            <tr>
-              <td>1</td><td class="bar"></td>
-            </tr>
-          </table>
-      </div>
-      </div>
-  </div>
+        <div id="playMeter">
+          <div id='meter'>
+            Question #<span id="meterQ"></span> Scoring
+            <table id="meterTable">
+              <tr>
+                <td>10</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>9</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>8</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>7</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>6</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>5</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>4</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>3</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>2</td><td class="bar"></td>
+              </tr>
+              <tr>
+                <td>1</td><td class="bar"></td>
+              </tr>
+            </table>
+        </div>
+        </div>
+    </div>
+
 
 </div>
+
+<!--think/play mode selection-->
+<a class="modeNav" onclick="modeSwitch(1)">
+  to play
+  <span class="circle">&gt;</span>
+</a>
+<a class="modeNav" onclick="modeSwitch(0)" style="float: left;">
+  back to think
+  <span class="circle">&lt;</span>
+</a>
 
 
 <script>
@@ -197,34 +214,26 @@ const thinkTime = 30;
 
 addBasicInfo();
 
-function thinkMode(mode){
-  const list = document.getElementsByClassName('thinkList');
-  const thinkT = document.getElementById('thinkModeTimer');
-  const pTimer = document.getElementById('playTimer');
-  const meter = document.getElementById('playMeter');
-  const tBlock = document.getElementById('thinkModeSelection');
+function modeSwitch(mode2Go2){
+  const mode = document.getElementsByClassName('modeNav');
+  const play = document.getElementById('playMode');
+  const think = document.getElementById('thinkModeTimer')
 
-  if (mode=='on'){
-      list[0].style.color = 'pink';
-      list[0].style.fontWeight = '600'
-      list[1].style.color = '#ddd';
-      list[1].style.fontWeight = '400';
-      thinkT.style.display ='block';
-      pTimer.style.display = 'none';
-      meter.style.display = 'none';
-      tBlock.style.display = 'block'
-      thinkTimer('standBy');
-  } 
-  if (mode=='off') {
-    list[0].style.color = '#ddd';
-    list[0].style.fontWeight = '400'
-    list[1].style.color = 'pink';
-    list[1].style.fontWeight = '600';
-    thinkT.style.display = 'none';
-    pTimer.style.display = 'block';
-    meter.style.display = 'block';
-    tBlock.style.display = 'none'
+  //go to play
+  if (mode2Go2==1){
+    mode[mode2Go2].style.display = 'block';
+    mode[0].style.display = 'none';
+    play.style.display = 'flex';
+    think.style.display = 'none';
   }
+  //go to think
+  if (mode2Go2==0){
+    mode[mode2Go2].style.display = 'block';
+    mode[1].style.display = 'none';
+    play.style.display = 'none';
+    think.style.display = 'block';
+  }
+  
 }
 
 function thinkTimer(mode){
@@ -307,7 +316,9 @@ function qNav(n){
   resetCurrentScore();
   resetActiveP();
   document.getElementById('runTime').innerHTML = 'timer';
-  //runTimer('stop');
+  runTimer('stop');
+  thinkTimer('stop');
+  modeSwitch(0);
 }
 
 function resetActiveP(){
@@ -366,7 +377,8 @@ function getTotalScore(pNo){
 function addBasicInfo(){
   document.getElementById('thisQ').innerHTML = qNo;
   document.getElementById('totalQ').innerHTML = totalQ;
-  //document.getElementById('meterQ').innerHTML = qNo;
+  document.getElementById('thinkTime').innerHTML = thinkTime;
+  document.getElementById('meterQ').innerHTML = qNo;
   const pScore = document.getElementsByClassName('score')
   for (let index = 0; index < pScore.length; index++) {
     var total = getTotalScore(index)
@@ -388,6 +400,7 @@ function addScore(n){
     const bar = document.getElementsByClassName('bar');
     for (let index = 1; index <= n; index++) {
       bar[10-(currentQScore+index)].style.backgroundColor = color[activeP]; 
+      bar[10-(currentQScore+index)].style.color = '#333'
       bar[10-(currentQScore+index)].innerHTML = 'X'+bonus;
     }
 
@@ -415,7 +428,6 @@ function addScore(n){
     }
 
 }
-
 
 function setBonus(x){
   bonus = x;
@@ -458,7 +470,6 @@ function whoIsOn(no){
   }
 }
 
-
 //mode standBy start pause reset stop
 function runTimer(mode,time){
   const timer = document.getElementById('runTime');
@@ -500,10 +511,12 @@ function runTimer(mode,time){
       pauseCount();
     }
     if (mode=='stop'){
-      clearTimeout(timeout);
       pause.style.display = 'none';
       reset.style.display = 'none';
       score.style.display = 'none';
+      play.style.display = 'none';
+      bonus.style.display = 'none'
+      clearTimeout(timeout);
     }
 
     function timeCount(){
