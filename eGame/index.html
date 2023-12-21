@@ -16,8 +16,6 @@
     .nameBar {font-size: 6vmax;margin: 0.5vmax;vertical-align: middle;flex: 1;
     border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;font-weight: 600;}
     .score {font-size: 3vmax;padding: 0 1vmax;border-radius: 1vw;vertical-align:middle;color: #f5f5f5;}
-    .scoreTable {font-size: 2vmax;text-align: center;color: #aaa;display: none;margin-top: 1vh;padding: 1vmax;}
-    .scoreTable td {border: solid #555 0.1vw;padding: 0.5vmax 1.2vmax;}
     .thisQScore {margin-left: 4vw;font-size: 3.5vmax;background-color: #222;color: white;text-align: right;}
     #meter {padding: 0 2vmax;font-size: 2vmax;color: pink;}  
     #meterTable {color: pink;font-size: 2vmax;text-align:center;
@@ -58,12 +56,16 @@
     #pauseThink, #stopThink, #resetThink {display: none;color: #f5f5f5;}
     #playMode {display: none;margin-bottom: 1vmax;background-color: #302222;min-height: 40vh;
     margin-left: auto;margin-right: auto;text-align: center;padding: 1vmax;width: fit-content;}
-    .modeNav {color: #aaa;font-size: 2vmax;padding: 0.5vmax;float: right;margin: 0.5vmax;
+    .modeNav {color: #aaa;font-size: 2vmax;padding: 0.5vmax;float: right;margin: 0.5vmax;vertical-align: middle;
     border: #555 solid 0.1vmax;border-radius: 1vmax;cursor: pointer;}
     .circle {width: 2vmax;height: 2vmax;padding:0 1vmax;font-weight: 600;
       border-radius: 50%;background-color: black;}
     .modeNav:nth-of-type(2) {display: none;}
     #playTimer, #playMeter {width: 40vw;box-shadow: #333 4px 4px;}
+
+    #scoreTable {display: none;position: absolute;z-index: 2;
+      font-size: 2vmax;color: #ddd;}
+    #scoreTable tr, #scoreTable td {border: 0.1vmax solid #ddd;}
 
 </style>
 <body>
@@ -184,6 +186,9 @@
 
 </div>
 
+<table id="scoreTable">
+</table>
+
 <!--think/play mode selection-->
 <a class="modeNav" onclick="modeSwitch(1)">
   to play
@@ -194,11 +199,18 @@
   <span class="circle">&lt;</span>
 </a>
 
+<!--pencil-->
+<div style="font-size: 2vmax;color: #bbb;position: fixed;
+bottom: 1%;left: 49%;cursor: pointer;text-shadow: #222 4px 4px;" 
+onclick="showScoreTable()">
+  &#128393;
+</div>
 
 <script>
 const totalQ = 12;
 const maxScore = 10;
 const color = ['#30d5c8','#ff7632','#cbf482'];
+const pName = ['ข้าว','เต่า','แจน']
 var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0]; 
@@ -561,60 +573,26 @@ function runTimer(mode,time){
 }
 
 function showScoreTable(){
-  resetActiveP();
-  createScoreTable();
-  const t = document.getElementsByClassName('scoreTable');
-  const meter = document.getElementById('meter');
-  const timer = document.getElementById('timer');
-  const butt = document.getElementById('scoreTableToggle');
-  console.log(butt.innerHTML);
+  const table = document.getElementById('scoreTable');
+  table.style.display = 'block';
 
-  if (butt.innerHTML=='X') {
-    for (let index = 0; index < t.length; index++) {
-      t[index].style.display = 'none';    
+  for (let index = 0; index < pName.length ; index++) {
+    var row = table.insertRow(index);
+    var cell = row.insertCell();
+    cell.innerHTML = pName[index];
+    //add Q
+    for (let j = 1; j <= totalQ; j++) {
+      var moreCell = row.insertCell();    
     }
-    butt.innerHTML = '&#128393;';
-    timer.style.display = 'block';
-    meter.style.display = 'block';
-  } else {
-    for (let index = 0; index < t.length; index++) {
-      t[index].style.display = 'block';    
-    }
-    butt.innerHTML = 'X';
-    timer.style.display = 'none';
-    meter.style.display = 'none';
+  
   }
-}
-
-function createScoreTable(){
-  var t = document.getElementsByClassName('scoreTable')
-
-  for (let index = 0; index < t.length ; index++) {
-    var head = t[index].insertRow(0);
-    var row1 = t[index].insertRow(1);
-    for (let j = 0; j <= totalQ; j++) {
-      let cell0 = head.insertCell(j);
-      let cell1 = row1.insertCell(j);
-      if (j==0){
-        cell0.innerHTML = 'Q'
-        cell1.innerHTML = 'Score'
-        cell0.style.fontWeight = '400';
-        cell1.style.fontWeight = '400';
-      } else
-        {cell0.innerHTML = j;
-          cell0.style.fontWeight = '300';
-        cell1.style.fontWeight = '300';
-      if (index==0){
-        cell1.innerHTML = p1S[j];
-      }
-      if (index==1){
-        cell1.innerHTML = p2S[j];
-      }
-      if (index==2){
-        cell1.innerHTML = p3S[j];
-      }}
+  //add header row
+  var head = table.insertRow(0);
+  headCell = head.insertCell();
+  for (let j = 1; j <= totalQ; j++) {
+      headCell = head.insertCell();    
+      headCell.innerHTML = j;
     }
-  }
  
 }
 </script>
