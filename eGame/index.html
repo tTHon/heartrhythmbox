@@ -64,11 +64,12 @@
     .modeNav:nth-of-type(2) {display: none;}
     #playTimer, #playMeter {width: 40vw;box-shadow: #333 4px 4px;}
 
-    #scoreTable {display: none;position: fixed;
-      z-index: 2;top: 10%;left: 10%;
-      font-size: 2.5vmax;color: #ddd;}
+    #scorePopUp {position: fixed;z-index: 2;top: 10%;left: 10%;display: none;padding: 2vmax;}  
+    #scoreTable {font-size: 2.5vmax;color: #ddd;}
     #scoreTable tr, #scoreTable td {border: 0.1vmax solid #ddd;padding: 1vmax;}
     #scoreTable tr:first-of-type {font-weight: 600;}
+    #scoreTableControlBar {padding: 1vmax;text-align: right;margin-top: 1vh;}
+    #scoreTableControlBar button {color: #ddd;margin-left: 1vmax;cursor: pointer;padding: 0.5vmax;}
 
 </style>
 <body>
@@ -192,9 +193,15 @@
 
 </div>
 
-<table id="scoreTable">
-  
-</table>
+<div id="scorePopUp">
+  <table id="scoreTable">
+  </table>
+  <div id="scoreTableControlBar">
+    <button id="undoEditScore" onclick="editScore()">Undo</button>
+    <button id="saveEditScore" onclick="editScore()">Save</button>
+    <button onclick="closeTableScore()">Close</button>
+  </div>
+</div>
 
 <!--think/play mode selection-->
 <a class="modeNav" onclick="modeSwitch(1)">
@@ -604,7 +611,7 @@ function createScoreTable(){
 
 function showScoreTable(){
   const table = document.getElementById('scoreTable');
-  table.style.display = 'block';
+  document.getElementById('scorePopUp').style.display = 'block';
 
   //row by row
   for (let index = 1; index <= totalQ ; index++) {
@@ -612,7 +619,7 @@ function showScoreTable(){
     cell.innerHTML = p1S[index];   
     cell.style.cursor = 'pointer'; 
     cell.onclick = function(){
-      alert('player1' + index)
+      editScore(1,index);
     }
   }
   for (let index = 1; index <= totalQ ; index++) {
@@ -620,7 +627,7 @@ function showScoreTable(){
     cell.style.cursor = 'pointer'; 
     cell.innerHTML = p2S[index];    
     cell.onclick = function(){
-      alert('player2' + index)
+      editScore(2,index);
     } 
   }
   for (let index = 1; index <= totalQ ; index++) {
@@ -628,10 +635,31 @@ function showScoreTable(){
     cell.style.cursor = 'pointer'; 
     cell.innerHTML = p3S[index];    
     cell.onclick = function(){
-      alert('player3' + index)
+      editScore(3,index);
     } 
   }
+}
 
+function editScore(row,col){
+  const undo = document.getElementById("undoEditScore");
+  const save = document.getElementById('saveEditScore');
+  const table = document.getElementById('scoreTable');
+  var thisCell = table.rows[row].cells[col];
+  var oldValue = thisCell.innerHTML;
+  thisCell.innerHTML ='';
+  var x = document.createElement("INPUT");
+  x.setAttribute("type", "text");
+  x.setAttribute("value", oldValue);
+  x.style.color = "#cdcdcd";
+  x.style.width = '2vmax';
+  x.style.fontSize = '2.5vmax'
+  thisCell.appendChild(x);
+  x.focus();
+
+}
+
+function closeTableScore(){
+  document.getElementById('scorePopUp').style.display = 'none'
 }
 </script>
     
