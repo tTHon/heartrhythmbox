@@ -64,9 +64,11 @@
     .modeNav:nth-of-type(2) {display: none;}
     #playTimer, #playMeter {width: 40vw;box-shadow: #333 4px 4px;}
 
-    #scoreTable {display: none;position: absolute;z-index: 2;
-      font-size: 2vmax;color: #ddd;}
-    #scoreTable tr, #scoreTable td {border: 0.1vmax solid #ddd;}
+    #scoreTable {display: none;position: fixed;
+      z-index: 2;top: 10%;left: 10%;
+      font-size: 2.5vmax;color: #ddd;}
+    #scoreTable tr, #scoreTable td {border: 0.1vmax solid #ddd;padding: 1vmax;}
+    #scoreTable tr:first-of-type {font-weight: 600;}
 
 </style>
 <body>
@@ -191,6 +193,7 @@
 </div>
 
 <table id="scoreTable">
+  
 </table>
 
 <!--think/play mode selection-->
@@ -606,20 +609,23 @@ function showScoreTable(){
   //row by row
   for (let index = 1; index <= totalQ ; index++) {
     var cell = table.rows[1].cells[index]
-    cell.innerHTML = p1S[index];    
+    cell.innerHTML = p1S[index];   
+    cell.style.cursor = 'pointer'; 
     cell.onclick = function(){
       alert('player1' + index)
     }
   }
   for (let index = 1; index <= totalQ ; index++) {
-    var cell = table.rows[2].cells[index]
+    var cell = table.rows[2].cells[index];
+    cell.style.cursor = 'pointer'; 
     cell.innerHTML = p2S[index];    
     cell.onclick = function(){
       alert('player2' + index)
     } 
   }
   for (let index = 1; index <= totalQ ; index++) {
-    var cell = table.rows[3].cells[index]
+    var cell = table.rows[3].cells[index];
+    cell.style.cursor = 'pointer'; 
     cell.innerHTML = p3S[index];    
     cell.onclick = function(){
       alert('player3' + index)
