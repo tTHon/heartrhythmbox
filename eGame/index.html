@@ -66,7 +66,7 @@
 
     #scorePopUp {position: fixed;z-index: 2;top: 10%;left: 10%;width: 80vw;overflow-x: scroll;
       display: none;padding: 2vmax;box-shadow: #111 4px 4px 8px;}  
-    #scoreTable {font-size: 2.5vmax;color: #ddd;margin-left: auto;margin-right: auto;}
+    #scoreTable {font-size: 2.5vmax;color: #ddd;margin-left: auto;margin-right: auto;text-align: center;}
     #scoreTable tr, #scoreTable td {border: 0.1vmax solid #ddd;padding: 1vmax;}
     #scoreTable tr:first-of-type {font-weight: 600;}
     #scoreTableControlBar {padding: 1vmax;text-align: right;margin-top: 1vh;}
@@ -222,7 +222,12 @@ onclick="showScoreTable()">
   &#128393;
 </div>
 
+<script src="uploadScore.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const supabaseUrl = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY';
+const database = supabase.createClient(supabaseUrl,supabaseKey);
 const totalQ = 12;
 const maxScore = 10;
 const color = ['#30d5c8','#ff7632','#cbf482'];
@@ -336,6 +341,7 @@ function thinkTimer(mode){
 }
 
 function qNav(n){
+  sendScore()
   qNo = qNo + n;
   if (qNo>totalQ) {qNo = totalQ};
   if (qNo<0) {qNo=0};
@@ -414,6 +420,7 @@ function addBasicInfo(){
     pScore[index].innerHTML = 'Total: ' + total;
     name[index].innerHTML = pName[index];
   }
+  resetDatabase();
   createScoreTable();
 }
 
@@ -728,7 +735,13 @@ function undoTableScore(){
 
 
 function closeTableScore(){
-  document.getElementById('scorePopUp').style.display = 'none'
+  document.getElementById('scorePopUp').style.display = 'none';
+  //update dashboard
+  const total = document.getElementsByClassName('score');
+  total[0].innerHTML = 'Total: ' + getTotalScore(0);
+  total[1].innerHTML = 'Total: ' + getTotalScore(1);
+  total[2].innerHTML = 'Total: ' + getTotalScore(2);  
+  //
 }
 </script>
     
