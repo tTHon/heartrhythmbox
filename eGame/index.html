@@ -27,7 +27,7 @@
       height: min-content;border-bottom: 0.1vmax #555 dotted;}
     #timer {padding: 1vmax;text-align: center;font-size: 2.5vmax;}
     #runTime {color: pink;text-align: center;font-size: 6vmax;border:none;cursor: pointer;}
-    #startTimer, #pauseTimer, #resetTimer {font-size:2.5vmax;color: #ddd;
+    #startTimer, #pauseTimer, #resetTimer {font-size:2.5vmax;color: #dddddd;
       border-radius: 2vmax;border: none;text-shadow: black 4px 2px;
       padding:1vmax 1.5vmax;display: none;vertical-align: middle;cursor: pointer;}
     #bonusBar, #addScore {border-top: #454545 dotted 0.1vw;margin-top: 1vh;display: none;width: 100%;
@@ -298,7 +298,8 @@ function thinkTimer(mode){
       pauseCount();
     }
     if (mode=='stop'){
-      clearTimeout(timeout);
+      if (typeof timeout !== 'undefined')
+       {clearTimeout(timeout)};
       thinkTimer('standBy');
     }
 
@@ -514,7 +515,8 @@ function runTimer(mode,time){
   const pause = document.getElementById('pauseTimer');
   const reset = document.getElementById('resetTimer');
   const bonus = document.getElementById('bonusBar');
-  const score = document.getElementById('addScore')
+  const score = document.getElementById('addScore');
+  
   if (time == null){time = timeLimitArray[0]}
 
   if (mode=='standBy'){
@@ -553,7 +555,8 @@ function runTimer(mode,time){
       score.style.display = 'none';
       play.style.display = 'none';
       bonus.style.display = 'none'
-      clearTimeout(timeout);
+      if (typeof timeout !== 'undefined')
+       {clearTimeout(timeout)};
     }
 
     function timeCount(){
@@ -576,17 +579,19 @@ function runTimer(mode,time){
       clearTimeout(timeout);
       count = t;
       timer.innerHTML = count;
-      pause.innerHTML = '||';
+      pause.style.color = 'red';
       timeCount();
     }
 
     function pauseCount(){
-      if (pause.innerHTML=='||'){
+      //pause to play
+      console.log(pause.style.color)
+      if (pause.style.color=='#dddddd'){
           pause.innerHTML = '&#9654;';
           clearTimeout(timeout);
         }
       else {
-          pause.innerHTML = '||';
+          pause.innerHTML = '&#8741;';
           count = timeAtPause;
           timeCount();
         }
