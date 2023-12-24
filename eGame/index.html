@@ -64,12 +64,14 @@
     .modeNav:nth-of-type(2) {display: none;}
     #playTimer, #playMeter {width: 40vw;box-shadow: #333 4px 4px;}
 
-    #scorePopUp {position: fixed;z-index: 2;top: 10%;left: 10%;display: none;padding: 2vmax;}  
-    #scoreTable {font-size: 2.5vmax;color: #ddd;}
+    #scorePopUp {position: fixed;z-index: 2;top: 10%;left: 10%;width: 80vw;overflow-x: scroll;
+      display: none;padding: 2vmax;box-shadow: #111 4px 4px 8px;}  
+    #scoreTable {font-size: 2.5vmax;color: #ddd;margin-left: auto;margin-right: auto;}
     #scoreTable tr, #scoreTable td {border: 0.1vmax solid #ddd;padding: 1vmax;}
     #scoreTable tr:first-of-type {font-weight: 600;}
     #scoreTableControlBar {padding: 1vmax;text-align: right;margin-top: 1vh;}
     #scoreTableControlBar button {color: #ddd;margin-left: 1vmax;cursor: pointer;padding: 0.5vmax;}
+    #undoEditScore, #saveEditScore {display: none;}
 
 </style>
 <body>
@@ -197,8 +199,8 @@
   <table id="scoreTable">
   </table>
   <div id="scoreTableControlBar">
-    <button id="undoEditScore" onclick="editScore()">Undo</button>
-    <button id="saveEditScore" onclick="editScore()">Save</button>
+    <button id="undoEditScore" onclick="undoTableScore()">Undo</button>
+    <button id="saveEditScore" onclick="saveTableScore()">Save</button>
     <button onclick="closeTableScore()">Close</button>
   </div>
 </div>
@@ -591,7 +593,7 @@ function runTimer(mode,time){
 function createScoreTable(){
   const table = document.getElementById('scoreTable');
   const row = pName.length + 1;
-  const col = totalQ + 1;
+  const col = totalQ + 1 + 1;
 
   //create Table
   for (let i = 0; i < row; i++) {
@@ -600,19 +602,28 @@ function createScoreTable(){
     for (let j = 0; j < col; j++) {
       var newCell = newRow.insertCell();
       if (i==0 && j>0){
-        newCell.innerHTML = j;
+        if (j== col-1){
+          newCell.innerHTML = 'Total'
+        } else {
+        newCell.innerHTML = j;}
       }      
       if (i>0 && j==0){
         newCell.innerHTML = pName[i-1]
       }
     }
   }
+  table.rows[1].cells[col-1].innerHTML = getTotalScore(0);
+  table.rows[2].cells[col-1].innerHTML = getTotalScore(1);
+  table.rows[3].cells[col-1].innerHTML = getTotalScore(2);
+  
 }
 
 function showScoreTable(){
   const table = document.getElementById('scoreTable');
   document.getElementById('scorePopUp').style.display = 'block';
-
+  const row = pName.length + 1;
+  const col = totalQ + 1 + 1;
+  
   //row by row
   for (let index = 1; index <= totalQ ; index++) {
     var cell = table.rows[1].cells[index]
@@ -638,25 +649,83 @@ function showScoreTable(){
       editScore(3,index);
     } 
   }
+  table.rows[1].cells[col-1].innerHTML = getTotalScore(0);
+  table.rows[2].cells[col-1].innerHTML = getTotalScore(1);
+  table.rows[3].cells[col-1].innerHTML = getTotalScore(2);
 }
 
 function editScore(row,col){
-  const undo = document.getElementById("undoEditScore");
-  const save = document.getElementById('saveEditScore');
   const table = document.getElementById('scoreTable');
+  document.getElementById('undoEditScore').style.display = 'inline';
+  document.getElementById('saveEditScore').style.display = 'inline';
+
+  var inputTag = document.getElementsByTagName('input')
+
   var thisCell = table.rows[row].cells[col];
-  var oldValue = thisCell.innerHTML;
+  oldValue = thisCell.innerHTML;
   thisCell.innerHTML ='';
-  var x = document.createElement("INPUT");
-  x.setAttribute("type", "text");
+  var x = document.createElement("input");
+  x.setAttribute("type", "number");
   x.setAttribute("value", oldValue);
-  x.style.color = "#cdcdcd";
-  x.style.width = '2vmax';
-  x.style.fontSize = '2.5vmax'
+  x.style.color = "pink";
+  x.style.width = '5vmax';
+  x.style.fontSize = '2.5vmax';
+  x.id = row.toString()+col.toString();
   thisCell.appendChild(x);
   x.focus();
 
 }
+
+function saveTableScore(){
+  document.getElementById('undoEditScore').style.display = 'none';
+  document.getElementById('saveEditScore').style.display = 'none';
+
+  let inputTag = document.getElementsByTagName('input');
+  
+
+  for (let index = 0; index < inputTag.length; index++) {
+    let inputId = inputTag[index].id
+
+    //pick only input in scoreCard
+    if (inputId.length<=2){
+      let row = Number(inputId.charAt(0))
+      let col = Number(inputId.charAt(1))
+      if (row==1){
+        p1S[col] = Number(inputTag[index].value)
+      }
+      if (row==2){
+        p2S[col] = Number(inputTag[index].value)
+      } 
+      if (row==3){
+        p3S[col] = Number(inputTag[index].value)
+      }
+    }
+  }
+  showScoreTable();
+}
+
+function undoTableScore(){
+  let inputTag = document.getElementsByTagName('input')
+  for (let index = 0; index < inputTag.length; index++) {
+    let inputId = inputTag[index].id
+
+    //pick only input in scoreCard
+    if (inputId.length<=2){
+      let row = Number(inputId.charAt(0))
+      let col = Number(inputId.charAt(1))
+      if (row==1){
+        inputTag[index].value = p1S[col]
+      }
+      if (row==2){
+        inputTag[index].value = p2S[col]
+      } 
+      if (row==3){
+        inputTag[index].value = p3S[col]
+      }
+    }
+  }
+}
+
 
 function closeTableScore(){
   document.getElementById('scorePopUp').style.display = 'none'
