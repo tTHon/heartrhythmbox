@@ -21,6 +21,7 @@
     #meter {padding: 0 2vmax;font-size: 2vmax;color: pink;}  
     #meterTable {color: pink;font-size: 2vmax;text-align:center;
       margin-left: auto;margin-right: auto;}
+    .key {color: pink;border: none;}
     #meterTable, #meterTable td, #meterTable tr {border-collapse: collapse;
       padding: 0 0.5vmax;text-align: center;line-height: 120%;}
     .bar {background-color: black;width: 15vw;padding: none;
@@ -36,7 +37,7 @@
       margin:1vmax 0.5vmax;vertical-align: middle;cursor: pointer;border: black 0.1vmax solid;}
     .scoreBut {font-size: 2.5vmax;border-radius: 1vmax;padding: 1vmax;background-color: #555;color: #f5f5f5;
       margin: 1vmax 0.5vmax;vertical-align: middle;cursor: pointer;cursor: pointer;}
-    #qNav {color: #ccc;text-align: center;font-size: 2vmax;display: flex;border-radius: 1vmax;
+    #qNav {color: #ccc;text-align: center;font-size: 2vmax;display: flex;border-radius: 1vmax;font-weight: 900;
     margin: 0.5vmax;background-color: black;border: #555 solid 0.1vmax;}
     #qNav div {flex: 1;align-self: center;background-color: #555;}
     #qNav div:nth-of-type(2) {background-color: black;}
@@ -70,7 +71,8 @@
     #scoreTable tr, #scoreTable td {border: 0.1vmax solid #ddd;padding: 1vmax;}
     #scoreTable tr:first-of-type {font-weight: 600;}
     #scoreTableControlBar {padding: 1vmax;text-align: right;margin-top: 1vh;}
-    #scoreTableControlBar button {color: #ddd;margin-left: 1vmax;cursor: pointer;padding: 0.5vmax;}
+    #scoreTableControlBar button {color: #ddd;margin-left: 1vmax;
+      cursor: pointer;padding:0 0.5vmax;font-size: 2.5vmax;}
     #undoEditScore, #saveEditScore {display: none;}
 
 </style>
@@ -150,6 +152,7 @@
               <button class="scoreBut" onclick="addScore(1)">+1</button>
               <button class="scoreBut" onclick="addScore(2)">+2</button>
               <button class="scoreBut" onclick="addScore(3)">+3</button>
+              <button class="scoreBut" onclick="addScore(0)">&#8634;</button>
             </div>
           </div>
         </div>
@@ -158,34 +161,34 @@
             Question #<span id="meterQ"></span> Scoring
             <table id="meterTable">
               <tr>
-                <td>10</td><td class="bar"></td>
+                <td>10</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>9</td><td class="bar"></td>
+                <td>9</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>8</td><td class="bar"></td>
+                <td>8</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>7</td><td class="bar"></td>
+                <td>7</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>6</td><td class="bar"></td>
+                <td>6</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>5</td><td class="bar"></td>
+                <td>5</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>4</td><td class="bar"></td>
+                <td>4</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>3</td><td class="bar"></td>
+                <td>3</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>2</td><td class="bar"></td>
+                <td>2</td><td class="bar"></td><td></td>
               </tr>
               <tr>
-                <td>1</td><td class="bar"></td>
+                <td>1</td><td class="bar"></td><td></td>
               </tr>
             </table>
         </div>
@@ -216,10 +219,10 @@
 </a>
 
 <!--pencil-->
-<div style="font-size: 2vmax;color: #bbb;position: fixed;
-bottom: 1%;left: 49%;cursor: pointer;text-shadow: #222 4px 4px;" 
+<div style="font-size: 2vmax;color: #bbb;position: fixed;border: #111 0.1vmax solid;border-radius: 0.5vmax;
+bottom: 1%;left: 45%;cursor: pointer;text-shadow: #222 4px 4px;padding:0 0.5vmax;" 
 onclick="showScoreTable()">
-  &#128393;
+  Score Table
 </div>
 
 <script src="uploadScore.js"></script>
@@ -244,6 +247,7 @@ var timeAtPause;
 const timeLimitArray = [30,10,10];
 var timeLimit;
 const thinkTime = 30;
+var lastAddScore;
 
 addBasicInfo();
 
@@ -386,6 +390,12 @@ function resetMeter(){
     bar[index].innerHTML = ''
   }
   document.getElementById('meterQ').innerHTML = qNo;
+
+  //remove key
+  const key = document.getElementsByClassName('key')
+  while(key.length>0){
+    key[0].remove();
+  }
 }
 
 function getTotalScore(pNo){
@@ -432,32 +442,63 @@ function addBasicInfo(){
 }
 
 function addScore(n){
-    const thisQ = document.getElementsByClassName('thisQScore');
-    const total = document.getElementsByClassName('score');
 
-    //check overMax Score
-    if (currentQScore+n>10){
-      n = 10-currentQScore;
+  const thisQ = document.getElementsByClassName('thisQScore');
+  const total = document.getElementsByClassName('score');
+  const bar = document.getElementsByClassName('bar');
+    //undo
+    if (n==0){
+        //undo Bar
+        if (currentQScore-lastAddScore<0){
+          lastAddScore=currentQScore;
+        }
+        for (let index = currentQScore; index >currentQScore - lastAddScore; index=index-1) {
+          bar[10-index].style.backgroundColor = 'black';
+          bar[10-index].innerHTML = '';
+        }
+        activePScore = activePScore - (lastAddScore*bonus);
+        currentQScore = currentQScore - lastAddScore;
+        thisQ[activeP].innerHTML = '+' + activePScore;
+
+        //add score to total array
+        updatePlayerScore(activeP,activePScore);
+
+        //update total score
+        var totalScore = getTotalScore(activeP);
+        total[activeP].innerHTML = 'Total: ' + totalScore;
+        
+        //remove last key answer; currentQScore now is undone.
+        const key = document.getElementsByClassName('key');
+        key[0].remove();
+    } 
+    else {
+      lastAddScore = n;
+      //check overMax Score
+      if (currentQScore+n>10){
+        n = 10-currentQScore;
+      }
+
+      //paint meter
+      for (let index = 1; index <= n; index++) {
+        bar[10-(currentQScore+index)].style.backgroundColor = color[activeP]; 
+        bar[10-(currentQScore+index)].style.color = '#333'
+        bar[10-(currentQScore+index)].innerHTML = 'X'+bonus;
+      }
+
+      //add key answer
+      addKeyAnswer(10-(currentQScore+1))
+
+      activePScore = activePScore + (n*bonus);
+      currentQScore = currentQScore + n;
+      thisQ[activeP].innerHTML = '+' + activePScore;
+
+      //add score to total array
+      updatePlayerScore(activeP,activePScore);
+
+      //update total score
+      var totalScore = getTotalScore(activeP);
+      total[activeP].innerHTML = 'Total: ' + totalScore;
     }
-
-    //paint meter
-    const bar = document.getElementsByClassName('bar');
-    for (let index = 1; index <= n; index++) {
-      bar[10-(currentQScore+index)].style.backgroundColor = color[activeP]; 
-      bar[10-(currentQScore+index)].style.color = '#333'
-      bar[10-(currentQScore+index)].innerHTML = 'X'+bonus;
-    }
-
-    activePScore = activePScore + (n*bonus);
-    currentQScore = currentQScore + n;
-    thisQ[activeP].innerHTML = '+' + activePScore;
-
-    //add score to total array
-    updatePlayerScore(activeP,activePScore);
-
-    //update total score
-    var totalScore = getTotalScore(activeP);
-    total[activeP].innerHTML = 'Total: ' + totalScore;
 
     function updatePlayerScore(pNo,newScore){
       if (pNo==0){
@@ -471,6 +512,17 @@ function addScore(n){
       }
     }
 
+}
+
+function addKeyAnswer(row){
+  if (row>=0){
+    const meterTable = document.getElementById('meterTable');
+    var key = document.createElement('INPUT');
+    key.setAttribute = ('type','text');
+    meterTable.rows[row].cells[2].appendChild(key);  
+    key.focus();
+    key.classList.add('key')
+  }
 }
 
 function setBonus(x){
