@@ -155,6 +155,10 @@
               <button class="scoreBut" onclick="addScore(0)">&#8634;</button>
             </div>
           </div>
+          <button id="random" onclick="randomPlayer()"
+          style="font-size: 2.5vmax;padding: 0.5vmax;color: #888;cursor: pointer;">
+            &real;
+          </button>
         </div>
         <div id="playMeter">
           <div id='meter'>
@@ -252,6 +256,29 @@ var lastAddScore;
 
 addBasicInfo();
 
+function randomPlayer(){
+  //animate namebar
+  var nameBar = document.getElementsByClassName('nameBar');
+  const effectTime = 1000;
+  var eBar = 0;var maxCount=8;
+  let x = Math.floor((Math.random() * 3) + 1);
+  for (let i = 0; i < maxCount; i++) {
+    setTimeout(() => {
+      for (let index = 0; index < nameBar.length; index++) {
+      nameBar[index].style.border ='none'
+      }
+      nameBar[eBar].style.border = 'red 0.5vmax solid';   
+      eBar++;
+      if (eBar>=nameBar.length){eBar=0}
+
+      if (i==maxCount-1){
+        whoIsOn(x-1);
+      }
+    }, 
+    80*(i+1));    
+  }
+}
+
 function modeSwitch(mode2Go2){
   const mode = document.getElementsByClassName('modeNav');
   const play = document.getElementById('playMode');
@@ -264,6 +291,7 @@ function modeSwitch(mode2Go2){
     play.style.display = 'flex';
     think.style.display = 'none';
     thinkTimer('stop');
+    document.getElementById('random').style.display = 'inline';
   }
   //go to think
   if (mode2Go2==0){
@@ -501,6 +529,10 @@ function addScore(n){
       total[activeP].innerHTML = 'Total: ' + totalScore;
     }
 
+    //play audio
+    const audio = new Audio("audio/moondrop.mp3")
+    audio.play();
+
     function updatePlayerScore(pNo,newScore){
       if (pNo==0){
         p1S[qNo]= newScore;
@@ -546,6 +578,9 @@ function whoIsOn(no){
   else {
   //hide score table
   const t = document.getElementsByClassName('scoreTable');
+  //hide random button
+    document.getElementById('random').style.display = 'none'
+
   //showScoreTable();
   for (let index = 0; index < t.length; index++) {
      t[index].style.display = 'none';
