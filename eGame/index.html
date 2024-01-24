@@ -13,12 +13,12 @@
 <style>
     * {font-family: 'Athiti', sans-serif;;background-color:#333;margin: 0;}
     #player {display: flex;}
-    .nameBar {font-size: 6vmax;margin: 0.5vmax;vertical-align: middle;flex: 1;
+    .nameBar {font-size: 5vmax;margin: 0.5vmax;vertical-align: middle;flex: 1;
     border-radius: 1vw;cursor: pointer;background-color: #222;padding: 1vmax;font-weight: 600;}
     .playerName {background-color: #222;}
     .score {font-size: 3vmax;padding: 0 1vmax;border-radius: 1vw;vertical-align:middle;color: #f5f5f5;}
     .thisQScore {margin-left: 4vw;font-size: 3.5vmax;background-color: #222;color: white;text-align: right;}
-    #meter {padding: 0 2vmax;font-size: 2vmax;color: pink;}  
+    #meter {padding: 0 0.5vmax;font-size: 1.5vmax;color: pink;}  
     #meterTable {color: pink;font-size: 2vmax;text-align:center;
       margin-left: auto;margin-right: auto;}
     .key {color: pink;border: none;font-size: 2vmax;}
@@ -63,7 +63,7 @@
     .circle {width: 2vmax;height: 2vmax;padding:0 1vmax;font-weight: 600;
       border-radius: 50%;background-color: black;}
     .modeNav:nth-of-type(2) {display: none;}
-    #playTimer, #playMeter {box-shadow: #333 4px 4px;}
+    #playTimer, #playMeter {box-shadow: #333 4px 4px;min-width: 30vw;}
 
     #scorePopUp {position: fixed;z-index: 2;top: 10%;left: 10%;width: 80vw;overflow-x: scroll;
       display: none;padding: 2vmax;box-shadow: #111 4px 4px 8px;}  
@@ -162,7 +162,7 @@
         </div>
         <div id="playMeter">
           <div id='meter'>
-            Question #<span id="meterQ"></span> Scoring
+            Question #<span id="meterQ"></span> Keys 
             <table id="meterTable">
               <tr>
                 <td>10</td><td class="bar"></td><td></td>
