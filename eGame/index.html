@@ -152,8 +152,8 @@
             <div id="addScore">
               <button class="scoreBut" onclick="addScore(1)">+1</button>
               <button class="scoreBut" onclick="addScore(2)">+2</button>
-              <button class="scoreBut" onclick="addScore(3)">+3</button>
-              <button class="scoreBut" onclick="addScore(0)">&#8634;</button>
+              <button class="scoreBut" onclick="addScore(3)">+3</button><br>
+              <button class="scoreBut" onclick="addScore(0)">undo</button>
             </div>
           </div>
           <button id="random" onclick="randomPlayer()"
@@ -253,6 +253,7 @@ const timeLimitArray = [30,15,10];
 var timeLimit;
 const thinkTime = 20;
 var lastAddScore;
+var undoScore = 1;
 
 //audio for thinking
   //audio
@@ -304,8 +305,6 @@ function modeSwitch(mode2Go2){
     think.style.display = 'none';
     thinkTimer('stop');
     document.getElementById('random').style.display = 'inline';
-    tAudio.pause();
-    tAudio.currentTime = 0;
   }
   //go to think
   if (mode2Go2==0){
@@ -502,8 +501,8 @@ function addScore(n){
   const total = document.getElementsByClassName('score');
   const bar = document.getElementsByClassName('bar');
     //undo
-    if (n==0){
-        //undo Bar
+    if (n==0 && undoScore==1){
+        undoScore=0;
         if (currentQScore-lastAddScore<0){
           lastAddScore=currentQScore;
         }
@@ -513,6 +512,8 @@ function addScore(n){
         }
         activePScore = activePScore - (lastAddScore*bonus);
         currentQScore = currentQScore - lastAddScore;
+        if (activePScore<0) {activePScore=0}
+        if (currentQScore<0) {currentQScore=0}
         thisQ[activeP].innerHTML = '+' + activePScore;
 
         //add score to total array
@@ -527,11 +528,21 @@ function addScore(n){
         key[0].remove();
     } 
     else {
+      undoScore=1;
       lastAddScore = n;
       //check overMax Score
       if (currentQScore+n>10){
         n = 10-currentQScore;
       }
+
+      //excellent sound
+      //play audio
+      const score = new Audio("audio/moondrop.mp3");
+      const excellent = new Audio("audio/excellent.mp3")
+      if (currentQScore+n>=10){
+        excellent.play();
+      } else {score.play()}
+
 
       //paint meter
       for (let index = 1; index <= n; index++) {
@@ -554,10 +565,6 @@ function addScore(n){
       var totalScore = getTotalScore(activeP);
       total[activeP].innerHTML = 'Total: ' + totalScore;
     }
-
-    //play audio
-    const audio = new Audio("audio/moondrop.mp3")
-    audio.play();
 
     function updatePlayerScore(pNo,newScore){
       if (pNo==0){
