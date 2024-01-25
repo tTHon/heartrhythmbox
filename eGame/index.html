@@ -230,7 +230,6 @@ onclick="showScoreTable()">
   Score Table
 </div>
 
-
 <script src="uploadScore.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -255,14 +254,26 @@ var timeLimit;
 const thinkTime = 20;
 var lastAddScore;
 
+//audio for thinking
+  //audio
+  const playList = ['audio/pixelSong.mp3','audio/PVZ.mp3','audio/schein.mp3'];
+  var song = (qNo%3);
+  var tAudio = new Audio(playList[song])
+
 addBasicInfo();
 
 function randomPlayer(){
+  //audio
+  const audio = new Audio("audio/magic.mp3")
+  audio.play();
+
   //animate namebar
   var nameBar = document.getElementsByClassName('nameBar');
   const effectTime = 1000;
   var eBar = 0;var maxCount=8;
   let x = Math.floor((Math.random() * 3) + 1);
+
+  //effect
   for (let i = 0; i < maxCount; i++) {
     setTimeout(() => {
       for (let index = 0; index < nameBar.length; index++) {
@@ -293,6 +304,8 @@ function modeSwitch(mode2Go2){
     think.style.display = 'none';
     thinkTimer('stop');
     document.getElementById('random').style.display = 'inline';
+    tAudio.pause();
+    tAudio.currentTime = 0;
   }
   //go to think
   if (mode2Go2==0){
@@ -329,14 +342,20 @@ function thinkTimer(mode){
       pause.style.display = 'inline';
       reset.style.display = 'inline';
       start.style.display = 'none';
+      tAudio.play();
     }
     if (mode=='reset'){
       resetCount();
+      tAudio.pause();
+      tAudio.currentTime = 0;
+      tAudio.play();
     }
     if (mode=='pause'){
       pauseCount();
     }
     if (mode=='stop'){
+      tAudio.pause();
+      tAudio.currentTime = 0;
       if (typeof thinkTimeout !== 'undefined')
        {clearTimeout(thinkTimeout)
       };
@@ -371,11 +390,13 @@ function thinkTimer(mode){
           pause.innerHTML = '&#8741;';
           count = timeAtPause;
           thinkCount();
+          tAudio.play();
      }
       else {
         pause.style.color = 'white'
         pause.innerHTML = '&#9654;';
         clearTimeout(thinkTimeout);
+        tAudio.pause();
         }
       }
 
@@ -394,6 +415,10 @@ function qNav(n){
   thinkTimer('stop');
   runTimer('stop');
   modeSwitch(0);
+
+  //change songs
+  song = (qNo%3);
+  tAudio = new Audio(playList[song])
 }
 
 function resetActiveP(){
