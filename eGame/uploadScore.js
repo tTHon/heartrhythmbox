@@ -10,7 +10,7 @@ function sendScore(no){
             qNo: no,
             p1: getTotalScore(0), p2: getTotalScore(1), p3: getTotalScore(2)
             })
-            console.log(feed)
+            //console.log(feed)
     }
     sendData();
 }
@@ -21,7 +21,7 @@ function resetDatabase(){
             .from('eGame2024')
             .delete()
             .gte('p1', 0)
-            console.log(data)
+            //console.log(data)
     }
     reset();
 }
