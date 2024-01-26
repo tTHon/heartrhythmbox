@@ -257,8 +257,9 @@ var undoScore = 1;
 
 //audio for thinking
   //audio
-  const playList = ['audio/onePiece.mp3','audio/pixelSong.mp3','audio/PVZ.mp3','audio/angryBird.mp3'];
-  var song = (qNo%4);
+  const playList = ['audio/onePiece.mp3','audio/bejewel.mp3','audio/pixelSong.mp3',
+  'audio/PVZ.mp3','audio/angryBird.mp3','audio/sailorMoon.mp3'];
+  var song = (qNo%6);
   var tAudio = new Audio(playList[song])
 
 addBasicInfo();
@@ -416,7 +417,7 @@ function qNav(n){
   modeSwitch(0);
 
   //change songs
-  song = (qNo%4);
+  song = (qNo%6);
   tAudio = new Audio(playList[song])
 }
 
