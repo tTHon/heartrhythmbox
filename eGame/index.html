@@ -254,6 +254,7 @@ var timeLimit;
 const thinkTime = 20;
 var lastAddScore;
 var undoScore = 1;
+var bonusCount = 1;
 
 //audio for thinking
   //audio
@@ -415,6 +416,7 @@ function qNav(n){
   thinkTimer('stop');
   runTimer('stop');
   modeSwitch(0);
+  bonusCount =1;
 
   //change songs
   song = (qNo%6);
@@ -610,6 +612,7 @@ function whoIsOn(no){
     resetActiveP();
   }
   else {
+    
   //hide score table
   const t = document.getElementsByClassName('scoreTable');
   //hide random button
@@ -628,10 +631,7 @@ function whoIsOn(no){
   nameBar[no].style.border = 'white 0.5vmax solid';
 
   document.getElementById('timer').style.display = 'block';
-  if (timeLimit==null){
-    timeLimit=timeLimitArray[0];
-    setBonus(1)
-  }
+  setBonus(bonusCount)
   runTimer('standBy',timeLimit);
   }
 }
@@ -671,6 +671,7 @@ function runTimer(mode,time){
         runTimer('standBy', timeLimit)
       }
       else {
+      bonusCount++;
       timeCount();}
     }
     if (mode=='reset'){
@@ -701,7 +702,7 @@ function runTimer(mode,time){
         reset.style.display = 'none';
         clearTimeout(timeout);
         timer.innerHTML = 'time&apos;s up';
-        score.style.display = 'none'
+        //score.style.display = 'none'
       }
     }
 
