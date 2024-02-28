@@ -27,38 +27,42 @@
   /*color*/
   .darkGreen {color: #4E4333;}
   .lightGreen {color: #C0D240;}
+  .lightGd {background: linear-gradient(#8EBCEE,#A5CDF4,#D8E8F8);}
 
-  /*other color #353535 #cc6e71*/
+  .roundBorder {border: solid 0.1vmax #555;border-radius: 1vmax; }
 
-    @media only screen and (max-width:900px){
-
-    }
-    
-    @media only screen and (max-width:600px) {
-
-    }
-    
     .container {
      position: relative;
-     width: 72vw;
-     height: 45vw;
+     width: 80vw;
+     height: 50vw;
     }
 
     .headLine {font-size: 2.8vmax;text-align: center;margin-left: auto;margin-right: auto;color: #19283d;line-height: 120%;
       padding-top: 8vmax;padding-bottom:0.5vh;padding-left: 0.5vh;padding-right: 0.5vh;color: #4E4333;
-      max-width: 900px;width: fit-content;border-bottom: #C0D240 solid 0.25vmax;}
+      max-width: 1000px;width: fit-content;border-bottom: #C0D240 solid 0.25vmax;}
   
 
-    amp-carousel {margin-top: 1vh;max-width: 73vw;margin-left: auto;margin-right: auto;
-    max-height: 46vw;background-color:transparent;}
+    amp-carousel {margin-top: 1vh;max-width: 81vw;margin-left: auto;margin-right: auto;
+    max-height: 51vw;background-color:transparent;}
+    amp-img {border-radius: 1vmax;}
     
-    
-    .caption {font-family: Barlow, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
+    .caption {font-family: Barlow, sans-serif;font-size: 2vmax;max-width: 1000px;margin-right: auto;margin-left: auto;
     padding: 0.8vmax 1vmax 3vmax 1vmax;text-align: center;color: #4e4e4e;;}
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50vw;
+      text-align: center;
+    }
+
+    .card {font-size: 5vmax;border-radius: 1vmax;}
 
     @media only screen and (max-width:1024px){
       .container {width: 96vw;height:54vw;}
       amp-carousel {max-height: 55vw;max-width: 97vw;}
+      .center {height: 54vw;}
     }
 
     amp-selector[role=tablist].tabs {display: flex;justify-content: center;}
@@ -76,6 +80,7 @@
     .ref{position: absolute;bottom: 1%;right: 1%;
       font-size: 1vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
     }
+    a {text-decoration: none;color: inherit;}
 
 
      
@@ -113,7 +118,7 @@
   </div>
 
 <!--content-->
-<!--1.0 coag cascasde-->
+<!--concept-->
   <div> 
 
   <div class="headLine">
@@ -155,145 +160,146 @@
   </div>
   </div>
 
-<!--1.1 early OAC after ischemic stroke-->
-<div class="lightGrey"> 
+<!--1. Early AF-->
+<div> 
 
   <div class="headLine">
-    Can NOAC be resumed early after acute ischemic stroke with AF?
+    1. <b>EARLY Ablation</b> &dash;&dash; within 1yr since diagnosis
   </div>
 
-  <amp-carousel id="carousel11"
+  <amp-carousel id="carousel2"
       height="1200"
       layout="fixed-height"
       type="slides"
-      on="slideChange:carousel11Selector.toggle(index=event.index, value=true)">
+      on="slideChange:carousel2Selector.toggle(index=event.index, value=true)">
 
-      <!--VKA-->
       <div class="container">
-        <div style="overflow-y: scroll;height: 100%;">
-          <div class="darkBlue" style="padding: 1vmax;text-align: center;
-          font-size: 3vmax;color: #fa7268;font-weight: 900;">
-           Problems with Vitamin K Antagonist (VKA)
-          </div>
-          <ul style="padding-top: 1vmax;font-size: 2.5vmax;color: #19283d;">
-            <li>10% of intracranial bleeding is VKA related.</li>
-            <li style="padding-top: 0.5vmax;">Brain is the only organ with high expression of tissue factor 
-                but low expression of tissue factor pathyway inhibitor.</li>
-            <li style="padding-top: 0.5vmax;">
-                In a patient with AF with acute ischemic stroke, 
-                OAC is recommended to resume at least 1wk and 2wks after moderate and major stroke respectively.
-            </li>
-            <li style="padding-top: 0.5vmax;">
-                Recent RCTs suggest that earlier resumption of NOAC was not inferior to delayed start.
-            </li>
-          </ul>
-          <div class="ref">
-          <a href="https://doi.org/10.1161/STROKEAHA.113.000736" target="_blank" style="color: inherit;">
-            Stroke 2013
-          </a> , 
-          <a href="https://doi.org/10.1177/1076029612454938" target="_blank" style="color: inherit;">
-            Clinical and Applied Thrombosis/Hemostasis. 2013
-          </a> , and
-          <a href="https://doi.org/10.1016/0049-3848(90)90148-6" target="_blank" style="color:inherit">
-            Thromb Haemost 1999.
-            </a>
-          </div>
-        </div>
-       
+        <amp-img src="image/1newAF.png"
+        layout="responsive"
+        width="1920"
+        height="1080"
+        class="contain"></amp-img>
       </div>
-    
-      <!--OAC after stroke-->
       <div class="container">
-        <amp-img src="media/oacAfterStroke.png"
+        <div class="center lightGd card">
+                Early Ablation reduces AF recurrence
+        </div>  
+      </div>
+      <div class="container">
+        <amp-img src="image/earlyAF.png"
         layout="fill"
         class="contain"></amp-img>
-        
         <div class="ref">
-        <a href="https://doi.org/10.1093/eurheartj/ehy136" target="_blank" style="color: inherit;">
-          1. 2018 EHRA Practical Guide
-          </a> &nbsp;
-        <a href="https://www.nejm.org/doi/pdf/10.1056/NEJMoa2303048" target="_blank" style="color: inherit;">
-            2. ELAN. NEJM 2023.
-        </a> &nbsp;
-        <a href="https://doi.org/10.1161/CIRCULATIONAHA.122.060666" target="_blank" style="color: inherit;">
-            3. TIMING. Circulation 2022.
-        </a>
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa2029980" target="_blank">
+            Ref: EARLY-AF. NEJM 2021.
+          </a>
         </div>
       </div>
-
-      <!--ELAN TIMING-->
       <div class="container">
-        <div style="overflow-y: scroll;height: 100%;">
-          <div style="padding: 0.5vmax;text-align: center;
-          font-size: 2.5vmax;color:#19283d;font-weight: 900;">
-           Early initiation was noninferior to delayed start of NOAC after
-           acute ischemic stroke in patients with AF.
-          </div>
-          <table id="strokeTable">
-              <tr>
-                <td rowspan="2">Trials</td>
-                <td colspan="2">Composite Endpoints (early vs. delayed)</td>
-                <td rowspan="2">Intracranial Hemorrhage (early vs. delayed)</td>
-              </tr>
-              <tr>
-                <td>at 30d</td>
-                <td>at 90d</td>
-              </tr>
-              <tr>
-                <td>ELAN</td>
-                <td>
-                  2.9% vs. 4.1%<br>
-                  RD = -1.18% (-2.84 to 0.47)
-                </td>
-                <td>
-                  3.7% vs. 5.6%<br>
-                  RD = -1.92% (-3.82 to -0.02)
-                </td>
-                <td>
-                  0.2% vs 0.2% at 30d
-                </td>
-              </tr>
-              <tr>
-                <td>TIMING</td>
-                <td>NA</td>
-                <td>6.89% vs. 8.68%<br>
-                  RD = −1.79% (−5.31% to 1.74%)
-                </td>
-                <td>
-                  0 vs. 0 at 90d
-                </td>
-              </tr>
-              <br>
-          </table>
-          <div style="font-size: 1.8vmax;">
-            RD = Risk Difference
-          </div>
-          <div class="ref">
-            <a href="https://www.nejm.org/doi/pdf/10.1056/NEJMoa2303048" target="_blank" style="color: inherit;">
-              1. ELAN. NEJM 2023.
-          </a> &nbsp;
-          <a href="https://doi.org/10.1161/CIRCULATIONAHA.122.060666" target="_blank" style="color: inherit;">
-              2. TIMING. Circulation 2022.
+        <amp-img src="image/earlyAF2.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa2029980" target="_blank">
+            Ref: EARLY-AF. NEJM 2021.
           </a>
-          </div>
+        </div>
+      </div>
+      <div class="container">
+        <amp-img src="image/earlyAF3.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa2029980" target="_blank">
+            Ref: EARLY-AF. NEJM 2021.
+          </a>
+        </div>
+      </div>
+      <div class="container">
+        <div class="center lightGd card">
+                Early Ablation reduces AF progression
+        </div>  
+      </div>
+      <div class="container roundBorder">
+        <amp-img src="image/afProgress1.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/NEJMoa2212540" target="_blank">
+            Ref: EARLY-AF. NEJM 2023.
+          </a>
+        </div>
+      </div>
+      <div class="container roundBorder">
+        <amp-img src="image/afProgress2.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1093/europace/euaa298" target="_blank">
+            Ref: ATTEST. Europace 2021.
+          </a>
+        </div>
+      </div>
+      <div class="container">
+        <div class="center lightGd card">
+                Who are & are NOT <br>'EARLY AFers'?
+        </div>  
+      </div>
+      <div class="container">
+        <amp-img src="image/earlyAFers1.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa2029980" target="_blank">
+            Ref: EARLY-AF. NEJM 2021.
+          </a>
+        </div>
+      </div>
+      <div class="container roundBorder">
+        <amp-img src="image/earlyAFers2.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa2029980" target="_blank">
+            Ref: EARLY-AF. NEJM 2021.
+          </a>
+        </div>
+      </div>
+      <div class="container roundBorder">
+        <amp-img src="image/delayAbl.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1093/eurheartj/ehad247" target="_blank">
+            Ref: Kalman et al. Eur Heart J 2023.
+          </a>
         </div>
       </div>
 
 
   </amp-carousel>
 
-  <amp-selector id="carousel11Selector" class="tabs" role=tablist on="select:carousel11.goToSlide(index=event.targetOption)">
+  <amp-selector id="carousel2Selector" class="tabs" role=tablist on="select:carousel2.goToSlide(index=event.targetOption)">
     <div option='0' class="dots" selected></div>
     <div option='1' class="dots"></div>
     <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+    <div option='4' class="dots"></div>
+    <div option='5' class="dots"></div>
+    <div option='6' class="dots"></div>
+    <div option='7' class="dots"></div>
+    <div option='8' class="dots"></div>
+    <div option='9' class="dots"></div>
+    <div option='10' class="dots"></div>
+    <div option='11' class="dots"></div>
+ 
   </amp-selector>
 
   <div class="caption">
-    In a patient with AF with acute ischemic stroke who has no contraindication to NOAC,
-    NOAC may be initiated or resumed within one week. 
+    1. Early Ablation (ie. within 1yr since diagnosis) reduces AF recurrence and AF progression.
+    <br>2. Optimal candidates: young, paroxysmal AF, normal LA size and LVEF, and without significant structural heart disease.
   </div>
-</div>
-
+  </div>
 
   <!--footer-->
   <div style="background: #ddd;font-size: 1.4vmax;padding:5vmax 3vmax;color:#555;line-height: 200%;text-align: center;">
@@ -326,6 +332,8 @@
               design to your style &middot; write to your need</span>
           </div>
 
+      </div>
+    </div>
   </div>
 
 </body>
