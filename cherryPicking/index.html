@@ -28,6 +28,7 @@
   .darkGreen {color: #4E4333;}
   .lightGreen {color: #C0D240;}
   .lightGd {background: linear-gradient(#8EBCEE,#A5CDF4,#D8E8F8);}
+  .darkGd {background: linear-gradient(#000B1A,#0C2E4C,#07588F);}
 
   .roundBorder {border: solid 0.1vmax #555;border-radius: 1vmax; }
 
@@ -160,7 +161,7 @@
   </div>
   </div>
 
-<!--1. Early AF-->
+<!--1. Early Abl-->
 <div> 
 
   <div class="headLine">
@@ -299,7 +300,166 @@
     1. Early Ablation (ie. within 1yr since diagnosis) reduces AF recurrence and AF progression.
     <br>2. Optimal candidates: young, paroxysmal AF, normal LA size and LVEF, and without significant structural heart disease.
   </div>
+</div>
+
+<!--2. symp-->
+<div> 
+
+  <div class="headLine">
+    2. Very Symptomatic AF
   </div>
+
+  <amp-carousel id="carousel3"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel3Selector.toggle(index=event.index, value=true)">
+
+      <div class="container">
+        <amp-img src="image/2symp.png"
+        layout="responsive"
+        width="1920"
+        height="1080"
+        class="contain"></amp-img>
+      </div>
+
+      <div class="container">
+        <amp-img src="image/symp1.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1001/jama.2009.2029" target="_blank">
+            Ref: Wilber et al. JAMA 2009.
+          </a>
+        </div>
+      </div>
+      <div class="container">
+        <amp-img src="image/symp2.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1001/jama.2019.0692" target="_blank">
+            Ref: CABANA. JAMA 2019.
+          </a>
+        </div>
+      </div>
+      <div class="container roundBorder">
+        <amp-img src="image/AVATAR.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1093/europace/euac253" target="_blank">
+            Ref: AVATAR-AF. Europace 2023.
+          </a>
+        </div>
+      </div>
+
+
+  </amp-carousel>
+
+  <amp-selector id="carousel3Selector" class="tabs" role=tablist on="select:carousel3.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+
+  </amp-selector>
+
+  <div class="caption">
+    In both paroxysmal and persistent AF, catheter Ablation reduces symptoms and improves quality of life.  
+  </div>
+</div>
+
+<!--3. HFrEF-->
+<div> 
+
+  <div class="headLine" style="border-bottom: #07588F solid 0.25vmax;">
+    3. HFrEF
+  </div>
+
+  <amp-carousel id="carousel4"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel4Selector.toggle(index=event.index, value=true)">
+
+      <div class="container">
+        <amp-img src="image/3hfrEF.png"
+        layout="responsive"
+        width="1920"
+        height="1080"
+        class="contain"></amp-img>
+      </div>
+
+      <div class="container">
+        <div class="center darkGd card" style="color: #FFD676;">
+                In CASTLE-AF,<br> 
+                ablation reduces mortality in SELECTED HFrEF patients.
+        </div>  
+      </div>
+
+      <div class="container">
+        <amp-img src="image/castle1.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa1707855" target="_blank">
+            Ref: CASTLE-AF. NEJM 2018.
+          </a>
+        </div>
+      </div>
+      <div class="container">
+        <amp-img src="image/castle2.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa1707855" target="_blank">
+            Ref: CASTLE-AF. NEJM 2018.
+          </a>
+        </div>
+      </div>
+      <div class="container darkGd roundBorder">
+        <amp-img src="image/castle3.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa1707855" target="_blank">
+            Ref: CASTLE-AF. NEJM 2018.
+          </a>
+        </div>
+      </div>
+      <div class="container darkGd roundBorder">
+        <amp-img src="image/castle4.png"
+        layout="responsive"
+        width = '4000'
+        height = '2250'
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://www.nejm.org/doi/full/10.1056/nejmoa1707855" target="_blank">
+            Ref: CASTLE-AF. NEJM 2018.
+          </a>
+        </div>
+      </div>
+
+
+  </amp-carousel>
+
+  <amp-selector id="carousel4Selector" class="tabs" role=tablist on="select:carousel4.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+    <div option='4' class="dots"></div>
+    <div option='5' class="dots"></div>
+
+  </amp-selector>
+
+  <div class="caption">
+    AF ablation improve cardiovascular outcomes in selected HFrEF patients.
+  </div>
+</div>
+
+
 
   <!--footer-->
   <div style="background: #ddd;font-size: 1.4vmax;padding:5vmax 3vmax;color:#555;line-height: 200%;text-align: center;">
