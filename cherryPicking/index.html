@@ -17,7 +17,7 @@
         src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
   <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Barlow:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+  <!--link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous"-->
   <link rel="icon" href="box coral.png" type="image/png" sizes="60x60">
 
   <!--amp ad-->
@@ -28,11 +28,17 @@
   .darkGreen {color: #4E4333;}
   .lightGreen {color: #C0D240;}
   .lightGd {background: linear-gradient(#8EBCEE,#A5CDF4,#D8E8F8);}
-  .darkGd {background: linear-gradient(#000B1A,#0C2E4C,#07588F);}
+  .darkGd {background: linear-gradient(#000B1A,#0C2E4C,#07588F);
+            color: #FFD676;}
 
   .roundBorder {border: solid 0.1vmax #555;border-radius: 1vmax; }
 
-    .container {
+  .contain img {
+      object-fit: contain;
+      vertical-align: middle;
+    }
+    
+  .container {
      position: relative;
      width: 80vw;
      height: 50vw;
@@ -171,7 +177,7 @@
 <div> 
 
   <div class="headLine">
-    1. <b>EARLY Ablation</b> &dash;&dash; within 1yr since diagnosis
+    1. <b>New AF</b>
   </div>
 
   <amp-carousel id="carousel2"
@@ -312,7 +318,7 @@
 <div> 
 
   <div class="headLine">
-    2. Very Symptomatic AF
+    2. Very <b>Symptomatic</b> AF
   </div>
 
   <amp-carousel id="carousel3"
@@ -380,7 +386,7 @@
 <div> 
 
   <div class="headLine" style="border-bottom: #07588F solid 0.25vmax;">
-    3. HFrEF
+    3. <b>HFrEF</b>
   </div>
 
   <amp-carousel id="carousel4"
@@ -398,13 +404,13 @@
       </div>
 
       <div class="container">
-        <div class="center darkGd card" style="color: #FFD676;">
+        <div class="center darkGd card">
                 In CASTLE-AF,<br> 
                 ablation reduces mortality in SELECTED HFrEF patients.
         </div>  
       </div>
 
-      <div class="container">
+      <div class="container darkGd roundBorder">
         <amp-img src="image/castle1.webp"
         layout="fill"
         class="contain"></amp-img>
@@ -414,7 +420,7 @@
           </a>
         </div>
       </div>
-      <div class="container">
+      <div class="container darkGd roundBorder">
         <amp-img src="image/castle2.webp"
         layout="fill"
         class="contain"></amp-img>
@@ -465,6 +471,191 @@
   </div>
 </div>
 
+<!--4. HFpEF-->
+<div> 
+
+  <div class="headLine" style="border-bottom: #07588F solid 0.25vmax;">
+    4. <b>HFpEF</b>
+  </div>
+
+  <amp-carousel id="carousel5"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel5Selector.toggle(index=event.index, value=true)">
+
+      <div class="container">
+        <amp-img src="image/4hfpEF.png"
+        layout="responsive"
+        width="1920"
+        height="1080"
+        class="contain"></amp-img>
+      </div>
+
+      <div class="container">
+        <div class="card center darkGd roundBorder">
+            Data is less robust than data in HFrEF.
+        </div>
+      </div>
+      <div class="container darkGd roundBorder">
+        <amp-img src="image/cabanaHF1.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1161/circulationaha.120.050991" target="_blank">
+            Packer et al. Circulation 2021.
+          </a>
+        </div>
+      </div>
+      <div class="container darkGd roundBorder">
+        <amp-img src="image/cabanaHF2.webp"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1161/circulationaha.120.050991" target="_blank">
+            Packer et al. Circulation 2021.
+          </a>
+        </div>
+      </div>
+      <div class="container darkGd roundBorder">
+        <amp-img src="image/cabanaHF3.webp"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1161/circulationaha.120.050991" target="_blank">
+            Packer et al. Circulation 2021.
+          </a>
+        </div>
+      </div>
+  </amp-carousel>
+
+  <amp-selector id="carousel5Selector" class="tabs" role=tablist on="select:carousel5.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+    <div option='4' class="dots"></div>
+  </amp-selector>
+
+  <div class="caption">
+    In AF with HFpEF, catheter ablation may be considered to 
+    improve cardiovascular outcomes esp. in those whom AF was diagnosed within 1yr.   
+  </div>
+</div>
+
+<!--5. tooE or tooL-->
+<div> 
+
+  <div class="headLine" style="border-bottom: #232323 solid 0.25vmax;color: #232323;">
+    <b>Too Early</b> or <b>Too</b> (little too) <b>Late</b>
+  </div>
+
+  <amp-carousel id="carousel6"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel6Selector.toggle(index=event.index, value=true)">
+
+      <div class="container lightGd roundBorder">
+        <amp-img src="image/tooEarly.webp"
+        layout="fill"
+        class="contain"></amp-img>
+        <div style="color:#4E4333;font-size: 4vw;
+        text-align: center;padding: 2vmax;">
+        Too early to ablate these AFs,<br>
+        but it is still required long-term monitoring.
+        </div>
+      </div>
+
+      <div class="container darkGd roundBorder">
+        <amp-img src="image/tooLate.webp"
+        layout="fill"
+        class="contain"></amp-img>
+        <div style="color:#FFD676;font-size: 4vw;
+        text-align: center;padding: 2vmax;">
+        Some patients may not receive the benefits of AF ablations as much as others.
+        </div>
+      </div>
+
+      <div class="container darkGd roundBorder">
+        <amp-img src="image/subGroup1.png"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
+      <div class="container roundBorder" style="background: black;">
+        <amp-img src="image/subGroup2.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref" style="background: #232323;text-align: right;">
+          Ref:
+          <a href="https://doi.org/10.1001/jama.2019.0693" target="_blank">
+            CABANA. JAMA 2019
+          </a>&nbsp;and&nbsp;
+          <a href="https://doi.org/10.1056/nejmoa1707855" target="_blank">
+            CASTLE AF. NEJM 2018.
+          </a>
+        </div>
+      </div>
+      <div class="container roundBorder" style="background: black;">
+        <amp-img src="image/cameraMRI.webp"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref" style="background: #232323;text-align: right;">
+          Ref:
+          <a href="https://doi.org/10.1016/j.jacc.2017.08.041" target="_blank">
+            CAMERA-MRI. JACC 2017.</a>
+        </div>
+      </div>
+      <div class="container roundBorder" style="background: black;">
+        <amp-img src="image/exclusion.webp"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref" style="background: #232323;">
+          Ref:
+          <a href="https://doi.org/10.1056/nejmoa1707855" target="_blank">
+            CASTLE AF 
+          </a>&nbsp;,&nbsp;
+          <a href="https://doi.org/10.1001/jama.2019.0693" target="_blank">
+            CABANA 
+          </a>&nbsp;, and &nbsp;
+          <a href="https://doi.org/10.1056/nejmoa2029980" target="_blank">
+            EARLY-AF 
+          </a>
+        </div>
+      </div>
+      <div class="container roundBorder" style="background: black;">
+        <amp-img src="image/30DMortality.webp"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1016/j.jacc.2019.08.1036" target="_blank">
+            Cheng et al. JACC 2019.
+          </a>
+        </div>
+      </div>
+
+
+  </amp-carousel>
+
+  <amp-selector id="carousel6Selector" class="tabs" role=tablist on="select:carousel6.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+    <div option='4' class="dots"></div>
+    <div option='5' class="dots"></div>
+    <div option='6' class="dots"></div>
+  </amp-selector>
+
+  <div class="caption">
+  1. It would be too early to ablate AF due to reversible cause(s). However, long-term monitoring for further AF episodes is recommended.
+  <br>
+  2. Younger patients with less structural heart diseases are likely to receive benefits from ablation.
+  <br>
+  3. Hospital procedural volumes are associated with outcomes after ablation.  
+  </div>
+</div>
+
 
 
   <!--footer-->
@@ -487,7 +678,8 @@
                       <img src="youTube.png" style="width: 38px;">
                   </a>
           </div>
-          <div style="font-size: 13px;padding: 2vh 1vw;border-top: #555 0.1vmax solid;color: #555;text-align: justify;">
+          <div style="font-size: 13px;padding: 2vh 1vw;border-top: #555 0.1vmax solid;color: #555;
+          text-align: justify;line-height: 120%;">
               Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
               The page is created mainly for educational purpose. 
           </div>
