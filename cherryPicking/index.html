@@ -59,11 +59,16 @@
     }
 
     .card {font-size: 5vmax;border-radius: 1vmax;}
+    .mobileOnly {display: none;}
 
     @media only screen and (max-width:1024px){
-      .container {width: 96vw;height:54vw;}
-      amp-carousel {max-height: 55vw;max-width: 97vw;}
-      .center {height: 54vw;}
+      .container {width: 96vw;height:70vw;}
+      amp-carousel {max-height: 71vw;max-width: 97vw;}
+      .center {height: 70vw;}
+      .card {font-size: 5vw;}
+      .noMobile {display: none;}
+      .mobileOnly {display: block;}
+      .caption {text-align: left;}
     }
 
     amp-selector[role=tablist].tabs {display: flex;justify-content: center;}
@@ -115,7 +120,8 @@
 
   <!--title topic-->
   <div id="title">
-    <img src="gif/title.gif" style="width: 100%;">
+    <img src="gif/title.gif" style="width: 100%;" class="noMobile">
+    <img src="gif/titleSmall.gif" style="width: 100%;" class="mobileOnly">
   </div>
 
 <!--content-->
@@ -399,7 +405,7 @@
       </div>
 
       <div class="container">
-        <amp-img src="image/castle1.png"
+        <amp-img src="image/castle1.webp"
         layout="fill"
         class="contain"></amp-img>
         <div class="ref">
@@ -409,7 +415,7 @@
         </div>
       </div>
       <div class="container">
-        <amp-img src="image/castle2.png"
+        <amp-img src="image/castle2.webp"
         layout="fill"
         class="contain"></amp-img>
         <div class="ref">
