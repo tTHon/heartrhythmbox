@@ -1,5 +1,19 @@
 var listArray = [
     {
+        name: 'Optimal Candidates for AF Ablation',
+        description: 'The Concept of Cheery Picking',
+        link: 'cherryPicking/index.html',
+        thumb: 'media/cherryPicking.gif',
+        date: new Date(24,2,29),
+        latest: 1,
+        audFav: 0,
+        authFav: 1,
+        QA: 0,
+        gLines: 0,
+        basic: 0,
+        mBasic: 1
+    },
+    {
         name: 'Management of Reflex Syncope',
         description: 'Update in management of reflex syncope',
         link: 'syncope/reflexsyncope/index.html',
@@ -306,22 +320,6 @@ var listArray = [
         gLines: 0,
         basic: 1,
         mBasic: 0
-    },
-
-    {
-        name: 'Optimal Candidates for AF Ablation',
-        description: 'The Concept of Cheery Picking',
-        link: 'cherryPicking/index.html',
-        thumb: 'media/cherryPicking.gif',
-        date: new Date(24,2,29),
-        latest: 1,
-        audFav: 0,
-        authFav: 1,
-        QA: 0,
-        gLines: 0,
-        basic: 0,
-        mBasic: 1
     }
-
 
 ]
