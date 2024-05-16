@@ -790,146 +790,8 @@
 <!--4 complications-->
 <div class="lightGrey"> 
 
-  <div id="no1" class="headLine">
-    Procedural Consideration
-  </div>
-
-  <amp-carousel id="carousel13"
-      height="1200"
-      layout="fixed-height"
-      type="slides"
-      on="slideChange:carousel13Selector.toggle(index=event.index, value=true)">
-
-      <!--preop-->
-      <div class="container">
-        <div style="overflow-y: scroll;height: 100%;">
-          <div class="darkBlue" style="padding: 2vmax;text-align: center;">
-            <span style="font-size: 2.5vmax;font-weight: 900;color: #fa7268;">
-              <i class="fas fa-history"></i>&nbsp;Before</span><br>
-            <span style="font-size: 2.2vmax">the procedure</span>
-          </div>
-          <div class="creme" style="padding: 1vmax 2vmax;text-align: center;">
-            <span style="font-size: 2vmax;font-weight: 900">
-              <i class="fas fa-images" style="color: #fa7268;font-size: 2.5vmax;"></i>
-              &nbsp;Imaging Studies</span><br>
-            <span style="font-size: 1.7vmax;">
-              to evaluate structural heart disease (Ic).<br>
-              to evalute myocardial tissues in patients age &lt;60 (IIa).
-            </span>
-          </div>
-          <div style="padding: 1vmax 2vmax;text-align: center;background-color: #faf0ca;">
-            <span style="font-size: 2vmax;font-weight: 900">
-              <i class="fas fa-bed" style="color: #fa7268;font-size: 2.5vmax;"></i>
-              &nbsp;Sleep Apnea Syndrome</span><br>
-            <span style="font-size: 1.7vmax;">
-              should be screened in patients with symptoms + bradycardia during sleep.
-            </span>
-          </div>
-          <div class="creme" style="padding: 1vmax 2vmax;text-align: center;">
-            <span style="font-size: 2vmax;font-weight: 900">
-              <i class="fas fa-dna" style="color: #fa7268;font-size: 2.5vmax;"></i>
-              &nbsp;Genetic Testing</span><br>
-            <span style="font-size: 1.7vmax;">
-              considered in early onset (age &lt;50) of progressive conduction disease.
-            </span>
-          </div>
-          <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank" class="ref">
-            European Heart Journal, Aug 2021.
-            </a>
-        </div>
-       
-      </div>
-
-      <!--periop-->
-      <div class="container">
-        <div style="overflow-y: scroll;height: 100%;">
-          <div class="darkBlue" style="padding: 2vmax;text-align: center;">
-            <span style="font-size: 2.5vmax;font-weight: 900;color: #fa7268;">
-              <i class="fas fa-check-circle"></i>&nbsp;DOs & DONTs</span><br>
-            <span style="font-size: 2.2vmax">during the procedure</span>
-          </div>
-          <div class="creme" style="padding: 1vmax 2vmax;text-align: center;">
-            <span style="font-size: 2vmax;font-weight: 900">
-              <i class="fas fa-vial" style="color: #fa7268;font-size: 2.5vmax;"></i>
-              &nbsp;Antibiotic</span><br>
-            <span style="font-size: 1.7vmax;">
-              1hr within the skin incision (Ia).
-            </span>
-          </div>
-          <div style="padding: 1vmax 2vmax;text-align: center;background-color: #faf0ca;">
-            <span style="font-size: 2vmax;font-weight: 900">
-              <i class="fas fa-times" style="color: #fa7268;font-size: 2.5vmax;"></i>
-              &nbsp;NO Heparin Bridging</span><br>
-            <span style="font-size: 1.7vmax;">
-              in anticoagulated patients.
-            </span>
-          </div>
-          <div class="creme" style="padding: 1vmax 2vmax;text-align: center;">
-            <span style="font-size: 2vmax;font-weight: 900">
-              <i class="fas fa-thermometer-full" style="color: #fa7268;font-size: 2.5vmax;"></i>
-              &nbsp;FEVER</span><br>
-            <span style="font-size: 1.7vmax;">
-              Implantation should be delayed until afbrile of at least 24hrs.
-            </span>
-          </div>
-          <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank" class="ref">
-            European Heart Journal, Aug 2021.
-            </a>
-        </div>
-       
-      </div>
-
-      <!--ATBx Timing-->
-      <div class="container">
-        <amp-img src="media\GL PPM CRT\atbTiming.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <a href="https://doi.org/10.4414/smw.2012.13616" target="_blank" class="ref">
-          Swiss Med Wkly. 2012;142:w13616.
-          </a>
-      </div>
-      
-      <!--TV repair-->
-      <div class="container">
-        <amp-img src="media\GL PPM CRT\TV repair.png"
-        layout="fill"
-        class="contain"></amp-img>
-      </div>
-
-     <!--PPM TV-->
-      <div class="container">
-        <amp-img src="media\GL PPM CRT\ppmPostTVR.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <a href="https://doi.org/10.1016/j.hrthm.2018.01.015" target="_blank" class="ref">
-          Heart Rhythm 2018.
-          </a>
-      </div>      
-
-
-  </amp-carousel>
-
-  <amp-selector id="carousel13Selector" class="tabs" role=tablist on="select:carousel13.goToSlide(index=event.targetOption)">
-    <div option='0' class="dots" selected></div>
-    <div option='1' class="dots"></div>
-    <div option='2' class="dots"></div>
-    <div option='3' class="dots"></div>
-    <div option='4' class="dots"></div>
-  
-  </amp-selector>
-
-  <div class="caption">
-  1. Evaluate for structural heart disease in symptomatic bradycardia.<br>
-  2. Preop antibiotic is recommended within 1 hr of skin incision.<br>
-  3. Avoid transvalvular RV lead in mechanical tricuspid valve.<br>
-  </div>
-</div>
-
-<!--1.4 pacing and CRT GL: misc-->
-<div class="lightGrey"> 
-
-  <div id="no1" class="headLine">
-    Miscellaneous
+  <div id="no4" class="headLine">
+    Complications
   </div>
 
   <amp-carousel id="carousel14"
@@ -938,40 +800,135 @@
       type="slides"
       on="slideChange:carousel14Selector.toggle(index=event.index, value=true)">
 
-      <!--TVP ext-->
-      <div class="container">
-        <amp-img src="media\GL PPM CRT\tvpExt.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <a href="https://doi.org/10.1093/europace/eut045" target="_blank" class="ref">
-          EP Europace 2013.
-          </a>
-      </div>
-
-     <!--MRI-->
-      <div class="container">
-        <amp-img src="media\GL PPM CRT\MRI.jpeg"
-        layout="fill"
-        class="contain"></amp-img>
-        <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank" class="ref">
-          European Heart Journal, Aug 2021.
-          </a>
-      </div>  
-
-     <!--MRI Programming-->
+     <!--trends-->
      <div class="container">
-      <amp-img src="media\GL PPM CRT\preMRIProgramming.png"
+      <amp-img src="media/4/complicationTrends.png"
       layout="fill"
       class="contain"></amp-img>
-      <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank" class="ref">
-        European Heart Journal, Aug 2021.
+     <a href="https://doi.org/10.1016/j.jacc.2023.03.418" target="_blank" class="ref">
+      Banali K. JACC 2023.
+      </a>
+    </div> 
+       <!--AE anatomy-->
+       <div class="container">
+        <amp-img src="media/4/AE Anatomy.png"
+        layout="fill"
+        class="contain"></amp-img>
+       <a href="https://doi.org/10.1186/s12883-020-1602-1" target="_blank" class="ref">
+        Zhang and Bian. BMC Neurol 20, 16 (2020). 
         </a>
-    </div>  
+      </div> 
+ 
+       <!--AE sum-->
+       <div class="container">
+        <amp-img src="media/4/AE Sum.png"
+        layout="fill"
+        class="contain"></amp-img>
+       <a href="https://doi.org/10.1161/CIRCEP.117.005579" target="_blank" class="ref">
+        Circulation: Arrhythmia and Electrophysiology. 2017;10:e005579.
+        </a>
+      </div> 
+       <!--Phrenic-->
+       <div class="container">
+        <amp-img src="media/4/phrenic Sum.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <a href="https://doi.org/10.1093/europace/euae043" target="_blank" class="ref">
+          2024 EHRA/HRS/APHRS/LHRS expert consensus statement on ablation of AF
+            </a>
+      </div> 
+ 
 
 
   </amp-carousel>
 
   <amp-selector id="carousel14Selector" class="tabs" role=tablist on="select:carousel14.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+  
+  </amp-selector>
+
+  <div class="caption">
+  1. AE Fistula
+  </div>
+</div>
+
+<!--5 assess outcome-->
+<div class="lightGrey"> 
+
+  <div id="no1" class="headLine">
+    How to assess ablation outcomes
+  </div>
+
+  <amp-carousel id="carousel5"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel15Selector.toggle(index=event.index, value=true)">
+ 
+    <!--BLANKING-->
+    <div class="container">
+      <amp-img src="media/5/blanking period.png"
+      layout="fill"
+      class="contain" style="background-color: white;"></amp-img>
+    </div> 
+      <!--early recur-->
+      <div class="container">
+      <amp-img src="media/5/circaDose early recurrence.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <a href="https://doi.org/10.1016/j.hrthm.2021.06.1172" target="_blank" class="ref">
+        Steinberg et al. Heart Rhythm. 2021 Sep;18(9):1463-1470. 
+      </a>
+    </div>
+    <!--blanking new-->
+    <div class="container">
+      <div class="innerBox">
+        <div style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
+          <b>TWO MONTHS</b> of blanking period is now recommended; rather than 3 months.
+          <a href="https://doi.org/10.1093/europace/euae043" target="_blank" class="ref">
+            2024 EHRA/HRS/APHRS/LHRS expert consensus statement on ablation of AF
+              </a>
+        </div>
+      </div>
+    </div>
+    <!--how to assess outcomes-->
+    <div class="container">
+      <div style="overflow-y: scroll;height: 100%;">
+        <div class="darkBlue" style="padding: 2vmax;text-align: center;">
+          <span style="font-size: 2.5vmax;font-weight: 900;color: #fa7268;">
+            <i class="fa-solid fa-bullseye"></i>
+            Ablation Outcomes&nbsp;</span><br>
+          <span style="font-size: 2.5vmax">Parameters to Assess</span>
+        </div>
+        <div class="creme" style="padding: 1vmax 2vmax;text-align: center;font-size: 2.2vmax;">
+            AF Recurrence
+        </div>
+        <div style="padding: 1vmax 2vmax;text-align:center;background:#faf0ca;font-size: 2.2vmax;">
+            AF Burden
+        </div>
+        <div class="creme" style="padding: 1vmax 2vmax;text-align:center;font-size: 2.2vmax;">
+            AF Progression
+        </div>
+        <div style="padding: 1vmax 2vmax;text-align:center;background:#faf0ca;font-size: 2.2vmax;">
+            Symptoms Improvemnt
+        </div>
+        <div class="creme" style="padding: 1vmax 2vmax;text-align:center;font-size: 2.2vmax;">
+          LVEF and HF Parameters
+      </div>
+
+
+        <a href="https://doi.org/10.1093/europace/euae043" target="_blank" class="ref">
+          2024 EHRA/HRS/APHRS/LHRS expert consensus statement on ablation of AF
+            </a>
+      </div>
+    </div>
+
+  </amp-carousel>
+
+  <amp-selector id="carousel5Selector" class="tabs" role=tablist on="select:carousel5.goToSlide(index=event.targetOption)">
     <div option='0' class="dots" selected></div>
     <div option='1' class="dots"></div>
     <div option='2' class="dots"></div>
