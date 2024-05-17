@@ -74,6 +74,7 @@
       .innerBox {height: 95vw;line-height: 50vw;}
       .innerBox div {line-height: 1.2;}
       amp-carousel {max-height: 70vw;max-width: 97vw;}
+      .noMobile {display: none;}
     }
 
     amp-selector[role=tablist].tabs {display: flex;justify-content: center;}
@@ -92,9 +93,6 @@
       font-size: 1vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
     }
 
-    table, tr, th {padding: 1vmax;}
-    td {padding: 0.5vmax;}
-    th, tr, td {border:solid #ddd 0.1vmax;font-size: 1.5vmax;}
   
      
 </style>
@@ -135,10 +133,11 @@
   <div class="cursive" style="font-size: 4vh;text-align:center;
   padding-top: 2vmax;color: #afbdc8;">
     <span style="border-top: #d8d8d8 solid 0.1vmax;padding: 1vmax;">
-    <i class="fa-solid fa-gears" style="padding-right: 0.5vmax;">
-    <i class="fa-solid fa-bed-pulse" style="padding-right: 0.5vmax;"></i>
-    </i><i class="fa-solid fa-fire" style="padding-right: 0.5vmax;"></i>
-    <i class="fa-regular fa-snowflake" style="padding-right: 0.5vmax;"></i><i class="fa-solid fa-bolt"></i>
+    <i class="fa-solid fa-gears noMobile" style="padding-right: 0.5vmax;">
+    <i class="fa-solid fa-bed-pulse noMobile" style="padding-right: 0.5vmax;"></i>
+    </i><i class="fa-solid fa-fire noMobile" style="padding-right: 0.5vmax;"></i>
+    <i class="fa-regular fa-snowflake noMobile" style="padding-right: 0.5vmax;"></i>
+    <i class="fa-solid fa-bolt noMobile" style="padding-right: 0.5vmax;"></i>
     </span>
     <br>
     Procedural Consideration
