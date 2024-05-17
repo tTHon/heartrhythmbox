@@ -69,12 +69,14 @@
     .caption {font-family: Montserrat, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
     padding: 0.8vmax 1vmax 3vmax 1vmax;text-align: center;color:#20344f;}
 
+    .mobileOnly {display: none;}
     @media only screen and (max-width:1024px){
       .container {width: 96vw;height:96vw;}
       .innerBox {height: 95vw;line-height: 95vw;}
       .innerBox div {line-height: 1.2;}
       amp-carousel {max-height: 97vw;max-width: 97vw;}
       .noMobile {display: none;}
+      .mobileOnly {display: inline-block;}
     }
 
     amp-selector[role=tablist].tabs {display: flex;justify-content: center;}
@@ -190,7 +192,13 @@
       <div class="container">
       <amp-img src="media\1\circa Dose duration.png"
       layout="fill"
-      class="contain darkBlue"></amp-img>
+      class="contain darkBlue noMobile"></amp-img>
+      <a href="https://doi.org/10.1001/jamanetworkopen.2020.8748" target="_blank" class="ref">
+        Andrade et al. JAMA Netw Open. 2020 Jul 1;3(7):e208748. 
+        </a>
+      <amp-img src="media/1/m_circa Dose duration.png"
+      layout="fill"
+      class="contain darkBlue mobileOnly"></amp-img>
       <a href="https://doi.org/10.1001/jamanetworkopen.2020.8748" target="_blank" class="ref">
         Andrade et al. JAMA Netw Open. 2020 Jul 1;3(7):e208748. 
         </a>
@@ -363,7 +371,10 @@
      <div class="container">
       <amp-img src="media/2/PVs.png"
       layout="fill"
-      class="contain"></amp-img>
+      class="contain noMobile"></amp-img>
+      <amp-img src="media/2/mPVs.png"
+      layout="fill"
+      class="contain mobileOnly"></amp-img>
      <a href="https://www.ncbi.nlm.nih.gov/" target="_blank" class="ref">
         Kandathil et al. Cardiovascular Diagnosis and Therapy. 2018.
       </a>
