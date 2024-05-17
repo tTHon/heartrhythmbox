@@ -84,12 +84,12 @@ var listArray = [
         mBasic: 1
     },
     {
-        name: 'Catheter Ablation for AF: 2022 Update',
-        description: 'Techniques, Indications, and Complications',
+        name: 'Catheter Ablation for AF: 2024 Update',
+        description: 'Procedural Consideration',
         link: 'afAblation/index.html',
         thumb: 'media/afAblation.png',
-        date: new Date(22,5,1),
-        latest: 0,
+        date: new Date(24,5,17),
+        latest: 1,
         audFav: 0,
         authFav: 0,
         QA: 0,
