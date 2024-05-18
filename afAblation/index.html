@@ -40,21 +40,13 @@
       background-color: transparent;
     }
     .contain img {
-      object-fit: contain;
+      object-fit: contain;vertical-align: middle;
     }
     
     .container {
      position: relative;
      width: 72vw;
      height: 45vw;
-    }
-    .innerBox {
-      height: 44vw;width: 100%;
-      font-size: 8vw;
-      line-height: 44vw;vertical-align: middle;text-align: center;
-    }
-    .innerBox div {
-      line-height: 1.5;display:inline-block;padding: 7vmax;
     }
 
     .headLine {font-size: 2.8vmax;text-align: center;margin-left: auto;margin-right: auto;color: #20344f;line-height: 120%;
@@ -68,15 +60,23 @@
     
     .caption {font-family: Montserrat, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
     padding: 0.8vmax 1vmax 3vmax 1vmax;text-align: center;color:#20344f;}
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 35vw;
+      text-align: center;
+      font-size: 7vw;
+      padding: 4vw;
+    }
 
     .mobileOnly {display: none;}
     @media only screen and (max-width:1024px){
       .container {width: 96vw;height:96vw;}
-      .innerBox {height: 95vw;line-height: 95vw;}
-      .innerBox div {line-height: 1.2;}
       amp-carousel {max-height: 97vw;max-width: 97vw;}
       .noMobile {display: none;}
       .mobileOnly {display: inline-block;}
+      .center {height: 85vw;}
     }
 
     amp-selector[role=tablist].tabs {display: flex;justify-content: center;}
@@ -172,11 +172,9 @@
       on="slideChange:carousel1Selector.toggle(index=event.index, value=true)">
 
     <!--duration title-->
-    <div class="container">
-      <div class="creme innerBox">
-        <div style="color: #20344f;border: #20344f solid 0.1vw;">
+    <div class="container creme">
+      <div style="color: #20344f;border: #20344f solid 0.1vw;" class="center">
           Duration & Types of AF</div>
-      </div>
     </div>
 
      <!--duration-->
@@ -280,10 +278,8 @@
     </div>
     <!--obesity title-->
     <div class="container">
-      <div class="innerBox" style="background-color: #f5f5f5;">
-        <div style="color: #20344f;font-size:3vmax">
+        <div class="center" style="color: #20344f;font-size:4vmax;border:#20344f solid 0.1vmax">
           Obesity adversely impacts <br>ablation outcome and complications.</div>
-      </div>
     </div>
      <!--obesity outcome-->
      <div class="container">
@@ -303,10 +299,8 @@
     </div>  
     <!--alcohol title-->
     <div class="container">
-      <div class="innerBox creme">
-        <div style="color: #20344f;border: #20344f solid 0.1vmax;">
+        <div style="color: #20344f;border: #20344f solid 0.1vmax;" class="center">
           ALCOHOL</div>
-      </div>
     </div>
      <!--alcohol outcome-->
      <div class="container">
@@ -362,10 +356,8 @@
 
     <!--imaging title-->
     <div class="container">
-      <div class="lightGrey innerBox">
-        <div style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
+         <div class="center" style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
           Pre-procedural Imaging is reasonable.</div>
-      </div>
     </div>
      <!--PVs Variation-->
      <div class="container">
@@ -399,7 +391,7 @@
     </div> 
     <!--preop OAC 1-->
     <div class="container">
-      <div style="overflow-y: scroll;height: 100%;">
+      <div style="overflow-y: scroll;">
         <div class="darkBlue" style="padding: 2vmax;text-align: center;">
           <span style="font-size: 2.5vmax;font-weight: 900;color: #fa7268;">
             <i class="fa-solid fa-backward"></i>&nbsp;PRE-Ablation&nbsp;</span>
@@ -448,7 +440,7 @@
     </div>
     <!--preop OAC 2-->
     <div class="container">
-      <div style="overflow-y: scroll;height: 100%;">
+      <div style="overflow-y: scroll;">
         <div class="darkBlue" style="padding: 2vmax;text-align: center;">
           <span style="font-size: 2.5vmax;font-weight: 900;color: #fa7268;">
             <i class="fa-solid fa-backward"></i>&nbsp;PRE-Ablation&nbsp;</span>
@@ -493,14 +485,17 @@
     <div class="container">
       <amp-img src="media/2/minInterruption.png"
       layout="fill"
-      class="contain"></amp-img>
+      class="contain noMobile"></amp-img>
+      <amp-img src="media/2/m_minInterruption.png"
+      layout="fill"
+      class="contain mobileOnly"></amp-img>
       <a href="https://doi.org/10.1093/europace/euab175" target="_blank" class="ref">
         van Vugt et al. Europace. 2021 Dec 7;23(12):1961-1969. 
       </a>
     </div> 
     <!--periop OAC-->
     <div class="container">
-      <div style="overflow-y: scroll;height: 100%;">
+      <div style="overflow-y: scroll;">
         <div class="darkBlue" style="padding: 2vmax;text-align: center;">
           <span style="font-size: 2.5vmax;font-weight: 900;color: #fa7268;">
             <i class="fa-solid fa-bed-pulse"></i>&nbsp;Peri-Ablation&nbsp;</span>
@@ -628,11 +623,9 @@
 
       <!--PVI title-->
       <div class="container">
-        <div class="innerBox">
-          <div style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
+          <div class="center" style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
             Pulmonary Veins are the main source of ectopic foci initiating AF. 
           </div>
-        </div>
       </div>
      <!--PV foci-->
      <div class="container">
@@ -672,11 +665,9 @@
     </div>
   <!--beyond PVI title-->
     <div class="container">
-      <div class="innerBox">
-        <div style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
+        <div class="center" style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
           Ablation Strategy beyond PVI.
         </div>
-      </div>
     </div>
     <!--line-->
     <div class="container">
@@ -717,12 +708,10 @@
     </div>
     <!--beyond PVI title-->
     <div class="container">
-      <div class="innerBox">
-        <div style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
+        <div class="center" style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
           Ablation Strategy beyond PVI is of UNCLEAR benefits.<br>
           <span style="font-size: 2vmax;">#LessIsMore</span>
         </div>
-      </div>
     </div>
     <!--starAF-->
     <div class="container">
@@ -903,14 +892,13 @@
     </div>
     <!--blanking new-->
     <div class="container">
-      <div class="innerBox">
-        <div style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
-          <b>TWO MONTHS</b> of blanking period is now recommended; rather than 3 months.
+        <div class="center" style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
+          TWO MONTHS<br>
+          of blanking period is now recommended; rather than 3 months.
           <a href="https://doi.org/10.1093/europace/euae043" target="_blank" class="ref">
             2024 EHRA/HRS/APHRS/LHRS expert consensus statement on ablation of AF
               </a>
         </div>
-      </div>
     </div>
     <!--how to assess outcomes-->
     <div class="container">
@@ -1039,21 +1027,16 @@
     <span><a href="#no5">5.</a>&nbsp;</span> 
     <span><a href="#no6">6.</a>&nbsp;</span> 
         
-    <div style="padding-top:2vmax;">
-    Follow me at<br> <a href="https://heartrhythmbox.com" style="cursor: pointer;text-decoration: none;color: #555;">
-      <amp-img src="box coral.png" width="25" height="25"
-      layout='fixed'>
-      </amp-img>
-      <span style="vertical-align: 7px;">HeartRhythmBox.com</span>
-    </a>&nbsp;
-    <br>
-    <a href="https://www.facebook.com/HeartRhythmBox/" style="text-decoration: none;cursor: pointer;">
-      <amp-img src="facebook.png" width="25" height="25"
-      layout='fixed'>
-      </amp-img>
-      <span style="vertical-align: 7px;">@HeartRhythmBox</span>
-    </a>
-  </div>
+    <div style="padding: 2vh;">
+      <a href="https://heartRhythmBox.com/" target="_blank" 
+      style="text-decoration:none;color: #555;">
+          <img src="box coral.png" style="width: 37px;">
+      </a> &nbsp;&nbsp;
+      <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
+      target="_blank" style="text-decoration:none;color: #555;">
+          <img src="youTube.png" style="width: 38px;">
+      </a>
+    </div>
   
     HeartRhythmBox is an education page on Heart Rhythm Topics.<br>
     This page is made with ⚡.
