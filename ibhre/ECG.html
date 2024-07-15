@@ -748,7 +748,54 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     Cardiac rhythm device related ECGs</h4>
     <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
     style="margin-left: auto;margin-right: auto;">
-    
+
+    <!--BiV pacing-->
+    <figure>
+      <div class="row">
+      <amp-img layout="responsive" width="40vw" height="40vw" src="media\EKG\device\BiV RV LV.png" style="flex:1;margin: 1vw;"></amp-img>
+      <amp-img layout="responsive" width="40vw" height="40vw" src="media\EKG\device\BiV pacing vector.png" style="flex: 1;margin: 1vw;"></amp-img>
+      </div>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Ventricular pacing from different locations.</b><br>
+      ECG patterns in LV pacing: R in V1, left-to-right frontal axis (negative in I and aVL and positive in III).
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--LV to biV-->
+    <figure>
+      <amp-img layout="fill" src="media/EKG/device/LV to BiV.JPG" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>LV only pacing to Biventricular pacing</b><br>
+      Note with changes from left-to-right vector to left-to-superior vector. Leads I, aVL, and III became as negative. Lead II went from positive to negative as a result of RV apex pacing.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--CRT LV RV offset-->
+    <figure>
+      <amp-img layout="fill" src="media/EKG/device/CRT LV RV offset.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>LV-RV Pacing Offset in CRT system</b><br>
+      ECG revealed P synchronous biventricular pacing. 
+      The presence of biventricular pacing was evident by the presence of small Q in I, aVL; small R in III; and positive QRS in V1.
+      There were 2 pacing spikes before the QRS, separated by 40ms. 
+      The pacing spikes were from LV pacing and RV pacing that were offset by 40ms.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--CRT above upper rate-->
+    <figure>
+      <amp-img layout="fill" src="media\EKG\device\CRT above URL.png" style="margin: 4vmax 0.5vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>CRT system; DDD 60/120. Why did the device stop pacing?</b><br>
+      The 1st part of the tracing showed P-synchronous biventricular pacing. The atrial rate was approximately 115 bpm.<br>
+      Later in the tracing, the atrial rate speeded up to more than 120 bpm, above the upper rate limit. CRT, therefore, was unable to track and did not deliver biventricular pacing.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
     <!--oversensing-->
     <figure>
     <amp-img layout="fill" src="media\EKG\device\V oversensing 1.JPG" style="margin: 4vmax 0.5vw;"></amp-img>
@@ -829,30 +876,6 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       Another upper rate behaviour of dual-chamber pacemaker. Noted with P-synchronous rapid V pacing, usually at the rate close to upper tracking rate.<br>
       Triggered by retrograde A which may be from PVC, long-AV delay, or non-A capture. 
       In the above tracing, PMT was triggered by PVC.
-      <span [text]="expanded ? '▼' : '▲'">▲</span>
-      </figcaption>
-    </figure>
-
-    <!--BiV pacing-->
-    <figure>
-      <div class="row">
-      <amp-img layout="responsive" width="40vw" height="40vw" src="media\EKG\device\BiV RV LV.png" style="flex:1;margin: 1vw;"></amp-img>
-      <amp-img layout="responsive" width="40vw" height="40vw" src="media\EKG\device\BiV pacing vector.png" style="flex: 1;margin: 1vw;"></amp-img>
-      </div>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Ventricular pacing from different locations.</b><br>
-      ECG patterns in LV pacing: R in V1, left-to-right frontal axis (negative in I and aVL and positive in III).
-      <span [text]="expanded ? '▼' : '▲'">▲</span>
-      </figcaption>
-    </figure>
-
-    <!--CRT above upper rate-->
-    <figure>
-      <amp-img layout="fill" src="media\EKG\device\CRT above URL.png" style="margin: 4vmax 0.5vw;"></amp-img>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>CRT system; DDD 60/120. Why did the device stop pacing?</b><br>
-      The 1st part of the tracing showed P-synchronous biventricular pacing. The atrial rate was approximately 115 bpm.<br>
-      Later in the tracing, the atrial rate speeded up to more than 120 bpm, above the upper rate limit. CRT, therefore, was unable to track and did not deliver biventricular pacing.
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
