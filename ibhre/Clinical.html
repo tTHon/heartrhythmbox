@@ -26,6 +26,7 @@
 .darkCyan {background-color: #074860;color: #f1f1f1;}
 .cyan1 {background-color: #1b5b56;color: #f1f1f1;}
 .cyan2 {background-color: #11515b;color: #f1f1f1;}
+.cyan3 {background-color: #40737b;color: #f1f1f1;}
 .lime {color: #ccff00;}
 .nearBlack {background-color: #232323;color: #f1f1f1;}
 .lightBlue1 {background-color: #B6c2c8;color: #074860;}
@@ -819,6 +820,69 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </amp-carousel>
 </section>
 
+<!--procedure anatomy-->
+<section class="main cyan3">
+  <h4 class="cyan3">
+  <span class="showMore"><i class="fas fa-chevron-circle-down"></i>&nbsp; </span>
+  <span class="showLess"><i class="fas fa-chevron-circle-up"></i>&nbsp; </span>  
+  Device Implantation: Anatomical Considerations</h4>
+  
+  <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
+  style="margin-left: auto;margin-right: auto;">
+
+  <!--venous access-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical\venousAccess.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Venous Access for Lead Insertion</b><br>
+    A venogram has been performed from the left antecubital fossa (top panel). This shows the drainage into the cephalic vein, axillary vein, running over the first rib, and then into the subclavian vein.
+    <i class="ref">
+      <a href="http://dx.doi.org/10.1136/hrt.2007.132753" target="_blank">
+        Heart 2009;95:259-264.
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+  <!--pocket plane-->
+  <figure>
+    <amp-img layout="fill" src="media\QA\Q19 pocket-layers-diagram.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Tissue plane for appropriate device implantation</b><br>
+    Most common: Subcutaneous pocket = below fat and above muscles. 
+    <i class="ref">
+      <a href="howtopace.com" target="_blank">
+        howtopace.com
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+  <!--anatomy RAA/RVOT-->
+  <figure>
+  <amp-img layout="fill" src="media\Clinical\anatomy.png"></amp-img>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+  <b>Anatomy of the heart chambers relevant for pacing</b><br>
+  Right anterior oblique view (∼20°) of the heart. Note proximity of the tip (*) of the right atrial appendage (RAA) to the aortic root (Ao) and the right ventricle.
+  The pacing lead is positioned on the mid-septum against the septo-marginal trabeculation (SMT) below the supraventricular crest (SVcrest), which forms the inferior border of the right ventricular outflow tract (RVOT). A noticeable «jump» can be seen as the lead is pulled back from the RVOT over these structures.
+  <span [text]="expanded ? '▼' : '▲'">▲</span>
+  </figcaption>
+  </figure>
+
+  <!--CS-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical\csAnatomy.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Anatomy of Coronary Sinus</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure>
+
+  </amp-carousel>
+</section>
+
 <!--procedure-->
 <section class="main lightBlue2">
     <h4 class="lightBlue2">
@@ -856,56 +920,6 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </figcaption>
       </figure>
 
-    <!--venous access-->
-    <figure>
-      <amp-img layout="fill" src="media\Clinical\venousAccess.jpg"></amp-img>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Venous Access for Lead Insertion</b><br>
-      A venogram has been performed from the left antecubital fossa (top panel). This shows the drainage into the cephalic vein, axillary vein, running over the first rib, and then into the subclavian vein.
-      <i class="ref">
-        <a href="http://dx.doi.org/10.1136/hrt.2007.132753" target="_blank">
-          Heart 2009;95:259-264.
-        </a>
-      </i>
-      <span [text]="expanded ? '▼' : '▲'">▲</span>
-      </figcaption>
-      </figure>
-
-    <!--pocket plane-->
-    <figure>
-      <amp-img layout="fill" src="media\QA\Q19 pocket-layers-diagram.jpg"></amp-img>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Tissue plane for appropriate device implantation</b><br>
-      Most common: Subcutaneous pocket = below fat and above muscles. 
-      <i class="ref">
-        <a href="howtopace.com" target="_blank">
-          howtopace.com
-        </a>
-      </i>
-      <span [text]="expanded ? '▼' : '▲'">▲</span>
-      </figcaption>
-      </figure>
-
-    <!--anatomy RAA/RVOT-->
-    <figure>
-    <amp-img layout="fill" src="media\Clinical\anatomy.png"></amp-img>
-    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Anatomy of the heart chambers relevant for pacing</b><br>
-    Right anterior oblique view (∼20°) of the heart. Note proximity of the tip (*) of the right atrial appendage (RAA) to the aortic root (Ao) and the right ventricle.
-    The pacing lead is positioned on the mid-septum against the septo-marginal trabeculation (SMT) below the supraventricular crest (SVcrest), which forms the inferior border of the right ventricular outflow tract (RVOT). A noticeable «jump» can be seen as the lead is pulled back from the RVOT over these structures.
-    <span [text]="expanded ? '▼' : '▲'">▲</span>
-    </figcaption>
-    </figure>
-
-    <!--CS-->
-    <figure>
-      <amp-img layout="fill" src="media\Clinical\csAnatomy.png"></amp-img>
-      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Anatomy of Coronary Sinus</b>
-      <span [text]="expanded ? '▼' : '▲'">▲</span>
-      </figcaption>
-    </figure>
-
     <!--drugs-->
     <figure>
       <!-- Ref: https://amp.dev/documentation/components/amp-fit-text/ -->
@@ -931,7 +945,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </amp-fit-text>
     </figure>
 
-    <!--CS-->
+    <!--timing of ATBx-->
     <figure>
       <amp-img layout="fill" src="media\Clinical\atbTiming.png"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
