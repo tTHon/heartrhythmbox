@@ -830,6 +830,72 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
   <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
   style="margin-left: auto;margin-right: auto;">
 
+  <!--RA-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical/RA Anatomy.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Anatomy of Right Atrium</b><br>
+    Right Atrial Appendage is located at anterosuperior aspect of RA. <br>
+    Terminal Crest or Crista Terminalis acts as a barrise of conduction.<br>
+    <i class="ref">
+      <a href="https://doi.org/10.1016/j.tria.2019.100046" target="_blank">
+        Translation Research in Anatomy 2019.
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+  <!--RA-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical/Triangle of Koch.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Triangle of Koch</b><br>
+    is an important landmark for AV node.
+    <i class="ref">
+      <a href="https://doi.org/10.1016/j.tria.2019.100046" target="_blank">
+        Translation Research in Anatomy 2019.
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+  <!--anatomy for CSP-->
+  <figure>
+  <amp-video width="1280" height="720" src="media/Clinical/fluoroscopy av node.mp4" 
+  layout="responsive" controls>
+  </amp-video>
+  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Fluoroscopic Anatomy of AV node</b><br>
+    <i class="ref">
+      <a href="https://doi.org/10.1093/europace/euad043" target="_blank">
+        2023 EHRA consensus on CSP.
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure>
+
+  <!--anatomy RAA/RVOT-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical\anatomy.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Anatomy of the heart chambers relevant for pacing</b><br>
+    Right anterior oblique view (∼20°) of the heart. Note proximity of the tip (*) of the right atrial appendage (RAA) to the aortic root (Ao) and the right ventricle.
+    The pacing lead is positioned on the mid-septum against the septo-marginal trabeculation (SMT) below the supraventricular crest (SVcrest), which forms the inferior border of the right ventricular outflow tract (RVOT). A noticeable «jump» can be seen as the lead is pulled back from the RVOT over these structures.
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+  <!--CS-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical\csAnatomy.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Anatomy of Coronary Sinus</b>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure>
+
   <!--venous access-->
   <figure>
     <amp-img layout="fill" src="media\Clinical\venousAccess.jpg"></amp-img>
@@ -860,25 +926,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </figcaption>
     </figure>
 
-  <!--anatomy RAA/RVOT-->
-  <figure>
-  <amp-img layout="fill" src="media\Clinical\anatomy.png"></amp-img>
-  <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-  <b>Anatomy of the heart chambers relevant for pacing</b><br>
-  Right anterior oblique view (∼20°) of the heart. Note proximity of the tip (*) of the right atrial appendage (RAA) to the aortic root (Ao) and the right ventricle.
-  The pacing lead is positioned on the mid-septum against the septo-marginal trabeculation (SMT) below the supraventricular crest (SVcrest), which forms the inferior border of the right ventricular outflow tract (RVOT). A noticeable «jump» can be seen as the lead is pulled back from the RVOT over these structures.
-  <span [text]="expanded ? '▼' : '▲'">▲</span>
-  </figcaption>
-  </figure>
 
-  <!--CS-->
-  <figure>
-    <amp-img layout="fill" src="media\Clinical\csAnatomy.png"></amp-img>
-    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Anatomy of Coronary Sinus</b>
-    <span [text]="expanded ? '▼' : '▲'">▲</span>
-    </figcaption>
-  </figure>
 
   </amp-carousel>
 </section>

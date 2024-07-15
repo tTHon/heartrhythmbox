@@ -302,9 +302,22 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       style="margin-left: auto;margin-right: auto;">
         
       <!--VDO-->
+      <figure>
         <amp-video width="1280" height="720" src="media\EP\Normal Conduction System.mp4" 
         layout="responsive" controls>
         </amp-video>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          <br>
+          <i class="ref">
+            <a href="https://medmovie.com" target="_blank">
+              medmovie.com
+            </a>
+          </i>
+
+          <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+      </figure>
+
 
         <figure>
           <amp-img layout="fill" src="media\EP\Conduction_System_of_Heart.jpg"></amp-img>
