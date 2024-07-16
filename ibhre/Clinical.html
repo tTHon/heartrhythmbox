@@ -830,6 +830,93 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
   <amp-carousel class="collapsible-captions" height="54vw" width="96vw" layout="fixed" type="slides" 
   style="margin-left: auto;margin-right: auto;">
 
+  <!--venous access-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical/subclavian system.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Subclavian Venous System</b><br>
+    1. Cephalic vein is smaller and more superficial than Axillary vein.<br>
+    2. Axillary vein is behind pectoralis major and minor.<br>
+    3. After axillary vein leaves pectoralis minor, it becomes subclavian vein.<br>
+    4. Subclavian vein is in both extra and intrathoracic region.<br>
+    <i class="ref">
+      <a href="https://doi.org/10.1016/j.hrthm.2005.10.031" target="_blank">
+        Heart Rhythm 2006.
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+  <!--median axillary-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical\venousAccess.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Extrathoracic subclavian/axillary vein puncture</b><br>
+    A venogram has been performed from the left antecubital fossa (top-right panel). This shows the drainage into the cephalic vein, axillary vein, running over the first rib, and then into the subclavian vein.<br>
+    <i class="ref">
+      <a href="http://dx.doi.org/10.1136/hrt.2007.132753" target="_blank">
+        Heart 2009;95:259-264.
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+  <!--cephalic-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical/deltoPectoral Groove.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Landmark for Cephalic Vein</b><br>
+    The cephalic vein lies on the deltopectoral groove (yellow) and is sometimes marked by a skin crease.<br>
+    The deltopectoral groove is bordered by clavicle, deltoid muscle, and pectoralis major muscle.<br>
+    <i class="ref">
+      <a href="https://www.howtopace.com/anatomic-considerations-for-venous-access/" target="_blank">
+        howtopace.com
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+  <!--access comparison-->
+  <figure>
+    <amp-fit-text width="80vw" height="40vw" layout="responsive">
+    <Table class="lightTable">
+      <div class="lightBlue1" style="padding: 1vmax;text-align: center;font-weight: 600;">
+        Differences Venous Approached for CIED Implantations</div>
+      <tr>
+        <th>Aspects</th><th>Subclavian</th><th>Cephalic</th><th>Axillary</th>
+      </tr>
+      <tr>
+        <td>Venous Character</td>
+        <td>Largest size</td>
+        <td>Small; may be tortuous</td>
+        <td>Large</td>
+      </tr>
+      <tr>
+        <td>Procedural Success</td><td>96%</td>
+        <td>76%<br>
+          steep learning curve, may require another access to accomodate all leads.</td>
+        <td>96%<br>
+          venogram and ultrasound can be utilized to guide the puncture.
+        </td>
+      </tr>
+      <tr>
+        <td>Pneumothorax</td><td>1%</td><td>No risk</td><td>0-0.2%</td>
+      </tr>
+      <tr>
+        <td>Lead Failure</td>
+        <td>2.3%</td><td>1.1%</td><td>1.5%</td>
+      </tr>
+    </Table>
+    <i class="ref">
+      <a href="https://doi.org/10.1016/j.jacep.2020.01.006" target="_blank">JACC 2020</a> and
+      <a href="https://doi.org/10.1111/jce.14060" target="_blank">JCE 2019</a>
+    </i>
+    </amp-fit-text>
+  </figure>
+
   <!--RA-->
   <figure>
     <amp-img layout="fill" src="media\Clinical/RA Anatomy.jpg"></amp-img>
@@ -895,21 +982,6 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
   </figure>
-
-  <!--venous access-->
-  <figure>
-    <amp-img layout="fill" src="media\Clinical\venousAccess.jpg"></amp-img>
-    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Venous Access for Lead Insertion</b><br>
-    A venogram has been performed from the left antecubital fossa (top panel). This shows the drainage into the cephalic vein, axillary vein, running over the first rib, and then into the subclavian vein.
-    <i class="ref">
-      <a href="http://dx.doi.org/10.1136/hrt.2007.132753" target="_blank">
-        Heart 2009;95:259-264.
-      </a>
-    </i>
-    <span [text]="expanded ? '▼' : '▲'">▲</span>
-    </figcaption>
-    </figure>
 
   <!--pocket plane-->
   <figure>
