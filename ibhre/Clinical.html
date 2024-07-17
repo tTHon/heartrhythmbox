@@ -798,20 +798,47 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <b>Selective His bundle pacing (S-HBP)</b> is easily recognized by an isoelectric interval (corresponding to the HV) between the pacing spike and QRS onset, 
       whereas with non-selective HBP, a ‘pseudo-delta’ wave is observed due to capture of local myocardium.<br>
       <i class="ref">
-        <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank">
-        2021 ESC Guidelines for Cardiac Pacing</a>
+        <a href="https://doi.org/10.1093/europace/euad043" target="_blank">
+        2023 EHRA Consensus on CSP</a>
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
 
+    <!--LBBAP Confirm-->
     <figure>
-      <amp-img layout="fill" src="media\Clinical\HisAlternative.png"></amp-img>
+      <amp-img layout="fill" src="media\Clinical/LBBAP Confirm.jpeg"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      2021 Guidelines recommended HBP as an alternative to CRT (IIA) while awaiting more data from both HBP and left bundle branch area pacing. 
+      <b>Algorithm for confirming conduction system capture with LBBAP.</b><br>
+      <i class="ref">
+        <a href="https://doi.org/10.1093/europace/euad043" target="_blank">
+        2023 EHRA Consensus on CSP</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--csp indication 1-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical/csp algo 1.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      CSP in patients with pacing indication
         <i class="ref">
-        <a href="https://doi.org/10.1093/eurheartj/ehab364" target="_blank">
-        2021 ESC Guidelines for Cardiac Pacing</a>
+        <a href="https://doi.org/10.1016/j.hrthm.2023.03.1538" target="_blank">
+        2023 HRS Guidelines for CSP</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--csp indication 2-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical/csp algo 2.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      CSP in patients with HF
+        <i class="ref">
+        <a href="https://doi.org/10.1016/j.hrthm.2023.03.1538" target="_blank">
+        2023 HRS Guidelines for CSP</a>
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
@@ -1310,8 +1337,8 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <figure>
         <amp-img layout="fill" src="media\Clinical\infectionAlgo.png"></amp-img>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-        <b>Diagnostic and Management Algorithm</b><br>
-        Definite’ CIED clinical pocket/generator infection = generator pocket shows swelling, erythema, warmth, pain, and purulent discharge/sinus
+        <b>Management Algorithm</b><br>
+        Definite CIED clinical pocket/generator infection = generator pocket shows swelling, erythema, warmth, pain, and purulent discharge/sinus
         formation OR deformation of pocket, adherence and threatened erosion OR exposed generator or proximal leads.<br>
         <i class="ref">
           <a href="https://doi.org/10.1093/europace/euz246" target="_blank">
@@ -1319,6 +1346,38 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         </i>
         <span [text]="expanded ? '▼' : '▲'">▲</span>
         </figcaption>
+    </figure>
+
+     <!--lead Xtraction-->
+     <figure>
+      <amp-img layout="fill" src="media\Clinical/leadXtraction.jpg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Lead Extraction Procedural Risk</b><br>
+      - Major complications from lead extraction included death, cardiac arrest, pericardial tamponade, and cardiac perforation.
+      <br>
+      - Small diameter HV leads have low tensile strength limiting the traction force during extraction.
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIRCEP.116.004768" target="_blank">
+        Circulation EP 2018</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+  </figure>
+
+  <!--LBBAP Perforation-->
+  <figure>
+    <amp-video width="1280" height="720" src="media/Clinical/fluoroscopy av node.mp4" 
+    layout="responsive" controls>
+    </amp-video>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Fluoroscopic Anatomy of AV node</b><br>
+      <i class="ref">
+        <a href="https://doi.org/10.1093/europace/euad043" target="_blank">
+          2023 EHRA consensus on CSP.
+        </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
     </figure>
 
   </amp-carousel>
