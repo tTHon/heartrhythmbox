@@ -1318,6 +1318,20 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </amp-fit-text>
     </figure>
 
+    <!--complications impedance change-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical/impedance diagnosis.png" style="margin: 1vw;"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Causes of Altered Impedance</b><br>
+      <br>
+      <i class="ref">
+        <a href="https://doi.org/10.1161/CIRCEP.119.008092" target="_blank">
+          Cir Arrhythmia 2020</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
     <!--device infection: risk-->
     <figure>
         <amp-img layout="fill" src="media\Clinical\risksInfection.png"></amp-img>
