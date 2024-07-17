@@ -1366,11 +1366,12 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
   <!--LBBAP Perforation-->
   <figure>
-    <amp-video width="1280" height="720" src="media/Clinical/fluoroscopy av node.mp4" 
+    <amp-video width="1280" height="720" src="media/Clinical/LBBAP Perforation.mp4" 
     layout="responsive" controls>
     </amp-video>
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Fluoroscopic Anatomy of AV node</b><br>
+      <b>Overt Septal Perforation of LBBAP Lead</b><br>
+      In all cases of overt perforation, reposition is required.
       <i class="ref">
         <a href="https://doi.org/10.1093/europace/euad043" target="_blank">
           2023 EHRA consensus on CSP.
@@ -1379,6 +1380,21 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
+
+  <!--microPerf-->
+  <figure>
+      <amp-img layout="fill" src="media\Clinical/microPerf.jpeg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Micro-perforation of LBBAP Lead</b><br>
+      No reposition or long-term anticoagulation is required. 
+      <i class="ref">
+        <a href="https://doi.org/10.1093/europace/euad043" target="_blank">
+          2023 EHRA consensus on CSP.
+        </a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+  </figure>
 
   </amp-carousel>
 </section>
