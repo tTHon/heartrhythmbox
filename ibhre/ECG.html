@@ -612,7 +612,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <amp-img layout="fill" src="media\EKG\tachy/atypical AVNRT.jpg"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
       <b>Supraventricular Tachycardia</b><br>
-      Narrow complex tachycardia
+      Narrow complex tachycardia, rate approximately 150 bpm, P waves were visible after each QRS.
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
@@ -692,16 +692,6 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </figcaption>
   </figure> 
 
-  <!--LQT-->
-  <figure style="background-color: #f5f5f5;">
-    <amp-img layout="fill" src="media\EKG\SCD\LQT2_notched T.gif"></amp-img>
-    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-    <b>Long QT ECG</b><br>
-      This ECG was from a patient with long QT 2 syndrome. Noted with prolong QT interval and notched T wave.
-    <span [text]="expanded ? '▼' : '▲'">▲</span>
-    </figcaption>
-  </figure> 
-
   <!--WPW-->
   <figure style="background-color: #f5f5f5;">
     <amp-img layout="fill" src="media\EKG\SCD\WPW.png"></amp-img>
@@ -720,6 +710,16 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
     <b>Old inferior and anterior wall myocardial infarction</b><br>
     Deep Q waves in III/aVF and V2-V4. May lead to scar-related VT.  
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure> 
+
+  <!--LQT-->
+  <figure style="background-color: #f5f5f5;">
+    <amp-img layout="fill" src="media\EKG\SCD\LQT2_notched T.gif"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Long QT ECG</b><br>
+      This ECG was from a patient with long QT 2 syndrome. Noted with prolong QT interval and notched T wave.
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
   </figure> 
