@@ -139,23 +139,54 @@ justify-content: center;}
             <img src="media/pacing/AF CRTD.jpg" loading="lazy">
             14   
         </div>
+        <div class="green imgCard" onclick="goTo(14,'green')">
+            <img src="media/pacing/high V threshold/tracing.jpg">
+            15   
+        </div>
        
     </h2>
 
     <!--end page-->
-    <div style="margin-top:5vh;background-color:#ddd;font-size: 1.2vmax;padding: 2vmax;color:#797979;text-align: center;width: 100%;">
-        <a href="https://heartrhythmbox.com" target="_blank">        
-            <img src="\box transparent.png" style="width: 3.5vmax;"></a> &nbsp;&nbsp;
-        <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">
-            <img src="fb.png" style="width: 3.5vmax;">
-        </a>
-        <br>
-            
-        HeartRhythmBox, an education page of heart rhythm topics.<br>
-        visit us at <a href="https://heartrhythmbox.com" target="_blank">
-        www.heartrhythmbox.com</a><br>
-        or <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank">https://www.facebook.com/HeartRhythmBox/</a>
-    </div>
+    <div style="background: #ddd;font-size: 1.4vmax;padding:5vmax 3vmax;color:#555;line-height: 200%;text-align: center;">
+   
+      
+        <div id="about">
+          <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
+              <div style="padding-bottom: 2vh;">
+                  <a href="#top" style="text-decoration:none;color:#555;">
+                      &uarr;&nbsp;<b>Top</b> of the page</a>
+              </div>  
+              <div style="padding-bottom: 2vh;">
+                      <a href="https://heartRhythmBox.com/" target="_blank" 
+                      style="text-decoration:none;color: #555;">
+                          <img src="boxGrey.png" style="width: 37px;">
+                      </a> &nbsp;&nbsp;
+
+                      <a href="https://www.facebook.com/HeartRhythmBox" 
+                      target="_blank" style="text-decoration:none;color: #555;">
+                          <img src="fb.png" style="width: 38px;">
+                      </a> &nbsp;&nbsp;
+                      <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
+                      target="_blank" style="text-decoration:none;color: #555;">
+                          <img src="youTube.png" style="width: 38px;">
+                      </a>
+
+              </div>
+              <div style="font-size: 13px;padding: 2vh 1vw;border-top: #555 0.1vmax solid;color: #555;
+              text-align: justify;line-height: 120%;">
+                  Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+                  The page is created mainly for educational purpose. 
+              </div>
+              <div style="font-size: 13px;padding: 2vh 1vw;border-top: #555 0.1vmax solid;color: #555;
+              text-align: center;font-weight: 700;">
+                  &copy;&nbsp;&nbsp;CODING OF A KIND<br>
+                  <span style="font-weight: 400;">
+                  design to your style &middot; write to your need</span>
+              </div>
+    
+          </div>
+        </div>
+      </div>
 </div>
 
 <div id="showCase">
@@ -756,6 +787,48 @@ justify-content: center;}
     
         </h2>
     </div>
+
+    <!--15 high V threshold and VDI modeswitch-->
+    <div class="Q">
+        <!--img-->
+        <h1 class="tracing">
+            <img src="media/pacing/high V threshold/tracing.jpg" loading="lazy" style="width: 100%;">
+        </h1>
+      
+        <h2 style="padding: 1vmax;">
+            <ul class="content">
+                <li>
+                    <span style="font-weight: 800;">SETTING</span><br>
+                    <span style="font-weight: 400;">
+                        DDDR 60/120 Boston Insignia I 
+                    </span>
+                </li>
+                <li>
+                    <span style="font-weight: 800;">GENERAL DIAGNOSIS</span><br>
+                    <span style="font-weight: 400;">
+                        Failure to capture of ventricular lead
+                    </span>
+                </li>
+
+                <li>
+                    <span style="font-weight: 800;">EXPLANATION</span><br>
+                    <span style="font-weight: 400;">
+                        - Baseline rhythm: AF with rapid ventricular response followed by post conversion pauses.<br>
+                        - During pauses, there were pacing spikes without capture at the rate approximately 75 bpm.<br>
+                        - The pacing spikes were likely from ventricular pacing.<br>
+                        - The pacing rate was higher than lower rate because of the rate response sensor.<br>
+                        - One may wonder why the atrium was not paced since the device was set up as DDDR.<br>
+                        - During the atrial arrhythmia, dual-chamber pacemaker is set to switch the pacing mode to non-tracking mode.<br>
+                        - The most common mode to switch during atrial arrhythmia is DDI.<br> 
+                        - In this case, the mode switch was set to VDI mode which is a default for Boston Scientific device.<br>
+                        - In VDI mode, only ventricular is paced. In this case, V threshold was high and was not captured at the current output setting.
+                        <img src="media/pacing/high V threshold/Parameter1.jpg" loading="lazy" style="padding: 1vmax;width: 80%;">
+                    </span>
+                </li>
+            </ul>
+    
+        </h2>
+        </div>
 
     <!--footer-->
     <div class="footer row">
