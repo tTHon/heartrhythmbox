@@ -28,9 +28,6 @@
 </style>  
 
 <body style="background-color:#232323;font-family: 'Abel', sans-serif;">
-<!--div id="demo" style="color:white; font-family: 'Abel', sans-serif;padding-left: 30vw;
-padding-top: 40vh;text-align: center;">
-  Press Spacebar to Begin & Advance  ...</div-->
 <div class="text"></div>
 <div id="text1" class="text"></div>
 <div id="text2" class="text"></div>
@@ -44,7 +41,11 @@ padding-top: 40vh;text-align: center;">
   Total Population Burdens of SCD
   <div id="ref">
     <a href="https://doi.org/10.1161/CIRCULATIONAHA.111.023846" target="_blank" style="color:#ccc">
-      Myerberg et al. Circulation. 2012;125:1043-1052.</a>
+      Myerberg et al. Circulation. 2012;125:1043-1052.</a><br>
+    <button style="font-size: medium;font-style: italic;background-color: none;margin-top: 2vmax;
+    color: #333;border-radius: 0.5vmax;" onclick="nextMove()">
+      click here to begin and advance
+    </button>
   </div>
 </div>
 <canvas id="canvas" style="overflow: visible;font-family: 'Abel', sans-serif;" ></canvas>
@@ -56,7 +57,7 @@ padding-top: 40vh;text-align: center;">
 window.addEventListener("keydown", function(event) {
     event.preventDefault();
     if (event.keyCode===32) {
-    document.getElementById('demo').style.display ='none'
+    //document.getElementById('demo').style.display ='none'
     nextMove()}
 })
 
@@ -95,12 +96,12 @@ var titleText = document.getElementById('title')
 var refText = document.getElementById('ref')
 titleText.style.display = "block"
 refText.style.display = "block"
-titleText.style.top = 0.2*height + 'px'
+titleText.style.top = 0.1*height + 'px'
 titleText.style.left = 0.1*width + 'px'
 
 //steps move
 var nav = 0;
-autoPlay()
+//autoPlay()
 
 function autoPlay(){
     
@@ -130,16 +131,16 @@ function autoPlay(){
   }
 }
 function nextMove(){
-  //nav++
+  nav++
   //title & ref
   var titleText = document.getElementById('title')
   var refText = document.getElementById('ref')
   titleText.style.display = "block"
   refText.style.display = "block"
-  titleText.style.top = 0.2*height + 'px'
+  titleText.style.top = 0.1*height + 'px'
   titleText.style.left = 0.1*width + 'px'
-  //ctx.clearRect (0,0,canvas.width,canvas.height)
-  //clearText();
+  ctx.clearRect (0,0,canvas.width,canvas.height)
+  clearText();
   if (nav>7){
     nav=1
     ctx.clearRect (0,0,canvas.width,canvas.height)
@@ -377,7 +378,7 @@ function label(minYRatio,maxYRatio,textNo){
     "HF, EF<30%  ~64000",
     "Hx of CAD ~121000",
     "High risks for CAD w/o clinical events ~208000",
-    "General Population ~310000",
+    "No known risks for SCD ~310000",
     "High risk population that we know of ~120000",
     "General population that is deemed low risk ~640000"
   ]
