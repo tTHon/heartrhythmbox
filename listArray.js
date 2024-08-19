@@ -259,7 +259,7 @@ var listArray = [
         date: new Date(19,3,1),
         latest: 0,
         audFav: 0,
-        authFav: 1,
+        authFav: 0,
         QA: 0,
         gLines: 0,
         basic: 0,
