@@ -62,9 +62,9 @@ overflow: hidden;font-size: 2vmax;text-align: center;line-height: 100%;align-sel
 .tracing {padding: 0.2vmax;}
 .content {list-style: none;font-size: 2vmax;}
 .content li {border-bottom: #797979 solid 0.1vmin;padding:1vmax;list-style-position: inside;}
-.footer {position: sticky;bottom: 0;left: 0;width: 100%;color: #97baa4;background-color: #333333;
-font-size: 1.5vmax;padding:0.5vmax;border-top-left-radius: 8px;border-top-right-radius: 8px;
-justify-content: center;}
+.footer {position: sticky;bottom: 0;left: 0;color: #97baa4;background-color: #333333;
+font-size: 2vmax;padding:1vmin;border-top-left-radius: 1vmax;border-top-right-radius: 1vmax;
+justify-content: center;font-weight: 500;letter-spacing: 2px;}
 .footer a {text-decoration: none;color: #97baa4;border-right: #797979 1px dotted;}
 .Q {display: none;}
 .noBorder {padding:0.5vmax 2vmax;}
@@ -190,7 +190,7 @@ justify-content: center;}
 </div>
 
 <div id="showCase">
-    <!--AV undersensing-->
+    <!--1 AV undersensing-->
     <div class="Q">
         <!--img-->
         <h1 class="tracing">
@@ -218,7 +218,9 @@ justify-content: center;}
                         - Dual chamber pacemaker (2 pacing spikes within 240ms of each other).<br>
                         - Baseline rhythm: complete heart block with slow and narrow ventricular escape.<br>
                         - No evidence of appropriate sensing either A or V. Pacing spikes are all over the place.<br>
-                        - Hard to evaluate pacing function. All pacing spikes occurred during functional refractory periods.
+                        - For pacing functions, most of the spikes occurred during functional refractory periods. 
+                          There was one spike at the very end of the tracing with ventricular capture.<br>
+                        - Ventricular pacing function was therefore appropriate. Atrial pacing function was unable to evaluate.
                     </span>
                 </li>
             </ul>
@@ -226,7 +228,7 @@ justify-content: center;}
         </h2>
         </div>
     
-    <!--lead fx oversensing-->
+    <!--2 lead fx oversensing-->
     <div class="Q">
     <!--img-->
     <h1 class="tracing">
@@ -413,7 +415,7 @@ justify-content: center;}
         </h2>
         </div>
 
-    <!--V dislodgement-->
+    <!--6 V dislodgement-->
     <div class="Q">
         <!--img-->
         <h1 class="tracing">
@@ -476,7 +478,7 @@ justify-content: center;}
                 <li>
                     <span style="font-weight: 800;color: #232941;">GENERAL DIAGNOSIS</span><br>
                     <span style="font-weight: 400;">
-                        Failure to sense and capture of atrial lead
+                        Atrial lead failred to sense and capture of the atrium
                     </span>
                 </li>
 
@@ -818,7 +820,7 @@ justify-content: center;}
                         - The pacing spikes were likely from ventricular pacing.<br>
                         - The pacing rate was higher than lower rate because of the rate response sensor.<br>
                         - One may wonder why the atrium was not paced since the device was set up as DDDR.<br>
-                        - During the atrial arrhythmia, dual-chamber pacemaker is set to switch the pacing mode to non-tracking mode.<br>
+                        - During the atrial arrhythmia, the pacing mode of a dual-chamber pacemaker is set to switch to non-tracking mode.<br>
                         - The most common mode to switch during atrial arrhythmia is DDI.<br> 
                         - In this case, the mode switch was set to VDI mode which is a default for Boston Scientific device.<br>
                         - In VDI mode, only ventricular is paced. In this case, V threshold was high and was not captured at the current output setting.
@@ -832,10 +834,10 @@ justify-content: center;}
 
     <!--footer-->
     <div class="footer row">
-        <div onclick="goHome()" style="cursor: pointer;">Home&nbsp;&nbsp;</a></div>
-        <div style="cursor: pointer;" id="prev" onclick="slideNav(-1)">&nbsp;&nbsp;&lt;Prev&nbsp;&bull;&nbsp;</div>
+        <div onclick="goHome()" style="cursor: pointer;">Home&nbsp;&nbsp;&nbsp;</a></div>
+        <div style="cursor: pointer;" id="prev" onclick="slideNav(-1)">&nbsp;&nbsp;&#11164;&nbsp;Prev&nbsp;&bull;&nbsp;&nbsp;</div>
         <div id="qNo"></div>
-        <div style="cursor: pointer;" id="next" onclick="slideNav(1)">&bull;&nbsp;&nbsp;Next&gt;</div>
+        <div style="cursor: pointer;" id="next" onclick="slideNav(1)">&bull;&nbsp;Next&nbsp;&#11166;&nbsp;</div>
     </div>
 </div>
 
