@@ -1,0 +1,585 @@
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <title>Management of AF in Acute Heart Failure</title>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <meta name="author" content="t'Thon">
+  <meta property="og:image" content="fire and water heart.png">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js" async></script>
+  <script async custom-element = "amp-fit-text" src = "https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+  
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+  <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Barlow:wght@100..900&family=Satisfy&display=swap" rel="stylesheet">
+  <link rel="icon" href="box transparent.png" type="image/png" sizes="60x60">
+
+  <!--amp ad-->
+  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+  
+  <style amp-custom>
+
+  .cursive {font-family: "Satisfy", cursive;}
+    /*color*/
+  .lightGrey {background-color: #d8d8d8}
+  .lightBlue {background-color: #BFC7D6;}
+  .blue {background-color: #90DFF0}
+  .darkBlue {background-color: #303542;color: white;}
+  .creme {background-color: #F1DACA;}
+  .coral {background-color: #F69942;}
+
+    .row {display: flex;}
+    @media only screen and (max-width:600px) {
+      .row {flex-wrap: wrap;}
+    }
+    .container, .container img {
+      background-color: transparent;
+    }
+    .contain img {
+      object-fit: contain;vertical-align: middle;
+    }
+    
+    .container {
+     position: relative;
+     width: 72vw;
+     height: 45vw;
+    }
+
+    .headLine {font-size: 2.8vmax;text-align: center;margin-left: auto;margin-right: auto;color: #20344f;line-height: 120%;
+      padding-top: 8vmax;padding-bottom:1vh;padding-left: 1vh;padding-right: 1vh;
+      max-width: 900px;width: fit-content;border-bottom: #1d1c2a solid 0.25vmax;}
+  
+
+    amp-carousel {margin-top: 1vh;max-width: 73vw;margin-left: auto;margin-right: auto;
+    max-height: 46vw;background-color:transparent;}
+    
+    
+    .caption {font-family: Barlow, sans-serif;font-size: 1.8vmax;max-width: 900px;margin-right: auto;margin-left: auto;
+    padding: 0.8vmax 1vmax 3vmax 1vmax;text-align: center;color:#20344f;}
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 35vw;
+      text-align: center;
+      font-size: 7vw;
+      padding: 4vw;
+    }
+
+    .mobileOnly {display: none;}
+    @media only screen and (max-width:1024px){
+      .container {width: 96vw;height:96vw;}
+      amp-carousel {max-height: 97vw;max-width: 97vw;}
+      .noMobile {display: none;}
+      .mobileOnly {display: inline-block;}
+      .center {height: 85vw;}
+    }
+
+    amp-selector[role=tablist].tabs {display: flex;justify-content: center;}
+    amp-selector[role=tablist].tabs [selected] {outline: none;
+      background-color: #20344f;border:#20344f 0.1vmax solid;}
+
+    .dots  {
+    width:1.2vmin;
+    height:1.2vmin;
+    border-radius:1.2vmin;
+    background-color:none;border:#20344f 0.1vmax solid;
+    display:inline-block;margin: 0 0.2vmax;
+    }
+        
+    .ref{position: absolute;bottom: 1%;right: 1%;
+      font-size: 1vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
+    }
+    /*table*/
+    .lightTable {text-align: left;border-collapse: collapse;padding: 1vmax;color: #f2f2f2;height: 90%;
+    margin-bottom: 5vh;margin-right: auto;margin-left: auto;}
+    .lightTable th, .lightTable td {border-bottom: #ddd 0.1vmax solid;padding: 1vmax;}
+    .lightTable th {color: #F69942;}
+    @media only screen and (max-width:500px){
+    .lightTable {margin: none;padding: 0.25vw;}
+    .lightTable th, .lightTable td {padding: 0.25vw;}
+    }
+
+  
+     
+</style>
+
+</head>
+
+<body style="font-family: Barlow, sans-serif;">
+  <amp-auto-ads type="adsense"
+  data-ad-client="ca-pub-1548733331544768">
+  </amp-auto-ads>
+  <amp-analytics type="googleanalytics" config="https://amp.analytics-debugger.com/ga4.json" data-credentials="include">
+    <script type="application/json">
+    {
+        "vars": {
+                    "GA4_MEASUREMENT_ID": "G-PHBZ8EJY6J",
+                    "GA4_ENDPOINT_HOSTNAME": "www.google-analytics.com",
+                    "DEFAULT_PAGEVIEW_ENABLED": true,    
+                    "GOOGLE_CONSENT_ENABLED": false,
+                    "WEBVITALS_TRACKING": false,
+                    "PERFORMANCE_TIMING_TRACKING": false,
+                    "SEND_DOUBLECLICK_BEACON": false
+        }
+    }
+    </script>
+    </amp-analytics>
+
+
+<!--title section-->
+
+
+<div class="darkBlue" style="width: 100%;height: 100vh;">
+    <div style="text-align: center;">
+    <amp-img src="fire and water heart.png" width="60vh" height="60vh" layout='fixed'>    
+    </amp-img>
+    </div>
+
+
+  <!--title topic-->
+
+  <div style="text-align: center;font-size: 6vh;color:white;padding: 0.5vh 3vmax;line-height: 100%;">
+    Management of <span style="color: #F69942;">Atrial Fibrillation</span><br>
+
+    during acute <span style="color: #90DFF0;">Heart Failure</span>
+  </div>
+
+  <div style="text-align: center;padding: 5vh;">
+    <a href="https://heartrhythmbox.com" 
+    style="cursor: pointer;text-decoration: none;color: #999;">
+      <amp-img src="box transparent.png" width="3vh" height="3vh" layout='fixed'>
+      </amp-img>
+      <span style="vertical-align: 3px;font-size: 2.5vh;">HeartRhythmBox.com</span>
+    </a>
+  </div>
+
+</div>  
+
+
+<!--content-->
+<!--1 cardioversion-->
+  <div class="creme"> 
+
+  <div id="no1" class="headLine">
+    Priority #1 - Cardioversion
+  </div>
+
+  <amp-carousel id="carousel1"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel1Selector.toggle(index=event.index, value=true)">
+
+    <!--CV-->
+    <div class="container creme">
+      <div style="color: #20344f;border: #20344f solid 0.1vw;" class="center">
+          Cardioversion if hemodynamic compromises</div>
+    </div>
+
+    <!--STEMI-->
+    <div class="container">
+    <amp-img src="media/STEMI.png"
+    layout="fill"
+    class="contain darkBlue"></amp-img>
+    </div>  
+    <!--cardiogenic shock-->
+    <div class="container">
+    <amp-img src="media/cardiogenicShock.png"
+    layout="fill"
+    class="contain darkBlue"></amp-img>
+    </div> 
+    <!--CV Technique-->
+    <div class="container">
+        <div style="overflow-y: scroll;height: 100%;">
+          <div class="darkBlue" style="padding: 2vmax;text-align: center;font-size: 3vmax;">
+            CARDIOVERSION STRATEGY
+          </div>
+          <div class="lightBlue" style="padding: 1vmax 2vmax;text-align: left;">
+            <span style="font-size: 2.2vmax;font-weight: 900">
+              Use Maximum Energy
+            </span><br>
+            <span style="font-size: 1.9vmax;">
+              to improve success rate, reduce procedural time, without risk of myocardial injury.
+            </span><br>
+          </div>
+          <div style="padding: 1vmax 2vmax;text-align: left;background:#faf0ca;">
+            <span style="font-size: 2.2vmax;font-weight: 900">
+              May Use Dual Shock Strategy in Obesity
+            </span><br>
+            <span style="font-size: 1.9vmax;">
+                to improve success rate without increase risk of adverse events.
+              </span><br>
+          </div>
+  
+          <div class="ref">
+          <a href="https://doi.org/10.1093/eurheartj/ehz585" target="_blank" style="color: inherit;">
+            EHJ 2020
+              </a> &nbsp;&nbsp;and &nbsp;&nbsp;
+            <a href="doi:10.1001/jamacardio.2024.1091" target="_blank" style="color: inherit;">
+                JAMA Cardiol 2024
+            </a>
+            </div>
+        </div>
+      </div> 
+     <!--max Energy-->
+     <div class="container">
+      <amp-img src="media/maxEnergy.png"
+      layout="fill"
+      class="contain darkBlue"></amp-img>
+      <a href="https://doi.org/10.1093/eurheartj/ehz585" target="_blank" class="ref">
+        EHJ 2020
+          </a>
+    </div>
+     <!--dual shock-->
+     <div class="container">
+        <amp-img src="media/dualShock.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <a href="doi:10.1001/jamacardio.2024.1091" target="_blank" class="ref">
+          JAMA Cardiol 2024
+            </a>
+      </div> 
+
+
+  </amp-carousel>
+
+  <amp-selector id="carousel1Selector" class="tabs" role=tablist on="select:carousel1.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+    <div option='4' class="dots"></div>
+    <div option='5' class="dots"></div>
+  </amp-selector>
+  <div class="caption">
+    &nbsp;
+  </div>
+  </div>
+
+<!--2 anticoag-->
+<div class="lightGrey"> 
+
+  <div id="no2" class="headLine">
+    #2 Anticoagulation
+  </div>
+
+  <amp-carousel id="carousel2"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel2Selector.toggle(index=event.index, value=true)">
+
+    <!--C in chadsvasc-->
+    <div class="container">
+         <div class="center" style="color: #20344f;border: #20344f solid 0.1vmax;font-size: 4vmax;">
+          'C'
+          in CHA2DS2-VASc
+          means clinical heart failure regardless of LVEF.  
+        </div>
+    </div>
+    <!--Engage-->
+    <div class="container">
+    <amp-img src="media/strokeRiskEngage.png"
+    layout="fill"
+    class="contain darkBlue"></amp-img>
+    <a href="https://doi.org/10.1016/j.jacep.2022.11.032" target="_blank" class="ref">
+        JACC EP 2022
+        </a>
+    </div>
+    <!--kyoto registry-->
+    <div class="container">
+        <amp-img src="media/kyotoRegistry.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <a href="https://doi.org/10.1161/JAHA.121.022525" target="_blank" class="ref">
+            JACC Cardiol 2024
+            </a>
+    </div>
+    <!--noac-->
+    <div class="container">
+        <amp-img src="media/noacsMeta.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <a href="https://doi.org/10.1016/j.jchf.2016.07.012" target="_blank" class="ref">
+            JACC HF 2016
+            </a>
+    </div>
+
+
+  </amp-carousel>
+
+  <amp-selector id="carousel2Selector" class="tabs" role=tablist on="select:carousel2.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+  </amp-selector>
+
+  <div class="caption">
+  Clinical heart failure is one of the risk for ischemic stroke in AF.  
+  </div>
+  </div>
+
+
+<!--3 who started first?-->
+<div class="lightBlue"> 
+
+  <div id="no3" class="headLine">
+    #3 Why today? Who started first?
+  </div>
+
+  <amp-carousel id="carousel3"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel3Selector.toggle(index=event.index, value=true)">
+
+
+  <!--scenario table-->
+  <amp-fit-text class="darkBlue" width="80vw" height="40vw" layout="responsive" max-font-size="28" style="padding: 0.5vmin;">
+    <table class="lightTable" style="text-align: center;">
+       <tr>
+       <th>Scenarios</th><th>AF is known?</th><th>Ventricular rate</th>
+        <th>Other HF triggers</th><th>AF is...</th><th>Management of AF</th>
+        </tr>
+        <tr>
+            <td>1</td><td>Yes</td><td>120-160</td><td>No</td>
+            <td>causal</td><td>rapid rate/rhythm control</td>
+        </tr>
+        <tr>
+            <td>2</td><td>No</td><td>120-160</td><td>Yes</td>
+            <td>consequence</td><td>Tx of HF is more important</td>
+        </tr>
+        <tr>
+            <td>3</td><td>Yes</td><td>60-100</td><td>Yes</td>
+            <td>Bystander</td><td>no change</td>
+        </tr>
+        <tr>
+            <td>4</td><td>Yes</td><td>100-120</td><td>??</td>
+            <td>??</td><td>rate control</td>
+        </tr>
+     </table>
+     <a href="https://doi.org/10.1177/2048872619894255" target="_blank" class="ref">
+        Eur Heart J Acute Cardiovasc Care 2020.
+     </a>
+   </amp-fit-text>
+
+    <!--Rate control agent-->
+    <div class="container">
+        <div style="overflow-y: scroll;height: 100%;">
+            <div class="darkBlue" style="padding: 2vmax;text-align: center;font-size: 3vmax;">
+            RATE CONTROL AGENTS
+            </div>
+            <div class="blue" style="padding: 1vmax 2vmax;text-align: center;">
+            <span style="font-size: 2.2vmax;font-weight: 900">
+                IV Amiodarone
+            </span><br>
+            <span style="font-size: 1.9vmax;">
+                Beware of hypotension from vasodilatory effect of IV form    
+            </span><br>
+            </div>
+            <div style="padding: 1vmax 2vmax;text-align: center;background:#faf0ca;">
+            <span style="font-size: 2.2vmax;font-weight: 900">
+                IV Digoxin
+            </span><br>
+            <span style="font-size: 1.9vmax;">
+                Onset 30 mins, peak action 2 hrs
+                </span><br>
+            </div>
+            <div class="lightGrey" style="padding: 1vmax 2vmax;text-align: center;">
+                <span style="font-size: 2.2vmax;font-weight: 900">
+                    IV Diltiazem & IV beta-Blocker
+                </span><br>
+                <span style="font-size: 1.9vmax;">
+                    Use with caution. Avoid in significant LV dysfunction
+                </span><br>
+            </div>
+            <div class="coral" style="padding: 1vmax 2vmax;text-align: center;">
+                <span style="font-size: 2.2vmax;font-weight: 900">
+                    IV Magnesium
+                </span><br>
+                <span style="font-size: 1.9vmax;">
+                    A natural calcium channel blocker.
+                    Modest effect for rate control.
+                </span><br>
+            </div>
+
+            <div class="ref">
+            <a href="https://doi.org/10.1016/j.cjca.2020.09.001" target="_blank" style="color: inherit;">
+            2020 CCS Guidelines for AF
+                </a> &nbsp;&nbsp;and &nbsp;&nbsp;
+            <a href="https://doi.org/10.1161/cir.0000000000001193" target="_blank" style="color: inherit;">
+                2023 ACC Guidelines for AF
+            </a>
+            </div>
+        </div>
+        </div> 
+    <!--Mg-->
+    <div class="container">
+        <amp-img src="media/magnesium.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <a href="https://doi.org/10.1111/acem.13522" target="_blank" class="ref">
+            Acad Emerg Med 2019
+            </a>
+        </div>
+    <!--optimal HR-->
+    <div class="container">
+        <amp-img src="media/optimalHR.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <a href="https://doi.org/10.1016/S0140-6736(16)31258-2" target="_blank" class="ref">
+            Lancet 2016
+            </a>
+        </div>
+    <!--MR-->
+    <div class="container">
+        <amp-img src="media/MR.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <a href="https://doi.org/10.1016/j.cardfail.2021.10.015" target="_blank" class="ref">
+            J Card Fail 2022
+            </a>
+        </div>
+
+  </amp-carousel>
+
+  <amp-selector id="carousel3Selector" class="tabs" role=tablist on="select:carousel3.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+    <div option='4' class="dots"></div>
+    </amp-selector>
+
+  <div class="caption">
+  1. AF can be the cause, the consequence, and the bystander during acute HF.<br>
+  2. For rate control, amiodarone and digoxin are the recommended agents.
+  </div>
+  </div>
+
+<!--4 long term-->
+<div class="creme"> 
+
+  <div id="no4" class="headLine">
+    #4 Long-term treatment
+  </div>
+
+  <amp-carousel id="carousel14"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel14Selector.toggle(index=event.index, value=true)">
+
+     <!--ablation rEF-->
+     <div class="container">
+      <amp-img src="media/ablHFrEF.png"
+      layout="fill"
+      class="contain darkBlue"></amp-img>
+      <div class="ref">
+        <a href="https://doi.org/10.1056/nejmoa1707855" target="_blank" style="color: inherit;">
+      NEJM 2018
+      </a>&nbsp;&nbsp;and &nbsp;&nbsp;
+      <a href="https://doi.org/10.1161/CIRCULATIONAHA.124.071517" target="_blank" style="color: inherit;">
+        Circulation 2024
+        </a>
+      </div>
+    </div> 
+     <!--ablation pEF-->
+     <div class="container">
+        <amp-img src="media/ablHFpEF.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <a href="https://doi.org/10.1161/circulationaha.120.050991" target="_blank" class="ref">
+        Circulation 2021
+        </a>
+      </div> 
+     <!--ablation pt selection-->
+     <div class="container">
+        <amp-img src="media/ablPtSelection.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1056/nejmoa1707855" target="_blank" style="color: inherit;">
+        NEJM 2018
+        </a>&nbsp;&nbsp;and &nbsp;&nbsp;
+        <a href="https://doi.org/10.1161/circulationaha.120.050991" target="_blank" style="color: inherit;">
+          Circulation 2021
+          </a>
+        </div>
+      </div> 
+     <!--ablation pt exclusions-->
+     <div class="container">
+        <amp-img src="media/ablExclusions.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1056/nejmoa1707855" target="_blank" style="color: inherit;">
+        NEJM 2018
+        </a>&nbsp;&nbsp;and &nbsp;&nbsp;
+        <a href="https://doi.org/10.1161/circulationaha.120.050991" target="_blank" style="color: inherit;">
+          Circulation 2021
+          </a>
+        </div>
+      </div> 
+     <!--ablation procedural vol-->
+     <div class="container">
+        <amp-img src="media/ablCenterSelection.png"
+        layout="fill"
+        class="contain darkBlue"></amp-img>
+        <a href="https://doi.org/10.1016/j.jacc.2019.08.1036" target="_blank" class="ref">
+        JACC 2019
+        </a>
+      </div> 
+
+
+  </amp-carousel>
+
+  <amp-selector id="carousel14Selector" class="tabs" role=tablist on="select:carousel14.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+    <div option='3' class="dots"></div>
+    <div option='4' class="dots"></div>
+  
+  </amp-selector>
+
+  <div class="caption">
+    Consider catheter ablation in selected HFrEF and possibly HFpEF.</div>
+</div>
+
+
+
+
+  <!--footer-->
+  <div style="background: #888;font-size: 1.4vmax;padding:5vmax 3vmax;color:#ddd;line-height: 200%;text-align: center;">
+   
+    <span><a href="#top">Top</a>&nbsp;</span> <br>
+    <span><a href="#no1">1.</a>&nbsp;</span> 
+    <span><a href="#no2">2.</a>&nbsp;</span> 
+    <span><a href="#no3">3.</a>&nbsp;</span> 
+    <span><a href="#no4">4.</a>&nbsp;</span>     
+        
+    <div style="padding: 2vh;">
+      <a href="https://heartRhythmBox.com/" target="_blank" 
+      style="text-decoration:none;color: #555;">
+          <img src="box transparent.png" style="width: 37px;">
+      </a> &nbsp;&nbsp;
+      <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
+      target="_blank" style="text-decoration:none;color: #555;">
+          <img src="youTube.png" style="width: 38px;">
+      </a>
+    </div>
+  
+    HeartRhythmBox is an education page on Heart Rhythm Topics.<br>
+    This page is made with ⚡.
+  </div>
+
+</body>
+</html>
