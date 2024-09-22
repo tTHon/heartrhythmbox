@@ -1,5 +1,19 @@
 var listArray = [
     {
+        name: 'Basic ICD Concept: Qs & As',
+        description: 'Basic functions and settings of ICD',
+        link: 'BasicICDQA/index.html',
+        thumb: 'media/basicICDQA.png',
+        date: new Date(24,9,22),
+        latest: 1,
+        audFav: 0,
+        authFav: 0,
+        QA: 1,
+        gLines: 0,
+        basic: 1,
+        mBasic: 0
+    },
+    {
         name: 'Management of AF in Acute Heart Failure',
         description: 'Cardioversion, Anticoagulation, and Rate Control',
         link: 'AFinHF/index.html',
