@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<qXML>
+<!--frame>
+<question>
+    <index></index>
+    <clinical>
+        </clinical>
+           
+    <qImage></qImage>
+    <mainQ>
+        </mainQ>
+    <choices>
+        <a></a>
+        <b></b>
+        <c></c>
+        <d></d>
+        <e></e>
+        </choices>
+    <answer></answer>
+    <exp>
+        </exp>
+    <aImage>
+        </aImage>
+    <ref></ref>
+</question-->
+
+<!--1 nsvt-->
+<question>
+    <index>Tx Withheld</index>
+    <clinical>NA</clinical>
+           
+    <qImage>media/NSVT.png</qImage>
+    <mainQ>Why did not ICD therapy deliver?
+        </mainQ>
+    <choices>
+        <a>The ventricular rate was not fast enough.</a>
+        <b>The arrhythmia was not properly sensed.</b>
+        <c>The arrhythmia interval was too irregular.</c>
+        <d>The arrhythmia was supraventricular in origin.</d>
+        <e>The duration of the arrhythmia was too short.</e>
+        </choices>
+    <answer>E</answer>
+    <exp>The arrhythmia was wide complex tachycardia. The rate was fast enough to fall into the VT and VF detection zone; labelled as TS and TF respectively.Every beat was sensed correctly. However, the duration was not sustained enough to trigger the therapy.
+    </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--2 vf shock-->
+<question>
+    <index>ICD Shock</index>
+    <clinical>NA</clinical>
+           
+    <qImage>media/vfShock.png</qImage>
+    <mainQ>Which of the following is correct?
+        </mainQ>
+    <choices>
+        <a>Lead noise was present.</a>
+        <b>The therapy was appropriate.</b>
+        <c>The therapy was unnecessary.</c>
+        <d>The therapy was unsucessful.</d>
+        <e>Electromagnetic interference was detected.</e>
+        </choices>
+    <answer>B</answer>
+    <exp>The tracing was ventricular fibrillation and the therapy was necessary and appropriate.
+    There were some VF beats that were not sensed. All undersensed beats were small in amplitude and occurred after a beat with a much larger amplitude.
+    Lead noise should not be seen in far-field EGM. Also, in the near-field EGM of a lead noise case, the amplitude will likely be high and saturate the channel.
+    Noted with some definitions: Inappropriate therapy = therapy for non-VT/VF; Unnecessary therapy = therapy for VT/VF that could have been avoided.
+
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--3 ICD Coil-->
+<question>
+    <index>ICD Coil</index>
+    <clinical>NA</clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>What is the benefit of a single-coil ICD lead over a dual-coil ICD lead?
+        </mainQ>
+    <choices>
+        <a>A single-coil lead provide a better sensing profile.</a>
+        <b>A single-coil lead has a smaller diameter.</b>
+        <c>A single-coil lead provide a lower defibrillation threshold.</c>
+        <d>A single-coil lead is associated with lower complication during an implantation.</d>
+        <e>A single-coil lead is associated with lower complication during the extraction.</e>
+    </choices>
+    <answer>E</answer>
+    <exp>Because of the abundance of data showing no benefit of dual-coil over single-coil leads and a higher associated complication rate during lead extraction, Single-coil leads should be regarded as the standard of care for icds. 
+    Dual-coil leads might be considered in populations in which the dft threshold might be higher and/or when dft safety margin fails with a single-coil lead.
+    </exp>
+    <aImage>NA</aImage>
+    <ref>https://doi.org/10.1016/j.cjca.2016.09.009</ref>
+</question>
+
+<!--4 dual over single-->
+<question>
+    <index>Dual over Single ICD</index>
+    <clinical>NA</clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>What is the benefit of a dual-chamber ICD over a single-chamber ICD?
+        </mainQ>
+    <choices>
+        <a>Reduce incidence of AF in patients wtih sick sinus syndrome.</a>
+        <b>Reduce complication during implantation.</b>
+        <c>Reduce incidence of inappropriate shock.</c>
+        <d>Lower defibrillation threshold</d>
+        <e>Lower battery consumption.</e>
+        </choices>
+    <answer>A</answer>
+    <exp>An RCT of patients without bradycardia pacing indication showed no difference in the incidence of inappropriate shock between dual-chamber and single-chamber ICD.
+    A dual-chamber is always associated with a more complications during implantation and a more battery consumption than a single-chamber device.
+    Dual-chamber ICD should be considered over single-chamber ICD in patients with sinus node dysfunction or AV block with preserved LV function.
+        </exp>
+    <aImage>media/singleVsDual.png</aImage>
+    <ref>https://doi.org/10.1093/europace/euu022</ref>
+</question>
+
+<!--#5 integrated bipolar lead-->
+<question>
+    <index>sensing issue</index>
+    <clinical>A 45 y/o man with non-ischemic cardiomyopathy underwent single chamber ICD implantation 6 weeks ago. During his first follow-up device evaluation, several tachycardia episodes are noted in the tracing shown.
+    </clinical>
+    <qImage>media/iBipolar.png</qImage>
+    <mainQ>Which of the following is the next best step?
+        </mainQ>
+    <choices>
+        <a>Increase sensitivity value and perform DFTs.</a>
+        <b>PVC ablation.</b>
+        <c>Reposition RV lead.</c>
+        <d>Extend PVAB interval.</d>
+        <e>Continue to follow clinically.</e>
+        </choices>
+    <answer>C</answer>
+    <exp>The recordings show a consistently spaced interval between two signals with the initial signal lower amplitude than the second signal.
+    This suggests an INTEGRATED BIPOLAR LEAD with atrial sensing; the newly implanted ICD lead is probably too shallow in the RV. This problem cannot be overcome by programming changes.
+    If left uncorrected, oversensing atrial signal could potentially lead to inappropriate therapy.
+    Ref: 2016 Self-Assessment and Exam Prep in Clinical Cardiac Electrophysiology. Hear Rhythm Society.</exp>
+    <aImage>media/trueVsIntegrated.png
+        </aImage>
+    <ref>NA</ref>
+
+</question>
+
+<!--#6 high DFT-->
+<question>
+    <index>CXR</index>
+    <clinical>NA</clinical>
+           
+    <qImage>media/highDFT.png</qImage>
+    <mainQ>Findings on the CXR are most consistent with which of the following?
+        </mainQ>
+    <choices>
+        <a>Biventricular pacing.</a>
+        <b>High defibrillation threshold.</b>
+        <c>Lead-induced subcutaneous emphyhsema.</c>
+        <d>Right ventricular outflow tract pacing.</d>
+        <e>Situs inversus.</e>
+        </choices>
+    <answer>B</answer>
+    <exp>CXR showed a high-voltage coil placed in the axililary area because of high DFTs.
+    Ref: IBHRE Examination Prep
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--noncapture-->
+<question>
+    <index>Non-capture</index>
+    <clinical>A 65-year-old man presents to the emergency department after a syncopal event. He was eating dinner and was witnessed to abruptly fall back in his chair for several seconds before regaining consciousness. His past history includes atrial fibrillation and hypertension. He tells you that 15 years ago, he received a pacemaker because “his heart stopped.” A generator change was performed 5 years ago. He has regular pacemaker checks; the last one was 3 months ago, and he was told everything was fine. His medications include warfarin, metoprolol, and lisinopril.
+        
+        On examination, his blood pressure is 140/80 mm Hg with a heart rate of 75 bpm. The physical examination is unremarkable. A pacemaker programmer is available to you if needed. As you speak to him, his eyes roll back and a telemetry strip is recorded (as shown).
+    </clinical>
+           
+    <qImage>media/noncapture.png</qImage>
+    <mainQ>
+        Which of the following should be your next step in management of this patient?
+        </mainQ>
+    <choices>
+        <a>Increase the ventricular sensitivity of the pacemaker.</a>
+        <b>Place a magnet over the device.</b>
+        <c>Initiate external pacing with cutaneous patches.</c>
+        <d>Place a temporary pacemaker.</d>
+        <e>Increase the ventricular output of the pacemaker.</e>
+        </choices>
+    <answer>E
+        </answer>
+    <exp>Tracing = loss of ventricular capture in an underlying rhythm of complete heart block. 
+        Pacing lead is 15 years old so lead problem is highly possible. 
+        Interrogation will reveal and temporary fix the cause if it is readily available as in this case. 
+        There is no issue of inappropriate sensing so magnet or adjusting sensitivity would not help.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--ppm syndrome ecg-->
+<question>
+    <index>PPM syndrome ECG</index>
+    <clinical>DDD 70/110, AV delay 175, PVARP 275.
+    Patient complaint of fatigue and shortness of breath.
+        </clinical>
+           
+    <qImage>media/ppmSyndrome.png</qImage>
+    <mainQ>Which of the following pacemaker parameters should be adjusted to improve the symptoms?</mainQ>
+    <choices>
+        <a>Atrial pacing stimulation output</a>
+        <b>Atrial sensitivity</b>
+        <c>Ventricular pacing stimulation output</c>
+        <d>Ventricular sensitivity</d>
+        <e>AV delay</e>
+        </choices>
+    <answer>A</answer>
+    <exp>The atrial pacing is not captured. The retrograde VA conduction is then able to capture the atrium 
+    causing the pacemaker syndrome. The first step is to increase the atrial output.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--VRP-->
+<question>
+    <index>VRP</index>
+    <clinical>NA</clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Which of the following intervals is designed to prevent T-wave oversensing in dual-chamber pacemaker?
+        </mainQ>
+    <choices>
+        <a>Atrial blanking period</a>
+        <b>Safety pacing window</b>
+        <c>Post ventricular atrial refractory period</c>
+        <d>Ventricular refractory period</d>
+        <e>Post atrial ventricular blanking period</e>
+        </choices>
+    <answer>D</answer>
+    <exp>During a refractory period, sensing is temporarily disabled following a paced or sensed ventricular beat, to reduce a likelihood of oversensing the T-wave.
+    During a post atrial ventricular blanking period, ventricular channel is disabled to prevent crosstalk after atrial pacing.
+        </exp>
+    <aImage>media/refractoryPeriod.png
+        </aImage>
+    <ref>https://www.cardiocases.com/en/pacingdefibrillation/specificities/pm-av-delays-refractory-periods-management-tachycardia/medtronic</ref>
+</question>
+
+<!--PVARP-->
+<question>
+    <index>PVARP</index>
+    <clinical>NA</clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>What is the principal purpose of post-ventricular atrial refractory perior (PVARP) in dual-chamber pacemaker timing cycle?
+        </mainQ>
+    <choices>
+        <a>To prevent the ventricular sensing amplifier from sensing the far-field P wave.</a>
+        <b>To limit the maximal atrial rate which ventricular pacing can track.</b>
+        <c>To prevent ventricular oversensing of T wave.</c>
+        <d>To prevent atrial oversensing of a retrograde atrial impulse.</d>
+        <e>To prevent inhibition of ventricular pacing by electromechanical interference.</e>
+        </choices>
+    <answer>D</answer>
+    <exp>The purpose of any refractory periods is to prevent the pacemaker for responding to inappropriate signals.
+    PVARP is an atrial refractory period that occurs after a paced or sensed ventricular event. PVARP prevents the atrial channel from sensing the ventricular pacing pulse, the far-field QRS and retrograde P-waves.
+        </exp>
+    <aImage>media/dddTiming.jpg
+        </aImage>
+    <ref>NA</ref>
+</question>
+
+<!--PMT-->
+<question>
+    <index>PMT</index>
+    <clinical>DDD 60/110, AV delay 175, PVARP 360. 
+    The top strip was taken when the patient had palpitation. The bottom strip was taken while the magnet was applied.
+    </clinical>
+           
+    <qImage>media/PMT.jpg</qImage>
+    <mainQ>What is the most likely cause of the rapid tracking observed in the top ECG strip? 
+        </mainQ>
+    <choices>
+        <a>Loss of atrial capture.</a>
+        <b>Loss of ventricular capture.</b>
+        <c>Loss of atrial sensing.</c>
+        <d>Loss of ventricular sensing.</d>
+        <e>Rapid atrial rate.</e>
+        </choices>
+    <answer>A</answer>
+    <exp>Top tracing: PMT. Bottom tracing: Loss of atrial capture. 
+        </exp>
+    <aImage>media/pmtAlgo.png
+        </aImage>
+    <ref>NA</ref>
+</question>
+
+<!--wkb-->
+<question>
+    <index>WKB</index>
+    <clinical>A DDD pacemaker is programmed to a lower rate limit of 50 bpm, an upper rate limit of  125 bpm, and an AV delay of 175 ms that is reduced by 25 ms at an atrial rate of 100 bpm and a post ventricular-atrial refractory period of 300 ms.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>During a stress test when the atrial rate is 128 bpm, the ventricular response is most likely to be which of the following?
+        </mainQ>
+    <choices>
+        <a>1:1 conduction</a>
+        <b>2:1 AV block</b>
+        <c>3:1 SA block</c>
+        <d>Pseudo Mobitz II AV block</d>
+        <e>Pseudo Wenckebach AV block</e>
+        </choices>
+    <answer>E</answer>
+    <exp>URL = 125/min = 480 msec. TARP = (175-25)+300 = 450 msec. Wenckebach 450-480 msec = 125-133/min.
+        </exp>
+    <aImage>media/upperRate.jpg
+        </aImage>
+    <ref>NA</ref>
+</question>
+
+<!--undersensing-->
+<question>
+    <index>Undersensing</index>
+    <clinical>Temporary venous pacemaker. Setting: VVI 75bpm, output 5mA, sensitivity 5 mV. 
+        </clinical>
+           
+    <qImage>media/vvi undersense.jpg</qImage>
+    <mainQ>What is the next appropriate management?</mainQ>
+    <choices>
+        <a>Adjust sensitivity to 7mV.</a>
+        <b>Adjust sensitivity to 2.5mV.</b>
+        <c>Adjust output to 10mA.</c>
+        <d>Reposition the lead.</d>
+        <e>Continue to follow up clinically.</e>
+        </choices>
+    <answer>B</answer>
+    <exp>Tracing: V undersensing. Making it more sensitive or lowering the sensitivity number should be the first thing to do, rather than repositioning the lead.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--cautery-->
+<question>
+    <index>Cautery</index>
+    <clinical>A 50 year-old lady with history of complete heart block s/p PPM is undergoing an abdominal surgery.
+    During the surgery, the below tracing is observed while the cautery is being applied.
+        </clinical>
+           
+    <qImage>media/Voversensing.JPG</qImage>
+    <mainQ>What would be the most appropriate management?</mainQ>
+    <choices>
+        <a>Increase ventricular output.</a>
+        <b>Reduce ventricular sensitivity.</b>
+        <c>Apply magnet over the pacemaker.</c>
+        <d>Dopamine drip.</d>
+        <e>Terminate the procedure immediately.</e>
+        </choices>
+    <answer>C</answer>
+    <exp>Failure to pace is noted, likely due to oversensing from EMI from cautery. 
+    Adjusting the ventricular sensitivity alone is not enough due to the high frequency nature of the cautery.
+    Since the patient is pacemaker dependent (she is being V-paced in every beat in the tracing), switching to asynchronous mode either by programming or magnet application is recommended.
+    </exp>
+    <aImage>media/cautery.png</aImage>
+    <ref>https://www.sciencedirect.com/science/article/pii/S073510971637067X</ref>
+</question>
+
+<!--magnet-->
+<question>
+    <index>Magnet</index>
+    <clinical>NA</clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Magnet operation in a pacemaker system CANNOT be used to:
+        </mainQ>
+    <choices>
+        <a>Assess the battery status.</a>
+        <b>Terminate a retrograde cycle.</b>
+        <c>Assess the stimulation threshold safety margin.</c>
+        <d>Check for proper sensing.</d>
+        <e>Identify the manufacturer of the pacemaker.</e>
+        </choices>
+    <answer>D</answer>
+    <exp>In a pacemker, magnet application induces asynchronous pacing which could be useful in terminating PMT or preventing pacing inhibition from EMI or other oversensing problems.
+    Magnet can also be used to identify the manafacturer, verify pacing capture, and provide the battery status.
+    TMT = Threshold Margin Test = 3 paced pulses at 100 bpm, with the pulse width of the last pacing reduced by 20%. 
+        </exp>
+    <aImage>media/magnetDiagram.jpeg
+        </aImage>
+    <ref>https://academic.oup.com/europace/article/13/9/1222/551468#40003342</ref>
+</question>
+
+<!--track AF-->
+<question>
+    <index>track AF</index>
+    <clinical>64F s/p DDD pacemaker is in the ICU after a colectomy.
+        </clinical>
+           
+    <qImage>media/trackAf.png</qImage>
+    <mainQ>What would be the most likely reason for the frequent rapid ventricular pacing in this patient?
+        </mainQ>
+    <choices>
+        <a>Atrial oversensing.</a>
+        <b>Inappropriate programming.</b>
+        <c>Normal functioning.</c>
+        <d>Ventricular undersensing.</d>
+        <e>Runaway pacemaker.</e>
+        </choices>
+    <answer>C</answer>
+    <exp>Tracing = AF with intermittent V pacing. The pacing rate was irregular. The P wave was not seen. This is likely atrial fibrillation with V tracking the atrial signal. Some atrial signals likely fell into the refractory period. With the irregularity nature of AF, the V pacing is irregular as well. 
+    The V rate, even if it was fast, it was not faster than 100 bpm, which likely to be the upper rate limit.
+    There were a few native QRS beats which were appropriately sensed. The device will, at a later time, go into a mode switching to DDI. 
+        </exp>
+    <aImage>media/dddTiming.jpg</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--drug and stim threshold-->
+<question>
+    <index>Drug and Threshold</index>
+    <clinical>NA</clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Which of the following drugs is most likely to elevate myocardial stimulation threshold 
+    after implantation of a dual-chamber pacemaker?
+        </mainQ>
+    <choices>
+        <a>Digoxin</a>
+        <b>Diltiazem</b>
+        <c>Flecainide</c>
+        <d>Mexiletine</d>
+        <e>Sotalol</e>
+        </choices>
+    <answer>C</answer>
+    <exp>Class IC antiarrhythmic agents are notoriously known to increase pacing threshold. 
+    Digoxin, exercise, epinephrine are known to reduce pacing threshold.  
+        </exp>
+    <aImage>media/aadThreshold.png
+        </aImage>
+    <ref>https://www.sciencedirect.com/science/article/pii/S1880427611800529</ref>
+</question>
+
+<!--infection-->
+<question>
+    <index>Infection</index>
+    <clinical>A 66-year-old woman with hypertension underwent dual-chamber pacemaker implantation 7 years ago due to symptomatic sinus node dysfunction. She has no other prior medical history. Six weeks ago, she was treated for a mild lower-extremity cellulitis. 
+    She comes into your office today complaining of 4 days of soreness in the pacemaker pocket. Physical examination reveals erythema, swelling, and tenderness at the pacemaker pocket, without drainage. She is afebrile and the white blood cell count is normal. A transthoracic echocardiogram is normal.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Which of the following would be most appropriate at this time?</mainQ>
+    <choices>
+        <a>Begin intravenous (IV) antibiotics, debride the pacemaker pocket, and replace the pacemaker pulse generator.</a>
+        <b>Begin IV antibiotics, debride the pacemaker pocket, remove the pulse generator, and extract all the pacemaker leads.</b>
+        <c>Begin IV antibiotics, then remove the pacemaker pulse generator if no improvement in 2 weeks.</c>
+        <d>Begin oral antibiotics, then remove the pacemaker pulse generator and all pacemaker leads if no improvement in 2 weeks.</d>
+        <e>Observe without further therapy at this time.</e>
+        </choices>
+    <answer>B</answer>
+    <exp>Pocket infection. Be aggressive!</exp>
+    <aImage>media/infection.png</aImage>
+    <ref>https://www.heartrhythmjournal.com/article/S1547-5271(17)31080-9/fulltext</ref>
+</question>
+
+<!--fusion-->
+<question>
+    <index>Fusion</index>
+    <clinical>DDD</clinical>
+           
+    <qImage>media/fusionQ.png</qImage>
+    <mainQ>How is the pacemaker function?
+        </mainQ>
+    <choices>
+        <a>Normal function</a>
+        <b>A undersensing</b>
+        <c>V undersensing</c>
+        <d>A non-capture</d>
+        <e>V non-capture</e>
+        </choices>
+    <answer>A</answer>
+    <exp>At the 2nd and 5th beats, V pacing comes right at the time of the native beats; small degree of fusions noted.
+        </exp>
+    <aImage>media/fusionA.jpg</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--post CV-->
+<question>
+    <index>Post CV</index>
+    <clinical>A patient undergoes a cardioversion six months after undergoing implantation of a dual chamber pacemaker (DDD 60/140). After the cardioversion, the ECG monitor shows ventricular pacing at 65 bpm with no evidence of either atrial pacing or tracking.
+    Pacemaker interrogation reveals normal pacing parameters.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Which one of the following is the most appropriate course of action?
+        </mainQ>
+    <choices>
+        <a>Obtain a chest X-ray.</a>
+        <b>Replace the generator.</b>
+        <c>Reprogram the pacemaker.</c>
+        <d>Place a temporary pacemaker.</d>
+        <e>Place a magnet over the pacemaker</e>
+        </choices>
+    <answer>C</answer>
+    <exp>Cardioversion causes power-on-reset resulting in the pacemaker to revert the pacing mode to VVI.
+    The threshold and impedance are generally not affected. Reprogramming the device is the most appropriate thing to do.
+        </exp>
+    <aImage>media/emiPOR.png</aImage>
+    <ref>http://www.onlinejacc.org/content/69/2/189</ref>
+</question>
+
+<!--left sided implant-->
+<question>
+    <index>L sided implant</index>
+    <clinical>A 75 year-old man relocated from remote hospital and comes to see you today. He has history of complete heart block in which he underwent a pacemaker implantation a year ago. He is feeling fine otherwise. Pacemaker interrogation reveals normal pacemaker parameters. There was no high atrial or ventricular rate events. An ECG is as shown. 
+        </clinical>
+           
+    <qImage>media/leftSidedImp.png</qImage>
+    <mainQ>Which of the following is the next most appropriate step?
+        </mainQ>
+    <choices>
+        <a>Decrease lower rate to 50 bpm.</a>
+        <b>Obtain a chest X-ray.</b>
+        <c>Extend AV delay to 240 msec.</c>
+        <d>Initiate oral anticoagulation.</d>
+        <e>Schedule a follow up in 3-4 months.</e>
+        </choices>
+    <answer>B</answer>
+    <exp>Left-sided or arterial implantation. The ventricular lead must be in the LV apex (RBBB pattern and superior axis)
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--a dislodge-->
+<question>
+    <index>A dislodgement</index>
+    <clinical>A 56 year-old man with hypertrophic cardiomyopathy and sinus node dysfunction underwent a dual-chamber pacemaker implantation earlier this morning. While being monitored in CCU, the nurse reports to you that something did not look right in his ECG tracing. The patient denies any complaints.
+        </clinical>
+           
+    <qImage>media/atrialLeadMalFxn.jpg</qImage>
+    <mainQ>What is your assessment?
+        </mainQ>
+    <choices>
+        <a>Algorithm to reduce unnecessary ventricular pacing is on.</a>
+        <b>Atrial non-capture.</b>
+        <c>Ventricular oversensing.</c>
+        <d>Atrial and ventricular leads switch.</d>
+        <e>Acute ST elevation MI.</e>
+        </choices>
+    <answer>B</answer>
+    <exp>Atrial lead was not properly sensed and paced. Dislodgement was highly likely.
+    Repolarization abnormalities are commonly seen in RV apex pacing as noted with ST elevation. Since the patient was asymptomatic, further work up for acute MI is not indicated. 
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--a dislodge causing safety pacing-->
+<question>
+    <index>Safety Pacing</index>
+    <clinical>Continued from the previous case.
+    One of the tracing is as shown. The pacemaker setting is DDD 60, AV delay 200.
+    </clinical>
+           
+    <qImage>media/safetyPacingFromADislodge.jpg</qImage>
+    <mainQ>How do you explain the very short AV delay marked by the red arrows?
+        </mainQ>
+    <choices>
+        <a>Algorithm to reduce unnecessary ventricular pacing</a>
+        <b>Artifacts</b>
+        <c>Mode switching</c>
+        <d>Noise reversion</d>
+        <e>Safety pacing</e>
+        </choices>
+    <answer>E</answer>
+    <exp>A was not sensing properly due to the dislodgement. A pace occurred slightly before the QRS. QRS then fell within the safety pacing zone.
+
+    Ventricular Safety Pacing functions to prevent ventricular asystole due to inappropriate inhibition of ventricular pacing. Such inhibition may be caused by crosstalk or ventricular oversensing. By triggering ventricular pacing after an oversensed ventricular event, the device maintains its ability to provide full ventricular support.
+    After an atrial paced event, the device begins a 110 ms safety pacing interval. Any ventricular sensed event that occurs within the 110 millisecond window will result in a ventricular pace at the end of the 110 millisecond window. Atrial sensed (AS) events do not initiate a Ventricular Safety Pacing interval.
+    </exp>
+    <aImage>media/VSP.png</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--cross talk-->
+<question>
+    <index>Cross Talk</index>
+    <clinical>You are presented with the following tracing from a patient in the pacemaker clinic for a routine visit. The patient is rather stoic and initially denies any symptoms. With further questioning, she admits that she occasionally has a very transient sensation of lightheadedness.
+    The pacemaker settting is DDDR 50/110, PVARP 160ms.
+        </clinical>
+           
+    <qImage>media\crossTalk.png</qImage>
+    <mainQ>Identify the problem and provide the solutions.
+        </mainQ>
+    <choices>
+        <a>Ventricular oversensing - increase the post atrial ventricular blanking period.</a>
+        <b>Loose set screw - lead revision.</b>
+        <c>Loss of ventricular capture - increase the ventricular output.</c>
+        <d>Insulation failure - lead revision.</d>
+        <e>Normal pacemaker function - routine follow up.</e>
+        </choices>
+    <answer>A</answer>
+    <exp>Cross talk. 
+    At the 3rd beat, there is an atrial pacing with A capture. No evidence of ventricular pacing following that beat is observed. V oversensing is likely the problem. When oversensing occurs only after the atrial pacing, oversensing the atrial signal or cross talk is the culprit.
+    The initial solutions would be reducing the atrial output or lowering the ventricular sensitivity or increasing the PAVB or turn on the safety pacing if available. If the programmer is unavailable, magnet application could be used temporarily.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--lead switch-->
+<question>
+    <index>Leads Switch</index>
+    <clinical>A 72-year-old patient underwent implantation of a DDD pacemaker for paroxysmal complete AV block. The patient experienced syncope on the ward 30min after the intervention. The rhythm strip during the syncopal event is shown.
+    Device settings: DDD 60/120, PAV 200, SAV 160. 
+        </clinical>
+           
+    <qImage>media/leadSwitch.png</qImage>
+    <mainQ>What is the problem?
+        </mainQ>
+    <choices>
+        <a>Atrial lead dislodged to the ventricle.</a>
+        <b>Ventricular lead dislodged to the atrium.</b>
+        <c>Atrial and ventricular leads switch in the header.</c>
+        <d>Ventricular lead fracture.</d>
+        <e>Generator failure.</e>
+        </choices>
+    <answer>C</answer>
+    <exp>See explanation below.
+    Lead fracture or generator failure are unlikely right after the implantation.    
+    </exp>
+    <aImage>media/leadSwitchAnswer.png
+        </aImage>
+    <ref>http://oxfordmedicine.com/view/10.1093/med/9780198727774.001.0001/med-9780198727774</ref>
+</question>
+
+<!--MVP-->
+<question>
+    <index>MVP</index>
+    <clinical>80 year-old lady s/p dual-chamber pacemaker for sick sinus syndrome, complains of some palpitation and near syncope.
+    ECG tracing is as shown.
+    </clinical>
+           
+    <qImage>media/MVP.jpg</qImage>
+    <mainQ>What is the next most appropriate management?
+        </mainQ>
+    <choices>
+        <a>Increase atrial output.</a>
+        <b>Reduce the ventricular sensitivity (increase the number).</b>
+        <c>Extend the AV delay.</c>
+        <d>Change the pacing mode.</d>
+        <e>Increase the lower rate limit.</e>
+        </choices>
+    <answer>D</answer>
+    <exp>Tracing: AP-VS with very long PR intervals, followed by AP with AV block, then followed by AP-VP with a very short AV delay (80ms). After 2 drop beats (AP without VS), the pacemaker switched to AP-VP. This is the typical characteristic of the algorithm to reduce unnecessary ventricular pacing by means of mode switching between AAI and DDD.
+    This patient now likely develops AV nodal disease in addition to sinus node disease. The AAI/DDD mode is not appropriate at this stage as a drop beat could trigger a long-short sequence and ventricular arrhythmia.
+        </exp>
+    <aImage>media/mvpAlgo.png</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--rate drop response-->
+<question>
+    <index>Rate drop response</index>
+    <clinical>A 45-year-old male had syncope while driving. Carotid sinus massage revealed a 7s sinus pause with malaise. Hypersensitive carotid sinus syndrome was diagnosed, and a dual-chamber pacemaker was implanted. After implantation, carotid sinus massage was repeated, and the patient remained asymptomatic. The EGM during the manoeuvre is shown. 
+        </clinical>
+           
+    <qImage>media/RDR.png</qImage>
+    <mainQ>What do you observe?
+        </mainQ>
+    <choices>
+        <a>Rate drop response</a>
+        <b>Atrial overdrive pacing</b>
+        <c>Managed ventricular pacing</c>
+        <d>Hysteresis</d>
+        <e>Upper rate behaviour</e>
+        </choices>
+    <answer>A</answer>
+    <exp>Rate Drop Response (RDR) is intended to provide backup pacing and prevent associated symptoms in patients who experience occasional episodes of significant drop in heart rate (e.g. syncope from cardioinhibitory and mixed forms of carotid sinus syndrome).
+        </exp>
+    <aImage>media/RDRAnswer.png
+        </aImage>
+    <ref>http://oxfordmedicine.com/view/10.1093/med/9780198727774.001.0001/med-9780198727774</ref>
+</question>
+
+
+<!--pause artifact-->
+<question>
+    <index>Pause artifacts</index>
+    <clinical>A 32-year-old woman is referred for evaluation of multiple syncopal events over the the last 5 years. Her workup included a negative tilt table test, a normal ECG, echocardiogram and normal Holter monitor (during which no symptoms occurred). She then received an implantable loop recorder. The following tracing was recorded.
+    </clinical>
+           
+    <qImage>media/pauseArtifact.png</qImage>
+    <mainQ>Which of the following would be the next best step?</mainQ>
+    <choices>
+        <a>Increase salt and water intake.</a>
+        <b>Start midodrine.</b>
+        <c>Implant a pacemaker.</c>
+        <d>EP study.</d>
+        <e>Continue to monitor.</e>
+        </choices>
+    <answer>E</answer>
+    <exp>Pause artifacts.
+    The small signals are are not P waves but ventricular complexes. These complexes time out perfectly. 
+    Therefore, the rhythm is sinus and the patient likely has psychogenic syncope.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--CRT non pacing during Sinus Tachy-->
+<question>
+    <index>CRT above URL</index>
+    <clinical>A 66 year old woman with a nonischemic cardiomyopathy, LBBB received a CRT-D device 2 months ago. 
+        The device is programmed DDDR, 60-125 bpm. She is now hospitalized with pneumonia. 
+    </clinical>
+    <qImage>media/crtInST.png</qImage>
+    <mainQ>
+        The most likely explanation for the above tracing is:
+        </mainQ>
+    <choices>
+        <a>Loss of RV capture.</a>
+        <b>Sinus rate above upper limit.</b>
+        <c>Loss of LV capture.</c>
+        <d>Loss of both RV and LV capture.</d>
+        <e>Pacemaker mediated tachycardia.</e>
+    </choices>
+    <answer>B</answer>
+    <exp>The initial part of the ECG shows sinus tachycardia with BiV pacing. 
+    When the sinus rate is above 125bpm (=upper rate limit), the device fails to track. 
+    The rhythm then is sinus tachycardia with LBBB. 
+        </exp>
+    <aImage>media/bivVector.png
+        </aImage>
+    <ref>https://academic.oup.com/europace/article/15/3/376/432909</ref>
+</question>
+
+<!--Unidirectional AV block-->
+<question>
+    <index>Unidirectional AV block</index>
+    <clinical>A 68-year-old patient with pre-existent LBBB underwent an electrophysiological study for syncope. During placement of a catheter in the right ventricle (RV), asystole during 4s occurred with resumption of a rhythm, as shown in Figure (a). 
+    The quadripolar catheter was retracted to the His bundle region, revealing the recording shown in Figure (b).
+        </clinical>
+           
+    <qImage>media/egmCHB.png</qImage>
+    <mainQ>What do you observe?
+        </mainQ>
+    <choices>
+        <a>Supra-hisian AV block</a>
+        <b>Second-degree AV block</b>
+        <c>Infra-hisian block with complete dissociation</c>
+        <d>Infra-hisian unidirectional block</d>
+        <e>Intra-hisian conduction delay</e>
+        </choices>
+    <answer>D</answer>
+    <exp>Infra-Hisian complete atrioventricular block with VA conduction.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--CHB in GUCH-->
+<question>
+    <index>CHB in GUCH</index>
+    <clinical>A previously healthy 28-year-old woman is evaluated for new-onset fatigue. She denies medications or any illicit drug use. On examination, her resting heart rate is 30 bpm. Findings are otherwise unremarkable. A 12-lead electrocardiogram confirms complete heart block. 
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>In considering congenital etiologies in this patient, which of the following is the most likely diagnosis associated with complete heart block?
+        </mainQ>
+    <choices>
+        <a>Double-chamber RV</a>
+        <b>Supravalvular aortic stenosis</b>
+        <c>Subvalvular aortic stenosis</c>
+        <d>Tetralogy of Fallot with minimal RV outflow tract obstruction</d>
+        <e>Physiologically corrected TGA</e>
+        </choices>
+    <answer>E</answer>
+    <exp>Physiologically corrected TGA may present in adulthood, particularly if there are not additional associated lesions. Due to an anteriorly displaced conduction system, the incidence of complete heart block approaches 2% per year in adulthood. None of the other congenital heart lesions listed is typically associated with sudden complete heart block.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--congenital CHB-->
+<question>
+    <index>Congenital CHB</index>
+    <clinical>A 19-year-old woman with congenital complete AV block presents for a routine follow-up evaluation. She has been doing well with no symptoms. Her baseline ECG and 24-hour Holter both show complex ventricular ectopy with frequent multiform premature ventricular contractions. There is no evidence of AV conduction with an average rate of 64 bpm. Her echocardiogram shows mild ventricular dysfunction with an ejection fraction of 45%.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Which of the following is the most appropriate step in the care of an asymptomatic patient?
+        </mainQ>
+    <choices>
+        <a>Pacemaker implantation</a>
+        <b>Close follow-up for development of symptoms</b>
+        <c>Initiation of amiodarone therapy</c>
+        <d>electrophysiological study</d>
+        <e>Institution of ACE inhibitor</e>
+        </choices>
+    <answer>A</answer>
+    <exp>Congenital complete AV block occurs in 1 of 14,000-20,000 live births and is thought to be the result of transplacental passage of autoantibodies against Ro and La intracellular ribonuclear proteins from the mother who may have a clinical autoimmune disease such as systemic lupus erythematosus or Sjögren syndrome. These patients may be completely asymptomatic throughout childhood and adolescence and require no active cardiology intervention, but there are certain findings that require intervention regardless of symptoms. According to the ACC/AHA/HRS 2018 Guidelines, permanent pacemaker implantation is indicated for congenital third-degree AV block with a wide QRS escape rhythm, mean day-time heart rate below 50bpm, complex ventricular ectopy, or ventricular dysfunction (Class I, Level of Evidence B).
+    This is independent of the presence of symptoms because a wide complex escape rhythm may be unreliable and result in abrupt pauses that may result in cardiac arrest. Ventricular dysfunction is not common and when present is best treated with pacemaker implantation. Although ACE inhibition may be used in combination with device therapy, its use is contraindicated in a young woman of child-bearing age. There is no indication for an electrophysiology study in patients with congenital complete AV block. There is no role for amiodarone, especially because it may slow the underlying junctional escape rhythm. Pacemaker therapy might result in an improvement in her LV function.
+    </exp>
+    <aImage>NA</aImage>
+    <ref>http://www.onlinejacc.org/content/early/2018/11/08/j.jacc.2018.10.044</ref>
+</question>
+
+<!--AF with Pause-->
+<question>
+    <index>AF with Pause</index>
+    <clinical>A 72 year-old man is seen in your office to establish care as he has recently moved from out of state. His only medical problems are hypertension for 25 years for which he takes lisinopril 20 mg daily and permanent atrial fibrillation for 8 years for which he takes warfarin 5 mg daily. He takes no atrioventricular (AV) nodal blocking drugs. He has no complaints and is very active physically, playing 18 holes of golf several times a week. Your new assistant inadvertently sends an outpatient ambulatory telemetry monitor to him instead of to the 55 year-old man with intermittent syncope who was seen in the office on the same day. You are called that evening from the monitoring company, as the strip met notification criteria. The patient was asleep during the event. His average heart rate during the first 24 hours of monitoring was 83 bpm.
+        </clinical>
+           
+    <qImage>media/afPause.png</qImage>
+    <mainQ>Which of the following is the best next treatment for this patient?
+        </mainQ>
+    <choices>
+        <a>Admit to the hospital for single chamber VVIR permanent pacemaker implantation</a>
+        <b>Admit to the hospital for dual chamber DDDR permanent pacemaker implantation</b>
+        <c>Admit to the hospital for electrophysiologic study</c>
+        <d>Add theophylline 300 mg daily</d>
+        <e>Continue his current medical regimen</e>
+        </choices>
+    <answer>E</answer>
+    <exp>Brief and asymptomatic pauses in patients with atrial fibrillation do not require pacing. 
+    In 2018 guidelines, in the setting of AF with pause, pacemaker is recommended for symptomatic pause or pauses attributed to infranodal block (regular ventricular rate or wide QRS complex).
+    For asymptomatic pause, there is no specific duration that warrants pacemaker implantation.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>http://www.onlinejacc.org/content/early/2018/11/08/j.jacc.2018.10.044</ref>
+</question>
+
+<!--AV block maneuver-->
+<question>
+    <index>AV block maneuver</index>
+    <clinical>A 64-year-old man is referred to the clinic for evaluation of an abnormal ECG (Figure). His past medical history is significant for hypertension, for which he is treated with lisinopril. He denies cardiac symptomatology. He is active, works full-time as a car salesman, and plays golf regularly.
+        </clinical>
+           
+    <qImage>media/mobitzII.png</qImage>
+    <mainQ>Which of the following is the next best diagnostic step for this patient?
+        </mainQ>
+    <choices>
+        <a>Echocardiogram</a>
+        <b>Blood culture</b>
+        <c>Carotid sinus massage</c>
+        <d>Pacemaker</d>
+        <e>Cardiac MRI</e>
+        </choices>
+    <answer>C</answer>
+    <exp>The ECG is consistent with sinus rhythm with 2:1 AV block. The differential is Mobitz type I second-degree AV block versus Mobitz type II second-degree AV block. Noninvasive vagal and sympathetic maneuvers can help to distinguish one from the other, since Mobitz I block is usually AV nodal, and Mobitz II block is usually in the His-Purkinje system. In a patient with AV nodal block, carotid sinus massage will slow the sinus rate and worsen AV conduction, which will worsen the AV block. The slowing of sinus rate and depression of AV conduction will have a protective effect on the distal conduction system, so conduction in the His-Purkinje may improve. Exercise (sympathetic stimulation) will improve AV nodal conduction, and worsen His-Purkinje conduction. His ECG (Figure 1) is suggestive of Mobitz I second-degree block, based on the long PR interval and narrow QRS interval.
+        </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
+<!--Mobitz II-->
+<question>
+    <index>Mobitz II</index>
+    <clinical>A 75-year-old man with a history of hypertension and left bundle branch block, both for many years, is seen in the emergency room complaining of malaise and lightheadedness. His only medication is lisinopril 20 mg daily. On physical examination, his heart rate is 43 bpm and blood pressure is 158/92 mm Hg. His lungs are clear and cardiac examination is benign. His ECG is shown. His dobutamine echocardiogram performed 2 months ago prior to knee replacement surgery was negative for ischemia and demonstrated a normal left ventricular ejection fraction.
+        </clinical>
+           
+    <qImage>media/highGrAVB.png</qImage>
+    <mainQ>Which of the following is the most appropriate next step in his management?
+        </mainQ>
+    <choices>
+        <a>EP study to determine the level of 2:1 block.</a>
+        <b>EP study to determine if monomorphic VT is inducible.</b>
+        <c>Outpatient event monitoring.</c>
+        <d>Outpatient 48-hr holter monioring.</d>
+        <e>Implantation of dual-chamber pacemaker.</e>
+        </choices>
+    <answer>E</answer>
+    <exp>Dual-chamber permanent pacing is a Class I indication for the treatment of symptomatic heart block regardless of the site of block.  EP study may be performed in a patient with symptomatic heart block and depressed left ventricular function to determine if inducible for VT and, therefore, may warrant dual-chamber ICD, but this is not so for patients without structural heart disease. Outpatient monitor with looping recorders or Holter monitoring can be useful if a patient complains of dizziness without evidence of an arrhythmia on ECG.
+        </exp>
+    <aImage>
+        </aImage>
+    <ref></ref>
+</question>
+
+
+
+
+</qXML>
