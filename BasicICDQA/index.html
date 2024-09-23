@@ -52,8 +52,8 @@
             padding:0.5vmax 1vmax;}
 .sectionD {font-family: 'Roboto', sans-serif;font-size:2vmax;color:white;display: none;padding:1vmax;border-top:0.1vmax groove #f1f2f3 }
 .popUpFormat{font-family: 'Roboto', sans-serif;font-size:2vmax;padding:1vmax 2.5vmax;background-color: rgba(256, 256, 256,0.8);}
-.arrowD {display: none;cursor: pointer;}
-.arrowR {cursor: pointer;}
+.arrowD, .arrowDH {display: none;cursor: pointer;}
+.arrowR, .arrowRH {cursor: pointer;}
 .topCurve {border-top-left-radius: 1vmax;border-top-right-radius: 1vmax}
 .imageSetup {max-width:100%;max-height: 80vh;padding: 0.5vmax}
 .nav {position: fixed;top: 92vh;font-size: 2.5vh;text-align: center;width: 100%;margin-left: auto;margin-right: auto;}
@@ -191,11 +191,12 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
   <div id="qNo" class="green2 cursive" style="font-size:4vmax;padding: 0.5vmax;text-align: center;">
       Question
   </div>
-  <div id="demo" style="color:white"></div>
+  <!--div id="demo" style="color:white"></div-->
   <!--clinical detail-->
   <div id="clinicalH" class="w3-row sectionH">
         <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-        Clinical Detail
+        <span class="arrowRH">Clinical Detail</span>
+        <span class="arrowDH">Clinical Detail</span>
       <div id="clinical" class="w3-container sectionD">
 
       </div>
@@ -204,7 +205,9 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
   <!--Qimage-->
   <div id="qImageH" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-      Figure
+      <span class="arrowRH">Figure</span>
+      <span class="arrowDH">Figure</span>
+
       <div id="qImageP" class="sectionD" ondblclick="popUp()">
         <div id="loader"></div>
         <!--img id="qImage" style="max-width:100%;max-height: 80vh;padding: 0.5vmax"-->
@@ -214,7 +217,8 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
   <!--mainQ-->
   <div id="mainQH" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-      The question is...
+      <span class="arrowRH">The Question is...</span>
+        <span class="arrowDH">The Question is...</span>
       <div id="mainQ" class="sectionD">
           </div>
   </div>
@@ -222,7 +226,8 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
   <!--choices-->
   <div id="choicesH" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-      Answer Options
+      <span class="arrowRH">Answer Options</span>
+        <span class="arrowDH">Answer Options</span>
       <div id="choices" class="sectionD" style="padding-left:2vmax">
         choices</div>
   </div>
@@ -247,7 +252,8 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
   <!--answer-->
   <div style="padding:2vmax;" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
-      The answer is...
+      <span class="arrowRH">The answer is...</span>
+        <span class="arrowDH">The answer is...</span>
       <div class="sectionD">
         <div id="answer" class="exo topCurve blood"
         style="color:white;font-size:2.5vmax;">
@@ -432,6 +438,8 @@ var sectionStatus = [0,0,0,0,0]
 function sectionClickable(){
   var aR = document.getElementsByClassName('arrowR')
   var aD = document.getElementsByClassName('arrowD')
+  var headR = document.getElementsByClassName('arrowRH');
+  var headD = document.getElementsByClassName('arrowDH');
   aR[0].onclick = function(){toggleSectionD(0)}
   aR[1].onclick = function(){toggleSectionD(1)}
   aR[2].onclick = function(){toggleSectionD(2)}
@@ -442,15 +450,28 @@ function sectionClickable(){
   aD[2].onclick = function(){toggleSectionD(2)}
   aD[3].onclick = function(){toggleSectionD(3)}
   aD[4].onclick = function(){toggleSectionD(4)}
+  headR[0].onclick = function(){toggleSectionD(0)}
+  headR[1].onclick = function(){toggleSectionD(1)}
+  headR[2].onclick = function(){toggleSectionD(2)}
+  headR[3].onclick = function(){toggleSectionD(3)}
+  headR[4].onclick = function(){toggleSectionD(4)}
+  headD[0].onclick = function(){toggleSectionD(0)}
+  headD[1].onclick = function(){toggleSectionD(1)}
+  headD[2].onclick = function(){toggleSectionD(2)}
+  headD[3].onclick = function(){toggleSectionD(3)}
+  headD[4].onclick = function(){toggleSectionD(4)}
 }
 
 function toggleSectionD(n){
     var D = document.getElementsByClassName('sectionD')
     var arrowR = document.getElementsByClassName('arrowR')
     var arrowD = document.getElementsByClassName('arrowD')
+    var arrowRH = document.getElementsByClassName('arrowRH')
+    var arrowDH = document.getElementsByClassName('arrowDH')
     if (sectionStatus[n]==0){
       D[n].style.display = "block";
       arrowR[n].style.display="none"; arrowD[n].style.display = "inline"
+      arrowRH[n].style.display="none"; arrowDH[n].style.display = "inline"
       sectionStatus[n]=1;
       if (n==3||n==4){
         D[n].scrollIntoView({behavior: "smooth", block: "start"})
@@ -459,6 +480,7 @@ function toggleSectionD(n){
     } else {
       D[n].style.display = "none";
       arrowD[n].style.display="none"; arrowR[n].style.display = "inline"
+      arrowDH[n].style.display="none"; arrowRH[n].style.display = "inline"
       sectionStatus[n]=0
       }
 }
