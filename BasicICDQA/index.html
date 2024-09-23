@@ -56,18 +56,20 @@
 .arrowR {cursor: pointer;}
 .topCurve {border-top-left-radius: 1vmax;border-top-right-radius: 1vmax}
 .imageSetup {max-width:100%;max-height: 80vh;padding: 0.5vmax}
-.nav {position: fixed;margin-left: auto;margin-right: auto;top: 94vh;font-size: 1.9vh;text-align: center;width: 100%;}
+.nav {position: fixed;top: 92vh;font-size: 2.5vh;text-align: center;width: 100%;margin-left: auto;margin-right: auto;}
 .navBtn {box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;border-radius: 0.2vmax;padding: 0.3vh 2vmax;
-background-color: #c5c6c7;display: block;text-align: center;cursor: pointer;float: left;}
+background-color: #c5c6c7;display: block;text-align: center;cursor: pointer;float: left;margin-right: 0.1vw;}
 
 @media only screen and (max-width: 600px){
   .titlePad {padding-top:30vh}
   .title {transform: skewY(-30deg)}
   .titleTxt {transform: skewY(30deg)}
+  .nav {font-size: 2vh;}
 }
 @media only screen and (max-width: 800px){
   .fbPos {top:92vh;right:3vw}
   .imageSetup {width:100%;max-height:auto;}
+  .nav {font-size: 2vh;}
 }
 
 #clinical {white-space:pre-line}
@@ -243,7 +245,7 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
   </div>
 
   <!--answer-->
-  <div style="padding:2vmax" class="sectionH">
+  <div style="padding:2vmax;" class="sectionH">
       <span class="arrowR">&nbsp;&#9656;</span><span class="arrowD">&nbsp;&#9662;</span>
       The answer is...
       <div class="sectionD">
@@ -266,13 +268,13 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
 
 
   <div class="exo" style="font-size:1vmax;color:#878787;
-  padding: 5vmax 1vmax;text-align: right;">
-    
+  padding: 5vmax 2vmax;text-align: center;">
+    <div style="border-top: #878787 solid 0.1vmin;padding: 1vmax;">
     <a href="https://heartrhythmbox.github.io/main/" target="_blank" style="text-decoration:none;">
-          <img src="box invert.png" style="width:1.8vmax;"><br>
-          HeartRhythmBox.com
+          <img src="box invert.png" style="width:1.8vmax;margin-left: auto;margin-right: auto;text-align: center;">
+          <br>HeartRhythmBox.com
     </a>
-    
+    </div>
   </div>
 
   <!--nav bar-->
@@ -280,8 +282,7 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
     <!--index-->
     <ul id="indexList" class="san2" style="list-style-type:decimal;text-align: justify;">
     </ul>
-    <ul id="navBar" class="exo" style="opacity: 0.85;margin-right: auto;margin-left: auto;
-    text-align: center;list-style-type: none;display: inline-block;">
+    <ul id="navBar" class="exo" style="opacity: 0.8;text-align: center;list-style-type: none;display: inline-block;padding-left: 0;">
       <li class="navBtn">Home</li>
       <li class="navBtn">&nbsp;&LeftAngleBracket;&nbsp;</li>
       <li id="currentQ" class=" navBtn"></li>

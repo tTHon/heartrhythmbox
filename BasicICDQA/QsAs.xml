@@ -31,7 +31,7 @@
     <clinical>NA</clinical>
            
     <qImage>media/NSVT.png</qImage>
-    <mainQ>Why did not ICD therapy deliver?
+    <mainQ>Why did not ICD deliver the therapy?
         </mainQ>
     <choices>
         <a>The ventricular rate was not fast enough.</a>
