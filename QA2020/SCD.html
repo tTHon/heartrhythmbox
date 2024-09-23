@@ -33,7 +33,7 @@
 </head>
 
 <style>
-
+body {background: #c5c6c7;}
 .exo {font-family: 'Exo 2', sans-serif;}
 .san2 {font-family: 'Roboto', sans-serif;}
 .cursive {font-family: 'Satisfy', cursive;}
@@ -60,20 +60,23 @@
 .arrowR {cursor: pointer;}
 .topCurve {border-top-left-radius: 1vmax;border-top-right-radius: 1vmax}
 .imageSetup {max-width:100%;max-height: 80vh;padding: 0.5vmax}
+.nav {position: fixed;margin-left: auto;margin-right: auto;bottom: 1vh;font-size: 2.5vh;text-align: center;width: 100%;}
 
 @media only screen and (max-width: 600px){
   .titlePad {padding-top:30vh}
   .title {transform: skewY(-30deg)}
   .titleTxt {transform: skewY(30deg)}
+  .nav {font-size: 2vh;}
 }
 @media only screen and (max-width: 800px){
   .fbPos {top:92vh;right:3vw}
   .imageSetup {width:100%;max-height:auto;}
+  .nav {font-size: 2vh;}
 }
 
 #clinical {white-space:pre-line}
 #exp {white-space:pre-line}
-.navBtn {box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;border-radius: 0.2vmax;padding: 0.3vh 0.3vw;
+.navBtn {box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;border-radius: 0.2vmax;padding: 0.3vh 3vw;
 background-color: #c5c6c7;display: block;text-align: center;cursor: pointer;float: left;}
 #aImage {cursor: pointer}
 #indexList {position: fixed;max-height:50vh;max-width:50vw;display: none;
@@ -128,10 +131,9 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
 
 <!--front page-->
 <div id="frontP" class="red">
-    <div class="title">
+    <div class="title" onclick="showQPage(0)" title="click here to continue" style="cursor: pointer;">
       <div class="titleTxt">
-        <div class="titlePad" style="font-size: 6vmax;line-height: 90%" onclick="showQPage(0)"
-          title="click here to continue">
+        <div class="titlePad" style="font-size: 6vmax;line-height: 90%">
             <div>
               <span class="exo" style="color:white">&nbsp; Sudden </span><br>
               <span class="cursive" style="color:#d1001c;z-index: 2;position: relative">
@@ -152,13 +154,9 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
           </div>
         </div>
         <div class="exo fbPos" style="color:#c5c6c7">
-          Sudden Cardiac Death Qs&As is a part of <br>
-            <a href="https://heartrhythmbox.com/qa2020/" target="_blank" style="font-size: 1.4vmax;">
-            EP Q&A 2020 Series
-            </a><br> and a part of
-            <a href="https://heartrhythmbox.com/" target="_blank" style="text-decoration:none;font-size: 1.4vmax;">
-                  <img src="box transparent.png" style="width:1.5vmax;">
-                  heartRhythmBox.com
+                      <a href="https://heartrhythmbox.com/" target="_blank" style="text-decoration:none;font-size: 1.4vmax;">
+                  <img src="box transparent.png" style="width:2vmax;">
+                  <br>heartRhythmBox.com
             </a>
         </div>
       </div>
@@ -272,24 +270,19 @@ color:#555;font-weight: 600;line-height: 200%;">
 
   <div class="exo" style="font-size:1vmax;color:#878787;
   padding: 1.5vmax 1vmax 5vmax 1vmax;text-align: right; border-top: #273240 solid 0.1vh">
-    SCD Qs&As is a part of
-    <br>
-    <a href="https://heartrhythmbox.com/qa2020/" target="_blank" style="color: white;">
-    EP Q&A 2020 Series
-    </a><br> and a part of
-    <a href="https://heartrhythmbox.github.io/main/" target="_blank" style="text-decoration:none;">
-          <img src="box transparent.png" style="width:1.3vmax;">
+        <a href="https://heartrhythmbox.github.io/main/" target="_blank" style="text-decoration:none;">
+          <img src="box transparent.png" style="width:1.8vmax;"><br>
           HeartRhythmBox.com
     </a>
     
   </div>
 
   <!--nav bar-->
-  <div style="position: fixed;margin-left: auto;margin-right: auto;bottom: 1vh;font-size: 1.2vmax;text-align: center;width: 100%;">
+  <div class="nav">
     <!--index-->
     <ul id="indexList" class="san2" style="list-style-type:decimal;text-align: justify;">
     </ul>
-    <ul id="navBar" class="exo" style="opacity: 0.9;padding: 1vmax;margin-right: auto;margin-left: auto;
+    <ul id="navBar" class="exo" style="opacity: 0.8;padding: 1vmax;margin-right: auto;margin-left: auto;
     text-align: center;list-style-type: none;display: inline-block;">
       <li class="navBtn">Home</li>
       <li class="navBtn">&nbsp;&LeftAngleBracket;&nbsp;</li>
