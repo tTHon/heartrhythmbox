@@ -31,7 +31,7 @@
     <clinical>NA</clinical>
            
     <qImage>media/NSVT.png</qImage>
-    <mainQ>Why did not ICD deliver the therapy?
+    <mainQ>Why did ICD withhold the therapy?
         </mainQ>
     <choices>
         <a>The ventricular rate was not fast enough.</a>
@@ -41,7 +41,7 @@
         <e>The duration of the arrhythmia was too short.</e>
         </choices>
     <answer>E</answer>
-    <exp>The arrhythmia was wide complex tachycardia. The rate was fast enough to fall into the VT and VF detection zone; labelled as TS and TF respectively.Every beat was sensed correctly. However, the duration was not sustained enough to trigger the therapy.
+    <exp>The arrhythmia was wide complex tachycardia. The rate was fast enough to fall into the VT and VF detection zone; labelled as TS and TF respectively. Every beat was sensed correctly. However, the duration was not sustained enough to trigger the therapy.
     </exp>
     <aImage>NA</aImage>
     <ref>NA</ref>
@@ -89,7 +89,7 @@
         <e>A single-coil lead is associated with lower complication during the extraction.</e>
     </choices>
     <answer>E</answer>
-    <exp>Because of the abundance of data showing no benefit of dual-coil over single-coil leads and a higher associated complication rate during lead extraction, Single-coil leads should be regarded as the standard of care for icds. 
+    <exp>Because of the abundance of data showing no benefit of dual-coil over single-coil leads and a higher associated complication rate during lead extraction, Single-coil leads should be regarded as the standard of care for ICDs. 
     Dual-coil leads might be considered in populations in which the dft threshold might be higher and/or when dft safety margin fails with a single-coil lead.
     </exp>
     <aImage>NA</aImage>
@@ -188,7 +188,10 @@
         </choices>
     <answer>D
         </answer>
-    <exp>The tracing shows oversensing of T wave during exercise when heart rate exceeded 100bpm. Alternating 320 and 260ms intervals produces the train track appearance of the sensed activity. When sensitivity settings are raised to avoid T wave oversensing, testing for VF detection should be considered.
+    <exp>The tachogram showed 2 constant cycle lengths, alternating between 320 and 260ms intervals producing the train track appearance of the sensed activity. This train track pattern occurred when the heart rate exceeded 100 bpm.
+    Without looking at the episode tracing, this highly likely represents a T-wave oversensing.
+    The tracing confirmed the oversensing of T wave. Raising the sensitivity threshold is the initial managment.
+    When sensitivity settings are raised to avoid T wave oversensing, testing for VF detection should be considered.
     Ref: 2016 Self-Assessment and Exam Prep in Clinical Cardiac Electrophysiology. Heart Rhythm Society.
     </exp>
     <aImage>media/TWOS1Ans.png</aImage>
@@ -256,13 +259,13 @@
     <choices>
         <a>Using monophasic shock.</a>
         <b>Lowering the ventricular sensitivity number.</b>
-        <c>Positioning the RV coil at the most apical as possible.</c>
+        <c>Positioning the RV coil as apically as possible.</c>
         <d>Programming longer duration for detection.</d>
         <e>Using the shock energy at the upper limit of vulnerability.</e>
         </choices>
     <answer>C</answer>
     <exp>Biphasic defibrillation is more effective at lower energy levels compared to monophasic defibrillation.
-    A more proximal locatiokn of RV coil was associated with an increase in DFT.
+    A more proximal location of RV coil was associated with an increase in DFT.
     Other stratgies to improve the efficacy of ICD shock are reverse shock polarity, remove SVC coil if shock impedance is less than 40 ohms, using high output device, and etc.
     Energy at the upper limit of vulnerability is approximately the defibrillation threshold. 
     </exp>
