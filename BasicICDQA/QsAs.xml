@@ -49,7 +49,7 @@
 
 <!--2 vf shock-->
 <question>
-    <index>ICD Shock</index>
+    <index>ICD Shock #1</index>
     <clinical>NA</clinical>
            
     <qImage>media/vfShock.png</qImage>
@@ -337,9 +337,16 @@
     <answer>A</answer>
     <exp>Lead noises were evident in the near-field EGM. Further interrogation is as shown.
     Lead fracture is the cause of the inappropriate shock.
+    The typical lead fracture signal has 6 characteristics, of which the first 3 are almost always present 
+    1. signals are intermittent and have a high dominant frequency. 
+    2. They display ≥1 types of variability including amplitude, morphology, or frequency. 
+    3. In dedicated bipolar leads, they are not recorded on the shock channel. 
+    4. Usually, at least some signals are not cyclic. 
+    5. Often, some intervals are nonphysiological, shorter than typical physiological intervals. 
+    6. Signal amplitude may exceed the range of the sensing amplifier and thus appear truncated.     
     </exp>
     <aImage>media/fidelis.png</aImage>
-    <ref>NA</ref>
+    <ref>https://doi.org/10.1161/circep.114.002344</ref>
 </question>
 
 <!--#14 ATP in fVT-->
@@ -392,7 +399,7 @@
 
 <!--#16 TWOS small R wave-->
 <question>
-    <index>ICD Shock</index>
+    <index>ICD Shock #2</index>
     <clinical>NA</clinical>
            
     <qImage>media/TWOS2.png</qImage>
