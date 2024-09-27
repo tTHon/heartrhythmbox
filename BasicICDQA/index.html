@@ -56,23 +56,24 @@
 .arrowR, .arrowRH {cursor: pointer;}
 .topCurve {border-top-left-radius: 1vmax;border-top-right-radius: 1vmax}
 .imageSetup {max-width:100%;max-height: 80vh;padding: 0.5vmax}
-.nav {position: fixed;top: 92vh;font-size: 2.5vh;text-align: center;width: 100%;margin-left: auto;margin-right: auto;}
+.nav {position: fixed;bottom: 0;font-size: 2.5vh;text-align: center;width: 100%;margin-left: auto;margin-right: auto;}
 .navBtn {box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;border-radius: 0.2vmax;padding: 0.3vh 2vmax;
 background-color: #c5c6c7;display: block;text-align: center;cursor: pointer;float: left;margin-right: 0.1vw;}
 
 @media only screen and (max-width: 600px){
+  .cursive { animation: none; }
   .sectionD, .sectionH {font-size: 24px;}
   .titlePad {padding-top:30vh}
   .title {transform: skewY(-30deg)}
   .titleTxt {transform: skewY(30deg)}
-  .nav {font-size: 22px;width: fit-content;top: 90vh;}
+  .nav {font-size: 22px;width:100%;}
   .navBtn {padding:8px 16px;}
 }
 @media only screen and (max-width: 800px){
   .sectionD, .sectionH {font-size: 24px;}
   .fbPos {top:92vh;right:3vw}
   .imageSetup {width:100%;max-height:auto;}
-  .nav {font-size: 22px;width: fit-content;top:90vh}
+  .nav {font-size: 22px;width: 100%;}
   .navBtn {padding:8px 16px;}
 }
 
@@ -309,7 +310,7 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
 
 </body>
 
-<script src="pointer.js" ></script>
+<script src="pointer.js" defer></script>
 <script>
 
 var xmlData;var qNo=0;var zoom;
@@ -344,11 +345,18 @@ function popUp(){
 }
 
 //get xml file and generate indexList
-function loadXMLDoc() {
-  var xml = new XMLHttpRequest();
-  xml.open ('GET','QsAs.xml',false)
-  xml.send();
-  xmlData= xml.responseXML;
+//function loadXMLDoc() {
+  //var xml = new XMLHttpRequest();
+  //xml.open ('GET','QsAs.xml',false)
+  //xml.send();
+  //xmlData= xml.responseXML;
+//}
+
+async function loadXMLDoc() {
+  const response = await fetch('QsAs.xml');
+  const text = await response.text();
+  const parser = new DOMParser();
+  xmlData = parser.parseFromString(text, 'application/xml');
 }
 
 function enableNavBtn(){
