@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Carousels with Touch Support</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    /* Carousel container */
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+    
+    /* Carousel items */
+    .carousel-items {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .carousel-item {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Navigation buttons */
+    .carousel-control-prev,
+    .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    
+    .carousel-control-prev {
+      left: 10px;
+    }
+    
+    .carousel-control-next {
+      right: 10px;
+    }
+    
+    /* Image styles */
+    .carousel-item img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Carousel 1 -->
+<div class="carousel" id="carousel1">
+  <div class="carousel-items" id="carousel1-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel1')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel1')">❯</button>
+</div>
+
+<!-- Carousel 2 -->
+<div class="carousel" id="carousel2">
+  <div class="carousel-items" id="carousel2-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel2')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel2')">❯</button>
+</div>
+
+<script>
+  // JavaScript to control carousels
+
+  // Current index for each carousel
+  const carouselIndices = {
+    carousel1: 0,
+    carousel2: 0
+  };
+
+  function showSlide(carouselId, index) {
+    const items = document.getElementById(`${carouselId}-items`);
+    const totalSlides = items.children.length;
+    
+    // Loop back to the first slide if at the end
+    if (index >= totalSlides) {
+      carouselIndices[carouselId] = 0;
+    } else if (index < 0) {
+      carouselIndices[carouselId] = totalSlides - 1;
+    }
+
+    const offset = -carouselIndices[carouselId] * 100; // Move to the correct slide
+    items.style.transform = `translateX(${offset}%)`;
+  }
+
+  function nextSlide(carouselId) {
+    carouselIndices[carouselId]++;
+    showSlide(carouselId, carouselIndices[carouselId]);
+  }
+
+  function prevSlide(carouselId) {
+    carouselIndices[carouselId]--;
+    showSlide(carouselId, carouselIndices[carouselId]);
+  }
+
+  // Initialize carousels
+  showSlide('carousel1', carouselIndices.carousel1);
+  showSlide('carousel2', carouselIndices.carousel2);
+
+  // Touch event handlers
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function handleGesture(carouselId) {
+    if (touchEndX < touchStartX) {
+      nextSlide(carouselId);  // Swipe left
+    } 
+    if (touchEndX > touchStartX) {
+      prevSlide(carouselId);  // Swipe right
+    }
+  }
+
+  // Attach touch events to each carousel
+  document.getElementById('carousel1').addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  document.getElementById('carousel1').addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleGesture('carousel1');
+  });
+
+  document.getElementById('carousel2').addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  document.getElementById('carousel2').addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleGesture('carousel2');
+  });
+</script>
+
+</body>
+</html>
