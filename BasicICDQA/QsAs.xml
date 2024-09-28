@@ -64,7 +64,7 @@
         </choices>
     <answer>B</answer>
     <exp>The tracing was ventricular fibrillation and the therapy was necessary and appropriate.
-    There were some VF beats that were not sensed. All undersensed beats were small in amplitude and occurred after a beat with a much larger amplitude.
+    There were some VF beats that were not sensed. All undersensed beats were small in amplitude and occurred after a beat with a much larger amplitude. The undersensing caused minimal delay (less than 5sec) in VF detection and considered not to clinically significant.
     Lead noise should not be seen in far-field EGM. Also, in the near-field EGM of a lead noise case, the amplitude will likely be high and saturate the channel.
     Noted with some definitions: Inappropriate therapy = therapy for non-VT/VF; Unnecessary therapy = therapy for VT/VF that could have been avoided.
 
