@@ -313,12 +313,19 @@ text-align: center;color:#555;font-weight: 600;line-height: 200%;border-top: #55
 <script src="pointer.js" defer></script>
 <script>
 
-var xmlData;var qNo=0;var zoom;
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function(){
+  var xmlData;var qNo=0;var zoom;
   loadXMLDoc();
   enableNavBtn();
   sectionClickable();
-}
+});
+
+//var xmlData;var qNo=0;var zoom;
+///window.onload = function() {
+  //loadXMLDoc();
+  //enableNavBtn();
+  //sectionClickable();
+//}
 
 var pSwitch = 0;
 window.addEventListener("keydown", function(event) {
