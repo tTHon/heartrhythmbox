@@ -47,7 +47,7 @@
 .fbPos {top: 90vh;right: 5vw;position: absolute;font-size:1.2vmax;line-height: 150%;text-align: right}
 #title {font-size:2vmax;color:#c5c6c7;font-family: 'Roboto', sans-serif;line-height: 100%}
 
-.c2Begin {color: #b7b7b7;font-size: 2vmax;animation: fadeInOut 5s infinite;font-family: 'Satisfy', cursive}
+#c2Begin {color: #b7b7b7;font-size: 2vmax;animation: fadeInOut 5s infinite;font-family: 'Satisfy', cursive;display: none;}
 .sectionH {font-family: 'Exo 2', sans-serif;color: #84bb7b;font-size:2.2vmax;
             padding:0.5vmax 1vmax;}
 .sectionD {font-family: 'Roboto', sans-serif;font-size:2vmax;color:white;display: none;padding:1vmax;border-top:0.1vmax groove #f1f2f3 }
@@ -61,7 +61,6 @@
 background-color: #c5c6c7;display: block;text-align: center;cursor: pointer;float: left;margin-right: 0.1vw;}
 
 @media only screen and (max-width: 600px){
-  .c2Begin { animation: none; }
   .sectionD, .sectionH {font-size: 24px;}
   .titlePad {padding-top:30vh}
   .title {transform: skewY(-30deg)}
@@ -131,7 +130,7 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
 <body>
 
 <!--front page-->
-<div id="frontP" class="red" onclick="showQPage(0)" title="click here to continue" style="cursor: pointer;">
+<div id="frontP" class="red" title="click here to continue" style="cursor: pointer;">
     <div class="title">
       <div class="titleTxt">
         <div class="titlePad" style="font-size: 6vmax;line-height: 90%">
@@ -150,7 +149,7 @@ box-shadow: rgba(59, 59, 59, 0.6) 2px -2px 4px;}
                    Answers</span>
                 </span>
             </div>
-            <div class="c2Begin">
+            <div id="c2Begin">
             - - -> click to begin
           </div>
         </div>
@@ -318,6 +317,8 @@ window.onload = function() {
   loadXMLDoc();
   enableNavBtn();
   sectionClickable();
+  document.getElementById('frontP').onclick = function(){showQPage(0)};
+  document.getElementById('c2Begin').style.display = 'block';
 }
 
 var pSwitch = 0;
