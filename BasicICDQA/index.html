@@ -369,6 +369,13 @@ function enableNavBtn(){
   //show Qindex
   btn[2].onclick = function(){
     showIndex()}
+  
+  var page = qNo+1;
+  var totalP = xmlData.getElementsByTagName('question').length
+
+  //show current Q in qNav and qHeader
+  document.getElementById('currentQ').innerHTML = '\xa0' +'Q'+ page +'\xa0' + '/' + totalP ;
+  document.getElementById('qNo').innerHTML = "Question" + '\xa0' + page + '\xa0'
 }
 
 //cleanup
