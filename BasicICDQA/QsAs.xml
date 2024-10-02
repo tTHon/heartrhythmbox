@@ -41,7 +41,7 @@
         <e>The duration of the arrhythmia was too short.</e>
         </choices>
     <answer>E</answer>
-    <exp>The arrhythmia was wide complex tachycardia. The rate was fast enough to fall into the VT and VF detection zone; labelled as TS and TF respectively. Every beat was sensed correctly. However, the duration was not sustained enough to trigger the therapy.
+    <exp>The arrhythmia was wide complex tachycardia. The rate was fast enough to fall into the VT and fast VT detection zone; labelled as TS and TF respectively. Every beat was sensed correctly. However, the duration was not sustained enough to trigger the therapy.
     </exp>
     <aImage>NA</aImage>
     <ref>NA</ref>
@@ -157,7 +157,7 @@
     <choices>
         <a>Biventricular pacing.</a>
         <b>High defibrillation threshold.</b>
-        <c>Lead-induced subcutaneous emphyhsema.</c>
+        <c>Lead-induced subcutaneous emphysema.</c>
         <d>Right ventricular outflow tract pacing.</d>
         <e>Situs inversus.</e>
         </choices>
@@ -190,9 +190,10 @@
         </answer>
     <exp>The tachogram showed 2 constant cycle lengths, alternating between 320 and 260ms intervals producing the train track appearance of the sensed activity. This train track pattern occurred when the heart rate exceeded 100 bpm.
     Without looking at the episode tracing, this highly likely represents a T-wave oversensing.
-    The tracing confirmed the oversensing of T wave. Raising the sensitivity threshold is the initial managment.
+    The tracing confirmed the oversensing of T wave. Raising the sensitivity threshold is the initial managment. 
     When sensitivity settings are raised to avoid T wave oversensing, testing for VF detection should be considered.
     Ref: 2016 Self-Assessment and Exam Prep in Clinical Cardiac Electrophysiology. Heart Rhythm Society.
+    Noted that in a newer generation of ICD, switching the sensing polarity from true bipolar to integrated bipolar can be programmatically performed and should be adjusted first.
     </exp>
     <aImage>media/TWOS1Ans.png</aImage>
     <ref>NA</ref>
@@ -288,9 +289,9 @@
         <e>Nothing further.</e>
         </choices>
     <answer>D</answer>
-    <exp>The tracing showed VF that was induced by ventricular pacing. 
+    <exp>The tracing showed VF that was induced by a shock on T wave. 
     VF was sensed and shock was delivered. The shock successfully terminated the VF.
-    However, after the shock, A lead fell into the ventricular. The A signal was sensed at the same time as the V signal.
+    However, after the induction of VF, A lead fell into the ventricular. The A and V signal was almost simultaneously sensed. This was clearly seen after the VF was terminated. 
     Therefore, A lead repositioning is required.
         </exp>
     <aImage>NA</aImage>
@@ -314,7 +315,7 @@
     <answer>E</answer>
     <exp>The top part of the tracing showed AF with biventricular pacing.
     The bottom part showed AF with ventricular tachycardia. Noted that the ventricular EGM became faster and more regular.
-    The device correctly identified the arrhythmia as VF+SVT. ATP was successfully terminated the VT but not AF.
+    The device correctly identified the arrhythmia as VT+SVT. ATP was successfully terminated the VT but not AF.
     </exp>
     <aImage>NA</aImage>
     <ref>NA</ref>
@@ -364,12 +365,14 @@
         <e>Upgrade to a CRT-D.</e>
         </choices>
     <answer>C</answer>
-    <exp>The tracing showed a successful ATP therapy in a fast monomorphic VT. No further device adjustment is needed.
+    <exp>The tracing showed an ATP therapy in a fast monomorphic VT. At the termination of ATP, the VT continued for a few of beats in differeny cycle lengths before termination. 
+    This type of termination after ATP therapy is called type-2 break, which represents upto 10% of all VT episodes. (see ref)
+    Therefore, ATP successfully terminated VT. No further device adjustment is needed.
     The detail of the episode is as shown. Wavelet measurement showed no match. 
     On the clinical side, medication initiation and adjustment is needed to reduce the further episodes.
     </exp>
     <aImage>media/ATPinFVTAns.png</aImage>
-    <ref>NA</ref>
+    <ref>https://doi.org/10.1046/j.1540-8167.2003.03018.x</ref>
 </question>
 
 <!--#15 reconfirm shock-->
@@ -414,7 +417,8 @@
     <answer>A</answer>
     <exp>The tracing showed T-wave oversensing causing an inappropriate shock.
     R wave, as measured in the Vtip-Vring EGM, was 2-3 mV. The small R wave likely contributed to the oversensing.
-    The initial management in this case is to adjust the ventricular sensitivity to a higher number. Should that deem unsafe and unfeasible, RV lead reposition might be required.
+    The initial management in this case depends on the features of the ICD. When feasible, RV lead sensing vector adjustment should be attempted first, ie. from true bipolar to integrated bipolar. 
+    If this feature is not available, then ventricular sensitivity should be adjusted to a higher number. Should that deem unsafe and unfeasible, RV lead reposition might be required.
     </exp>
     <aImage>NA</aImage>
     <ref>NA</ref>
