@@ -108,8 +108,8 @@
         <a>Reduce incidence of AF in patients wtih sick sinus syndrome.</a>
         <b>Reduce complication during implantation.</b>
         <c>Reduce incidence of inappropriate shock.</c>
-        <d>Lower defibrillation threshold</d>
-        <e>Lower battery consumption.</e>
+        <d>Reduce incidence of unnecessary shock.</d>
+        <e>Lower defibrillation threshold.</e>
         </choices>
     <answer>A</answer>
     <exp>An RCT of patients without bradycardia pacing indication showed no difference in the incidence of inappropriate shock between dual-chamber and single-chamber ICD.
