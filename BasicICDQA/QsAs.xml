@@ -235,7 +235,7 @@
     <mainQ>What is the success rate of the first ICD shock to terminate ventricular arrhythmia when using maximum energy?
     </mainQ>
     <choices>
-        <a>90-100%</a>
+        <a>Close to 100%</a>
         <b>80-90%</b>
         <c>60-70%</c>
         <d>50%</d>
@@ -359,7 +359,7 @@
     <mainQ>What would be the most appropriate management?</mainQ>
     <choices>
         <a>Turn off ATP therapy for VT faster than 360ms.</a>
-        <b>Initiate antiarrhythmia therapy.</b>
+        <b>Initiate antiarrhythmic therapy.</b>
         <c>Turn on SVT discrimination.</c>
         <d>Reposition the RV lead.</d>
         <e>Upgrade to a CRT-D.</e>
@@ -481,7 +481,7 @@
         <b>ATP during charging in a patient with Brugada syndrome.</b>
         <c>VF detection at 150 bpm in an ICD implanted for primary prophylaxis.</c>
         <d>Minimum energy for the 1st shock and escalating energy for the follwoing shocks.</d>
-        <e>ATP in VT zone only if ICD was implanted for primary prevension.</e>
+        <e>ATP in VT zone only if ICD was implanted for primary prevention.</e>
         </choices>
     <answer>A</answer>
     <exp>Maximum first shock energy is associated with higher chance of shock success when compared to lower energy.
