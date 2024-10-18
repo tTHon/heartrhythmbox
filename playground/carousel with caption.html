@@ -34,20 +34,7 @@
       object-fit: cover;
     }
 
-    .caption {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.6);
-      color: white;
-      padding: 10px;
-      font-size: 16px;
-      text-align: center;
-      width: 90%;
-    }
-
-    /* Dot navigation */
+    /* Dot navigation below slide */
     .dots {
       text-align: center;
       margin-top: 10px;
@@ -66,6 +53,17 @@
     
     .active {
       background-color: #717171;
+    }
+
+    /* Caption below dots */
+    .caption {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 100%;
     }
 
     /* Navigation buttons */
@@ -97,20 +95,22 @@
   <div class="carousel-items" id="carousel1-items">
     <div class="carousel-item">
       <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+1" alt="Slide 1">
-      <div class="caption">Caption for Slide 1</div>
     </div>
     <div class="carousel-item">
       <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+2" alt="Slide 2">
-      <div class="caption">Caption for Slide 2</div>
     </div>
     <div class="carousel-item">
       <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+3" alt="Slide 3">
-      <div class="caption">Caption for Slide 3</div>
     </div>
   </div>
   <button class="carousel-control-prev" onclick="prevSlide('carousel1')">❮</button>
   <button class="carousel-control-next" onclick="nextSlide('carousel1')">❯</button>
+  
+  <!-- Dots below the slide -->
   <div class="dots" id="carousel1-dots"></div>
+  
+  <!-- Caption below dots -->
+  <div class="caption" id="carousel1-caption">Caption for Slide 1</div>
 </div>
 
 <!-- Carousel 2 -->
@@ -118,20 +118,22 @@
   <div class="carousel-items" id="carousel2-items">
     <div class="carousel-item">
       <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+1" alt="Slide 1">
-      <div class="caption">Caption for Slide 1</div>
     </div>
     <div class="carousel-item">
       <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+2" alt="Slide 2">
-      <div class="caption">Caption for Slide 2</div>
     </div>
     <div class="carousel-item">
       <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+3" alt="Slide 3">
-      <div class="caption">Caption for Slide 3</div>
     </div>
   </div>
   <button class="carousel-control-prev" onclick="prevSlide('carousel2')">❮</button>
   <button class="carousel-control-next" onclick="nextSlide('carousel2')">❯</button>
+  
+  <!-- Dots below the slide -->
   <div class="dots" id="carousel2-dots"></div>
+  
+  <!-- Caption below dots -->
+  <div class="caption" id="carousel2-caption">Caption for Slide 1</div>
 </div>
 
 <script>
@@ -139,6 +141,20 @@
   const carouselIndices = {
     carousel1: 0,
     carousel2: 0
+  };
+
+  // Captions for the carousels
+  const captions = {
+    carousel1: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ],
+    carousel2: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ]
   };
 
   // Initialize carousels
@@ -171,6 +187,7 @@
     const items = document.getElementById(`${carouselId}-items`);
     const dots = document.getElementById(`${carouselId}-dots`).children;
     const totalSlides = items.children.length;
+    const caption = document.getElementById(`${carouselId}-caption`);
 
     // Loop back to the first slide if at the end
     if (index >= totalSlides) {
@@ -190,6 +207,9 @@
       dots[i].classList.remove('active');
     }
     dots[carouselIndices[carouselId]].classList.add('active');
+
+    // Update caption
+    caption.textContent = captions[carouselId][carouselIndices[carouselId]];
   }
 
   function nextSlide(carouselId) {
