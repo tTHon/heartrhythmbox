@@ -105,11 +105,7 @@
   </div>
   <button class="carousel-control-prev" onclick="prevSlide('carousel1')">❮</button>
   <button class="carousel-control-next" onclick="nextSlide('carousel1')">❯</button>
-  
-  <!-- Dots below the slide -->
   <div class="dots" id="carousel1-dots"></div>
-  
-  <!-- Caption below dots -->
   <div class="caption" id="carousel1-caption">Caption for Slide 1</div>
 </div>
 
@@ -128,19 +124,75 @@
   </div>
   <button class="carousel-control-prev" onclick="prevSlide('carousel2')">❮</button>
   <button class="carousel-control-next" onclick="nextSlide('carousel2')">❯</button>
-  
-  <!-- Dots below the slide -->
   <div class="dots" id="carousel2-dots"></div>
-  
-  <!-- Caption below dots -->
   <div class="caption" id="carousel2-caption">Caption for Slide 1</div>
+</div>
+
+<!-- Carousel 3 -->
+<div class="carousel" id="carousel3">
+  <div class="carousel-items" id="carousel3-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+3+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+3+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+3+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel3')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel3')">❯</button>
+  <div class="dots" id="carousel3-dots"></div>
+  <div class="caption" id="carousel3-caption">Caption for Slide 1</div>
+</div>
+
+<!-- Carousel 4 -->
+<div class="carousel" id="carousel4">
+  <div class="carousel-items" id="carousel4-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel4')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel4')">❯</button>
+  <div class="dots" id="carousel4-dots"></div>
+  <div class="caption" id="carousel4-caption">Caption for Slide 1</div>
+</div>
+
+<!-- Carousel 5 -->
+<div class="carousel" id="carousel5">
+  <div class="carousel-items" id="carousel5-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel5')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel5')">❯</button>
+  <div class="dots" id="carousel5-dots"></div>
+  <div class="caption" id="carousel5-caption">Caption for Slide 1</div>
 </div>
 
 <script>
   // Current index for each carousel
   const carouselIndices = {
     carousel1: 0,
-    carousel2: 0
+    carousel2: 0,
+    carousel3: 0,
+    carousel4: 0,
+    carousel5: 0
   };
 
   // Captions for the carousels
@@ -154,13 +206,31 @@
       'Caption for Slide 1',
       'Caption for Slide 2',
       'Caption for Slide 3'
+    ],
+    carousel3: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ],
+    carousel4: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ],
+    carousel5: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
     ]
   };
 
-  // Initialize carousels
+  // Initialize all carousels
   document.addEventListener('DOMContentLoaded', function () {
     initCarousel('carousel1');
     initCarousel('carousel2');
+    initCarousel('carousel3');
+    initCarousel('carousel4');
+    initCarousel('carousel5');
   });
 
   function initCarousel(carouselId) {
@@ -239,22 +309,15 @@
     }
   }
 
-  document.getElementById('carousel1').addEventListener('touchstart', function(e) {
-    touchStartX = e.changedTouches[0].screenX;
-  });
+  ['carousel1', 'carousel2', 'carousel3', 'carousel4', 'carousel5'].forEach(carouselId => {
+    document.getElementById(carouselId).addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
 
-  document.getElementById('carousel1').addEventListener('touchend', function(e) {
-    touchEndX = e.changedTouches[0].screenX;
-    handleGesture('carousel1');
-  });
-
-  document.getElementById('carousel2').addEventListener('touchstart', function(e) {
-    touchStartX = e.changedTouches[0].screenX;
-  });
-
-  document.getElementById('carousel2').addEventListener('touchend', function(e) {
-    touchEndX = e.changedTouches[0].screenX;
-    handleGesture('carousel2');
+    document.getElementById(carouselId).addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture(carouselId);
+    });
   });
 </script>
 
