@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <meta name="author" content="t'Thon">
+  <meta property="og:image" content="AFinHF.png">
+  <title>Cryoballoon PVI 2024</title>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+    
+    .carousel-items {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .carousel-item {
+      min-width: 100%;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    /* Dot navigation below slide */
+    .dots {
+      text-align: center;
+      margin-top: 10px;
+    }
+    
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    
+    .active {
+      background-color: #717171;
+    }
+
+    /* Caption below dots */
+    .caption {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    /* Navigation buttons */
+    .carousel-control-prev,
+    .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    
+    .carousel-control-prev {
+      left: 10px;
+    }
+    
+    .carousel-control-next {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+<div style="width: 100vw;">
+    <img src="Media/title.gif" style="width: 100%;">
+</div>
+
+<!-- Carousel 1 -->
+<div class="carousel" id="carousel1">
+  <div class="carousel-items" id="carousel1-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel1')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel1')">❯</button>
+  <div class="dots" id="carousel1-dots"></div>
+  <div class="caption" id="carousel1-caption">Caption for Slide 1</div>
+</div>
+
+<!-- Carousel 2 -->
+<div class="carousel" id="carousel2">
+  <div class="carousel-items" id="carousel2-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel2')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel2')">❯</button>
+  <div class="dots" id="carousel2-dots"></div>
+  <div class="caption" id="carousel2-caption">Caption for Slide 1</div>
+</div>
+
+<!-- Carousel 3 -->
+<div class="carousel" id="carousel3">
+  <div class="carousel-items" id="carousel3-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+3+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+3+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+3+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel3')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel3')">❯</button>
+  <div class="dots" id="carousel3-dots"></div>
+  <div class="caption" id="carousel3-caption">Caption for Slide 1</div>
+</div>
+
+<!-- Carousel 4 -->
+<div class="carousel" id="carousel4">
+  <div class="carousel-items" id="carousel4-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel4')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel4')">❯</button>
+  <div class="dots" id="carousel4-dots"></div>
+  <div class="caption" id="carousel4-caption">Caption for Slide 1</div>
+</div>
+
+<!-- Carousel 5 -->
+<div class="carousel" id="carousel5">
+  <div class="carousel-items" id="carousel5-items">
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+1" alt="Slide 1">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+2" alt="Slide 2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+3" alt="Slide 3">
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel5')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel5')">❯</button>
+  <div class="dots" id="carousel5-dots"></div>
+  <div class="caption" id="carousel5-caption">Caption for Slide 1</div>
+</div>
+
+<script>
+  // Current index for each carousel
+  const carouselIndices = {
+    carousel1: 0,
+    carousel2: 0,
+    carousel3: 0,
+    carousel4: 0,
+    carousel5: 0
+  };
+
+  // Captions for the carousels
+  const captions = {
+    carousel1: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ],
+    carousel2: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ],
+    carousel3: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ],
+    carousel4: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ],
+    carousel5: [
+      'Caption for Slide 1',
+      'Caption for Slide 2',
+      'Caption for Slide 3'
+    ]
+  };
+
+  // Initialize all carousels
+  document.addEventListener('DOMContentLoaded', function () {
+    initCarousel('carousel1');
+    initCarousel('carousel2');
+    initCarousel('carousel3');
+    initCarousel('carousel4');
+    initCarousel('carousel5');
+  });
+
+  function initCarousel(carouselId) {
+    const items = document.getElementById(`${carouselId}-items`);
+    const totalSlides = items.children.length;
+    const dotsContainer = document.getElementById(`${carouselId}-dots`);
+
+    // Create dots dynamically
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', function () {
+        goToSlide(carouselId, i);
+      });
+      dotsContainer.appendChild(dot);
+    }
+
+    // Show the initial slide
+    showSlide(carouselId, carouselIndices[carouselId]);
+  }
+
+  function showSlide(carouselId, index) {
+    const items = document.getElementById(`${carouselId}-items`);
+    const dots = document.getElementById(`${carouselId}-dots`).children;
+    const totalSlides = items.children.length;
+    const caption = document.getElementById(`${carouselId}-caption`);
+
+    // Loop back to the first slide if at the end
+    if (index >= totalSlides) {
+      carouselIndices[carouselId] = 0;
+    } else if (index < 0) {
+      carouselIndices[carouselId] = totalSlides - 1;
+    } else {
+      carouselIndices[carouselId] = index;
+    }
+
+    // Move the carousel
+    const offset = -carouselIndices[carouselId] * 100;
+    items.style.transform = `translateX(${offset}%)`;
+
+    // Update dots
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove('active');
+    }
+    dots[carouselIndices[carouselId]].classList.add('active');
+
+    // Update caption
+    caption.textContent = captions[carouselId][carouselIndices[carouselId]];
+  }
+
+  function nextSlide(carouselId) {
+    carouselIndices[carouselId]++;
+    showSlide(carouselId, carouselIndices[carouselId]);
+  }
+
+  function prevSlide(carouselId) {
+    carouselIndices[carouselId]--;
+    showSlide(carouselId, carouselIndices[carouselId]);
+  }
+
+  function goToSlide(carouselId, index) {
+    showSlide(carouselId, index);
+  }
+
+  // Touch event handlers
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function handleGesture(carouselId) {
+    if (touchEndX < touchStartX) {
+      nextSlide(carouselId);  // Swipe left
+    } 
+    if (touchEndX > touchStartX) {
+      prevSlide(carouselId);  // Swipe right
+    }
+  }
+
+  ['carousel1', 'carousel2', 'carousel3', 'carousel4', 'carousel5'].forEach(carouselId => {
+    document.getElementById(carouselId).addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.getElementById(carouselId).addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture(carouselId);
+    });
+  });
+</script>
+
+</body>
+</html>
