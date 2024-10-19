@@ -82,6 +82,13 @@
       object-fit: cover;
     }
 
+    .carousel-item-ref {
+      position: absolute;bottom: 0;right: 0;text-align: right;
+    }
+    .carousel-item-ref a {
+      color: #717171;font-weight: 300;color: #717171;font-size: 1.6vmax;
+    }
+
     /* Dot navigation below slide */
     .dots {
       text-align: center;
@@ -109,7 +116,7 @@
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
       padding: 10px;
-      font-size: 2vmax;
+      font-size: 2.2vmax;
       margin-top: 10px;
       width: 100%;
     }
@@ -172,6 +179,11 @@
           <source media="(max-width:900px)" srcset="media/mobile/pathology.png">
           <img src="Media/pathology.png">
         </picture>
+        <div class="carousel-item-ref">
+          <a href="https://doi.org/10.1161/01.CIR.0000058706.82623.A1" target="_blank">
+            Circulation 2003
+          </a>
+        </div>
       </div>
       <div class="carousel-item">
         <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+2" alt="Slide 2">
@@ -276,8 +288,8 @@
   // Captions for the carousels
   const captions = {
     carousel1: [
-      'Cryo results in Less Thrombus & More Homogenous Lesion',
-      'Caption for Slide 2',
+      'Less Thrombus & More Homogenous Lesion with Cryo',
+      'How does freezing causing cell death?',
       'Caption for Slide 3'
     ],
     carousel2: [
