@@ -6,13 +6,81 @@
   <meta name="author" content="t'Thon">
   <meta property="og:image" content="AFinHF.png">
   <title>Cryoballoon PVI 2024</title>
+
+  <!--fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik:wght@300..900&display=swap" rel="stylesheet">
+  
   <style>
+    /*fonts*/
+    .rubik {
+    font-family: "Rubik", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    }
+    .rubik-light {
+    font-family: "Rubik", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    }
+    .rubik-light-extended {
+      font-family: "Rubik", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing:1px;   
+    }
+    .cormorant-garamond-light {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 300;
+    font-style: normal;
+    }
+
+    .cormorant-garamond-regular {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    font-style: normal;
+    }
+
+    .cormorant-garamond-medium {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-style: normal;
+    }
+
     body {
       box-sizing: border-box;
       margin: 0;padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: "Rubik", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
     }
     
+    .title {
+      position: relative;
+      width: 100%;
+    }
+
+    .title img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .title-text {
+      position: absolute;
+      bottom: 5%;
+      right: 40%;
+      text-align: center;
+      font-size: 24px;
+      padding: 10px;
+      color: white;
+    }
+
     .carousel {
       position: relative;
       width: 100%;
@@ -91,10 +159,16 @@
       right: 10px;
     }
   </style>
+
 </head>
+
+<!--body-->
 <body>
-<div style="width: 100vw;">
+<div class="title">
     <img src="Media/title.gif" style="width: 100%;">
+    <div class="title-text rubik-light-extended">
+      heartRhythmBox
+    </div>
 </div>
 
 <!-- Carousel 1 -->
