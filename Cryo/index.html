@@ -83,10 +83,10 @@
     }
 
     .carousel-item-ref {
-      position: absolute;bottom: 0;right: 0;text-align: right;
+      position: absolute;bottom: 1%;right: 1%;text-align: right;font-style: italic;
     }
     .carousel-item-ref a {
-      color: #717171;font-weight: 300;color: #717171;font-size: 1.6vmax;
+      color: #888;font-weight: 300;color: #717171;font-size: 1.6vmax;
     }
 
     /* Dot navigation below slide */
@@ -186,7 +186,15 @@
         </div>
       </div>
       <div class="carousel-item">
-        <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+2" alt="Slide 2">
+        <picture>
+          <source media="(max-width:900px)" srcset="media/mobile/freezingEffect.png">
+          <img src="Media/freezingEffect.png">
+        </picture>
+        <div class="carousel-item-ref">
+          <a href="tps://doi.org/10.1038/s41570-022-00407-4" target="_blank">
+            Nat Rev Chem 2022
+          </a>
+        </div>
       </div>
       <div class="carousel-item">
         <img src="https://via.placeholder.com/800x400?text=Carousel+1+Slide+3" alt="Slide 3">
@@ -289,8 +297,8 @@
   const captions = {
     carousel1: [
       'Less Thrombus & More Homogenous Lesion with Cryo',
-      'How does freezing causing cell death?',
-      'Caption for Slide 3'
+      'Cold energy damages the cells due to the effects of both freezing and thawing',
+      'Lesion Formation with Cryothermal Ablation'
     ],
     carousel2: [
       'Caption for Slide 1',
