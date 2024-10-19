@@ -24,6 +24,8 @@
 
     /*color*/
     .eggShell {background-color:#F0EAD6;}
+    .icegrey {background-color: #eef1fc;}
+    .navy {background-color: #000435;}
 
     body {
       box-sizing: border-box;
@@ -64,7 +66,6 @@
       width: 100%;
       max-width: 1600px;
       margin: 20px auto;
-      overflow: hidden;
     }
     
     .carousel-items {
@@ -115,10 +116,10 @@
       text-align: center;
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
-      padding: 10px;
+      padding: 10px 2px;
       font-size: 2.2vmax;
       margin-top: 10px;
-      width: 100%;
+      width: 100%;text-wrap: auto;
     }
 
     /* Navigation buttons */
@@ -142,11 +143,25 @@
       right: 10px;
     }
 
-    .topic {padding: 1vmax;}
+    .topic {padding: 3vmax 0vmax 2vmax 0vmax;}
     .headLine {
       font-family: "Cormorant Garamond", serif;font-weight: 500;font-size: 4vmax;color: #292330;
       text-align: center;padding: 1vmax;
     }
+    .RF-Table {width: 100%;border-collapse: collapse;text-align: center;}
+    .RF-Table caption {font-size: 3vmax;text-align: center;color: #292330;}
+    .RF-Table th {
+      background-color: #F14124;color: #eef1fc;font-weight: 500;
+      font-style: normal;font-size: 2.2vmax;
+    }
+    .RF-Table th,td {
+      border: #bbb 1px solid;padding: 10px;
+    }
+    @media only screen and (max-width: 600px) {
+      .RF-Table {display: block;white-space:wrap;padding: 2px;font-size: 2vmax;}
+      .RF-Table-M {display: none;}
+    }
+
   </style>
 
 </head>
@@ -215,11 +230,67 @@
   </div>
 </div>
 
-<!-- Carousel 2 -->
+<!-- Topic 2 Carousel 2 -->
+<div class="topic icegrey"> 
+  <div class="headLine" style="border-bottom: #292330 solid 0.1vh;">
+    2. Cryoballoon PVI as the First Line Therapy for Symptomatic Paroxysmal AF
+  </div>
 <div class="carousel" id="carousel2">
   <div class="carousel-items" id="carousel2-items">
-    <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+1" alt="Slide 1">
+    <div class="carousel-item" style="overflow-x: auto;">
+      <table class="RF-Table">
+        <caption class="rubik-light-extended">RCTs on RFA as a 1st Line</caption>
+        <thead>
+            <tr>
+                <th>Trials</th>
+                <th>N</th>
+                <th class="RF-Table-M">Age</th>
+                <th>Inclusions</th>
+                <th class="RF-Table-M">Atrial Arrhythmias Outcome (Ablation vs. AAD)</th>
+                <th>Ablation Better?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="https://doi.org/10.1001/jama.293.21.2634" target="_blank">
+                  RAAFT-1</a></td>
+                <td>70</td>
+                <td class="RF-Table-M">54</td>
+                <td>Symptomatic AF (97% parox)<br>Monthly episodes > 3mos</td>
+                <td class="RF-Table-M">Recurrence symp AF<br>13% vs. 63% at 1yr; P&lt;0.001<br>(Quarterly event recorder)</td>
+                <td>Yes, but N was small.</td>
+            </tr>
+            <tr>
+                <td><a href="https://doi.org/10.1056/nejmoa1113566" target="_blank">
+                  MANTRA PAF</a></td>
+                <td>294</td>
+                <td class="RF-Table-M">55</td>
+                <td>Symptomatic Parox AF<br>2+ episodes in 6mos<br>No episode > 7d</td>
+                <td class="RF-Table-M">AF Burden<br>13% vs. 19% at 24mos; P=0.10<br>(Quarterly holter)</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td><a href="https://doi.org/10.1001/jama.2014.467" target="_blank">
+                  RAAFT-2</a></td>
+                <td>127</td>
+                <td class="RF-Table-M">55</td>
+                <td>Symptomatic Parox AF<br>&lt;4 episodes in 6mos</td>
+                <td class="RF-Table-M">Recurrence Atrial Arrhythmias<br>54.5 vs. 72.1% at 24mos; P=0.02<br>(Biweekly transtelephonic)</td>
+                <td>Yes, but not by much.</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="carousel-item navy">
+      <picture>
+        <source media="(max-width:900px)" srcset="media/mobile/equipment.png">
+        <img src="Media/equipment.png">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1056/nejmoa1602014" target="_blank">
+          NEJM 2016
+        </a>
+      </div>
     </div>
     <div class="carousel-item">
       <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+2" alt="Slide 2">
@@ -232,6 +303,7 @@
   <button class="carousel-control-next" onclick="nextSlide('carousel2')">❯</button>
   <div class="dots" id="carousel2-dots"></div>
   <div class="caption" id="carousel2-caption">Caption for Slide 1</div>
+</div>
 </div>
 
 <!-- Carousel 3 -->
@@ -309,8 +381,8 @@
       'Lesion Formation with Cryothermal Ablation'
     ],
     carousel2: [
-      'Caption for Slide 1',
-      'Caption for Slide 2',
+      'RF as a 1st Line was class IIa in ESC 2016 Guidelines.',
+      'Cryoballon PVI is a more simplified procedure.',
       'Caption for Slide 3'
     ],
     carousel3: [
