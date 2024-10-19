@@ -25,7 +25,7 @@
     /*color*/
     .eggShell {background-color:#F0EAD6;}
     .icegrey {background-color: #eef1fc;}
-    .navy {background-color: #000435;}
+    .navy {background-color: #1d2131;}
 
     body {
       box-sizing: border-box;
@@ -116,10 +116,11 @@
       text-align: center;
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
-      padding: 10px 2px;
+      padding: 10px;
       font-size: 2.2vmax;
       margin-top: 10px;
-      width: 100%;text-wrap: auto;
+      width: 100%;max-width: 90%;margin-left: auto;margin-right: auto;
+      border-radius: 2vmax;
     }
 
     /* Navigation buttons */
@@ -191,8 +192,8 @@
     <div class="carousel-items" id="carousel1-items">
       <div class="carousel-item">
         <picture>
-          <source media="(max-width:900px)" srcset="media/mobile/pathology.png">
-          <img src="Media/pathology.png">
+          <source media="(max-width:900px)" srcset="media/mobile/pathology.png" loading="lazy">
+          <img src="Media/pathology.png" loading="lazy">
         </picture>
         <div class="carousel-item-ref">
           <a href="https://doi.org/10.1161/01.CIR.0000058706.82623.A1" target="_blank">
@@ -202,8 +203,8 @@
       </div>
       <div class="carousel-item">
         <picture>
-          <source media="(max-width:900px)" srcset="media/mobile/freezingEffect.png">
-          <img src="Media/freezingEffect.png">
+          <source media="(max-width:900px)" srcset="media/mobile/freezingEffect.png" loading="lazy">
+          <img src="Media/freezingEffect.png" loading="lazy">
         </picture>
         <div class="carousel-item-ref">
           <a href="https://doi.org/10.1038/s41570-022-00407-4" target="_blank">
@@ -213,8 +214,8 @@
       </div>
       <div class="carousel-item">
         <picture>
-          <source media="(max-width:900px)" srcset="media/mobile/mechanism.png">
-          <img src="Media/mechanism.png">
+          <source media="(max-width:900px)" srcset="media/mobile/mechanism.png" loading="lazy">
+          <img src="Media/mechanism.png" loading="lazy">
         </picture>
         <div class="carousel-item-ref">
           <a href="https://doi.org/10.1016/j.jacc.2021.06.038" target="_blank">
@@ -283,8 +284,8 @@
     </div>
     <div class="carousel-item navy">
       <picture>
-        <source media="(max-width:900px)" srcset="media/mobile/equipment.png">
-        <img src="Media/equipment.png">
+        <source media="(max-width:900px)" srcset="media/mobile/equipment.png" loading="lazy">
+        <img src="Media/equipment.png" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
         <a href="https://doi.org/10.1056/nejmoa1602014" target="_blank">
@@ -292,17 +293,72 @@
         </a>
       </div>
     </div>
-    <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+2" alt="Slide 2">
+    <div class="carousel-item navy">
+      <picture>
+        <source media="(max-width:900px)" srcset="media/mobile/fireAndIce.png" loading="lazy">
+        <img src="Media/fireAndIce.png">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1056/nejmoa1602014" target="_blank" loading="lazy">
+          NEJM 2016
+        </a>
+      </div>  
+    </div>
+    <div class="carousel-item navy">
+      <picture>
+        <source media="(max-width:900px)" srcset="media/mobile/circaDose.png" loading="lazy">
+        <img src="Media/circaDose.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1161/CIRCULATIONAHA.119.042622" target="_blank">
+          Circulation 2019.
+        </a>
+      </div>    
+    </div>
+    <div class="carousel-item navy">
+      <picture>
+        <source media="(max-width:900px)" srcset="media/mobile/3RCTs.png" loading="lazy">
+        <img src="Media/3RCTs.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1056/nejmoa2029980" target="_blank">
+          EARLY-AF
+        </a>&nbsp;&nbsp;&nbsp;
+        <a href="https://doi.org/10.1056/nejmoa2029554" target="_blank">
+          STOP-AF
+        </a>&nbsp;&nbsp;&nbsp;
+        <a href="https://doi.org/10.1093/europace/euab029" target="_blank">
+          Cryo-First
+        </a>
+      </div>    
+    </div>
+    <div class="carousel-item navy">
+      <picture>
+        <source media="(max-width:900px)" srcset="media/mobile/earlyAF.png" loading="lazy">
+        <img src="Media/earlyAF.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1056/nejmoa2029980" target="_blank">
+          EARLY-AF
+        </a>
+      </div>    
     </div>
     <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+2+Slide+3" alt="Slide 3">
+      <picture>
+        <source media="(max-width:900px)" srcset="media/mobile/shamPVI.png" loading="lazy">
+        <img src="Media/shamPVI.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1001/jama.2024.17921" target="_blank">
+          SHAM-PVI
+        </a>
+      </div>    
     </div>
   </div>
   <button class="carousel-control-prev" onclick="prevSlide('carousel2')">❮</button>
   <button class="carousel-control-next" onclick="nextSlide('carousel2')">❯</button>
   <div class="dots" id="carousel2-dots"></div>
-  <div class="caption" id="carousel2-caption">Caption for Slide 1</div>
+  <div class="caption" id="carousel2-caption"></div>
 </div>
 </div>
 
@@ -376,14 +432,18 @@
   // Captions for the carousels
   const captions = {
     carousel1: [
-      'Less Thrombus & More Homogenous Lesion with Cryo',
-      'Cold energy damages the cells due to the effects of both freezing and thawing',
-      'Lesion Formation with Cryothermal Ablation'
+      'Less Thrombus & More Homogenous Lesion with Cryo.',
+      'Cold energy damages the cells due to the effects of both freezing and thawing.',
+      'LESION FORMATION WITH CRYOTHERMAL ABLATION'
     ],
     carousel2: [
       'RF as a 1st Line was class IIa in ESC 2016 Guidelines.',
       'Cryoballon PVI is a more simplified procedure.',
-      'Caption for Slide 3'
+      'FIRE and ICE Trial: Cryo is non-inferior to RF as a 2nd line.',
+      'Circa-Dose Trial: Cryo is as effective as RF; as a 2nd line.',
+      '3 RCTs that advance ablation to become class IA recommendation as the 1st line for paroxysmal AF.',
+      'EARLY-AF is the largest RCT and a very well designed one.',
+      '..and the benefit of ablation is beyond a placebo effect.'
     ],
     carousel3: [
       'Caption for Slide 1',
