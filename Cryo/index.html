@@ -153,17 +153,31 @@
       color: #292330;
       text-align: left;padding: 2vmax 1vmax 1vmax 1vmax;
     }
-    .RF-Table {width: 100%;border-collapse: collapse;text-align: center;}
-    .RF-Table caption {font-size: 3vmax;text-align: center;color: #292330;}
+    .RF-Table, .Advent-Table, .Registry-Table {width: 100%;border-collapse: collapse;
+      text-align: center;padding: 10px;}
+    .RF-Table caption, .Advent-Table caption, .Registry-Table caption {font-size: 3vmax;text-align: center;color: #292330;}
     .RF-Table th {
       background-color: #F14124;color: #eef1fc;font-weight: 500;
+      font-style: normal;font-size: 2.2vmax;
+    }
+    .Advent-Table th {
+      background-color: #15a2ac;color: #eef1fc;font-weight: 500;
+      font-style: normal;font-size: 2.2vmax;
+    }
+    .Registry-Table th {
+      background-color: #15a2ac;color: #eef1fc;font-weight: 500;
       font-style: normal;font-size: 2.2vmax;
     }
     .RF-Table th,td {
       border: #bbb 1px solid;padding: 10px;
     }
+    .Advent-Table th, td {
+      border: #777 1px solid;padding: 10px;
+    }
+    .Advent-Table tfoot td {font-size: 16px;color: #444;font-weight: 300;
+      border: none;text-align: left;}
     @media only screen and (max-width: 600px) {
-      .RF-Table {display: block;white-space:wrap;padding: 2px;font-size: 2vmax;}
+      .RF-Table, .Advent-Table {display: block;white-space:wrap;padding: 2px;font-size: 2vmax;}
       .RF-Table-M {display: none;}
       .headLine {letter-spacing: 0.5px;text-transform: none;}
     }
@@ -397,7 +411,7 @@
       </div>    
     </div>
     <div class="carousel-item">
-      <table>
+      <table class="Advent-Table">
         <caption>ADVENT RCT: Safety Endpoints</caption>
         <thead>
           <tr>
@@ -423,11 +437,55 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="4">CBA: Cryoballoon ablation; PFA: Pulsed-field ablation; RFA: Radiofrequency ablation</td>
+            <td colspan="4">CBA: Cryoballoon ablation; PFA: Pulsed-field ablation; RFA: Radiofrequency ablation
+              <br>
+              <a href="https://doi.org/10.1056/nejmoa2307291" target="_blank">Ref: ADVENT Trial</a>
+            </td>
           </tr>
         </tfoot>
       </table>
       
+    </div>
+    <div class="carousel-item">
+      <table class="Registry-Table">
+        <caption>CryoAF Global Registry</caption>
+        <thead>
+            <tr>
+                <th>Adverse Event</th>
+                <th>Incidence N (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Procedure-related SERIOUS adverse events</td>
+                <td>100 (3.4%)</td>
+            </tr>
+            <tr>
+                <td>Recurrences Atrial Arrhythmias</td>
+                <td>25 (0.9%)</td>
+            </tr>
+            <tr>
+                <td>Groin Complication</td>
+                <td>20 (0.7%)</td>
+            </tr>
+            <tr>
+                <td>Phrenic Nerve Injury</td>
+                <td>15 (0.5%)</td>
+            </tr>
+            <tr>
+                <td>Cardiac Tamponade or effusion</td>
+                <td>11 (0.4%)</td>
+            </tr>
+            <tr>
+                <td>Stroke/TIA</td>
+                <td>5 (0.2%)</td>
+            </tr>
+            <tr>
+                <td>Death within 30d</td>
+                <td>3 (0.1%)</td>
+            </tr>
+        </tbody>
+    </table>
     </div>
     <div class="carousel-item">
       <img src="https://via.placeholder.com/800x400?text=Carousel+3+Slide+3" alt="Slide 3">
@@ -507,7 +565,7 @@
     ],
     carousel3: [
       'Esophageal fistula, a lethal complication, is rare and even rarer in Cryo.',
-      'Caption for Slide 2',
+      'In an RCT, Cryo has a relatively lower adverse events than those of other modalities.',
       'Caption for Slide 3'
     ],
     carousel4: [
