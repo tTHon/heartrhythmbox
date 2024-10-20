@@ -104,8 +104,8 @@
     }
 
     .carousel-item img {
-      width: 100%;height: auto;max-height: 600px;
-      object-fit: cover;-webkit-object-fit: cover;
+      width: 100%;height: auto;max-height: 70vh;
+      object-fit:contain;
     }
 
     .carousel-item-ref {
@@ -867,7 +867,7 @@
     }
   }
 
-  ['carousel1', 'carousel2', 'carousel3', 'carousel4', 'carousel5'].forEach(carouselId => {
+  ['carousel1', 'carousel2', 'carousel3', 'carousel4'].forEach(carouselId => {
     document.getElementById(carouselId).addEventListener('touchstart', function(e) {
       touchStartX = e.changedTouches[0].screenX;
     });
