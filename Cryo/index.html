@@ -61,7 +61,9 @@
     .title-text img {
       padding-right: 10px;
     }
-    
+    .footer {background: #999;font-size: 24px;padding:5vmax 3vmax;color:#ddd;
+              line-height: 200%;text-align: center;}
+    .footer a {padding: 12px;}
     .carousel {
       position: relative;
       width: 100%;
@@ -153,32 +155,39 @@
       color: #292330;
       text-align: left;padding: 2vmax 1vmax 1vmax 1vmax;
     }
-    .RF-Table, .Advent-Table, .Registry-Table {width: 100%;border-collapse: collapse;
+    .RF-Table, .Advent-Table, .Registry-Table,.Yeti-Table {border-collapse: collapse;
       text-align: center;padding: 10px;}
-    .RF-Table caption, .Advent-Table caption, .Registry-Table caption {font-size: 3vmax;text-align: center;color: #292330;}
+    .RF-Table caption, .Advent-Table caption, .Registry-Table caption, .Yeti-Table caption 
+    {font-size: 3vmax;text-align: center;color: #292330;}
     .RF-Table th {
       background-color: #F14124;color: #eef1fc;font-weight: 500;
       font-style: normal;font-size: 2.2vmax;
     }
     .Advent-Table th {
-      background-color: #15a2ac;color: #eef1fc;font-weight: 500;
+      background-color: #534696;color: #eef1fc;font-weight: 500;
       font-style: normal;font-size: 2.2vmax;
     }
     .Registry-Table th {
       background-color: #15a2ac;color: #eef1fc;font-weight: 500;
       font-style: normal;font-size: 2.2vmax;
     }
+    .Yeti-Table th {
+      background-color: #9ac0D9;color:#333;font-weight: 500;
+      font-style: normal;font-size: 2.2vmax;
+    }
     .RF-Table th,td {
       border: #bbb 1px solid;padding: 10px;
     }
-    .Advent-Table th, td {
+    .Advent-Table th, td, .Registry-Table th,td, .Yeti-Table th,td {
       border: #777 1px solid;padding: 10px;
     }
-    .Advent-Table tfoot td {font-size: 16px;color: #444;font-weight: 300;
+    .Advent-Table tfoot td, .Registry-Table tfoot td, .Yeti-Table tfoot td {font-size: 16px;color: #333;font-weight: 300;
       border: none;text-align: left;}
     @media only screen and (max-width: 600px) {
-      .RF-Table, .Advent-Table {display: block;white-space:wrap;padding: 2px;font-size: 2vmax;}
-      .RF-Table-M {display: none;}
+      .RF-Table, .Advent-Table, .Yeti-Table {display: block;white-space:wrap;
+        padding: 2px;font-size: 2vmax;width: 100%;overflow: auto;}
+      .Yeti-Table th, .Yeti-Table td, .Yeti-Table caption,.Yeti-Table {padding: none;font-size: 16px;text-align: left;}
+      .RF-Table-M, .noMobile {display: none;}
       .headLine {letter-spacing: 0.5px;text-transform: none;}
     }
 
@@ -202,8 +211,8 @@
     </div>
 </div>
 
-<!-- Topic 1 Carousel 1 -->
-<div class="topic icegrey"> 
+<!-- Topic 1 Physics Carousel 1 -->
+<div id="no1" class="topic icegrey"> 
   <div class="headLine">
     <span style="border-bottom: #292330 solid 0.2vh;"><sup>1</sup>Physiology of CryoEnergy</span> 
   </div>
@@ -250,8 +259,8 @@
   </div>
 </div>
 
-<!-- Topic 2 Carousel 2 -->
-<div class="topic eggShell"> 
+<!-- Topic 2 Paroxysmal Carousel 2 -->
+<div id="no2" class="topic eggShell"> 
   <div class="headLine">
     <span style="border-bottom: #F14124 solid 0.2vh;"><sup>2</sup>Paroxysmal AF</span>
   </div>
@@ -392,8 +401,8 @@
 </div>
 </div>
 
-<!-- Carousel 3 -->
-<div class="topic lightgrey"> 
+<!-- Topic 3 Safety Carousel 3 -->
+<div id="no3" class="topic lightgrey"> 
   <div class="headLine">
     <span style="border-bottom: #717171 solid 0.2vh;"><sup>3</sup>Safety & Consistency</span>
   </div>
@@ -416,9 +425,9 @@
         <thead>
           <tr>
             <th>Adverse Events</th>
-            <th>RFA (N = 167)</th>
-            <th>CBA (N = 135)</th>
-            <th>PFA (N = 305)</th>
+            <th>RFA <span class="noMobile">(N = 167)</span></th>
+            <th>CBA <span class="noMobile">(N = 135)</span></th>
+            <th>PFA <span class="noMobile">(N = 305)</span></th>
           </tr>
         </thead>
         <tbody>
@@ -448,7 +457,7 @@
     </div>
     <div class="carousel-item">
       <table class="Registry-Table">
-        <caption>CryoAF Global Registry</caption>
+        <caption>Cryo AF Global Registry</caption>
         <thead>
             <tr>
                 <th>Adverse Event</th>
@@ -485,10 +494,129 @@
                 <td>3 (0.1%)</td>
             </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              <a href="https://doi.org/10.1002/joa3.12504" target="_blank">Ref: Cryo AF Global Registry</a>
+            </td>
+          </tr>
+        </tfoot>
     </table>
     </div>
     <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+3+Slide+3" alt="Slide 3">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/shamPVI.png" loading="lazy"-->
+        <img src="Media/PNI CXR.png" loading="lazy">
+      </picture>
+    </div>
+    <div class="carousel-item">
+      <picture style="border: #888 solid 0.1vmin;">
+        <source media="(max-width:900px)" srcset="media/mobile/Yeti.png" loading="lazy">
+        <img src="Media/Yeti.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1161/CIRCEP.121.010516" target="_blank">
+          YETI Registry
+        </a>
+      </div>  
+    </div>
+    <div class="carousel-item">
+      <table class="Yeti-Table">
+        <caption>Phrenic Nerve Injury Recovery Data</caption>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Immediate Recovery (n=455)</th>
+                <th>Early Recovery (n=127)</th>
+                <th>Delayed Recovery (n=109)</th>
+                <th>P Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="noMobile">
+                <td>Age (y)</td>
+                <td>64 (54–72)</td>
+                <td>65 (57–73)</td>
+                <td>66 (58–71)</td>
+                <td>0.212</td>
+            </tr>
+            <tr class="noMobile">
+                <td>Body Mass Index (kg/m²)</td>
+                <td>26.0 (23.9–29.5)</td>
+                <td>24.5 (22.6–27.4)</td>
+                <td>26.7 (23.3–30.7)</td>
+                <td>0.002</td>
+            </tr>
+            <tr>
+                <td>Temperature at PNI (°C)</td>
+                <td>−47.3<span class="noMobile">±8.5</span></td>
+                <td>−49.6<span class="noMobile">±6.0</span></td>
+                <td>−50.1<span class="noMobile">±6.4</span></td>
+                <td>&lt;0.001</td>
+            </tr>
+            <tr class="noMobile">
+                <td>Time to PNI (s)</td>
+                <td>136.8±58.6</td>
+                <td>137.5±50.1</td>
+                <td>121.5±51.5</td>
+                <td>0.037</td>
+            </tr>
+            <tr>
+                <td>Bonus Freeze Protocol n (%)</td>
+                <td>191 (41.9)</td>
+                <td>39 (30.7)</td>
+                <td>22 (20.2)</td>
+                <td>0.001</td>
+            </tr>
+            <tr>
+                <td>Utilization of CMAP n (%)</td>
+                <td>226 (49.7)</td>
+                <td>81 (63.8)</td>
+                <td>66 (60.6)</td>
+                <td>0.006</td>
+            </tr>
+            <tr class="noMobile">
+                <td>CMAP Amplitude Loss &gt;30% n (%)</td>
+                <td>90 (20.2)</td>
+                <td>36 (28.6)</td>
+                <td>46 (42.2)</td>
+                <td>&lt;0.001</td>
+            </tr>
+            <tr>
+                <td>Double-stop Technique at Time of PNI n (%)</td>
+                <td>450 (98.9)</td>
+                <td>122 (96.1)</td>
+                <td>103 (94.5)</td>
+                <td>0.009</td>
+            </tr>
+            <tr class="noMobile">
+                <td>PV Diameter (mm)</td>
+                <td>19.3 (17.4–22.1)</td>
+                <td>22.1 (18.2–24.6)</td>
+                <td>20.1 (17.2–21.5)</td>
+                <td>0.019</td>
+            </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">Immediate recovery=recovery until discharge. Early recovery=recovery within 3 mo. Delayed recovery=recovery >3 mo. CMAP indicates compound motor action potential; PNI = Phrenic Nerve Injury 
+              <br>
+              <a href="https://doi.org/10.1161/CIRCEP.121.010516" target="_blank">Ref: YETI Registry</a>
+            </td>
+          </tr>
+        </tfoot>
+    </table>
+    </div>
+    <div class="carousel-item navy">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/Yeti.png" loading="lazy"-->
+        <img src="Media/consistency.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1093/europace/euw080" target="_blank">
+          Europace 2017.
+        </a>
+      </div>  
     </div>
   </div>
   <button class="carousel-control-prev" onclick="prevSlide('carousel3')">❮</button>
@@ -498,43 +626,76 @@
 </div>
 </div>
 
-<!-- Carousel 4 -->
+<!-- Topic 4 Other settings Carousel 4 -->
+<div id="no4" class="topic icegrey"> 
+  <div class="headLine">
+    <span style="border-bottom: #717171 solid 0.2vh;"><sup>4</sup>Other Settings</span>
+  </div>
 <div class="carousel" id="carousel4">
   <div class="carousel-items" id="carousel4-items">
     <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+1" alt="Slide 1">
+      <picture>
+        <source media="(max-width:900px)" srcset="media/mobile/CRABL.png" loading="lazy">
+        <img src="Media/CRABL.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://scontent.fbkk8-4.fna.fbcdn.net/v/t39.30808-6/457800578_916445683857343_7537933768174421017_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGrIlJlAIJMRcFQEMdMqkrHYcW0qgoj34RhxbSqCiPfhO_xOZqmdautAOUXOojBF2Z6Gv10Bk2Xwdl3GtQ6CDbD&_nc_ohc=saPVgLkxCr0Q7kNvgFWwZ4W&_nc_zt=23&_nc_ht=scontent.fbkk8-4.fna&_nc_gid=Alvx4jnjf1zhYB94p3MH10Y&oh=00_AYDh7pZKfCCZ2lu_vst92HeQL5U07bs_NCtXrSaDMWVESg&oe=671A8456" target="_blank">
+          2024 ESC Congress
+        </a>
+      </div>   
     </div>
     <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+2" alt="Slide 2">
+      <picture>
+        <source media="(max-width:900px)" srcset="media/mobile/fireAndIce2.png" loading="lazy">
+        <img src="Media/fireAndIce2.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        2024 APHRS Scientific Session
+      </div>   
     </div>
     <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+4+Slide+3" alt="Slide 3">
+      <picture  style="border: #717171 solid 0.1vmin;"s>
+        <source media="(max-width:900px)" srcset="media/mobile/offLabel.png" loading="lazy">
+        <img src="Media/offLabel.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1111/jce.16082" target="_blank">JCE 2023</a>
+        &nbsp;&nbsp;
+        <a href="https://doi.org/10.1093/ehjcr/ytad598" target="_blank">EHJ Case Rep 2023</a>
+      </div>   
     </div>
+
   </div>
   <button class="carousel-control-prev" onclick="prevSlide('carousel4')">❮</button>
   <button class="carousel-control-next" onclick="nextSlide('carousel4')">❯</button>
   <div class="dots" id="carousel4-dots"></div>
   <div class="caption" id="carousel4-caption">Caption for Slide 1</div>
 </div>
-
-<!-- Carousel 5 -->
-<div class="carousel" id="carousel5">
-  <div class="carousel-items" id="carousel5-items">
-    <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+1" alt="Slide 1">
-    </div>
-    <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+2" alt="Slide 2">
-    </div>
-    <div class="carousel-item">
-      <img src="https://via.placeholder.com/800x400?text=Carousel+5+Slide+3" alt="Slide 3">
-    </div>
-  </div>
-  <button class="carousel-control-prev" onclick="prevSlide('carousel5')">❮</button>
-  <button class="carousel-control-next" onclick="nextSlide('carousel5')">❯</button>
-  <div class="dots" id="carousel5-dots"></div>
-  <div class="caption" id="carousel5-caption">Caption for Slide 1</div>
 </div>
+
+<!--footer-->
+<div class="footer">
+  
+  <span><a href="#top">Top</a>&nbsp;</span> <br>
+  <span><a href="#no1">#1</a>&nbsp;</span> 
+  <span><a href="#no2">#2</a>&nbsp;</span> 
+  <span><a href="#no3">#3</a>&nbsp;</span> 
+  <span><a href="#no4">#4</a>&nbsp;</span>     
+      
+  <div style="padding: 48px;">
+    <a href="https://heartRhythmBox.com/" target="_blank" 
+    style="text-decoration:none;color: #555;">
+        <img src="box icegrey.png" style="width: 48px;filter:sepia(50%);padding-right: 12px;">
+    </a> &nbsp;&nbsp;
+    <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
+    target="_blank" style="text-decoration:none;color: #555;">
+        <img src="youTube.png" style="width: 48px;filter:sepia(20%);">
+    </a>
+  </div>
+
+  HeartRhythmBox is an education page on Heart Rhythm Topics.<br>
+</div>
+
 
 <script>
   // Current index for each carousel
@@ -542,8 +703,7 @@
     carousel1: 0,
     carousel2: 0,
     carousel3: 0,
-    carousel4: 0,
-    carousel5: 0
+    carousel4: 0
   };
 
   // Captions for the carousels
@@ -566,17 +726,16 @@
     carousel3: [
       'Esophageal fistula, a lethal complication, is rare and even rarer in Cryo.',
       'In an RCT, Cryo has a relatively lower adverse events than those of other modalities.',
-      'Caption for Slide 3'
+      'The largest global registry on both paroxysmal and persistent AF confirms the safety profile of Cryoballoon ablation.',
+      'Phrenic nerve injury is more common in Cryo than in other modalities. Most of the cases resolved over time.',
+      'Incidence of permanent damage is approximately 0.1%.',
+      'The temperature, the utilization of CMAP & double-stop technique are predictors of time to recovery.',
+      'Data from French Registry.'
     ],
     carousel4: [
-      'Caption for Slide 1',
-      'Caption for Slide 2',
-      'Caption for Slide 3'
-    ],
-    carousel5: [
-      'Caption for Slide 1',
-      'Caption for Slide 2',
-      'Caption for Slide 3'
+      'CRABL-HF',
+      'FIRE&ICE II',
+      'The Limitation of Cryo'
     ]
   };
 
@@ -586,7 +745,6 @@
     initCarousel('carousel2');
     initCarousel('carousel3');
     initCarousel('carousel4');
-    initCarousel('carousel5');
   });
 
   function initCarousel(carouselId) {
