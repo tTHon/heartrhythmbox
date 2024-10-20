@@ -1,5 +1,19 @@
 var listArray = [
     {
+        name: 'Cryoballoon PVI',
+        description: 'Concept & Supporting Data',
+        link: 'Cryo/index.html',
+        thumb: 'media/cryo.gif',
+        date: new Date(24,10,20),
+        latest: 1,
+        audFav: 0,
+        authFav: 0,
+        QA: 0,
+        gLines: 0,
+        basic: 0,
+        mBasic: 1
+    },
+    {
         name: 'Basic ICD Concept: Qs & As',
         description: 'Basic functions and settings of ICD',
         link: 'BasicICDQA/index.html',
