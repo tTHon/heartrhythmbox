@@ -856,12 +856,14 @@
   let touchStartX = 0;
   let touchEndX = 0;
 
+  const swipeThreshold = 100; // Increase this value to make the swipe less sensitive
+
   function handleGesture(carouselId) {
-    if (touchEndX < touchStartX) {
-      nextSlide(carouselId);  // Swipe left
-    } 
-    if (touchEndX > touchStartX) {
+    const swipeDistance = touchEndX - touchStartX;
+    if (swipeDistance > swipeThreshold) {
       prevSlide(carouselId);  // Swipe right
+    } else if (swipeDistance < -swipeThreshold) {
+      nextSlide(carouselId);  // Swipe left
     }
   }
 
