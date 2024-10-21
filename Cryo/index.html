@@ -99,13 +99,17 @@
     }
     
     .carousel-item {
-      min-width: 100%;box-sizing: border-box;
+      min-width: 100%;box-sizing: border-box;max-height: 60vw;
       position: relative;display: flex;align-items: center;justify-content: center;
     }
 
     .carousel-item img {
-      width: 100%;height: auto;max-height: 70vh;
+      width: 100%;height: auto;max-height: 60vw;
       object-fit:contain;
+    }
+
+    @media only screen and (max-width: 900px) {
+      .carousel-item, .carousel-item img {max-height: 120vw;}
     }
 
     .carousel-item-ref {
@@ -142,7 +146,7 @@
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
       padding: 10px;
-      font-size: 2.2vmax;
+      font-size: 2vmax;
       margin-top: 10px;
       width: 100%;max-width: 90%;margin-left: auto;margin-right: auto;
       border-radius: 2vmax;
@@ -152,7 +156,7 @@
     .carousel-control-prev,
     .carousel-control-next {
       position: absolute;
-      top: 50%;
+      top: 45%;
       transform: translateY(-50%);
       background-color: rgba(0, 0, 0, 0.5);
       color: white;
@@ -178,6 +182,7 @@
     }
     .RF-Table, .Advent-Table, .Registry-Table,.Yeti-Table {border-collapse: collapse;font-size: 2vmax;
       text-align: center;padding: 10px;}
+    .Yeti-Table {padding: 8px;}
     .RF-Table caption, .Advent-Table caption, .Registry-Table caption, .Yeti-Table caption 
     {font-size: 3vmax;text-align: center;color: #292330;}
     .RF-Table th {
@@ -194,20 +199,23 @@
     }
     .Yeti-Table th {
       background-color: #9ac0D9;color:#333;font-weight: 500;
-      font-style: normal;font-size: 2.2vmax;
+      font-style: normal;font-size: 2vmax;
     }
-    .RF-Table th,td {
+    .RF-Table th,.RF-Table td {
       border: #bbb 1px solid;padding: 10px;
     }
-    .Advent-Table th, td, .Registry-Table th,td, .Yeti-Table th,td {
+    .Advent-Table th,.Advent-Table td, .Registry-Table th,.Registry-Table td, .Yeti-Table th,.Yeti-Table td {
       border: #777 1px solid;padding: 10px;
     }
     .Advent-Table tfoot td, .Registry-Table tfoot td, .Yeti-Table tfoot td {font-size: 16px;color: #333;font-weight: 300;
       border: none;text-align: left;}
     @media only screen and (max-width: 600px) {
       .RF-Table, .Advent-Table, .Yeti-Table {display: block;white-space:wrap;
-        padding: 2px;font-size: 2vmax;width: 100%;overflow: auto;}
-      .Yeti-Table th, .Yeti-Table td, .Yeti-Table caption,.Yeti-Table {padding: none;font-size: 16px;text-align: left;}
+        padding: 2px;font-size: 16px;width: 100%;overflow: auto;}
+      .RF-Table caption {font-size: 24px;}
+      .Yeti-Table th, .Yeti-Table td, .Yeti-Table tr {padding: none;font-size: 14px;text-align: left;}
+      .Yeti-Table caption {font-size: 15px;text-align: left;}
+      .Yeti-Table tfoot td {font-size: 14px;}
       .RF-Table-M, .noMobile {display: none;}
       .headLine {letter-spacing: 0.5px;text-transform: none;}
     }
@@ -431,7 +439,7 @@
   <div class="carousel-items" id="carousel3-items">
     <div class="carousel-item">
       <picture>
-        <!--source media="(max-width:900px)" srcset="media/mobile/shamPVI.png" loading="lazy"-->
+        <source media="(max-width:900px)" srcset="media/mobile/Potter.png" loading="lazy">
         <img src="Media/Potter.png" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
@@ -526,7 +534,7 @@
     </div>
     <div class="carousel-item">
       <picture>
-        <!--source media="(max-width:900px)" srcset="media/mobile/shamPVI.png" loading="lazy"-->
+        <source media="(max-width:900px)" srcset="media/mobile/PNI_CXR.png" loading="lazy">
         <img src="Media/PNI CXR.png" loading="lazy">
       </picture>
     </div>
@@ -620,7 +628,8 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="5">Immediate recovery=recovery until discharge. Early recovery=recovery within 3 mo. Delayed recovery=recovery >3 mo. CMAP indicates compound motor action potential; PNI = Phrenic Nerve Injury 
+            <td colspan="5">
+              <span class="noMobile">Immediate recovery=recovery until discharge. Early recovery=recovery within 3 mo. Delayed recovery=recovery >3 mo. CMAP indicates compound motor action potential; PNI = Phrenic Nerve Injury</span> 
               <br>
               <a href="https://doi.org/10.1161/CIRCEP.121.010516" target="_blank">Ref: YETI Registry</a>
             </td>
@@ -628,9 +637,9 @@
         </tfoot>
     </table>
     </div>
-    <div class="carousel-item navy">
+    <div class="carousel-item">
       <picture>
-        <!--source media="(max-width:900px)" srcset="media/mobile/Yeti.png" loading="lazy"-->
+        <source media="(max-width:900px)" srcset="media/mobile/consistency.png" loading="lazy">
         <img src="Media/consistency.png" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
