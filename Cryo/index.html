@@ -99,17 +99,17 @@
     }
     
     .carousel-item {
-      min-width: 100%;box-sizing: border-box;max-height: 60vw;
+      min-width: 100%;box-sizing: border-box;max-height: 55vw;
       position: relative;display: flex;align-items: center;justify-content: center;
     }
 
     .carousel-item img {
-      width: 100%;height: auto;max-height: 60vw;
+      width: 100%;height: auto;max-height: 55vw;
       object-fit:contain;
     }
 
     @media only screen and (max-width: 900px) {
-      .carousel-item, .carousel-item img {max-height: 120vw;}
+      .carousel-item, .carousel-item img {max-height: 100vw;}
     }
 
     .carousel-item-ref {
@@ -219,9 +219,7 @@
       .Advent-Table td,.Advent-Table th {padding:10px 5px;}
       .Yeti-Table th, .Yeti-Table td, .Yeti-Table tr {padding:8px 2px;font-size: 14px;text-align: left;}
       .Yeti-Table caption {font-size: 15px;text-align: left;}
-      .Advent-Table tfoot td, .Registry-Table tfoot td,.Yeti-Table tfoot td,
-      .Advent-Table tfoot td a, .Registry-Table tfoot td a,.Yeti-Table tfoot td a,
-      .Advent-Table tfoot td div, .Registry-Table tfoot td div,.Yeti-Table tfoot td div {font-size: 14px;}
+      .mobileFont {font-size: 14px;}
       .RF-Table-M, .noMobile {display: none;}
       .headLine {letter-spacing: 0.5px;text-transform: none;}
     }
@@ -481,9 +479,9 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="4">CBA: Cryoballoon ablation; PFA: Pulsed-field ablation; RFA: Radiofrequency ablation
+            <td class="mobileFont" colspan="4">CBA: Cryoballoon ablation; PFA: Pulsed-field ablation; RFA: Radiofrequency ablation
               <br>
-              <a href="https://doi.org/10.1056/nejmoa2307291" target="_blank">Ref: ADVENT Trial</a>
+              <a href="https://doi.org/10.1056/nejmoa2307291" target="_blank" class="mobileFont">Ref: ADVENT Trial</a>
             </td>
           </tr>
         </tfoot>
@@ -532,7 +530,7 @@
         <tfoot>
           <tr>
             <td colspan="4">
-              <a href="https://doi.org/10.1002/joa3.12504" target="_blank">Ref: Cryo AF Global Registry</a>
+              <a href="https://doi.org/10.1002/joa3.12504" target="_blank" class="mobileFont">Ref: Cryo AF Global Registry</a>
             </td>
           </tr>
         </tfoot>
@@ -636,7 +634,7 @@
           <tr>
             <td colspan="5">
               <div class="noMobile">Immediate recovery=recovery until discharge. Early recovery=recovery within 3 mo. Delayed recovery=recovery >3 mo. CMAP indicates compound motor action potential; PNI = Phrenic Nerve Injury</div> 
-              <a href="https://doi.org/10.1161/CIRCEP.121.010516" target="_blank">Ref: YETI Registry</a>
+              <a href="https://doi.org/10.1161/CIRCEP.121.010516" target="_blank" class="mobileFont">Ref: YETI Registry</a>
             </td>
           </tr>
         </tfoot>
