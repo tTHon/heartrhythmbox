@@ -94,7 +94,7 @@
     }
     
     .carousel-items {
-      display: flex;
+      display: flex;height: 50vw;
       transition: transform 0.5s ease-in-out;
     }
     
@@ -109,6 +109,7 @@
     }
 
     @media only screen and (max-width: 900px) {
+      .carousel-items {height: 120vw;}
       .carousel-item, .carousel-item img {max-height: 120vw;}
     }
 
@@ -152,14 +153,14 @@
       border-radius: 2vmax;
     }
     @media only screen and (max-width: 600px) {
-      .caption {max-width: 95%;border-radius: 1vw 1vh;padding: 4px;font-size: 16px;}
+      .caption {max-width: 95%;border-radius: 1vw 1vh;padding: 4px;font-size: 1.8vmax;}
     }
 
     /* Navigation buttons */
     .carousel-control-prev,
     .carousel-control-next {
       position: absolute;
-      top: 45%;
+      top: 50%;
       transform: translateY(-50%);
       background-color: rgba(0, 0, 0, 0.5);
       color: white;
