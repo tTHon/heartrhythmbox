@@ -885,7 +885,7 @@
       nextSlide(carouselId);  // Swipe left
     }
   }
-
+/*
   ['carousel1', 'carousel2', 'carousel3', 'carousel4'].forEach(carouselId => {
     document.getElementById(carouselId).addEventListener('touchstart', function(e) {
       touchStartX = e.changedTouches[0].screenX;
@@ -894,6 +894,19 @@
     document.getElementById(carouselId).addEventListener('touchend', function(e) {
       touchEndX = e.changedTouches[0].screenX;
       handleGesture(carouselId);
+    });
+  });*/
+
+    // Add swipe functionality to each carousel item
+    document.querySelectorAll('.carousel-item').forEach(item => {
+    item.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    item.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      const carouselId = this.closest('.carousel').id; // Get carousel ID
+      handleGesture(carouselId); // Handle swipe within this carousel
     });
   });
 
