@@ -1,5 +1,19 @@
 var listArray = [
     {
+        name: 'AI in Cardiology',
+        description: 'Modern Applications and Implications',
+        link: 'AI/index.html',
+        thumb: 'media/AI.png',
+        date: new Date(24,11,13),
+        latest: 1,
+        audFav: 0,
+        authFav: 0,
+        QA: 0,
+        gLines: 0,
+        basic: 1,
+        mBasic: 0
+    },
+    {
         name: 'Cryoballoon PVI',
         description: 'Concept & Supporting Data',
         link: 'Cryo/index.html',
