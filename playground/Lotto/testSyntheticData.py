@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 import os
@@ -10,57 +11,50 @@ class LotteryNumberPredictor:
         self.model = None
         self.scaler = MinMaxScaler()
     
-    def load_data(self, csv_path, number_column='lottery_number'):
+    def generate_synthetic_data(self, num_samples=1000):
         """
-        Load lottery data from a CSV file
+        Generate synthetic lottery data for training
         
-        :param csv_path: Path to the CSV file
-        :param number_column: Name of the column with lottery numbers
-        :return: DataFrame with lottery data
+        :param num_samples: Number of data points to generate
+        :return: DataFrame with synthetic lottery data
         """
-        # Load the CSV file
-        try:
-            data = pd.read_csv(csv_path)
-            
-            # Validate the data
-            if number_column not in data.columns:
-                raise ValueError(f"Column '{number_column}' not found in the CSV file. Available columns are: {list(data.columns)}")
-            
-            # Ensure the column is numeric
-            data[number_column] = pd.to_numeric(data[number_column], errors='coerce')
-            
-            # Drop rows with NaN values
-            data = data.dropna(subset=[number_column])
-            
-            # Sort by date if a date column exists
-            if 'date' in data.columns:
-                data['date'] = pd.to_datetime(data['date'])
-                data = data.sort_values('date')
-            
-            return data
-        except Exception as e:
-            print(f"Error loading CSV file: {e}")
-            raise
+        # Simulate historical lottery data with some patterns
+        np.random.seed(42)
+        dates = pd.date_range(start='1/1/2020', periods=num_samples)
+        
+        # Create a base series with some randomness
+        base_series = np.random.randint(0, 100, num_samples)
+        
+        # Add some cyclical patterns
+        seasonal_pattern = np.sin(np.arange(num_samples) * 0.1) * 10
+        trend_pattern = np.linspace(0, 5, num_samples)
+        
+        lottery_numbers = base_series + seasonal_pattern + trend_pattern
+        lottery_numbers = lottery_numbers % 100  # Ensure numbers are between 0-99
+        
+        data = pd.DataFrame({
+            'date': dates,
+            'lottery_number': lottery_numbers.astype(int)
+        })
+        
+        return data
     
-    def prepare_data(self, historical_data, number_column='lottery_number', window_size=10):
+    def prepare_data(self, historical_data, window_size=10):
         """
         Prepare data for training with sliding window
         
         :param historical_data: DataFrame with lottery numbers
-        :param number_column: Name of the column with lottery numbers
         :param window_size: Number of previous draws to use as features
         :return: Prepared input features and labels
         """
-        numbers = historical_data[number_column].values
-        
         features = []
         labels = []
         
-        for i in range(len(numbers) - window_size):
+        for i in range(len(historical_data) - window_size):
             # Use previous 'window_size' draws as features
-            window = numbers[i:i+window_size]
+            window = historical_data['lottery_number'].values[i:i+window_size]
             features.append(window)
-            labels.append(numbers[i+window_size])
+            labels.append(historical_data['lottery_number'].values[i+window_size])
         
         return np.array(features), np.array(labels)
     
@@ -124,7 +118,7 @@ class LotteryNumberPredictor:
             restore_best_weights=True
         )
         
-        # Model checkpoint to save best model
+        # Model checkpoint to save best model (use .keras extension)
         model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
             'models/best_model.keras', 
             monitor='val_loss', 
@@ -184,35 +178,27 @@ class LotteryNumberPredictor:
         return f"{predicted_number:02d}"
 
 def main():
-    # Path to your CSV file
-    CSV_PATH = 'lottery_data.csv'
-    
-    # Create predictor instance
+    # For development, use synthetic data
+    # In production, you would load your own data
     predictor = LotteryNumberPredictor()
+    data = predictor.generate_synthetic_data()
     
-    try:
-        # Load data from CSV
-        data = predictor.load_data(CSV_PATH)
-        
-        # Prepare data for training
-        X, y = predictor.prepare_data(data)
-        
-        # Build the model
-        predictor.build_model(input_shape=X.shape[1])
-        
-        # Train the model
-        history = predictor.train(X, y)
-        
-        # Plot training history
-        predictor.plot_training_history(history)
-        
-        # Example prediction
-        recent_data = X[-1]  # Use last window of training data
-        predicted_number = predictor.predict(recent_data)
-        print(f"Predicted Lottery Number: {predicted_number}")
+    # Prepare data for training
+    X, y = predictor.prepare_data(data, window_size=10)
     
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    # Build the model - pass in the correct input shape
+    predictor.build_model(input_shape=X.shape[1])
+    
+    # Train the model
+    history = predictor.train(X, y)
+    
+    # Plot training history
+    predictor.plot_training_history(history)
+    
+    # Example prediction
+    recent_data = X[-1]  # Use last window of training data
+    predicted_number = predictor.predict(recent_data)
+    print(f"Predicted Lottery Number: {predicted_number}")
 
 if __name__ == "__main__":
     main()
