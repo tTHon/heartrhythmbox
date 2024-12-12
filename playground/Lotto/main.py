@@ -18,25 +18,15 @@ class LotteryNumberPredictor:
         :param number_column: Name of the column with lottery numbers
         :return: DataFrame with lottery data
         """
-        # Load the CSV file
         try:
             data = pd.read_csv(csv_path)
-            
-            # Validate the data
             if number_column not in data.columns:
                 raise ValueError(f"Column '{number_column}' not found in the CSV file. Available columns are: {list(data.columns)}")
-            
-            # Ensure the column is numeric
             data[number_column] = pd.to_numeric(data[number_column], errors='coerce')
-            
-            # Drop rows with NaN values
             data = data.dropna(subset=[number_column])
-            
-            # Sort by date if a date column exists
             if 'date' in data.columns:
                 data['date'] = pd.to_datetime(data['date'])
                 data = data.sort_values('date')
-            
             return data
         except Exception as e:
             print(f"Error loading CSV file: {e}")
@@ -52,16 +42,12 @@ class LotteryNumberPredictor:
         :return: Prepared input features and labels
         """
         numbers = historical_data[number_column].values
-        
         features = []
         labels = []
-        
         for i in range(len(numbers) - window_size):
-            # Use previous 'window_size' draws as features
             window = numbers[i:i+window_size]
             features.append(window)
             labels.append(numbers[i+window_size])
-        
         return np.array(features), np.array(labels)
     
     def build_model(self, input_shape):
@@ -70,40 +56,30 @@ class LotteryNumberPredictor:
         
         :param input_shape: Shape of input features
         """
-        # Ensure input_shape is a tuple
         if not isinstance(input_shape, tuple):
             input_shape = (input_shape,)
-        
         model = tf.keras.Sequential([
             tf.keras.layers.Input(shape=input_shape),
-            tf.keras.layers.Dense(64, activation='relu'),
+            tf.keras.layers.Dense(128, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
+            tf.keras.layers.BatchNormalization(),
+            tf.keras.layers.Dropout(0.4),
+            tf.keras.layers.Dense(64, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
             tf.keras.layers.BatchNormalization(),
             tf.keras.layers.Dropout(0.3),
-            tf.keras.layers.Dense(32, activation='relu'),
-            tf.keras.layers.BatchNormalization(),
-            tf.keras.layers.Dropout(0.2),
-            tf.keras.layers.Dense(16, activation='relu'),
+            tf.keras.layers.Dense(32, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
             tf.keras.layers.Dense(1, activation='linear')
         ])
-        
-        # Use Adam optimizer with learning rate scheduling
         lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
             initial_learning_rate=0.001,
             decay_steps=100,
             decay_rate=0.9
         )
         optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
-        
-        model.compile(
-            optimizer=optimizer, 
-            loss='mean_squared_error', 
-            metrics=['mae']
-        )
-        
+        model.compile(optimizer=optimizer, loss='mean_squared_error', metrics=['mae'])
         self.model = model
         return model
     
-    def train(self, X, y, epochs=200, batch_size=32, validation_split=0.2):
+    def train(self, X, y, epochs=100, batch_size=16, validation_split=0.2):
         """
         Train the neural network model
         
@@ -114,24 +90,17 @@ class LotteryNumberPredictor:
         :param validation_split: Portion of data used for validation
         :return: Training history
         """
-        # Ensure the save directory exists
         os.makedirs('models', exist_ok=True)
-        
-        # Early stopping to prevent overfitting
         early_stopping = tf.keras.callbacks.EarlyStopping(
             monitor='val_loss', 
-            patience=20, 
+            patience=10, 
             restore_best_weights=True
         )
-        
-        # Model checkpoint to save best model
         model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
             'models/best_model.keras', 
             monitor='val_loss', 
             save_best_only=True
         )
-        
-        # Train the model
         history = self.model.fit(
             X, y, 
             epochs=epochs, 
@@ -140,7 +109,6 @@ class LotteryNumberPredictor:
             callbacks=[early_stopping, model_checkpoint],
             verbose=1
         )
-        
         return history
     
     def plot_training_history(self, history):
@@ -150,8 +118,6 @@ class LotteryNumberPredictor:
         :param history: Training history from model.fit()
         """
         plt.figure(figsize=(12, 4))
-        
-        # Plot training & validation loss values
         plt.subplot(1, 2, 1)
         plt.plot(history.history['loss'])
         plt.plot(history.history['val_loss'])
@@ -159,8 +125,6 @@ class LotteryNumberPredictor:
         plt.ylabel('Loss')
         plt.xlabel('Epoch')
         plt.legend(['Train', 'Validation'], loc='upper right')
-        
-        # Plot training & validation MAE
         plt.subplot(1, 2, 2)
         plt.plot(history.history['mae'])
         plt.plot(history.history['val_mae'])
@@ -168,7 +132,6 @@ class LotteryNumberPredictor:
         plt.ylabel('MAE')
         plt.xlabel('Epoch')
         plt.legend(['Train', 'Validation'], loc='upper right')
-        
         plt.tight_layout()
         plt.show()
     
@@ -184,33 +147,17 @@ class LotteryNumberPredictor:
         return f"{predicted_number:02d}"
 
 def main():
-    # Path to your CSV file
     CSV_PATH = 'lottery_data.csv'
-    
-    # Create predictor instance
     predictor = LotteryNumberPredictor()
-    
     try:
-        # Load data from CSV
         data = predictor.load_data(CSV_PATH)
-        
-        # Prepare data for training
         X, y = predictor.prepare_data(data)
-        
-        # Build the model
         predictor.build_model(input_shape=X.shape[1])
-        
-        # Train the model
-        history = predictor.train(X, y)
-        
-        # Plot training history
+        history = predictor.train(X, y, epochs=100, batch_size=16)
         predictor.plot_training_history(history)
-        
-        # Example prediction
-        recent_data = X[-1]  # Use last window of training data
+        recent_data = X[-1]
         predicted_number = predictor.predict(recent_data)
         print(f"Predicted Lottery Number: {predicted_number}")
-    
     except Exception as e:
         print(f"An error occurred: {e}")
 
