@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import os
@@ -14,23 +14,36 @@ random.seed(seed)
 np.random.seed(seed)
 tf.random.set_seed(seed)
 
-class ImprovedLotteryPredictor:
+class DateAndPMIncorporatedLotteryPredictor:
     def __init__(self):
         self.model = None
         self.scaler = MinMaxScaler()
+        self.date_scaler = MinMaxScaler()
+        self.pm_encoder = LabelEncoder()
 
-    def load_data(self, csv_path, number_column='lottery_number'):
+    def load_data(self, csv_path, number_column='lottery_number', pm_column='prime_minister'):
         try:
             data = pd.read_csv(csv_path)
-            if number_column not in data.columns:
-                raise ValueError(f"Column '{number_column}' not found in the CSV file. Available columns are: {list(data.columns)}")
             
+            # Validate required columns
+            required_columns = [number_column, 'date', pm_column]
+            for col in required_columns:
+                if col not in data.columns:
+                    raise ValueError(f"Column '{col}' not found in the CSV file. Available columns are: {list(data.columns)}")
+            
+            # Convert lottery number to numeric
             data[number_column] = pd.to_numeric(data[number_column], errors='coerce')
             data = data.dropna(subset=[number_column])
             
-            if 'date' in data.columns:
-                data['date'] = pd.to_datetime(data['date'])
-                data = data.sort_values('date')
+            # Process date
+            data['date'] = pd.to_datetime(data['date'])
+            data['date_ordinal'] = data['date'].map(lambda x: x.toordinal())
+            
+            # Encode prime minister names
+            data['pm_encoded'] = self.pm_encoder.fit_transform(data[pm_column])
+            
+            # Sort by date
+            data = data.sort_values('date')
             
             return data
         except Exception as e:
@@ -39,11 +52,24 @@ class ImprovedLotteryPredictor:
 
     def prepare_data(self, historical_data, number_column='lottery_number', window_size=10):
         numbers = historical_data[number_column].values
+        dates = historical_data['date_ordinal'].values
+        pms = historical_data['pm_encoded'].values
+        
+        # Scale features
         scaled_numbers = self.scaler.fit_transform(numbers.reshape(-1, 1)).flatten()
+        scaled_dates = self.date_scaler.fit_transform(dates.reshape(-1, 1)).flatten()
+        
         features, labels = [], []
         for i in range(len(scaled_numbers) - window_size):
-            features.append(scaled_numbers[i:i + window_size])
+            number_window = scaled_numbers[i:i + window_size]
+            date_window = scaled_dates[i:i + window_size]
+            pm_window = pms[i:i + window_size]
+            
+            # Combine all features: lottery numbers, dates, and prime ministers
+            combined_features = np.column_stack((number_window, date_window, pm_window))
+            features.append(combined_features)
             labels.append(scaled_numbers[i + window_size])
+        
         return np.array(features), np.array(labels)
 
     def build_lstm_model(self, input_shape):
@@ -53,6 +79,8 @@ class ImprovedLotteryPredictor:
             tf.keras.layers.Dropout(0.2),
             tf.keras.layers.LSTM(32, activation='relu'),
             tf.keras.layers.Dropout(0.2),
+            tf.keras.layers.Flatten(),
+            tf.keras.layers.Dense(32, activation='relu'),
             tf.keras.layers.Dense(16, activation='relu'),
             tf.keras.layers.Dense(1, activation='linear')
         ])
@@ -73,7 +101,7 @@ class ImprovedLotteryPredictor:
         )
         
         model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
-            'models/best_lstm_model.keras',
+            'models/best_date_pm_lstm_model.keras',
             monitor='val_loss',
             save_best_only=True
         )
@@ -107,32 +135,46 @@ class ImprovedLotteryPredictor:
         plt.tight_layout()
         plt.show()
 
-    def predict(self, recent_data):
+    def predict(self, recent_data, recent_dates, recent_pms):
         if self.model is None:
             raise ValueError("Model has not been built or trained yet.")
-        recent_data = self.scaler.transform(recent_data.reshape(-1, 1)).flatten()
-        prediction = self.model.predict(recent_data.reshape(1, -1))
+        
+        scaled_numbers = self.scaler.transform(recent_data.reshape(-1, 1)).flatten()
+        scaled_dates = self.date_scaler.transform(recent_dates.reshape(-1, 1)).flatten()
+        
+        # Ensure PM names are encoded consistently
+        scaled_pms = self.pm_encoder.transform(recent_pms)
+        
+        combined_features = np.column_stack((scaled_numbers, scaled_dates, scaled_pms))
+        
+        prediction = self.model.predict(combined_features.reshape(1, -1, 3))
         predicted_number = self.scaler.inverse_transform(prediction.reshape(-1, 1))[0][0]
-        return round(predicted_number)
+        
+        # Constrain to two digits using modulo operation
+        return f"{int(round(predicted_number) % 100):02d}"
 
 # Example usage in main function
 def main():
-    CSV_PATH = 'lottery_data.csv'
-    predictor = ImprovedLotteryPredictor()
+    CSV_PATH = 'lottery_data w PM.csv'
+    predictor = DateAndPMIncorporatedLotteryPredictor()
 
     try:
         data = predictor.load_data(CSV_PATH)
         X, y = predictor.prepare_data(data, window_size=10)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        predictor.build_lstm_model(input_shape=(X.shape[1], 1))
+        predictor.build_lstm_model(input_shape=(X.shape[1], 3))
         history = predictor.train(X_train, y_train, epochs=50, batch_size=32)
         predictor.plot_training_history(history)
 
-        recent_data = X_test[-1]
-        predicted_number = predictor.predict(recent_data)
+        recent_data = X_test[-1][:, 0]
+        recent_dates = X_test[-1][:, 1]
+        recent_pms = predictor.pm_encoder.inverse_transform(X_test[-1][:, 2].astype(int))
+        
+        predicted_number = predictor.predict(recent_data, recent_dates, recent_pms)
         print(f"Predicted Lottery Number: {predicted_number}")
     except Exception as e:
         print(f"An error occurred: {e}")
+        
 
 if __name__ == "__main__":
     main()

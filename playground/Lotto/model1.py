@@ -4,6 +4,14 @@ import tensorflow as tf
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 import os
+import random
+
+# Set random seed for reproducibility
+seed = 42
+os.environ['PYTHONHASHSEED'] = str(seed)
+random.seed(seed)
+np.random.seed(seed)
+tf.random.set_seed(seed)
 
 class LotteryNumberPredictor:
     def __init__(self):

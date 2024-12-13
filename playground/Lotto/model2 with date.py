@@ -5,6 +5,14 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import os
+import random
+
+# Set random seed for reproducibility
+seed = 42
+os.environ['PYTHONHASHSEED'] = str(seed)
+random.seed(seed)
+np.random.seed(seed)
+tf.random.set_seed(seed)
 
 class DateIncorporatedLotteryPredictor:
     def __init__(self):
