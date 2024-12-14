@@ -15,10 +15,11 @@ random.seed(seed)
 np.random.seed(seed)
 tf.random.set_seed(seed)
 
-class ImprovedLotteryPredictor:
+class DateIncorporatedLotteryPredictor:
     def __init__(self):
         self.model = None
         self.scaler = MinMaxScaler()
+        self.date_scaler = MinMaxScaler()
 
     def load_data(self, csv_path, number_column='lottery_number'):
         try:
@@ -31,6 +32,7 @@ class ImprovedLotteryPredictor:
             
             if 'date' in data.columns:
                 data['date'] = pd.to_datetime(data['date'])
+                data['date_ordinal'] = data['date'].map(lambda x: x.toordinal())
                 data = data.sort_values('date')
             
             return data
@@ -40,10 +42,17 @@ class ImprovedLotteryPredictor:
 
     def prepare_data(self, historical_data, number_column='lottery_number', window_size=10):
         numbers = historical_data[number_column].values
+        dates = historical_data['date_ordinal'].values
+        
         scaled_numbers = self.scaler.fit_transform(numbers.reshape(-1, 1)).flatten()
+        scaled_dates = self.date_scaler.fit_transform(dates.reshape(-1, 1)).flatten()
+        
         features, labels = [], []
         for i in range(len(scaled_numbers) - window_size):
-            features.append(scaled_numbers[i:i + window_size])
+            number_window = scaled_numbers[i:i + window_size]
+            date_window = scaled_dates[i:i + window_size]
+            combined_features = np.column_stack((number_window, date_window))
+            features.append(combined_features)
             labels.append(scaled_numbers[i + window_size])
         return np.array(features), np.array(labels)
 
@@ -74,7 +83,7 @@ class ImprovedLotteryPredictor:
         )
         
         model_checkpoint = tf.keras.callbacks.ModelCheckpoint(
-            'models/best_lstm_model.keras',
+            'models/best_date_lstm_model.keras',
             monitor='val_loss',
             save_best_only=True
         )
@@ -108,13 +117,39 @@ class ImprovedLotteryPredictor:
         plt.tight_layout()
         plt.show()
 
-    def predict(self, recent_data):
+    def predict_for_future_date(self, recent_data, recent_dates, future_date):
+        """
+        Predict the lottery number for a specified future date.
+
+        Parameters:
+        - recent_data (np.ndarray): Recent lottery numbers.
+        - recent_dates (np.ndarray): Corresponding recent dates in ordinal format.
+        - future_date (str): Future date in 'YYYY-MM-DD' format.
+
+        Returns:
+        - str: Predicted lottery number for the specified future date.
+        """
         if self.model is None:
             raise ValueError("Model has not been built or trained yet.")
-        recent_data = self.scaler.transform(recent_data.reshape(-1, 1)).flatten()
-        prediction = self.model.predict(recent_data.reshape(1, -1))
+        
+        # Scale the input data
+        scaled_numbers = self.scaler.transform(recent_data.reshape(-1, 1)).flatten()
+        scaled_dates = self.date_scaler.transform(recent_dates.reshape(-1, 1)).flatten()
+        
+        # Prepare the future date as ordinal
+        future_date_ordinal = pd.to_datetime(future_date).toordinal()
+        scaled_future_date = self.date_scaler.transform([[future_date_ordinal]]).flatten()[0]
+        
+        # Construct the feature window including the future date
+        future_features = np.column_stack((scaled_numbers, scaled_dates))
+        future_features = np.append(future_features, [[0, scaled_future_date]], axis=0)[1:]
+        
+        # Make the prediction
+        prediction = self.model.predict(future_features.reshape(1, -1, 2))
         predicted_number = self.scaler.inverse_transform(prediction.reshape(-1, 1))[0][0]
-        return round(predicted_number)
+        
+        # Constrain to two digits using modulo operation
+        return f"{int(round(predicted_number) % 100):02d}"
 
 def evaluate_model(y_true, y_pred, scaler):
     """
@@ -124,7 +159,7 @@ def evaluate_model(y_true, y_pred, scaler):
     y_true (array-like): True target values
     y_pred (array-like): Predicted target values
     scaler (MinMaxScaler): Scaler used to inverse transform the data
-        """
+    """
     # Inverse transform the scaled predictions and true values
     y_true_original = scaler.inverse_transform(y_true.reshape(-1, 1)).flatten()
     y_pred_original = scaler.inverse_transform(y_pred.reshape(-1, 1)).flatten()
@@ -142,30 +177,32 @@ def evaluate_model(y_true, y_pred, scaler):
     print(f"Mean Squared Error (MSE): {mse:.4f}")
     print(f"R-squared (R2) Score: {r2:.4f}")
 
-
-
 # Example usage in main function
 def main():
     CSV_PATH = 'lottery_data.csv'
-    predictor = ImprovedLotteryPredictor()
+    predictor = DateIncorporatedLotteryPredictor()
 
     try:
         data = predictor.load_data(CSV_PATH)
         X, y = predictor.prepare_data(data, window_size=10)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        predictor.build_lstm_model(input_shape=(X.shape[1], 1))
+        predictor.build_lstm_model(input_shape=(X.shape[1], 2))
         history = predictor.train(X_train, y_train, epochs=50, batch_size=32)
         predictor.plot_training_history(history)
-        
+
         # Make predictions on the test set
         y_pred = predictor.model.predict(X_test)
-
+        
         # Evaluate the model
         evaluate_model(y_test, y_pred, predictor.scaler)
 
-        recent_data = X_test[-1]
-        predicted_number = predictor.predict(recent_data)
-        print(f"Predicted Lottery Number: {predicted_number}")
+        # Predict for a specific future date
+        future_date = "2024-12-16"  # Example future date
+        recent_data = X_test[-1][:, 0]  # Most recent lottery numbers
+        recent_dates = X_test[-1][:, 1]  # Corresponding dates
+
+        predicted_number_for_date = predictor.predict_for_future_date(recent_data, recent_dates, future_date)
+        print(f"Predicted Lottery Number for {future_date}: {predicted_number_for_date}")
     except Exception as e:
         print(f"An error occurred: {e}")
 
