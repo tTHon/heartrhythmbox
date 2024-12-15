@@ -181,11 +181,8 @@ def evaluate_model(y_true, y_pred, scaler):
     print(f"Mean Squared Error (MSE): {mse:.4f}")
     print(f"R-squared (R2) Score: {r2:.4f}")
 
-
-
-
 def main():
-    CSV_PATH = 'lottery_data.csv'
+    CSV_PATH = 'lottery_data 2015.csv'
     predictor = LotteryNumberPredictor()
     try:
         data = predictor.load_data(CSV_PATH)
