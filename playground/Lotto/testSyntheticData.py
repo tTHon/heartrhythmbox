@@ -5,11 +5,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 import os
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 class LotteryNumberPredictor:
     def __init__(self):
         self.model = None
-        self.scaler = MinMaxScaler()
+        self.feature_scaler = MinMaxScaler()
+        self.label_scaler = MinMaxScaler()
     
     def generate_synthetic_data(self, num_samples=1000):
         """
@@ -56,7 +58,17 @@ class LotteryNumberPredictor:
             features.append(window)
             labels.append(historical_data['lottery_number'].values[i+window_size])
         
-        return np.array(features), np.array(labels)
+        features = np.array(features)
+        labels = np.array(labels)
+        
+        # Fit the scalers on the features and labels
+        self.feature_scaler.fit(features)
+        self.label_scaler.fit(labels.reshape(-1, 1))
+        
+        features = self.feature_scaler.transform(features)
+        labels = self.label_scaler.transform(labels.reshape(-1, 1)).flatten()
+        
+        return features, labels
     
     def build_model(self, input_shape):
         """
@@ -166,6 +178,33 @@ class LotteryNumberPredictor:
         plt.tight_layout()
         plt.show()
     
+    def evaluate_model(self, X_test, y_test):
+        """
+        Evaluate the model on the test set and print evaluation metrics
+        
+        :param X_test: Test input features
+        :param y_test: Test target values
+        """
+        y_pred = self.model.predict(X_test)
+        y_pred = y_pred.flatten()
+        
+        # Inverse transform the scaled predictions and true values
+        y_test_original = self.label_scaler.inverse_transform(y_test.reshape(-1, 1)).flatten()
+        y_pred_original = self.label_scaler.inverse_transform(y_pred.reshape(-1, 1)).flatten()
+        
+        # Calculate metrics
+        mae = mean_absolute_error(y_test_original, y_pred_original)
+        mse = mean_squared_error(y_test_original, y_pred_original)
+        rmse = np.sqrt(mse)
+        r2 = r2_score(y_test_original, y_pred_original)
+        
+        # Print evaluation metrics
+        print("\nModel Evaluation Metrics:")
+        print(f"Mean Absolute Error (MAE): {mae:.4f}")
+        print(f"Root Mean Squared Error (RMSE): {rmse:.4f}")
+        print(f"Mean Squared Error (MSE): {mse:.4f}")
+        print(f"R-squared (R2) Score: {r2:.4f}")
+    
     def predict(self, recent_data):
         """
         Predict lottery numbers based on recent data
@@ -173,8 +212,10 @@ class LotteryNumberPredictor:
         :param recent_data: Recent lottery draw numbers
         :return: Predicted lottery number
         """
-        prediction = self.model.predict(recent_data.reshape(1, -1))
-        predicted_number = int(round(prediction[0][0] % 100))
+        recent_data_scaled = self.feature_scaler.transform(recent_data.reshape(1, -1))
+        prediction = self.model.predict(recent_data_scaled)
+        predicted_number = self.label_scaler.inverse_transform(prediction.reshape(-1, 1))[0][0]
+        predicted_number = int(round(predicted_number % 100))
         return f"{predicted_number:02d}"
 
 def main():
@@ -186,17 +227,23 @@ def main():
     # Prepare data for training
     X, y = predictor.prepare_data(data, window_size=10)
     
+    # Split the data into training and test sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
     # Build the model - pass in the correct input shape
-    predictor.build_model(input_shape=X.shape[1])
+    predictor.build_model(input_shape=X_train.shape[1])
     
     # Train the model
-    history = predictor.train(X, y)
+    history = predictor.train(X_train, y_train)
     
     # Plot training history
     predictor.plot_training_history(history)
     
+    # Evaluate the model on the test set
+    predictor.evaluate_model(X_test, y_test)
+    
     # Example prediction
-    recent_data = X[-1]  # Use last window of training data
+    recent_data = X_test[-1]  # Use last window of test data
     predicted_number = predictor.predict(recent_data)
     print(f"Predicted Lottery Number: {predicted_number}")
 

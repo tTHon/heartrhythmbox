@@ -157,7 +157,7 @@ class ZodiacLotteryPredictor:
         # Constrain the predicted number to be within the range of 0 to 99
         predicted_number = max(0, min(99, round(predicted_number)))
         
-        return predicted_number
+        return f"{predicted_number:02d}"
 
 def evaluate_model(y_true, y_pred, scaler):
     """
