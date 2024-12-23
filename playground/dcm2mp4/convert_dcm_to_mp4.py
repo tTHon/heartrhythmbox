@@ -19,13 +19,16 @@ def convert_dcm_to_mp4(input_folder, output_folder, frame_rate=30):
                 if pixel_array.ndim == 2:
                     pixel_array = np.expand_dims(pixel_array, axis=0)
 
+                # Convert pixel_array to 8-bit
+                pixel_array = (pixel_array / np.max(pixel_array) * 255).astype(np.uint8)
+
                 # Ensure pixel_array has 3 channels
                 if pixel_array.shape[-1] != 3:
-                    pixel_array = np.repeat(pixel_array[..., np.newaxis], 3, axis=-1)
+                    pixel_array = np.stack((pixel_array,) * 3, axis=-1)
 
-                output_path = os.path.join(output_folder, filename.replace(".dcm", ".mp4"))
+                output_path = os.path.join(output_folder, filename.replace(".dcm", ".webm"))
                 height, width = pixel_array.shape[1:3]
-                fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+                fourcc = cv2.VideoWriter_fourcc(*'VP90')
                 video_writer = cv2.VideoWriter(output_path, fourcc, frame_rate, (width, height), True)
 
                 for frame in pixel_array:
@@ -40,6 +43,6 @@ def convert_dcm_to_mp4(input_folder, output_folder, frame_rate=30):
             except Exception as e:
                 print(f"Error processing {dcm_path}: {e}")
 
-input_folder = 'model_data/mClips/clips'
-output_folder = 'model_data/mClips/mp4'
+input_folder = 'playground/dcm2mp4/videos/dcm'
+output_folder = 'playground/dcm2mp4/videos/webm'
 convert_dcm_to_mp4(input_folder, output_folder)

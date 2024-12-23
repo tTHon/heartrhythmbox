@@ -54,12 +54,19 @@
             videoElement.loop = true; // Enable looping
 
             const sourceElement = document.createElement('source');
-            sourceElement.src = `videos/video (${i}).mp4`;
-            sourceElement.type = 'video/mp4';
+            sourceElement.src = `videos/webm/video (${i}).webm`;
+            sourceElement.type = 'video/webm';
 
             videoElement.appendChild(sourceElement);
             videoDiv.appendChild(videoElement);
             videoContainer.appendChild(videoDiv);
+
+             // Add error handling
+            videoElement.addEventListener('error', (event) => {
+            console.error(`Error loading video ${i}:`, event);
+            });
+            // Log messages for debugging
+            console.log(`Video ${i} element created and appended.`);
         }
     </script>
 </body>

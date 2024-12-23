@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+</head>
+<body>
+    <h1>Video Player</h1>
+    <video id="videoPlayer" width="640" height="480" controls autoplay muted preload="auto">
+        <source src="videos/webm/video (1).webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const source = video.querySelector('source').src;
+
+        console.log('Video source URL:', source);
+
+        video.addEventListener('error', function(event) {
+            console.error('Error occurred while trying to play the video:', event);
+        });
+
+        video.addEventListener('loadeddata', function() {
+            console.log('Video loaded successfully.');
+        });
+
+        video.addEventListener('canplay', function() {
+            console.log('Video can play.');
+        });
+
+        function checkVideoReadyState() {
+            if (video.readyState === 0) {
+                console.log('Video not ready, attempting to reload.');
+                video.load();
+                setTimeout(checkVideoReadyState, 1000); // Retry after 1 second
+            } else {
+                console.log('Video ready state:', video.readyState);
+            }
+        }
+
+        checkVideoReadyState();
+    </script>
+</body>
+</html>
