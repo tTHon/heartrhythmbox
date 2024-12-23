@@ -32,7 +32,7 @@
     <div id="videoContainer"></div>
     <script>
         const videoContainer = document.getElementById('videoContainer');
-        const videoCount = 50; // Updated to reflect the current number of video files
+        const videoCount = 10; // Updated to reflect the current number of video files
 
         const columns = Math.ceil(Math.sqrt(videoCount * (1600 / 900)));
         const rows = Math.ceil(videoCount / columns);
@@ -54,7 +54,7 @@
             videoElement.loop = true; // Enable looping
 
             const sourceElement = document.createElement('source');
-            sourceElement.src = `videos/webm/video (${i}).webm`;
+            sourceElement.src = `videos/output/video (${i}).webm`;
             sourceElement.type = 'video/webm';
 
             videoElement.appendChild(sourceElement);
