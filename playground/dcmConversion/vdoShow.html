@@ -32,7 +32,7 @@
     <div id="videoContainer"></div>
     <script>
         const videoContainer = document.getElementById('videoContainer');
-        const videoCount = 10; // Updated to reflect the current number of video files
+        const videoCount = 77; // Updated to reflect the current number of video files
 
         const columns = Math.ceil(Math.sqrt(videoCount * (1600 / 900)));
         const rows = Math.ceil(videoCount / columns);
@@ -41,14 +41,15 @@
 
         for (let i = 1; i <= videoCount; i++) {
             const videoDiv = document.createElement('div');
-            videoDiv.style.flex = `1 1 ${videoWidth}px`;
+            videoDiv.style.flex = `0 0 ${videoWidth}px`;
+            videoDiv.style.width = `${videoWidth}px`;
             videoDiv.style.height = `${videoHeight}px`;
             videoDiv.style.margin = '0';
             videoDiv.style.padding = '0';
 
             const videoElement = document.createElement('video');
-            videoElement.style.width = `${videoWidth}px`;
-            videoElement.style.height = `${videoHeight}px`;
+            videoElement.style.width = '100%';
+            videoElement.style.height = '100%';
             videoElement.autoplay = true;
             videoElement.muted = true; // Ensure videos play automatically without sound
             videoElement.loop = true; // Enable looping
@@ -61,9 +62,9 @@
             videoDiv.appendChild(videoElement);
             videoContainer.appendChild(videoDiv);
 
-             // Add error handling
+            // Add error handling
             videoElement.addEventListener('error', (event) => {
-            console.error(`Error loading video ${i}:`, event);
+                console.error(`Error loading video ${i}:`, event);
             });
             // Log messages for debugging
             console.log(`Video ${i} element created and appended.`);
