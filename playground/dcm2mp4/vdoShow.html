@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Show</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+        #videoContainer {
+            width: 1600px;
+            max-height: 900px;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+        }
+        #videoContainer div {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="videoContainer"></div>
+    <script>
+        const videoContainer = document.getElementById('videoContainer');
+        const videoCount = 50; // Updated to reflect the current number of video files
+
+        const columns = Math.ceil(Math.sqrt(videoCount * (1600 / 900)));
+        const rows = Math.ceil(videoCount / columns);
+        const videoWidth = Math.floor(1600 / columns);
+        const videoHeight = Math.floor(900 / rows);
+
+        for (let i = 1; i <= videoCount; i++) {
+            const videoDiv = document.createElement('div');
+            videoDiv.style.flex = `1 1 ${videoWidth}px`;
+            videoDiv.style.height = `${videoHeight}px`;
+            videoDiv.style.margin = '0';
+            videoDiv.style.padding = '0';
+
+            const videoElement = document.createElement('video');
+            videoElement.style.width = `${videoWidth}px`;
+            videoElement.style.height = `${videoHeight}px`;
+            videoElement.autoplay = true;
+            videoElement.muted = true; // Ensure videos play automatically without sound
+            videoElement.loop = true; // Enable looping
+
+            const sourceElement = document.createElement('source');
+            sourceElement.src = `videos/video (${i}).mp4`;
+            sourceElement.type = 'video/mp4';
+
+            videoElement.appendChild(sourceElement);
+            videoDiv.appendChild(videoElement);
+            videoContainer.appendChild(videoDiv);
+        }
+    </script>
+</body>
+</html>
