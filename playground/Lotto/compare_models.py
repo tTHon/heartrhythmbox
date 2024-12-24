@@ -135,10 +135,11 @@ def main():
     print(csv_output)
     
     # Plot MAE by epochs for each model with auto y-axis scale
-    fig, axes = plt.subplots(len(models), 1, figsize=(12, 8), sharex=True)
+    fig, axes = plt.subplots(len(models), 1, figsize=(12, 8))
     for ax, (model_name, history) in zip(axes, histories.items()):
         ax.plot(history.history['mae'], label=f'{model_name} Train MAE')
         ax.plot(history.history['val_mae'], label=f'{model_name} Validation MAE')
+        ax.axhline(y=1, color='r', linestyle='--', label='MAE = 1')
         ax.set_title(f'{model_name} MAE by Epochs')
         ax.set_ylabel('MAE')
         ax.legend()
