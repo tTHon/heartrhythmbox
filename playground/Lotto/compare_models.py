@@ -6,6 +6,7 @@ from sklearn.metrics import mean_absolute_error, r2_score, mean_squared_error
 import matplotlib.pyplot as plt
 import os
 import random
+import matplotlib as mpl
 
 # Import models from the provided files
 from model1Last100 import LotteryNumberPredictor as Model1
@@ -67,6 +68,15 @@ def main():
     predicted_numbers = {}
     histories = {}
     
+    # Set font properties
+    mpl.rcParams['font.family'] = 'sans-serif'
+    mpl.rcParams['font.sans-serif'] = ['Inter']
+    mpl.rcParams['font.size'] = 16
+    
+    # Ensure the save directory exists
+    save_dir = r'playground\Lotto\results\autogenerate'
+    os.makedirs(save_dir, exist_ok=True)
+    
     for model_name, model in models.items():
         try:
             # Load and prepare data
@@ -118,6 +128,31 @@ def main():
             for metric, value in metrics.items():
                 print(f"{metric}: {value:.4f}")
             print(f"Predicted Lottery Number: {predicted_number}")
+            
+            # Plot MAE by epochs for the current model with auto y-axis scale
+            fig, ax = plt.subplots(figsize=(10, 4))
+            ax.plot(history.history['mae'], label='Train MAE')
+            ax.plot(history.history['val_mae'], label='Validation MAE')
+            ax.axhline(y=1, color='r', linestyle='--', label='MAE = 1')
+            
+            # Set titles based on model name
+            if model_name == 'Model1':
+                ax.set_title('Model 1 using data from the last 100 draws')
+            elif model_name == 'Model2':
+                ax.set_title('Model 1 using data from the last 10 yrs')
+            elif model_name == 'Model3':
+                ax.set_title('Model 2, a more rigorous model')
+            elif model_name == 'Model4':
+                ax.set_title('Model 2 with Prime Ministers Data')
+            elif model_name == 'Model5':
+                ax.set_title('Model 2 with Jupiter Transits Data')
+            
+            ax.set_ylabel('Mean Absolute Error')
+            ax.legend()
+            plt.xlabel('Epochs')
+            plt.tight_layout()
+            plt.savefig(os.path.join(save_dir, f'{model_name}_mae_by_epochs.png'), transparent=True)
+            plt.show()
         
         except Exception as e:
             print(f"An error occurred with {model_name}: {e}")
@@ -133,19 +168,6 @@ def main():
     csv_output = summary_table.to_csv(index=True)
     print("\nCSV Format for Excel:")
     print(csv_output)
-    
-    # Plot MAE by epochs for each model with auto y-axis scale
-    fig, axes = plt.subplots(len(models), 1, figsize=(12, 8))
-    for ax, (model_name, history) in zip(axes, histories.items()):
-        ax.plot(history.history['mae'], label=f'{model_name} Train MAE')
-        ax.plot(history.history['val_mae'], label=f'{model_name} Validation MAE')
-        ax.axhline(y=1, color='r', linestyle='--', label='MAE = 1')
-        ax.set_title(f'{model_name} MAE by Epochs')
-        ax.set_ylabel('MAE')
-        ax.legend()
-    plt.xlabel('Epochs')
-    plt.tight_layout()
-    plt.show()
 
 if __name__ == "__main__":
     main()
