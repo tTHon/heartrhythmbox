@@ -2,8 +2,8 @@ import os
 import subprocess
 import imageio_ffmpeg as ffmpeg
 
-input_folder = 'playground/dcmConversion/videos/input'
-output_folder = 'playground/dcmConversion/videos/output'
+input_folder = 'playground/VDOFormatConversion/videos/input'
+output_folder = 'playground/VDOFormatConversion/videos/output'
 
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
