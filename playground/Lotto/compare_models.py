@@ -74,7 +74,7 @@ def main():
     mpl.rcParams['font.size'] = 16
     
     # Ensure the save directory exists
-    save_dir = r'playground\Lotto\results\autogenerate'
+    save_dir = r'playground/Lotto/results/autogenerate'
     os.makedirs(save_dir, exist_ok=True)
     
     for model_name, model in models.items():
@@ -133,13 +133,13 @@ def main():
             fig, ax = plt.subplots(figsize=(10, 4))
             ax.plot(history.history['mae'], label='Train MAE')
             ax.plot(history.history['val_mae'], label='Validation MAE')
-            ax.axhline(y=1, color='r', linestyle='--', label='MAE = 1')
+            #ax.axhline(y=1, color='lightgrey', linestyle='--', label='MAE = 1')
             
             # Set titles based on model name
             if model_name == 'Model1':
                 ax.set_title('Model 1 using data from the last 100 draws')
             elif model_name == 'Model2':
-                ax.set_title('Model 1 using data from the last 10 yrs')
+                ax.set_title('Model 1 using data from the last 30 yrs')
             elif model_name == 'Model3':
                 ax.set_title('Model 2, a more rigorous model')
             elif model_name == 'Model4':
