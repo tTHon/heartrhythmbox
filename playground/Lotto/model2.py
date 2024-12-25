@@ -146,7 +146,7 @@ def evaluate_model(y_true, y_pred, scaler):
 
 # Example usage in main function
 def main():
-    CSV_PATH = 'playground\Lotto\lotterySince2015.csv'
+    CSV_PATH = 'playground/Lotto/lotteryLast30Yrs.csv'
     predictor = ImprovedLotteryPredictor()
 
     try:

@@ -189,7 +189,7 @@ def evaluate_model(y_true, y_pred, scaler):
 
 # Example usage in main function
 def main():
-    CSV_PATH = 'playground\Lotto\withJupiterTransit.csv'
+    CSV_PATH = 'playground\Lotto\lotteryLast30YrsJupiter.csv'
     predictor = ZodiacLotteryPredictor()
 
     try:

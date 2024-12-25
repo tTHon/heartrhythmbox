@@ -9,7 +9,7 @@ import random
 
 # Import models from the provided files
 from model1Last100 import LotteryNumberPredictor as Model1
-from model1Since2015 import LotteryNumberPredictor as Model2
+from model1Long import LotteryNumberPredictor as Model2
 from model2 import ImprovedLotteryPredictor as Model3
 from model2PM import DateAndPMIncorporatedLotteryPredictor as Model4
 from model2withZodiac import ZodiacLotteryPredictor as Model5
@@ -48,10 +48,10 @@ def main():
     # Define CSV paths for each model
     csv_paths = {
         'Model1': r'playground/Lotto/lotteryLast100.csv',
-        'Model2': r'playground/Lotto/lotterySince2015.csv',
-        'Model3': r'playground/Lotto/lotterySince2015.csv',
-        'Model4': r'playground/Lotto/lotteryPM.csv',
-        'Model5': r'playground/Lotto/withJupiterTransit.csv'
+        'Model2': r'playground/Lotto/lotteryLast30Yrs.csv',
+        'Model3': r'playground/Lotto/lotteryLast30Yrs.csv',
+        'Model4': r'playground/Lotto/lotteryLast30YrsPM.csv',
+        'Model5': r'playground/Lotto/lotteryLast30YrsJupiter.csv'
     }
     
     # Initialize models
@@ -129,19 +129,15 @@ def main():
     print("\nSummary Table:")
     print(summary_table)
     
-    # Convert summary table to CSV format and print it
-    csv_output = summary_table.to_csv(index=True)
-    print("\nCSV Format for Excel:")
-    print(csv_output)
-    
+  
     # Plot MAE by epochs for each model with auto y-axis scale
     fig, axes = plt.subplots(len(models), 1, figsize=(12, 8))
     for ax, (model_name, history) in zip(axes, histories.items()):
-        ax.plot(history.history['mae'], label=f'{model_name} Train MAE')
-        ax.plot(history.history['val_mae'], label=f'{model_name} Validation MAE')
-        ax.axhline(y=1, color='r', linestyle='--', label='MAE = 1')
-        ax.set_title(f'{model_name} MAE by Epochs')
-        ax.set_ylabel('MAE')
+        ax.plot(history.history['mae'], label=f'Train MAE')
+        ax.plot(history.history['val_mae'], label=f'Validation MAE')
+        #ax.axhline(y=1, color='r', linestyle='--', label='MAE = 1')
+        ax.set_title(f'MAE by Epochs')
+        ax.set_ylabel('Mean Absolute Error')
         ax.legend()
     plt.xlabel('Epochs')
     plt.tight_layout()
