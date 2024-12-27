@@ -3,8 +3,8 @@ import pydicom
 import imageio
 import numpy as np
 
-input_folder = 'playground/dcm2webM/videos/dcm'
-output_folder = 'playground/dcm2webM/videos/output'
+input_folder = 'playground/VDOFormatConversion/videos/input'
+output_folder = 'playground/VDOFormatConversion/videos/output'
 
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
