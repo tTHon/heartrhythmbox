@@ -130,7 +130,7 @@ def main():
             print(f"Predicted Lottery Number: {predicted_number}")
             
             # Plot MAE by epochs for the current model with auto y-axis scale
-            fig, ax = plt.subplots(figsize=(10, 4))
+            fig, ax = plt.subplots(figsize=(10, 6))
             ax.plot(history.history['mae'], label='Train MAE')
             ax.plot(history.history['val_mae'], label='Validation MAE')
             #ax.axhline(y=1, color='lightgrey', linestyle='--', label='MAE = 1')
