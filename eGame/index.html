@@ -230,12 +230,12 @@ onclick="showScoreTable()">
   Score Table
 </div>
 
-<script src="uploadScore.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!--script src="uploadScore.js"></script-->
+<!--script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script-->
 <script>
-const supabaseUrl = 'https://noospmcgjamvpgxlgmyc.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY';
-const database = supabase.createClient(supabaseUrl,supabaseKey);
+//const supabaseUrl = 'https://noospmcgjamvpgxlgmyc.supabase.co'
+//const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY';
+//const database = supabase.createClient(supabaseUrl,supabaseKey);
 const totalQ = 16;
 const maxScore = 10;
 const color = ['#30d5c8','#ff7632','#cbf482'];
@@ -494,7 +494,7 @@ function addBasicInfo(){
     pScore[index].innerHTML = 'Total: ' + total;
     name[index].innerHTML = pName[index];
   }
-  resetDatabase();
+  //resetDatabase();
   createScoreTable();
 }
 
