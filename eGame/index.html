@@ -224,17 +224,20 @@
 </a>
 
 <!--pencil-->
-<div style="font-size: 2vmax;color: #bbb;position: fixed;border: #111 0.1vmax solid;border-radius: 0.5vmax;
-bottom: 1%;left: 45%;cursor: pointer;text-shadow: #222 4px 4px;padding:0 0.5vmax;" 
-onclick="showScoreTable()">
-  Score Table
+<div style="font-size: 2vmax;color: #bbb;position: fixed;
+bottom: 1%;left: 40%;">
+  <span style="border: #111 0.1vmax solid;border-radius: 0.5vmax;cursor: pointer;text-shadow: #222 4px 4px;padding:0 0.5vmax;margin-right: 2vw;" 
+  onclick="showScoreTable()">
+    Score Table</span>
+    <span style="border: #111 0.1vmax solid;border-radius: 0.5vmax;cursor: pointer;text-shadow: #222 4px 4px;padding:0 0.5vmax;" 
+  onclick="showJIC()">JIC</span>
 </div>
-<!--div id="savedTable">
-  </div-->
+<div id="savedTable" style="color: #888;">
+  </div>
 
 <!--script src="uploadScore.js"></script-->
 <!--script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script-->
-<!--script src="saveToLocal.js"></script-->
+<script src="saveToLocal.js"></script>
 <script>
 //const supabaseUrl = 'https://noospmcgjamvpgxlgmyc.supabase.co'
 //const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vb3NwbWNnamFtdnBneGxnbXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY2OTc5NjAsImV4cCI6MTk4MjI3Mzk2MH0.qbIQW8O_5mm5Dbz5_GJIBQE1fGo5PWM-xhDqeMWcGuY';
@@ -408,7 +411,6 @@ function thinkTimer(mode){
 
 function qNav(n){
   collectScore();
-  document.getElementById('savedTable').innerHTML = createSummaryTable();
   qNo = qNo + n;
   if (qNo>totalQ) {qNo = totalQ};
   if (qNo<0) {qNo=0};
@@ -886,6 +888,16 @@ function closeTableScore(){
   total[1].innerHTML = 'Total: ' + getTotalScore(1);
   total[2].innerHTML = 'Total: ' + getTotalScore(2);  
   //
+}
+
+function showJIC(){
+  document.getElementById('savedTable').innerHTML = createSummaryTable();
+  const savedTable = document.getElementById('savedTable');
+    if (savedTable.style.display === 'none') {
+        savedTable.style.display = 'block';
+    } else {
+        savedTable.style.display = 'none';
+    }
 }
 </script>
     

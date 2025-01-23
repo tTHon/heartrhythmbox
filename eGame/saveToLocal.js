@@ -1,7 +1,7 @@
 function collectScore() {
-    saveScore(pName[0], qNo, getTotalScore(0));
-    saveScore(pName[1], qNo, getTotalScore(1));
-    saveScore(pName[2], qNo, getTotalScore(2));
+    saveScore(pName[0], qNo, p1S[qNo]);
+    saveScore(pName[1], qNo, p2S[qNo]);
+    saveScore(pName[2], qNo, p3S[qNo]);
 }
 
 function saveScore(pName, qNo, score) {
@@ -28,16 +28,18 @@ function createSummaryTable() {
     questions.forEach(qNo => {
         table += `<th>Q${qNo}</th>`;
     });
-    table += '</tr>';
+    table += '<th>Total Score</th></tr>';
 
     // Create table rows for each player
     players.forEach(player => {
+        let totalScore = 0; // Define totalScore here
         table += `<tr><td>${player}</td>`;
         questions.forEach(qNo => {
-            const score = retrieveScore(player, qNo) || 'N/A';
+            const score = retrieveScore(player, qNo) || 0;
+            totalScore += parseInt(score, 10);
             table += `<td>${score}</td>`;
         });
-        table += '</tr>';
+        table += `<td>${totalScore}</td></tr>`;
     });
 
     table += '</table>';
@@ -54,7 +56,7 @@ function deleteSavedData() {
             localStorage.removeItem(key);
         });
     });
-    console.log('All saved data has been deleted.');
+    //console.log('All saved data has been deleted.');
 }
 
 // Example usage:
