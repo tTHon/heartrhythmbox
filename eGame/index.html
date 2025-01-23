@@ -239,7 +239,7 @@ onclick="showScoreTable()">
 const totalQ = 16;
 const maxScore = 10;
 const color = ['#30d5c8','#ff7632','#cbf482'];
-const pName = ['ข้าว','บี','กริช']
+const pName = ['กริช','บี','ข้าว']
 var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
@@ -404,7 +404,7 @@ function thinkTimer(mode){
 }
 
 function qNav(n){
-  sendScore()
+  //sendScore()
   qNo = qNo + n;
   if (qNo>totalQ) {qNo = totalQ};
   if (qNo<0) {qNo=0};
