@@ -20,7 +20,7 @@ function retrieveScore(pName, qNo) {
 }
 
 function createSummaryTable() {
-    const players = ['Player1', 'Player2', 'Player3'];
+    const players = [pName[0], pName[1], pName[2]];
     const questions = Array.from({ length: 16 }, (_, i) => i + 1);
     let table = '<table border="1"><tr><th>Player</th>';
 
@@ -42,6 +42,19 @@ function createSummaryTable() {
 
     table += '</table>';
     return table;
+}
+
+function deleteSavedData() {
+    const players = [pName[0], pName[1], pName[2]];
+    const questions = Array.from({ length: 16 }, (_, i) => i + 1);
+
+    players.forEach(player => {
+        questions.forEach(qNo => {
+            const key = `${player}_q${qNo}`;
+            localStorage.removeItem(key);
+        });
+    });
+    console.log('All saved data has been deleted.');
 }
 
 // Example usage:

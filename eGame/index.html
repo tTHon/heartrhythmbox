@@ -229,7 +229,8 @@ bottom: 1%;left: 45%;cursor: pointer;text-shadow: #222 4px 4px;padding:0 0.5vmax
 onclick="showScoreTable()">
   Score Table
 </div>
-
+<div id="savedTable">
+  </div>
 <!--script src="uploadScore.js"></script-->
 <!--script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script-->
 <script src="saveToLocal.js"></script>
@@ -406,6 +407,7 @@ function thinkTimer(mode){
 
 function qNav(n){
   collectScore();
+  document.getElementById('savedTable').innerHTML = createSummaryTable();
   qNo = qNo + n;
   if (qNo>totalQ) {qNo = totalQ};
   if (qNo<0) {qNo=0};
@@ -496,6 +498,7 @@ function addBasicInfo(){
     name[index].innerHTML = pName[index];
   }
   //resetDatabase();
+  deleteSavedData()
   createScoreTable();
 }
 
