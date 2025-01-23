@@ -1,8 +1,7 @@
-function saveScore(pName, qNo, score) {
-    // Create a unique key for each player and question number
-    const key = `${pName}_q${qNo}`;
-    // Save the score to local storage
-    localStorage.setItem(key, score);
+function collectScore() {
+    saveScore(pName[0], qNo, getTotalScore(0));
+    saveScore(pName[1], qNo, getTotalScore(1));
+    saveScore(pName[2], qNo, getTotalScore(2));
 }
 
 function saveScore(pName, qNo, score) {
@@ -10,6 +9,7 @@ function saveScore(pName, qNo, score) {
     const key = `${pName}_q${qNo}`;
     // Save the score to local storage
     localStorage.setItem(key, score);
+    console.log(`Saved score for ${pName} on question ${qNo}: ${score}`);
 }
 
 function retrieveScore(pName, qNo) {
@@ -45,16 +45,16 @@ function createSummaryTable() {
 }
 
 // Example usage:
-const playerName = 'Player1';
-const questionNumber = 1;
-const playerScore = 100;
+//const playerName = 'Player1';
+//const questionNumber = 1;
+//const playerScore = 100;
 
 // Save the score
-saveScore(playerName, questionNumber, playerScore);
+//saveScore(playerName, questionNumber, playerScore);
 
 // To retrieve the score later
-const savedScore = retrieveScore(playerName, questionNumber);
-console.log(`Saved score for ${playerName} on question ${questionNumber}: ${savedScore}`);
+//const savedScore = retrieveScore(playerName, questionNumber);
+//console.log(`Saved score for ${playerName} on question ${questionNumber}: ${savedScore}`);
 
 // Create and display the summary table
-document.body.innerHTML = createSummaryTable();
+//document.body.innerHTML = createSummaryTable();
