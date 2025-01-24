@@ -264,8 +264,8 @@ var bonusCount = 1;
 
 //audio for thinking
   //audio
-  const playList = ['audio/onePiece.mp3','audio/bejewel.mp3','audio/pixelSong.mp3',
-  'audio/PVZ.mp3','audio/angryBird.mp3','audio/sailorMoon.mp3'];
+  const playList = ['audio/GOT.aac','audio/LOTR.aac','audio/Pirates.aac',
+  'audio/starWars.aac','audio/Thor.aac','audio/killBill.aac'];
   var song = (qNo%6);
   var tAudio = new Audio(playList[song])
 
@@ -845,12 +845,15 @@ function saveTableScore(){
       let col = Number(inputId.charAt(1))
       if (row==1){
         p1S[col] = Number(inputTag[index].value)
+        saveScore(pName[0], col, p1S[col])
       }
       if (row==2){
         p2S[col] = Number(inputTag[index].value)
+        saveScore(pName[1], col, p2S[col])
       } 
       if (row==3){
         p3S[col] = Number(inputTag[index].value)
+        saveScore(pName[2], col, p3S[col])
       }
     }
   }

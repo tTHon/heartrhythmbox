@@ -9,13 +9,24 @@ function saveScore(pName, qNo, score) {
     const key = `${pName}_q${qNo}`;
     // Save the score to local storage
     localStorage.setItem(key, score);
-    console.log(`Saved score for ${pName} on question ${qNo}: ${score}`);
+    // Save the timestamp to local storage
+    const timestampKey = `${pName}_q${qNo}_timestamp`;
+    const timestamp = new Date().toLocaleString();
+    localStorage.setItem(timestampKey, timestamp);
+    //console.log(`Saved score for ${pName} on question ${qNo}: ${score} at ${timestamp}`);
 }
 
 function retrieveScore(pName, qNo) {
     // Create a unique key for each player and question number
     const key = `${pName}_q${qNo}`;
     // Retrieve the score from local storage
+    return localStorage.getItem(key);
+}
+
+function retrieveTimestamp(pName, qNo) {
+    // Create a unique key for each player and question number
+    const key = `${pName}_q${qNo}_timestamp`;
+    // Retrieve the timestamp from local storage
     return localStorage.getItem(key);
 }
 
@@ -28,18 +39,23 @@ function createSummaryTable() {
     questions.forEach(qNo => {
         table += `<th>Q${qNo}</th>`;
     });
-    table += '<th>Total Score</th></tr>';
+    table += '<th>Total Score</th><th>Last Saved</th></tr>';
 
     // Create table rows for each player
     players.forEach(player => {
-        let totalScore = 0; // Define totalScore here
+        let totalScore = 0;
+        let lastSaved = '';
         table += `<tr><td>${player}</td>`;
         questions.forEach(qNo => {
-            const score = retrieveScore(player, qNo) || 0;
-            totalScore += parseInt(score, 10);
+            const score = parseInt(retrieveScore(player, qNo)) || 0;
+            totalScore += score;
+            const timestamp = retrieveTimestamp(player, qNo) || 'N/A';
+            if (timestamp !== 'N/A') {
+                lastSaved = timestamp;
+            }
             table += `<td>${score}</td>`;
         });
-        table += `<td>${totalScore}</td></tr>`;
+        table += `<td>${totalScore}</td><td>${lastSaved}</td></tr>`;
     });
 
     table += '</table>';
