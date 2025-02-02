@@ -10,15 +10,30 @@ n2, x2 = 1821, 384  # Sample size and events for P2
 p1 = x1/n1  # ≈ 0.238
 p2 = x2/n2  # ≈ 0.211
 
+# Convert proportions to percentages
+p1_percentage = p1 * 100  # ≈ 23.8%
+p2_percentage = p2 * 100  # ≈ 21.1%
+
+
 # Calculate standard errors
-se1 = np.sqrt(p1 * (1-p1) / n1)
-se2 = np.sqrt(p2 * (1-p2) / n2)
+#se1 = np.sqrt(p1 * (1-p1) / n1)
+#se2 = np.sqrt(p2 * (1-p2) / n2)
+#se_diff = np.sqrt(se1**2 + se2**2)
+
+# Calculate standard errors
+se1 = np.sqrt(p1 * (1 - p1) / n1) * 100  # Convert to percentage
+se2 = np.sqrt(p2 * (1 - p2) / n2) * 100  # Convert to percentage
 se_diff = np.sqrt(se1**2 + se2**2)
+
 
 # Calculate difference and its 95% CI
 diff = p1 - p2
+diff_percentage = diff * 100  # Convert difference to percentage
 ci_lower = diff - 1.96 * se_diff
 ci_upper = diff + 1.96 * se_diff
+ci_lower_percentage = ci_lower * 100  # Convert CI lower bound to percentage
+ci_upper_percentage = ci_upper * 100  # Convert CI upper bound to percentage
+
 
 # Set default font properties
 plt.rcParams.update({
@@ -40,14 +55,19 @@ plt.rcParams.update({
 fig, ax1 = plt.subplots(1, 1, figsize=(15, 10))
 
 # Plot 1: Individual distributions
-x = np.linspace(0.15, 0.3, 1000)
-y1 = stats.norm.pdf(x, p1, se1)
-y2 = stats.norm.pdf(x, p2, se2)
+#x = np.linspace(0.15, 0.3, 1000)
+x = np.linspace(15, 30, 1000)
+#y1 = stats.norm.pdf(x, p1, se1)
+#y2 = stats.norm.pdf(x, p2, se2)
+y1 = stats.norm.pdf(x, p1_percentage, se1)
+y2 = stats.norm.pdf(x, p2_percentage, se2)
 
 ax1.plot(x, y1, 'pink', label=f'P1 = {p1:.3f}', linewidth=5)
 ax1.plot(x, y2, 'cyan', label=f'P2 = {p2:.3f}',linewidth=5)
-ax1.axvline(p1, color='pink', linestyle='--', alpha=0.7, linewidth=4)
-ax1.axvline(p2, color='cyan', linestyle='--', alpha=0.7, linewidth=4)
+#ax1.axvline(p1, color='pink', linestyle='--', alpha=0.7, linewidth=4)
+#ax1.axvline(p2, color='cyan', linestyle='--', alpha=0.7, linewidth=4)
+ax1.axvline(p1_percentage, color='pink', linestyle='--', alpha=0.7, linewidth=4)
+ax1.axvline(p2_percentage, color='cyan', linestyle='--', alpha=0.7, linewidth=4)
 # ax1.set_title('Individual Probability Distributions')
 ax1.set_xlabel('Event Rate',color='white')
 ax1.set_ylabel('Density', color='white')

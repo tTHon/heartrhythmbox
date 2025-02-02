@@ -65,7 +65,7 @@ if __name__ == "__main__":
     effect_sizes = [2.8, 0.1, 0.1, -0.1, 2.3]
     
     confidence_intervals = [
-        (0.1, 5.5),
+        (0.09, 5.5),
         (-1.2, 1.4),
         (-0.9, 1.1),
         (-0.7, 0.6),
@@ -101,17 +101,16 @@ if __name__ == "__main__":
     # Create and display the plot
     fig, ax = plt.subplots(figsize=(20, 10))
 
-
     # Calculate number of endpoints and positions
     num_endpoints = len(endpoints)
     y_positions = np.arange(num_endpoints)* 0.5  # Reduce space between bars
 
     # Create the plot with bars for 95% CI
     bar_height = 0.2
-    scatter_size = 800
+    scatter_size = 1000
     for i, (effect_size, (lower, upper)) in enumerate(zip(effect_sizes, confidence_intervals)):
         ax.barh(y_positions[i], upper - lower, left=lower, height=bar_height, color='cyan', alpha=0.9, edgecolor='none', zorder=2)
-        ax.scatter(effect_size, y_positions[i], color='steelblue', edgecolors='white', s=scatter_size, zorder=3)
+        ax.scatter(effect_size, y_positions[i], color='steelblue', edgecolors='white', s=scatter_size, zorder=3, marker= 's')
         ax.text(upper + 0.1, y_positions[i], f'{effect_size:.1f} [{lower:.1f}, {upper:.1f}]', va='center', fontsize=24, color='white')
 
     # Add vertical line at no effect (1.0)
@@ -120,7 +119,8 @@ if __name__ == "__main__":
     # Customize the plot
     ax.set_yticks(y_positions)
     ax.set_yticklabels(endpoints, fontsize=28)
-    #ax.set_xlabel('Risk Differences in Percentage Points (95% CI)', fontsize=28)
+    ax.tick_params(axis='y', width=2)  # Adjust the linewidth of the tick labels
+    ax.set_xlabel('Risk Differences (95% CI)', fontsize=28)
     #ax.set_title('Forest Plot of Effect Sizes with 95% Confidence Intervals', fontsize=22)
 
     # Customize plot border color

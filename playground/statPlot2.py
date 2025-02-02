@@ -10,6 +10,10 @@ n2, x2 = 1821, 384  # Sample size and events for P2
 p1 = x1/n1  # ≈ 0.238
 p2 = x2/n2  # ≈ 0.211
 
+# Convert proportions to percentages
+p1_percentage = p1 * 100  # ≈ 23.8%
+p2_percentage = p2 * 100  # ≈ 21.1%
+
 # Calculate standard errors
 se1 = np.sqrt(p1 * (1-p1) / n1)
 se2 = np.sqrt(p2 * (1-p2) / n2)
@@ -17,8 +21,17 @@ se_diff = np.sqrt(se1**2 + se2**2)
 
 # Calculate difference and its 95% CI
 diff = p1 - p2
-ci_lower = diff
+diff_percentage = diff * 100  # Convert difference to percentage
+ci_lower = diff - 1.96 * se_diff
 ci_upper = diff + 1.96 * se_diff
+ci_lower_percentage = ci_lower * 100  # Convert CI lower bound to percentage
+ci_upper_percentage = ci_upper * 100  # Convert CI upper bound to percentage
+
+# Print the results
+print(f'Event rate for P1: {p1_percentage:.2f}%')
+print(f'Event rate for P2: {p2_percentage:.2f}%')
+print(f'Difference in event rates: {diff_percentage:.2f}%')
+print(f'95% CI for the difference: [{ci_lower_percentage:.2f}%, {ci_upper_percentage:.2f}%]')
 
 # Create figure
 plt.figure(figsize=(12, 8))
