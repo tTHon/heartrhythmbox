@@ -81,15 +81,15 @@ ax1.spines['left'].set_linewidth(4)
 ax1.spines['left'].set_color('white')
 
 # Calculate and plot 95% CI for p1 and p2
-ci_p1_lower = p1 - 1.96 * se1
-ci_p1_upper = p1 + 1.96 * se1
-ci_p2_lower = p2 - 1.96 * se2
-ci_p2_upper = p2 + 1.96 * se2
+ci_p1_lower = p1_percentage - 1.96 * se1
+ci_p1_upper = p1_percentage + 1.96 * se1
+ci_p2_lower = p2_percentage - 1.96 * se2
+ci_p2_upper = p2_percentage + 1.96 * se2
 
-#ax1.axvline(ci_p1_lower, color='pink', linestyle=':', alpha=0.7, linewidth=3)
-#ax1.axvline(ci_p1_upper, color='pink', linestyle=':', alpha=0.7, linewidth=3)
-#ax1.axvline(ci_p2_lower, color='cyan', linestyle=':', alpha=0.7, linewidth=3)
-#ax1.axvline(ci_p2_upper, color='cyan', linestyle=':', alpha=0.7, linewidth=3)
+ax1.axvline(ci_p1_lower, color='pink', linestyle=':', alpha=0.7, linewidth=3)
+ax1.axvline(ci_p1_upper, color='pink', linestyle=':', alpha=0.7, linewidth=3)
+ax1.axvline(ci_p2_lower, color='cyan', linestyle=':', alpha=0.7, linewidth=3)
+ax1.axvline(ci_p2_upper, color='cyan', linestyle=':', alpha=0.7, linewidth=3)
 
 # Add noninferiority margin relative to P2
 #margin_line = p2 + 0.03
@@ -104,7 +104,7 @@ ci_p2_upper = p2 + 1.96 * se2
 #ax1.text(ci_p2_lower, max(y2) / 2, f'95% CI Lower\n{ci_p2_lower:.3f}', color='pink', ha='center', va='bottom', fontsize=12)
 #ax1.text(ci_p2_upper, max(y2) / 2, f'95% CI Upper\n{ci_p2_upper:.3f}', color='pink', ha='center', va='bottom', fontsize=12)
 
-ax1.set_xlabel('Event Rate', color='white')
+ax1.set_xlabel('Event Rate (%)', color='white')
 ax1.set_ylabel('Density', color='white')
 # sax1.legend()
 #ax1.grid(True, alpha=0.3, color='white')
