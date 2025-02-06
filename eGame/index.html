@@ -265,8 +265,12 @@ var bonusCount = 1;
 //audio for thinking
   //audio
   const playList = ['audio/GOT.mp3','audio/LOTR.mp3','audio/Pirates.mp3',
-  'audio/starWars.mp3','audio/Thor.mp3','audio/killBill.mp3'];
-  var song = (qNo%6);
+  'audio/starWars.mp3','audio/Thor.mp3','audio/killBill.mp3','audio/LOTR.mp3',
+  'audio/GOT.mp3','audio/Pirates.mp3',
+  'audio/starWars.mp3','audio/Thor.mp3','audio/killBill.mp3',
+  'audio/GOT.mp3','audio/LOTR.mp3','audio/Pirates.mp3','audio/starWars.mp3' 
+  ];
+  var song = (qNo);
   var tAudio = new Audio(playList[song])
 
 addBasicInfo();
