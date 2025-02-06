@@ -131,8 +131,8 @@ def main():
             
             # Plot MAE by epochs for the current model with auto y-axis scale
             fig, ax = plt.subplots(figsize=(10, 6))
-            ax.plot(history.history['mae'], label='Train MAE')
-            ax.plot(history.history['val_mae'], label='Validation MAE')
+            ax.plot(history.history['mae'], label='Train MAE',linewidth=4, color='royalblue')
+            ax.plot(history.history['val_mae'], label='Validation MAE',linewidth=4, color='darkred')
             #ax.axhline(y=1, color='lightgrey', linestyle='--', label='MAE = 1')
             
             # Set titles based on model name
