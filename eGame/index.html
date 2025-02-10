@@ -13,6 +13,7 @@
 <style>
     * {font-family: 'Athiti', sans-serif;;background-color:#333;margin: 0;}
     #player {display: flex;}
+    .large {font-size: 6vmax !important;}
     .nameBar {font-size: 4vmax;margin:0 0.5vmax;vertical-align: middle;flex: 1;
     border-radius: 1vw;cursor: pointer;background-color: #222;padding:0.5vmax 1vmax;font-weight: 600;}
     .playerName {background-color: #222;}
@@ -223,9 +224,12 @@
   <span class="circle">&lt;</span>
 </a>
 
-<!--pencil-->
+<!--bottom bar-->
 <div style="font-size: 2vmax;color: #bbb;position: fixed;
-bottom: 1%;left: 40%;">
+bottom: 1%;left: 35%;">
+  <span style="border: #111 0.1vmax solid;border-radius: 0.5vmax;cursor: pointer;text-shadow: #222 4px 4px;padding:0 0.5vmax;margin-right: 2vw;" 
+  onclick="showMedal()">
+    Podium</span>
   <span style="border: #111 0.1vmax solid;border-radius: 0.5vmax;cursor: pointer;text-shadow: #222 4px 4px;padding:0 0.5vmax;margin-right: 2vw;" 
   onclick="showScoreTable()">
     Score Table</span>
@@ -906,6 +910,37 @@ function showJIC(){
         savedTable.style.display = 'none';
     }
 }
+
+function showMedal(){
+  const medal = ['🥇','🥈','🥉']
+  var total = [getTotalScore(0),getTotalScore(1),getTotalScore(2)];
+  var sorted = total.slice().sort((a,b)=>b-a);
+  var rank = total.map(num => sorted.indexOf(num)+1);
+
+  const nameBars = document.getElementsByClassName('nameBar');
+  for (let i = 0; i < nameBars.length; i++) {
+    const existingMedal = nameBars[i].querySelector('.medal');
+    const playerName = nameBars[i].querySelector('.playerName');
+    const score = nameBars[i].querySelector('.score');
+
+    if (existingMedal) {
+      existingMedal.remove();
+      playerName.classList.remove('large');
+      score.classList.remove('large');
+    } else {
+      const medalElement = document.createElement('div');
+      medalElement.classList.add('medal');
+      medalElement.style.fontSize = '8vmax';
+      medalElement.style.textAlign = 'center';
+      medalElement.style.marginTop = '1vmax';
+      medalElement.innerHTML = medal[rank[i] - 1];
+      nameBars[i].appendChild(medalElement);
+      playerName.classList.add('large');
+      score.classList.add('large');
+    }
+  }
+}
+
 </script>
     
 </body>
