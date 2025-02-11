@@ -253,6 +253,24 @@ const pName = ['กริช','บี','ข้าว']
 var p1S = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p2S = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
 var p3S = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+
+//audio for thinking
+  //audio
+  const playList = ['audio/GOT.mp3','audio/LOTR.mp3','audio/Pirates.mp3',
+  'audio/starWars.mp3','audio/Thor.mp3','audio/killBill.mp3','audio/LOTR.mp3',
+  'audio/GOT.mp3','audio/Pirates.mp3',
+  'audio/starWars.mp3','audio/Thor.mp3','audio/killBill.mp3',
+  'audio/GOT.mp3','audio/LOTR.mp3','audio/Pirates.mp3','audio/starWars.mp3' 
+  ];
+
+// Preload audio files
+const preloadedAudio = playList.map(src => {
+  const audio = new Audio(src);
+  audio.preload = 'auto';
+  return audio;
+});
+
+
 var qNo = 0;
 var bonus;
 var activeP;
@@ -266,16 +284,8 @@ var lastAddScore;
 var undoScore = 1;
 var bonusCount = 1;
 
-//audio for thinking
-  //audio
-  const playList = ['audio/GOT.mp3','audio/LOTR.mp3','audio/Pirates.mp3',
-  'audio/starWars.mp3','audio/Thor.mp3','audio/killBill.mp3','audio/LOTR.mp3',
-  'audio/GOT.mp3','audio/Pirates.mp3',
-  'audio/starWars.mp3','audio/Thor.mp3','audio/killBill.mp3',
-  'audio/GOT.mp3','audio/LOTR.mp3','audio/Pirates.mp3','audio/starWars.mp3' 
-  ];
-  var song = (qNo);
-  var tAudio = new Audio(playList[song])
+var song = (qNo);
+var tAudio = new Audio(playList[song])
 
 addBasicInfo();
 
