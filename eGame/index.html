@@ -911,8 +911,11 @@ function showJIC(){
     }
 }
 
+let currentAudio = null;
+
 function showMedal(){
   const medal = ['🥇','🥈','🥉']
+  const audioFiles = ['audio/goldMedal.mp3', 'audio/medal.mp3', 'audio/medal.mp3'];
   var total = [getTotalScore(0),getTotalScore(1),getTotalScore(2)];
   var sorted = total.slice().sort((a,b)=>b-a);
   var rank = total.map(num => sorted.indexOf(num)+1);
@@ -925,16 +928,30 @@ function showMedal(){
 
     if (existingMedal) {
       existingMedal.remove();
+      nameBars[i].style.height = 'auto';
       playerName.classList.remove('large');
       score.classList.remove('large');
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
     } else {
       const medalElement = document.createElement('div');
       medalElement.classList.add('medal');
-      medalElement.style.fontSize = '8vmax';
+      medalElement.style.fontSize = '30vh';
       medalElement.style.textAlign = 'center';
       medalElement.style.marginTop = '1vmax';
       medalElement.innerHTML = medal[rank[i] - 1];
+      medalElement.onclick = function() {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
+        currentAudio = new Audio(audioFiles[rank[i] - 1]);
+        currentAudio.play();
+      };
       nameBars[i].appendChild(medalElement);
+      nameBars[i].style.height = '80vh';
       playerName.classList.add('large');
       score.classList.add('large');
     }
