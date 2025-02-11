@@ -292,6 +292,7 @@ addBasicInfo();
 function randomPlayer(){
   //audio
   const audio = new Audio("audio/magic.mp3")
+  audio.preload = 'auto';
   audio.play();
 
   //animate namebar
