@@ -15,11 +15,11 @@ any_revasc_omt = [3.7, 6.1, 12.4]
 ischaemia_revasc_omt = [2.4, 4.4, 8.0]
 
 # Bar width
-bar_width = 0.3
+bar_width = 0.25
 x = np.arange(len(years))
 
 # Create 3 separate bar charts
-fig, axes = plt.subplots(1, 3, figsize=(40, 10))
+fig, axes = plt.subplots(1, 3, figsize=(10, 10))
 
 # Set default font properties and background color
 plt.rcParams.update({
@@ -50,8 +50,8 @@ axes[0].set_xticklabels(years, color='black')
 axes[0].legend()
 axes[0].grid(False)
 axes[0].set_ylim(0, y_max)
-axes[0].tick_params(axis='y', labelsize=14)
-axes[0].tick_params(axis='x', labelsize=14)
+axes[0].tick_params(axis='y', labelsize=16)
+axes[0].tick_params(axis='x', labelsize=16)
 
 # Add labels on each bar
 for i in range(len(years)):
@@ -66,8 +66,8 @@ axes[1].set_xticks(x)
 axes[1].set_xticklabels(years, color='black')
 axes[1].grid(False)
 axes[1].set_ylim(0, y_max)
-axes[1].tick_params(axis='y', labelsize=14)
-axes[1].tick_params(axis='x', labelsize=14)
+axes[1].tick_params(axis='y', labelsize=16)
+axes[1].tick_params(axis='x', labelsize=16)
 
 # Add labels on each bar
 for i in range(len(years)):
@@ -82,8 +82,8 @@ axes[2].set_xticks(x)
 axes[2].set_xticklabels(years, color='black')
 axes[2].grid(False)
 axes[2].set_ylim(0, y_max)
-axes[2].tick_params(axis='y', labelsize=14)
-axes[2].tick_params(axis='x', labelsize=14)
+axes[2].tick_params(axis='y', labelsize=16)
+axes[2].tick_params(axis='x', labelsize=16)
 
 # Add labels on each bar
 for i in range(len(years)):
