@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import matplotlib.pyplot as plt
@@ -19,14 +19,15 @@ class ThreeDigitLotteryPredictor:
     def __init__(self):
         self.model = None
         self.number_scaler = MinMaxScaler()
+        self.zodiac_encoder = LabelEncoder()
         self.date_scaler = MinMaxScaler()
 
-    def load_data(self, csv_path, number1_column='number1', number2_column='number2'):
+    def load_data(self, csv_path, number1_column='number1', number2_column='number2', zodiac_column='zodiac'):
         try:
             data = pd.read_csv(csv_path)
 
             # Check required columns
-            required_columns = [number1_column, number2_column, 'date', 'month', 'year']
+            required_columns = [number1_column, number2_column, zodiac_column, 'date', 'month', 'year']
             for col in required_columns:
                 if col not in data.columns:
                     raise ValueError(f"Column '{col}' not found in the CSV file. Available columns are: {list(data.columns)}")
@@ -34,7 +35,10 @@ class ThreeDigitLotteryPredictor:
             # Convert number columns to numeric
             data[number1_column] = pd.to_numeric(data[number1_column], errors='coerce')
             data[number2_column] = pd.to_numeric(data[number2_column], errors='coerce')
-            data = data.dropna(subset=[number1_column, number2_column])
+            data = data.dropna(subset=[number1_column, number2_column, zodiac_column])
+
+            # Encode zodiac signs
+            data['zodiac_encoded'] = self.zodiac_encoder.fit_transform(data[zodiac_column])
 
             # Combine date components into a single datetime column
             data['date'] = pd.to_datetime(data[['year', 'month', 'date']].astype(str).agg('-'.join, axis=1), format='%Y-%m-%d')
@@ -50,12 +54,15 @@ class ThreeDigitLotteryPredictor:
             print(f"Error loading CSV file: {e}")
             raise
 
-    def prepare_data(self, historical_data, number1_column='number1', number2_column='number2', window_size=10):
+    def prepare_data(self, historical_data, number1_column='number1', number2_column='number2', zodiac_column='zodiac_encoded', window_size=10):
         # Prepare number data
         number1 = historical_data[number1_column].values
         number2 = historical_data[number2_column].values
         scaled_number1 = self.number_scaler.fit_transform(number1.reshape(-1, 1)).flatten()
         scaled_number2 = self.number_scaler.fit_transform(number2.reshape(-1, 1)).flatten()
+
+        # Prepare zodiac data
+        zodiacs = historical_data[zodiac_column].values
 
         # Prepare date data
         dates = historical_data[['day', 'month', 'year']].values
@@ -63,11 +70,12 @@ class ThreeDigitLotteryPredictor:
 
         features, labels = [], []
         for i in range(len(scaled_number1) - window_size):
-            # Combine number and date features
+            # Combine number, zodiac, date, and additional features
             number1_window = scaled_number1[i:i + window_size]
             number2_window = scaled_number2[i:i + window_size]
+            zodiac_window = zodiacs[i:i + window_size]
             date_window = scaled_dates[i:i + window_size]
-            combined_features = np.column_stack((number1_window, number2_window, date_window))
+            combined_features = np.column_stack((number1_window, number2_window, zodiac_window, date_window))
 
             features.append(combined_features)
             labels.append((scaled_number1[i + window_size], scaled_number2[i + window_size]))
@@ -139,13 +147,14 @@ class ThreeDigitLotteryPredictor:
         if self.model is None:
             raise ValueError("Model has not been built or trained yet.")
 
-        # Scale number and prepare date
+        # Scale number and prepare zodiac
         recent_number1 = self.number_scaler.transform(recent_data[:, 0].reshape(-1, 1)).flatten()
         recent_number2 = self.number_scaler.transform(recent_data[:, 1].reshape(-1, 1)).flatten()
-        recent_dates = self.date_scaler.transform(recent_data[:, 2:])
+        recent_zodiac = recent_data[:, 2]
+        recent_dates = self.date_scaler.transform(recent_data[:, 3:])
 
         # Combine features
-        combined_features = np.column_stack((recent_number1, recent_number2, recent_dates))
+        combined_features = np.column_stack((recent_number1, recent_number2, recent_zodiac, recent_dates))
 
         # Predict
         prediction = self.model.predict(combined_features.reshape(1, -1, combined_features.shape[1]))
