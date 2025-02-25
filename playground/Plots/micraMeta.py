@@ -8,6 +8,20 @@ confidence_intervals = [(0.47, 0.94), (0.63, 1.03), (0.43, 0.57)]  # Example val
 # Colors for the plot
 colors = ['skyblue', 'lightcoral', 'lightgreen']
 
+# Set default font properties
+plt.rcParams.update({
+    'font.size': 18,
+    'font.family': 'inter',
+        'axes.facecolor': 'none',
+    'figure.facecolor': 'none',
+    'text.color': 'black',
+    'axes.labelcolor': 'black',
+    'xtick.color': 'black',
+    'ytick.color': 'black',
+    'legend.facecolor': 'black',
+    'legend.edgecolor': 'black'
+})
+
 # Convert outcomes to numeric values for plotting
 outcome_positions = [i * 0.5 for i in range(len(outcomes))]
 
@@ -29,8 +43,8 @@ plt.xticks(xticks, [f'{x:.2f}' for x in xticks])
 
 # Add data labels with more y offset
 for i, (rr, outcome, ci) in enumerate(zip(risk_ratios, outcome_positions, confidence_intervals)):
-    plt.text(rr, outcome + 0.01, f'{rr}', ha='center', va='bottom', fontsize=10, color='black')
-    plt.text(rr+0.2, outcome + 0.01, f'[{ci[0]}, {ci[1]}]', ha='center', va='bottom', fontsize=10, color='black')
+    plt.text(rr, outcome + 0.01, f'{rr}', ha='center', va='bottom', fontsize=16, color='black')
+    plt.text(rr+0.2, outcome + 0.01, f'[{ci[0]}, {ci[1]}]', ha='center', va='bottom', fontsize=16, color='black')
 
 plt.tight_layout()
 
