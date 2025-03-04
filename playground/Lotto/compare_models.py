@@ -9,10 +9,7 @@ import random
 import matplotlib as mpl
 
 # Import models from the provided files
-from model1Last100 import LotteryNumberPredictor as Model1
-from model1Long import LotteryNumberPredictor as Model2
 from model2 import ImprovedLotteryPredictor as Model3
-from model2PM import DateAndPMIncorporatedLotteryPredictor as Model4
 from model2withZodiac import ZodiacLotteryPredictor as Model5
 
 # Set random seed for reproducibility
@@ -48,19 +45,13 @@ def evaluate_model(y_true, y_pred):
 def main():
     # Define CSV paths for each model
     csv_paths = {
-        'Model1': r'playground/Lotto/lotteryLast100.csv',
-        'Model2': r'playground/Lotto/lotteryLast30Yrs.csv',
         'Model3': r'playground/Lotto/lotteryLast30Yrs.csv',
-        'Model4': r'playground/Lotto/lotteryLast30YrsPM.csv',
         'Model5': r'playground/Lotto/lotteryLast30YrsJupiter.csv'
     }
     
     # Initialize models
     models = {
-        'Model1': Model1(),
-        'Model2': Model2(),
         'Model3': Model3(),
-        'Model4': Model4(),
         'Model5': Model5()
     }
     
@@ -87,12 +78,8 @@ def main():
             X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
             
             # Build and train the model
-            if model_name in ['Model1', 'Model2']:
-                model.build_model(input_shape=X_train.shape[1])
-            elif model_name == 'Model3':
+            if model_name == 'Model3':
                 model.build_lstm_model(input_shape=(X_train.shape[1], 1))
-            elif model_name == 'Model4':
-                model.build_lstm_model(input_shape=(X_train.shape[1], 3))
             elif model_name == 'Model5':
                 model.build_lstm_model(input_shape=(X_train.shape[1], 3))
             
@@ -112,12 +99,6 @@ def main():
                 recent_zodiac = 'Gemini'  # example zodiac sign
                 combined_features = np.column_stack((recent_data, [model.zodiac_encoder.transform([recent_zodiac])[0]] * len(recent_data), np.zeros(len(recent_data))))
                 predicted_number = model.predict(combined_features, recent_zodiac)
-            elif model_name == 'Model4':
-                recent_data = X_test[-1][:, 0]
-                recent_dates = X_test[-1][:, 1]
-                recent_pms = model.pm_encoder.inverse_transform(X_test[-1][:, 2].astype(int))
-                combined_features = np.column_stack((recent_data, recent_dates, recent_pms))
-                predicted_number = model.predict(recent_data, recent_dates, recent_pms)
             else:
                 recent_data = X_test[-1]
                 predicted_number = model.predict(recent_data)
@@ -136,14 +117,8 @@ def main():
             #ax.axhline(y=1, color='lightgrey', linestyle='--', label='MAE = 1')
             
             # Set titles based on model name
-            if model_name == 'Model1':
-                ax.set_title('Model 1 using data from the last 100 draws')
-            elif model_name == 'Model2':
-                ax.set_title('Model 1 using data from the last 30 yrs')
-            elif model_name == 'Model3':
+            if model_name == 'Model3':
                 ax.set_title('Model 2, a more rigorous model')
-            elif model_name == 'Model4':
-                ax.set_title('Model 2 with Prime Ministers Data')
             elif model_name == 'Model5':
                 ax.set_title('Model 2 with Jupiter Transits Data')
             
