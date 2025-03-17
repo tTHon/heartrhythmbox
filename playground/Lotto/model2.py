@@ -50,26 +50,28 @@ class ImprovedLotteryPredictor:
     def build_lstm_model(self, input_shape):
         model = tf.keras.Sequential([
             tf.keras.layers.Input(shape=input_shape),
-            tf.keras.layers.LSTM(64, return_sequences=True, activation='relu'),
-            tf.keras.layers.Dropout(0.2),
-            tf.keras.layers.LSTM(32, activation='relu'),
-            tf.keras.layers.Dropout(0.2),
-            tf.keras.layers.Dense(16, activation='relu'),
+            tf.keras.layers.LSTM(256, return_sequences=True, activation='relu'),
+            tf.keras.layers.Dropout(0.3),
+            tf.keras.layers.LSTM(128, return_sequences=True, activation='relu'),
+            tf.keras.layers.Dropout(0.3),
+            tf.keras.layers.LSTM(64, activation='relu'),
+            tf.keras.layers.Dropout(0.3),
+            tf.keras.layers.Dense(32, activation='relu'),
             tf.keras.layers.Dense(1, activation='linear')
         ])
         
-        model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
+        model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.00001),
                       loss='mean_squared_error',
                       metrics=['mae'])
         self.model = model
         return model
 
-    def train(self, X, y, epochs=50, batch_size=32, validation_split=0.2):
+    def train(self, X, y, epochs=500, batch_size=32, validation_split=0.2):
         os.makedirs('models', exist_ok=True)
         
         early_stopping = tf.keras.callbacks.EarlyStopping(
             monitor='val_loss',
-            patience=10,
+            patience=50,
             restore_best_weights=True
         )
         

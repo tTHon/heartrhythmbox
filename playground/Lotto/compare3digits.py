@@ -47,8 +47,9 @@ print(f"Model Regular MAE: {mae_regular:.4f}")
 recent_data_j = X_test_j[-1]
 recent_data_r = X_test_r[-1]
 
-predicted_numbers_j = model_jupiter.predict(recent_data_j)
-predicted_numbers_r = model_regular.predict(recent_data_r)
+# Ensure predictions are numeric and positive
+predicted_numbers_j = np.abs(np.round(np.array(model_jupiter.predict(recent_data_j), dtype=float)).astype(int))
+predicted_numbers_r = np.abs(np.round(np.array(model_regular.predict(recent_data_r), dtype=float)).astype(int))
 
 print(f"Predicted Numbers (Jupiter Model): {predicted_numbers_j}")
 print(f"Predicted Numbers (Regular Model): {predicted_numbers_r}")
