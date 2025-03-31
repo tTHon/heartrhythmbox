@@ -121,21 +121,32 @@ class ZodiacLotteryPredictor:
         return history
 
     def plot_training_history(self, history):
+        def smooth_curve(points, factor=0.8):
+            smoothed_points = []
+            for point in points:
+                if smoothed_points:
+                    smoothed_points.append(smoothed_points[-1] * factor + point * (1 - factor))
+                else:
+                    smoothed_points.append(point)
+            return smoothed_points
+
         plt.figure(figsize=(12, 4))
         plt.subplot(1, 2, 1)
-        plt.plot(history.history['loss'])
-        plt.plot(history.history['val_loss'])
+        plt.plot(smooth_curve(history.history['loss']), label='Train Loss')
+        plt.plot(smooth_curve(history.history['val_loss']), label='Validation Loss')
         plt.title('Model Loss')
         plt.ylabel('Loss')
         plt.xlabel('Epoch')
-        plt.legend(['Train', 'Validation'], loc='upper right')
+        plt.legend(loc='upper right')
+
         plt.subplot(1, 2, 2)
-        plt.plot(history.history['mae'])
-        plt.plot(history.history['val_mae'])
+        plt.plot(smooth_curve(history.history['mae']), label='Train MAE')
+        plt.plot(smooth_curve(history.history['val_mae']), label='Validation MAE')
         plt.title('Model MAE')
         plt.ylabel('MAE')
         plt.xlabel('Epoch')
-        plt.legend(['Train', 'Validation'], loc='upper right')
+        plt.legend(loc='upper right')
+
         plt.tight_layout()
         plt.show()
 
