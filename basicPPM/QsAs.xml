@@ -501,6 +501,35 @@
     <ref>NA</ref>
 </question>
 
+<!--Mode switch-->
+<question>
+    <index>Mode switching</index>
+    <clinical>A patient with paroxysmal atrial fibrillation and sinus node dysfunction has a DDDR pacemaker. The "Mode Switch" feature is programmed ON.
+        </clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>What is the primary purpose of this feature?</mainQ>
+    <choices>
+        <a>To conserve battery.</a>
+        <b>To prevent rapid ventricular pacing.</b>
+        <c>To minimize unnecessary ventricular pacing.</c>
+        <d>To briefly increase pacing rate to reduce syncope.</d>
+        <e>To automatically increase heart rate in response to the activity.</e>
+        </choices>
+    <answer>B</answer>
+    <exp>In DDD mode, the pacemaker tracks the atrial events up to the upper tracking rate. 
+    During AF, this would lead to a rapid ventricular pacing. 
+    Mode Switch feature is designed to prevent the tracking of the rapid atrial arrhythmias.
+    When the pacemaker detects a rapid atrial rate of a long enough duration, 
+    it will switch to a non-tracking mode, i.e., DDD to DDI mode, which will not track the atrial events.
+
+    Choice D = rate drop response feature.
+    Choice E = rate responsive feature.
+    </exp>
+    <aImage>NA</aImage>
+    <ref>NA</ref>
+</question>
+
 <!--drug and stim threshold-->
 <question>
     <index>Drug and Threshold</index>
@@ -1024,6 +1053,31 @@
     <ref>https://doi.org/10.1093/europace/euw279</ref>
 </question>
 
+<!--MRI-->
+<question>
+    <index>MRI</index>
+    <clinical>A patient with "MR-conditional" pacemaker system permanent pacemaker requires an MRI scan.</clinical>
+           
+    <qImage>NA</qImage>
+    <mainQ>Which of the following statement is the most accurate?
+        </mainQ>
+    <choices>
+        <a>Only non-thoracic MRIs are permitted.</a>
+        <b>The field strength has to be 1.5 Tesla or less.</b>
+        <c>The risk of pacemaker malfunction is increased if the battery is at elective replacement interval.</c>
+        <d>Serious complications related to MRI is a lot higher with non-MRI conditional system.</d>
+        <e>The patient can undergo the MRI without any specific pacemaker adjustment as it is "MR-conditionl".</e>
+    </choices>
+    <answer>C</answer>
+    <exp>
+    Currently, the majority of patients with pacemaker and other CIEDs can safely undergo MRI scans even with a non-MRI conditional system.
+    Both thoracic and non-thoracic MRIs are permitted. The field strength can be 1.5 Tesla or 3 Tesla.
+    The risk of pacemaker malfunction is increased with abnormal leads and battery parameters, as well as an old generator prior to year 2000.
+    With all types of CIEDs, reprogramming must be done before the MRI scanning.    
+    </exp>
+    <aImage>media\MRI.png</aImage>
+    <ref>https://doi.org/10.1136/heartjnl-2022-320810</ref>
+</question>
 
 
 </qXML>
