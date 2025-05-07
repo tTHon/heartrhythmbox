@@ -1072,8 +1072,8 @@
     <exp>
     Currently, the majority of patients with pacemaker and other CIEDs can safely undergo MRI scans even with a non-MRI conditional system.
     Both thoracic and non-thoracic MRIs are permitted. The field strength can be 1.5 Tesla or 3 Tesla.
-    The risk of pacemaker malfunction is increased with abnormal leads and battery parameters, as well as an old generator prior to year 2000.
-    With all types of CIEDs, reprogramming must be done before the MRI scanning.    
+    The risk of pacemaker malfunction is increased with an old generator before year 2000 or abnormal leads/battery parameters.
+    With all types of CIEDs, device interrogation and reprogramming must be done before the MRI scanning.    
     </exp>
     <aImage>media\MRI.png</aImage>
     <ref>https://doi.org/10.1136/heartjnl-2022-320810</ref>
