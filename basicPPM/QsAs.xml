@@ -1065,8 +1065,8 @@
         <a>Only non-thoracic MRIs are permitted.</a>
         <b>The field strength has to be 1.5 Tesla or less.</b>
         <c>The risk of pacemaker malfunction is increased if the battery is at elective replacement interval.</c>
-        <d>Serious complications related to MRI is a lot higher with non-MRI conditional system.</d>
-        <e>The patient can undergo the MRI without any specific pacemaker adjustment as it is "MR-conditionl".</e>
+        <d>Serious complications related to MRI is a lot higher with non-MR conditional system.</d>
+        <e>The patient can undergo the MRI without any specific pacemaker adjustment as it is "MR-conditional".</e>
     </choices>
     <answer>C</answer>
     <exp>
