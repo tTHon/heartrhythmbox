@@ -42,7 +42,7 @@ lower_error = hazard_ratios - lower_ci
 upper_error = upper_ci - hazard_ratios
 
 # Increase plot size
-plt.figure(figsize=(30, 10))
+plt.figure(figsize=(16,9))
 
 # Change font to Inter
 plt.rcParams['font.family'] = 'Inter'
@@ -58,11 +58,15 @@ plt.rcParams['ytick.labelsize'] = 16
 plt.style.use('dark_background')
 
 # Reduce space between variables by adjusting subplot parameters
-plt.subplots_adjust(left=0.3, right=0.9, top=0.9, bottom=0.2)
+plt.subplots_adjust(left=0.3, right=0.6, top=0.9, bottom=0.2)
 
 # Set transparent background for the plot and figure
 plt.gca().patch.set_alpha(0)
 plt.gcf().patch.set_alpha(0)
+plt.rcParams['savefig.facecolor'] = 'none'
+plt.rcParams['savefig.edgecolor'] = 'none'
+plt.rcParams['figure.facecolor'] = 'none'
+plt.rcParams['axes.facecolor'] = 'none'
 
 # Change font colors to match transparency
 plt.rcParams['text.color'] = 'white'
@@ -76,9 +80,9 @@ y_positions = np.arange(len(subgroups))[::-1]  # Reverse to match forest plot co
 # Create categories and separators
 category_positions = {
     "All": [0],
-    "Drug-eligibility stratum": [1, 2],
+    "Drugs": [1, 2],
     "LVEF": [3, 4],
-    "Index event": [5, 6, 7, 8]
+    "Event": [5, 6, 7, 8]
 }
 
 # Remove background for categories
@@ -100,7 +104,7 @@ point_colors = []
 for i in range(len(subgroups)):
     if i in category_positions['All']:
         point_colors.append(category_colors[0])
-    elif i in category_positions['Drug-eligibility stratum']:
+    elif i in category_positions['Drugs']:
         point_colors.append(category_colors[1])
     elif i in category_positions['LVEF']:
         point_colors.append(category_colors[2])
@@ -127,23 +131,14 @@ plt.yticks(y_positions, [])  # No default labels
 for i, y in enumerate(y_positions):
     # Subgroup names on the left
     plt.text(-0.01, y, subgroups[i], ha='right', va='center', fontsize=11, transform=plt.gca().get_yaxis_transform())
-    
-    # Events and totals on the right side of the plot
-    event_text = f"{ca_events[i]}/{ca_total[i]}"
-    plt.text(1.01, y, event_text, ha='left', va='center', fontsize=10, transform=plt.gca().get_yaxis_transform())
-    
-    event_text_control = f"{dt_events[i]}/{dt_total[i]}"
-    plt.text(1.11, y, event_text_control, ha='left', va='center', fontsize=10, transform=plt.gca().get_yaxis_transform())
-    
+    # Remove events and totals columns
     # Add hazard ratio and CI as text
     hr_text = f"{hazard_ratios[i]:.2f} ({lower_ci[i]:.2f}–{upper_ci[i]:.2f})"
-    plt.text(1.21, y, hr_text, ha='left', va='center', fontsize=10, transform=plt.gca().get_yaxis_transform())
+    plt.text(1.01, y, hr_text, ha='left', va='center', fontsize=10, transform=plt.gca().get_yaxis_transform())
 
 # Add column headers
 plt.text(-0.01, len(subgroups) + 0.5, "Subgroup", ha='right', va='center', fontweight='bold', fontsize=12, transform=plt.gca().get_yaxis_transform())
-plt.text(1.01, len(subgroups) + 0.5, "Catheter\nAblation", ha='left', va='center', fontweight='bold', fontsize=11, transform=plt.gca().get_yaxis_transform())
-plt.text(1.11, len(subgroups) + 0.5, "Drug\nTherapy", ha='left', va='center', fontweight='bold', fontsize=11, transform=plt.gca().get_yaxis_transform())
-plt.text(1.21, len(subgroups) + 0.5, "Hazard Ratio (95% CI)", ha='left', va='center', fontweight='bold', fontsize=11, transform=plt.gca().get_yaxis_transform())
+plt.text(1.01, len(subgroups) + 0.5, "Hazard Ratio (95% CI)", ha='left', va='center', fontweight='bold', fontsize=11, transform=plt.gca().get_yaxis_transform())
 
 # Add "Better" labels
 plt.text(0.2, -0.7, "Catheter Ablation Better", ha='center', va='center', fontsize=10)
@@ -169,4 +164,5 @@ plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 
 plt.tight_layout()
+plt.savefig('forest_plot.png', dpi=300, transparent=True)
 plt.show()
