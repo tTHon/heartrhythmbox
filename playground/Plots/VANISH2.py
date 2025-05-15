@@ -20,7 +20,7 @@ data = [
     # Index event
     ["VT storm", 0.72, 0.45, 1.18, 27, 48, 42, 58],
     ["Appropriate shock", 0.83, 0.55, 1.25, 47, 84, 48, 80],
-    ["Antitachycardia pacing", 0.34, 0.15, 0.81, 9, 20, 14, 18],
+    ["ATP", 0.34, 0.15, 0.81, 9, 20, 14, 18],
     ["Sustained VT below detection limit of ICD", 0.86, 0.48, 1.55, 20, 51, 25, 57]
 ]
 
@@ -42,17 +42,17 @@ lower_error = hazard_ratios - lower_ci
 upper_error = upper_ci - hazard_ratios
 
 # Increase plot size
-plt.figure(figsize=(16, 10))
+plt.figure(figsize=(30, 10))
 
 # Change font to Inter
 plt.rcParams['font.family'] = 'Inter'
 
 # Adjust font sizes for larger text
-plt.rcParams['font.size'] = 14
-plt.rcParams['axes.titlesize'] = 18
-plt.rcParams['axes.labelsize'] = 16
-plt.rcParams['xtick.labelsize'] = 14
-plt.rcParams['ytick.labelsize'] = 14
+plt.rcParams['font.size'] = 16
+plt.rcParams['axes.titlesize'] = 20
+plt.rcParams['axes.labelsize'] = 18
+plt.rcParams['xtick.labelsize'] = 16
+plt.rcParams['ytick.labelsize'] = 16
 
 # Invert colors
 plt.style.use('dark_background')
@@ -92,12 +92,12 @@ category_positions = {
 #         plt.gca().add_patch(rect)
 #         current_pos += height
 
-# Plot hazard ratios and confidence intervals
+# Change errorbar color to #AFFD8E
 plt.errorbar(hazard_ratios, y_positions, xerr=[lower_error, upper_error], 
-             fmt='o', markersize=8, color='blue', capsize=6, elinewidth=2)
+             fmt='o', markersize=8, color='#AFFD8E', capsize=6, elinewidth=2)
 
-# Add vertical line at HR=1
-plt.axvline(x=1, color='red', linestyle='--', alpha=0.7)
+# Change other colors to complement #AFFD8E
+plt.axvline(x=1, color='#FF8EA0', linestyle='--', alpha=0.7)
 
 # Format x-axis to logarithmic scale
 plt.xscale('log')
