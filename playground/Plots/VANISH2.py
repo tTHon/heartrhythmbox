@@ -92,11 +92,27 @@ category_positions = {
 #         plt.gca().add_patch(rect)
 #         current_pos += height
 
-# Change errorbar color to #AFFD8E
-plt.errorbar(hazard_ratios, y_positions, xerr=[lower_error, upper_error], 
-             fmt='o', markersize=8, color='#AFFD8E', capsize=6, elinewidth=2)
+# Assign a different color for each category
+category_colors = ['#AFFD8E', '#8EC6FF', '#FFB48E']
 
-# Change other colors to complement #AFFD8E
+# Assign a color to each data point based on its category
+point_colors = []
+for i in range(len(subgroups)):
+    if i in category_positions['All']:
+        point_colors.append(category_colors[0])
+    elif i in category_positions['Drug-eligibility stratum']:
+        point_colors.append(category_colors[1])
+    elif i in category_positions['LVEF']:
+        point_colors.append(category_colors[2])
+    else:
+        point_colors.append('#FFFFFF')  # fallback color
+
+# Plot each point with its category color
+for i, y in enumerate(y_positions):
+    plt.errorbar(hazard_ratios[i], y, xerr=[[lower_error[i]], [upper_error[i]]],
+                 fmt='o', markersize=8, color=point_colors[i], capsize=6, elinewidth=2)
+
+# Change other colors to complement the palette
 plt.axvline(x=1, color='#FF8EA0', linestyle='--', alpha=0.7)
 
 # Format x-axis to logarithmic scale
