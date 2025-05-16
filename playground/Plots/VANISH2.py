@@ -88,9 +88,9 @@ plt.yticks(y_positions, [])  # No default labels
 
 # Add events and totals as text
 for i, y in enumerate(y_positions):
-    plt.text(-0.01, y, subgroups[i], ha='right', va='center', fontsize=16, color='white', fontname='Inter', transform=plt.gca().get_yaxis_transform())
+    plt.text(-0.01, y, subgroups[i], ha='right', va='center', fontsize=20, color='white', fontname='Inter', transform=plt.gca().get_yaxis_transform())
     hr_text = f"{hazard_ratios[i]:.2f} ({lower_ci[i]:.2f}–{upper_ci[i]:.2f})"
-    plt.text(1.05, y, hr_text, ha='left', va='center', fontsize=15, color='white', fontname='Inter', transform=plt.gca().get_yaxis_transform())
+    plt.text(1.05, y, hr_text, ha='left', va='center', fontsize=18, color='white', fontname='Inter', transform=plt.gca().get_yaxis_transform())
 
 # Add column header for Hazard Ratio (95% CI) closer to the plot
 #plt.text(1.05, len(subgroups) + 0.5, "Hazard Ratio (95% CI)", ha='left', va='center', fontweight='bold', fontsize=16, color='white', fontname='Inter', transform=plt.gca().get_yaxis_transform())
@@ -108,8 +108,8 @@ for idx, (cat, positions) in enumerate(category_positions.items()):
         if idx != 0:
             cat_color = 'white'
             # Draw a horizontal line only under the label for 'DRUG-ELIGIBILITY STRATUM', not at 'All patients'
-            plt.hlines(y=y_pos - 0.25, xmin=-0.2, xmax=1.2, colors=cat_color, linestyles='dashed', linewidth=2, transform=plt.gca().get_yaxis_transform(), zorder=2)
-            plt.text(-0.01, y_pos, cat, ha='right', va='bottom', fontweight='bold', fontsize=18, color=cat_color, fontname='Inter', transform=plt.gca().get_yaxis_transform())
+            plt.hlines(y=y_pos - 0.15, xmin=-0.2, xmax=1.2, colors=cat_color, linestyles='dashed', linewidth=2, transform=plt.gca().get_yaxis_transform(), zorder=2)
+            plt.text(0.45, y_pos, cat, ha='right', va='bottom', fontweight='bold', fontsize=18, color=cat_color, fontname='Inter', transform=plt.gca().get_yaxis_transform())
         current_pos += len(positions)
 
 # Label the axes
