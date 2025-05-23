@@ -185,9 +185,9 @@
       color: #292330;
       text-align: left;padding: 2vmax 1vmax 1vmax 1vmax;
     }
-    .Vanish-Table, .Advent-Table, .Registry-Table,.Yeti-Table {border-collapse: collapse;font-size: 2vmax;
+    .Vanish-Table {border-collapse: collapse;font-size: 2vmax;
       text-align: center;padding: 10px;}
-    .Yeti-Table {padding: 4px;}
+
     .Vanish-Table caption, .Advent-Table caption, .Registry-Table caption, .Yeti-Table caption 
     {font-size: 3vmax;text-align: center;color: #292330;}
     .Vanish-Table th {
@@ -195,42 +195,18 @@
       font-style: normal;font-size: 2.2vmax;
     }
     .notes-column {font-size: 1.5vmax;text-align: left;}
-    .Advent-Table th {
-      background-color: #534696;color: #eef1fc;font-weight: 500;
-      font-style: normal;font-size: 2.2vmax;
-    }
-    .Registry-Table th {
-      background-color: #15a2ac;color: #eef1fc;font-weight: 500;
-      font-style: normal;font-size: 2.2vmax;
-    }
-    .Yeti-Table th {
-      background-color: #9ac0D9;color:#333;font-weight: 500;
-      font-style: normal;font-size: 2vmax;
-    }
+
     .Vanish-Table th,.Vanish-Table td {
       border: #bbb 1px solid;padding: 10px;
     }
-    .Advent-Table th,.Advent-Table td, .Registry-Table th,.Registry-Table td {
-      border: #777 1px solid;padding: 10px;
-    }
-    .Yeti-Table th,.Yeti-Table td {
-      border: #777 1px solid;padding: 4px;
-    }
-    .Advent-Table tfoot td, .Registry-Table tfoot td, .Yeti-Table tfoot td {font-size: 16px;color: #333;font-weight: 300;
-      border: none;text-align: left;}
+
     @media only screen and (max-width: 600px) {
-      .Vanish-Table, .Advent-Table  {display: block;white-space:wrap;
+      .Vanish-Table  {display: block;white-space:wrap;
         padding: 2px;font-size: 16px;width: 100%;overflow: auto;}
-      .Yeti-Table {display: block;white-space:wrap;border-spacing: 0;
-          padding: 0;font-size: 16px;width: 100%;overflow: auto;}
-      .Vanish-Table caption,.Advent-Table caption,.Registry-Table caption {font-size: 20px;}
+    
+      .Vanish-Table caption{font-size: 20px;}
       .Vanish-Table td,.Vanish-Table th {padding: 2px;}
       .Advent-Table td,.Advent-Table th {padding:10px 5px;}
-      .Yeti-Table th, .Yeti-Table td, .Yeti-Table tr {padding:8px 2px;font-size: 14px;text-align: left;}
-      .Yeti-Table caption {font-size: 15px;text-align: left;}
-      .Yeti-Table tfoot td {font-size: 14px;}
-      .Advent-Table tfoot td {font-size: 14px;}
-      .Registry-Table tfoot td {font-size: 14px;}
       .noMobile {display: none;}
       .headLine {letter-spacing: 0.5px;text-transform: none;}
     }
@@ -260,7 +236,7 @@
 </div>
 
 <!-- Topic 1 VANISH 2 -->
-<div id="no1" class="topic icegrey"> 
+<div id="no1" class="topic eggShell"> 
   <div class="headLine">
     <span style="border-bottom: #292330 solid 0.2vh;"><sup>1</sup> VANISH 2</span> 
   </div>
@@ -425,9 +401,9 @@
 </div>
 
 <!-- Topic 2 BRAVE -->
-<div id="no2" class="topic darkGreen"> 
+<div id="no2" class="topic eggShell"> 
   <div class="headLine">
-    <span style="border-bottom: #F14124 solid 0.2vh;color: white;"><sup>2</sup> BRAVE</span>
+    <span style="border-bottom: #292330 solid 0.2vh;"><sup>2</sup> BRAVE</span>
   </div>
 <div class="carousel" id="carousel2">
   <div class="carousel-items" id="carousel2-items">
@@ -497,9 +473,9 @@
 </div>
 
 <!-- Topic 3 TRAVERSE -->
-<div id="no3" class="topic deepBlue"> 
+<div id="no3" class="topic eggShell"> 
   <div class="headLine">
-    <span style="color: #2bd0dc;"><sup>3</sup> TRAVERSE</span>
+    <span style="border-bottom: #292330 solid 0.2vh;"><sup>3</sup> TRAVERSE</span>
   </div>
 <div class="carousel" id="carousel3">
   <div class="carousel-items" id="carousel3-items">
@@ -568,7 +544,7 @@
 </div>
 
 <!-- Topic 4 Single Shot Chamption -->
-<div id="no4" class="topic icegrey"> 
+<div id="no4" class="topic eggShell"> 
   <div class="headLine">
     <span style="border-bottom: #717171 solid 0.2vh;"><sup>4</sup> Single Shot Champion</span>
   </div>
@@ -589,6 +565,17 @@
       <picture>
         <!--source media="(max-width:900px)" srcset="media/mobile/fireAndIce2.png" loading="lazy"-->
         <img src="Media/singleShot/flow.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1056/nejmoa2502280" target="_blank">
+          NEJM 2025
+        </a>
+      </div>   
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/fireAndIce2.png" loading="lazy"-->
+        <img src="Media/singleShot/endpoint.png" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
         <a href="https://doi.org/10.1056/nejmoa2502280" target="_blank">
@@ -674,42 +661,42 @@
   </thead>
   <tbody>
     <tr>
-      <td><strong>Hospitalization or ER visit for atrial arrhythmia</strong></td>
+      <td style="text-align: left;"><strong>Hospitalization or ER visit for atrial arrhythmia</strong></td>
       <td>2 (1.9)</td>
       <td>8 (7.6)</td>
       <td>0.25 (0.05 to 1.15)</td>
     </tr>
     <tr>
-      <td><strong>Repeat ablation procedure</strong></td>
+      <td style="text-align: left;"><strong>Repeat ablation procedure</strong></td>
       <td>16 (15.2)</td>
       <td>10 (9.5)</td>
       <td>1.60 (0.76 to 3.37)</td>
     </tr>
     <tr>
-      <td><strong>Reinitiation of antiarrhythmic drug</strong></td>
+      <td style="text-align: left;"><strong>Reinitiation of antiarrhythmic drug</strong></td>
       <td>3 (2.9)</td>
       <td>3 (2.9)</td>
       <td>1.00 (0.21 to 4.86)</td>
     </tr>
     <tr>
-      <td><strong>Stroke or TIA</strong></td>
+      <td style="text-align: left;"><strong>Stroke or TIA</strong></td>
       <td></td>
       <td></td>
       <td></td>
     </tr>
     <tr>
-      <td style="padding-left: 20px;">-Periprocedural</td>
+      <td style="padding-left: 20px;text-align: left;">-Periprocedural</td>
       <td>1 (1.0)</td>
       <td>2 (1.9)</td>
       <td rowspan="2">0.50 (0.05 to 5.46)</td>
     </tr>
     <tr>
-      <td style="padding-left: 20px;">-Late</td>
+      <td style="padding-left: 20px;text-align: left;">-Late</td>
       <td>0</td>
       <td>2; <span class="notes-small">7 mos and 10 mos</span></td>
     </tr>
-    <tr>
-      <td><strong>Death</strong></td>
+    <tr >
+      <td style="text-align: left;"><strong>Death</strong></td>
       <td>1 (1.0)*<br><span class="notes-small">From cancer at 11mos</span></td>
       <td>0</td>
       <td>NA</td>
@@ -734,9 +721,9 @@
 </div>
 
 <!-- Topic 5 PROMPT AF -->
-<div id="no5" class="topic darkGreen"> 
+<div id="no5" class="topic eggShell"> 
   <div class="headLine">
-    <span style="color: white;"><sup>5</sup> PROMPT-AF</span>
+    <span style="border-bottom: #292330 solid 0.2vh;"><sup>5</sup> PROMPT-AF</span>
   </div>
 <div class="carousel" id="carousel5">
   <div class="carousel-items" id="carousel5-items">
@@ -787,7 +774,7 @@
     <div class="carousel-item">
       <picture>
         <!--source media="(max-width:900px)" srcset="media/mobile/3RCTs.png" loading="lazy"-->
-        <img src="Media/Brave/endpoint.png" loading="lazy">
+        <img src="Media/PROMPT/endpoint.png" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
         <a href="https://doi.org/10.1001/jama.2024.24438" target="_blank" style="color: #888;">
@@ -807,8 +794,8 @@
 
 <!-- Topic 6 iClass -->
 <div id="no6" class="topic eggShell"> 
-  <div class="headLine">
-    <span><sup>6</sup> iClass</span>
+  <div class="headLine" >
+    <span style="border-bottom: #292330 solid 0.2vh;"><sup>6</sup> iClass</span>
   </div>
 <div class="carousel" id="carousel6">
   <div class="carousel-items" id="carousel6-items">
@@ -865,6 +852,162 @@
 </div>
 </div>
 
+<!-- Topic 7 Biopace -->
+<div id="no7" class="topic eggShell"> 
+  <div class="headLine">
+    <span style="border-bottom: #292330 solid 0.2vh;"><sup>7</sup> BIOPACE</span>
+  </div>
+<div class="carousel" id="carousel7">
+  <div class="carousel-items" id="carousel7-items">
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/equipment.png" loading="lazy"-->
+        <img src="media/Biopace/title.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1093/europace/euaf029" target="_blank" style="color: #888;">
+          EUROPACE 2025
+        </a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/equipment.png" loading="lazy"-->
+        <img src="Media/Biopace/flow.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1093/europace/euaf029" target="_blank" style="color: #888;">
+          EUROPACE 2025
+        </a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/fireAndIce.png" loading="lazy"-->
+        <img src="Media/Biopace/endpoint.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1093/europace/euaf029" target="_blank" style="color: #888;">
+          EUROPACE 2025
+        </a>
+      </div>  
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/circaDose.png" loading="lazy"-->
+        <img src="Media/Biopace/subgroup.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1093/europace/euaf029" target="_blank" style="color: #888;">
+          EUROPACE 2025
+        </a>
+      </div>    
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/circaDose.png" loading="lazy"-->
+        <img src="Media/Biopace/quote.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1093/europace/euaf029" target="_blank" style="color: #888;">
+          EUROPACE 2025
+        </a>
+      </div>    
+    </div>
+
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel7')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel7')">❯</button>
+  <div class="dots" id="carousel7-dots"></div>
+  <div class="caption" id="carousel7-caption"></div>
+</div>
+</div>
+
+<!-- Topic 8 CNA -->
+<div id="no8" class="topic eggShell"> 
+  <div class="headLine">
+    <span style="border-bottom: #292330 solid 0.2vh;"><sup>8</sup> Cardioneural Ablation Registry</span>
+  </div>
+<div class="carousel" id="carousel8">
+  <div class="carousel-items" id="carousel8-items">
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/equipment.png" loading="lazy"-->
+        <img src="media/CNA/title.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1016/j.jacep.2025.04.012" target="_blank" style="color: #888;">
+          JACC EP 2025
+        </a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/equipment.png" loading="lazy"-->
+        <img src="Media/CNA/flow.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1016/j.jacep.2025.04.012" target="_blank" style="color: #888;">
+          JACC EP 2025
+        </a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/fireAndIce.png" loading="lazy"-->
+        <img src="Media/CNA/outcomes.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1016/j.jacep.2025.04.012" target="_blank" style="color: #888;">
+          JACC EP 2025
+        </a>
+      </div>  
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel8')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel8')">❯</button>
+  <div class="dots" id="carousel8-dots"></div>
+  <div class="caption" id="carousel8-caption"></div>
+</div>
+</div>
+
+<!-- Topic 9 TTVR -->
+<div id="no9" class="topic eggShell"> 
+  <div class="headLine">
+    <span style="border-bottom: #292330 solid 0.2vh;"><sup>9</sup> Pacemaker in TTVR</span>
+  </div>
+<div class="carousel" id="carousel9">
+  <div class="carousel-items" id="carousel9-items">
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/equipment.png" loading="lazy"-->
+        <img src="media/TTVR/flow.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1016/j.hrthm.2025.02.004" target="_blank" style="color: #888;">
+          Heart Rhythm 2025
+        </a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <!--source media="(max-width:900px)" srcset="media/mobile/equipment.png" loading="lazy"-->
+        <img src="Media/TTVR/results.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1016/j.hrthm.2025.02.004" target="_blank" style="color: #888;">
+          Heart Rhythm 2025
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel9')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel9')">❯</button>
+  <div class="dots" id="carousel9-dots"></div>
+  <div class="caption" id="carousel9-caption"></div>
+</div>
+</div>
+
 <!--footer-->
 <div class="footer">
   <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
@@ -872,19 +1015,16 @@
           <a href="#top" style="text-decoration:none;color: white;">
             <b>&#x2191;</b>&nbsp;<b>TOP</b> of the page</a>
       </div> 
-      <div class="topicRow">
-        <a href="#no1" target="_blank" 
-            style="text-decoration:none;color: white;">
-            <sup>#</sup>1</a>
-          <a href="#no2" target="_blank" 
-            style="text-decoration:none;color: white;">
-            <sup>#</sup>2</a>
-          <a href="#no3" target="_blank" 
-          style="text-decoration:none;color: white;">
-          <sup>#</sup>3</a>
-          <a href="#no4" target="_blank" 
-          style="text-decoration:none;color: white;">
-          <sup>#</sup>4</a>
+      <div class="topicRow" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding-bottom: 36px;">
+        <a href="#no1" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>1</a>
+        <a href="#no2" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>2</a>
+        <a href="#no3" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>3</a>
+        <a href="#no4" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>4</a>
+        <a href="#no5" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>5</a>
+        <a href="#no6" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>6</a>
+        <a href="#no7" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>7</a>
+        <a href="#no8" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>8</a>
+        <a href="#no9" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>9</a>
       </div> 
       <div style="padding-bottom: 24px;">
             <a href="https://heartrhythmbox.com" target="_blank" 
@@ -921,52 +1061,75 @@
     carousel6: 0,
     carousel7: 0,
     carousel8: 0,
-    carousel9: 0,
-    carousel10: 0
+    carousel9: 0
   };
 
   // Captions for the carousels
   const captions = {
     carousel1: [
+      'Catheter Ablation or Antiarrhythmic Drugs for Ventricular Tachycardia',
       'Two strata of randommization: Sotalol eligibal and non-eligible.',
-      'Cold energy damages the cells due to the effects of both freezing and thawing.',
-      'LESION FORMATION WITH CRYOTHERMAL ABLATION'
+      'All with ICD and LVEF < 35%.',
+      'Ablation significantly reduced the risk of Death or VT.',
+      'All components of the primary endpoint were reduced in ablation arm, especially non-fatal outcomes.',
+      'There were 2 deaths in ablation arm and 1 in antiarrhythmic arm.',
+      'Ablation is likely to be more beneficial in the Sotalol-eligible group.',     
     ],
     carousel2: [
-      'RF as a 1st Line was class IIa in ESC 2016 Guidelines.',
-      'Cryoballon PVI is a more simplified procedure.',
-      'FIRE and ICE Trial: Cryo is non-inferior to RF as a 2nd line.',
-      'Circa-Dose Trial: Cryo is as effective as RF; as a 2nd line.',
-      '3 RCTs that advance ablation to become class IA recommendation as the 1st line for paroxysmal AF.',
-      'EARLY-AF is the largest RCT and a very well designed one.',
-      '..and the benefit of ablation is beyond a placebo effect.',
-      'Same PVI durability between RA & Cryo.'
+      'Epicardial Ablation to Prevent VF in Brugada Syndrome.',
+      'Population: Symptomatic Brugada syndrome; all with ICD.',
+      'Epicardial substate ablation +/- PVC that triggered VF.',
+      'Ablation significantly reduced VF recurrece. Trial was stopped early.',
+      'Most patients became VF-free after ablation.'      
     ],
     carousel3: [
-      'Esophageal fistula, a lethal complication, is rare and even rarer in Cryo.',
-      'In an RCT, Cryo has a relatively lower adverse events than those of other modalities.',
-      'The largest global registry on both paroxysmal and persistent AF confirms the safety profile of Cryoballoon ablation.',
-      'Phrenic nerve injury is more common in Cryo than in other modalities. Most of the cases resolved over time.',
-      'Incidence of permanent damage is approximately 0.1%.',
-      'The temperature, CMAP amplitude loss >30%, and utilization of double-stop technique are predictors of time to recovery.',
-      'Data from French Registry.'
+      'Left Ventricular Entry to Reduce Brain Lesions During Catheter Ablation: A Randomized Trial',
+      'Endocardial LV ablation with a target accessible by both techniques.',
+      'No difference in procedural characteristics and outcomes. Retrograde approach was associated with higher incidence of silen cerebral emboli.',
+      'Retrograde approach was associated with higher numbers of lesions.',
+      'Lower cognifitive scores in retrograde group.'
     ],
     carousel4: [
-      'CRABL-HF',
-      'FIRE&ICE II',
-      'The Limitation of Cryo'
+      'Pulsed Field or Cryoballoon Ablation for Paroxysmal Atrial Fibrillation',
+      'Non-inferiority trial. All patients were implanted with loop recorders.',
+      'PFA was non-inferior to cryoballoon ablation for the primary endpoint of AF recurrence.',
+      'AF burden was similar in both groups at 365 days.',
+      'There were more repeat ablation procedures in PFA group.'
     ],
-    carousel5: [],
-    carousel6: [],
-    carousel7: [],
-    carousel8: [],
-    carousel9: [],
-    carousel10: []
+    carousel5: [
+      'Pulmonary Vein Isolation With Optimized Linear Ablation vs Pulmonary Vein Isolation Alone for Persistent AF',
+      'The Vein of Marshall',
+      'Multicenter, open-label, randomized trial. Noted that persistent AF was defined as AF lasting > 3 months.',
+      'Linear ablation arm: Ethanol Infusion of the vein of Marshall (EIVOM) + PVI + Roof Line + Mitral Isthmus Line + CTI.',
+      'Ablation modestly reduced the risk of AF recurrence. No difference in AF burden and quality of life.'
+    ],
+    carousel6: [
+      'LBBAP vs CRT in BLOCK-HF indiction',
+      'Retrospective trial using propensity score matching.',
+      'LBBAP was associated with lower risk of death or HF hospitalization.',
+      'Change in  LVEF was numerically higher in LBBAP group.'
+    ],
+    carousel7: [
+      'BiV vs. RV pacing in patients required frequent ventricular pacing with preserved LVEF.',
+      'Large, multicenter, randomized trial.',
+      'No difference in the primary endpoint of death or HF hospitalization or HF alone or death alone.',
+      'No difference in results by subgroup analysis.',
+      'Did we overestimate the deleterious effect of RV pacing?'
+    ],
+    carousel8: [
+      'A multicenter registry from 15 US sites of Cardioneural Ablation (CNA); largest to date.',
+      'Population: Recurrent vasovagal syncope or symptomatic functional bradycardia refractory to medical therapy and behavioral modification.',
+      'CNA was associated with a significant reduction in syncope burden. The major procedural complications were worth noting.',
+    ],    
+    carousel9: [
+      'A single-center, tertiary care, cohort study.',
+      '1. More than 20% of patients with jailed leads have serious complications due to lead malfunctions.\n2. Leadless pacemaker or tricuspid-valve sparing pacemaker are safe and effective.'
+    ]
   };
 
   // Initialize all carousels
   document.addEventListener('DOMContentLoaded', function () {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 9; i++) {
       initCarousel('carousel' + i);
     }
   });
