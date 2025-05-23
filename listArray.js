@@ -1,5 +1,19 @@
 var listArray = [
     {
+        name: 'EP Trials Highlights 2025',
+        description: 'Important Trials on Clinical Cardiac Electrophysiology in 2025.',
+        link: 'epTrials2025/index.html',
+        thumb: 'media/epTrials2025.png',
+        date: new Date(25,5,25),
+        latest: 1,
+        audFav: 0,
+        authFav: 0,
+        QA: 0,
+        gLines: 0,
+        basic: 0,
+        mBasic: 1
+    },
+    {
         name: 'AI in Cardiology',
         description: 'Modern Applications and Implications',
         link: 'AI/index.html',
