@@ -206,6 +206,19 @@
       border: #bbb 1px solid;padding: 10px;
     }
 
+      /* Adjust .title-main for screen widths between 6010px and 900px */
+  @media only screen and (min-width: 601px) and (max-width: 900px) {
+    .title-text {
+      bottom: 5%; /* Adjust position */
+      left: 15%; /* Center horizontally */
+      flex-direction: column; /* Stack elements vertically */
+      align-items: center; /* Center align text and image */
+    }
+    .title-main {
+      font-size: 4vmax; /* Slightly smaller font size for medium screens */
+      padding-bottom: 4vmax; /* Adjust padding for better spacing */
+    }
+  }
     @media only screen and (max-width: 600px) {
       .title-text {
       bottom: 3%; /* Adjust position */
