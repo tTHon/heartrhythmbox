@@ -116,8 +116,8 @@
     }
 
     @media only screen and (max-width: 900px) {
-      .carousel-items {height: 120vw;}
-      .carousel-item, .carousel-item img {max-height: 120vw;}
+      .carousel-items {height: 80vw}
+      .carousel-item, .carousel-item img {max-height: 80vw;}
     }
 
     .carousel-item-ref {
@@ -194,7 +194,7 @@
     .Vanish-Table {border-collapse: collapse;font-size: 2vmax;
       text-align: center;padding: 10px;}
 
-    .Vanish-Table caption, .Advent-Table caption, .Registry-Table caption, .Yeti-Table caption 
+    .Vanish-Table caption  
     {font-size: 3vmax;text-align: center;color: #292330;}
     .Vanish-Table th {
       color: #eef1fc;font-weight: 500;
@@ -218,6 +218,7 @@
       font-size: 4vmax; /* Slightly smaller font size for medium screens */
       padding-bottom: 4vmax; /* Adjust padding for better spacing */
     }
+    .noMobile {display: none;} /* Hide noMobile class on medium screens */
   }
     @media only screen and (max-width: 600px) {
       .title-text {
@@ -240,6 +241,7 @@
     
       .Vanish-Table caption{font-size: 20px;}
       .Vanish-Table td,.Vanish-Table th {padding: 2px;}
+      .notes-column {display: none;}
       .noMobile {display: none;}
       .headLine {letter-spacing: 0.5px;text-transform: none;}
     }
@@ -323,7 +325,7 @@
         <caption class="anek-medium">Primary and Secondary Endpoints</caption>
         <thead>
             <tr>
-                <th style="background-color: #6D4929;">Endpoint</th>
+                <th style="background-color: #6D4929;text-align: left;">Endpoint</th>
                 <th style="background-color: #6D4929;">Ablation (N=203)</th>
                 <th style="background-color: #6D4929;">Drugs (N=213)</th>
                 <th style="background-color: #6D4929;">HR (95% CI)</th>
@@ -331,31 +333,31 @@
         </thead>
         <tbody>
             <tr>
-                <td>Primary Endpoint</td>
+                <td style="text-align: left;">Primary Endpoint</td>
                 <td>103 (50.7%)</td>
                 <td>129 (60.6%)</td>
                 <td>0.75 (0.58-0.97)</td>
             </tr>
             <tr>
-                <td>Death from any cause</td>
+                <td style="text-align: left;">Death from any cause</td>
                 <td>45 (22.2%)</td>
                 <td>54 (25.4%)</td>
                 <td>0.84 (0.56-1.24)</td>
             </tr>
-            <tr>
-                <td>Appropriate ICD Shock</td>
+            <tr class="noMobile">
+                <td style="text-align: left;">Appropriate ICD Shock</td>
                 <td>60 (29.6%)</td>
                 <td>81 (38.0%)</td>
                 <td>0.75 (0.53-1.04)</td>
             </tr>
-            <tr>
-                <td>VT Storm</td>
+            <tr class="noMobile">
+                <td style="text-align: left;">VT Storm</td>
                 <td>44 (21.7%)</td>
                 <td>50 (23.5%)</td>
                 <td>0.95 (0.63-1.42)</td>
             </tr>
             <tr>
-                <td>Treated VT below ICD Detection Zone</td>
+                <td style="text-align: left;">Treated VT below ICD Detection Zone</td>
                 <td>9 (4.4%)</td>
                 <td>35 (16.4%)</td>
                 <td>0.26 (0.13-0.55)</td>
@@ -376,7 +378,7 @@
       <th class="lightGreen" style="color: #33331D;font-weight: 900">Adverse Event Category</th>
       <th class="lightGreen" style="color: #33331D;font-weight: 900">Catheter Ablation (N=203)</th>
       <th class="lightGreen" style="color: #33331D;font-weight: 900">Drugs (N=213)</th>
-      <th class="lightGreen" style="color: #33331D;font-weight: 900">Notes</th>
+      <th class="lightGreen notes-column" style="color: #33331D;font-weight: 900">Notes</th>
     </tr>
   </thead>
   <tbody>
@@ -392,7 +394,7 @@
       <td>54 (25.4%)</td>
       <td class="notes-column">44% of all deaths were CV deaths; 4% from ventricular arrhythmia</td>
     </tr>
-    <tr>
+    <tr class="noMobile">
       <td><strong>Non-Fatal Serious Adverse Events</strong></td>
       <td>57 (28.1%)</td>
       <td>65 (30.5%)</td>
@@ -401,7 +403,7 @@
     <tr>
       <td><strong>Adverse Events within 30 days of an Ablation Procedure</strong></td>
       <td>23 (11.3%)</td>
-      <td>10*<br>(Referring to those x-over to ablation)</td>
+      <td>10*<br><span style="font-size: smaller;">(x-over to ablation)</span></td>
       <td class="notes-column">Included death in 2 patients (1.0%), nonfatal stroke in 2 patients (1.0%), and cardiac perforation in 1 patient (0.5%)</td>
     </tr>
     <tr>
@@ -642,16 +644,16 @@
       <td>5.5±1.0</td>
       <td>−2.4 (−4.5 to −0.3)</td>
     </tr>
-    <tr>
+    <tr class="noMobile">
       <td colspan="4"><strong>Days 91 to 365</strong></td>
     </tr>
-    <tr>
+    <tr class="noMobile">
       <td>Median percentage (IQR)</td>
       <td>0.0 (0.0 to 0.1)</td>
       <td>0.0 (0.0 to 0.2)</td>
       <td>—</td>
     </tr>
-    <tr>
+    <tr class="noMobile">
       <td>Mean percentage</td>
       <td>1.4±0.4</td>
       <td>1.9±0.4</td>
@@ -692,7 +694,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr class="noMobile">
       <td style="text-align: left;"><strong>Hospitalization or ER visit for atrial arrhythmia</strong></td>
       <td>2 (1.9)</td>
       <td>8 (7.6)</td>
@@ -704,7 +706,7 @@
       <td>10 (9.5)</td>
       <td>1.60 (0.76 to 3.37)</td>
     </tr>
-    <tr>
+    <tr class="noMobile">
       <td style="text-align: left;"><strong>Reinitiation of antiarrhythmic drug</strong></td>
       <td>3 (2.9)</td>
       <td>3 (2.9)</td>
