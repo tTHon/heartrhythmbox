@@ -1539,6 +1539,38 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </figcaption>
       </figure>
 
+    <!--Phrenic nerve injury-->
+    <figure>
+    <amp-img layout="fill" src="media\Clinical/phrenicNerveInjury.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Phrenic Nerve Injury after AF Ablation</b><br>
+    Right-sided phrenic nerve injury is more common than left-sided injury.
+    It is usually transient and resolves within 3 months. Permanent damage is &lt;1%.<br>
+    <i class="ref">
+      <a href="https://doi.org/10.1161/CIRCEP.121.010516" target="_blank">
+      Cir Arrhythmia 2022
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
+    <!--Lig Marshall-->
+    <figure>
+    <amp-img layout="fill" src="media\Clinical/marshall.jpg"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Ligament of Marshall</b><br>
+    ..is a fibrous band that connects the left atrium to the left pulmonary veins.<br>
+    ..is considered another source of foci in AF ablation.<br>
+    <i class="ref">
+      <a href="https://doi.org/10.1016/j.atssr.2024.09.001" target="_blank">
+      Ann Thoracic Surgery 2025
+      </a>
+    </i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+    </figure>
+
     </amp-carousel>
 </section>
 
@@ -1742,8 +1774,6 @@ The most likely explanation is that the patient develops a rate-related bundle b
   <span [text]="expanded ? '▼' : '▲'">▲</span>
   </figcaption>
   </figure>
-
-
 
   </amp-carousel>
 </section>
