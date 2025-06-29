@@ -357,13 +357,11 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     
     <!--blueprint-->
     <figure>
-      <amp-img layout="fill" src="media\Clinical\blueprintClinicalPractice.png"></amp-img>
+      <amp-img layout="fill" src="media\Clinical/contentChart.png"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-      <b>Exam Blueprint for cardiac device specialists</b><br>
-      <i class="ref">
-        Ref: <a href="https://ibhre.org/sites/default/files/2021-04/3.10.2021-Candidate-Handbook-Final.pdf" target="_blank">
-        IBHRE Candidate Handbook
-        </a>
+        <i class="ref">
+        Ref: <a href="https://ibhre.org/sites/default/files/2023-04/4.20.2023-CCDS-Outline_0.pdf" target="_blank">
+        2023 IBHRE CCDS Exam Content Outline</a>
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
@@ -477,6 +475,20 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <i class="ref">
         <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
           2018 ACC/AHA/HRS Guideline on BRADYCARDIA</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--brady w CSP-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical/bradyCSP.jpg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Physiologic Pacing for Bradycardia</b><br>
+        For a patient with anticipated frequent RV pacing, CRT or CSP is a class 2a recommendation for LVEF&lt;50% and class 2b for LVEF&gt;50%<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.hrthm.2023.03.1538" target="_blank">
+          2023 HRS Guideline on CSP</a>
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
@@ -808,7 +820,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     </figure>
 
     <!--LBBAP Confirm-->
-    <figure>
+    <!--figure>
       <amp-img layout="fill" src="media\Clinical/LBBAP Confirm.jpeg"></amp-img>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
       <b>Algorithm for confirming conduction system capture with LBBAP.</b><br>
@@ -818,7 +830,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       </i>
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
-    </figure>
+    </figure-->
 
     <!--csp indication 1-->
     <figure>
@@ -1023,7 +1035,22 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     The pacing lead is positioned on the mid-septum against the septo-marginal trabeculation (SMT) below the supraventricular crest (SVcrest), which forms the inferior border of the right ventricular outflow tract (RVOT). A noticeable «jump» can be seen as the lead is pulled back from the RVOT over these structures.
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
-    </figure>
+  </figure>
+
+  <!--Bachmann-->
+  <figure>
+    <amp-img layout="fill" src="media\Clinical/Bachmann.png"></amp-img>
+    <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+    <b>Bachmann's Bundle</b><br>
+    AKA interatrial bundle; connecting the right and left atria; considered to be the main pathway for interatrial conduction.<br>
+    <i class="ref">
+      <a href="https://doi.org/10.1161/CIRCEP.113.000758" target="_blank">
+        Cir Arrhythmia 2013.
+      </a></i>
+    <span [text]="expanded ? '▼' : '▲'">▲</span>
+    </figcaption>
+  </figure>
+  
   <!--CS-->
   <figure>
     <amp-img layout="fill" src="media\Clinical\csAnatomy.png"></amp-img>
@@ -1047,8 +1074,6 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <span [text]="expanded ? '▼' : '▲'">▲</span>
     </figcaption>
     </figure>
-
-
 
   </amp-carousel>
 </section>
@@ -1109,7 +1134,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
             <td>Sedative and Amnestic</td><td>Benzodiazepines (BZP; such as midazolam, diazepam)</td>
           </tr>
           <tr>
-            <td>Antidotes</td><td>Flumazenil (against BZP), Naloxone or Narcan (against Morphine group)</td>
+            <td>Antidotes</td><td>Flumazenil (against BZP), Naloxone or Narcan (against Morphine group), Protamine (against heparin)</td>
           </tr>
         </Table>
       </amp-fit-text>
