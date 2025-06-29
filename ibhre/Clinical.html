@@ -46,6 +46,9 @@
   .noMobile, .tab {display: none;}
   .mobileOnly {display: block;}
 }
+@media only screen and (max-width:1200px){
+  .noSmallScreen {display: none;}
+}
 
 .tab {
   margin: 0 1.5vmax;cursor: pointer;
@@ -314,37 +317,32 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <figure>
     <amp-fit-text width="86vw" height="40vw" layout="responsive">
     <ul class="lightList">
-      <!--li>
-        <a href="https://doi.org/10.1093/eurheartj/ehw128" target="_blank">
-          2016 ESC Guidelines for <span class="noMobile">the diagnosis and treatment of acute and chronic</span>
-        <span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;">&nbsp;HEART FAILURE</span></a>
-      </li-->
-       <li style="font-size: smaller;line-height: 150%;">
+       <li style="font-size: smaller;line-height: 130%;">
             <a href="https://doi.org/10.1161/CIR.0000000000000549" target="_blank">
-            2017 AHA/ACC/HRS Guideline for
+            <span class="noSmallScreen">2017 AHA/ACC/HRS Guideline for</span>
             <span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;font-size: smaller;">&nbsp;SUDDEN CARDIAC DEATH</span></a>
         </li>
-        <li style="font-size: smaller;line-height: 150%;">
+        <li class="noMobile" style="font-size: smaller;line-height: 130%;">
             <a href="https://doi.org/10.1161/CIR.0000000000000499" target="_blank">
-            2017 ACC/AHA/HRS Guideline for <span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;font-size: smaller;">&nbsp;SYNCOPE</span></a>
+            <span class="noSmallScreen">2017 ACC/AHA/HRS Guideline for</span> <span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;font-size: smaller;">&nbsp;SYNCOPE</span></a>
         </li>
-        <li style="font-size: smaller;line-height: 150%;">
+        <li style="font-size: smaller;line-height: 130%;">
             <a href="https://doi.org/10.1016/j.jacc.2018.10.044" target="_blank">
-            2018 ACC/AHA/HRS Guideline on <span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;font-size: smaller">&nbsp;BRADYCARDIA</span></a>
+            <span class="noSmallScreen">2018 ACC/AHA/HRS Guideline on </span><span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;font-size: smaller">&nbsp;BRADYCARDIA</span></a>
         </li>
-        <li style="font-size: smaller;line-height: 150%;">
+        <li style="font-size: smaller;line-height: 130%;">
           <a href="https://doi.org/10.1093/europace/euaa367" target="_blank">
-          2021 EHRA/HRS/APHRS/LAHRS EHRA expert consensus on 
+          <span class="noSmallScreen">2021 EHRA/HRS/APHRS/LAHRS EHRA expert consensus on </span>
           <span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;font-size: smaller">&nbsp;IMPLANTATION TECHNIQUES</span></a>
       </li>
-      <li style="font-size: smaller;line-height: 150%;">
+      <li style="font-size: smaller;line-height: 130%;">
         <a href="https://doi.org/10.1161/CIR.0000000000001063" target="_blank">
-          2022 AHA/ACC/HFSA Guideline for the Management of 
+          <span class="noSmallScreen">2022 AHA/ACC/HFSA Guideline for the Management of </span>
         <span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;text-transform: uppercase;font-size: smaller">&nbsp;Heart Failure</span></a>
       </li>
-      <li style="font-size: smaller;line-height: 150%;">
+      <li style="font-size: smaller;line-height: 130%;">
         <a href="https://doi.org/10.1016/j.hrthm.2023.03.1538" target="_blank">
-          2023 HRS/APHRS/LAHRS guideline on 
+          <span class="noSmallScreen">2023 HRS/APHRS/LAHRS Guideline on </span>
         <span class="lime" style="font-weight: 600;letter-spacing: 0.5vmax;text-transform: uppercase;font-size: smaller">&nbsp;CARDIAC PHYSIOLOGIC PACING</span></a>
       </li>
     </ul>
