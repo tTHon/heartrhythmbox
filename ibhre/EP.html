@@ -383,11 +383,11 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <!--AP comparisons: figures-->
         <figure>
           <div class="row" style="background-color: #f5f5f5;">
-            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\Myocardial AP.png" style="flex: 50%;padding: 1vmax;align-self: center;"></amp-img>
-            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP\Pacemaker AP.png" style="flex: 50%;padding: 1vmax;border-left: 0.1vmax solid #555;align-self: center;"></amp-img>
+            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP/fastChannel.png" style="flex: 50%;padding: 1vmax;align-self: center;"></amp-img>
+            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP/slowChannel.png" style="flex: 50%;padding: 1vmax;border-left: 0.1vmax solid #555;align-self: center;"></amp-img>
           </div>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
-            <b>Action Potential of Non-pacemaker cells (left) vs. Pacemaker cells (right)</b><br>
+            <b>Action Potential of Non-pacemaker cells or 'Fast channel' (left) vs. Pacemaker cells or 'Slow channel' (right)</b><br>
             Pacemaker cells = nodal cells including sinoatrial (SA) and atrioventricular (AV) nodal cells. <br>
             Noted that non-pacemaker cells have true resting membrane potential (phase 4) and rapid phase 0. <br>
             In pacemaker cells, there are only 4 phases. Phase 4 is the spontaneous depolarization phase and is mainly Calcium dependent.
@@ -425,7 +425,7 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
          <amp-fit-text width="80vw" height="40vw" layout="responsive" max-font-size="28" style="padding: 0.5vmin;">
          <table class="lightTable">
             <tr>
-            <th>Properties</th><th>Pacemaker Cells</th><th>Non-pacemaker Cells</th></tr>
+            <th>Properties</th><th>Pacemaker Cells<br>(slow channel)</th><th>Non-pacemaker Cells<br>(fast channel)</th></tr>
             <tr>
             <td>Location</td><td>SA and AV Nodes</td><td>Myocardium, His-Purkinje, Bypass Tracts</td></tr>
             <tr>
