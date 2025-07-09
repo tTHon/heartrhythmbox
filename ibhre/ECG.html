@@ -610,9 +610,22 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
     <!--SVT-->
     <figure style="background-color: #f5f5f5;">
       <amp-img layout="fill" src="media\EKG\tachy/atypical AVNRT.jpg"></amp-img>
+      <i class="ref">
+      <a href="https://www.nejm.org/doi/full/10.1056/NEJMvcm1313338" target="_blank">NEJM 2017.</a>
+      </i>
       <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
       <b>Supraventricular Tachycardia</b><br>
       Narrow complex tachycardia, rate approximately 150 bpm, P waves were visible after each QRS.
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
+
+    <!--CSM-->
+    <figure style="background-color: #f5f5f5;">
+      <amp-img layout="fill" src="media\EKG\tachy/CSM.png"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Carotid Sinus Massage</b><br>
+      Three possible responses to carotid sinus massage: ventricular pause, hypotension, and mixed.
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
