@@ -576,6 +576,16 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
           <span [text]="expanded ? '▼' : '▲'">▲</span>
           </figcaption>
       </figure>
+
+      <!--Mech Sum-->
+      <figure>
+        <amp-img src="media\EP/mechArrhythmiaDiagram.png" layout="fill"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+          <b>Mechanisms of Arrhythmia: The big picture</b><br>
+          <span [text]="expanded ? '▼' : '▲'">▲</span>
+          </figcaption>
+      </figure>
+
       </amp-carousel>
     </section>
     
@@ -901,6 +911,28 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
          Q3: The Answer is...<br>
          Answer: c<br>
          Class IC is associated with increase risk of death in patients with history of MI.
+         <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
+      </figure>
+
+      <!--Q4-->
+      <figure>
+        <amp-fit-text width="80vw" height="45vw" layout="responsive" max-font-size="28" 
+        style="color: #f2f2f2;">
+          <div class="qBox">
+          The plateau phase (phase 2) of the action potential coorelates with which of the following part of the surface ECG?
+            <ol class="qList">
+            <li>PR interval</li>
+            <li>Q wave</li>
+            <li>QRS complex</li>
+            <li>QT interval</li>
+            <li>U wave</li>
+            </ol>    
+          </div>
+        </amp-fit-text>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+         Q4: The Answer is...<br>
+         Answer: d<br>
+         The plateau (phase 2) occurs on the surface ECG during the QT interval, and during Systole
          <span [text]="expanded ? '▼' : '▲'">▲</span></figcaption>
       </figure>
 
