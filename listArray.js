@@ -116,7 +116,7 @@ var listArray = [
         description: 'Basic EP | ECG | Clinical Practice for cardiac rhythm device specialists and generial cardiologists.',
         link: 'ibhre/index.html',
         thumb: 'media/basicep.png',
-        date: new Date(24,7,21),
+        date: new Date(25,7,9),
         latest: 1,
         audFav: 1,
         authFav: 0,
