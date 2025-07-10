@@ -386,9 +386,9 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
 
         <!--AP comparisons: figures-->
         <figure>
-          <div class="row" style="background-color: #f5f5f5;">
-            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP/fastChannel.png" style="flex: 50%;padding: 1vmax;align-self: center;"></amp-img>
-            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP/slowChannel.png" style="flex: 50%;padding: 1vmax;border-left: 0.1vmax solid #555;align-self: center;"></amp-img>
+          <div class="row" style="background-color: #f5f5f5;align-items: center;align-content: center;height: fit-content;">
+            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP/fastChannel.png" style="flex: 50%;padding: 1vmax;align-self: center;vertical-align: middle;align-self: center;"></amp-img>
+            <amp-img layout="responsive" height="48vw" width="40vw" src="media\EP/slowChannel.png" style="flex: 50%;padding: 1vmax;border-left: 0.1vmax solid #555;align-self: center;vertical-align: middle;align-self: center;"></amp-img>
           </div>
         <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
             <b>Action Potential of Non-pacemaker cells or 'Fast channel' (left) vs. Pacemaker cells or 'Slow channel' (right)</b><br>
