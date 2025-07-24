@@ -1,5 +1,8 @@
 import pandas as pd
 import os
+import sys
+
+print("Python version:", sys.version)
 
 df_cases = pd.read_csv('Micra4Matching.csv')
 df_controls = pd.read_csv('TV4Matching.csv')
