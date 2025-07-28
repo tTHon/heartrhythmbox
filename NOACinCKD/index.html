@@ -2,11 +2,11 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <title>The Perfect Clot and How to Block It!</title>
-  <link rel="canonical" href="https://heartrhythmbox.com/afupdate/">
+  <title>NOACs in AF with CKD: 2025</title>
+  <link rel="canonical" href="https://heartrhythmbox.com/NOACinCKD/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <meta name="author" content="t'Thon">
-  <meta name="description" content="NOAC Update 2023">
+  <meta name="description" content="NOAC in CKD 2025">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
   <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -27,12 +27,10 @@
   <style amp-custom>
 
     /*color*/
-  .lightGrey {background-color: #d8d8d8}
+  .lightGrey {background-color: #d8d8d8;border-top: #777 solid 0.1vmax;}
   .lightBlue {background-color: #afbdc8;}
   .blue {background-color: #5a7995}
   .darkBlue {background-color: #19283d;color: white;}
-  .creme {background-color: #e0d9be;}
-  .coral {background-color: #fa7268;}
   /*other color #353535 #cc6e71*/
 
     #title {
@@ -50,6 +48,27 @@
         font-size: 3vmax;color: #d8d8d8;text-align: right;line-height: 70%;
     }
     #hrbTitle {text-align: right;padding: 5vh 0;}
+    #renalTable {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #renalTable th, #renalTable td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    #renalTable th {
+      background-color: #fa7268; /* Darker red/purple for headers */
+      color: white;
+    }
+    #renalTable tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    #renalTable .category-header {
+      background-color: #19283d; /* Slightly lighter red/purple for category headers */
+      color: white;
+      font-weight: bold;
+    }
 
     
     .row {display: flex;}
@@ -70,7 +89,7 @@
     }
     .container, .container img {
       background-color: transparent;
-    }
+      }
     .contain img {
       object-fit: contain;
     }
@@ -123,26 +142,6 @@
     display:inline-block;margin: 0 0.2vmax;
     }
     
-    #strokeTable {
-      overflow-x: scroll;text-align: center;border-collapse: collapse;
-    }
-    #strokeTable tr:first-of-type {font-weight: 600;background-color: #e0d9be;}
-    #strokeTable tr:nth-of-type(2) {font-weight: 600;background-color: #e0d9be;}
-    #strokeTable td {font-size: 2vmax;border-bottom: #19283d solid 0.1vmax;}
-
-    #mhvTable {overflow-x: scroll;text-align: left;font-size: 1.8vmax;border-collapse: collapse;}
-    #mhvTable tr:first-of-type, #mhvTable tr:nth-of-type(2) {
-      font-weight: 600;background-color:#19283d;color: #e0d9be;
-    }
-    #mhvTable td {font-size: 1.8vmax;border-bottom: #5a7995 solid 0.1vmax;}
-
-    #ckdTable {
-      overflow-x: scroll;text-align: center;border-collapse: collapse;
-    }
-    #ckdTable tr:first-of-type {font-weight: 600;background-color: #19283d;
-      color:#d8d8d8;
-    }
-    #ckdTable td {font-size: 1.8vmax;border: #5a7995 solid 0.1vmax;}
 
     .ref{position: absolute;bottom: 1%;right: 1%;
       font-size: 1vmax;color: #ddd;background-color: rgba(0,0,0,0.7);
@@ -187,11 +186,11 @@
 
   <div id="title">
     <div style="font-size: 3vmax;color:#5a7995;font-weight:800;">
-        NOAC Update 2023
+        &nbsp;
     </div>
-    <div id='clot'>THE PERFECT CLOT</div>
-    <div id="how2Blk">
-        and how to block it!</div>
+    <div id='clot'>NOACs in AF w/CKD</div>
+    <!--div id="how2Blk">
+        and how to block it!</div-->
 
     <div id="hrbTitle">
         <a href="https://heartrhythmbox.com" 
@@ -216,7 +215,7 @@
   <div class="lightGrey"> 
 
   <div class="headLine">
-    The perfect clot requires adequate <b>COAGULATION FACTORS</b>
+    The <b>COAGULATION CASCADE</b>
   </div>
 
   <amp-carousel id="carousel1"
@@ -231,7 +230,7 @@
         class="contain" layout="fill" title="coagCascade"
             <source src="video/coagCascade2.mp4" type="video/mp4">
         </amp-video-->
-        <amp-youtube constrols noaudio autoplay loop
+        <amp-youtube autoplay loop
         data-videoid="DMUl_0ucmZk"
         layout="fill"
         class="contain">
@@ -240,9 +239,15 @@
 
     <!--OAC-->
     <div class="container">
-    <amp-video controls noaudio autoplay loop 
-    class="contain" layout="fill" title="OAC"
-        <source src="video/OACs.mp4" type="video/mp4">
+    <amp-video
+      controls
+      noaudio
+      autoplay
+      loop
+      class="contain"
+      layout="fill"
+      title="OAC"
+      src="video/OACs.mp4">
     </amp-video>
     </div>
 
@@ -262,11 +267,11 @@
   </div>
   </div>
 
-<!--1.1 early OAC after ischemic stroke-->
+<!--1.1 benefits of DOACs over VKA ICH-->
 <div class="lightGrey"> 
 
   <div class="headLine">
-    Can NOAC be resumed early after acute ischemic stroke with AF?
+    DOACs vs. VKA: Intracranial Bleeding
   </div>
 
   <amp-carousel id="carousel11"
@@ -275,24 +280,17 @@
       type="slides"
       on="slideChange:carousel11Selector.toggle(index=event.index, value=true)">
 
-      <!--VKA-->
+      <!--VKA ICH-->
       <div class="container">
         <div style="overflow-y: scroll;height: 100%;">
           <div class="darkBlue" style="padding: 1vmax;text-align: center;
           font-size: 3vmax;color: #fa7268;font-weight: 900;">
-           Problems with Vitamin K Antagonist (VKA)
+           Vitamin K Antagonist (VKA) and Risks of Intracranial Bleeding
           </div>
           <ul style="padding-top: 1vmax;font-size: 2.5vmax;color: #19283d;">
             <li>10% of intracranial bleeding is VKA related.</li>
             <li style="padding-top: 0.5vmax;">Brain is the only organ with high expression of tissue factor 
                 but low expression of tissue factor pathyway inhibitor.</li>
-            <li style="padding-top: 0.5vmax;">
-                In a patient with AF with acute ischemic stroke, 
-                OAC is recommended to resume at least 1wk and 2wks after moderate and major stroke respectively.
-            </li>
-            <li style="padding-top: 0.5vmax;">
-                Recent RCTs suggest that earlier resumption of NOAC was not inferior to delayed start.
-            </li>
           </ul>
           <div class="ref">
           <a href="https://doi.org/10.1161/STROKEAHA.113.000736" target="_blank" style="color: inherit;">
@@ -308,86 +306,49 @@
         </div>
        
       </div>
-    
-      <!--OAC after stroke-->
-      <div class="container">
-        <amp-img src="media/oacAfterStroke.png"
-        layout="fill"
-        class="contain"></amp-img>
-        
-        <div class="ref">
-        <a href="https://doi.org/10.1093/eurheartj/ehy136" target="_blank" style="color: inherit;">
-          1. 2018 EHRA Practical Guide
-          </a> &nbsp;
-        <a href="https://www.nejm.org/doi/pdf/10.1056/NEJMoa2303048" target="_blank" style="color: inherit;">
-            2. ELAN. NEJM 2023.
-        </a> &nbsp;
-        <a href="https://doi.org/10.1161/CIRCULATIONAHA.122.060666" target="_blank" style="color: inherit;">
-            3. TIMING. Circulation 2022.
-        </a>
-        </div>
-      </div>
-
-      <!--ELAN TIMING-->
+  
+      <!--VKA vs DOAC stroke-->
       <div class="container">
         <div style="overflow-y: scroll;height: 100%;">
-          <div style="padding: 0.5vmax;text-align: center;
-          font-size: 2.5vmax;color:#19283d;font-weight: 900;">
-           Early initiation was noninferior to delayed start of NOAC after
-           acute ischemic stroke in patients with AF.
+          <div style="padding: 1vmax;text-align: center;
+          font-size: 2vmax;color: #fa7268;font-weight: 900;">
+           VKA vs. DOAC: Data from Meta-analysis of RCTs
           </div>
-          <table id="strokeTable">
-              <tr>
-                <td rowspan="2">Trials</td>
-                <td colspan="2">Composite Endpoints (early vs. delayed)</td>
-                <td rowspan="2">Intracranial Hemorrhage (early vs. delayed)</td>
-              </tr>
-              <tr>
-                <td>at 30d</td>
-                <td>at 90d</td>
-              </tr>
-              <tr>
-                <td>ELAN</td>
-                <td>
-                  2.9% vs. 4.1%<br>
-                  RD = -1.18% (-2.84 to 0.47)
-                </td>
-                <td>
-                  3.7% vs. 5.6%<br>
-                  RD = -1.92% (-3.82 to -0.02)
-                </td>
-                <td>
-                  0.2% vs 0.2% at 30d
-                </td>
-              </tr>
-              <tr>
-                <td>TIMING</td>
-                <td>NA</td>
-                <td>6.89% vs. 8.68%<br>
-                  RD = −1.79% (−5.31% to 1.74%)
-                </td>
-                <td>
-                  0 vs. 0 at 90d
-                </td>
-              </tr>
-              <br>
-          </table>
-          <div style="font-size: 1.8vmax;">
-            RD = Risk Difference
-          </div>
-          <div class="ref">
-            <a href="https://www.nejm.org/doi/pdf/10.1056/NEJMoa2303048" target="_blank" style="color: inherit;">
-              1. ELAN. NEJM 2023.
-          </a> &nbsp;
-          <a href="https://doi.org/10.1161/CIRCULATIONAHA.122.060666" target="_blank" style="color: inherit;">
-              2. TIMING. Circulation 2022.
-          </a>
+          <amp-img src="media/metaStroke.png"
+            class="contain"
+            width="800"
+            height="450"
+            layout="responsive">
+          </amp-img>
+          
+
+          <a href="https://doi.org/10.1161/CIRCULATIONAHA.121.056355" target="_blank" style="color:inherit">
+            Circulation 2022.
+            </a>
           </div>
         </div>
-      </div>
 
+      <!--VKA vs DOAC stroke-->
+      <div class="container">
+        <div style="overflow-y: scroll;height: 100%;">
+          <div style="padding: 1vmax;text-align: center;
+          font-size: 2vmax;color: #fa7268;font-weight: 900;">
+           VKA vs. DOAC: Data from Meta-analysis of RCTs
+          </div>
+          <amp-img src="media/metaStroke.png"
+            class="contain"
+            width="800"
+            height="450"
+            layout="responsive">
+          </amp-img>
+          
 
-  </amp-carousel>
+          <a href="https://doi.org/10.1161/CIRCULATIONAHA.121.056355" target="_blank" style="color:inherit">
+            Circulation 2022.
+            </a>
+          </div>
+        </div>
+    </amp-carousel>
 
   <amp-selector id="carousel11Selector" class="tabs" role=tablist on="select:carousel11.goToSlide(index=event.targetOption)">
     <div option='0' class="dots" selected></div>
@@ -396,17 +357,16 @@
   </amp-selector>
 
   <div class="caption">
-    In a patient with AF with acute ischemic stroke who has no contraindication to NOAC,
-    NOAC may be initiated or resumed within one week. 
+  DOACs have clear advantages over VKAs in reducing the risk of intracranial bleeding.
   </div>
 </div>
 
 
-<!--1.2 platelet-->
-<div class="lightBlue"> 
+<!--1.2 DOAC vs VKA renal outcomes-->
+<div class="lightGrey"> 
 
   <div class="headLine">
-    Cell-based Model of Hemostasis
+    DOACs vs. VKA: Renal Outcomes
   </div>
 
   <amp-carousel id="carousel12"
@@ -415,34 +375,114 @@
       type="slides"
       on="slideChange:carousel12Selector.toggle(index=event.index, value=true)">
 
-      <!--cell based model-->
+      <!--ARN-->
       <div class="container">
-        <amp-youtube constrols noaudio autoplay loop
-        data-videoid="ykNZ1-CmSsk"
-        layout="fill"
-        class="contain">
-        </amp-youtube>
+        <amp-img src="media/ARN.png"
+            class="contain"
+            layout="fill"></amp-img>
       </div>
+      <!--calciphylaxis-->
+      <div class="container">
+        <amp-img src="media/calciphylaxis.png"
+            class="contain"
+            layout="fill"></amp-img>
+      </div>
+      <!--Metaanalysis-->
+      <div class="container">
+        <table id="renalTable">
+          <thead>
+            <tr>
+              <th>Subgroup</th>
+              <th>No. of studies</th>
+              <th>With NOACs therapy (%)</th>
+              <th>With VKA or ASA (%)</th>
+              <th>HR (95%CI)</th>
+              <th>P</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="6" class="category-header">Study type</td>
+            </tr>
+            <tr>
+              <td>RCTs</td>
+              <td>11</td>
+              <td>544/52609 (1.03%)</td>
+              <td>378/35001 (1.08%)</td>
+              <td>0.82 (0.71-0.93)</td>
+              <td>0.18</td>
+            </tr>
+            <tr>
+              <td>Database studies</td>
+              <td>3</td>
+              <td>-</td>
+              <td>-</td>
+              <td>0.64 (0.58-0.69)</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td colspan="6" class="category-header">NOACs</td>
+            </tr>
+            <tr>
+              <td>Dabigatran</td>
+              <td>5</td>
+              <td>135/15429 (0.87%)</td>
+              <td>71/6336 (1.12%)</td>
+              <td>0.64 (0.56–0.72)</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>Rivaroxaban</td>
+              <td>6</td>
+              <td>91/10140 (0.9%)</td>
+              <td>89/8960 (0.99%)</td>
+              <td>0.66 (0.55–0.77)</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>Apixaban</td>
+              <td>5</td>
+              <td>102/11895 (0.86%)</td>
+              <td>88/11843 (0.74%)</td>
+              <td>0.73 (0.59–0.87)</td>
+              <td>0.00</td>
+            </tr>
+            <tr>
+              <td>Edoxaban</td>
+              <td>2</td>
+              <td>215/14410 (1.49%)</td>
+              <td>124/7141 (1.74%)</td>
+              <td>0.79 (0.30–1.27)</td>
+              <td>0.26</td>
+            </tr>
+          </tbody>
 
-
+        </table>
+        <div class="ref">
+          <a href="https://doi.org/10.1016/j.thromres.2018.12.010"
+            target="_blank" style="color: inherit;">Thrombosis Research 2019</a>
+        </div>
+      </div>
   </amp-carousel>
 
-
+  <amp-selector id="carousel12Selector" class="tabs" role=tablist on="select:carousel12.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    <div option='2' class="dots"></div>
+ 
+  </amp-selector>
+  
   <div class="caption">
-    1. Coagulation occurs on specific cell surfaces of tissue-factor (TF) bearing cells and platelets.<br>
-    2. Thrombin activated platelets to recruit more platelet and enhance platelets aggregation.<br>
-    3. Platelets then set the stage for a large scale of thrombin generation.<br> 
-    4. Factor X also directly activates protease-activated receptiors (PARs) on platelets.
+    Warfarin is associated with higher risk of renal impairment and calciphylaxis compared to DOACs.
   </div>
-
 
 </div>
 
-<!--1.3 MHV-->
+<!--1.3 CKD1-3-->
 <div class="lightGrey"> 
 
   <div class="headLine">
-    Thrombin Generation in Mechanical Heart Valve
+    DOACs in CKD stage 1-3
   </div>
 
   <amp-carousel id="carousel13"
@@ -451,133 +491,30 @@
       type="slides"
       on="slideChange:carousel13Selector.toggle(index=event.index, value=true)">
 
-      <!--mhv-->
+      <!--noacs ckd 1-3-->
       <div class="container">
-        <!--amp-video controls noaudio autoplay loop 
-        class="contain" layout="fill" title="coagCascade"
-            <source src="video/MHV mp4.mp4" type="video/mp4">
-        </amp-video-->
-        <amp-youtube constrols noaudio autoplay loop
-        data-videoid="SWli71vpFmg"
-        layout="fill"
-        class="contain">
-        </amp-youtube>
-        <div class="ref">
-          <a href="https://doi.org/10.1182/blood-2002-08-2527" target="_blank" style="color: inherit;">
-          Blood 2003.
-          </a>&nbsp;
-          <a href="https://doi.org/10.1161/jaha.115.002322" target="_blank" style="color: inherit;">
-          J Am Heart Assoc 2015.
-          </a>&nbsp;
-          <a href="https://doi.org/10.1016/j.jacc.2016.09.958" target="_blank" style="color: inherit;">
-          JACC 2016.
-          </a>
-        </div>
-      </div>
-
-      <!--noacs dose-->
-      <div class="container">
-        <amp-img src="media/noacDoseMHV.png" class="contain"
+        <amp-img src="media/onLable1_3.png" class="contain"
             layout="fill"></amp-img> 
-        <div class="ref">  
-        <a href="https://doi.org/10.1161/jaha.115.002322" target="_blank" style="color: inherit;">
-              JAHA 2015.
-        </a> &nbsp;
-        <a href="https://doi.org/10.1016/j.athoracsur.2019.10.091" target="_blank" style="color: inherit;">
-        Ann Thorac Surg 2020.
-        </a>
-        </div>
       </div>
-
-      <!--mhv trials-->
+      <!--combine AF 1-->
       <div class="container">
-        <div style="overflow-y: scroll;height: 100%;">
-          <div style="padding: 0.5vmax;text-align: center;
-          font-size: 2.5vmax;color:#19283d;font-weight: 900;">
-          NOACs in Mechanical Heart Valve: Results from RCTs
-
-          <table id="mhvTable">
-            <tr>
-              <td rowspan="2">Trials</td>
-              <td rowspan="2">Valve</td>
-              <td rowspan="2">Timing after Surgery</td>
-              <td rowspan="2">NOAC</td>
-              <td colspan="2">Results</td>
-            </tr>
-            <tr>
-              <td>NOAC</td><td>VKA</td>
-            </tr>
-            <tr>
-              <td>RE-ALIGN<br>N = 252, f/u 150d
-              </td>
-              <td>Bileaflet, Mitral and/or Aortic position</td>
-              <td>Group A: within 7d<br>
-                Group B: >3mos
-              </td>
-              <td>Dabigatran 150-300 mg BID</td>
-              <td>
-                Stroke: 5% <br>
-                Major Bleeding: 4%
-              </td>
-              <td>
-                Stroke: 0<br>
-                Major Bleeding: 2%
-              </td>
-            </tr>
-            <tr>
-              <td>
-              RIWA<br>N = 44; f/u 90d</td>
-              <td>
-                Bileaflet, Mitral and/or Aortic position
-              </td>
-              <td>> 3mos</td>
-              <td>Rivaroxaban 15 mg BID</td>
-              <td>Stroke: 0<br>
-              Major Bleeding: 0
-              </td>
-              <td>
-                Stroke: 2.95%<br>
-                Major Bleeding: 0
-              </td>
-            </tr>
-            <tr>
-              <td>PROACT Xa<br>
-                N = 863; f/u 13 mos
-              </td>
-              <td>On-X, Aortic position</td>
-              <td>> 3mos</td>
-              <td>
-                Apixaban 5 mg BID<br>
-                + ASA 81 mg in both arms
-              </td>
-              <td>
-                Valve thrombosis: 4.2%/pt-yr<br>
-                Stroke: 2.9%/pt-yr<br>
-                Major Bleeding: 3.6%/pt-yr
-              </td>
-              <td>
-                Valve thrombosis: 1.3%/pt-yr<br>
-                Stroke: 0<br>
-                Major Bleeding: 4.5%/pt-yr
-              </td>
-            </tr>
-
-          </table>
-
-          <div class="ref">
-            <a href="https://doi.org/10.1056/nejmoa1300615" target="_blank" style="color: inherit;">
-              RE-ALIGN. NEJM 2013.
-          </a> &nbsp;
-          <a href="https://doi.org/10.1007/s40256-020-00449-3" target="_blank" style="color: inherit;">
-              RIWA. Am J Cardiovasc Drugs 2021.
-          </a> &nbsp;
-          <a href="https://evidence.nejm.org/doi/10.1056/EVIDe2300106" target="_blank" style="color: inherit;">
-            PROACT Xa. NEJM Evid 2023.
-          </a>
-          </div>
+        <amp-img src="media/combineAF1.png" class="contain"
+            layout="fill"></amp-img> 
+        <div class="ref">
+          <a href="https://doi.org/10.1161/circulationaha.122.062752" target="_blank" style="color: inherit;">
+            Circulation 2023.</a>
         </div>
       </div>
+      <!--combine AF 2-->
+      <div class="container">
+        <amp-img src="media/combineAF2.png" class="contain"
+            layout="fill"></amp-img> 
+        <div class="ref">
+          <a href="https://doi.org/10.1161/circulationaha.122.062752" target="_blank" style="color: inherit;">
+            Circulation 2023.</a>
+        </div>
       </div>
+
 
   </amp-carousel>
 
@@ -589,16 +526,14 @@
   </amp-selector>
 
   <div class="caption">
-  1. The rate and amount of thrombin generation is the major determinant of clot structure.<br>
-  2. Mechanical heart valve generates thrombin via intrinsic pathway.<br>
-  3. In patients with mechanical heart valve(s), NOACs are not recommended.
+    DOACs are preferred in patients with CKD stage 1-3.
   </div>
 </div>
   
-  <!--2 CKD-->
-  <div class="creme">
+<!--2 CKD 4-->
+  <div class="lightGrey">
   <div class="headLine">
-    Coagulation System in Advanced Chronic Kidney Disease
+    DOACs in CKD stage 4
   </div>
 
   <amp-carousel id="carousel2"
@@ -607,11 +542,88 @@
       type="slides"
       on="slideChange:carousel2Selector.toggle(index=event.index, value=true)"
       >
-      <!--ckd mp4-->
+      <!--onlable 4-->
       <div class="container">
+        <amp-img src="media/CKD4/onLable4.png"
+        layout="fill"
+        class="contain"></amp-img>
+      </div>
+      <!--reduce dose table-->
+      <div class="container">
+        <amp-img src="media/CKD4/reducedDoseTable.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1093/eurheartj/ehae176" target="_blank" style="color: inherit;">
+            2024 ESC Guidelines</a>
+      </div>
+      </div>
+      <!--renal clearance-->
+      <div class="container">
+        <amp-img src="media/CKD4/renalClearance.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1177/1074248419858116" target="_blank" style="color: inherit;">
+            J Cardiovasc Pharmacol Ther. 2019.</a>
+      </div>
+      </div>
+      <!--dBase DOACs VKA-->
+      <div class="container">
+        <amp-img src="media/CKD4/DOACsCKD4_1.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1161/CIRCOUTCOMES.120.006515" target="_blank" style="color: inherit;">
+            Circ Cardiovasc Qual Outcomes. 2020.</a>
+      </div>
+      </div>
+      <!--dBase DOACs VKA2-->
+      <div class="container">
+        <amp-img src="media/CKD4/DOACsCKD4_2.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref">
+          <a href="https://doi.org/10.1161/CIRCOUTCOMES.120.006515" target="_blank" style="color: inherit;">
+            Circ Cardiovasc Qual Outcomes. 2020.</a>
+      </div>
+      </div>
+   
+  </amp-carousel>
+
+  <amp-selector id="carousel2Selector" class="tabs" role=tablist on="select:carousel2.goToSlide(index=event.targetOption)"
+    layout="container" style="text-align: center;">
+      <span option='0' class="dots" selected></span>
+      <span option='1' class="dots"></span>
+      <span option='2' class="dots"></span>
+      <span option='3' class="dots"></span>
+      <span option='4' class="dots"></span>
+  </amp-selector>
+
+  <div class="caption">
+    In CKD Stage 4: Reduced Doses of Selected DOACs are recommended.
+  </div>
+  </div>
+  
+
+  <!--3 CKD5-->
+  <div class="lightGrey">
+  <div id="no3" class="headLine">
+    DOACs in CKD Stage 5
+  </div>
+
+  <amp-carousel id="carousel3"
+      height="1200"
+      layout="fixed-height"
+      type="slides"
+      on="slideChange:carousel3Selector.toggle(index=event.index, value=true)"
+      >
+
+    <!--ckd mp4-->
+    <div class="container">
         <amp-video controls noaudio autoplay loop 
         class="contain" layout="fill" title="coagCascade"
-            <source src="video/ckd.mp4" type="video/mp4">
+        src="video/ckd.mp4">
         </amp-video>
         <div class="ref">
           <a href="https://doi.org/10.1136/bmjopen-2016-014294" target="_blank" style="color: inherit;">
@@ -623,166 +635,78 @@
         </div>
       </div>
 
-      <!--trials-->
-      <div class="container">
-        <amp-img src="media/ckdTrials.png"
-        layout="fill"
-        class="contain"></amp-img>
-        <div class="ref">
-        <a href="https://doi.org/10.1681/asn.2020111566" target="_blank" style="color: inherit;">
-          VALKYRIE. J Am Soc Nephrol 2021.
-        </a> &nbsp;
-        <a href="https://doi.org/10.1161/CIRCULATIONAHA.122.062779" target="_blank" style="color:inherit">
-          AXADIA AFNET8. Circulation 2023.
-        </a>
-        </div>
-      </div>
 
-    <!--ckd guidelines-->
+    <!--GL-->
     <div class="container">
-      <div style="overflow-y: scroll;height: 100%;">
-        <div style="padding: 0.5vmax;text-align: center;
-        font-size: 2.5vmax;color:#19283d;font-weight: 900;">
-        Guidelines Recommendation for use of OAC in AF with GFR&lt;15ml/min or on dialysis.
-
-        <table id="ckdTable">
-          <tr>
-            <th>Guideline</th>
-            <th>VKA</th><th>Rivaroxaban</th>
-            <th>Apixaban</th><th>Dabigatran</th><th>Edoxaban</th>
-          </tr>
-          <tr>
-            <td>KDIGO 2018</td>
-            <td>Equipoise</td>
-            <td>Unknown</td><td>Unknown</td>
-            <td>Not recommended</td><td>Not recommended</td>
-          </tr>
-          <tr>
-            <td>ACC 2019</td>
-            <td>IIb</td>
-            <td>Not recommended</td>
-            <td>IIb</td>
-            <td>Not recommended</td><td>Not recommended</td>
-          </tr>
-          <tr>
-            <td>CCS 2020</td>
-            <td colspan="5">
-              Should not routinely receive antithromotic therapy.
-            </td>
-          </tr>
-          <tr>
-            <td>ESC 2020</td>
-            <td colspan="5">
-              No solid evidence. Not recommended.
-            </td>
-          </tr>
-          <tr>
-            <td>Expert Opinions 2023</td>
-            <td colspan="5">
-              1. Bleeding > Stroke in AF on dialysis. Should OAC be given at all?<br>
-              2. Should VKA be avoided after VALKYRIE and AXADIA?<br>
-              3. In selected patients, Rivaroxaban and Apixaban may be used. 
-            </td>
-          </tr>
-        </table>
-
-        <div class="ref" style="font-weight: 400;">
-          <a href="https://doi.org/10.1093/eurheartj/ehy060" target="_blank" style="color: inherit;">
-            KDIGO 2018
-        </a> &nbsp;
-        <a href="https://doi.org/10.1016/j.jacc.2019.01.011" target="_blank" style="color: inherit;">
-            ACC 2019
-        </a> &nbsp;
-        <a href="https://doi.org/10.1016/j.cjca.2020.09.001" target="_blank" style="color: inherit;">
-          CCS 2020
-        </a>&nbsp;
-        <a href="https://doi.org/10.1093/eurheartj/ehaa612" target="_blank" style="color: inherit;">
-          ESC 2020
-        </a>&nbsp;
-        <a href="https://doi.org/10.1016/j.kint.2023.03.027" target="_blank" style="color: inherit;">
-          Kidney Internation 2023
-        </a>&nbsp;
-        <a href="https://doi.org/10.1016/j.xkme.2023.100690" target="_blank" style="color: inherit;">
-          Kidney Med 2023
-        </a>&nbsp;
-        <a href="https://doi.org/10.1016/j.jacasi.2023.03.004" target="_blank" style="color: inherit;">
-          JACC Asia 2023
-        </a>
-
-        </div>
-      </div>
-    </div>
-    </div>
-
-
-   
-  </amp-carousel>
-
-  <amp-selector id="carousel2Selector" class="tabs" role=tablist on="select:carousel2.goToSlide(index=event.targetOption)"
-    layout="container" style="text-align: center;">
-      <span option='0' class="dots" selected></span>
-      <span option='1' class="dots"></span>
-      <span option='2' class="dots"></span>
-  </amp-selector>
-
-  <div class="caption">
-    Roles of OAC in AF on dialysis remain unresolved.
-  </div>
-  </div>
-  
-
-  <!--3 FXI-->
-  <div class="lightBlue">
-  <div id="no3" class="headLine">
-    Modern Concept of Coagulation Pathway
-  </div>
-
-  <amp-carousel id="carousel3"
-      height="1200"
-      layout="fixed-height"
-      type="slides"
-      on="slideChange:carousel3Selector.toggle(index=event.index, value=true)"
-      >
-
-      <!--uncoupling cascade-->
-      <div class="container">
-        <!--amp-video controls noaudio autoplay loop 
-        class="contain" layout="fill" title="coagCascade"
-            <source src="video/animateHeart.mp4" type="video/mp4">
-        </amp-video-->
-        <amp-youtube constrols noaudio autoplay loop
-        data-videoid="K5l43I5QDRM"
-        layout="fill"
-        class="contain">
-        </amp-youtube>
-        <div class="ref">
-          <a href="https://doi.org/10.1161/01.ATV.0000193624.28251.83" target="_blank" style="color: inherit;">
-            Arterioscler Thromb Vasc Biol. 2006 
-          </a>&nbsp;
-          <a href="https://doi.org/10.1016/j.jacc.2021.06.010" target="_blank" style="color: inherit;">
-            JACC 2021.
-          </a>
-        </div>
-      </div>
-
-    <!--FXI-->
-    <div class="container">
-      <amp-img src="media/fx1.jpg"
+      <amp-img src="media/CKD5/CKD5_GL.png"
       layout="fill"
       class="contain"></amp-img>
-      <a href="https://doi.org/10.1016/j.jacc.2022.11.057" target="_blank" class="ref">
-        JACC 2023.</a>
     </div>
 
-    <!--Pacific AF-->
+    <!--offLable-->
     <div class="container">
-      <amp-img src="media/pacificAF.png"
+      <amp-img src="media/CKD5/offLabel5.png"
       layout="fill"
       class="contain"></amp-img>
-      <a href="https://doi.org/10.1016/s0140-6736(22)00456-1" target="_blank" class="ref">
-        PACIFIC AF. Lancet 2022.</a>
     </div>
 
+    <!--ckd5 no OAC-->
+    <div class="container">
+      <amp-img src="media/CKD5/CKD5_noOAC1.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <div class="ref">
+      <a href="https:/doi.org/10.1093/ckj/sfac022" target="_blank" style="color: inherit;">
+        Clin Kidney J 2022.</a></div>
+    </div>
+    <!--ckd5 no OAC2-->
+    <div class="container">
+      <amp-img src="media/CKD5/CKD5_noOAC2.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <div class="ref">
+      <a href="https:/doi.org/10.1093/ckj/sfac022" target="_blank" style="color: inherit;">
+        Clin Kidney J 2022.</a></div>
+    </div>
+    <!--chadsva-->
+    <div class="container">
+      <amp-img src="media/CKD5/chadsva.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <div class="ref">
+      <a href="https://doi.org/10.1016/j.jacc.2015.08.033" target="_blank" style="color: inherit;">
+        JACC 2015</a></div>
+    </div>
+    <!--bleed-->
+    <div class="container">
+      <amp-img src="media/CKD5/majBleeding.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <div class="ref">
+      <a href="https://doi.org/10.1038/ki.2013.170" target="_blank" style="color: inherit;">
+        Kidney Int 2013</a></div>
+    </div>
+    <!--RCTs-->
+    <div class="container">
+      <amp-img src="media/CKD5/ckd5_RCTs.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <div class="ref">
+      <a href="https://doi.org/10.1681/asn.2020111566" target="_blank" style="color: inherit;">
+        VALKYRIE</a>&nbsp;&nbsp; 
+      <a href="https://doi.org/10.1161/CIRCULATIONAHA.122.062779" target="_blank" style="color: inherit;">
+        AXADIA-AFNET</a>
+      </div>
+    </div>
+    <!--dialysis score-->
+    <div class="container">
+      <amp-img src="media/CKD5/dialysisScore.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <div class="ref">
+      <a href="https:/doi.org/10.1093/ckj/sfae270" target="_blank" style="color: inherit;">
+        Clin Kidney J 2024</a></div>
+    </div>
 
   </amp-carousel>
 
@@ -791,19 +715,25 @@
       <span option='0' class="dots" selected></span>
       <span option='1' class="dots"></span>
       <span option='2' class="dots"></span>
+      <span option='3' class="dots"></span>
+      <span option='4' class="dots"></span>
+      <span option='5' class="dots"></span>
+      <span option='6' class="dots"></span>
+      <span option='7' class="dots"></span>
+      <span option='8' class="dots"></span>
   </amp-selector>
 
   <div class="caption" style="text-align: left;">
-    1. Modern concept of coagulation pathway suggest that pathologic thrombosis and physiologic hemostasis pathways are separated.<br>
-    2. Factor XI inhibitors may serve as hemostasis-sparing anticoagulants.<br>
-    3. In a phase 2 study, Asundexian, an oral factor XI inhibitor, was associated with lower rate of bleeding than Apixaban in patients with AF.
+    1. In CKD stage 5, bleeding risk is disproportionately high compared to thromboembolic risk.<br>
+    2. Data from RCTs are limited.<br>
+    3. May consider anticoagulation in patients with high thromboembolic risk and low bleeding risk.
   </div>
   </div>
 
-  <!--4 conclusion-->
-  <div class="lightBlue">
+  <!--4 take home-->
+  <div class="lightGrey">
     <div id="no4" class="headLine">
-      Conclusions
+      Regardless...here are the take home messages.
     </div>
   
     <amp-carousel id="carousel4"
@@ -813,44 +743,31 @@
         on="slideChange:carousel4Selector.toggle(index=event.index, value=true)"
         >
    
-      <!--perfect clot-->
-      <div class="conclusion">
-        <div style="width: 100%;height: 100%;overflow-y: scroll;">
-        <div style="width: fit-content;margin-left: auto;margin-right: auto;padding:1.5vmax;">
-          <div style="font-size: 3vmax;color: #e0d9be;padding-top: 2vh;padding-left: 1vmax;">
-            Perfect Clot requires:
-          </div>
-          <ol style="list-style-type:decimal-leading-zero;padding: 1vmax;
-          color: #d8d8d8;list-style-position: inside;font-size: 2vmax;">
-            <li>Right amount of coagulation factors</li>
-            <li>Right steps of platelet activation</li>
-            <li>Right amount and pattern of thrombin generation</li>
-          </ol>
-        </div>
-        </div>
-      </div>
-      <!--NOAC-->
-      <div class="conclusion">
-        <div style="width: 100%;height: 100%;overflow-y: scroll;">
-        <div style="width: fit-content;margin-left: auto;margin-right: auto;padding:1vmax;">
-          <div style="font-size: 3vmax;color: #fa7268;padding-top: 2vh;padding-left: 1vmax;">
-            NOAC 2023 Update
-          </div>
-          <ol style="list-style-type:decimal-leading-zero;padding: 1vmax;color: #d8d8d8;list-style-position: inside;
-          font-size: 2vmax;">
-            <li>
-              NOAC may be resumed within 4-7d after acute ischemic stroke with AF.
-            </li>
-            <li>
-              Role of OAC in AF on dialysis remains unsettled.
-            </li>
-            <li>
-              FXI inhibitor may serve as a hemostasis-sparing anticoagulant.
-            </li>
-          </ol>
-        </div>
-        </div>
-      </div>
+      <!--must do1-->
+    <div class="container">
+      <amp-img src="media/mustDo1.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <div class="ref">
+      <a href="https://doi.org/10.1161/JAHA.118.009530" target="_blank" style="color: inherit;">
+        JAHA 2020</a></div>
+    </div>
+      <!--must do2-->
+    <div class="container">
+      <amp-img src="media/mustDo2.png"
+      layout="fill"
+      class="contain"></amp-img>
+      <div class="ref">
+      <a href="https://doi.org/10.1056/nejmoa1904143" target="_blank" style="color: inherit;">
+        NEJM 2019</a></div>
+    </div>
+    <!--conclusion-->
+    <div class="container">
+      <amp-img src="media/sum.png"
+      layout="fill"
+      class="contain"></amp-img>
+    </div>
+
   
   
     </amp-carousel>
@@ -859,6 +776,7 @@
       layout="container" style="text-align: center;">
         <span option='0' class="dots" selected></span>
         <span option='1' class="dots"></span>
+        <span option='2' class="dots"></span>
     </amp-selector>
   
     <div class="caption" style="text-align: left;">
@@ -889,12 +807,12 @@
               Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
               The page is created mainly for educational purpose. 
           </div>
-          <div style="font-size: 13px;padding: 2vh 1vw;border-top: #555 0.1vmax solid;color: #555;
+          <!--div style="font-size: 13px;padding: 2vh 1vw;border-top: #555 0.1vmax solid;color: #555;
           text-align: center;font-weight: 700;">
               &copy;&nbsp;&nbsp;CODING OF A KIND<br>
               <span style="font-weight: 400;">
               design to your style &middot; write to your need</span>
-          </div>
+          </div-->
 
   </div>
 
