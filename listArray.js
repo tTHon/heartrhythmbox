@@ -1,5 +1,19 @@
 var listArray = [
     {
+        name: 'NOACs in AF with CKD',
+        description: 'NOACs in AF with CKD: 2025 Update',
+        link: 'noacinckd/index.html',
+        thumb: 'media/noacInCKD.png',
+        date: new Date(25,7,28),
+        latest: 1,
+        audFav: 0,
+        authFav: 0,
+        QA: 0,
+        gLines: 0,
+        basic: 0,
+        mBasic: 1
+    },
+    {
         name: 'EP Trials Highlights 2025',
         description: 'Important Trials on Clinical Cardiac Electrophysiology in 2025.',
         link: 'epTrials2025/index.html',
