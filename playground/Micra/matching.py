@@ -4,8 +4,8 @@ import sys
 
 print("Python version:", sys.version)
 
-df_cases = pd.read_csv('Micra4Matching.csv')
-df_controls = pd.read_csv('TV4Matching.csv')
+df_cases = pd.read_csv('playground/Micra/Micra4Matching.csv')
+df_controls = pd.read_csv('playground/Micra/TV4Matching.csv')
 
 # Preprocess 'Gender' column
 df_cases['Gender'] = df_cases['Gender'].replace({'1. female': 1, '0. male': 0})
@@ -86,6 +86,6 @@ for index, case in df_final_matched.iterrows(): # Iterate over the partially fil
             current_match_idx += 1
 
 # Save the final adjusted DataFrame
-df_final_matched.to_csv('unique_adjusted_matched_micra.csv', index=False)
+df_final_matched.to_csv('playground/micra/unique_adjusted_matched_micra.csv', index=False)
 
 print("Matching completed with unique controls. Results saved in 'unique_adjusted_matched_micra.csv'.")
