@@ -31,8 +31,9 @@ for index, case in df_cases_sorted.iterrows():
     current_case_age = case['Age']
 
     # Filter controls based on all 3 criteria and exclude already used controls
+    #caliper = 0.0486
     eligible_controls_all_criteria = df_controls[
-        (abs(df_controls['BSA'] - current_case_bsa) <= 0.05) &
+        (abs(df_controls['BSA'] - current_case_bsa) <= 0.00486) &
         (df_controls['Gender'] == current_case_gender) &
         (abs(df_controls['Age'] - current_case_age) <= 5) &
         (~df_controls['ID'].isin(used_control_ids)) # Exclude already used controls
@@ -68,7 +69,7 @@ for index, case in df_final_matched.iterrows(): # Iterate over the partially fil
     if needs_more_matches:
         # Filter controls based on BSA and Gender, and exclude already used controls
         eligible_controls_two_criteria = df_controls[
-            (abs(df_controls['BSA'] - current_case_bsa) <= 0.05) &
+            (abs(df_controls['BSA'] - current_case_bsa) <= 0.0486) &
             (df_controls['Gender'] == current_case_gender) &
             (~df_controls['ID'].isin(used_control_ids)) # Exclude already used controls
         ]
