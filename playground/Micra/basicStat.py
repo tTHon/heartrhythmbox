@@ -31,6 +31,7 @@ if __name__ == "__main__":
                 continue
     mean, sd = mean_and_sd(bsa_values)
     print(f"Mean BSA: {mean:.4f}, SD: {sd:.4f}")
+    print(f"Min BSA: {min(bsa_values):.4f}, Max BSA: {max(bsa_values):.4f}")
     print(f"Count: {len(bsa_values)}")
 
     # Draw distribution curve
@@ -54,10 +55,10 @@ if __name__ == "__main__":
         #plt.show()
 
         # QQ plot
-        plt.figure(figsize=(6, 6))
-        stats.probplot(bsa_values, dist="norm", plot=plt)
-        plt.title("QQ Plot of BSA Values")
-        plt.tight_layout()
-        plt.show()
-    except ImportError:
-        print("matplotlib, numpy, or scipy not installed. Skipping plot.")
+        #plt.figure(figsize=(6, 6))
+        #stats.probplot(bsa_values, dist="norm", plot=plt)
+        #plt.title("QQ Plot of BSA Values")
+        #plt.tight_layout()
+        #plt.show()
+    #except ImportError:
+        #print("matplotlib, numpy, or scipy not installed. Skipping plot.")
