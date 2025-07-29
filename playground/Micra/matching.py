@@ -4,8 +4,8 @@ import sys
 
 print("Python version:", sys.version)
 
-df_cases = pd.read_csv('playground/Micra/Micra4Matching.csv')
-df_controls = pd.read_csv('playground/Micra/TV4Matching.csv')
+df_cases = pd.read_csv('playground/Micra/Micra4Match.csv')
+df_controls = pd.read_csv('playground/Micra/TV4Match.csv')
 
 # Preprocess 'Gender' column
 df_cases['Gender'] = df_cases['Gender'].replace({'1. female': 1, '0. male': 0})
