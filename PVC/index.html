@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <meta name="author" content="t'Thon">
+  <meta property="og:image" content="https://heartrhythmbox.com/media/EPTrials2025.png">
+  <title>PVCs: Approach & Management</title>
+  <meta name="description" content="How to approach and manage patients with PVCs.">
+  <meta name="keywords" content="PVC, premature ventricular contraction, ventricular ectopy, ventricular arrhythmia, ablation, cardiology, heart rhythm">
+  <link rel="icon" href="box icegrey.png" type="image/png" sizes="60x60">
+  <!--fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100..800&display=swap" rel="stylesheet">  
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHBZ8EJY6J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PHBZ8EJY6J');
+  </script>
+  <!--google ad-->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1548733331544768"
+      crossorigin="anonymous">
+  </script>
+
+  <style>
+    /*fonts*/
+    .anek {font-family: "Anek Latin", sans-serif; font-weight: 400; font-style: normal;}
+    .anek-light {font-family: "Anek Latin", sans-serif; font-weight: 300; font-style: normal;}
+    .anek-medium {font-family: "Anek Latin", sans-serif; font-weight: 500; font-style: normal;}
+    .anek-bold {font-family: "Anek Latin", sans-serif; font-weight: 700; font-style: normal;}
+
+    /*color*/
+    .eggShell {background-color:#f4f1ec;}
+    .icegrey {background-color: #F9FAF3;}
+    .darkGreen {background-color: #12353E;}
+    .lightGreen {background-color: #D4DEA4;}
+    .lightRed  {background-color: #FF5D5D;}
+    .darkGrey {background-color: #232323;}
+    
+
+    body {
+      box-sizing: border-box;
+      margin: 0;padding: 0;
+      font-family: "Anek Latin", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      max-width: 1600px;margin-left: auto;margin-right: auto;
+    }
+    
+    .title {
+      position: relative;
+      width: 100%;
+    }
+
+    .title img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .title-text, .title-text a {
+      display: flex;
+      text-align: center;
+      font-size: 1.8vmax;font-weight: 300;
+      padding: 10px;
+      color: #BFC7D6;
+      text-decoration: none;text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .title-text {
+      width: 100%;
+      position: absolute;
+      bottom: 3%;left: 0;
+    }
+    .title-text img {
+      padding-right: 10px;
+    }
+
+    .footer {background: #555;padding:10vmax 1vmax;color:#ddd;font-size: 20px;}
+    .footer a {padding: 16px;}
+    .topicRow {padding-bottom: 36px;}
+    .topicRow a {padding: 8px;border: #ddd 0.1vmin solid;margin: 12px;
+      border-radius: 20%;text-align: center;}
+    
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 1600px;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+    
+    .carousel-items {
+      display: flex;height: 50vw;
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .carousel-item {
+      min-width: 100%;box-sizing: border-box;max-height: 50vw;
+      position: relative;display: flex;align-items: center;justify-content: center;
+    }
+
+    .carousel-item img {
+      width: 100%;height: auto;max-height: 50vw;
+      object-fit:contain;
+    }
+
+    @media only screen and (max-width: 900px) {
+      .carousel-items {height: 80vw}
+      .carousel-item, .carousel-item img {max-height: 80vw;}
+    }
+
+    .carousel-item-ref {
+      position: absolute;bottom: 1%;right: 1%;text-align: right;
+    }
+    .carousel-item-ref a {
+      color: #888;font-weight: 300;color: #717171;font-size: 1.6vmax;
+    }
+
+    /* Dot navigation below slide */
+    .dots {
+      text-align: center;
+      margin-top: 10px;
+    }
+    
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    
+    .active {
+      background-color: #717171;
+    }
+
+    /* Caption below dots */
+    .caption {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px;
+      font-size: 2vmax;
+      margin-top: 10px;
+      width: 100%;max-width: 90%;margin-left: auto;margin-right: auto;
+      border-radius: 2vmax;
+    }
+
+    .approachTable {
+      width: fit-content;max-width: 90%;margin-left: auto;margin-right: auto;
+      border-collapse: collapse;
+      text-align: center;
+      font-size:4vmax;font-weight: 500;
+    }
+    .approachTable img {width: 10vmax;}
+    .approachTable tr {
+      border-bottom: #aaa 0.1VMAX solid;
+      padding: 20px;
+    }
+    .approachTable td {
+      padding: 20px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .caption {max-width: 95%;border-radius: 1vw 1vh;padding: 4px;font-size: 1.8vmax;}
+    }
+
+    /* Navigation buttons */
+    .carousel-control-prev,
+    .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+    
+    .carousel-control-prev {
+      left: 10px;
+    }
+    
+    .carousel-control-next {
+      right: 10px;
+    }
+
+    .topic {padding: 10px}
+    .headLine {
+      font-family: "Anek Latin", serif;font-weight: 700;font-size: 3vmax;
+      color: #292330;letter-spacing: 1px;
+      text-align: left;padding: 2vmax 1vmax 1vmax 1vmax;
+    }
+
+
+
+    .notes-column {font-size: 1.5vmax;text-align: left;}
+
+
+      /* Adjust .title-main for screen widths between 6010px and 900px */
+  @media only screen and (min-width: 601px) and (max-width: 900px) {
+    .noMobile {display: none;} /* Hide noMobile class on medium screens */
+  }
+    @media only screen and (max-width: 600px) {
+   
+      .notes-column {display: none;}
+      .noMobile {display: none;}
+      .headLine {letter-spacing: 0.5px;text-transform: none;}
+    }
+
+  </style>
+
+</head>
+
+<!--body-->
+<body>
+<!--titile-->
+<div class="title darkGreen">
+    <picture>
+      <img src="media/gif/title.gif" style="width: 100%;">
+    </picture>
+    <div class="title-text">
+      APPROACH & MANAGEMENT OF PVCs | 
+      <a href="https://heartrhythmbox.com" target="_blank">
+        <img src="box icegrey.png" style="width: 3.5vh;height: 3.5vh;">
+          heartRhythmBox
+      </a>
+    </div>
+</div>
+
+<!-- Topic 1 Approach -->
+<div id="no1" class="topic eggShell"> 
+  <div class="headLine">
+    <span style="border-bottom: #292330 solid 0.2vh;">HOW TO APPROACH</span> 
+  </div>
+  <div class="carousel" id="carousel1">
+    <div class="carousel-items" id="carousel1-items">
+      <div class="carousel-item">
+        <table class="approachTable">
+          <tr>
+            <td><img src="media/approach/symptoms.png" loading="lazy"></td>
+            <td>SYMPTOMS</td>
+          </tr>
+          <tr>
+            <td><img src="media/approach/structural.png" loading="lazy"></td>
+            <td>STRUCTURAL HEART DISEASE</td>
+          </tr>
+          <tr>
+            <td><img src="media/approach/char.png" loading="lazy"></td>
+            <td>CHARACTISTICS of PVCs</td>
+          </tr>
+        </table>
+      </div>
+  </div>
+</div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel1')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel1')">❯</button>
+  <div class="dots" id="carousel1-dots"></div>
+  <div class="caption" id="carousel1-caption"></div>
+</div>
+
+<!-- Topic 2 SNOWBALL -->
+<div id="no2" class="topic darkGreen"> 
+  <div class="headLine">
+    <span style="border-bottom: #D4DEA4 solid 0.2vh;color: #D4DEA4;">How do PVCs feel like?</span>
+  </div>
+<div class="carousel" id="carousel2">
+  <div class="carousel-items" id="carousel2-items">
+    <div class="carousel-item">
+        <video autoplay loop muted playsinline style="width: 100%;max-height: 50vw;object-fit: contain;">
+          <source src="media/gif/SR.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="carousel-item">
+      <video autoplay loop muted playsinline style="width: 100%;max-height: 50vw;object-fit: contain;">
+        <source src="media/gif/PVC.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <img src="media/approach/symptomsSum.png" loading="lazy">
+      </picture>
+    </div>
+</div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel2')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel2')">❯</button>
+  <div class="dots" id="carousel2-dots"></div>
+  <div class="caption" id="carousel2-caption"></div>
+</div>
+</div>
+
+<!-- Topic 3 Symptomatic -->
+<div id="no3" class="topic darkGrey"> 
+  <div class="headLine">
+    <span style="border-bottom: #6CEEEE solid 0.2vh;color: #6CEEEE;">Symptomatic PVCs</span>
+  </div>
+<div class="carousel" id="carousel3">
+  <div class="carousel-items" id="carousel3-items">
+
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/asymp/burden.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1111/pace.12852" target="_blank">
+          Pacing Clin Electrophysiol 2016
+        </a>
+      </div>  
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/asymp/GL.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1093/eurheartj/ehac262" target="_blank">
+          2022 ESC Guidelines for Ventricular Arrhythmias
+        </a>
+      </div>  
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/abl.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1161/circep.113.000805" target="_blank">
+          Circ Arrhythm Electrophysiol. 2014 
+        </a>
+      </div>  
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel3')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel3')">❯</button>
+  <div class="dots" id="carousel3-dots"></div>
+  <div class="caption" id="carousel3-caption">Caption for Slide 1</div>
+</div>
+</div>
+
+<!-- Topic 4 Asymptomatic -->
+<div id="no4" class="topic darkGreen"> 
+  <div class="headLine">
+    <span style="border-bottom: #6CEEEE solid 0.2vh;color: #6CEEEE;">Asymptomatic PVCs</span>
+  </div>
+<div class="carousel" id="carousel4">
+  <div class="carousel-items" id="carousel4-items">
+    <div class="carousel-item">
+      <picture>
+        <img src="media/asymp/asymp10yr.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1056/nejm198501243120401" target="_blank">
+          NEJM 1985
+        </a>
+      </div>    
+    </div>
+
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/asymp/pvcResolution.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1136/heartjnl-2019-314922" target="_blank">
+          Heart 2019
+        </a>
+      </div> 
+    </div>
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/asymp/GL.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        
+      </div>  
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel4')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel4')">❯</button>
+  <div class="dots" id="carousel4-dots"></div>
+  <div class="caption" id="carousel4-caption">Caption for Slide 1</div>
+</div>
+</div>
+
+<!-- Topic 5 MRI -->
+<div id="no5" class="topic eggShell"> 
+  <div class="headLine">
+    <span style="border-bottom: #232330 solid 0.2vh;">Roles of MRI</span>
+  </div>
+<div class="carousel" id="carousel5">
+  <div class="carousel-items" id="carousel5-items">
+    <div class="carousel-item">
+      <picture>
+        <img src="media/MRI/GL.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1093/eurheartj/ehac262" target="_blank">
+          2022 ESC Guidelines for Ventricular Arrhythmias
+        </a>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/MRI/atypical.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+      <a href="https://doi.org/10.1093/eurheartj/ehac262" target="_blank">
+          2022 ESC Guidelines for Ventricular Arrhythmias
+        </a>
+      and <a href="https://doi.org/10.1016/j.jacep.2019.10.015" target="_blank">
+          JACC EP 2020</a>    
+      </div> 
+    </div>
+
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/MRI/ringLike.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1161/CIRCULATIONAHA.120.047640" target="_blank">
+          Circulation 2021
+        </a>
+      </div>  
+    </div>
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel5')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel5')">❯</button>
+  <div class="dots" id="carousel5-dots"></div>
+  <div class="caption" id="carousel5-caption">Caption for Slide 1</div>
+</div>
+</div>
+
+<!-- Topic 6 cardiomyopathy -->
+<div id="no6" class="topic icegrey"> 
+  <div class="headLine">
+    <span style="border-bottom: #232330 solid 0.2vh;">PVCs & Cardiomyopathy</span>
+  </div>
+<div class="carousel" id="carousel6">
+  <div class="carousel-items" id="carousel6-items">
+    <div class="carousel-item">
+      <picture>
+        <img src="media/CM/chickenOrEgg.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1016/j.jacc.2019.02.045" target="_blank">
+          JACC 2019
+        </a>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/CM/algo.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+      <a href="https://doi.org/10.1016/j.jacep.2019.03.013" target="_blank">
+          JACC EP 2019
+        </a>
+ 
+      </div> 
+    </div>
+
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel6')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel6')">❯</button>
+  <div class="dots" id="carousel6-dots"></div>
+  <div class="caption" id="carousel6-caption">Caption for Slide 1</div>
+</div>
+</div>
+
+<!-- Topic 7 comorbid -->
+<div id="no7" class="topic eggShell"> 
+  <div class="headLine">
+    <span style="border-bottom: #232330 solid 0.2vh;">Comorbidities</span>
+  </div>
+<div class="carousel" id="carousel7">
+  <div class="carousel-items" id="carousel7-items">
+    <div class="carousel-item">
+      <picture>
+        <img src="media/comorbid/associationSDB.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+        <a href="https://doi.org/10.1164/rccm.200509-1442oc" target="_blank">
+          Am J Respir Crit Care Med 2006
+        </a>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/comorbid/cpap.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+      <a href="https://doi.org/10.1093/eurheartj/ehaf447" target="_blank">
+          Eur Heart J 2022
+        </a>
+ 
+      </div> 
+    </div>
+
+    <div class="carousel-item">
+      <picture>
+        <img src="Media/comorbid/htn.png" loading="lazy">
+      </picture>
+      <div class="carousel-item-ref">
+      <a href="https://doi.org/10.1093/ehjcvp/pvx019" target="_blank">
+          2017 Consensus on HTN and Arrhythmias
+        </a>
+ 
+      </div> 
+    </div>
+
+  </div>
+  <button class="carousel-control-prev" onclick="prevSlide('carousel7')">❮</button>
+  <button class="carousel-control-next" onclick="nextSlide('carousel7')">❯</button>
+  <div class="dots" id="carousel7-dots"></div>
+  <div class="caption" id="carousel7-caption">Caption for Slide 1</div>
+</div>
+</div>
+
+
+<!--footer-->
+<div class="footer">
+  <div style="max-width: 600px;margin-left: auto;margin-right: auto;text-align: center;">
+      <div style="padding-bottom: 36px;">
+          <a href="#top" style="text-decoration:none;color: white;">
+            <b>&#x2191;</b>&nbsp;<b>TOP</b> of the page</a>
+      </div> 
+      <div class="topicRow" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding-bottom: 36px;">
+        <a href="#no1" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>1</a>
+        <a href="#no2" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>2</a>
+        <a href="#no3" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>3</a>
+        <a href="#no4" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>4</a>
+        <a href="#no5" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>5</a>
+        <a href="#no6" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>6</a>
+        <a href="#no7" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>7</a>
+        <a href="#no8" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>8</a>
+        <a href="#no9" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>9</a>
+      </div> 
+      <div style="padding-bottom: 24px;">
+            <a href="https://heartrhythmbox.com" target="_blank" 
+            style="text-decoration:none;color: white;">
+            <img src="box white.png" style="width: 40px;"></a>
+              <a href="https://www.facebook.com/HeartRhythmBox/" target="_blank" 
+              style="text-decoration:none;color: white;">
+                  <img src="fb.png" style="width: 40px;">
+              </a> 
+              <a href="https://www.youtube.com/channel/UCb9nCPfRKR_F2ppLaYZC43w/featured" 
+              target="_blank" style="text-decoration:none;color: white;">
+                  <img src="youTube.png" style="width: 40px;">
+              </a>
+      </div>
+      <div class="noMobile" style="font-size: 14px;padding: 2vh 1vw;border-top: #ddd 0.1vmax solid;border-bottom: #ddd 0.1vmax solid;
+      color: #eee;text-align: justify;">
+          Heart Rhythm Box is a collection of web-paged style presentations in clinical cardiac electrophysiology topics.
+          The page is created mainly for educational purpose. 
+          We believe that presentations should be more interactive and easily accessible. 
+          No need to register or download. You can access everything at your fingertips.
+      </div>
+  </div>
+</div>
+
+
+<script>
+  // Current index for each carousel
+  const carouselIndices = {
+    carousel1: 0,
+    carousel2: 0,
+    carousel3: 0,
+    carousel4: 0,
+    carousel5: 0,
+    carousel6: 0,
+    carousel7: 0,
+    carousel8: 0,
+    carousel9: 0
+  };
+
+  // Captions for the carousels
+  const captions = {
+    carousel1: [
+      'Catheter Ablation or Antiarrhythmic Drugs for Ventricular Tachycardia',
+      'Two strata of randommization: Sotalol eligibal and non-eligible.',
+      'All with ICD and LVEF < 35%.',
+      'At a median F/U of 4.3yrs, Ablation significantly reduced the risk of Death or VT.',
+      'All components of the primary endpoint were reduced in ablation arm, especially non-fatal outcomes.',
+      'There were 2 deaths in ablation arm and 1 in antiarrhythmic drugs arm.',
+      'Ablation is likely to be more beneficial in the Sotalol-eligible group.',     
+    ],
+    carousel2: [
+      'Epicardial Ablation to Prevent VF in Brugada Syndrome.',
+      'Population: Symptomatic Brugada syndrome; all with ICD.',
+      'Epicardial substate ablation +/- PVC that triggered VF.',
+      'Ablation significantly reduced VF recurrence. Trial was stopped early.',
+      'Most patients became VF-free after ablation.'      
+    ],
+    carousel3: [
+      'Left Ventricular Entry to Reduce Brain Lesions During Catheter Ablation: A Randomized Trial',
+      'Endocardial LV ablation with a target accessible by both techniques.',
+      'No difference in procedural characteristics and outcomes. Retrograde approach was associated with higher incidence of silen cerebral emboli.',
+      'Retrograde approach was associated with higher numbers of lesions.',
+      'Lower cognitive scores in retrograde group.'
+    ],
+    carousel4: [
+      'Pulsed Field or Cryoballoon Ablation for Paroxysmal Atrial Fibrillation',
+      'Non-inferiority trial. All patients were implanted with loop recorders.',
+      'PFA was non-inferior to cryoballoon ablation for the primary endpoint of AF recurrence.',
+      'AF burden was similar in both groups at 365 days.',
+      'There were more repeat ablation procedures in PFA group.'
+    ],
+    carousel5: [
+      'Pulmonary Vein Isolation With Optimized Linear Ablation vs Pulmonary Vein Isolation Alone for Persistent AF',
+      'The Vein of Marshall: a remnant of the left cardinal vein that connects left atrium and coronary sinus.',
+      'Multicenter, open-label, randomized trial. Noted that persistent AF was defined as AF lasting > 3 months.',
+      'Linear ablation arm: Ethanol Infusion of the vein of Marshall (EIVOM) + PVI + Roof Line + Mitral Isthmus Line + CTI.',
+      'Ablation modestly reduced the risk of AF recurrence. No difference in AF burden and quality of life.'
+    ],
+    carousel6: [
+      'LBBAP vs CRT in BLOCK-HF indication',
+      'Retrospective trial using propensity score matching.',
+      'LBBAP was associated with lower risk of death or HF hospitalization.',
+      'Change in LVEF was numerically higher in LBBAP group.'
+    ],
+    carousel7: [
+      'BiV vs. RV pacing in patients required frequent ventricular pacing with preserved LVEF.',
+      'Large, multicenter, randomized trial.',
+      'No difference in the primary endpoint of death or HF hospitalization or HF alone or death alone.',
+      'No difference in results by subgroup analysis.',
+      'Did we overestimate the deleterious effect of RV pacing?'
+    ],
+    carousel8: [
+      'A multicenter registry of Cardioneural Ablation (CNA); largest to date; from 15 US sites.',
+      'Population: Recurrent vasovagal syncope or symptomatic functional bradycardia refractory to medical therapy and behavioral modification.',
+      'CNA was associated with a significant reduction in syncope burden. The major procedural complications were worth noting.',
+    ],    
+    carousel9: [
+      'A single-center, tertiary care, cohort study.',
+      '1. More than 20% of patients with jailed leads have serious complications due to lead malfunctions.\n2. Leadless pacemaker or tricuspid-valve sparing pacemaker are safe and effective.'
+    ]
+  };
+
+  // Initialize all carousels
+  document.addEventListener('DOMContentLoaded', function () {
+    for (let i = 1; i <= 9; i++) {
+      initCarousel('carousel' + i);
+    }
+  });
+
+  function initCarousel(carouselId) {
+    const items = document.getElementById(`${carouselId}-items`);
+    const totalSlides = items.children.length;
+    const dotsContainer = document.getElementById(`${carouselId}-dots`);
+
+    // Create dots dynamically
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', function () {
+        goToSlide(carouselId, i);
+      });
+      dotsContainer.appendChild(dot);
+    }
+
+    // Show the initial slide
+    showSlide(carouselId, carouselIndices[carouselId]);
+  }
+
+  function showSlide(carouselId, index) {
+    const items = document.getElementById(`${carouselId}-items`);
+    const dots = document.getElementById(`${carouselId}-dots`).children;
+    const totalSlides = items.children.length;
+    const caption = document.getElementById(`${carouselId}-caption`);
+
+    // Loop back to the first slide if at the end
+    if (index >= totalSlides) {
+      carouselIndices[carouselId] = 0;
+    } else if (index < 0) {
+      carouselIndices[carouselId] = totalSlides - 1;
+    } else {
+      carouselIndices[carouselId] = index;
+    }
+
+    // Move the carousel
+    const offset = -carouselIndices[carouselId] * 100;
+    items.style.transform = `translateX(${offset}%)`;
+
+    // Update dots
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.remove('active');
+    }
+    dots[carouselIndices[carouselId]].classList.add('active');
+
+    // Update caption
+    caption.textContent = captions[carouselId][carouselIndices[carouselId]];
+  }
+
+  function nextSlide(carouselId) {
+    carouselIndices[carouselId]++;
+    showSlide(carouselId, carouselIndices[carouselId]);
+  }
+
+  function prevSlide(carouselId) {
+    carouselIndices[carouselId]--;
+    showSlide(carouselId, carouselIndices[carouselId]);
+  }
+
+  function goToSlide(carouselId, index) {
+    showSlide(carouselId, index);
+  }
+
+  // Touch event handlers
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const swipeThreshold = 80; // Increase this value to make the swipe less sensitive
+
+  function handleGesture(carouselId) {
+    const swipeDistance = touchEndX - touchStartX;
+    if (swipeDistance > swipeThreshold) {
+      prevSlide(carouselId);  // Swipe right
+    } else if (swipeDistance < -swipeThreshold) {
+      nextSlide(carouselId);  // Swipe left
+    }
+  }
+/*
+  ['carousel1', 'carousel2', 'carousel3', 'carousel4'].forEach(carouselId => {
+    document.getElementById(carouselId).addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.getElementById(carouselId).addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture(carouselId);
+    });
+  });*/
+
+    // Add swipe functionality to each carousel item
+    document.querySelectorAll('.carousel-item').forEach(item => {
+    item.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    item.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      const carouselId = this.closest('.carousel').id; // Get carousel ID
+      handleGesture(carouselId); // Handle swipe within this carousel
+    });
+  });
+
+</script>
+
+</body>
+</html>
