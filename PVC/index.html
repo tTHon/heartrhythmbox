@@ -37,7 +37,7 @@
 
     /*color*/
     .eggShell {background-color:#f4f1ec;}
-    .icegrey {background-color: #F9FAF3;}
+    .icegrey {background-color: #ecf1f3;}
     .darkGreen {background-color: #12353E;}
     .lightGreen {background-color: #D4DEA4;}
     .lightRed  {background-color: #FF5D5D;}
@@ -59,17 +59,10 @@
       width: 100%;
     }
 
-    .title img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
     .title-text, .title-text a {
       display: flex;
       text-align: center;
       font-size: 1.8vmax;font-weight: 300;
-      padding: 10px;
       color: #BFC7D6;
       text-decoration: none;text-align: center;
       justify-content: center;
@@ -82,7 +75,7 @@
       bottom: 3%;left: 0;
     }
     .title-text img {
-      padding-right: 10px;
+      padding-left: 10px;
       width: 3.5vh; height: 3.5vh;
     }
 
@@ -240,7 +233,7 @@
     }
     .title-text img {
       bottom: 3%;left: 0;
-      padding-right: 2px;
+      padding: 2px;
       width: 2.5vh; height: 2.5vh;
     }
 
@@ -569,6 +562,23 @@
 </div>
 </div>
 
+<!-- Topic 8 conclusion -->
+<div id="no8" class="topic darkGreen"> 
+  <div class="headLine">
+    <span style="border-bottom: #D4DEA4 solid 0.2vh;color: #D4DEA4;">Conclusion</span>
+  </div>
+<div class="carousel" id="carousel8">
+  <div class="carousel-items" id="carousel8-items">
+    <div class="carousel-item">
+      <picture>
+        <img src="media/conclusion.png" loading="lazy">
+      </picture>
+    </div>
+
+  </div>
+</div>
+</div>
+
 
 <!--footer-->
 <div class="footer">
@@ -576,17 +586,6 @@
       <div style="padding-bottom: 36px;">
           <a href="#top" style="text-decoration:none;color: white;">
             <b>&#x2191;</b>&nbsp;<b>TOP</b> of the page</a>
-      </div> 
-      <div class="topicRow" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding-bottom: 36px;">
-        <a href="#no1" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>1</a>
-        <a href="#no2" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>2</a>
-        <a href="#no3" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>3</a>
-        <a href="#no4" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>4</a>
-        <a href="#no5" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>5</a>
-        <a href="#no6" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>6</a>
-        <a href="#no7" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>7</a>
-        <a href="#no8" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>8</a>
-        <a href="#no9" target="_blank" style="text-decoration:none;color: white;min-width:36px;display:inline-block;"><sup>#</sup>9</a>
       </div> 
       <div style="padding-bottom: 24px;">
             <a href="https://heartrhythmbox.com" target="_blank" 
@@ -622,8 +621,7 @@
     carousel5: 0,
     carousel6: 0,
     carousel7: 0,
-    carousel8: 0,
-    carousel9: 0
+    carousel8: 0
   };
 
   // Captions for the carousels
@@ -643,7 +641,7 @@
     ],
     carousel4: [
       'PVCs in patients without structural heart disease have a benign prognosis.',
-      'Reduction of LVEF occured only in a small proportion of patients with frequent PVCs.',
+      'Reduction of LVEF occured only in a small proportion of patients with frequent PVCs with normal structural heart.',
       'Asymptomatic PVCs in patients without structural heart disease do not require treatment.',
     ],
     carousel5: [
@@ -659,17 +657,10 @@
     carousel7: [
       'Sleep disordered breathing is associated with increased risk ofatrial and ventricular arrhythmias.',
       'Treatment of high-risk sleep apnea with CPAP reduces major cardiovascular events.',
-      'Hypertension is associated with increased risk of ventricular arrhythmias.',
+      'Antihypertensive treatment is recommended to reduce fatal ventricular arrhythmia event.',
     ],
     carousel8: [
-      'A multicenter registry of Cardioneural Ablation (CNA); largest to date; from 15 US sites.',
-      'Population: Recurrent vasovagal syncope or symptomatic functional bradycardia refractory to medical therapy and behavioral modification.',
-      'CNA was associated with a significant reduction in syncope burden. The major procedural complications were worth noting.',
-    ],    
-    carousel9: [
-      'A single-center, tertiary care, cohort study.',
-      '1. More than 20% of patients with jailed leads have serious complications due to lead malfunctions.\n2. Leadless pacemaker or tricuspid-valve sparing pacemaker are safe and effective.'
-    ]
+      ],
   };
 
   // Initialize all carousels
