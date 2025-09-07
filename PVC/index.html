@@ -75,7 +75,7 @@
       bottom: 3%;left: 0;
     }
     .title-text img {
-      padding-left: 10px;
+      padding: 10px;
       width: 3.5vh; height: 3.5vh;
     }
 
@@ -210,16 +210,12 @@
     .notes-column {font-size: 1.5vmax;text-align: left;}
 
 
-      /* Adjust .title-main for screen widths between 6010px and 900px */
-  @media only screen and (min-width: 601px) and (max-width: 900px) {
-    .noMobile {display: none;} /* Hide noMobile class on medium screens */
-  }
-    @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 600px) {
     .title-text, .title-text a {
       display: flex;
       text-align: center;
-      font-size: 1.8vmax;font-weight: 300;
-      padding: 5px;
+      font-size: 2.2vh;font-weight: 300;
+      padding: 0;
       color: #BFC7D6;
       text-decoration: none;text-align: center;
       justify-content: center;
@@ -229,12 +225,11 @@
     .title-text {
       width: 100%;text-transform: none;
       position: absolute;
-      bottom: 5%;left: 0;
     }
     .title-text img {
       bottom: 3%;left: 0;
-      padding: 2px;
-      width: 2.5vh; height: 2.5vh;
+      padding: 10px;
+      width: 3vh; height: 3vh;
     }
 
     .approachTable {
@@ -249,8 +244,8 @@
       padding: 10px;
     }
 
-      .noMobile {display: none;}
-      .headLine {letter-spacing: 0.5px;text-transform: none;}
+    .noMobile {display: none;}
+    .headLine {letter-spacing: 0.5px;text-transform: none;}
     }
 
   </style>
@@ -268,7 +263,7 @@
     Your browser does not support the video tag.
   </video>
     <div class="title-text">
-      Approach & Management of PVCs&nbsp;&nbsp;|
+      <span class="noMobile">Approach & Management of PVCs&nbsp;&nbsp;|</span>
       <a href="https://heartrhythmbox.com" target="_blank">
         <img src="box icegrey.png">
           heartRhythmBox

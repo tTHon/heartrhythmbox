@@ -2,9 +2,9 @@ var listArray = [
         {
         name: 'PVCs: Approach & Management',
         description: 'How to approach and manage patients with PVCs',
-        link: 'PVCs/index.html',
+        link: 'PVC/index.html',
         thumb: 'media/PVC.png',
-        date: new Date(25,9,09),
+        date: new Date(25,9,9),
         latest: 1,
         audFav: 0,
         authFav: 0,
