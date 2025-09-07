@@ -77,12 +77,13 @@
     }
 
     .title-text {
-      width: 100%;
+      width: 100%;text-transform: uppercase;
       position: absolute;
       bottom: 3%;left: 0;
     }
     .title-text img {
       padding-right: 10px;
+      width: 3.5vh; height: 3.5vh;
     }
 
     .footer {background: #555;padding:10vmax 1vmax;color:#ddd;font-size: 20px;}
@@ -110,6 +111,11 @@
     }
 
     .carousel-item img {
+      width: 100%;height: auto;max-height: 50vw;
+      object-fit:contain;
+    }
+
+    .carousel-item video {
       width: 100%;height: auto;max-height: 50vw;
       object-fit:contain;
     }
@@ -216,8 +222,40 @@
     .noMobile {display: none;} /* Hide noMobile class on medium screens */
   }
     @media only screen and (max-width: 600px) {
-   
-      .notes-column {display: none;}
+    .title-text, .title-text a {
+      display: flex;
+      text-align: center;
+      font-size: 1.8vmax;font-weight: 300;
+      padding: 5px;
+      color: #BFC7D6;
+      text-decoration: none;text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .title-text {
+      width: 100%;text-transform: none;
+      position: absolute;
+      bottom: 5%;left: 0;
+    }
+    .title-text img {
+      bottom: 3%;left: 0;
+      padding-right: 2px;
+      width: 2.5vh; height: 2.5vh;
+    }
+
+    .approachTable {
+      font-size:3vmax;font-weight: 500;
+    }
+    .approachTable img {width: 8vmax;}
+    .approachTable tr {
+      border-bottom: #aaa 0.1VMAX solid;
+      padding: 10px;
+    }
+    .approachTable td {
+      padding: 10px;
+    }
+
       .noMobile {display: none;}
       .headLine {letter-spacing: 0.5px;text-transform: none;}
     }
@@ -230,13 +268,16 @@
 <body>
 <!--titile-->
 <div class="title darkGreen">
-    <picture>
-      <img src="media/gif/title.gif" style="width: 100%;">
-    </picture>
+  <video autoplay loop muted playsinline style="width: 100%;height: auto;display: block;" poster="media/gif/titlePNG.png">
+    <source src="media/gif/title.mp4" type="video/mp4" media="screen and (min-width:601px)">
+    <source src="media/gif/titleMobile.mp4" type="video/mp4" media="screen and (max-width:600px)">
+    <img src="media/gif/titlePoster.png" alt="PVCs: Approach & Management" style="width:100%;height:auto;display:block;">
+    Your browser does not support the video tag.
+  </video>
     <div class="title-text">
-      APPROACH & MANAGEMENT OF PVCs | 
+      Approach & Management of PVCs&nbsp;&nbsp;|
       <a href="https://heartrhythmbox.com" target="_blank">
-        <img src="box icegrey.png" style="width: 3.5vh;height: 3.5vh;">
+        <img src="box icegrey.png">
           heartRhythmBox
       </a>
     </div>
@@ -261,14 +302,12 @@
           </tr>
           <tr>
             <td><img src="media/approach/char.png" loading="lazy"></td>
-            <td>CHARACTISTICS of PVCs</td>
+            <td>CHARACTERISTICS of PVCs</td>
           </tr>
         </table>
       </div>
   </div>
 </div>
-  <button class="carousel-control-prev" onclick="prevSlide('carousel1')">❮</button>
-  <button class="carousel-control-next" onclick="nextSlide('carousel1')">❯</button>
   <div class="dots" id="carousel1-dots"></div>
   <div class="caption" id="carousel1-caption"></div>
 </div>
@@ -281,15 +320,13 @@
 <div class="carousel" id="carousel2">
   <div class="carousel-items" id="carousel2-items">
     <div class="carousel-item">
-        <video autoplay loop muted playsinline style="width: 100%;max-height: 50vw;object-fit: contain;">
-          <source src="media/gif/SR.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+      <video autoplay loop muted style="width: 100%;">
+        <source src="media/gif/SR.mp4" type="video/mp4">
+      </video>
     </div>
     <div class="carousel-item">
-      <video autoplay loop muted playsinline style="width: 100%;max-height: 50vw;object-fit: contain;">
+      <video autoplay loop muted style="width: 100%;height: auto;display: block;">
         <source src="media/gif/PVC.mp4" type="video/mp4">
-        Your browser does not support the video tag.
       </video>
     </div>
     <div class="carousel-item">
@@ -396,7 +433,7 @@
 </div>
 
 <!-- Topic 5 MRI -->
-<div id="no5" class="topic eggShell"> 
+<div id="no5" class="topic icegrey"> 
   <div class="headLine">
     <span style="border-bottom: #232330 solid 0.2vh;">Roles of MRI</span>
   </div>
@@ -445,7 +482,7 @@
 </div>
 
 <!-- Topic 6 cardiomyopathy -->
-<div id="no6" class="topic icegrey"> 
+<div id="no6" class="topic eggShell"> 
   <div class="headLine">
     <span style="border-bottom: #232330 solid 0.2vh;">PVCs & Cardiomyopathy</span>
   </div>
@@ -483,7 +520,7 @@
 </div>
 
 <!-- Topic 7 comorbid -->
-<div id="no7" class="topic eggShell"> 
+<div id="no7" class="topic icegrey"> 
   <div class="headLine">
     <span style="border-bottom: #232330 solid 0.2vh;">Comorbidities</span>
   </div>
@@ -592,54 +629,37 @@
   // Captions for the carousels
   const captions = {
     carousel1: [
-      'Catheter Ablation or Antiarrhythmic Drugs for Ventricular Tachycardia',
-      'Two strata of randommization: Sotalol eligibal and non-eligible.',
-      'All with ICD and LVEF < 35%.',
-      'At a median F/U of 4.3yrs, Ablation significantly reduced the risk of Death or VT.',
-      'All components of the primary endpoint were reduced in ablation arm, especially non-fatal outcomes.',
-      'There were 2 deaths in ablation arm and 1 in antiarrhythmic drugs arm.',
-      'Ablation is likely to be more beneficial in the Sotalol-eligible group.',     
-    ],
+      '1. Symptoms from PVCs: Y/N, 2. Structural heart disease: Y/N, 3. Characteristics of PVCs: Benign or NOT.',
+   ],
     carousel2: [
-      'Epicardial Ablation to Prevent VF in Brugada Syndrome.',
-      'Population: Symptomatic Brugada syndrome; all with ICD.',
-      'Epicardial substate ablation +/- PVC that triggered VF.',
-      'Ablation significantly reduced VF recurrence. Trial was stopped early.',
-      'Most patients became VF-free after ablation.'      
+      'Symptoms from PVCs are mostly from fluctuation of cardiac output. In SR, the cardiac output volume is optimal, not too high or too low.',
+      'The PVC beat comes early causing reduced cardiac output. The beat after PVC is compensatory pause causing increased cardiac output.',
+      'Examples of Symptoms of PVCs.',
     ],
     carousel3: [
-      'Left Ventricular Entry to Reduce Brain Lesions During Catheter Ablation: A Randomized Trial',
-      'Endocardial LV ablation with a target accessible by both techniques.',
-      'No difference in procedural characteristics and outcomes. Retrograde approach was associated with higher incidence of silen cerebral emboli.',
-      'Retrograde approach was associated with higher numbers of lesions.',
-      'Lower cognitive scores in retrograde group.'
+      'PVC burden varies widely from day-to-day.',
+      'Treatment for idiopathic PVCs includes medical therapy and/or catheter ablation, depending on types of PVCs.',
+      'For idiopathic RVOT PVCs: Ablation is superior to medical therapy in reducing PVC burden and improving quality of life.',
     ],
     carousel4: [
-      'Pulsed Field or Cryoballoon Ablation for Paroxysmal Atrial Fibrillation',
-      'Non-inferiority trial. All patients were implanted with loop recorders.',
-      'PFA was non-inferior to cryoballoon ablation for the primary endpoint of AF recurrence.',
-      'AF burden was similar in both groups at 365 days.',
-      'There were more repeat ablation procedures in PFA group.'
+      'PVCs in patients without structural heart disease have a benign prognosis.',
+      'Reduction of LVEF occured only in a small proportion of patients with frequent PVCs.',
+      'Asymptomatic PVCs in patients without structural heart disease do not require treatment.',
     ],
     carousel5: [
-      'Pulmonary Vein Isolation With Optimized Linear Ablation vs Pulmonary Vein Isolation Alone for Persistent AF',
-      'The Vein of Marshall: a remnant of the left cardinal vein that connects left atrium and coronary sinus.',
-      'Multicenter, open-label, randomized trial. Noted that persistent AF was defined as AF lasting > 3 months.',
-      'Linear ablation arm: Ethanol Infusion of the vein of Marshall (EIVOM) + PVI + Roof Line + Mitral Isthmus Line + CTI.',
-      'Ablation modestly reduced the risk of AF recurrence. No difference in AF burden and quality of life.'
+      'Cardiac MRI is recommended in patients with frequent PVCs with atypical presentation.',
+      'Atypical features of PVC.',
+      'Ring-like scar pattern on MRI is associated with increased risk of malignant arrhythmias.',
     ],
     carousel6: [
-      'LBBAP vs CRT in BLOCK-HF indication',
-      'Retrospective trial using propensity score matching.',
-      'LBBAP was associated with lower risk of death or HF hospitalization.',
-      'Change in LVEF was numerically higher in LBBAP group.'
+      'Frequent PVCs can cause cardiomyopathy. Conversely, cardiomyopathy can induce PVCs.',
+      'Algorithm to evaluate patients with frequent PVCs and cardiomyopathy.',
+      'Achievement and maintaining adequate BP control is important in patients with frequent PVCs and hypertension.',
     ],
     carousel7: [
-      'BiV vs. RV pacing in patients required frequent ventricular pacing with preserved LVEF.',
-      'Large, multicenter, randomized trial.',
-      'No difference in the primary endpoint of death or HF hospitalization or HF alone or death alone.',
-      'No difference in results by subgroup analysis.',
-      'Did we overestimate the deleterious effect of RV pacing?'
+      'Sleep disordered breathing is associated with increased risk ofatrial and ventricular arrhythmias.',
+      'Treatment of high-risk sleep apnea with CPAP reduces major cardiovascular events.',
+      'Hypertension is associated with increased risk of ventricular arrhythmias.',
     ],
     carousel8: [
       'A multicenter registry of Cardioneural Ablation (CNA); largest to date; from 15 US sites.',
