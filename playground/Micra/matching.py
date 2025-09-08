@@ -90,3 +90,48 @@ for index, case in df_final_matched.iterrows(): # Iterate over the partially fil
 df_final_matched.to_csv('playground/micra/unique_adjusted_matched_micra.csv', index=False)
 
 print("Matching completed with unique controls. Results saved in 'unique_adjusted_matched_micra.csv'.")
+
+# Calculate averages for Age, BSA and percentage of male for controls and for Match1, Match2, Match3
+rows = []
+# Controls (all controls in df_controls)
+control_ages = df_controls['Age'].dropna().tolist()
+control_bsas = df_controls['BSA'].dropna().tolist()
+control_sexes = df_controls['Gender'].dropna().tolist()
+control_n = len(control_sexes)
+control_n_male = sum(1 for s in control_sexes if s == 0)
+rows.append({
+    'Group': 'Control',
+    'Avg_Age': sum(control_ages) / len(control_ages) if control_ages else None,
+    'Avg_BSA': sum(control_bsas) / len(control_bsas) if control_bsas else None,
+    'Male_Percent': (control_n_male / control_n * 100) if control_n else None
+})
+# Matches
+for i in range(1, 4):
+    ages = []
+    sexes = []
+    bsas = []
+    for _, case in df_final_matched.iterrows():
+        match_id = case[f'Match#{i}']
+        if pd.notna(match_id):
+            match_row = df_controls[df_controls['ID'] == match_id]
+            if not match_row.empty:
+                ages.append(match_row.iloc[0]['Age'])
+                sexes.append(match_row.iloc[0]['Gender'])
+                bsas.append(match_row.iloc[0]['BSA'])
+    avg_age = sum(ages) / len(ages) if ages else None
+    avg_bsa = sum(bsas) / len(bsas) if bsas else None
+    n = len(sexes)
+    n_male = sum(1 for s in sexes if s == 0)
+    male_percent = (n_male / n * 100) if n else None
+    rows.append({
+        'Group': f'Match{i}',
+        'Avg_Age': avg_age,
+        'Avg_BSA': avg_bsa,
+        'Male_Percent': male_percent
+    })
+
+avg_table = pd.DataFrame(rows, columns=['Group', 'Avg_Age', 'Avg_BSA', 'Male_Percent'])
+print("Averages for controls and matches:")
+print(avg_table)
+
+
