@@ -1,5 +1,8 @@
 import pandas as pd
 import io
+import matplotlib.pyplot as plt
+from lifelines import KaplanMeierFitter
+import matplotlib.ticker as ticker
 
 # The data provided by the user
 data = """Death	T2FU
@@ -80,3 +83,42 @@ death_rate_per_100_py = (total_deaths / total_patient_years) * 100
 print(f"Total number of deaths: {total_deaths}")
 print(f"Total patient-years: {total_patient_years:.2f}")
 print(f"Death rate per 100 patient-years: {death_rate_per_100_py:.2f}")
+
+# --- Kaplan-Meier Curve Section ---
+
+# Set font family for the plot to 'Inter'
+# Note: The 'Inter' font must be installed on your system for this to work.
+plt.rc('font', family='Inter')
+
+# Convert T2FU from days to months
+df['T2FU_months'] = df['T2FU'] / 30.44
+
+# Create a KaplanMeierFitter object
+kmf = KaplanMeierFitter()
+
+# Fit the data to the model using the new 'T2FU_months' column
+kmf.fit(df['T2FU_months'], event_observed=df['Death'])
+
+# Plot the Kaplan-Meier survival curve with custom color and linestyle
+kmf.plot_survival_function(
+    color='purple',
+    linestyle='-',
+    linewidth=2,
+    ci_show=True,
+    show_censors=True,
+    at_risk_counts=True,  # This is the key change
+    label='Overall Survival'
+)
+
+# Customize plot appearance
+plt.title('Kaplan-Meier Survival Curve', fontsize=16, fontweight='bold')
+plt.xlabel('Months', fontsize=12)
+plt.ylabel('Survival Probability', fontsize=12)
+
+# Set the x-axis to show integer ticks for months
+plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.xticks(rotation=0)
+plt.tight_layout()
+plt.show()
