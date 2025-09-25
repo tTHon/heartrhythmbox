@@ -1,0 +1,76 @@
+﻿ID,Type,Age,Sex,BSAYu,lowBSA,Weight,Height,MI,PCI/CABG,CHF,PAD,CVA,Dementia,COPD,CNT,PU,Liver,DM ,CKD stage,Malignancy,TV Disease,SigValve,AF,HTN,CCI,CCISev,Antiplatelet,OAC,Indication for PPM,MajCom30D,Death,T2FU,AnyEvents,T2Events
+M1,LP,54,F,1.3,1,45,148,0,No,0,0,No,0,0,0,0,Mild,EndOrgan,5,No,None/Mild,None,0,1,6,1,None,None,SSS,0,0,1944,0,1944
+M2,LP,77,F,1.44,1,53.9,151.4,0,No,0,0,No,0,0,0,0,No,Mild,1,Solid w/o Met,None/Mild,None,0,1,6,1,None,None,AVB,0,0,2956,0,2956
+M10,LP,80,F,1.3,1,44.5,150,1,PCI,0,0,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,1,1,10,1,Dual,VKA,AVB,0,0,808,0,808
+M13,LP,74,F,1.44,1,56,147,1,CABG,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,6,1,Dual,None,SSS,0,0,240,0,240
+M15,LP,68,F,1.28,1,43,150,0,No,1,0,No,0,0,0,0,No,No,5,No,Surgery,Multiple,1,0,5,1,Single,VKA,SSS,0,1,302,2,302
+M17,LP,82,F,1.35,1,47,152,0,No,1,1,Hemiplegia,0,0,0,0,No,No,5,No,None/Mild,None,1,1,10,1,,None,SSS,0,0,7,0,7
+M18,LP,82,M,1.33,1,42.5,165,1,No,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,7,1,Single,None,AVB,0,1,100,2,100
+M22,LP,83,M,1.31,1,45,150,0,No,0,0,Hemiplegia,1,0,0,1,No,EndOrgan,5,No,None/Mild,None,1,1,12,1,None,VKA,SSS,0,1,408,2,408
+M24,LP,77,F,1.3,1,44,152,0,No,0,0,Hemiplegia,0,0,0,0,No,Mild,2,No,Mod/Sev,Tricuspid,1,1,6,1,Single,VKA,AVB,0,0,2225,0,2225
+M25,LP,60,F,1.424,1,51,156.7,0,No,1,1,Stroke/TIA,0,0,0,0,No,No,5,No,None/Mild,None,1,0,7,1,None,VKA,SSS,1,0,12,1,0
+M27,LP,63,F,1.372,1,45,165,1,No,0,0,Hemiplegia,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,10,1,Dual,VKA,AVB,0,0,314,0,314
+M31,LP,82,F,1.346,1,47,152,1,CABG,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,1,7,1,None,VKA,AVB,0,0,47,0,47
+M34,LP,81,F,1.281,1,42,154,0,No,1,0,No,0,1,1,1,No,No,5,No,Mod/Sev,Tricuspid,1,0,10,1,None,VKA,AVB,1,1,114,1,5
+M35,LP,87,F,1.266,1,40,158,0,No,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,1,1,8,1,None,None,SSS,0,0,820,0,820
+M37,LP,18,F,1.388,1,46.9,162,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,0,0,0,0,None,None,AVB,0,0,1419,0,1419
+M38,LP,88,F,1.25,1,40,154,1,PCI,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,1,9,1,Single,None,AVB,0,0,1374,0,1374
+M40,LP,91,F,1.42,1,53,150,0,No,0,0,Hemiplegia,1,0,0,0,No,Mild,2,No,None/Mild,None,1,1,8,1,None,None,AVB,0,0,968,0,968
+M42,LP,88,M,1.285,1,42,155,0,No,0,0,No,0,0,0,0,No,No,2,No,Mod/Sev,Tricuspid,1,0,4,0,None,NOAC,AVB,0,0,734,0,734
+M44,LP,67,F,1.393,1,51,150,0,No,1,0,No,0,0,0,0,No,No,1,Solid w/o Met,Mod/Sev,Mitral,1,0,5,1,None,VKA,AVB,0,0,727,0,727
+M46,LP,73,F,1.352,1,51.5,140,0,No,1,0,No,1,0,0,0,No,No,1,No,None/Mild,None,0,1,5,1,None,None,AVB,1,0,733,1,2
+M47,LP,61,F,1.258,1,40.8,153,0,No,1,0,No,0,0,0,0,No,No,1,No,Mod/Sev,Multiple,1,0,3,0,None,VKA,AVB,0,1,27,2,27
+M51,LP,82,M,1.357,1,44,165,0,No,1,0,No,0,0,0,0,No,EndOrgan,5,Solid w/o Met,None/Mild,None,1,1,11,1,None,None,AVB,0,0,43,0,43
+M52,LP,70,F,1.359,1,47,155,0,No,1,0,No,1,0,0,0,No,EndOrgan,5,Solid w/o Met,None/Mild,None,1,1,11,1,None,None,SSS,0,0,419,0,419
+M56,LP,91,F,1.146,1,35,148,1,PCI,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,0,0,5,1,Dual,NOAC,SSS,0,0,13,0,13
+M59,LP,68,F,1.29,1,41,160,0,No,1,0,No,0,0,0,0,Mild,No,5,Solid w Met,Mod/Sev,Tricuspid,0,0,12,1,None,None,SSS,0,1,21,2,21
+T1,TV,79,F,1.25,1,41,151,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,0,0,3,0,None,None,AVB,0,0,1402,0,1402
+T2,TV,70,F,1.39,1,52,147,0,No,0,0,No,0,0,0,0,No,Mild,2,No,None/Mild,None,0,0,4,0,None,None,AVB,0,0,1308,0,1308
+T3,TV,82,F,1.31,1,45,150,0,PCI,0,0,No,0,0,0,0,No,Mild,3,No,None/Mild,None,0,1,5,1,Dual,None,SSS,0,0,7,0,7
+T4,TV,79,F,1.44,1,55,148,0,No,0,0,No,0,0,0,0,No,No,3,No,None/Mild,None,1,1,3,0,None,VKA,SSS,0,1,776,2,776
+T5,TV,64,M,1.27,1,40,160,0,PCI,1,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,1,1,7,1,Single,VKA,SSS,0,1,888,2,888
+T6,TV,95,F,1.31,1,47,143,0,No,0,0,Stroke/TIA,0,0,0,0,No,Mild,3,No,Mod/Sev,Tricuspid,0,1,6,1,Single,None,AVB,0,0,1114,0,1114
+T7,TV,88,F,1.34,1,48,148,0,No,1,0,No,0,0,0,1,No,No,2,No,None/Mild,None,0,1,6,1,Dual,None,SSS,0,0,1012,0,1012
+T8,TV,90,F,1.24,1,42,145,0,No,0,0,No,0,0,0,1,No,No,3,Solid w/o Met,None/Mild,None,1,1,7,1,Single,NOAC,SSS,0,0,1053,0,1053
+T9,TV,57,F,1.42,1,50,160,0,No,0,0,No,0,0,0,0,No,No,1,Solid w/o Met,None/Mild,None,1,0,3,0,None,None,SSS,1,1,380,1,375
+T10,TV,91,F,1.26,1,42,150,0,No,0,0,No,1,0,0,0,No,No,1,No,None/Mild,None,1,0,5,1,None,None,SSS,0,0,7,0,7
+T11,TV,60,F,1.42,1,49,162,0,No,0,0,No,0,0,0,0,No,No,3,No,None/Mild,Mitral,0,0,2,0,None,VKA,AVB,0,0,861,0,861
+T12,TV,82,M,1.31,1,42,160,0,No,0,0,No,0,0,0,0,No,No,2,No,None/Mild,Aortic,0,0,4,0,Single,None,SSS,0,0,862,0,862
+T13,TV,80,F,1.43,1,52,156,0,No,0,0,No,1,0,0,0,No,Mild,1,No,None/Mild,None,1,1,6,1,None,NOAC,SSS,0,0,875,0,875
+T14,TV,83,F,1.28,1,43,150,0,No,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,1,0,4,0,None,VKA,SSS,0,0,630,0,630
+T15,TV,61,F,1.24,1,39.8,153,0,No,1,0,No,0,0,0,0,No,No,2,No,None/Mild,Aortic,1,1,3,0,Single,VKA,AVB,1,1,156,1,4
+T16,TV,72,F,1.25,1,39,158,0,No,0,0,No,0,0,0,1,No,No,2,No,None/Mild,None,0,1,4,0,None,None,SSS,0,0,829,0,829
+T17,TV,80,F,1.37,1,45,165,0,No,0,0,No,0,0,0,0,No,Mild,2,No,None/Mild,None,1,1,5,1,None,NOAC,SSS,0,0,7,0,7
+T18,TV,91,F,1.31,1,44.5,153,0,No,1,0,No,0,0,0,0,No,EndOrgan,4,No,None/Mild,None,1,0,9,1,None,NOAC,SSS,0,0,90,0,90
+T19,TV,84,F,1.23,1,39,153,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,0,1,4,0,None,None,SSS,0,0,627,0,627
+T20,TV,71,F,1.34,1,47,151,0,No,1,0,No,0,0,0,0,No,Mild,1,No,None/Mild,None,0,1,5,1,None,None,AVB,0,0,7,0,7
+T21,TV,65,F,1.24,1,39,155,0,No,0,0,No,0,0,0,0,No,No,1,No,Mod/Sev,Tricuspid,0,0,2,0,None,None,SSS,0,0,791,0,791
+T22,TV,84,M,1.4,1,48,160,0,No,0,0,No,0,0,0,0,Mod/Sev,EndOrgan,4,Solid w/o Met,None/Mild,None,1,0,13,1,None,NOAC,SSS,0,0,7,0,7
+T23,TV,75,F,1.4,1,50,154,0,No,1,0,No,0,1,0,0,Mild,EndOrgan,3,No,Mod/Sev,Tricuspid,1,1,8,1,None,VKA,AVB,1,0,706,1,1
+T24,TV,77,F,1.25,1,40,155,0,No,0,1,Hemiplegia,0,0,0,0,No,No,1,No,None/Mild,None,1,1,6,1,Single,NOAC,SSS,1,0,688,1,1
+T25,TV,73,F,1.36,1,47,155,1,PCI,1,0,No,0,0,0,0,No,Mild,3,No,None/Mild,None,1,1,6,1,Single,NOAC,SSS,0,0,675,0,675
+T26,TV,80,F,1.38,1,48.8,153,0,No,1,0,No,0,0,0,0,No,Mild,3,No,None/Mild,None,1,1,6,1,None,NOAC,SSS,0,0,157,0,157
+T27,TV,85,F,1.29,1,44,150,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,0,1,4,0,None,None,AVB,0,0,529,0,529
+T28,TV,76,F,1.35,1,46.8,154,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,1,1,3,0,None,VKA,SSS,0,0,0,0,0
+T29,TV,71,F,1.28,1,45.4,142,0,No,0,0,Hemiplegia,0,0,0,0,No,No,1,No,None/Mild,None,0,1,5,1,Single,None,AVB,1,0,570,1,0
+T30,TV,74,F,1.45,1,55,150,0,No,0,0,No,0,0,0,0,No,No,4,No,None/Mild,None,1,0,5,1,None,NOAC,SSS,0,0,9,0,9
+T31,TV,81,F,1.34,1,47,151,0,No,0,1,No,0,0,0,0,No,No,3,No,None/Mild,None,1,1,5,1,None,NOAC,SSS,0,0,479,0,479
+T32,TV,85,F,1.23,1,40,150,1,PCI,1,0,No,0,0,0,0,No,No,1,No,None/Mild,None,1,1,6,1,Dual,NOAC,SSS,0,0,482,0,482
+T33,TV,86,M,1.31,1,41.5,163,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,Aortic,1,1,4,0,None,NOAC,AVB,0,0,402,0,402
+T34,TV,73,F,1.32,1,44,156,0,No,0,0,No,0,0,0,0,No,No,2,No,Mod/Sev,Tricuspid,1,0,3,0,None,VKA,AVB,0,0,447,0,447
+T35,TV,90,F,1.22,1,38,155,0,No,0,0,No,1,0,0,0,No,No,1,No,None/Mild,None,0,1,5,1,None,None,AVB,0,0,372,0,372
+T36,TV,80,M,1.46,1,50,167,1,CABG,0,0,No,0,0,0,0,No,No,1,Solid w/o Met,Mod/Sev,Tricuspid,1,1,7,1,Single,NOAC,SSS,0,0,403,0,403
+T37,TV,84,M,1.37,1,46,160,0,PCI,0,0,No,0,0,0,0,No,No,4,No,Mod/Sev,Tricuspid,1,0,6,1,None,NOAC,SSS,0,0,352,0,352
+T38,TV,78,M,1.33,1,49,143,0,No,1,0,No,0,0,0,0,No,No,3,No,None/Mild,None,1,0,4,0,None,NOAC,AVB,0,0,369,0,369
+T39,TV,91,F,1.26,1,42,150,1,PCI,1,0,No,0,1,0,0,No,No,1,No,Mod/Sev,Tricuspid,1,0,7,1,Single,None,SSS,0,0,358,0,358
+T40,TV,78,M,1.39,1,46,165,1,No,0,0,No,0,1,0,0,No,No,3,No,None/Mild,None,0,1,5,1,Dual,NOAC,SSS,0,1,4,2,4
+T41,TV,92,F,1.21,1,41,140,0,No,0,0,No,0,0,0,0,No,Mild,2,No,None/Mild,None,1,1,5,1,None,None,SSS,0,0,7,0,7
+T42,TV,43,F,1.32,1,46,150,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,0,0,0,0,None,None,AVB,0,0,136,0,136
+T43,TV,92,F,1.1,1,32,150,0,No,0,0,Hemiplegia,1,0,0,0,No,No,1,No,None/Mild,Aortic,0,1,7,1,None,None,AVB,0,1,29,2,29
+T44,TV,85,F,1.33,1,50,140,0,No,1,0,Hemiplegia,0,0,0,0,No,Mild,3,Solid w/o Met,None/Mild,None,1,1,10,1,None,NOAC,SSS,0,0,294,0,294
+T45,TV,75,F,1.34,1,46,155,0,CABG,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,1,5,1,Single,VKA,SSS,0,0,7,0,7
+T46,TV,81,F,1.33,1,47,148,1,No,0,0,No,0,0,0,0,No,No,3,No,None/Mild,None,0,1,5,1,Single,None,AVB,0,0,219,0,219
+T47,TV,92,F,1.21,1,37,155,0,No,0,0,No,0,0,0,0,No,Mild,3,No,None/Mild,None,1,1,5,1,None,NOAC,SSS,1,0,180,1,7
+T48,TV,88,F,1.26,1,43,145,0,No,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,1,1,4,0,None,VKA,SSS,1,0,134,1,10
+T49,TV,85,F,1.13,1,36,140,1,CABG,1,0,No,0,0,0,0,No,Mild,2,Solid w/o Met,None/Mild,None,0,1,9,1,Dual,NOAC,SSS,0,0,122,0,122
+T50,TV,84,F,1.33,1,41,170,0,CABG,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,0,1,4,0,Single,None,AVB,0,0,115,0,115
