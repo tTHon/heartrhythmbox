@@ -1,7 +1,7 @@
 ﻿Age,Sex,BSAYu,lowBSA,Weight,cm,Height,MI,PCI/CABG,CHF,PAD,CVA,Dementia,COPD,CNT,PU,Liver,DM,CKD,Malignancy,TV,SigValve,AF,HTN,CCI,CCISev,Antiplatelet,OAC,IndicationPPM,IndicationforMicra,Access,Position,Model,Hemostasis,T2FU,AcuteCom,Death,ChronicCom,composite
 54,F,1.3,1,45,148,1.48,0,No,0,0,No,0,0,0,0,Mild,EndOrgan,5,No,None/Mild,None,0,1,6,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,1944,0,0,0,0
 77,F,1.44,1,53.9,151.4,1.514,0,No,0,0,No,0,0,0,0,No,Mild,2,Solid w/o Met,None/Mild,None,0,1,6,1,None,None,AVB,Infection Risk,RFV,Mid2High,VR1,Manual Only,2956,0,0,0,0
-80,M,1.64,0,62,172,1.72,0,No,0,0,Stroke/TIA,0,0,0,1,No,Mild,2,No,None/Mild,None,1,1,7,1,None,NOAC,SSS,Infection Risk,LFV,ApicalSeptal,VR1,Manual Only,3072,0,0,0,0
+80,M,1.64,0,62,172,1.72,0,No,0,0,Stroke/TIA,0,0,0,1,No,Mild,2,No,None/Mild,None,1,1,7,1,None,NOAC,SSS,Infection Risk,LFV,ApicalSeptal,VR1,Manual Only,3072,0,0,1,1
 70,M,1.51,0,58.2,155,1.55,1,CABG,0,0,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,9,1,Single,None,AVB,Access & Infection,RFV,ApicalSeptal,VR1,Manual Only,1072,0,0,0,0
 83,M,0,0,0,0,0,0,No,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,0,6,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,2636,0,1,0,1
 84,F,0,0,0,0,0,0,No,0,0,No,1,0,0,0,No,No,2,No,None/Mild,None,0,0,5,1,None,None,AVB,Infection Risk,RFV,ApicalSeptal,VR1,Closure Device,7,0,0,0,0

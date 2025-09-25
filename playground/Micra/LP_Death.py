@@ -98,6 +98,9 @@ kmf = KaplanMeierFitter()
 
 # Fit the data to the model using the new 'T2FU_months' column
 kmf.fit(df['T2FU_months'], event_observed=df['Death'])
+km_incidence = 1 - kmf.survival_function_
+print(f"\nKaplan-Meier cumulative incidence of deaths (Whole Cohort): {km_incidence.iloc[-1,0]:.4f}")
+
 
 # Plot the Kaplan-Meier survival curve with custom color and linestyle
 kmf.plot_survival_function(
