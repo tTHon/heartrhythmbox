@@ -194,3 +194,34 @@ print(f"  Low BSA: {ci_low_bsa:.4f} (95% CI: {ci_low_bsa_lower:.4f}-{ci_low_bsa_
 print(f"  Other BSA: {ci_other_bsa:.4f} (95% CI: {ci_other_bsa_lower:.4f}-{ci_other_bsa_upper:.4f})")
 print(f"  Gray's test p-value: {p_val:.4f}")
 print("="*60)
+
+# --- Crude Incidence Calculation (simple proportion) ---
+print("\n## Crude Incidence Rates (Simple Proportions)")
+print("(Does not account for time or competing risks)")
+
+df['death'] = (df['Death']).astype(int)
+# Overall cohort
+total_patients = len(df)
+total_complications = (df['status'] == 1).sum()
+total_deaths = (df['death'] == 1).sum()
+crude_comp_overall = total_complications / total_patients
+crude_death_overall = total_deaths / total_patients
+print(f"Overall Cohort (N={total_patients}):")
+print(f"  Crude Incidence of Complications: {crude_comp_overall:.4f} ({total_complications}/{total_patients})")
+print(f"  Crude Incidence of Death: {crude_death_overall:.4f} ({total_deaths}/{total_patients})")
+
+# Low BSA group
+total_low_bsa = len(df_low_bsa)
+comp_low_bsa = (df_low_bsa['status'] == 1).sum()
+crude_comp_low_bsa = comp_low_bsa / total_low_bsa
+print(f"\nLow BSA Group (N={total_low_bsa}):")
+print(f"  Crude Incidence of Complications: {crude_comp_low_bsa:.4f} ({comp_low_bsa}/{total_low_bsa})")
+
+# Other BSA group
+total_other_bsa = len(df_other_bsa)
+comp_other_bsa = (df_other_bsa['status'] == 1).sum()
+crude_comp_other_bsa = comp_other_bsa / total_other_bsa
+print(f"\nOther BSA Group (N={total_other_bsa}):")
+print(f"  Crude Incidence of Complications: {crude_comp_other_bsa:.4f} ({comp_other_bsa}/{total_other_bsa})")
+
+print("-" * 50)
