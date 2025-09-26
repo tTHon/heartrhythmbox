@@ -61,8 +61,8 @@ for var in continuous_vars:
 
     results.append({
         'Characteristic': var,
-        f'LP (n={n_lp})': f'{lp_stats.mean():.2f} ({lp_stats.std():.1f})',
-        f'TV (n={n_tv})': f'{tv_stats.mean():.2f} ({tv_stats.std():.1f})',
+        f'LP (n={n_lp})': f'{lp_stats.mean():.2f} ({lp_stats.std():.2f})',
+        f'TV (n={n_tv})': f'{tv_stats.mean():.2f} ({tv_stats.std():.2f})',
         'p-value': f'{p_value:.3f}' if pd.notna(p_value) else 'N/A'
     })
 
