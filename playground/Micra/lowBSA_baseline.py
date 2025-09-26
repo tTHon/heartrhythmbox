@@ -18,7 +18,7 @@ except FileNotFoundError:
     exit()
 
 # Filter for the matched cohort (lowBSA LP=1 patients and their TV=0 controls)
-lp_lowbsa_match_ids = df[(df['Type'] == 1) & (df['lowBSA'] == 1)]['MatchID'].unique()
+lp_lowbsa_match_ids = df[(df['Type'] == 1)]['MatchID'].unique()
 df_matched = df[df['MatchID'].isin(lp_lowbsa_match_ids)].copy()
 
 # Note: We no longer need to create a 'group_numeric' column
@@ -28,12 +28,25 @@ print(f"Filtered to matched cohort. Records: {df_matched.shape[0]}, Matched Sets
 
 # --- 2. Define Variables for Table 1 ---
 
-continuous_vars = ['Age', 'BSA', 'CCI', 'Weight', 'Height']
+continuous_vars = ['Age', 'BSA', 'CCI', 'Weight', 'Height','CKDStage','T2FU','T2Events']
 categorical_vars = {
     'Sex': {'F': 0, 'M': 1},
     'CCISev': {0: 0, 1: 1},
     'CHF': {0: 0, 1: 1},
-    'HTN': {0: 0, 1: 1}
+    'PAD': {0: 0, 1: 1},
+    'HTN': {0: 0, 1: 1},
+    'CVA': {"No": 0, "Stroke/TIA": 1,"Hemiplegia": 1},
+    'Dementia': {0: 0, 1: 1},
+    'COPD': {0: 0, 1: 1},
+    'CNT': {0: 0, 1: 1},
+    'PU': {0: 0, 1: 1},
+    'Liver': {'No': 0, 'Mild': 1,'Mod/Sev': 1},
+    'DM ': {'No': 0, 'Mild': 1,"EndOrgan": 1},
+    'Malignancy': {'No': 0, 'Solid w/o Met': 1,'Solid w Met': 1},
+    'TV_Disease': {'None/Mild': 0,'Mod/Sev': 1},
+    'AF': {0: 0, 1: 1},
+    'Complication': {0: 0, 1: 1},
+    'Death': {0: 0, 1: 1},
 }
 
 # --- 3. Perform Analysis and Build Table ---
@@ -52,10 +65,15 @@ for var in continuous_vars:
     
     p_value = np.nan
     try:
+        # Add a constant (intercept) to the model
+        X = sm.add_constant(df_matched[var])
         # Conditional logistic regression using the numeric 'Type' column
-        model = sm.Logit(df_matched['Type'], df_matched[var], groups=df_matched['MatchID'])
+        #model = sm.Logit(df_matched['Type'], df_matched[var], groups=df_matched['MatchID'])
+        model = sm.Logit(df_matched['Type'], X, groups=df_matched['MatchID'])
         result = model.fit(disp=0)
-        p_value = result.pvalues[var]
+        # The p-value is in the second position (index 1)
+        p_value = result.pvalues[1]
+        #p_value = result.pvalues[var]
     except Exception as e:
         print(f"Could not calculate p-value for '{var}'. Reason: {e}")
 
@@ -95,13 +113,17 @@ for var, mapping in categorical_vars.items():
     })
 
 # --- 4. Format and Display Final Table ---
+from tabulate import tabulate
 table1_df = pd.DataFrame(results).set_index('Characteristic')
 
-print("\n" + "="*60)
-print("      Table 1: Baseline Characteristics of Matched Cohort")
-print("="*60)
-print(table1_df.to_string())
-print("="*60)
+#print("\n" + "="*60)
+#print("      Table 1: Baseline Characteristics of Matched Cohort")
+#print("="*60)
+#print(table1_df.to_string())
+#print("="*60)
+
+# REPLACE your old print statement with this one
+print(tabulate(table1_df, headers='keys', tablefmt='pretty'))
 
 # --- 5. Save Table to a File ---
 #try:

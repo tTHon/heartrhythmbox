@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from lifelines import AalenJohansenFitter, KaplanMeierFitter
+from lifelines import AalenJohansenFitter
 from scipy import stats
 
 # Load the data
