@@ -28,6 +28,9 @@ print("-" * 50)
 # For the Cause-Specific model of complications, we treat death as a censored event.
 df['event_for_comp_model'] = (df['status'] == 1).astype(int)
 
+# Analyzes the composite of complications OR death
+#df['event_for_comp_model'] = ((df['status'] == 1) | (df['status'] == 2)).astype(int)
+
 # ----------------------------------------------------
 # 3. HELPER FUNCTION FOR DESCRIPTIVE STATISTICS
 # ----------------------------------------------------
