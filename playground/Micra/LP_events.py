@@ -166,19 +166,19 @@ plt.show()
 
 
 # --- PLOT 2: Comparison of Complication Incidence by BSA Group ---
-plt.figure(figsize=(10, 6))
-ax = plt.gca() # Get current axes
+#plt.figure(figsize=(10, 6))
+#ax = plt.gca() # Get current axes
 
-ajf_low_bsa.plot_cumulative_density(ax=ax, label=f'Low BSA (N={len(df_low_bsa)})', linestyle='--', ci_show=True)
-ajf_other_bsa.plot_cumulative_density(ax=ax, label=f'Other BSA (N={len(df_other_bsa)})', linestyle='-', ci_show=True)
+#ajf_low_bsa.plot_cumulative_density(ax=ax, label=f'Low BSA (N={len(df_low_bsa)})', linestyle='--', ci_show=True)
+#ajf_other_bsa.plot_cumulative_density(ax=ax, label=f'Other BSA (N={len(df_other_bsa)})', linestyle='-', ci_show=True)
 
-plt.title('Comparison of Complication Incidence by BSA Group')
-plt.xlabel('Time (days)')
-plt.ylabel('Cumulative Incidence of Complications')
-plt.grid(True)
-plt.legend()
-plt.tight_layout()
-plt.show()
+#plt.title('Comparison of Complication Incidence by BSA Group')
+#plt.xlabel('Time (days)')
+#plt.ylabel('Cumulative Incidence of Complications')
+#plt.grid(True)
+#plt.legend()
+#plt.tight_layout()
+#plt.show()
 
 
 # --- Summary of Key Results ---
@@ -225,3 +225,7 @@ print(f"\nOther BSA Group (N={total_other_bsa}):")
 print(f"  Crude Incidence of Complications: {crude_comp_other_bsa:.4f} ({comp_other_bsa}/{total_other_bsa})")
 
 print("-" * 50)
+
+
+
+
