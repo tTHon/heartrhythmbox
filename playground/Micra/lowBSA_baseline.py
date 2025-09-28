@@ -32,6 +32,7 @@ continuous_vars = ['Age', 'BSA', 'CCI', 'Weight', 'Height','CKDStage','T2FU','T2
 categorical_vars = {
     'Sex': {'F': 0, 'M': 1},
     'CCISev': {0: 0, 1: 1},
+    'CKDStage': {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 1},
     'CHF': {0: 0, 1: 1},
     'PAD': {0: 0, 1: 1},
     'HTN': {0: 0, 1: 1},

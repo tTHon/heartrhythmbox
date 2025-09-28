@@ -38,44 +38,94 @@ df_matched['duration'] = df_matched['T2Events']
 # Create numeric group variable for the model (TVP=1, LP=0)
 df_matched['group_tvp'] = (df_matched['Type'] == 0).astype(int)
 
-print("\n--- Data prepared for Adjusted Cox Model ---")
-# Display the necessary columns, including CCI
+print("\n--- Data prepared for Analysis ---")
 print(df_matched[['MatchID', 'Type', 'duration', 'is_complication', 'CCI']].head())
 
 
 # ============================================================================
-# PART 2: RUN THE ADJUSTED STRATIFIED CAUSE-SPECIFIC COX MODEL
+# PART 2A: UNADJUSTED MODEL FOR DEVICE GROUP (group_tvp)
 # ============================================================================
 
 print("\n" + "="*80)
-print("     ADJUSTED STRATIFIED CAUSE-SPECIFIC MODEL (Adjusting for CCI)")
+print("       UNADJUSTED STRATIFIED MODEL (for Device Group)")
 print("="*80)
 
-# Initialize the Cox model
-cph = CoxPHFitter()
+cph_unadj_group = CoxPHFitter()
+cph_unadj_group.fit(df_matched,
+                    duration_col='duration',
+                    event_col='is_complication',
+                    strata=['MatchID'],
+                    formula="group_tvp")
+
+hr_unadj = cph_unadj_group.summary.loc['group_tvp', 'exp(coef)']
+p_value_unadj = cph_unadj_group.summary.loc['group_tvp', 'p']
+ci_lower_unadj = cph_unadj_group.summary.loc['group_tvp', 'exp(coef) lower 95%']
+ci_upper_unadj = cph_unadj_group.summary.loc['group_tvp', 'exp(coef) upper 95%']
+
+print("\n--- Summary of Unadjusted Findings for Device Group ---")
+print(f"Unadjusted Hazard Ratio (uHR) for TVP vs LP:")
+print(f"uHR = {hr_unadj:.2f} (95% CI: {ci_lower_unadj:.2f}-{ci_upper_unadj:.2f}), P-value: {p_value_unadj:.3f}")
+
+
+# ============================================================================
+# PART 2B: UNADJUSTED MODEL FOR COMORBIDITY (CCI)
+# ============================================================================
+
+print("\n" + "="*80)
+print("       UNADJUSTED STRATIFIED MODEL (for CCI)")
+print("="*80)
+
+# Initialize a new Cox model for the CCI-only analysis
+cph_unadj_cci = CoxPHFitter()
 
 try:
-    # Fit the model, stratifying by MatchID and adjusting for group and CCI
-    cph.fit(df_matched,
-            duration_col='duration',
-            event_col='is_complication',
-            strata=['MatchID'],
-            formula="group_tvp + CCI") # CCI is added as a covariate
+    # Fit the model using only the CCI variable
+    cph_unadj_cci.fit(df_matched,
+                      duration_col='duration',
+                      event_col='is_complication',
+                      strata=['MatchID'],
+                      formula="CCI") # ✅ Note: Only CCI is included
 
-    print("\n--- Adjusted Stratified Cox Model Results ---")
-    cph.print_summary()
+    print("\n--- Unadjusted Stratified Cox Model Results for CCI ---")
+    cph_unadj_cci.print_summary()
 
-    # Extract key results for a clean summary
-    # Note: We are interested in the HR for the group variable
-    hr_adj = cph.summary.loc['group_tvp', 'exp(coef)']
-    p_value_adj = cph.summary.loc['group_tvp', 'p']
-    ci_lower_adj = cph.summary.loc['group_tvp', 'exp(coef) lower 95%']
-    ci_upper_adj = cph.summary.loc['group_tvp', 'exp(coef) upper 95%']
+    # Extract key results for CCI
+    hr_unadj_cci = cph_unadj_cci.summary.loc['CCI', 'exp(coef)']
+    p_value_unadj_cci = cph_unadj_cci.summary.loc['CCI', 'p']
+    ci_lower_unadj_cci = cph_unadj_cci.summary.loc['CCI', 'exp(coef) lower 95%']
+    ci_upper_unadj_cci = cph_unadj_cci.summary.loc['CCI', 'exp(coef) upper 95%']
 
-    print("\n--- Summary of Findings ---")
-    print(f"Adjusted Hazard Ratio (aHR) for TVP vs LP (adjusting for CCI):")
-    print(f"aHR = {hr_adj:.2f} (95% CI: {ci_lower_adj:.2f}-{ci_upper_adj:.2f})")
-    print(f"P-value: {p_value_adj:.3f}")
+    print("\n--- Summary of Unadjusted Findings for CCI ---")
+    print(f"Unadjusted Hazard Ratio (uHR) for each one-point increase in CCI:")
+    print(f"uHR = {hr_unadj_cci:.2f} (95% CI: {ci_lower_unadj_cci:.2f}-{ci_upper_unadj_cci:.2f}), P-value: {p_value_unadj_cci:.3f}")
 
 except Exception as e:
-    print(f"\nCould not fit the model. Error: {e}")
+    print(f"\nCould not fit the unadjusted CCI model. Error: {e}")
+
+
+# ============================================================================
+# PART 2C: ADJUSTED MODEL (group_tvp + CCI)
+# ============================================================================
+
+print("\n" + "="*80)
+print("      ADJUSTED STRATIFIED MODEL (Adjusting for CCI)")
+print("="*80)
+
+cph_adj = CoxPHFitter()
+cph_adj.fit(df_matched,
+              duration_col='duration',
+              event_col='is_complication',
+              strata=['MatchID'],
+              formula="group_tvp + CCI")
+
+print("\n--- Adjusted Stratified Cox Model Results ---")
+cph_adj.print_summary()
+
+hr_adj = cph_adj.summary.loc['group_tvp', 'exp(coef)']
+p_value_adj = cph_adj.summary.loc['group_tvp', 'p']
+ci_lower_adj = cph_adj.summary.loc['group_tvp', 'exp(coef) lower 95%']
+ci_upper_adj = cph_adj.summary.loc['group_tvp', 'exp(coef) upper 95%']
+
+print("\n--- Summary of Adjusted Findings ---")
+print(f"Adjusted Hazard Ratio (aHR) for TVP vs LP (adjusting for CCI):")
+print(f"aHR = {hr_adj:.2f} (95% CI: {ci_lower_adj:.2f}-{ci_upper_adj:.2f}), P-value: {p_value_adj:.3f}")

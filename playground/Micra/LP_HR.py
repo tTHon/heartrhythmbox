@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from lifelines import CoxPHFitter
+import matplotlib.pyplot as plt
 
 # ----------------------------------------------------
 # 1. DATA LOADING AND PREPROCESSING
@@ -8,7 +9,7 @@ from lifelines import CoxPHFitter
 try:
     df = pd.read_csv('playground/Micra/LPBaseline.csv')
 except FileNotFoundError:
-    print("Error: The file 'playground/Micra/LP_events.csv' was not found.")
+    print("Error: The file 'playground/Micra/LPBaseline.csv' was not found.")
     exit()
 
 # Standard preprocessing steps
@@ -28,9 +29,6 @@ print("-" * 50)
 # For the Cause-Specific model of complications, we treat death as a censored event.
 df['event_for_comp_model'] = (df['status'] == 1).astype(int)
 
-# Analyzes the composite of complications OR death
-#df['event_for_comp_model'] = ((df['status'] == 1) | (df['status'] == 2)).astype(int)
-
 # ----------------------------------------------------
 # 3. HELPER FUNCTION FOR DESCRIPTIVE STATISTICS
 # ----------------------------------------------------
@@ -48,7 +46,7 @@ def get_descriptive_stats(data, variable):
     is_categorical = (
         var_data.dtype == 'object' or 
         var_data.dtype.name == 'category' or
-        len(var_data.unique()) <= 10  # Assuming ≤10 unique values means categorical
+        len(var_data.unique()) <= 10 
     )
     
     if is_categorical:
@@ -82,17 +80,16 @@ print(df.columns.tolist())
 
 # **IMPORTANT**: Replace these with your actual variable names.
 variables_to_analyze = [
-    'Age',           # Example continuous variable
-    'BSA',           # Example continuous variable
-    'lowBSA',        # Example binary categorical variable
-    'Sex',           # Example binary categorical variable
-    'CKD',         # Example multi-level categorical variable
-    'CCI','CCISev','HTN','MI','CHF','AF','Dementia','PAD','Position','BMI'
+    'Age',
+    'BSA',
+    'BMI',
+    'Sex',
+    'CCI',
+    'CKD'
 ]
 
 print(f"\nVariables to analyze: {variables_to_analyze}")
 
-# Check which variables exist in the dataset
 existing_variables = [var for var in variables_to_analyze if var in df.columns]
 missing_variables = [var for var in variables_to_analyze if var not in df.columns]
 
@@ -103,7 +100,6 @@ if missing_variables:
 # ----------------------------------------------------
 # 5. UNIVARIATE CAUSE-SPECIFIC ANALYSIS LOOP
 # ----------------------------------------------------
-# Create an empty list to store the results from each model
 all_results = []
 failed_analyses = []
 
@@ -111,10 +107,9 @@ print("\n" + "="*80)
 print("## Running Univariate Cause-Specific Models for Complications ##")
 print("="*80)
 
-for variable in existing_variables:  # Only analyze existing variables
+for variable in existing_variables:
     print(f"\n--- Analyzing Risk Factor: {variable} ---")
     
-    # Check for missing data
     total_rows = len(df)
     missing_count = df[variable].isna().sum()
     print(f"Total rows: {total_rows}, Missing values in {variable}: {missing_count}")
@@ -135,29 +130,37 @@ for variable in existing_variables:  # Only analyze existing variables
         failed_analyses.append({'variable': variable, 'reason': 'No events to analyze'})
         continue
 
-    # Get descriptive statistics for this variable
     descriptive_stats = get_descriptive_stats(analysis_df, variable)
     print(f"Descriptive stats: {descriptive_stats}")
     
     try:
+        if analysis_df[variable].dtype == 'object' or analysis_df[variable].dtype.name == 'category':
+            analysis_df = pd.get_dummies(analysis_df, columns=[variable], drop_first=True)
+            dummy_cols = [col for col in analysis_df.columns if col.startswith(f'{variable}_')]
+            if len(dummy_cols) > 0:
+                formula = dummy_cols[0]
+                plot_name = f"{variable} ({dummy_cols[0]})"
+            else:
+                raise ValueError("No dummy variable created for the categorical variable.")
+        else:
+            formula = variable
+            plot_name = variable
+        
         cph = CoxPHFitter()
         cph.fit(analysis_df,
                 duration_col='duration',
                 event_col='event_for_comp_model',
-                formula=variable)
+                formula=formula)
 
         print(f"Model fitted successfully. Summary shape: {cph.summary.shape}")
         
-        # For multi-level categorical variables, lifelines creates multiple rows.
-        # This code will add a result for each level compared to the baseline.
         for idx, row in cph.summary.iterrows():
             result = {
-                'Risk Factor': idx,
+                'Risk Factor': plot_name,
                 'Descriptive Statistics': descriptive_stats,
                 'N': len(analysis_df),
                 'Events': analysis_df['event_for_comp_model'].sum(),
                 'Hazard Ratio (HR)': row['exp(coef)'],
-                # CORRECTED: Changed '0.95' to '95%' to match the new lifelines version
                 '95% CI Lower': row['exp(coef) lower 95%'],
                 '95% CI Upper': row['exp(coef) upper 95%'],
                 'p-value': row['p']
@@ -171,113 +174,169 @@ for variable in existing_variables:  # Only analyze existing variables
 
 print(f"\nCompleted analysis. Total results collected: {len(all_results)}")
 
-# Report failed analyses
 if failed_analyses:
     print(f"\nFailed analyses: {len(failed_analyses)}")
     for failure in failed_analyses:
-        print(f"  - {failure['variable']}: {failure['reason']}")
+        print(f" - {failure['variable']}: {failure['reason']}")
 
-# Debug: Print all collected results before processing
-print(f"\nDEBUG: All collected results:")
-for i, result in enumerate(all_results):
-    print(f"Result {i+1}: {result['Risk Factor']}")
-
-# ----------------------------------------------------
-# 6. COMBINE AND PRINT THE FINAL RESULTS TABLE
-# ----------------------------------------------------
 print("\n" + "="*100)
-print("### Consolidated Summary of Univariate Cause-Specific Analyses with Descriptive Statistics ###")
+print("### Consolidated Summary of Univariate Cause-Specific Analyses ###")
 print("="*100)
 
 if not all_results:
     print("No results were generated.")
-    print("DEBUG: Possible reasons:")
-    print("1. All variables missing from dataset")
-    print("2. All variables have no events (complications)")
-    print("3. All models failed to converge")
-    print("4. Data preprocessing removed all observations")
 else:
-    print(f"Processing {len(all_results)} results...")
-    
-    # Convert the list of dictionaries to a pandas DataFrame
     results_df = pd.DataFrame(all_results)
     
-    print(f"Results DataFrame shape: {results_df.shape}")
-    print(f"Results DataFrame columns: {results_df.columns.tolist()}")
+    results_df['Hazard Ratio (HR)'] = pd.to_numeric(results_df['Hazard Ratio (HR)'], errors='coerce')
+    results_df['95% CI Lower'] = pd.to_numeric(results_df['95% CI Lower'], errors='coerce')
+    results_df['95% CI Upper'] = pd.to_numeric(results_df['95% CI Upper'], errors='coerce')
+    results_df['p-value'] = pd.to_numeric(results_df['p-value'], errors='coerce')
     
-    # Check for any missing values in key columns
-    print("Checking for missing values in results:")
-    print(results_df.isnull().sum())
+    print("\n" + "="*100)
+    print("### Creating Forest Plot for Visualization ###")
+    print("="*100)
+
+    plot_df = results_df.dropna(subset=['Hazard Ratio (HR)', '95% CI Lower', '95% CI Upper']).copy()
+    plot_df = plot_df.sort_values(by='Hazard Ratio (HR)', ascending=True)
+
+    if not plot_df.empty:
+        fig, ax = plt.subplots(figsize=(10, 8))
+        
+        line_color = '#1f77b4'
+        marker_color = '#ff7f0e'
+        ref_line_color = 'gray'
+        
+        ax.hlines(y=plot_df['Risk Factor'], xmin=plot_df['95% CI Lower'], xmax=plot_df['95% CI Upper'],
+                  color=line_color, linestyle='-', linewidth=2, alpha=0.8, label='95% CI')
+        
+        ax.scatter(plot_df['Hazard Ratio (HR)'], plot_df['Risk Factor'], color=marker_color, zorder=3,
+                   s=100, marker='o', edgecolors='black', linewidth=0.8, label='Hazard Ratio')
+        
+        ax.axvline(x=1, color=ref_line_color, linestyle='--', linewidth=1.5, alpha=0.7, label='No Effect (HR=1)')
+        
+        ax.set_xscale('log')
+        
+        x_ticks = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20]
+        ax.set_xticks(x_ticks)
+        ax.set_xticklabels([str(t) for t in x_ticks])
+
+        ax.set_xlabel('Hazard Ratio (Log Scale)', fontsize=12, fontweight='bold')
+        ax.set_ylabel('Risk Factor', fontsize=12, fontweight='bold')
+        ax.set_title('Forest Plot of Univariate Cox Regression Results', fontsize=16, fontweight='bold', pad=20)
+        
+        ax.grid(axis='x', linestyle=':', alpha=0.6)
+        
+        for i, row in plot_df.iterrows():
+            hr_text = f"HR: {row['Hazard Ratio (HR)']:.2f}"
+            p_text = f"p: {row['p-value']:.3f}"
+            text = f"{hr_text}, {p_text}"
+            ax.text(row['95% CI Upper'] * 1.05, row['Risk Factor'], text,
+                    va='center', ha='left', fontsize=9, color='darkgreen')
+        
+        plt.tight_layout()
+        plt.show()
+        #plt.savefig('cox_forest_plot.png', dpi=300)
+        #print("Forest plot has been generated and saved as 'cox_forest_plot.png'.")
+    else:
+        print("Could not generate plot. No valid data to plot.")
+
+    # ----------------------------------------------------
+    # 7. COMBINE AND PRINT THE FINAL RESULTS TABLE
+    # ----------------------------------------------------
+    results_df['95% CI'] = results_df.apply(lambda row: f"({row['95% CI Lower']:.3f} - {row['95% CI Upper']:.3f})", axis=1)
     
-    try:
-        # Format the DataFrame for better readability
-        results_df['Hazard Ratio (HR)'] = pd.to_numeric(results_df['Hazard Ratio (HR)'], errors='coerce').round(3)
-        results_df['95% CI Lower'] = pd.to_numeric(results_df['95% CI Lower'], errors='coerce')
-        results_df['95% CI Upper'] = pd.to_numeric(results_df['95% CI Upper'], errors='coerce')
-        results_df['95% CI'] = results_df.apply(lambda row: f"({row['95% CI Lower']:.3f} - {row['95% CI Upper']:.3f})" 
-                                              if pd.notna(row['95% CI Lower']) and pd.notna(row['95% CI Upper']) 
-                                              else "N/A", axis=1)
-        results_df['p-value'] = pd.to_numeric(results_df['p-value'], errors='coerce').round(4)
-        
-        # Drop the now redundant lower and upper CI columns
-        results_df.drop(columns=['95% CI Lower', '95% CI Upper'], inplace=True)
-        
-        # Reorder columns for better presentation
-        available_columns = results_df.columns.tolist()
-        desired_order = ['Risk Factor', 'Descriptive Statistics', 'N', 'Events', 'Hazard Ratio (HR)', '95% CI', 'p-value']
-        column_order = [col for col in desired_order if col in available_columns]
-        results_df = results_df[column_order]
-        
-        print(f"Final results DataFrame shape: {results_df.shape}")
-        
-        # Print the table with better formatting
-        pd.set_option('display.max_columns', None)
-        pd.set_option('display.width', None)
-        pd.set_option('display.max_colwidth', 80)
-        pd.set_option('display.max_rows', None)
-
-        # Select and reorder columns for the final table
-        #final_columns = ['Risk Factor', 'Descriptive Statistics', 'N', 'Events', 'Hazard Ratio (HR)', '95% CI', 'p-value']
-        final_columns = ['Risk Factor', 'Hazard Ratio (HR)', '95% CI', 'p-value']
-        results_df = results_df[final_columns]
-
-        # --- NEW CODE FOR MARKDOWN OUTPUT ---
-        # Use the .to_markdown() method to print a clean table
-        print(results_df.to_markdown(index=False))
-            
-        # Option 1: Print without setting index (to see all rows clearly)
-        #print("\n### RESULTS TABLE (All Rows) ###")
-        #print(results_df.to_string(index=False))
-        
-        # Option 2: Also print with index for comparison
-        #print("\n### RESULTS TABLE (With Risk Factor as Index) ###")
-        #results_df_indexed = results_df.set_index('Risk Factor')
-        #print(results_df_indexed.to_string())
-        
-    except Exception as e:
-        print(f"ERROR in formatting results: {e}")
-        print("Raw results DataFrame:")
-        print(results_df)
-
-# ----------------------------------------------------
-# 7. ADDITIONAL SUMMARY STATISTICS
-# ----------------------------------------------------
-print("\n" + "="*100)
-print("### Overall Dataset Summary ###")
-print("="*100)
-
-total_patients = len(df)
-total_events = df['event_for_comp_model'].sum()
-event_rate = (total_events / total_patients) * 100
-
-print(f"Total patients in analysis: {total_patients}")
-print(f"Total complications (events): {total_events}")
-print(f"Complication rate: {event_rate:.1f}%")
-
-if 'duration' in df.columns:
-    median_followup = df['duration'].median()
-    iqr_followup = f"{df['duration'].quantile(0.25):.1f}-{df['duration'].quantile(0.75):.1f}"
-    print(f"Median follow-up time: {median_followup:.1f} (IQR: {iqr_followup})")
+    final_columns = ['Risk Factor', 'Descriptive Statistics', 'N', 'Events', 'Hazard Ratio (HR)', '95% CI', 'p-value']
+    results_df = results_df[final_columns]
+    
+    print("\n" + "="*100)
+    print("### Final Results Table ###")
+    print("="*100)
+    print(results_df.to_markdown(index=False))
 
 print("\n" + "="*100)
 print("Analysis complete.")
+
+# ----------------------------------------------------
+# 8. COMPARISON OF RISK FACTORS BY EVENT STATUS
+# ----------------------------------------------------
+print("\n" + "="*100)
+print("### Comparison of Risk Factors: With vs. Without Events ###")
+print("="*100)
+
+comparison_results = []
+
+# Get the two groups
+df_no_event = df[df['event_for_comp_model'] == 0]
+df_event = df[df['event_for_comp_model'] == 1]
+
+n_no_event = len(df_no_event)
+n_event = len(df_event)
+print(f"Total patients without events: {n_no_event}")
+print(f"Total patients with events: {n_event}")
+print("-" * 50)
+
+for variable in existing_variables:
+    # Ensure there's data for comparison
+    if df_no_event[variable].isnull().all() or df_event[variable].isnull().all():
+        comparison_results.append({
+            'Risk Factor': variable,
+            'No Event (N)': 'N/A',
+            'Event (N)': 'N/A',
+            'Value (No Event)': 'Insufficient Data',
+            'Value (Event)': 'Insufficient Data'
+        })
+        continue
+    
+    # Check if the variable is categorical or continuous
+    is_categorical = (
+        df[variable].dtype == 'object' or
+        len(df[variable].dropna().unique()) <= 10
+    )
+
+    if is_categorical:
+        # Categorical data: count and percentage
+        no_event_counts = df_no_event[variable].value_counts(normalize=True).mul(100).round(1).sort_index()
+        event_counts = df_event[variable].value_counts(normalize=True).mul(100).round(1).sort_index()
+        
+        no_event_str = "; ".join([f"{v}: {c:.1f}% ({df_no_event[variable].value_counts()[v]})" for v, c in no_event_counts.items()])
+        event_str = "; ".join([f"{v}: {c:.1f}% ({df_event[variable].value_counts()[v]})" for v, c in event_counts.items()])
+        
+        comparison_results.append({
+            'Risk Factor': variable,
+            'Value (No Event)': no_event_str,
+            'Value (Event)': event_str,
+            'No Event (N)': len(df_no_event[variable].dropna()),
+            'Event (N)': len(df_event[variable].dropna())
+        })
+    else:
+        # Continuous data: mean ± SD and median (IQR)
+        no_event_mean = df_no_event[variable].mean()
+        no_event_std = df_no_event[variable].std()
+        no_event_median = df_no_event[variable].median()
+        no_event_q25, no_event_q75 = df_no_event[variable].quantile([0.25, 0.75])
+        
+        event_mean = df_event[variable].mean()
+        event_std = df_event[variable].std()
+        event_median = df_event[variable].median()
+        event_q25, event_q75 = df_event[variable].quantile([0.25, 0.75])
+        
+        no_event_str = f"Mean: {no_event_mean:.2f} ± {no_event_std:.2f}; Med: {no_event_median:.2f} ({no_event_q25:.2f}-{no_event_q75:.2f})"
+        event_str = f"Mean: {event_mean:.2f} ± {event_std:.2f}; Med: {event_median:.2f} ({event_q25:.2f}-{event_q75:.2f})"
+        
+        comparison_results.append({
+            'Risk Factor': variable,
+            'Value (No Event)': no_event_str,
+            'Value (Event)': event_str,
+            'No Event (N)': len(df_no_event[variable].dropna()),
+            'Event (N)': len(df_event[variable].dropna())
+        })
+
+# Create the final comparison DataFrame
+comparison_df = pd.DataFrame(comparison_results)
+
+# Print the final comparison table in Markdown format
+print(comparison_df.to_markdown(index=False))
+
+print("\n" + "="*100)
+print("Comparison table created successfully.")

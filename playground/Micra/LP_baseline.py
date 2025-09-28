@@ -23,7 +23,7 @@ def summarize_categorical(series):
     return "; ".join([f"{idx}: {val} ({val/total*100:.1f}%)" for idx, val in counts.items()])
 
 #continuous_vars = ["Age", "Weight", "Height", "BSAYu","CCI","T2FU","CKD"]
-continuous_vars = ["CCI"]
+continuous_vars = ["BMI"]
 #categorical_vars = ["Sex", "MI","PCI/CABG","CHF","PAD","CVA","Dementia","COPD","CNT","PU","Liver","DM","CKD","Malignancy","TV","SigValve","AF","HTN","CCISev","Antiplatelet","OAC","Access","Position","Model","Hemostasis"] 
 
 #categorical_vars = ["IndicationPPM","IndicationforMicra","AcuteCom","ChronicCom",'Death'] 
