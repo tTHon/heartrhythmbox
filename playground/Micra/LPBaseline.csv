@@ -1,60 +1,60 @@
-﻿Age,Sex,BSA,lowBSA,Weight,cm,Height,MI,PCI/CABG,CHF,PAD,CVA,Dementia,COPD,CNT,PU,Liver,DM,CKD,Malignancy,TV,SigValve,AF,HTN,CCI,CCISev,Antiplatelet,OAC,IndicationPPM,IndicationforMicra,Access,Position,Model,Hemostasis,T2FU,AcuteCom,Death,ChronicCom,composite,T2FU,AnyEvents,T2Events
-54,F,1.3,1,45,148,1.48,0,No,0,0,No,0,0,0,0,Mild,EndOrgan,5,No,None/Mild,None,0,1,6,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,1944,0,0,0,0,1944,0,1944
-77,F,1.44,1,53.9,151.4,1.514,0,No,0,0,No,0,0,0,0,No,Mild,2,Solid w/o Met,None/Mild,None,0,1,6,1,None,None,AVB,Infection Risk,RFV,Mid2High,VR1,Manual Only,2956,0,0,0,0,2956,0,2956
-80,M,1.64,0,62,172,1.72,0,No,0,0,Stroke/TIA,0,0,0,1,No,Mild,2,No,None/Mild,None,1,1,7,1,None,NOAC,SSS,Infection Risk,LFV,ApicalSeptal,VR1,Manual Only,3072,0,0,1,1,3072,1,1093
-70,M,1.51,0,58.2,155,1.55,1,CABG,0,0,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,9,1,Single,None,AVB,Access & Infection,RFV,ApicalSeptal,VR1,Manual Only,1072,0,0,0,0,1072,0,1072
-83,M,,,0,0,0,0,No,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,0,6,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,2636,0,1,0,1,2636,2,2636
-84,F,,,0,0,0,0,No,0,0,No,1,0,0,0,No,No,2,No,None/Mild,None,0,0,5,1,None,None,AVB,Infection Risk,RFV,ApicalSeptal,VR1,Closure Device,7,0,0,0,0,7,0,7
-83,M,,,0,0,0,0,No,0,1,No,0,0,0,0,No,No,5,No,None/Mild,None,0,0,7,1,None,None,SSS,Limited Access,RFV,Mid2High,VR1,Manual Only,7,0,0,0,0,7,0,7
-60,M,1.61,0,62,165,1.65,0,No,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,1,6,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,581,0,0,0,0,581,0,581
-83,M,1.85,0,75,180,1.8,1,PCI,1,1,No,0,0,0,1,No,No,5,No,None/Mild,None,1,1,10,1,Single,VKA,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,775,0,0,0,0,775,0,775
-80,F,1.3,1,44.5,150,1.5,1,PCI,0,0,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,1,1,10,1,Dual,VKA,AVB,Limited Access,LFV,Mid2High,VR1,Manual Only,808,0,0,0,0,808,0,808
-66,M,1.59,0,63,158,1.58,0,No,1,0,No,0,0,0,0,No,No,4,No,Mod/Sev,Tricuspid,1,1,5,1,None,None,SSS,Infection Risk,RFV,Mid2High,VR1,Manual Only,7,0,0,0,0,7,0,7
-70,F,,,0,0,0,1,CABG,1,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,7,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,7,0,0,0,0,7,0,7
-74,F,1.44,1,56,147,1.47,1,CABG,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,6,1,Dual,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,240,0,0,0,0,240,0,240
-83,M,,,0,0,0,0,No,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,1,6,1,None,VKA,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,7,0,0,0,0,7,0,7
-68,F,1.28,1,43,150,1.5,0,No,1,0,No,0,0,0,0,No,No,5,No,Surgery,Multiple,1,0,5,1,Single,VKA,SSS,Access & Infection,,Mid2High,VR1,Manual Only,302,0,1,0,1,302,2,302
-68,M,1.94,0,88,168,1.68,0,No,0,1,Stroke/TIA,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,1,1,9,1,None,VKA,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,498,0,1,0,1,498,2,498
-82,F,1.35,1,47,152,1.52,0,No,1,1,Hemiplegia,0,0,0,0,No,No,5,No,None/Mild,None,1,1,10,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,7,0,0,0,0,7,0,7
-82,M,1.33,1,42.5,165,1.65,1,No,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,7,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,100,0,1,0,1,100,2,100
-79,F,1.461,0,55,153,1.53,0,No,1,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,1,8,1,Single,None,SSS,Limited Access,LFV,ApicalSeptal,VR1,Manual Only,82,0,1,0,1,82,2,82
-79,M,1.96,0,84,180,1.8,0,No,1,0,No,0,0,0,1,No,Mild,2,No,None/Mild,None,1,1,6,1,None,NOAC,AVB,Limited Access,RFV,ApicalSeptal,VR1,Closure Device,2248,0,0,0,0,2248,0,2248
-91,M,1.62,0,63,165,1.65,1,PCI,0,1,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,11,1,None,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,2175,0,1,0,1,2175,2,2175
-83,M,1.31,1,45,150,1.5,0,No,0,0,Hemiplegia,1,0,0,1,No,EndOrgan,5,No,None/Mild,None,1,1,12,1,None,VKA,SSS,Limited Access,RFV,Mid2High,VR1,Manual Only,408,0,1,0,1,408,2,408
-66,F,1.8,0,79.1,162,1.62,1,CABG,0,0,No,0,0,0,0,No,Mild,3,Solid w/o Met,None/Mild,Aortic,1,1,6,1,Single,VKA,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,2229,0,0,0,0,2229,0,2229
-77,F,1.3,1,44,152,1.52,0,No,0,0,Hemiplegia,0,0,0,0,No,Mild,2,No,Mod/Sev,Tricuspid,1,1,6,1,Single,VKA,AVB,post TV intervention,RFV,ApicalSeptal,VR1,Manual Only,2225,0,0,0,0,2225,0,2225
-60,F,1.424,1,51,156.7,1.567,0,No,1,1,Stroke/TIA,0,0,0,0,No,No,5,No,None/Mild,None,1,0,7,1,None,VKA,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,12,1,0,0,1,12,1,0
-89,F,1.485,0,58,150,1.5,0,No,0,0,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,9,1,Single,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,1577,0,1,0,1,1577,2,1577
-63,F,1.372,1,45,165,1.65,1,No,0,0,Hemiplegia,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,10,1,Dual,VKA,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,314,0,0,0,0,314,0,314
-83,M,1.612,0,61,168,1.68,1,PCI,1,0,No,0,0,0,0,No,Mild,3,No,None/Mild,None,1,1,7,1,Single,VKA,AVB,High Comorbidities,RFV,ApicalSeptal,VR1,Manual Only,2128,0,0,0,0,2128,0,2128
-74,F,1.649,0,65,165,1.65,0,No,1,0,No,0,0,0,0,No,EndOrgan,5,No,Mod/Sev,Tricuspid,1,0,8,1,None,VKA,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,2135,0,0,0,0,2135,0,2135
-73,M,1.604,0,60,169,1.69,1,CABG,1,1,No,0,0,0,0,No,No,5,No,Mod/Sev,Aortic,0,0,8,1,Single,None,AVB,Limited Access,LFV,Mid2High,VR1,Manual Only,158,0,1,0,1,158,2,158
-82,F,1.346,1,47,152,1.52,1,CABG,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,1,7,1,None,VKA,AVB,Limited Access,LFV,Mid2High,VR1,Manual Only,47,0,0,0,0,47,0,47
-64,M,1.861,0,78,175,1.75,1,CABG,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,0,7,1,Single,None,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,1556,0,0,0,0,1556,0,1556
-71,M,1.521,0,57,160,1.6,1,PCI,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,6,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,7,0,0,0,0,7,0,7
-81,F,1.281,1,42,154,1.54,0,No,1,0,No,0,1,1,1,No,No,5,No,Mod/Sev,Tricuspid,1,0,10,1,None,VKA,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,114,1,1,0,1,114,1,5
-87,F,1.266,1,40,158,1.58,0,No,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,1,1,8,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,820,0,0,0,0,820,0,820
-40,M,1.654,0,62.8,171.8,1.718,0,No,0,0,No,0,0,0,0,No,No,5,Blood,Mod/Sev,Multiple,1,1,4,0,Dual,VKA,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,1405,0,0,0,0,1405,0,1405
-18,F,1.388,1,46.9,162,1.62,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,0,0,0,0,None,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,1419,0,0,0,0,1419,0,1419
-88,F,1.25,1,40,154,1.54,1,PCI,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,1,9,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,AV1,Manual Only,1374,0,0,0,0,1374,0,1374
-91,F,1.42,1,53,150,1.5,0,No,0,0,Hemiplegia,1,0,0,0,No,Mild,2,No,None/Mild,None,1,1,8,1,None,None,AVB,High Comorbidities,RFV,ApicalSeptal,VR1,FigOf8,968,0,0,0,0,968,0,968
-90,M,1.624,0,63,165,1.65,0,No,0,0,No,0,0,0,0,No,No,3,No,None/Mild,None,0,1,4,0,None,None,SSS,High Comorbidities,RFV,ApicalSeptal,VR1,Manual Only,957,0,0,0,0,957,0,957
-88,M,1.285,1,42,155,1.55,0,No,0,0,No,0,0,0,0,No,No,2,No,Mod/Sev,Tricuspid,1,0,4,0,None,NOAC,AVB,post TV intervention,RFV,ApicalSeptal,VR1,FigOf8,734,0,0,0,0,734,0,734
-61,M,1.664,0,67,163,1.63,1,PCI,0,0,No,0,0,1,0,No,No,1,No,None/Mild,None,0,1,4,0,Dual,None,AVB,Patient Preference,RFV,Mid2High,AV1,Closure Device,753,1,0,0,1,753,1,0
-67,F,1.393,1,51,150,1.5,0,No,1,0,No,0,0,0,0,No,No,1,Solid w/o Met,Mod/Sev,Mitral,1,0,5,1,None,VKA,AVB,Infection Risk,RFV,Mid2High,VR1,Closure Device,727,0,0,0,0,727,0,727
-73,F,1.711,0,74,156,1.56,0,No,0,0,No,0,0,0,1,No,Mild,4,No,None/Mild,None,1,1,7,1,None,NOAC,SSS,Patient Preference,RFV,Mid2High,AV1,Manual Only,743,0,0,0,0,743,0,743
-73,F,1.352,1,51.5,140,1.4,0,No,1,0,No,1,0,0,0,No,No,2,No,None/Mild,None,0,1,5,1,None,None,AVB,High Comorbidities,RFV,Mid2High,AV1,Manual Only,733,1,0,0,1,733,1,2
-61,F,1.258,1,40.8,153,1.53,0,No,1,0,No,0,0,0,0,No,No,2,No,Mod/Sev,Multiple,1,0,3,0,None,VKA,AVB,Infection Risk,RFV,Mid2High,VR1,Manual Only,27,0,1,0,1,27,2,27
-79,M,1.531,0,58.5,158,1.58,0,No,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,0,0,3,0,None,None,AVB,Patient Preference,RFV,Mid2High,AV1,Manual Only,656,0,0,0,0,656,0,656
-88,M,1.765,0,71,173,1.73,0,No,0,0,Hemiplegia,0,0,0,0,No,Mild,2,No,None/Mild,None,0,1,7,1,Dual,None,AVB,Patient Preference,RFV,ApicalSeptal,AV1,Manual Only,552,0,0,0,0,552,0,552
-80,F,1.712,0,68,170,1.7,0,No,0,0,Stroke/TIA,1,0,0,0,No,No,2,No,None/Mild,None,1,1,6,1,None,NOAC,AVB,High Comorbidities,RFV,ApicalSeptal,VR1,FigOf8,481,0,0,0,0,481,0,481
-82,M,1.357,1,44,165,1.65,0,No,1,0,No,0,0,0,0,No,EndOrgan,5,Solid w/o Met,None/Mild,None,1,1,11,1,None,None,AVB,Limited Access,RFV,ApicalSeptal,AV1,Manual Only,43,0,0,0,0,43,0,43
-70,F,1.359,1,47,155,1.55,0,No,1,0,No,1,0,0,0,No,EndOrgan,5,Solid w/o Met,None/Mild,None,1,1,11,1,None,None,SSS,Limited Access,RFV,Mid2High,AV1,Manual Only,419,0,0,0,0,419,0,419
-86,M,1.554,0,57,167,1.67,0,No,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,1,1,4,0,None,NOAC,SSS,Patient Preference,RFV,Mid2High,AV1,FigOf8,276,0,0,0,0,276,0,276
-90,F,1.497,0,57,155,1.55,0,No,1,0,No,1,0,0,0,No,No,2,No,None/Mild,None,1,1,6,1,None,NOAC,Both,High Comorbidities,RFV,Mid2High,AV1,Manual Only,368,0,0,0,0,368,0,368
-85,M,1.541,0,60,156,1.56,1,PCI,0,0,No,0,0,0,1,No,No,5,No,Mod/Sev,Tricuspid,1,1,8,1,Single,None,SSS,Limited Access,RFV,Mid2High,VR1,FigOf8,170,0,1,0,1,170,2,170
-91,F,1.146,1,35,148,1.48,1,PCI,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,0,0,5,1,Dual,NOAC,SSS,High Comorbidities,RFV,Mid2High,VR1,FigOf8,13,0,0,0,0,13,0,13
-70,M,1.499,0,55,161,1.61,1,PCI,0,0,No,0,0,0,0,Mod/Sev,No,2,No,None/Mild,None,1,1,7,1,None,VKA,SSS,Patient Preference,RFV,Mid2High,VR2,FigOf8,188,0,0,0,0,188,0,188
-74,M,1.788,0,70,180,1.8,0,No,0,1,No,0,0,0,0,No,Mild,2,No,None/Mild,None,0,0,5,1,Single,None,AVB,Infection Risk,RFV,ApicalSeptal,AV2,FigOf8,33,0,0,0,0,33,0,33
-68,F,1.29,1,41,160,1.6,0,No,1,0,No,0,0,0,0,Mild,No,5,Solid w Met,Mod/Sev,Tricuspid,0,0,12,1,None,None,SSS,Limited Access,RFV,Mid2High,AV2,FigOf8,21,0,1,0,1,21,2,21
-82,F,1.471,0,54,158,1.58,1,PCI,0,0,No,1,0,0,1,No,Mild,2,No,None/Mild,Aortic,0,1,8,1,Dual,None,AVB,High Comorbidities,RFV,Mid2High,AV2,Closure Device,46,0,0,0,0,46,0,46
+﻿Age,Sex,BSA,lowBSA,Weight,cm,BMI,Height,MI,PCI/CABG,CHF,PAD,CVA,Dementia,COPD,CNT,PU,Liver,DM,CKD,Malignancy,TV,SigValve,AF,HTN,CCI,CCISev,Antiplatelet,OAC,IndicationPPM,IndicationforMicra,Access,Position,Model,Hemostasis,T2FU,AcuteCom,Death,ChronicCom,composite,T2FU,AnyEvents,T2Events
+54,F,1.3,1,45,148,20.54419284,1.48,0,No,0,0,No,0,0,0,0,Mild,EndOrgan,5,No,None/Mild,None,0,1,6,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,1944,0,0,0,0,1944,0,1944
+77,F,1.44,1,53.9,151.4,23.51456856,1.514,0,No,0,0,No,0,0,0,0,No,Mild,2,Solid w/o Met,None/Mild,None,0,1,6,1,None,None,AVB,Infection Risk,RFV,Mid2High,VR1,Manual Only,2956,0,0,0,0,2956,0,2956
+80,M,1.64,0,62,172,20.9572742,1.72,0,No,0,0,Stroke/TIA,0,0,0,1,No,Mild,2,No,None/Mild,None,1,1,7,1,None,NOAC,SSS,Infection Risk,LFV,ApicalSeptal,VR1,Manual Only,3072,0,0,1,1,3072,1,1093
+70,M,1.51,0,58.2,155,24.22476587,1.55,1,CABG,0,0,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,9,1,Single,None,AVB,Access & Infection,RFV,ApicalSeptal,VR1,Manual Only,1072,0,0,0,0,1072,0,1072
+83,M,,,0,0,,0,0,No,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,0,6,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,2636,0,1,0,1,2636,2,2636
+84,F,,,0,0,,0,0,No,0,0,No,1,0,0,0,No,No,2,No,None/Mild,None,0,0,5,1,None,None,AVB,Infection Risk,RFV,ApicalSeptal,VR1,Closure Device,7,0,0,0,0,7,0,7
+83,M,,,0,0,,0,0,No,0,1,No,0,0,0,0,No,No,5,No,None/Mild,None,0,0,7,1,None,None,SSS,Limited Access,RFV,Mid2High,VR1,Manual Only,7,0,0,0,0,7,0,7
+60,M,1.61,0,62,165,22.77318641,1.65,0,No,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,1,6,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,581,0,0,0,0,581,0,581
+83,M,1.85,0,75,180,23.14814815,1.8,1,PCI,1,1,No,0,0,0,1,No,No,5,No,None/Mild,None,1,1,10,1,Single,VKA,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,775,0,0,0,0,775,0,775
+80,F,1.3,1,44.5,150,19.77777778,1.5,1,PCI,0,0,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,1,1,10,1,Dual,VKA,AVB,Limited Access,LFV,Mid2High,VR1,Manual Only,808,0,0,0,0,808,0,808
+66,M,1.59,0,63,158,25.23634033,1.58,0,No,1,0,No,0,0,0,0,No,No,4,No,Mod/Sev,Tricuspid,1,1,5,1,None,None,SSS,Infection Risk,RFV,Mid2High,VR1,Manual Only,7,0,0,0,0,7,0,7
+70,F,,,0,0,,0,1,CABG,1,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,7,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,7,0,0,0,0,7,0,7
+74,F,1.44,1,56,147,25.91512796,1.47,1,CABG,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,6,1,Dual,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,240,0,0,0,0,240,0,240
+83,M,,,0,0,,0,0,No,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,1,6,1,None,VKA,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,7,0,0,0,0,7,0,7
+68,F,1.28,1,43,150,19.11111111,1.5,0,No,1,0,No,0,0,0,0,No,No,5,No,Surgery,Multiple,1,0,5,1,Single,VKA,SSS,Access & Infection,,Mid2High,VR1,Manual Only,302,0,1,0,1,302,2,302
+68,M,1.94,0,88,168,31.17913832,1.68,0,No,0,1,Stroke/TIA,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,1,1,9,1,None,VKA,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,498,0,1,0,1,498,2,498
+82,F,1.35,1,47,152,20.34279778,1.52,0,No,1,1,Hemiplegia,0,0,0,0,No,No,5,No,None/Mild,None,1,1,10,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,7,0,0,0,0,7,0,7
+82,M,1.33,1,42.5,165,15.61065197,1.65,1,No,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,7,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,100,0,1,0,1,100,2,100
+79,F,1.461,0,55,153,23.49523687,1.53,0,No,1,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,1,8,1,Single,None,SSS,Limited Access,LFV,ApicalSeptal,VR1,Manual Only,82,0,1,0,1,82,2,82
+79,M,1.96,0,84,180,25.92592593,1.8,0,No,1,0,No,0,0,0,1,No,Mild,2,No,None/Mild,None,1,1,6,1,None,NOAC,AVB,Limited Access,RFV,ApicalSeptal,VR1,Closure Device,2248,0,0,0,0,2248,0,2248
+91,M,1.62,0,63,165,23.14049587,1.65,1,PCI,0,1,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,11,1,None,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,2175,0,1,0,1,2175,2,2175
+83,M,1.31,1,45,150,20,1.5,0,No,0,0,Hemiplegia,1,0,0,1,No,EndOrgan,5,No,None/Mild,None,1,1,12,1,None,VKA,SSS,Limited Access,RFV,Mid2High,VR1,Manual Only,408,0,1,0,1,408,2,408
+66,F,1.8,0,79.1,162,30.14022253,1.62,1,CABG,0,0,No,0,0,0,0,No,Mild,3,Solid w/o Met,None/Mild,Aortic,1,1,6,1,Single,VKA,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,2229,0,0,0,0,2229,0,2229
+77,F,1.3,1,44,152,19.04432133,1.52,0,No,0,0,Hemiplegia,0,0,0,0,No,Mild,2,No,Mod/Sev,Tricuspid,1,1,6,1,Single,VKA,AVB,post TV intervention,RFV,ApicalSeptal,VR1,Manual Only,2225,0,0,0,0,2225,0,2225
+60,F,1.424,1,51,156.7,20.76979372,1.567,0,No,1,1,Stroke/TIA,0,0,0,0,No,No,5,No,None/Mild,None,1,0,7,1,None,VKA,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,12,1,0,0,1,12,1,0
+89,F,1.485,0,58,150,25.77777778,1.5,0,No,0,0,No,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,9,1,Single,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,1577,0,1,0,1,1577,2,1577
+63,F,1.372,1,45,165,16.52892562,1.65,1,No,0,0,Hemiplegia,0,0,0,1,No,EndOrgan,5,No,None/Mild,None,0,1,10,1,Dual,VKA,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,314,0,0,0,0,314,0,314
+83,M,1.612,0,61,168,21.61281179,1.68,1,PCI,1,0,No,0,0,0,0,No,Mild,3,No,None/Mild,None,1,1,7,1,Single,VKA,AVB,High Comorbidities,RFV,ApicalSeptal,VR1,Manual Only,2128,0,0,0,0,2128,0,2128
+74,F,1.649,0,65,165,23.87511478,1.65,0,No,1,0,No,0,0,0,0,No,EndOrgan,5,No,Mod/Sev,Tricuspid,1,0,8,1,None,VKA,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,2135,0,0,0,0,2135,0,2135
+73,M,1.604,0,60,169,21.0076678,1.69,1,CABG,1,1,No,0,0,0,0,No,No,5,No,Mod/Sev,Aortic,0,0,8,1,Single,None,AVB,Limited Access,LFV,Mid2High,VR1,Manual Only,158,0,1,0,1,158,2,158
+82,F,1.346,1,47,152,20.34279778,1.52,1,CABG,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,1,1,7,1,None,VKA,AVB,Limited Access,LFV,Mid2High,VR1,Manual Only,47,0,0,0,0,47,0,47
+64,M,1.861,0,78,175,25.46938776,1.75,1,CABG,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,0,7,1,Single,None,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,1556,0,0,0,0,1556,0,1556
+71,M,1.521,0,57,160,22.265625,1.6,1,PCI,0,0,No,0,0,0,0,No,No,5,No,None/Mild,None,0,1,6,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,7,0,0,0,0,7,0,7
+81,F,1.281,1,42,154,17.70956316,1.54,0,No,1,0,No,0,1,1,1,No,No,5,No,Mod/Sev,Tricuspid,1,0,10,1,None,VKA,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,114,1,1,0,1,114,1,5
+87,F,1.266,1,40,158,16.02307323,1.58,0,No,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,1,1,8,1,None,None,SSS,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,820,0,0,0,0,820,0,820
+40,M,1.654,0,62.8,171.8,21.2771436,1.718,0,No,0,0,No,0,0,0,0,No,No,5,Blood,Mod/Sev,Multiple,1,1,4,0,Dual,VKA,AVB,Limited Access,RFV,Mid2High,VR1,Manual Only,1405,0,0,0,0,1405,0,1405
+18,F,1.388,1,46.9,162,17.87075141,1.62,0,No,0,0,No,0,0,0,0,No,No,1,No,None/Mild,None,0,0,0,0,None,None,AVB,Limited Access,RFV,ApicalSeptal,VR1,Manual Only,1419,0,0,0,0,1419,0,1419
+88,F,1.25,1,40,154,16.86625063,1.54,1,PCI,0,0,No,0,0,0,0,No,EndOrgan,5,No,None/Mild,None,0,1,9,1,Single,None,AVB,Limited Access,RFV,ApicalSeptal,AV1,Manual Only,1374,0,0,0,0,1374,0,1374
+91,F,1.42,1,53,150,23.55555556,1.5,0,No,0,0,Hemiplegia,1,0,0,0,No,Mild,2,No,None/Mild,None,1,1,8,1,None,None,AVB,High Comorbidities,RFV,ApicalSeptal,VR1,FigOf8,968,0,0,0,0,968,0,968
+90,M,1.624,0,63,165,23.14049587,1.65,0,No,0,0,No,0,0,0,0,No,No,3,No,None/Mild,None,0,1,4,0,None,None,SSS,High Comorbidities,RFV,ApicalSeptal,VR1,Manual Only,957,0,0,0,0,957,0,957
+88,M,1.285,1,42,155,17.4817898,1.55,0,No,0,0,No,0,0,0,0,No,No,2,No,Mod/Sev,Tricuspid,1,0,4,0,None,NOAC,AVB,post TV intervention,RFV,ApicalSeptal,VR1,FigOf8,734,0,0,0,0,734,0,734
+61,M,1.664,0,67,163,25.21735858,1.63,1,PCI,0,0,No,0,0,1,0,No,No,1,No,None/Mild,None,0,1,4,0,Dual,None,AVB,Patient Preference,RFV,Mid2High,AV1,Closure Device,753,1,0,0,1,753,1,0
+67,F,1.393,1,51,150,22.66666667,1.5,0,No,1,0,No,0,0,0,0,No,No,1,Solid w/o Met,Mod/Sev,Mitral,1,0,5,1,None,VKA,AVB,Infection Risk,RFV,Mid2High,VR1,Closure Device,727,0,0,0,0,727,0,727
+73,F,1.711,0,74,156,30.40762656,1.56,0,No,0,0,No,0,0,0,1,No,Mild,4,No,None/Mild,None,1,1,7,1,None,NOAC,SSS,Patient Preference,RFV,Mid2High,AV1,Manual Only,743,0,0,0,0,743,0,743
+73,F,1.352,1,51.5,140,26.2755102,1.4,0,No,1,0,No,1,0,0,0,No,No,2,No,None/Mild,None,0,1,5,1,None,None,AVB,High Comorbidities,RFV,Mid2High,AV1,Manual Only,733,1,0,0,1,733,1,2
+61,F,1.258,1,40.8,153,17.4291939,1.53,0,No,1,0,No,0,0,0,0,No,No,2,No,Mod/Sev,Multiple,1,0,3,0,None,VKA,AVB,Infection Risk,RFV,Mid2High,VR1,Manual Only,27,0,1,0,1,27,2,27
+79,M,1.531,0,58.5,158,23.43374459,1.58,0,No,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,0,0,3,0,None,None,AVB,Patient Preference,RFV,Mid2High,AV1,Manual Only,656,0,0,0,0,656,0,656
+88,M,1.765,0,71,173,23.72281065,1.73,0,No,0,0,Hemiplegia,0,0,0,0,No,Mild,2,No,None/Mild,None,0,1,7,1,Dual,None,AVB,Patient Preference,RFV,ApicalSeptal,AV1,Manual Only,552,0,0,0,0,552,0,552
+80,F,1.712,0,68,170,23.52941176,1.7,0,No,0,0,Stroke/TIA,1,0,0,0,No,No,2,No,None/Mild,None,1,1,6,1,None,NOAC,AVB,High Comorbidities,RFV,ApicalSeptal,VR1,FigOf8,481,0,0,0,0,481,0,481
+82,M,1.357,1,44,165,16.16161616,1.65,0,No,1,0,No,0,0,0,0,No,EndOrgan,5,Solid w/o Met,None/Mild,None,1,1,11,1,None,None,AVB,Limited Access,RFV,ApicalSeptal,AV1,Manual Only,43,0,0,0,0,43,0,43
+70,F,1.359,1,47,155,19.56295525,1.55,0,No,1,0,No,1,0,0,0,No,EndOrgan,5,Solid w/o Met,None/Mild,None,1,1,11,1,None,None,SSS,Limited Access,RFV,Mid2High,AV1,Manual Only,419,0,0,0,0,419,0,419
+86,M,1.554,0,57,167,20.43816558,1.67,0,No,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,1,1,4,0,None,NOAC,SSS,Patient Preference,RFV,Mid2High,AV1,FigOf8,276,0,0,0,0,276,0,276
+90,F,1.497,0,57,155,23.72528616,1.55,0,No,1,0,No,1,0,0,0,No,No,2,No,None/Mild,None,1,1,6,1,None,NOAC,Both,High Comorbidities,RFV,Mid2High,AV1,Manual Only,368,0,0,0,0,368,0,368
+85,M,1.541,0,60,156,24.65483235,1.56,1,PCI,0,0,No,0,0,0,1,No,No,5,No,Mod/Sev,Tricuspid,1,1,8,1,Single,None,SSS,Limited Access,RFV,Mid2High,VR1,FigOf8,170,0,1,0,1,170,2,170
+91,F,1.146,1,35,148,15.97881665,1.48,1,PCI,0,0,No,0,0,0,0,No,No,2,No,None/Mild,None,0,0,5,1,Dual,NOAC,SSS,High Comorbidities,RFV,Mid2High,VR1,FigOf8,13,0,0,0,0,13,0,13
+70,M,1.499,0,55,161,21.21831719,1.61,1,PCI,0,0,No,0,0,0,0,Mod/Sev,No,2,No,None/Mild,None,1,1,7,1,None,VKA,SSS,Patient Preference,RFV,Mid2High,VR2,FigOf8,188,0,0,0,0,188,0,188
+74,M,1.788,0,70,180,21.60493827,1.8,0,No,0,1,No,0,0,0,0,No,Mild,2,No,None/Mild,None,0,0,5,1,Single,None,AVB,Infection Risk,RFV,ApicalSeptal,AV2,FigOf8,33,0,0,0,0,33,0,33
+68,F,1.29,1,41,160,16.015625,1.6,0,No,1,0,No,0,0,0,0,Mild,No,5,Solid w Met,Mod/Sev,Tricuspid,0,0,12,1,None,None,SSS,Limited Access,RFV,Mid2High,AV2,FigOf8,21,0,1,0,1,21,2,21
+82,F,1.471,0,54,158,21.63114885,1.58,1,PCI,0,0,No,1,0,0,1,No,Mild,2,No,None/Mild,Aortic,0,1,8,1,Dual,None,AVB,High Comorbidities,RFV,Mid2High,AV2,Closure Device,46,0,0,0,0,46,0,46

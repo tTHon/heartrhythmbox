@@ -87,7 +87,7 @@ variables_to_analyze = [
     'lowBSA',        # Example binary categorical variable
     'Sex',           # Example binary categorical variable
     'CKD',         # Example multi-level categorical variable
-    'CCI','CCISev','HTN','MI','CHF','AF','Dementia','PAD','Position'
+    'CCI','CCISev','HTN','MI','CHF','AF','Dementia','PAD','Position','BMI'
 ]
 
 print(f"\nVariables to analyze: {variables_to_analyze}")
