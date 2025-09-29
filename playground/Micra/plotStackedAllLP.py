@@ -70,6 +70,7 @@ def create_stacked_plot(ax, cif_data, group_name, N):
     colors = sns.color_palette("Set2", 2)
     color_complication = colors[0]
     color_death = colors[1]
+    print(f"Colors used - Complication: {color_complication}, Death: {color_death}")
 
     # Plot the stacked areas
     ax.fill_between(cif_data.index, 0, cif_data['Complication'], color=color_complication, alpha=0.9, label='Complication')
