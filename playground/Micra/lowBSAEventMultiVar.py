@@ -30,7 +30,7 @@ outcome[(df_matched['Death'] == 1) & (df_matched['Complication'] == 0)] = 2
 df_matched['status'] = outcome.astype(int)
 
 # Step 2: Create the specific event column for the cause-specific model
-#df_matched['is_complication'] = (df_matched['status'] == 1).astype(int)
+df_matched['is_complication'] = (df_matched['status'] == 1).astype(int)
 #df_matched['is_death'] = (df_matched['status'] == 2).astype(int)
 
 # Use T2Events for duration

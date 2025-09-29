@@ -17,6 +17,11 @@ except FileNotFoundError:
     print(f"ERROR: The file '{file_path}' was not found. Please make sure it's in the correct directory.")
     exit()
 
+# calculate follow-up time for the whole cohort
+df['T2FU_year'] = df['T2FU'] / 365.25
+print(f"F/U time (year): {df['T2FU_year'].mean():.2f} ({df['T2FU_year'].std():.2f}) ({df['T2FU_year'].min():.2f}-{df['T2FU_year'].max():.2f})")
+
+
 # Filter for the matched cohort (lowBSA LP=1 patients and their TV=0 controls)
 lp_lowbsa_match_ids = df[(df['Type'] == 1)]['MatchID'].unique()
 df_matched = df[df['MatchID'].isin(lp_lowbsa_match_ids)].copy()
@@ -28,7 +33,7 @@ print(f"Filtered to matched cohort. Records: {df_matched.shape[0]}, Matched Sets
 
 # --- 2. Define Variables for Table 1 ---
 
-continuous_vars = ['Age', 'BSA', 'CCI', 'Weight', 'Height','CKDStage','BMI']
+continuous_vars = ['Age', 'BSA', 'CCI', 'Weight', 'Height','CKDStage','BMI','T2FU']
 categorical_vars = {
     'Sex': {'F': 0, 'M': 1},
     'CCISev': {0: 0, 1: 1},

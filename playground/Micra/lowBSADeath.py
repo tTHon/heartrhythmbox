@@ -49,7 +49,7 @@ try:
                   duration_col='duration',
                   event_col='is_death', # Use the new event column for death
                   strata=['MatchID'],
-                  formula="group_tvp + CCI")
+                  formula="group_tvp")
 
     print("\n--- Adjusted Stratified Cox Model Results for DEATH ---")
     cph_death.print_summary()
