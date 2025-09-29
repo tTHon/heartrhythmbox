@@ -101,12 +101,22 @@ ci_death_upper = ajf_death.confidence_interval_cumulative_density_.iloc[-1,1]
 print(f"Cumulative incidence of death: {ci_death:.4f} (95% CI: {ci_death_lower:.4f}-{ci_death_upper:.4f})")
 print("-" * 50)
 
-# --- Perform competing risk analysis for BSA groups ---
+# --- Perform competing risk analysis for BSA groups for complications ---
 print("\n## Cumulative Incidence for different BSA groups (Aalen-Johansen)")
 df_low_bsa = df[df['lowBSA'] == 1]
 df_other_bsa = df[df['lowBSA'] == 0]
 
-# Fit for low BSA group
+# Fit for low BSA group death
+ajf_low_bsa = AalenJohansenFitter(seed=42)
+ajf_low_bsa.fit(df_low_bsa['duration'], df_low_bsa['status'], event_of_interest=2)
+ci_low_bsa = ajf_low_bsa.cumulative_density_.iloc[-1,0]
+ci_low_bsa_lower = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,0]
+ci_low_bsa_upper = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,1]
+print(f"Low BSA group (N={len(df_low_bsa)}):")
+print(f"Cumulative incidence of death: {ci_low_bsa:.4f} (95% CI: {ci_low_bsa_lower:.4f}-{ci_low_bsa_upper:.4f})")
+
+
+# Fit for low BSA group complications
 ajf_low_bsa = AalenJohansenFitter(seed=42)
 ajf_low_bsa.fit(df_low_bsa['duration'], df_low_bsa['status'], event_of_interest=1)
 ci_low_bsa = ajf_low_bsa.cumulative_density_.iloc[-1,0]
@@ -115,7 +125,17 @@ ci_low_bsa_upper = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,1
 print(f"Low BSA group (N={len(df_low_bsa)}):")
 print(f"Cumulative incidence of complications: {ci_low_bsa:.4f} (95% CI: {ci_low_bsa_lower:.4f}-{ci_low_bsa_upper:.4f})")
 
-# Fit for other BSA group
+# Fit for other BSA group death
+ajf_other_bsa = AalenJohansenFitter(seed=42)
+ajf_other_bsa.fit(df_other_bsa['duration'], df_other_bsa['status'], event_of_interest=2)
+ci_other_bsa = ajf_other_bsa.cumulative_density_.iloc[-1,0]
+ci_other_bsa_lower = ajf_other_bsa.confidence_interval_cumulative_density_.iloc[-1,0]
+ci_other_bsa_upper = ajf_other_bsa.confidence_interval_cumulative_density_.iloc[-1,1]
+print(f"\nOther BSA group (N={len(df_other_bsa)}):")
+print(f"Cumulative incidence of death: {ci_other_bsa:.4f} (95% CI: {ci_other_bsa_lower:.4f}-{ci_other_bsa_upper:.4f})")
+print("-" * 50)
+
+# Fit for other BSA group complications
 ajf_other_bsa = AalenJohansenFitter(seed=42)
 ajf_other_bsa.fit(df_other_bsa['duration'], df_other_bsa['status'], event_of_interest=1)
 ci_other_bsa = ajf_other_bsa.cumulative_density_.iloc[-1,0]
@@ -166,19 +186,19 @@ plt.show()
 
 
 # --- PLOT 2: Comparison of Complication Incidence by BSA Group ---
-#plt.figure(figsize=(10, 6))
-#ax = plt.gca() # Get current axes
+plt.figure(figsize=(10, 6))
+ax = plt.gca() # Get current axes
 
-#ajf_low_bsa.plot_cumulative_density(ax=ax, label=f'Low BSA (N={len(df_low_bsa)})', linestyle='--', ci_show=True)
-#ajf_other_bsa.plot_cumulative_density(ax=ax, label=f'Other BSA (N={len(df_other_bsa)})', linestyle='-', ci_show=True)
+ajf_low_bsa.plot_cumulative_density(ax=ax, label=f'Low BSA (N={len(df_low_bsa)})', linestyle='--', ci_show=True)
+ajf_other_bsa.plot_cumulative_density(ax=ax, label=f'Other BSA (N={len(df_other_bsa)})', linestyle='-', ci_show=True)
 
-#plt.title('Comparison of Complication Incidence by BSA Group')
-#plt.xlabel('Time (days)')
-#plt.ylabel('Cumulative Incidence of Complications')
-#plt.grid(True)
-#plt.legend()
-#plt.tight_layout()
-#plt.show()
+plt.title('Comparison of Complication Incidence by BSA Group')
+plt.xlabel('Time (days)')
+plt.ylabel('Cumulative Incidence of Complications')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
 
 
 # --- Summary of Key Results ---

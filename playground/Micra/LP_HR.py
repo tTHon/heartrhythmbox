@@ -85,7 +85,7 @@ variables_to_analyze = [
     'BMI',
     'Sex',
     'CCI',
-    'CKD'
+    'CKD','lowBSA'
 ]
 
 print(f"\nVariables to analyze: {variables_to_analyze}")

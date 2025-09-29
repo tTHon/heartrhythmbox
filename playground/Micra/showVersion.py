@@ -7,6 +7,7 @@ import scipy as sp
 import lifelines as lf
 import io as io
 import matplotlib as mpl
+import seaborn as sns
 
 print(f"Python version: {sys.version}")
 print(f"csv module version: {getattr(csv, '__version__', 'builtin')}")
@@ -17,3 +18,4 @@ print(f"SciPy version: {sp.__version__}")
 print(f"lifelines version: {lf.__version__}")
 print(f"io module version: {getattr(io, '__version__', 'builtin')}")
 print(f"matplotlib version: {mpl.__version__}")
+print(f"seaborn version: {sns.__version__}")

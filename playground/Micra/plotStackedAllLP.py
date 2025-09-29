@@ -76,11 +76,12 @@ def create_stacked_plot(ax, cif_data, group_name, N):
     ax.fill_between(cif_data.index, cif_data['Complication'], cif_data['Complication'] + cif_data['Death'], color=color_death, alpha=0.9, label='Death')
     
     # Customize titles, labels, and ticks
-    ax.set_title(f'Stacked Cumulative Incidence for {group_name} (N={N})', fontsize=16, fontweight='bold', pad=20)
+    main_title = f'Cumulative Incidence of Competing Events in all Leadless Pacemaker Patients (N={N})'
+    ax.set_title(label=main_title, loc='left', fontsize=15, fontweight='bold', pad=10)
     ax.set_xlabel('Time (years)', fontsize=14)
     ax.set_ylabel('Cumulative Incidence', fontsize=14)
-    ax.tick_params(axis='both', which='major', labelsize=12)
-    ax.legend(frameon=True, facecolor='white', framealpha=0.9, loc='upper left', fontsize=12)
+    ax.tick_params(axis='both', which='major', labelsize=14)
+    ax.legend(frameon=True, facecolor='white', framealpha=0.9, loc='upper left', fontsize=14)
     ax.set_ylim(0, 1.0)
     ax.set_xlim(left=0)
 
@@ -91,8 +92,8 @@ def create_stacked_plot(ax, cif_data, group_name, N):
     textstr = (f"Cumulative Incidence by Aalen-Johansen at {max_time:.1f} years:\n"
                f"Complication: {final_comp_inc:.2%}\n"
                f"Death: {final_death_inc:.2%}")
-    props = dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.8, edgecolor='lightgray')
-    ax.text(0.98, 0.95, textstr, transform=ax.transAxes, fontsize=10,
+    props = dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='lightgray')
+    ax.text(0.98, 0.97, textstr, transform=ax.transAxes, fontsize=13,
             verticalalignment='top', horizontalalignment='right', bbox=props)
 
 # --- Generate and show the three separate plots ---
