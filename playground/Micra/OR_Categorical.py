@@ -43,7 +43,7 @@ def calculate_or_with_ci(df, outcome_var, predictor_var):
 # --- Main Analysis ---
 # List of predictors to analyze
 predictors_to_analyze = ["Sex","CCISev","lowBSA", "MI","PCI/CABG","CHF","PAD","CVA","Dementia","COPD","CNT","PU","Liver","DM","CKD","Malignancy","TV","SigValve","AF","HTN","CCISev","Antiplatelet","OAC","Access","Position","Model","Hemostasis"]
-outcome_var = "composite"
+outcome_var = "AcuteCom"  # Binary outcome variable
 results_list = []
 
 for predictor in predictors_to_analyze:

@@ -33,6 +33,7 @@ df_matched['status'] = outcome.astype(int)
 
 # Step 2: Create the specific event column for the cause-specific model
 df_matched['is_complication'] = (df_matched['status'] == 1).astype(int)
+#df_matched['is_death'] = (df_matched['status'] == 2).astype(int)
 
 # Use T2Events for duration
 df_matched['duration'] = df_matched['T2Events']
@@ -57,8 +58,18 @@ df_lp = df_matched[df_matched['Type'] == 1]
 df_tvp = df_matched[df_matched['Type'] == 0]
 
 # Initialize Aalen-Johansen Fitters for each group
+ajf_comp = AalenJohansenFitter()
 ajf_lp = AalenJohansenFitter()
 ajf_tvp = AalenJohansenFitter()
+
+ajf_comp.fit(df_matched['duration'], df_matched['status'], event_of_interest=2)
+print("\n--- Aalen-Johansen Fit Summary for Death---")
+
+ci_comp = ajf_comp.cumulative_density_.iloc[-1,0]
+ci_comp_lower = ajf_comp.confidence_interval_cumulative_density_.iloc[-1,0]
+ci_comp_upper = ajf_comp.confidence_interval_cumulative_density_.iloc[-1,1]
+print(f"Cumulative incidence of complications (all patients): {ci_comp:.4f} (95% CI: {ci_comp_lower:.4f}-{ci_comp_upper:.4f})")
+
 
 # Fit the model for each group for the event of interest (complication, status==1)
 ajf_lp.fit(df_lp['duration'], df_lp['status'], event_of_interest=1)
@@ -170,7 +181,7 @@ ci_death_lp_upper = ajf_lp.confidence_interval_cumulative_density_.iloc[-1,1]
 ci_death_tvp = ajf_tvp.cumulative_density_.iloc[-1,0]
 ci_death_tvp_lower = ajf_tvp.confidence_interval_cumulative_density_.iloc[-1,0]
 ci_death_tvp_upper = ajf_tvp.confidence_interval_cumulative_density_.iloc[-1,1]     
-#print(f"Cumulative incidence of death (all patients): {ci_death:.4f} (95% CI: {ci_death_lower:.4f}-{ci_death_upper:.4f})")
+print(f"Cumulative incidence of death (all patients): {ci_death:.4f} (95% CI: {ci_death_lower:.4f}-{ci_death_upper:.4f})")
 print(f"Cumulative incidence of death (LP group): {ci_death_lp:.4f} (95% CI: {ci_death_lp_lower:.4f}-{ci_death_lp_upper:.4f})")
 print(f"Cumulative incidence of death (TVP group): {ci_death_tvp:.4f} (95% CI: {ci_death_tvp_lower:.4f}-{ci_death_tvp_upper:.4f})")
 

@@ -28,7 +28,7 @@ print(f"Filtered to matched cohort. Records: {df_matched.shape[0]}, Matched Sets
 
 # --- 2. Define Variables for Table 1 ---
 
-continuous_vars = ['Age', 'BSA', 'CCI', 'Weight', 'Height','CKDStage','T2FU','T2Events']
+continuous_vars = ['Age', 'BSA', 'CCI', 'Weight', 'Height','CKDStage','BMI']
 categorical_vars = {
     'Sex': {'F': 0, 'M': 1},
     'CCISev': {0: 0, 1: 1},
@@ -48,6 +48,8 @@ categorical_vars = {
     'AF': {0: 0, 1: 1},
     'Complication': {0: 0, 1: 1},
     'Death': {0: 0, 1: 1},
+    'IndicationforPPM' : {'AVB': 0, 'SSS': 1},
+    'AnyEvents': {0: 0, 1: 1}
 }
 
 # --- 3. Perform Analysis and Build Table ---
@@ -80,8 +82,8 @@ for var in continuous_vars:
 
     results.append({
         'Characteristic': var,
-        f'LP (n={n_lp})': f'{lp_stats.mean():.2f} ({lp_stats.std():.2f})',
-        f'TV (n={n_tv})': f'{tv_stats.mean():.2f} ({tv_stats.std():.2f})',
+        f'LP (n={n_lp})': f'{lp_stats.mean():.2f} ({lp_stats.std():.2f}) ({lp_stats.min():.2f}-{lp_stats.max():.2f})',
+        f'TV (n={n_tv})': f'{tv_stats.mean():.2f} ({tv_stats.std():.2f}) ({tv_stats.min():.2f}-{tv_stats.max():.2f})',
         'p-value': f'{p_value:.3f}' if pd.notna(p_value) else 'N/A'
     })
 

@@ -72,9 +72,9 @@ def create_or_table(df, outcome_var, predictor_vars):
 
 # --- Example Usage ---
 # Define your outcome and a list of all your predictor variables
-outcome_var = "composite"
+outcome_var = "AcuteCom"  # Binary outcome variable
 # Include a mix of categorical and continuous variables as needed
-predictor_vars = ["Age", "CKD", "CCI", "BSAYu"] 
+predictor_vars = ["Age", "CKD", "CCI", "BSA"] 
 
 # Create the final table
 final_table = create_or_table(df, outcome_var, predictor_vars)
