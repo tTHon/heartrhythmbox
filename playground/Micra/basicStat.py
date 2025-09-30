@@ -1,11 +1,5 @@
-import sys
 import csv
 import statistics
-
-print(f"Python version: {sys.version}")
-print(f"csv module version: {getattr(csv, '__version__', 'builtin')}")
-print(f"statistics module version: {getattr(statistics, '__version__', 'builtin')}")
-print("Modules used: csv, statistics")
 
 def mean_and_sd(data):
     """
