@@ -77,8 +77,8 @@ def create_stacked_plot(ax, cif_data, group_name, N):
     ax.fill_between(cif_data.index, cif_data['Complication'], cif_data['Complication'] + cif_data['Death'], color=color_death, alpha=0.9, label='Death')
     
     # Customize titles, labels, and ticks
-    main_title = f'Cumulative Incidence of Competing Events in all Leadless Pacemaker Patients (N={N})'
-    ax.set_title(label=main_title, loc='left', fontsize=15, fontweight='bold', pad=10)
+    main_title = f'Cumulative Incidence of Complications and Death for all Leadless Pacemaker Patients (N={N})'
+    ax.set_title(label=main_title, loc='center', fontsize=15, fontweight='bold', pad=10)
     ax.set_xlabel('Time (years)', fontsize=14)
     ax.set_ylabel('Cumulative Incidence', fontsize=14)
     ax.tick_params(axis='both', which='major', labelsize=14)
