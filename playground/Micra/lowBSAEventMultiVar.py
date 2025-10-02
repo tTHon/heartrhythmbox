@@ -12,7 +12,8 @@ try:
 except FileNotFoundError:
     print(f"ERROR: The file '{file_path}' was not found.")
     exit()
-
+# Drop rows with missing T2Events or AnyEvents
+df.dropna(subset=['T2Events', 'AnyEvents'], inplace=True)
 # Filter for matched cohort
 lp_lowbsa_match_ids = df[df['Type'] == 1]['MatchID'].unique()
 df_matched = df[df['MatchID'].isin(lp_lowbsa_match_ids)].copy()

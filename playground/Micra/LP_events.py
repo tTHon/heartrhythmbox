@@ -5,7 +5,7 @@ from lifelines import AalenJohansenFitter
 from scipy import stats
 
 # Load the data
-df = pd.read_csv('playground/Micra/LP_events.csv')
+df = pd.read_csv('playground/Micra/LP_events_NA.csv')
 
 # Drop rows with missing T2Events or AnyEvents
 df.dropna(subset=['T2Events', 'AnyEvents'], inplace=True)
@@ -94,7 +94,7 @@ ci_complications_upper = ajf.confidence_interval_cumulative_density_.iloc[-1,1]
 print(f"Cumulative incidence of complications: {ci_complications:.4f} (95% CI: {ci_complications_lower:.4f}-{ci_complications_upper:.4f})")
 
 # Fit for death
-ajf_death = AalenJohansenFitter(seed=42).fit(df['duration'], df['status'], event_of_interest=2)
+ajf_death = AalenJohansenFitter(seed=42).fit(df['duration'], df['AnyEvents'], event_of_interest=2)
 ci_death = ajf_death.cumulative_density_.iloc[-1,0]
 ci_death_lower = ajf_death.confidence_interval_cumulative_density_.iloc[-1,0]
 ci_death_upper = ajf_death.confidence_interval_cumulative_density_.iloc[-1,1]

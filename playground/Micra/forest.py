@@ -19,7 +19,7 @@ plot_data = {
     'HR_adj':         [5.89, 1.85],
     'Lower_CI_adj':   [0.48, 0.97],
     'Upper_CI_adj':   [72.67, 3.52],
-    'p_adj':          [0.166, 0.060]
+    'p_adj':          [0.166, 0.062]
 }
 df = pd.DataFrame(plot_data)
 

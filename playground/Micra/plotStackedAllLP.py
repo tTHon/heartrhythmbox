@@ -8,7 +8,7 @@ from lifelines import AalenJohansenFitter
 # PART 0: Data Preparation
 # ============================================================================
 # Load the data
-df = pd.read_csv('playground/Micra/LP_events.csv')
+df = pd.read_csv('playground/Micra/LP_events_NA.csv')
 
 # Data cleaning and preparation
 df.dropna(subset=['T2Events', 'AnyEvents'], inplace=True)
@@ -72,9 +72,20 @@ def create_stacked_plot(ax, cif_data, group_name, N):
     color_death = colors[1]
     print(f"Colors used - Complication: {color_complication}, Death: {color_death}")
 
+    # Plot CIF for Complication
+    ax.step(cif_data.index, cif_data['Complication'], where='post', label='Complication', color=color_complication)
+    # Plot CIF for Death
+    ax.step(cif_data.index, cif_data['Death'], where='post', label='Death', color=color_death)
+
+    # Create a stacked plot for better visualization
+    ax.fill_between(cif_data.index, 0, cif_data['Complication'], step='post', alpha=0.7, color=color_complication)
+    ax.fill_between(cif_data.index, cif_data['Complication'], 
+                   cif_data['Complication'] + cif_data['Death'], step='post', alpha=0.7, color=color_death)
+
+
     # Plot the stacked areas
-    ax.fill_between(cif_data.index, 0, cif_data['Complication'], color=color_complication, alpha=0.9, label='Complication')
-    ax.fill_between(cif_data.index, cif_data['Complication'], cif_data['Complication'] + cif_data['Death'], color=color_death, alpha=0.9, label='Death')
+    #ax.fill_between(cif_data.index, 0, cif_data['Complication'], color=color_complication, alpha=0.9, label='Complication')
+    #ax.fill_between(cif_data.index, cif_data['Complication'], cif_data['Complication'] + cif_data['Death'], color=color_death, alpha=0.9, label='Death')
     
     # Customize titles, labels, and ticks
     main_title = f'Cumulative Incidence of Complications and Death for all Leadless Pacemaker Patients (N={N})'
