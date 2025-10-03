@@ -19,7 +19,8 @@ except FileNotFoundError:
 
 # calculate follow-up time for the whole cohort
 df['T2FU_year'] = df['T2FU'] / 365.25
-print(f"F/U time (year): {df['T2FU_year'].mean():.2f} ({df['T2FU_year'].std():.2f}) ({df['T2FU_year'].min():.2f}-{df['T2FU_year'].max():.2f})")
+print(f"Mean F/U time (year): {df['T2FU_year'].mean():.2f} ({df['T2FU_year'].std():.2f}) ({df['T2FU_year'].min():.2f}-{df['T2FU_year'].max():.2f})")
+print(f"Medien F/U time (year): {df['T2FU_year'].median():.2f} ({df['T2FU_year'].quantile(0.25):.2f})-({df['T2FU_year'].quantile(0.75):.2f}")
 
 
 # Filter for the matched cohort (lowBSA LP=1 patients and their TV=0 controls)

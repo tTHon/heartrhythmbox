@@ -22,12 +22,17 @@ def summarize_categorical(series):
     total = len(series)
     return "; ".join([f"{idx}: {val} ({val/total*100:.1f}%)" for idx, val in counts.items()])
 
+def summarize_nonParametric(series):
+    return f"{series.median():.2f} ({series.quantile(0.25):.1f}-{series.quantile(0.75):.1f})"
+
 #continuous_vars = ["Age", "Weight", "Height", "BSA","CCI","BMI","T2FU_years","CKD"]
-continuous_vars = ["Height","BSA","BMI"]
+continuous_vars = ["T2FU_years"]
 #categorical_vars = ["Sex", "MI","PCI/CABG","CKD","CHF","PAD","CVA","Dementia","COPD","CNT","PU","Liver","DM","CKD","Malignancy","TV","SigValve","AF","HTN","CCISev","Antiplatelet","OAC","Access","Position","Model","Hemostasis"] 
 
 categorical_vars = ["IndicationPPM","IndicationforMicra","AcuteCom","ChronicCom",'Death'] 
 #categorical_vars = ["CKD"]
+
+nonParametric_vars = ["CKD"]
 # Overall
 summary_all = {}
 for var in continuous_vars:
@@ -36,6 +41,9 @@ for var in continuous_vars:
 for var in categorical_vars:
     if var in df.columns:
         summary_all[var] = summarize_categorical(df[var].dropna())
+for var in nonParametric_vars:
+    if var in df.columns:
+        summary_all[var] = summarize_nonParametric(df[var].dropna())
 
 num_patients = len(df)
 summary_all_df = pd.DataFrame.from_dict(summary_all, orient="index", columns=["All Patients"+f' (N={num_patients})'])
