@@ -91,19 +91,19 @@ print(f"Cumulative incidence of complications TV group: {ci_complications:.4f} (
 
 
 # Plot the cumulative incidence curves
-#plt.figure(figsize=(10, 6))
-#ax = plt.gca()
+plt.figure(figsize=(10, 6))
+ax = plt.gca()
 
-#ajf_lp.plot_cumulative_density(ax=ax, label=f'LP Group (N={len(df_lp)})', ci_show=True)
-#ajf_tvp.plot_cumulative_density(ax=ax, label=f'TVP Group (N={len(df_tvp)})', ci_show=True)
+ajf_lp.plot_cumulative_density(ax=ax, label=f'LP Group (N={len(df_lp)})', ci_show=True)
+ajf_tvp.plot_cumulative_density(ax=ax, label=f'TVP Group (N={len(df_tvp)})', ci_show=True)
 
-#plt.title('Cumulative Incidence of Complications (Aalen-Johansen)')
-#plt.xlabel('Time (days)')
-#plt.ylabel('Cumulative Incidence')
-#plt.grid(True)
-#plt.legend()
-#plt.tight_layout()
-#plt.show()
+plt.title('Cumulative Incidence of Complications (Aalen-Johansen)')
+plt.xlabel('Time (days)')
+plt.ylabel('Cumulative Incidence')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
 
 # --- Plotting Section ---
 
