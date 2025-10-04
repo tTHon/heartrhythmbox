@@ -5,7 +5,7 @@ from lifelines import AalenJohansenFitter
 from scipy import stats
 
 # Load the data
-df = pd.read_csv('playground/Micra/LP_events_NA.csv')
+df = pd.read_csv('playground/Micra/LP_events.csv')
 
 # Drop rows with missing T2Events or AnyEvents
 df.dropna(subset=['T2Events', 'AnyEvents'], inplace=True)

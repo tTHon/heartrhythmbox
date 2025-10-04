@@ -49,7 +49,7 @@ try:
                   duration_col='duration',
                   event_col='is_death', # Use the new event column for death
                   strata=['MatchID'],
-                  formula="group_tvp")
+                  formula="group_tvp + CCI")
 
     print("\n--- Adjusted Stratified Cox Model Results for DEATH ---")
     cph_death.print_summary()
@@ -60,10 +60,19 @@ try:
     ci_lower_adj_death = cph_death.summary.loc['group_tvp', 'exp(coef) lower 95%']
     ci_upper_adj_death = cph_death.summary.loc['group_tvp', 'exp(coef) upper 95%']
 
+    # Extract CCI results for reference
+    hr_cci_death = cph_death.summary.loc['CCI', 'exp(coef)']
+    p_value_cci_death = cph_death.summary.loc['CCI', 'p']
+    ci_lower_cci_death = cph_death.summary.loc['CCI', 'exp(coef) lower 95%']
+    ci_upper_cci_death = cph_death.summary.loc['CCI', 'exp(coef) upper 95%']
+
     print("\n--- Summary of Findings for DEATH ---")
     print(f"Adjusted Hazard Ratio (aHR) for TVP vs LP (adjusting for CCI):")
     print(f"aHR = {hr_adj_death:.2f} (95% CI: {ci_lower_adj_death:.2f}-{ci_upper_adj_death:.2f})")
     print(f"P-value: {p_value_adj_death:.3f}")
-
+    print(f"\nEffect of CCI on Death:")
+    print(f"aHR per unit increase in CCI = {hr_cci_death:.2f} (95% CI: {ci_lower_cci_death:.2f}-{ci_upper_cci_death:.2f})")
+    print(f"P-value: {p_value_cci_death:.3f}")
+    
 except Exception as e:
     print(f"\nCould not fit the model. Error: {e}")

@@ -32,7 +32,7 @@ continuous_vars = ["T2FU_years"]
 categorical_vars = ["IndicationPPM","IndicationforMicra","AcuteCom","ChronicCom",'Death'] 
 #categorical_vars = ["CKD"]
 
-nonParametric_vars = ["CKD"]
+nonParametric_vars = []
 # Overall
 summary_all = {}
 for var in continuous_vars:
