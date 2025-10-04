@@ -29,7 +29,7 @@ def summarize_nonParametric(series):
 continuous_vars = ["T2FU_years"]
 #categorical_vars = ["Sex", "MI","PCI/CABG","CKD","CHF","PAD","CVA","Dementia","COPD","CNT","PU","Liver","DM","CKD","Malignancy","TV","SigValve","AF","HTN","CCISev","Antiplatelet","OAC","Access","Position","Model","Hemostasis"] 
 
-categorical_vars = ["IndicationPPM","IndicationforMicra","AcuteCom","ChronicCom",'Death'] 
+categorical_vars = ["AcuteCom","ChronicCom",'Death'] 
 #categorical_vars = ["CKD"]
 
 nonParametric_vars = []

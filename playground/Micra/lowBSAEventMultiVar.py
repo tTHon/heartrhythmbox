@@ -32,7 +32,7 @@ df_matched['status'] = outcome.astype(int)
 
 # Step 2: Create the specific event column for the cause-specific model
 df_matched['is_complication'] = (df_matched['status'] == 1).astype(int)
-#df_matched['is_death'] = (df_matched['status'] == 2).astype(int)
+df_matched['is_death'] = (df_matched['status'] == 2).astype(int)
 
 # Use T2Events for duration
 df_matched['duration'] = df_matched['T2Events']
@@ -45,7 +45,7 @@ print(df_matched[['MatchID', 'Type', 'duration', 'is_complication', 'CCI']].head
 
 
 # ============================================================================
-# PART 2A: UNADJUSTED MODEL FOR DEVICE GROUP (group_tvp)
+# PART 2A: UNADJUSTED MODEL FOR DEVICE GROUP (group_tvp) --
 # ============================================================================
 
 print("\n" + "="*80)

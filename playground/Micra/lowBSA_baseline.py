@@ -50,7 +50,7 @@ categorical_vars = {
     'Liver': {'No': 0, 'Mild': 1,'Mod/Sev': 1},
     'DM ': {'No': 0, 'Mild': 1,"EndOrgan": 1},
     'Malignancy': {'No': 0, 'Solid w/o Met': 1,'Solid w Met': 1},
-    'TV_Disease': {'None/Mild': 0,'Mod/Sev': 1},
+    'TV_Disease': {'None/Mild': 0,'Mod/Sev': 1,'Surgery': 1},
     'AF': {0: 0, 1: 1},
     'Complication': {0: 0, 1: 1},
     'Death': {0: 0, 1: 1},
