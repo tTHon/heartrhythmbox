@@ -29,7 +29,7 @@ color1 = colors[0]
 color2 = colors[1]
 
 # --- 2. Create the Plot ---
-fig, ax = plt.subplots(figsize=(16, 8))
+fig, ax = plt.subplots(figsize=(16, 16))
 y_positions = np.arange(len(df))+1
 offset = 0.15
 ax.axvline(x=1, color='gray', linestyle='--', linewidth=2)
@@ -75,18 +75,18 @@ for i, row in df.iterrows():
     # NEW: Conditional alignment to prevent text from going off-plot
     ha_unadj = 'left' if row['HR_unadj'] < 2 else 'center'
     ax.text(x=row['HR_unadj']-0.05, y=y_positions[i] - offset - y_text_offset, s=unadj_text,
-            ha=ha_unadj, va='bottom', fontsize=16, color='black')
+            ha=ha_unadj, va='bottom', fontsize=24, color='black')
 
     # Adjusted HR annotation
     adj_text = f"HR: {row['HR_adj']:.2f} ({row['Lower_CI_adj']:.2f}-{row['Upper_CI_adj']:.2f}); $P$ = {row['p_adj']:.2f}"
     ha_adj = 'left' if row['HR_adj'] < 2 else 'center'
     ax.text(x=row['HR_adj'] - 0.05, y=y_positions[i] + offset - y_text_offset, s=adj_text,
-            ha=ha_adj, va='bottom', fontsize=16, color='black')
+            ha=ha_adj, va='bottom', fontsize=24, color='black')
 
 # --- 5. Finalize Plot Aesthetics ---
-ax.set_xlabel('HR (95% Confidence Interval)', fontsize=17, labelpad=8)
-ax.set_title('Forest Plot of Unadjusted and Adjusted* Hazard Ratios for Complications', fontsize=19, weight='bold',pad=8)
-ax.tick_params(labelsize=14, width=2, length=4, color = 'darkgray')
+ax.set_xlabel('HR (95% Confidence Interval)', fontsize=26, labelpad=8)
+ax.set_title('Forest Plot of Unadjusted and Adjusted* Hazard Ratios for Major Complications', fontsize=26, weight='bold',pad=8)
+ax.tick_params(labelsize=22, width=2, length=4, color = 'darkgray')
 ax.set_yticks(y_positions)
 ax.set_yticklabels(df['display_label'])
 ax.invert_yaxis()
@@ -94,7 +94,7 @@ ax.set_xscale('log')
 ax.set_xticks([0.1,1,10])
 ax.get_xaxis().set_major_formatter(plt.ScalarFormatter())
 ax.legend(loc='upper right', frameon=True, edgecolor='darkgray',
-          fontsize=14,facecolor='none',labelspacing=1.2,
+          fontsize=22,facecolor='none',labelspacing=1.2,
           handleheight=1,handlelength=2,borderaxespad=0.5)
 
 # NEW: Adjust layout to give more space on the left
