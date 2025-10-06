@@ -29,7 +29,7 @@ color1 = colors[0]
 color2 = colors[1]
 
 # --- 2. Create the Plot ---
-fig, ax = plt.subplots(figsize=(16, 16))
+fig, ax = plt.subplots(figsize=(16, 12))
 y_positions = np.arange(len(df))+1
 offset = 0.15
 ax.axvline(x=1, color='gray', linestyle='--', linewidth=2)
@@ -48,7 +48,7 @@ adj_hr_values = df['HR_adj'].copy()
 adj_lower_ci = df['Lower_CI_adj'].copy()
 adj_upper_ci = df['Upper_CI_adj'].copy()
 tvp_index = df[df['display_label'] == 'TVP (vs. LP)'].index[0]
-tvp_y_pos = y_positions[tvp_index] + offset # Corrected y-position for the arrow
+tvp_y_pos = y_positions[tvp_index] 
 tvp_upper_ci_original = adj_upper_ci[tvp_index]
 
 #if pd.notna(tvp_upper_ci_original) and tvp_upper_ci_original > X_LIMIT:
@@ -84,8 +84,8 @@ for i, row in df.iterrows():
             ha=ha_adj, va='bottom', fontsize=24, color='black')
 
 # --- 5. Finalize Plot Aesthetics ---
-ax.set_xlabel('HR (95% Confidence Interval)', fontsize=26, labelpad=8)
-ax.set_title('Forest Plot of Unadjusted and Adjusted* Hazard Ratios for Major Complications', fontsize=26, weight='bold',pad=8)
+ax.set_xlabel('HR (95% Confidence Interval)', fontsize=22, labelpad=15)
+ax.set_title('Forest Plot of Unadjusted and Adjusted* Hazard Ratios for Major Complications', fontsize=26, weight='bold',pad=20)
 ax.tick_params(labelsize=22, width=2, length=4, color = 'darkgray')
 ax.set_yticks(y_positions)
 ax.set_yticklabels(df['display_label'])
@@ -94,10 +94,10 @@ ax.set_xscale('log')
 ax.set_xticks([0.1,1,10])
 ax.get_xaxis().set_major_formatter(plt.ScalarFormatter())
 ax.legend(loc='upper right', frameon=True, edgecolor='darkgray',
-          fontsize=22,facecolor='none',labelspacing=1.2,
+          fontsize=20,facecolor='none',labelspacing=1.2,
           handleheight=1,handlelength=2,borderaxespad=0.5)
 
 # NEW: Adjust layout to give more space on the left
 plt.subplots_adjust(left=0.2, right=0.98, top=0.9, bottom=0.15)
 plt.savefig('playground/Micra/forest.png', dpi=300, bbox_inches='tight')
-plt.show()
+#plt.show()

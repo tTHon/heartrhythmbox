@@ -12,7 +12,7 @@ pd.set_option('display.max_colwidth', None)
 
 
 def summarize_continuous(series):
-    return f"{series.mean():.1f} ± {series.std():.1f} ({series.min():.1f}-{series.max():.1f})"
+    return f"Mean: {series.mean():.1f} ± {series.std():.1f} ({series.min():.1f}-{series.max():.1f}), Median: {series.median():.1f} (IQR: {series.quantile(0.25):.1f}-{series.quantile(0.75):.1f})"
 
 def summarize_categorical(series):
     counts = series.value_counts(dropna=False)
