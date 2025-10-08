@@ -72,7 +72,7 @@ def analyze_groups(file_path, group_variable, continuous_vars, categorical_vars)
             'Characteristic': var,
             f'Group {group1_name}': summary1,
             f'Group {group2_name}': summary2,
-            'P-Value': f"{p_value:.3f}" if p_value >= 0.001 else "<0.001",
+            'P-Value': f"{p_value:.8f}",
             'Test Used': 'Mann-Whitney U'
         })
 
@@ -100,7 +100,7 @@ def analyze_groups(file_path, group_variable, continuous_vars, categorical_vars)
                 'Characteristic': f"{var} ({category})",
                 f'Group {group1_name}': summary1,
                 f'Group {group2_name}': summary2,
-                'P-Value': f"{p_value:.3f}" if p_value >= 0.001 else "<0.001",
+                'P-Value': f"{p_value:.6f}",
                 'Test Used': 'Chi-Squared'
             })
 
@@ -114,10 +114,10 @@ def analyze_groups(file_path, group_variable, continuous_vars, categorical_vars)
 
 # Define your file path and variables
 # In a real scenario, you would use a file path like: file_path = 'my_data.csv'
-file_path = "playground/Micra/LPBaseline.csv" 
+file_path = "playground/Micra/LP_events.csv" 
 group_variable = 'lowBSA'
-continuous_vars = ['Age', 'BMI','BSA','CCI']
-categorical_vars = ['Sex','CKD']
+continuous_vars = []
+categorical_vars = ['MajCom30D','Death','ChronicCom']
 
 # Run the analysis
 analyze_groups(file_path, group_variable, continuous_vars, categorical_vars)
