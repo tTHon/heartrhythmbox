@@ -70,7 +70,7 @@ print("\n--- Aalen-Johansen Fit Summary for Death---")
 ci_comp = ajf_comp.cumulative_density_.iloc[-1,0]
 ci_comp_lower = ajf_comp.confidence_interval_cumulative_density_.iloc[-1,0]
 ci_comp_upper = ajf_comp.confidence_interval_cumulative_density_.iloc[-1,1]
-print(f"Cumulative incidence of complications (all patients): {ci_comp:.2f} (95% CI: {ci_comp_lower:.2f}-{ci_comp_upper:.2f})")
+print(f"Cumulative incidence of complications (all patients): {ci_comp:.3f} (95% CI: {ci_comp_lower:.3f}-{ci_comp_upper:.3f})")
 
 
 # Fit the model for each group for the event of interest (complication, status==1)
@@ -81,13 +81,13 @@ ajf_tvp.fit(df_tvp['duration'], df_tvp['status'], event_of_interest=1)
 ci_complications = ajf_lp.cumulative_density_.iloc[-1,0]
 ci_complications_lower = ajf_lp.confidence_interval_cumulative_density_.iloc[-1,0]
 ci_complications_upper = ajf_lp.confidence_interval_cumulative_density_.iloc[-1,1]
-print(f"Cumulative incidence of complications LP group: {ci_complications:.2f} (95% CI: {ci_complications_lower:.2f}-{ci_complications_upper:.2f})")
+print(f"Cumulative incidence of complications LP group: {ci_complications:.3f} (95% CI: {ci_complications_lower:.3f}-{ci_complications_upper:.3f})")
 
 #print("\n--- Aalen-Johansen Fit Summary for TVP Group ---")
 ci_complications = ajf_tvp.cumulative_density_.iloc[-1,0]
 ci_complications_lower = ajf_tvp.confidence_interval_cumulative_density_.iloc[-1,0]
 ci_complications_upper = ajf_tvp.confidence_interval_cumulative_density_.iloc[-1,1]
-print(f"Cumulative incidence of complications TV group: {ci_complications:.2f} (95% CI: {ci_complications_lower:.2f}-{ci_complications_upper:.2f})")
+print(f"Cumulative incidence of complications TV group: {ci_complications:.3f} (95% CI: {ci_complications_lower:.3f}-{ci_complications_upper:.3f})")
 
 
 # Plot the cumulative incidence curves
@@ -183,9 +183,9 @@ ci_death_lp_upper = ajf_lp.confidence_interval_cumulative_density_.iloc[-1,1]
 ci_death_tvp = ajf_tvp.cumulative_density_.iloc[-1,0]
 ci_death_tvp_lower = ajf_tvp.confidence_interval_cumulative_density_.iloc[-1,0]
 ci_death_tvp_upper = ajf_tvp.confidence_interval_cumulative_density_.iloc[-1,1]     
-print(f"Cumulative incidence of death (all patients): {ci_death:.2f} (95% CI: {ci_death_lower:.2f}-{ci_death_upper:.2f})")
-print(f"Cumulative incidence of death (LP group): {ci_death_lp:.2f} (95% CI: {ci_death_lp_lower:.2f}-{ci_death_lp_upper:.2f})")
-print(f"Cumulative incidence of death (TVP group): {ci_death_tvp:.2f} (95% CI: {ci_death_tvp_lower:.2f}-{ci_death_tvp_upper:.2f})")
+print(f"Cumulative incidence of death (all patients): {ci_death:.3f} (95% CI: {ci_death_lower:.3f}-{ci_death_upper:.3f})")
+print(f"Cumulative incidence of death (LP group): {ci_death_lp:.3f} (95% CI: {ci_death_lp_lower:.3f}-{ci_death_lp_upper:.3f})")
+print(f"Cumulative incidence of death (TVP group): {ci_death_tvp:.3f} (95% CI: {ci_death_tvp_lower:.3f}-{ci_death_tvp_upper:.3f})")
 
 
 # ============================================================================
@@ -215,8 +215,8 @@ try:
     ci_upper = cph.summary.loc['group_tvp', 'exp(coef) upper 95%']
 
     print("\n--- Summary of Findings ---")
-    print(f"Cause-Specific Hazard Ratio (TVP vs LP): {hr:.2f} (95% CI: {ci_lower:.2f}-{ci_upper:.2f})")
-    print(f"P-value: {p_value:.2f}")
+    print(f"Cause-Specific Hazard Ratio (TVP vs LP): {hr:.3f} (95% CI: {ci_lower:.3f}-{ci_upper:.3f})")
+    print(f"P-value: {p_value:.3f}")
 
 except Exception as e:
     print(f"\nCould not fit the model. Error: {e}")
