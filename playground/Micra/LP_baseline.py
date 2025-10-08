@@ -23,16 +23,16 @@ def summarize_categorical(series):
     return "; ".join([f"{idx}: {val} ({val/total*100:.1f}%)" for idx, val in counts.items()])
 
 def summarize_nonParametric(series):
-    return f"{series.median():.2f} ({series.quantile(0.25):.1f}-{series.quantile(0.75):.1f})"
+    return f"{series.median():.2f} ({series.quantile(0.25):.2f}-{series.quantile(0.75):.2f}) ({series.min():.2f}-{series.max():.2f})"
 
 #continuous_vars = ["Age", "Weight", "Height", "BSA","CCI","BMI","T2FU_years","CKD"]
-continuous_vars = ["T2FU_years"]
+continuous_vars = []
 #categorical_vars = ["Sex", "MI","PCI/CABG","CKD","CHF","PAD","CVA","Dementia","COPD","CNT","PU","Liver","DM","CKD","Malignancy","TV","SigValve","AF","HTN","CCISev","Antiplatelet","OAC","Access","Position","Model","Hemostasis"] 
 
 categorical_vars = ["AcuteCom","ChronicCom",'Death'] 
 #categorical_vars = ["CKD"]
 
-nonParametric_vars = []
+nonParametric_vars = ["Age", "BMI", "Weight", "Height","BSA","CCI"]
 # Overall
 summary_all = {}
 for var in continuous_vars:

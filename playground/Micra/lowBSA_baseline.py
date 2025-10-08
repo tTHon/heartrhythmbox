@@ -88,8 +88,8 @@ for var in continuous_vars:
 
     results.append({
         'Characteristic': var,
-        f'LP (n={n_lp})': f'{lp_stats.mean():.2f} ({lp_stats.std():.2f}) ({lp_stats.min():.2f}-{lp_stats.max():.2f})',
-        f'TV (n={n_tv})': f'{tv_stats.mean():.2f} ({tv_stats.std():.2f}) ({tv_stats.min():.2f}-{tv_stats.max():.2f})',
+        f'LP (n={n_lp})': f'mean (SD): {lp_stats.mean():.2f} ({lp_stats.std():.2f}), range ({lp_stats.min():.2f}-{lp_stats.max():.2f}), median (IQR): {lp_stats.median():.2f} ({lp_stats.quantile(0.25):.2f}-{lp_stats.quantile(0.75):.2f})',
+        f'TV (n={n_tv})': f'mean (SD): {tv_stats.mean():.2f} ({tv_stats.std():.2f}) ({tv_stats.min():.2f}-{tv_stats.max():.2f}), median (IQR): {tv_stats.median():.2f} ({tv_stats.quantile(0.25):.2f}-{tv_stats.quantile(0.75):.2f})',
         'p-value': f'{p_value:.3f}' if pd.notna(p_value) else 'N/A'
     })
 

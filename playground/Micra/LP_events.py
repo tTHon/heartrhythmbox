@@ -24,15 +24,28 @@ df['duration'] = df['T2Events']
 # Drop any rows that have missing values after coercion
 df.dropna(subset=['duration', 'status'], inplace=True)
 
+# **FIX: Clean the lowBSA column**
+# Drop rows with missing lowBSA values and ensure it only contains 0 or 1
+df.dropna(subset=['lowBSA'], inplace=True)
+df['lowBSA'] = df['lowBSA'].astype(int)
+
+# Debug: Check unique values in lowBSA
+print(f"Unique values in lowBSA: {df['lowBSA'].unique()}")
+print(f"Value counts in lowBSA:\n{df['lowBSA'].value_counts()}")
+print("-" * 50)
+
 # Manual implementation of Gray's test
-def grays_test(durations, groups, events, event_of_interest=1):
+def grays_test(durations, groups, events, event_of_interest):
     """
     Manual implementation of Gray's test for comparing cumulative incidence functions
     """
     unique_groups = np.unique(groups)
     
+    print(f"Debug: Unique groups found: {unique_groups}")
+    print(f"Debug: Number of unique groups: {len(unique_groups)}")
+    
     if len(unique_groups) != 2:
-        raise ValueError("Gray's test implemented for 2 groups only")
+        raise ValueError(f"Gray's test implemented for 2 groups only. Found {len(unique_groups)} groups: {unique_groups}")
     
     # Get unique event times
     event_times = np.unique(durations[events == event_of_interest])
@@ -83,7 +96,7 @@ def grays_test(durations, groups, events, event_of_interest=1):
     return test_statistic, p_value
 
 # --- Perform Aalen-Johansen (Competing Risk) Analysis ---
-print("## Cumulative Incidence for the whole LP cohort (Aalen-Johansen)")
+print("\n## Cumulative Incidence for the whole LP cohort (Aalen-Johansen)")
 ajf = AalenJohansenFitter(seed=42)
 
 # Fit for complications
@@ -109,12 +122,11 @@ df_other_bsa = df[df['lowBSA'] == 0]
 # Fit for low BSA group death
 ajf_low_bsa = AalenJohansenFitter(seed=42)
 ajf_low_bsa.fit(df_low_bsa['duration'], df_low_bsa['status'], event_of_interest=2)
-ci_low_bsa = ajf_low_bsa.cumulative_density_.iloc[-1,0]
-ci_low_bsa_lower = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,0]
-ci_low_bsa_upper = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,1]
+ci_low_bsa_death = ajf_low_bsa.cumulative_density_.iloc[-1,0]
+ci_low_bsa_death_lower = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,0]
+ci_low_bsa_death_upper = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,1]
 print(f"Low BSA group (N={len(df_low_bsa)}):")
-print(f"Cumulative incidence of death: {ci_low_bsa:.4f} (95% CI: {ci_low_bsa_lower:.4f}-{ci_low_bsa_upper:.4f})")
-
+print(f"Cumulative incidence of death: {ci_low_bsa_death:.4f} (95% CI: {ci_low_bsa_death_lower:.4f}-{ci_low_bsa_death_upper:.4f})")
 
 # Fit for low BSA group complications
 ajf_low_bsa = AalenJohansenFitter(seed=42)
@@ -122,18 +134,16 @@ ajf_low_bsa.fit(df_low_bsa['duration'], df_low_bsa['status'], event_of_interest=
 ci_low_bsa = ajf_low_bsa.cumulative_density_.iloc[-1,0]
 ci_low_bsa_lower = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,0]
 ci_low_bsa_upper = ajf_low_bsa.confidence_interval_cumulative_density_.iloc[-1,1]
-print(f"Low BSA group (N={len(df_low_bsa)}):")
 print(f"Cumulative incidence of complications: {ci_low_bsa:.4f} (95% CI: {ci_low_bsa_lower:.4f}-{ci_low_bsa_upper:.4f})")
 
 # Fit for other BSA group death
 ajf_other_bsa = AalenJohansenFitter(seed=42)
 ajf_other_bsa.fit(df_other_bsa['duration'], df_other_bsa['status'], event_of_interest=2)
-ci_other_bsa = ajf_other_bsa.cumulative_density_.iloc[-1,0]
-ci_other_bsa_lower = ajf_other_bsa.confidence_interval_cumulative_density_.iloc[-1,0]
-ci_other_bsa_upper = ajf_other_bsa.confidence_interval_cumulative_density_.iloc[-1,1]
+ci_other_bsa_death = ajf_other_bsa.cumulative_density_.iloc[-1,0]
+ci_other_bsa_death_lower = ajf_other_bsa.confidence_interval_cumulative_density_.iloc[-1,0]
+ci_other_bsa_death_upper = ajf_other_bsa.confidence_interval_cumulative_density_.iloc[-1,1]
 print(f"\nOther BSA group (N={len(df_other_bsa)}):")
-print(f"Cumulative incidence of death: {ci_other_bsa:.4f} (95% CI: {ci_other_bsa_lower:.4f}-{ci_other_bsa_upper:.4f})")
-print("-" * 50)
+print(f"Cumulative incidence of death: {ci_other_bsa_death:.4f} (95% CI: {ci_other_bsa_death_lower:.4f}-{ci_other_bsa_death_upper:.4f})")
 
 # Fit for other BSA group complications
 ajf_other_bsa = AalenJohansenFitter(seed=42)
@@ -141,7 +151,6 @@ ajf_other_bsa.fit(df_other_bsa['duration'], df_other_bsa['status'], event_of_int
 ci_other_bsa = ajf_other_bsa.cumulative_density_.iloc[-1,0]
 ci_other_bsa_lower = ajf_other_bsa.confidence_interval_cumulative_density_.iloc[-1,0]
 ci_other_bsa_upper = ajf_other_bsa.confidence_interval_cumulative_density_.iloc[-1,1]
-print(f"\nOther BSA group (N={len(df_other_bsa)}):")
 print(f"Cumulative incidence of complications: {ci_other_bsa:.4f} (95% CI: {ci_other_bsa_lower:.4f}-{ci_other_bsa_upper:.4f})")
 print("-" * 50)
 
@@ -154,16 +163,19 @@ try:
     group = df['lowBSA'].values
     event = df['status'].values
     
-    # Perform Gray's test
-    test_stat, p_val = grays_test(duration, group, event, event_of_interest=1)
+    # Perform Gray's test for complications
+    test_stat_com, p_val_com = grays_test(duration, group, event, event_of_interest=1)
     
-    print(f"Gray's Test Statistic: {test_stat:.4f}")
-    print(f"p-value: {p_val:.4f}")
+    print(f"Gray's Test Statistic for complication: {test_stat_com:.4f}")
+    print(f"p-value: {p_val_com:.4f}")
+
+    # Perform Gray's test for complications
+    test_stat_death, p_val_death = grays_test(duration, group, event, event_of_interest=2)
     
-    if p_val < 0.05:
-        print("Result: Statistically significant difference between groups (p < 0.05)")
-    else:
-        print("Result: No statistically significant difference between groups (p ≥ 0.05)")
+    print(f"Gray's Test Statistic for death: {test_stat_death:.4f}")
+    print(f"p-value: {p_val_death:.4f}")
+    
+
         
 except Exception as e:
     print(f"Error running Gray's test: {e}")
@@ -182,12 +194,11 @@ plt.ylabel('Cumulative Incidence')
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.show()
-
+#plt.show()
 
 # --- PLOT 2: Comparison of Complication Incidence by BSA Group ---
 plt.figure(figsize=(10, 6))
-ax = plt.gca() # Get current axes
+ax = plt.gca()
 
 ajf_low_bsa.plot_cumulative_density(ax=ax, label=f'Low BSA (N={len(df_low_bsa)})', linestyle='--', ci_show=True)
 ajf_other_bsa.plot_cumulative_density(ax=ax, label=f'Other BSA (N={len(df_other_bsa)})', linestyle='-', ci_show=True)
@@ -198,8 +209,7 @@ plt.ylabel('Cumulative Incidence of Complications')
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
-plt.show()
-
+#plt.show()
 
 # --- Summary of Key Results ---
 print("\n" + "="*60)
@@ -209,10 +219,6 @@ print(f"Overall cohort (N={len(df)}):")
 print(f"  Complications: {ci_complications:.4f} (95% CI: {ci_complications_lower:.4f}-{ci_complications_upper:.4f})")
 print(f"  Death: {ci_death:.4f} (95% CI: {ci_death_lower:.4f}-{ci_death_upper:.4f})")
 print()
-print("Group comparison (Aalen-Johansen):")
-print(f"  Low BSA: {ci_low_bsa:.4f} (95% CI: {ci_low_bsa_lower:.4f}-{ci_low_bsa_upper:.4f})")
-print(f"  Other BSA: {ci_other_bsa:.4f} (95% CI: {ci_other_bsa_lower:.4f}-{ci_other_bsa_upper:.4f})")
-print(f"  Gray's test p-value: {p_val:.4f}")
 print("="*60)
 
 # --- Crude Incidence Calculation (simple proportion) ---
@@ -245,7 +251,3 @@ print(f"\nOther BSA Group (N={total_other_bsa}):")
 print(f"  Crude Incidence of Complications: {crude_comp_other_bsa:.4f} ({comp_other_bsa}/{total_other_bsa})")
 
 print("-" * 50)
-
-
-
-
