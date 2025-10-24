@@ -99,5 +99,5 @@ ax.legend(loc='upper right', frameon=True, edgecolor='darkgray',
 
 # NEW: Adjust layout to give more space on the left
 plt.subplots_adjust(left=0.2, right=0.98, top=0.9, bottom=0.15)
-plt.savefig('playground/Micra/forest.png', dpi=300, bbox_inches='tight')
+plt.savefig('playground/Micra/forest.tiff', dpi=500, bbox_inches='tight', format='tiff', pil_kwargs={"compression": "tiff_lzw"})
 #plt.show()
