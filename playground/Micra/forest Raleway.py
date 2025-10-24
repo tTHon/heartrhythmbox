@@ -6,6 +6,9 @@ import seaborn as sns
 # Set a visually appealing plot style
 plt.style.use('seaborn-v0_8-whitegrid')
 
+# Use Raleway as default font (register local ttf if available)
+plt.rcParams['font.family'] = 'Raleway'
+
 # --- 1. Data ---
 plot_data = {
     'display_label': [
@@ -25,11 +28,12 @@ df = pd.DataFrame(plot_data)
 
 #--- Colors ---
 colors = sns.color_palette("Set2", 2)
-color1 = colors[0]
+color1 = "#1F5753"
 color2 = colors[1]
 
 # --- 2. Create the Plot ---
-fig, ax = plt.subplots(figsize=(16, 12))
+fig, ax = plt.subplots(figsize=(12, 14))
+fig.patch.set_facecolor('none') # Set figure background to transparent
 y_positions = np.arange(len(df))+1
 offset = 0.15
 ax.axvline(x=1, color='gray', linestyle='--', linewidth=2)
@@ -84,11 +88,11 @@ for i, row in df.iterrows():
             ha=ha_adj, va='bottom', fontsize=24, color='black')
 
 # --- 5. Finalize Plot Aesthetics ---
-ax.set_xlabel('HR (95% Confidence Interval)', fontsize=22, labelpad=15)
+ax.set_xlabel('HR (95% Confidence Interval)', fontsize=26, labelpad=15, color='black', weight='bold')
 ax.set_title('Forest Plot of Unadjusted and Adjusted* Hazard Ratios for Major Complications', fontsize=26, weight='bold',pad=20)
-ax.tick_params(labelsize=22, width=2, length=4, color = 'darkgray')
+ax.tick_params(labelsize=22, width=2, length=4, color = 'black')
 ax.set_yticks(y_positions)
-ax.set_yticklabels(df['display_label'])
+ax.set_yticklabels(df['display_label'], fontsize=22, color='black', weight='bold')
 ax.invert_yaxis()
 ax.set_xscale('log')
 ax.set_xticks([0.1,1,10])
@@ -99,5 +103,11 @@ ax.legend(loc='upper right', frameon=True, edgecolor='darkgray',
 
 # NEW: Adjust layout to give more space on the left
 plt.subplots_adjust(left=0.2, right=0.98, top=0.9, bottom=0.15)
-#plt.savefig('playground/Micra/forest.tiff', dpi=500, bbox_inches='tight', format='tiff', pil_kwargs={"compression": "tiff_lzw"})
-plt.show()
+plt.savefig(
+    'playground/Micra/forestR.png',
+    dpi=600,
+    bbox_inches='tight',
+    format='png',
+    pil_kwargs={"optimize": True}
+)
+#plt.show()
