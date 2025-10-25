@@ -32,8 +32,8 @@ color1 = "#1F5753"
 color2 = colors[1]
 
 # --- 2. Create the Plot ---
-fig, ax = plt.subplots(figsize=(12, 14))
-fig.patch.set_facecolor('none') # Set figure background to transparent
+fig, ax = plt.subplots(figsize=(12, 10))
+#fig.patch.set_facecolor('none') # Set figure background to transparent
 y_positions = np.arange(len(df))+1
 offset = 0.15
 ax.axvline(x=1, color='gray', linestyle='--', linewidth=2)
@@ -89,25 +89,28 @@ for i, row in df.iterrows():
 
 # --- 5. Finalize Plot Aesthetics ---
 ax.set_xlabel('HR (95% Confidence Interval)', fontsize=26, labelpad=15, color='black', weight='bold')
-ax.set_title('Forest Plot of Unadjusted and Adjusted* Hazard Ratios for Major Complications', fontsize=26, weight='bold',pad=20)
+ax.set_title('Hazard Ratios for Major Complications', fontsize=26, weight='bold',pad=20)
 ax.tick_params(labelsize=22, width=2, length=4, color = 'black')
 ax.set_yticks(y_positions)
-ax.set_yticklabels(df['display_label'], fontsize=22, color='black', weight='bold')
+ax.set_yticks(y_positions)
+# split labels into two lines with newline (\n)
+yt_labels = [
+    'TVP\n(vs. LP)',
+    'CCI\n(per 1 unit increase)'
+]
+ax.set_yticklabels(yt_labels)
+plt.setp(ax.get_yticklabels(), fontsize=22, color='black', fontweight='bold', va='center')
+
+#ax.set_yticklabels(df['display_label'], fontsize=22, color='black', weight='bold')
 ax.invert_yaxis()
 ax.set_xscale('log')
 ax.set_xticks([0.1,1,10])
 ax.get_xaxis().set_major_formatter(plt.ScalarFormatter())
-ax.legend(loc='upper right', frameon=True, edgecolor='darkgray',
-          fontsize=20,facecolor='none',labelspacing=1.2,
-          handleheight=1,handlelength=2,borderaxespad=0.5)
+ax.legend(loc='upper left', frameon=True, edgecolor='darkgray',
+          fontsize=20,facecolor='none',labelspacing=1.0,
+          handleheight=1,handlelength=1,borderaxespad=0.2)
 
 # NEW: Adjust layout to give more space on the left
-plt.subplots_adjust(left=0.2, right=0.98, top=0.9, bottom=0.15)
-plt.savefig(
-    'playground/Micra/forestR.png',
-    dpi=600,
-    bbox_inches='tight',
-    format='png',
-    pil_kwargs={"optimize": True}
-)
+plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.15)
+plt.savefig('playground/Micra/forestR.png',dpi=600,bbox_inches='tight',format='png',pil_kwargs={"optimize": True})
 #plt.show()
