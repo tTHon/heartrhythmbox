@@ -1,4 +1,8 @@
+import math
+from matplotlib import pyplot as plt
+import numpy as np
 import pandas as pd
+from scipy import stats
 
 # Load your CSV
 df = pd.read_csv("playground/Micra/LPBaseline.csv")
@@ -25,8 +29,8 @@ def summarize_categorical(series):
 def summarize_nonParametric(series):
     return f"{series.median():.2f} ({series.quantile(0.25):.2f}-{series.quantile(0.75):.2f}) ({series.min():.2f}-{series.max():.2f})"
 
-#continuous_vars = ["Age", "Weight", "Height", "BSA","CCI","BMI","T2FU_years","CKD"]
-continuous_vars = []
+continuous_vars = ["Age", "Weight", "Height", "BSA","CCI","BMI","T2FU_years","CKD"]
+#continuous_vars = []
 #categorical_vars = ["Sex", "MI","PCI/CABG","CKD","CHF","PAD","CVA","Dementia","COPD","CNT","PU","Liver","DM","CKD","Malignancy","TV","SigValve","AF","HTN","CCISev","Antiplatelet","OAC","Access","Position","Model","Hemostasis"] 
 
 categorical_vars = ["AcuteCom","ChronicCom",'Death'] 
@@ -54,3 +58,71 @@ baseline_table = summary_all_df
 
 # Print the table in a markdown format
 print(baseline_table.to_markdown())
+
+# --- Shapiro-Wilk normality tests ---
+def run_shapiro_on_vars(var_list):
+    results = []
+    for var in var_list:
+        if var in df.columns:
+            data = df[var].dropna()
+            n = len(data)
+            if n < 3:
+                results.append({'variable': var, 'n': n, 'W': np.nan, 'p_value': np.nan, 'normal': False, 'note': 'n<3'})
+                continue
+            # scipy.stats.shapiro requires n <= 5000; if larger, sample 5000 randomly
+            sample = data if n <= 5000 else data.sample(5000, random_state=0)
+            try:
+                W, p = stats.shapiro(sample)
+            except Exception as e:
+                W, p = np.nan, np.nan
+            normal = False if np.isnan(p) else (p > 0.05)
+            results.append({'variable': var, 'n': n, 'W': W, 'p_value': p, 'normal': normal, 'note': ''})
+    return pd.DataFrame(results)
+
+shapiro_vars = continuous_vars + nonParametric_vars
+shapiro_df = run_shapiro_on_vars(shapiro_vars)
+
+# Print the tables in markdown format
+print(baseline_table.to_markdown())
+print("\nShapiro-Wilk normality test results:")
+print(shapiro_df.to_markdown(index=False, floatfmt=".4f"))
+
+# --- QQ plots for variables tested with Shapiro-Wilk ---
+vars_to_plot = list(dict.fromkeys(shapiro_vars))  # preserve order, remove duplicates
+vars_to_plot = [v for v in vars_to_plot if v in df.columns]
+
+if vars_to_plot:
+    n = len(vars_to_plot)
+    cols = 2
+    rows = math.ceil(n / cols)
+    fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 4 * rows))
+    axes_flat = axes.ravel() if n > 1 else [axes]
+
+    for i, var in enumerate(vars_to_plot):
+        data = df[var].dropna()
+        ax = axes_flat[i]
+        if len(data) < 3:
+            ax.text(0.5, 0.5, f"{var}\n(n < 3)", ha='center', va='center')
+            ax.set_axis_off()
+            continue
+
+        # QQ plot against normal distribution
+        stats.probplot(data, dist="norm", plot=ax)
+
+        # add Shapiro result to title if available
+        row = shapiro_df[shapiro_df['variable'] == var]
+        if not row.empty:
+            W = row['W'].values[0]
+            p = row['p_value'].values[0]
+            ax.set_title(f"{var} — Shapiro W={W:.3f}, p={p:.3f}")
+        else:
+            ax.set_title(var)
+
+    # hide any unused subplots
+    for j in range(n, len(axes_flat)):
+        axes_flat[j].set_visible(False)
+
+    plt.tight_layout()
+    out_path = "playground/Micra/qq_plots.png"
+    plt.savefig(out_path, dpi=300, bbox_inches='tight')
+    plt.show()
