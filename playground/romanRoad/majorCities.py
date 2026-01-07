@@ -38,10 +38,34 @@ def get_node(point, graph):
 rome_node = get_node(rome_projected, G)
 
 cities = {
-    "LUGDUNUM (Gaul)": Point(4.8357, 45.7640),   # Lyon - Capital of Gaul
-    "BYZANTIUM":       Point(28.9784, 41.0082),  # East
-    "OLISIPO":         Point(-9.1393, 38.7223),  # West
-    "RHEGIUM":         Point(15.65, 38.11)       # South (Tip of Italy)
+    # GAUL & GERMANIA (North-West)
+    "LUGDUNUM (Lyon)":        Point(4.8357, 45.7640),
+    "BURDIGALA (Bordeaux)":   Point(-0.5792, 44.8378),
+    "TREVERORUM (Trier)":     Point(6.6394, 49.7557),
+    "COLONIA (Cologne)":      Point(6.9603, 50.9375),
+
+    # HISPANIA (West)
+    "OLISIPO (Lisbon)":       Point(-9.1393, 38.7223),
+    "TARRACO (Tarragona)":    Point(1.2445, 41.1189),
+    "CAESARAUGUSTA":          Point(-0.8877, 41.6488), # Zaragoza
+
+    # ITALY & ALPINE (Center)
+    "MEDIOLANUM (Milan)":     Point(9.1900, 45.4642),
+    "GENUA (Genoa)":          Point(8.9463, 44.4056),
+    "AQUILEIA":               Point(13.3710, 45.7700), # Gateway to Balkans
+    "RHEGIUM":                Point(15.65, 38.11),     # Toe of Italy
+    "BRUNDISIUM":             Point(17.9417, 40.6327), # Heel of Italy
+
+    # BALKANS & GREECE (East-Central)
+    "SALONA (Split)":         Point(16.4402, 43.5081),
+    "THESSALONICA":           Point(22.9444, 40.6401),
+    "ATHENAE (Athens)":       Point(23.7275, 37.9838),
+
+    # ASIA MINOR & LEVANT (Far East)
+    "BYZANTIUM":              Point(28.9784, 41.0082),
+    "NICOMEDIA":              Point(29.9167, 40.7667), # Izmit
+    "ANCYRA (Ankara)":        Point(32.8597, 39.9334),
+    "ANTIOCHIA":              Point(36.1604, 36.2021)  # Antioch
 }
 
 # --- 4. CALCULATE PATHS ---
@@ -105,11 +129,42 @@ nodes_gdf.plot(column='dist_sqrt', ax=ax, cmap=neon_cmap, markersize=1.5, alpha=
 # HIGHLIGHTED PATHS
 if not path_gdf.empty:
     # Outer Glow
-    path_gdf.plot(ax=ax, color='white', linewidth=3, alpha=0.2, zorder=2)
+    path_gdf.plot(ax=ax, color='cyan', linewidth=4, alpha=0.15, zorder=2)
     # Inner Glow
-    path_gdf.plot(ax=ax, color='cyan', linewidth=3, alpha=0.5, zorder=2)
+    path_gdf.plot(ax=ax, color='white', linewidth=1.5, alpha=0.6, zorder=3)
     # Core
-    path_gdf.plot(ax=ax, color='white', linewidth=1, alpha=1.0, zorder=3)
+    path_gdf.plot(ax=ax, color='cyan', linewidth=0.5, alpha=1.0, zorder=4)
+
+    # --- START CAP (ROME) ---
+    # Plot a large, glowing hub at the origin
+    ax.plot(rome_projected.x, rome_projected.y, 
+            marker='o',           # Circle for the hub center
+            markersize=6,        # Large size
+            color='yellow',        # White center
+            markeredgecolor='cyan', # Cyan neon rim
+            markeredgewidth=2,    # Thick rim
+            alpha=0.9,
+            zorder=4)
+    # Add a prominent label for Rome
+    #plt.text(rome_projected.x, rome_projected.y - 100000, "ROMA (Origin)", 
+             #color='white', ha='center', fontsize=14, fontweight='bold', zorder=7)
+
+
+    # --- END CAPS (DESTINATIONS) ---
+    for idx, row in path_gdf.iterrows():
+        # Find the very last point of the path
+        last_geom = row.geometry.geoms[-1] if isinstance(row.geometry, MultiLineString) else row.geometry
+        end_pt = last_geom.coords[-1]
+        
+        # Plot a glowing star at the destination
+        ax.plot(end_pt[0], end_pt[1], 
+                marker='o',           # Star for destination
+                markersize=6, 
+                color='white', 
+                markeredgecolor='cyan', # Cyan neon rim
+                markeredgewidth=2,
+                alpha=0.9,
+                zorder=4)
 
     # Labels
     #for idx, row in path_gdf.iterrows():
