@@ -79,8 +79,8 @@ gdf.plot(
     column='dist_sqrt',  # Use square root distance for better color spread
     ax=ax,
     cmap=neon_cmap,
-    linewidth=0.5,
-    alpha=0.5,    # Slightly transparent so nodes pop more
+    linewidth=0.7,
+    alpha=0.7,    # Slightly transparent so nodes pop more
     zorder=1
 )
 

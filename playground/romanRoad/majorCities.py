@@ -113,7 +113,7 @@ sea_color = '#060d24'
 land_color = 'black'
 
 # --- 6. PLOT ---
-f, ax = plt.subplots(1, 1, figsize=(20, 12))
+f, ax = plt.subplots(1, 1, figsize=(30, 30))
 f.patch.set_facecolor(sea_color)
 ax.set_facecolor(sea_color)
 
@@ -121,17 +121,17 @@ ax.set_facecolor(sea_color)
 world.plot(ax=ax, color=land_color, edgecolor='none', zorder=0)
 
 # Roads (Dimmed Background)
-gdf.plot(column='dist_sqrt', ax=ax, cmap=neon_cmap, linewidth=0.7, alpha=0.5, zorder=2)
+gdf.plot(column='dist_sqrt', ax=ax, cmap=neon_cmap, linewidth=0.9, alpha=0.5, zorder=2)
 
 # Nodes (Dots)
-nodes_gdf.plot(column='dist_sqrt', ax=ax, cmap=neon_cmap, markersize=1.5, alpha=0.9, zorder=4)
+nodes_gdf.plot(column='dist_sqrt', ax=ax, cmap=neon_cmap, markersize=2, alpha=0.9, zorder=4)
 
 # HIGHLIGHTED PATHS
 if not path_gdf.empty:
     # Outer Glow
     path_gdf.plot(ax=ax, color='cyan', linewidth=4, alpha=0.15, zorder=2)
     # Inner Glow
-    path_gdf.plot(ax=ax, color='white', linewidth=1.5, alpha=0.6, zorder=3)
+    path_gdf.plot(ax=ax, color='cyan', linewidth=1.5, alpha=0.6, zorder=3)
     # Core
     path_gdf.plot(ax=ax, color='cyan', linewidth=0.5, alpha=1.0, zorder=4)
 
@@ -144,7 +144,7 @@ if not path_gdf.empty:
             markeredgecolor='cyan', # Cyan neon rim
             markeredgewidth=2,    # Thick rim
             alpha=0.9,
-            zorder=4)
+            zorder=5)
     # Add a prominent label for Rome
     #plt.text(rome_projected.x, rome_projected.y - 100000, "ROMA (Origin)", 
              #color='white', ha='center', fontsize=14, fontweight='bold', zorder=7)
@@ -179,6 +179,12 @@ padding = 100000
 ax.set_xlim(minx - padding, maxx + padding)
 ax.set_ylim(miny - padding, maxy + padding)
 ax.set_axis_off()
+
+# Save the high-res file
+plt.savefig("Roman_Network_4K.png", facecolor=sea_color, dpi=300, bbox_inches='tight')
+print("High-resolution map saved as 'Roman_Network_4K.png'")
+
+#plt.show()
 
 plt.tight_layout()
 plt.show()
