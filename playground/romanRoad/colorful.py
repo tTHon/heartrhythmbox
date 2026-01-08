@@ -96,13 +96,13 @@ nodes_gdf.plot(
 
 # Optional: Add a subtle glow layer underneath (Blur effect simulation)
 # We plot the same lines again, thicker and transparent, to look like "light"
-#gdf.plot(
-    #ax=ax,
-    #color='red',           # A generic glow color
-    #linewidth=linewidths*3,# Much thicker
-    #alpha=0.1,             # Very transparent
-    #zorder=1
-#)
+gdf.plot(
+    ax=ax,
+    color='red',           # A generic glow color
+    linewidth=linewidths*3,# Much thicker
+    alpha=0.1,             # Very transparent
+    zorder=1
+)
 
 
 # Focus View (Zoom in to see the node detail)

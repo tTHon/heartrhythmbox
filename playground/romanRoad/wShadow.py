@@ -9,11 +9,13 @@ import networkx as nx
 FADE_STEEPNESS = 3.0
 MIN_ALPHA = 0.05
 NEON_YELLOW = '#FFE900'
-SEA_COLOR = '#3e404d'
-LAND_COLOR = "#1C2D3B"
+#SEA_COLOR = '#3e404d'
+#LAND_COLOR = "#1C2D3B"
+SEA_COLOR = 'black'
+LAND_COLOR = "black"
 
 # SHADOW CONFIG
-SHADOW_COLOR = '#000000' 
+SHADOW_COLOR = '#232323' 
 SHADOW_OFFSET_X = 6000   # 6km East (Increased for better visibility on land)
 SHADOW_OFFSET_Y = -6000  # 6km South
 SHADOW_ALPHA = 0.4       
