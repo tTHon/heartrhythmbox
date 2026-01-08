@@ -11,7 +11,7 @@ MIN_ALPHA = 0.05
 NEON_YELLOW = '#FFE900'
 #SEA_COLOR = '#3e404d'
 #LAND_COLOR = "#1C2D3B"
-SEA_COLOR = 'black'
+SEA_COLOR = '#050a14'
 LAND_COLOR = "black"
 
 # SHADOW CONFIG
@@ -158,6 +158,6 @@ ax.set_xlim(minx - padding, maxx + padding)
 ax.set_ylim(miny - padding, maxy + padding)
 ax.set_axis_off()
 
-plt.savefig("playground/romanRoad/Roman_Network_FullShadow.svg", facecolor=SEA_COLOR, dpi=300, bbox_inches='tight')
+plt.savefig("playground/romanRoad/Roman_Network_FullShadow.png", facecolor=SEA_COLOR, dpi=300, bbox_inches='tight')
 print("Saved map with Land & Road shadows.")
 plt.show()

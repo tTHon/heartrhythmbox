@@ -84,8 +84,8 @@ nodes_gdf = gpd.GeoDataFrame(geometry=nodes, crs=gdf.crs).drop_duplicates()
 neon_yellow = '#FFE900'  # The primary electric yellow
 white_hot   = '#FFFFE0'  # Almost white for the "hot" centers
 #sea_color   = '#050a14'  # Very dark blue/black
-sea_color   = '#3e404d'  # Deep navy blue
-land_color  = "#1C2D3B"
+sea_color   = '#050a14'  # Deep navy blue
+land_color  = "black"
 
 # --- 6. PLOT ---
 f, ax = plt.subplots(1, 1, figsize=(30, 30))
