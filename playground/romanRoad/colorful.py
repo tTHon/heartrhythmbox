@@ -71,8 +71,8 @@ neon_cmap = mcolors.LinearSegmentedColormap.from_list("neon_rainbow", colors)
 
 # --- 5. PLOTTING ---
 f, ax = plt.subplots(1, 1, figsize=(15, 12))
-f.patch.set_facecolor('black')
-ax.set_facecolor('black')
+f.patch.set_facecolor('none')
+ax.set_facecolor('none')
 
 # Layer 1: The Roads
 gdf.plot(
@@ -96,13 +96,13 @@ nodes_gdf.plot(
 
 # Optional: Add a subtle glow layer underneath (Blur effect simulation)
 # We plot the same lines again, thicker and transparent, to look like "light"
-gdf.plot(
-    ax=ax,
-    color='red',           # A generic glow color
-    linewidth=linewidths*3,# Much thicker
-    alpha=0.1,             # Very transparent
-    zorder=1
-)
+#gdf.plot(
+    #ax=ax,
+    #color='red',           # A generic glow color
+    #linewidth=linewidths*3,# Much thicker
+    #alpha=0.1,             # Very transparent
+    #zorder=1
+#)
 
 
 # Focus View (Zoom in to see the node detail)
@@ -112,4 +112,7 @@ gdf.plot(
 ax.set_axis_off()
 
 plt.tight_layout()
-plt.show()
+#plt.show()
+
+plt.savefig("playground/romanRoad/colorFul.png", dpi=300, bbox_inches='tight', transparent=True)
+#plt.show()

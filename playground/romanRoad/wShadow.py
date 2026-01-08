@@ -158,6 +158,6 @@ ax.set_xlim(minx - padding, maxx + padding)
 ax.set_ylim(miny - padding, maxy + padding)
 ax.set_axis_off()
 
-plt.savefig("playground/romanRoad/Roman_Network_FullShadow.png", facecolor=SEA_COLOR, dpi=300, bbox_inches='tight')
+plt.savefig("playground/romanRoad/Roman_Network_FullShadow.svg", facecolor=SEA_COLOR, dpi=300, bbox_inches='tight')
 print("Saved map with Land & Road shadows.")
 plt.show()
