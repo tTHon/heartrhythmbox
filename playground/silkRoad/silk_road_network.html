@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_54d2f9135a6260ff90b61e053ee1d361 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_54d2f9135a6260ff90b61e053ee1d361" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_54d2f9135a6260ff90b61e053ee1d361 = L.map(
+                "map_54d2f9135a6260ff90b61e053ee1d361",
+                {
+                    center: [35.0, 70.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 4,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_414f07b2561811cd59c8a798fac668f8 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_414f07b2561811cd59c8a798fac668f8.addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_e4fd3c64e2908a3985cb54243484d186 = L.polyline(
+                [[34.3416, 108.9398], [40.1421, 94.662]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_e4fd3c64e2908a3985cb54243484d186.bindTooltip(
+                `<div>
+                     Trade Route: Xi'an <-> Dunhuang
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_28faab64fcc3426208d2e624f547f06e = L.polyline(
+                [[34.3416, 108.9398], [40.1421, 94.662]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_6f6cf05b43b87fcd189fb3fac3f2f903 = L.polyline(
+                [[40.1421, 94.662], [42.9513, 89.1722]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_6f6cf05b43b87fcd189fb3fac3f2f903.bindTooltip(
+                `<div>
+                     Trade Route: Dunhuang <-> Turpan
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_dc123b4d893e69e401bbd674b5336b79 = L.polyline(
+                [[40.1421, 94.662], [42.9513, 89.1722]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_7819ee7ca64d117809bfa4d404d2d710 = L.polyline(
+                [[42.9513, 89.1722], [39.627, 66.975]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_7819ee7ca64d117809bfa4d404d2d710.bindTooltip(
+                `<div>
+                     Trade Route: Turpan <-> Samarkand
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_ea11f92a7ba332e4df76d35690af979a = L.polyline(
+                [[42.9513, 89.1722], [39.627, 66.975]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_42ca3b0bb3ce703b87e536af9ec94aca = L.polyline(
+                [[39.627, 66.975], [39.7686, 64.4556]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_42ca3b0bb3ce703b87e536af9ec94aca.bindTooltip(
+                `<div>
+                     Trade Route: Samarkand <-> Bukhara
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_33cfde7739e6051aaa6032cf2c4fda03 = L.polyline(
+                [[39.627, 66.975], [39.7686, 64.4556]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_34795b7d7428e5ebf2f2c25c0db7302a = L.polyline(
+                [[39.7686, 64.4556], [37.6611, 62.167]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_34795b7d7428e5ebf2f2c25c0db7302a.bindTooltip(
+                `<div>
+                     Trade Route: Bukhara <-> Merv
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_d83cd72eb3793397dae10c7b517e7908 = L.polyline(
+                [[39.7686, 64.4556], [37.6611, 62.167]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_4bb6d70944e8d4babfd794a9a48e3420 = L.polyline(
+                [[40.1421, 94.662], [39.4677, 75.9938]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_4bb6d70944e8d4babfd794a9a48e3420.bindTooltip(
+                `<div>
+                     Trade Route: Dunhuang <-> Kashgar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_704fd46bd12453e3c8d5e74fd5602037 = L.polyline(
+                [[40.1421, 94.662], [39.4677, 75.9938]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_db2055ca5a879f23c7139fbb10b6343b = L.polyline(
+                [[39.4677, 75.9938], [39.627, 66.975]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_db2055ca5a879f23c7139fbb10b6343b.bindTooltip(
+                `<div>
+                     Trade Route: Kashgar <-> Samarkand
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_af39920e3a9fbc7e2f2289f9769f2c91 = L.polyline(
+                [[39.4677, 75.9938], [39.627, 66.975]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_aca69f9d386c663ba9216c9a63b29b4b = L.polyline(
+                [[39.4677, 75.9938], [36.7563, 66.8972]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_aca69f9d386c663ba9216c9a63b29b4b.bindTooltip(
+                `<div>
+                     Trade Route: Kashgar <-> Bactra
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_237a9b329cbeff1d98498c8c0c4b39e2 = L.polyline(
+                [[39.4677, 75.9938], [36.7563, 66.8972]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_2d730b8e4ce1d87e86b20828961cbdce = L.polyline(
+                [[36.7563, 66.8972], [37.6611, 62.167]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_2d730b8e4ce1d87e86b20828961cbdce.bindTooltip(
+                `<div>
+                     Trade Route: Bactra <-> Merv
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_764af5d54def24eee4b0725883a42d81 = L.polyline(
+                [[36.7563, 66.8972], [37.6611, 62.167]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_55d55a55d595f8e7e341685e586d6a6d = L.polyline(
+                [[36.7563, 66.8972], [33.7458, 72.8021]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_55d55a55d595f8e7e341685e586d6a6d.bindTooltip(
+                `<div>
+                     Trade Route: Bactra <-> Taxila
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_1e5ab99c22a26eab773de3d90adf4d4c = L.polyline(
+                [[36.7563, 66.8972], [33.7458, 72.8021]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_df9a56b54b31cf9cfba238b11f44e0b6 = L.polyline(
+                [[37.6611, 62.167], [35.6892, 51.389]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_df9a56b54b31cf9cfba238b11f44e0b6.bindTooltip(
+                `<div>
+                     Trade Route: Merv <-> Tehran (Rayy)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_836492cfa3cd3a6d3dd6675f3db95613 = L.polyline(
+                [[37.6611, 62.167], [35.6892, 51.389]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_94ce2ee8f6085b6f63ba5e2f850dfeca = L.polyline(
+                [[35.6892, 51.389], [33.3152, 44.3661]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_94ce2ee8f6085b6f63ba5e2f850dfeca.bindTooltip(
+                `<div>
+                     Trade Route: Tehran (Rayy) <-> Baghdad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_0301ed917c33bca3c515d0059ec4bfaa = L.polyline(
+                [[35.6892, 51.389], [33.3152, 44.3661]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_2b64633b2b2ad6c875547c8a335923bd = L.polyline(
+                [[33.3152, 44.3661], [34.5601, 38.2672]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_2b64633b2b2ad6c875547c8a335923bd.bindTooltip(
+                `<div>
+                     Trade Route: Baghdad <-> Palmyra
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_39f5d07dd6db83fd9e0c9cd81b78649e = L.polyline(
+                [[33.3152, 44.3661], [34.5601, 38.2672]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_41bd980a8294794793b22eddc48861b9 = L.polyline(
+                [[34.5601, 38.2672], [36.2021, 36.1606]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_41bd980a8294794793b22eddc48861b9.bindTooltip(
+                `<div>
+                     Trade Route: Palmyra <-> Antioch
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_8583eb3fcee8cc6b6707516df771d0ab = L.polyline(
+                [[34.5601, 38.2672], [36.2021, 36.1606]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_bb251b078fa456b91b62aae1a85cfd41 = L.polyline(
+                [[36.2021, 36.1606], [41.0082, 28.9784]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_bb251b078fa456b91b62aae1a85cfd41.bindTooltip(
+                `<div>
+                     Trade Route: Antioch <-> Constantinople
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_dcce3ae6e5e6c10a44b792a592f624cf = L.polyline(
+                [[36.2021, 36.1606], [41.0082, 28.9784]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var poly_line_1a342ad4f92425fdf816aeb3cfe5ee59 = L.polyline(
+                [[34.5601, 38.2672], [33.2705, 35.1962]],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFD700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            poly_line_1a342ad4f92425fdf816aeb3cfe5ee59.bindTooltip(
+                `<div>
+                     Trade Route: Palmyra <-> Tyre
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_f675ef57f444b3150e680cedeb5cdf8c = L.polyline(
+                [[34.5601, 38.2672], [33.2705, 35.1962]],
+                {"bubblingMouseEvents": true, "color": "#FFF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#FFF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 1}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+            var circle_marker_13a3a5d59dfc58feffee50aa73ff5835 = L.circleMarker(
+                [34.3416, 108.9398],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_453b1f5fec93f48cae0f375a4dd72da7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2501e2fa75ca9d0f8ed202e8de8c1cd1 = $(`<div id="html_2501e2fa75ca9d0f8ed202e8de8c1cd1" style="width: 100.0%; height: 100.0%;">Xi'an</div>`)[0];
+                popup_453b1f5fec93f48cae0f375a4dd72da7.setContent(html_2501e2fa75ca9d0f8ed202e8de8c1cd1);
+            
+        
+
+        circle_marker_13a3a5d59dfc58feffee50aa73ff5835.bindPopup(popup_453b1f5fec93f48cae0f375a4dd72da7)
+        ;
+
+        
+    
+    
+            circle_marker_13a3a5d59dfc58feffee50aa73ff5835.bindTooltip(
+                `<div>
+                     Xi'an
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3334816c3106c8c6b4b82457426a7eae = L.circleMarker(
+                [40.1421, 94.662],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_c68110d1694404cfeffb452f44ea1f12 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b04c43229f1fc1fe6884cbf2677bd4a7 = $(`<div id="html_b04c43229f1fc1fe6884cbf2677bd4a7" style="width: 100.0%; height: 100.0%;">Dunhuang</div>`)[0];
+                popup_c68110d1694404cfeffb452f44ea1f12.setContent(html_b04c43229f1fc1fe6884cbf2677bd4a7);
+            
+        
+
+        circle_marker_3334816c3106c8c6b4b82457426a7eae.bindPopup(popup_c68110d1694404cfeffb452f44ea1f12)
+        ;
+
+        
+    
+    
+            circle_marker_3334816c3106c8c6b4b82457426a7eae.bindTooltip(
+                `<div>
+                     Dunhuang
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_60bc1d6cf7864bbacc6a8c3c9c475657 = L.circleMarker(
+                [42.9513, 89.1722],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_28157c7c44b8e9cc6e77660d18a845d5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f0fc04b055c83897ba1184d3bb17cbcc = $(`<div id="html_f0fc04b055c83897ba1184d3bb17cbcc" style="width: 100.0%; height: 100.0%;">Turpan</div>`)[0];
+                popup_28157c7c44b8e9cc6e77660d18a845d5.setContent(html_f0fc04b055c83897ba1184d3bb17cbcc);
+            
+        
+
+        circle_marker_60bc1d6cf7864bbacc6a8c3c9c475657.bindPopup(popup_28157c7c44b8e9cc6e77660d18a845d5)
+        ;
+
+        
+    
+    
+            circle_marker_60bc1d6cf7864bbacc6a8c3c9c475657.bindTooltip(
+                `<div>
+                     Turpan
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_962dc9cccca0938aa43a049de6e435b8 = L.circleMarker(
+                [39.4677, 75.9938],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_9905b362b84af137b2299441967857fa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_60ab3f0c36d9535b7cb4ca396ad04201 = $(`<div id="html_60ab3f0c36d9535b7cb4ca396ad04201" style="width: 100.0%; height: 100.0%;">Kashgar</div>`)[0];
+                popup_9905b362b84af137b2299441967857fa.setContent(html_60ab3f0c36d9535b7cb4ca396ad04201);
+            
+        
+
+        circle_marker_962dc9cccca0938aa43a049de6e435b8.bindPopup(popup_9905b362b84af137b2299441967857fa)
+        ;
+
+        
+    
+    
+            circle_marker_962dc9cccca0938aa43a049de6e435b8.bindTooltip(
+                `<div>
+                     Kashgar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0b894f99eb13338f10911c6b8c18fe91 = L.circleMarker(
+                [39.627, 66.975],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_703ed85da4e9d39fda0d2ae6ee3a8492 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_48a2dceb7fa30730b0f41dfa2f7e716b = $(`<div id="html_48a2dceb7fa30730b0f41dfa2f7e716b" style="width: 100.0%; height: 100.0%;">Samarkand</div>`)[0];
+                popup_703ed85da4e9d39fda0d2ae6ee3a8492.setContent(html_48a2dceb7fa30730b0f41dfa2f7e716b);
+            
+        
+
+        circle_marker_0b894f99eb13338f10911c6b8c18fe91.bindPopup(popup_703ed85da4e9d39fda0d2ae6ee3a8492)
+        ;
+
+        
+    
+    
+            circle_marker_0b894f99eb13338f10911c6b8c18fe91.bindTooltip(
+                `<div>
+                     Samarkand
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_414c42bf2a27cfbdd469cc73b781f112 = L.circleMarker(
+                [39.7686, 64.4556],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_0434ec0387cccaa86ddf2c1b2c0839b2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3ce43acb10b52f06d53e6147cb708455 = $(`<div id="html_3ce43acb10b52f06d53e6147cb708455" style="width: 100.0%; height: 100.0%;">Bukhara</div>`)[0];
+                popup_0434ec0387cccaa86ddf2c1b2c0839b2.setContent(html_3ce43acb10b52f06d53e6147cb708455);
+            
+        
+
+        circle_marker_414c42bf2a27cfbdd469cc73b781f112.bindPopup(popup_0434ec0387cccaa86ddf2c1b2c0839b2)
+        ;
+
+        
+    
+    
+            circle_marker_414c42bf2a27cfbdd469cc73b781f112.bindTooltip(
+                `<div>
+                     Bukhara
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a940b746b1060c90d64909f59522cc6e = L.circleMarker(
+                [37.6611, 62.167],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_725569c9bb70adde29a6a0238eb4c68e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8349bdbee7abf8257042041ed4b904f8 = $(`<div id="html_8349bdbee7abf8257042041ed4b904f8" style="width: 100.0%; height: 100.0%;">Merv</div>`)[0];
+                popup_725569c9bb70adde29a6a0238eb4c68e.setContent(html_8349bdbee7abf8257042041ed4b904f8);
+            
+        
+
+        circle_marker_a940b746b1060c90d64909f59522cc6e.bindPopup(popup_725569c9bb70adde29a6a0238eb4c68e)
+        ;
+
+        
+    
+    
+            circle_marker_a940b746b1060c90d64909f59522cc6e.bindTooltip(
+                `<div>
+                     Merv
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a413767ece24eff5d96f99358c1d6ae1 = L.circleMarker(
+                [35.6892, 51.389],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_c5cb63f706e8dec39cd857a1966a1324 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_39f394717e15e116c4ef94fe46b2a359 = $(`<div id="html_39f394717e15e116c4ef94fe46b2a359" style="width: 100.0%; height: 100.0%;">Tehran (Rayy)</div>`)[0];
+                popup_c5cb63f706e8dec39cd857a1966a1324.setContent(html_39f394717e15e116c4ef94fe46b2a359);
+            
+        
+
+        circle_marker_a413767ece24eff5d96f99358c1d6ae1.bindPopup(popup_c5cb63f706e8dec39cd857a1966a1324)
+        ;
+
+        
+    
+    
+            circle_marker_a413767ece24eff5d96f99358c1d6ae1.bindTooltip(
+                `<div>
+                     Tehran (Rayy)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3affb792c3df916b571b98295e015857 = L.circleMarker(
+                [33.3152, 44.3661],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_df2fda9b5da4ff03a74f6d3aaea19d0b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2d4e4e789c5e89175cfaf065bd339c9d = $(`<div id="html_2d4e4e789c5e89175cfaf065bd339c9d" style="width: 100.0%; height: 100.0%;">Baghdad</div>`)[0];
+                popup_df2fda9b5da4ff03a74f6d3aaea19d0b.setContent(html_2d4e4e789c5e89175cfaf065bd339c9d);
+            
+        
+
+        circle_marker_3affb792c3df916b571b98295e015857.bindPopup(popup_df2fda9b5da4ff03a74f6d3aaea19d0b)
+        ;
+
+        
+    
+    
+            circle_marker_3affb792c3df916b571b98295e015857.bindTooltip(
+                `<div>
+                     Baghdad
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_75b221278c344f61e157bf46ad9b585b = L.circleMarker(
+                [34.5601, 38.2672],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_5fa26446428ae4057a0fc6227d3d78a1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_515559b26450b457803a6991df451cf2 = $(`<div id="html_515559b26450b457803a6991df451cf2" style="width: 100.0%; height: 100.0%;">Palmyra</div>`)[0];
+                popup_5fa26446428ae4057a0fc6227d3d78a1.setContent(html_515559b26450b457803a6991df451cf2);
+            
+        
+
+        circle_marker_75b221278c344f61e157bf46ad9b585b.bindPopup(popup_5fa26446428ae4057a0fc6227d3d78a1)
+        ;
+
+        
+    
+    
+            circle_marker_75b221278c344f61e157bf46ad9b585b.bindTooltip(
+                `<div>
+                     Palmyra
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5f851bb52afac6034a4c966e764550d5 = L.circleMarker(
+                [36.2021, 36.1606],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_6b166ff2b22db956395bb931d7478d63 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1538c0f8c15574df8439e687222667e4 = $(`<div id="html_1538c0f8c15574df8439e687222667e4" style="width: 100.0%; height: 100.0%;">Antioch</div>`)[0];
+                popup_6b166ff2b22db956395bb931d7478d63.setContent(html_1538c0f8c15574df8439e687222667e4);
+            
+        
+
+        circle_marker_5f851bb52afac6034a4c966e764550d5.bindPopup(popup_6b166ff2b22db956395bb931d7478d63)
+        ;
+
+        
+    
+    
+            circle_marker_5f851bb52afac6034a4c966e764550d5.bindTooltip(
+                `<div>
+                     Antioch
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e1ad82677ecf9d3f7d02b29c9c4d2b18 = L.circleMarker(
+                [41.0082, 28.9784],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_f34bfa46571df6db98ef9d52bfbb8626 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_05b033d52f7b95f7a4725d530798b1c0 = $(`<div id="html_05b033d52f7b95f7a4725d530798b1c0" style="width: 100.0%; height: 100.0%;">Constantinople</div>`)[0];
+                popup_f34bfa46571df6db98ef9d52bfbb8626.setContent(html_05b033d52f7b95f7a4725d530798b1c0);
+            
+        
+
+        circle_marker_e1ad82677ecf9d3f7d02b29c9c4d2b18.bindPopup(popup_f34bfa46571df6db98ef9d52bfbb8626)
+        ;
+
+        
+    
+    
+            circle_marker_e1ad82677ecf9d3f7d02b29c9c4d2b18.bindTooltip(
+                `<div>
+                     Constantinople
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a931f6041c390a32f55b2dc1ad64f42f = L.circleMarker(
+                [33.2705, 35.1962],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_87ad892bb9e8bbb287e037027a9e72db = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0da52679e36298367f3f17c90779e992 = $(`<div id="html_0da52679e36298367f3f17c90779e992" style="width: 100.0%; height: 100.0%;">Tyre</div>`)[0];
+                popup_87ad892bb9e8bbb287e037027a9e72db.setContent(html_0da52679e36298367f3f17c90779e992);
+            
+        
+
+        circle_marker_a931f6041c390a32f55b2dc1ad64f42f.bindPopup(popup_87ad892bb9e8bbb287e037027a9e72db)
+        ;
+
+        
+    
+    
+            circle_marker_a931f6041c390a32f55b2dc1ad64f42f.bindTooltip(
+                `<div>
+                     Tyre
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_96ed6232ede796480022ad2675e2c841 = L.circleMarker(
+                [36.7563, 66.8972],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_619e92e6c60040dc4d4c540e53eec0f9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cdd783cbea968941b34309b8533c49dc = $(`<div id="html_cdd783cbea968941b34309b8533c49dc" style="width: 100.0%; height: 100.0%;">Bactra</div>`)[0];
+                popup_619e92e6c60040dc4d4c540e53eec0f9.setContent(html_cdd783cbea968941b34309b8533c49dc);
+            
+        
+
+        circle_marker_96ed6232ede796480022ad2675e2c841.bindPopup(popup_619e92e6c60040dc4d4c540e53eec0f9)
+        ;
+
+        
+    
+    
+            circle_marker_96ed6232ede796480022ad2675e2c841.bindTooltip(
+                `<div>
+                     Bactra
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4395b79575f95948ba6d260a63ad83e7 = L.circleMarker(
+                [33.7458, 72.8021],
+                {"bubblingMouseEvents": true, "color": "#FF4500", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(map_54d2f9135a6260ff90b61e053ee1d361);
+        
+    
+        var popup_8b1d3ce6e2c4a2e9a9a100a850bb8c49 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_67b65737df506f00ff909792383aacc9 = $(`<div id="html_67b65737df506f00ff909792383aacc9" style="width: 100.0%; height: 100.0%;">Taxila</div>`)[0];
+                popup_8b1d3ce6e2c4a2e9a9a100a850bb8c49.setContent(html_67b65737df506f00ff909792383aacc9);
+            
+        
+
+        circle_marker_4395b79575f95948ba6d260a63ad83e7.bindPopup(popup_8b1d3ce6e2c4a2e9a9a100a850bb8c49)
+        ;
+
+        
+    
+    
+            circle_marker_4395b79575f95948ba6d260a63ad83e7.bindTooltip(
+                `<div>
+                     Taxila
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>
