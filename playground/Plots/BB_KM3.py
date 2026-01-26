@@ -10,7 +10,7 @@ from scipy.interpolate import PchipInterpolator
 # The original trial is a steady accumulation of events.
 # 0 -> 1.2% at 1 year.
 x_reboot = np.array([0, 1.0])
-y_reboot = np.array([0, 1.2]) 
+y_reboot = np.array([0, 1.1]) 
 
 # 2. Norwegian Registry (LVEF >= 50%)
 # "Early drop" means steep mortality rise in first 3 months.
