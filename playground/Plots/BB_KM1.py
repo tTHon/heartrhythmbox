@@ -61,9 +61,9 @@ ax.spines['left'].set_linewidth(2.5)
 ax.spines['bottom'].set_linewidth(2.5)
 
 # Plotting with the New Colors
-ax.plot(x_commit, y_commit, color=color_commit, linewidth=4.5, label='COMMIT')
-ax.plot(x_korea, y_korea, color=color_korea, linewidth=4.5, label='Korea Registry')
-ax.plot(x_reboot, y_reboot, color=color_reboot, linewidth=4.5, label='REBOOT')
+ax.plot(x_commit, y_commit, color=color_commit, linewidth=4.5, label='COMMIT', linestyle='--')
+ax.plot(x_korea, y_korea, color=color_korea, linewidth=4.5, label='Korea Registry', linestyle=':')
+ax.plot(x_reboot, y_reboot, color=color_reboot, linewidth=4.5, label='REBOOT', linestyle='-.')
 ax.tick_params(axis='both', which='major', labelsize=24, length=10, width=2)
 
 # Labels & Annotations
@@ -74,8 +74,7 @@ ax.set_xlim(0, 1.0)
 ax.set_ylim(0, 9)
 
 # Colored Annotations to match lines
-ax.annotate(f"{y_commit[-1]:.1f}%", xy=(x_commit[-1], y_commit[-1]), xytext=(0.15, 7.8),
-             arrowprops=dict(facecolor=color_commit, edgecolor=color_commit, arrowstyle='->'), 
+ax.annotate(f"{y_commit[-1]:.1f}%", xy=(x_commit[-1], y_commit[-1]), xytext=(0.1, 7.8),
              fontsize=36, color=color_commit, fontweight='bold')
 
 ax.annotate(f"{y_korea[-1]:.1f}%", xy=(1.0, y_korea[-1]), xytext=(0.85, y_korea[-1]+0.4), 
