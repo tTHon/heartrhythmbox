@@ -24,61 +24,72 @@ korea_bb = np.array([0, 0.5, 1.5, 2.0, 2.8])
 korea_nobb = np.array([0, 1.5, 3.0, 4.0, 5.0])
 y_korea = (korea_bb + korea_nobb) / 2
 
-# ---------------------------------------------------------
-# PLOTTING (Adjusted for White Background)
-# ---------------------------------------------------------
-plt.figure(figsize=(10, 7))
 
-# Reset to default or set specific light-mode properties
+# ---------------------------------------------------------
+# PLOTTING (Modern "Detached" Axes)
+# ---------------------------------------------------------
+fig, ax = plt.subplots(figsize=(15, 10))
+
+# ---------------------------------------------------------
+# COLOR PALETTE (Stitch & Raincoat Theme)
+# ---------------------------------------------------------
+color_commit = '#154360'   # Stitch's Fur (Deep Navy)
+color_korea  = '#B36B00'   # Raincoat (Golden Orange)
+color_reboot = '#0E8A73'   # Sky/Teal (Tropical)
+#color_korea  = '#F39C12'   # Raincoat (Golden Orange)
+#color_reboot = '#1ABC9C'   # Sky/Teal (Tropical)
+color_text   = '#2C3E50'   # Slate Grey (Softer than black)
+
+# Update Font & Line Settings
 plt.rcParams.update({
-    'font.size': 18,
+    'font.size': 24,
     'font.family': 'sans-serif',
-    'axes.facecolor': 'none',       # Transparent
-    'figure.facecolor': 'none',     # Transparent
-    'text.color': 'black',          # Black text
-    'axes.labelcolor': 'black',
-    'xtick.color': 'black',
-    'ytick.color': 'black',
-    'legend.facecolor': 'none',
-    'legend.edgecolor': 'black'
+    'text.color': color_text,
+    'axes.labelcolor': color_text,
+    'xtick.color': color_text,
+    'ytick.color': color_text
 })
 
-# Plot Lines (Darker colors for visibility on white)
-# COMMIT: Black
-plt.plot(x_commit, y_commit, color='black', linewidth=3, label='COMMIT (Combined)')
+# Modern Detached Axes
+ax.spines['left'].set_position(('outward', 20))
+ax.spines['bottom'].set_position(('outward', 20))
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+ax.spines['left'].set_color(color_text)
+ax.spines['bottom'].set_color(color_text)
+ax.spines['left'].set_linewidth(2.5)
+ax.spines['bottom'].set_linewidth(2.5)
 
-# Korea: Purple
-plt.plot(x_korea, y_korea, color='purple', linewidth=3, linestyle='--', label='Korea Registry (Combined)')
+# Plotting with the New Colors
+ax.plot(x_commit, y_commit, color=color_commit, linewidth=4.5, label='COMMIT')
+ax.plot(x_korea, y_korea, color=color_korea, linewidth=4.5, label='Korea Registry')
+ax.plot(x_reboot, y_reboot, color=color_reboot, linewidth=4.5, label='REBOOT')
+ax.tick_params(axis='both', which='major', labelsize=24, length=10, width=2)
 
-# REBOOT: Green
-plt.plot(x_reboot, y_reboot, color='green', linewidth=3, linestyle='-.', label='REBOOT (Combined)')
+# Labels & Annotations
+ax.set_title('Combined Mortality Rate (Both Arms) - First 1 Year', fontsize=16, pad=20, fontweight='bold')
+ax.set_xlabel('Time (Years)', fontsize=28, labelpad=20)
+ax.set_ylabel('Cumulative Incidence of Death (%)', fontsize=28, labelpad=20)
+ax.set_xlim(0, 1.0)
+ax.set_ylim(0, 9)
 
-# Formatting
-plt.title('Combined Mortality Rate (Both Arms) - First 1 Year', fontsize=16, color='black')
-plt.xlabel('Time (Years)', fontsize=14, color='black')
-plt.ylabel('Cumulative Incidence of Death (%)', fontsize=14, color='black')
-plt.xlim(0, 1.0)
-plt.ylim(0, 9)
+# Colored Annotations to match lines
+ax.annotate(f"{y_commit[-1]:.1f}%", xy=(x_commit[-1], y_commit[-1]), xytext=(0.15, 7.8),
+             arrowprops=dict(facecolor=color_commit, edgecolor=color_commit, arrowstyle='->'), 
+             fontsize=36, color=color_commit, fontweight='bold')
 
-# Annotations (Black)
-plt.annotate(f"{y_commit[-1]:.1f}%", xy=(x_commit[-1], y_commit[-1]), xytext=(0.15, 7.8),
-             arrowprops=dict(facecolor='black', edgecolor='black', arrowstyle='->'), 
-             fontsize=12, color='black')
+ax.annotate(f"{y_korea[-1]:.1f}%", xy=(1.0, y_korea[-1]), xytext=(0.85, y_korea[-1]+0.4), 
+             fontsize=36, color=color_korea, fontweight='bold')
 
-plt.annotate(f"{y_korea[-1]:.1f}%", xy=(1.0, y_korea[-1]), xytext=(0.85, y_korea[-1]+0.5), 
-             fontsize=12, color='black')
+ax.annotate(f"{y_reboot[-1]:.1f}%", xy=(1.0, y_reboot[-1]), xytext=(0.85, y_reboot[-1]+0.4), 
+             fontsize=36, color=color_reboot, fontweight='bold')
 
-plt.annotate(f"{y_reboot[-1]:.1f}%", xy=(1.0, y_reboot[-1]), xytext=(1.02, y_reboot[-1]), 
-             fontsize=12, color='black')
+# Clean Legend
+ax.legend(fontsize=28, loc='upper right', frameon=False)
 
-# Legend
-legend = plt.legend(fontsize=11)
-plt.setp(legend.get_texts(), color='black')
+# Subtle Grid
+ax.grid(True, alpha=0.15, color=color_text, linestyle='--')
 
-# Grid (Dark gray for white bg)
-plt.grid(True, alpha=0.3, color='black', linestyle='--')
 plt.tight_layout()
-
-# Save with transparency (but elements are dark)
-plt.savefig('playground/Plots/compareWithOldDate_white_bg.png', transparent=True, dpi=300)
-plt.show()
+plt.savefig('playground/Plots/compareWithOldDate.png', transparent=True, dpi=300)
+#plt.show()
