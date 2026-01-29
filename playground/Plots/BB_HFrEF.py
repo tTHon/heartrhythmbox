@@ -57,7 +57,7 @@ def create_hfrref_forest_plot():
         'savefig.facecolor': BG_COLOR
     })
 
-    fig, ax = plt.subplots(figsize=(15, 15))
+    fig, ax = plt.subplots(figsize=(20, 15))
 
     # --- 3. PLOTTING ---
     y_pos = np.arange(len(treatments))
@@ -98,7 +98,7 @@ def create_hfrref_forest_plot():
 
         # C. Add Text Columns (HR and CI) on the right side
         text_str = f" {hr:.2f}  [{low:.2f} - {high:.2f}]"
-        ax.text(1.75, y_pos[i], text_str, va='center', ha='left', fontsize=28, 
+        ax.text(2.0, y_pos[i], text_str, va='center', ha='left', fontsize=28, 
                 color=TEXT_COLOR, fontfamily='Roboto')
 
     # --- 4. FORMATTING ---
@@ -115,7 +115,7 @@ def create_hfrref_forest_plot():
         label.set_horizontalalignment('left')
     # 3. Adjust padding to push them to the left edge of the margin area
     # Negative padding moves the text closer to the left edge of the figure
-    ax.tick_params(axis='y', pad=320) 
+    ax.tick_params(axis='y', pad=400) 
 
     # Remove standard spines
     ax.spines['left'].set_visible(False)
@@ -142,7 +142,7 @@ def create_hfrref_forest_plot():
             fontsize=32, fontweight='bold', ha='center')
             
     # "HR 95%-CI" (Top Right)
-    ax.text(1.3, 1.05, "HR   95%-CI", transform=ax.transAxes, 
+    ax.text(1.35, 1.05, "HR   95%-CI", transform=ax.transAxes, 
             fontsize=32, fontweight='bold', ha='center')
             
     # Layout adjustments to make room for the right-side text and left-side labels
