@@ -118,7 +118,7 @@ sea_x, sea_y = generate_dots(routes_sea, base_dots=3500)
 
 # --- 5. PLOTTING ---
 plt.style.use('dark_background')
-fig, ax = plt.subplots(figsize=(26, 16)) # Slightly taller figure to accommodate new latitude
+fig, ax = plt.subplots(figsize=(20, 25)) # Slightly taller figure to accommodate new latitude
 fig.patch.set_facecolor(BG_COLOR)
 ax.set_facecolor(BG_COLOR)
 
@@ -143,10 +143,10 @@ world.plot(ax=ax, color=LAND_COLOR, edgecolor=LAND_BORDER, linewidth=0.7, zorder
 
 # --- 6. RENDER DATA ---
 # Land (Yellow)
-ax.scatter(land_x, land_y, c=LAND_ROUTE_COLOR, s=3, alpha=0.3, linewidth=0, zorder=3)
+ax.scatter(land_x, land_y, c=LAND_ROUTE_COLOR, s=2.2, alpha=0.3, linewidth=0, zorder=3)
 
 # Sea (Cyan)
-ax.scatter(sea_x, sea_y, c=SEA_ROUTE_COLOR, s=3, alpha=0.4, linewidth=0, zorder=4)
+ax.scatter(sea_x, sea_y, c=SEA_ROUTE_COLOR, s=2.2, alpha=0.4, linewidth=0, zorder=4)
 
 # --- 7. LABELS ---
 labels = {
