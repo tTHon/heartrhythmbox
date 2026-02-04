@@ -124,7 +124,8 @@ ax.set_facecolor(BG_COLOR)
 
 # EXPANDED NORTH/SOUTH LIMITS
 ax.set_xlim(-5, 155)   # Slight adjustment to West to balance the frame
-ax.set_ylim(-20, 75)   # Expanded South to -20 (Madagascar) and North to 75 (Arctic)
+#ax.set_ylim(-20, 75)   # Expanded South to -20 (Madagascar) and North to 75 (Arctic)
+ax.set_ylim(-90, 90)   # Expanded South to -90  and North to 90 (Arctic)
 ax.set_aspect('equal')
 ax.axis('off')
 
@@ -165,7 +166,7 @@ for name, coords in labels.items():
     # ax.text(coords[0], coords[1]+y_off, name, color=TEXT_COLOR, fontsize=13, fontweight='bold', ha='center', zorder=10)
 
 plt.tight_layout()
-output_file = "playground/silkRoad/silk_road_extended_ns.png"
+output_file = "playground/silkRoad/silk_road_extended_nsPole.png"
 plt.savefig(output_file, dpi=300, facecolor=BG_COLOR)
 print(f"✅ Map extended North/South saved to: {output_file}")
 plt.show()
