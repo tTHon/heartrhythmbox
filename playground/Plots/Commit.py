@@ -5,7 +5,7 @@ if __name__ == "__main__":
     # --- 1. DATA PREPARATION ---
     endpoints = [
         "Death",
-        "ReinfarctionI",
+        "Reinfarction",
         "VF",
     ]
     
@@ -29,8 +29,8 @@ if __name__ == "__main__":
 # --- 2. COLOR THEME (Stitch & Sun Palette) ---
     # Since the background is bright (Sky/Sand), we need DARK text.
     
-    TEXT_COLOR = '#F0EFEB'    # Deep Navy (Matches Stitch's outlines/eyes)
-    BAR_COLOR = '#DFC8E4'     
+    TEXT_COLOR = '#F0EFEB'    # Off-White (Dark enough for bright bg) 
+    BAR_COLOR = '#DFC8E4'      # Light Purple (Stitch's fur color)
     MARKER_FILL = '#FFD700'   # Raincoat Yellow (Matches Stitch's raincoat)
     
     plt.rcParams.update({
@@ -87,9 +87,12 @@ if __name__ == "__main__":
         # Format P-value to show <0.001 if very small
         p_val = p_values[i]
         p_text = f"p={p_val}" if p_val >= 0.001 else "p<0.001"
-        label_text = f'{effect:.2f} [{low:.2f}, {high:.2f}]  |  {p_text}'
+        label_text_OR = f'{effect:.2f} [{low:.2f}, {high:.2f}]'
+        label_text_p = f'{p_text}'
         
-        ax.text(1.2, y_positions[i], label_text, 
+        ax.text(1.2, y_positions[i], label_text_OR, 
+                va='center', ha='left', fontsize=28, color=TEXT_COLOR)
+        ax.text(1.75, y_positions[i], label_text_p, 
                 va='center', ha='left', fontsize=28, color=TEXT_COLOR)
     # --- 4. AXES & STRUCTURE ---
     
