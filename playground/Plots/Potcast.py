@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 
 # Data extracted from Table 2 of POTCAST.pdf
 labels = [
-    "Primary Composite End Point",
-    "Appropriate ICD Therapy / VT",
-    "Hospitalization for Arrhythmia",
-    "Hospitalization for Heart Failure",
-    "Death from Any Cause"
+    "1° End Point",
+    "App ICD Tx/VT",
+    "Arrhythmia Hosp",
+    "HF Hosp",
+    "Any Death"
 ]
 
 # Incidence Data: (n, %)
@@ -46,7 +46,7 @@ error_upper = [ci[1] - hr for hr, ci in zip(hrs, cis)]
 errors = [error_lower, error_upper]
 
 # Settings for large font and dark background
-font_size = 40
+font_size = 42
 plt.rcParams.update({'font.size': font_size, 'font.family': 'inter'})
 
 # Colors suitable for dark blue background
@@ -57,7 +57,7 @@ line_color = 'white'
 grid_color = 'gray'
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(40, 16))
+fig, ax = plt.subplots(figsize=(36, 14))
 fig.patch.set_facecolor(bg_color)
 ax.set_facecolor(bg_color)
 
@@ -66,7 +66,7 @@ y_pos = range(len(labels))
 # Adjusting xlims to fit the forest plot on the right side
 plot_xlims = (0.2, 2.0)
 
-ax.errorbar(hrs, y_pos, xerr=errors, fmt='o', markersize=30, color=marker_color, ecolor=line_color, capsize=15, linewidth=10)
+ax.errorbar(hrs, y_pos, xerr=errors, fmt='o', markersize=35, color=marker_color, ecolor=line_color, capsize=15, linewidth=10)
 
 # Add a vertical line at HR = 1
 ax.axvline(x=1, color=grid_color, linestyle='--', linewidth=3)
@@ -80,7 +80,7 @@ header_y = -1
 ax.text(-1.8, header_y, "End Point", fontweight='bold', ha='left', color=text_color)
 ax.text(-0.6, header_y, "High-Normal K\n(N=600)\nn (%)", fontweight='bold', ha='center', color=text_color)
 ax.text(0.0, header_y, "Standard Care\n(N=600)\nn (%)", fontweight='bold', ha='center', color=text_color)
-ax.text(1.6, header_y, "Hazard Ratio\n(95% CI)", fontweight='bold', ha='center', color=text_color)
+ax.text(1.7, header_y, "Hazard Ratio\n(95% CI)", fontweight='bold', ha='center', color=text_color)
 
 
 # Add data rows
@@ -88,7 +88,7 @@ for i in range(len(labels)):
     y = i
     
     # Endpoint Label
-    ax.text(-1.8, y, labels[i], va='center', ha='left', color=text_color)
+    ax.text(-1.8, y, labels[i], va='center', ha='left', color=text_color, fontweight='bold', fontsize=font_size+6)
     
     # Intervention Data
     n_int, p_int = group_intervention[i]
@@ -101,7 +101,7 @@ for i in range(len(labels)):
     # HR text
     hr, ci = hrs[i], cis[i]
     hr_text = f"{hr:.2f} ({ci[0]:.2f}-{ci[1]:.2f})"
-    ax.text(1.6, y, hr_text, va='center', ha='center', color=text_color)
+    ax.text(1.7, y, hr_text, va='center', ha='center', color=text_color)
 
 # Formatting
 ax.invert_yaxis()  # Primary endpoint at the top
