@@ -17,97 +17,104 @@ data = {
 }
 df = pd.DataFrame(data)
 
-# 2. Design Settings (Dark Mode)
+# Sort: Worst (High HR/Long Bar) to Best (Low HR/Short Bar)
+df = df.sort_values('HR', ascending=False).reset_index(drop=True)
+
+# 2. Design Settings
 BG_COLOR = '#1E1E1E'
 TEXT_COLOR = '#FFFFFF'
 STATS_COLOR = '#DDDDDD'
-plt.rcParams['font.family'] = 'Inter'
+plt.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['font.sans-serif'] = ['Inter', 'Arial', 'Helvetica', 'DejaVu Sans']
 
-# 3. Manual Radius Calculation (The Fix)
-# We want HR 1.0 to be at the center (Radius ~ 0)
-# We want HR 0.39 to be at the edge (Radius ~ High)
-# Formula: Radius = (Reference - HR)
-# We add a small offset (0.1) so 1.0 isn't a singularity at the exact center.
-REF_VALUE = 1.1
-df['Radius'] = REF_VALUE - df['HR']
-df['Rad_Lower'] = REF_VALUE - df['Upper_CI'] # Invert CI logic
-df['Rad_Upper'] = REF_VALUE - df['Lower_CI']
+# 3. Radius Calculation (Reversed: Zero at Center)
+# Now Radius is exactly the HR value.
+df['Radius'] = df['HR']
+df['Rad_Lower'] = df['Lower_CI']
+df['Rad_Upper'] = df['Upper_CI']
 
 # 4. Polar Setup
 N = len(df)
-angles = np.linspace(0, 2 * np.pi, N, endpoint=False)
-angles = (np.pi / 2) - angles # Start at 12 o'clock
+start_angle = np.pi / 3  # Start at 2 o'clock
+theta = np.linspace(0, 2 * np.pi, N, endpoint=False)
+angles = start_angle - theta # Clockwise
 
-fig = plt.figure(figsize=(14, 14), facecolor=BG_COLOR)
+# Figure Size
+fig = plt.figure(figsize=(30, 26), facecolor=BG_COLOR)
 ax = fig.add_subplot(111, projection='polar', facecolor=BG_COLOR)
 
-# 5. Colors (Cool gradient - Inverted)
-# Best drugs (Low HR, High Radius) get bright colors
+# 5. Colors
 norm = plt.Normalize(df['HR'].min(), df['HR'].max())
 colors = plt.cm.cool(norm(df['HR']))
 
-# 6. Plotting
-# Draw "Fake" Grid Lines manually so we can label them correctly
-grid_values = [1.0, 0.8, 0.6, 0.4]
+# 6. Grid Lines (Standard HR values)
+# We plot lines at 0.2, 0.4, 0.6, 0.8, 1.0
+grid_values = [0.2, 0.4, 0.6, 0.8, 1.0]
 for val in grid_values:
-    r = REF_VALUE - val
-    ax.plot(np.linspace(0, 2*np.pi, 100), [r]*100, color='white', linestyle='--', linewidth=1, alpha=0.3)
-    # Label the grid lines
-    ax.text(0, r + 0.02, f"{val}", color='#666666', fontsize=9, fontweight='bold', ha='center')
+    ax.plot(np.linspace(0, 2*np.pi, 100), [val]*100, color='white', linestyle='--', linewidth=4, alpha=0.3)
+    # Label Grid
+    ax.text(np.pi/2, val + 0.02, f"{val}", color='#ababab', fontsize=28, fontweight='bold', ha='center')
 
-# Draw Data
+# 7. Shading (Wedges)
+width = (2 * np.pi) / N
+ax.bar(angles, df['Radius'], width=width, color=colors, alpha=0.3, zorder=1)
+
+# 8. Data Plotting
 for i, (angle, row) in enumerate(zip(angles, df.itertuples())):
-    # Stick: From Center (Radius 0) to Data Point
-    # Actually, let's start from the 1.0 ring (Radius = 0.1)
-    r_start = REF_VALUE - 1.0
-    
-    ax.plot([angle, angle], [r_start, row.Radius], color=colors[i], linewidth=3, alpha=0.6)
+    # Stick: From Center (0) to Data Point
+    ax.plot([angle, angle], [0, row.Radius], color=colors[i], linewidth=5, alpha=0.8, zorder=5)
     
     # Error Bar
-    ax.plot([angle, angle], [row.Rad_Lower, row.Rad_Upper], color='#EEEEEE', linewidth=2)
+    ax.plot([angle, angle], [row.Rad_Lower, row.Rad_Upper], color='#EEEEEE', linewidth=3, zorder=6)
     
     # Dot
-    ax.scatter(angle, row.Radius, color=colors[i], s=250, zorder=10, edgecolors='white', linewidth=2)
+    ax.scatter(angle, row.Radius, color=colors[i], s=600, zorder=10, edgecolors='white', linewidth=3)
 
-# 7. Labels
+# 9. Labels
 for angle, label, hr, ci_low, ci_high, radius in zip(angles, df['Treatment'], df['HR'], df['Lower_CI'], df['Upper_CI'], df['Radius']):
-    rotation = np.rad2deg(angle)
-    alignment = "left"
     
-    if angle < -np.pi/2 or angle > np.pi/2:
-        rotation += 180
+    # Rotation Logic
+    norm_angle = (angle + np.pi) % (2 * np.pi) - np.pi
+    if -np.pi/2 <= norm_angle <= np.pi/2:
+        alignment = "left"
+        rotation = np.rad2deg(norm_angle)
+    else:
         alignment = "right"
-    if rotation < 0: rotation += 360
+        rotation = np.rad2deg(norm_angle) + 180
+
+    # --- SPACING ---
+    # With Scale Reversed, bars near the end are short (0.39).
+    # We need to ensure labels don't crash into the center or each other.
+    # We push them out relative to their specific bar length.
     
-    # Place Label OUTSIDE the point
-    # Since we manually calculated radius, we just add a fixed amount to 'radius'
-    label_r = radius + 0.05
+    label_r_drug = radius + 0.08 
+    label_r_stats = radius + 0.26 
     
-    # Treatment Name
-    ax.text(angle, label_r, label, 
-            rotation=rotation, ha=alignment, va='center', fontsize=12, fontweight='bold', color=TEXT_COLOR)
+    # Drug Name
+    ax.text(angle, label_r_drug, label, 
+            rotation=rotation, ha=alignment, va='center', 
+            fontsize=32, fontweight='bold', color=TEXT_COLOR)
 
     # Stats
-    stats_text = f"{hr} [{ci_low}-{ci_high}]"
-    ax.text(angle, label_r + 0.08, stats_text, 
-            rotation=rotation, ha=alignment, va='center', fontsize=10, color=STATS_COLOR, fontfamily='monospace')
+    #stats_text = f"{hr:.2f} [{ci_low}-{ci_high}]"
+    #ax.text(angle, label_r_stats, stats_text, 
+            #rotation=rotation, ha=alignment, va='center', 
+            #fontsize=28, color=STATS_COLOR)
 
-# 8. Cleanup
-ax.set_ylim(0, 0.9) # Manual limit based on our Radius formula (1.1 - 0.39 = 0.71, so 0.9 is safe)
+# 10. Cleanup
+ax.set_ylim(0, 1.1) # Set limit to accommodate the 1.0 grid line and labels
 ax.spines['polar'].set_visible(False)
 ax.set_xticks([])
-ax.set_yticks([]) # We drew manual grid lines
+ax.set_yticks([])
 
-# Center Label
-ax.text(0, 0, "Reference\n(1.0)", color='#666666', fontsize=10, ha='center', va='center')
+# Center Label (Origin)
+ax.text(0, 0, "0", color='#666666', fontsize=24, ha='center', va='center')
 
-plt.title("Treatment Effectiveness (All-Cause Mortality)\nOuter Edge = Best Outcome (Lowest HR)", 
-          y=1.05, fontsize=20, fontweight='bold', color=TEXT_COLOR)
+plt.title("Treatment Effectiveness (All-Cause Mortality)\nCenter = 0.0 | Shortest Bar = Best Outcome", 
+          y=1.10, fontsize=40, fontweight='bold', color=TEXT_COLOR)
 
 plt.tight_layout()
-
+#plt.show()
 
 # Save with transparent background as requested
 plt.savefig('playground/Plots/lollipop.png', dpi=300, transparent=True)
-plt.show()
