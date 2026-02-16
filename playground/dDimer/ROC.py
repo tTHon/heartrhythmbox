@@ -32,16 +32,28 @@ def plot_roc_curves(csv_file):
     # Calculate ROC metrics
     fpr2, tpr2, _ = roc_curve(y, y_pred2)
     auc2 = roc_auc_score(y, y_pred2)
+
+    # --- Model 3: dDimer (Augmented) ---
+    X3 = sm.add_constant(data[['Log_dDimer']])
+    model3 = sm.Logit(y, X3).fit(disp=0)
+    y_pred3 = model3.predict(X3)
+    
+    # Calculate ROC metrics
+    fpr3, tpr3, _ = roc_curve(y, y_pred3)
+    auc3 = roc_auc_score(y, y_pred3)
     
     # --- Plotting ---
     plt.figure(figsize=(9, 7))
     
     # Plot curves
     plt.plot(fpr1, tpr1, color='blue', lw=2, linestyle='--',
-             label=f'Model 1: CHADS-VASc (AUC = {auc1:.3f})')
+             label=f'Model 1: CHADS-VASc (AUC = {auc1:.4f})')
     
     plt.plot(fpr2, tpr2, color='red', lw=2, 
-             label=f'Model 2: CHADS-VASc + dDimer (AUC = {auc2:.3f})')
+             label=f'Model 2: CHADS-VASc + dDimer (AUC = {auc2:.4f})')
+    
+    plt.plot(fpr3, tpr3, color='green', lw=2, 
+             label=f'Model 3: dDimer (AUC = {auc3:.4f})')
     
     # Add diagonal reference line (random guess)
     plt.plot([0, 1], [0, 1], color='gray', lw=1, linestyle=':')
@@ -56,7 +68,8 @@ def plot_roc_curves(csv_file):
     plt.grid(True, linestyle='--', alpha=0.3)
     
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    plt.savefig('playground/dDimer/ROC_Comparison.png', dpi=300)
 
 
 # Execute

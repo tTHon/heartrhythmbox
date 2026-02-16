@@ -67,7 +67,7 @@ def compare_thrombus_groups(csv_file):
                 p_val = np.nan
 
         # Calculate counts and percentages for each category
-        categories = sorted(df[col].unique())
+        categories = sorted(df[col].unique(), key=str)
         for i, cat in enumerate(categories):
             n0 = len(group0[group0[col] == cat])
             p0 = (n0 / len(group0)) * 100
