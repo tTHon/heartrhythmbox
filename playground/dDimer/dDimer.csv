@@ -1,4 +1,4 @@
-Id,count,Gender,age,procedure,procedure,dDimer,Thrombus,typeAF,OAC,HTN,IHD,CVA,HF,DM,CHADVA,HASBLED,BMI,creatinine,GFR,Result,LAVI,LA diameter,LVEF,Shape,PW,Complication
+Id,count,Gender,age,procedure,procedure,dDimer,Thrombus,typeAF,OAC,HTN,IHD,CVA,HF,DM,CHADVA,HASBLED,BMI,creatinine,GFR,Result,LAVI,LAdiameter,LVEF,Shape,PW,Complication
 1,1,2,57,1,RFA,215,0,1,1,0,1,1,0,1,2,0,28.4,1.12,72,0,18,2.7,56,windsock,41,0
 2,2,2,59,1,cryoablation,706,0,1,1,0,1,1,1,1,5,1,24,1.3,58,0,41,3.9,57,chicken wing,45,0
 3,3,2,59,2,CV,2197,0,2,2,1,1,0,1,0,3,3,19.5,1.28,60,3,144,6.6,55,chicken wing,16,1
