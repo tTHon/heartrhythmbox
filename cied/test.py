@@ -18,7 +18,7 @@ try:
     learn_model = load_learner(file_model)
 
     # 4. โหลดและเตรียมรูปภาพ
-    img_path = 'cied/Dataset/VVI.jpg'
+    img_path = 'cied/Dataset/CRTD.png'
     img = PILImage.create(img_path)
 
     # 5. ทำนายผล
