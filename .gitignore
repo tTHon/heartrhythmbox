@@ -9,6 +9,9 @@ package-lock.json
 package-lock.json
 package.json
 
+# CIED_code
+cied_code/
+
 # Exclude Virtual Environments
 cied_env/
 venv/
