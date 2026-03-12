@@ -8,3 +8,16 @@ package.json
 package-lock.json
 package-lock.json
 package.json
+
+# Exclude Virtual Environments
+cied_env/
+venv/
+.env/
+
+# Exclude Python cache
+__pycache__/
+*.pyc
+
+# Exclude model files (Optional - if you don't want to upload heavy .pkl files)
+*.pkl
+*.pth
