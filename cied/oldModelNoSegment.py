@@ -1,3 +1,5 @@
+# one file at a time, already cropped, use the old model, result in brand and model
+
 import pathlib
 import platform
 
