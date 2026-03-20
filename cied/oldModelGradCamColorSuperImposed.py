@@ -78,7 +78,7 @@ if __name__ == '__main__':
     file_seg   = 'cied/segmentation.pkl'
     file_manuf = 'cied/classification_manuf.pkl'
     file_model = 'cied/classification_model.pkl'
-    img_path   = 'cied/Dataset/A3 full.jpg'
+    img_path   = 'cied/Dataset/CRTD full.jpg'  # Example image path
 
     try:
         print("Loading models and image...")
@@ -125,29 +125,35 @@ if __name__ == '__main__':
             print("Step 4: Generating Saliency Map...")
             saliency_map = get_vanilla_saliency(learn_model, crop_img)
 
-            # High-end scientific plot
-            fig, ax = plt.subplots(1, 2, figsize=(14, 7), facecolor='black')
-            
-            # Left Plot
-            ax[0].imshow(crop_img, cmap='gray')
-            ax[0].set_title(f"Target Hardware\n({model_name})", color='white', fontsize=14)
-            ax[0].axis('off')
+            # 1. Convert PIL image to numpy for overlay
+            img_np = np.array(crop_img)
 
-            # Right Plot - Saliency Map
-            img_plot = ax[1].imshow(saliency_map, cmap='hot', interpolation='none')
-            ax[1].set_title("AI Feature Importance\n(High-Res Gradient)", color='white', fontsize=14)
-            ax[1].axis('off')
+            # 2. Create the Figure
+            fig, ax = plt.subplots(1, 1, figsize=(10, 10), facecolor='black')
 
-            # Professional colorbar
-            cbar = plt.colorbar(img_plot, ax=ax[1], fraction=0.046, pad=0.04)
-            cbar.ax.yaxis.set_tick_params(color='white', labelcolor='white')
-            cbar.set_label('Importance Intensity', color='white', rotation=270, labelpad=15)
+            # 3. Show the base image (Hardware)
+            ax.imshow(img_np, cmap='gray')
 
-            plt.tight_layout()
-            plt.show()
+            # 4. Overlay the Saliency Map
+            # 'alpha' controls transparency (0.5 is a good balance)
+            # 'cmap' defines the heat colors
+            overlay = ax.imshow(saliency_map, cmap='hot', alpha=0.6, interpolation='bilinear')
+
+            # Styling
+            #ax.set_title(f"AI Focus: {model_name} ({model_conf:.1f}%)", color='white', fontsize=16, pad=20)
+            #ax.axis('off')
+
+            # Add a professional colorbar
+            #cbar = plt.colorbar(overlay, ax=ax, fraction=0.046, pad=0.04)
+            #cbar.ax.yaxis.set_tick_params(color='white', labelcolor='white')
+            #cbar.set_label('Feature Importance Weight', color='white', rotation=270, labelpad=15)
+
+            #plt.tight_layout()
+            #plt.show()
+
+            # Save the superimposed version
+            fig.savefig('cied/Dataset/superimposed_saliency.png', facecolor=fig.get_facecolor(), bbox_inches='tight')
         
-            # Save final assets
-            fig.savefig('cied/Dataset/noMarginSaliency.png', facecolor=fig.get_facecolor())
             crop_img.save('cied/Dataset/noMarginCrop.png')
             print("Done! Files saved to cied/Dataset/")
 
