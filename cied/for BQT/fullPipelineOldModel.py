@@ -1,3 +1,36 @@
+import sys
+import pathlib
+import platform
+import numpy as np
+from PIL import Image
+
+# ==========================================================
+# STEP 1: COMPATIBILITY PATCHES (MUST BE AT THE VERY TOP)
+# ==========================================================
+
+# --- 1. Patch for NumPy 'int' attribute error ---
+if not hasattr(np, 'int'):
+    np.int = int
+
+# 1. Patch for 'AMPMode' (Fixes: "AMPMode() takes no arguments")
+import fastai.callback.fp16
+if not hasattr(fastai.callback.fp16, 'AMPMode'):
+    class AMPMode:
+        def __init__(self, *args, **kwargs): 
+            pass # Accept and ignore any saved training arguments
+    
+    fastai.callback.fp16.AMPMode = AMPMode
+    sys.modules['fastai.callback.fp16'].AMPMode = AMPMode
+
+# 2. Patch for Windows/Linux Path compatibility (Fixes: "PosixPath" error)
+if platform.system() == 'Windows':
+    pathlib.PosixPath = pathlib.WindowsPath
+else:
+    pathlib.WindowsPath = pathlib.PosixPath
+
+# Now it is safe to import fastai
+from fastai.vision.all import *
+
 #full process, old model, one file at a time.
 
 import pathlib

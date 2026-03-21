@@ -1,8 +1,0 @@
-# สเปกสำหรับโปรเจกต์ CIED (รุ่นเดียวกับที่ Zhukov ใช้)
-fastai<2.8.0
-fastcore<1.5.0
-torchvision<0.15.0
-torch<2.0.0
-ipython
-pandas
-matplotlib
