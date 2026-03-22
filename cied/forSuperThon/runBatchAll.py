@@ -84,10 +84,25 @@ def run_batch_pipeline(input_folder, output_folder):
         start_load = time.time()
         print("1. กำลังโหลดโมเดล (Loading Learners)...")
         # โหลดลง Device อัตโนมัติ (ไม่ใส่ cpu=True)
-        learn_seg   = load_learner(file_seg) 
+        learn_seg   = load_learner(file_seg)
         learn_manuf = load_learner(file_manuf)
         learn_model = load_learner(file_model)
         print(f"✅ โหลดโมเดลเสร็จสิ้น (ใช้เวลา: {time.time() - start_load:.2f} วินาที)")
+
+        # บังคับย้ายลง GPU (ใช้ Try-Except เพื่อป้องกันการ Crash ของ DEBUG)
+        try:
+            learn_seg.model.to('cuda')
+            learn_manuf.model.to('cuda')
+            learn_model.model.to('cuda')
+            print("🚀 บังคับโมเดลลง GPU สำเร็จ!")
+        except:
+            # ถ้าเรียก .model ไม่ได้ ให้ใช้คำสั่ง .to('cuda') กับตัว Learner ตรงๆ
+            learn_seg.to('cuda')
+            learn_manuf.to('cuda')
+            learn_model.to('cuda')
+            print("🚀 ย้าย Learner ลง GPU สำเร็จ!")
+
+        print(f"✅ โหลดและเตรียม VRAM สำเร็จ (ใช้เวลา: {time.time() - start_load:.2f} วินาที)")
 
         # 2. GET FILES
         files = get_image_files(in_dir)
