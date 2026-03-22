@@ -56,7 +56,7 @@ def run_pipeline():
     file_seg    = 'cied/segmentation.pkl'
     file_manuf  = 'cied/classification_manuf.pkl'
     file_model  = 'cied/classification_model.pkl'
-    img_input   = 'cied/Dataset/A3 full.jpg'
+    img_input   = 'cied/Dataset/VVI full.jpg'
     temp_crop   = 'cied/Dataset/temp_crop_process.jpg' # ไฟล์ชั่วคราวแก้ Bug .read()
 
     try:

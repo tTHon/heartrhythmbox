@@ -1,4 +1,6 @@
 import torch
-print(f"CUDA Available: {torch.cuda.is_available()}")
-print(f"Current Device: {torch.cuda.get_device_name(0)}")
-print(f"VRAM Total: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
+print(f"Is CUDA available? {torch.cuda.is_available()}")
+print(f"Current GPU: {torch.cuda.get_device_name(0)}")
+# ทดสอบสร้าง Tensor เล็กๆ บน GPU
+x = torch.rand(5, 3).cuda()
+print("Test Tensor on GPU:", x.device)
