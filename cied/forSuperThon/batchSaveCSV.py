@@ -155,7 +155,7 @@ def run_batch_pipeline(input_folder, output_folder):
             manuf_conf = manuf_probs.max().item() * 100
             model_conf = model_probs.max().item() * 100
             
-            print(f"| {manuf_res} ({manuf_conf:.1f}%) | {duration:.2f} วินาที")
+            print(f"| {manuf_res} ({manuf_conf:.1f}%) | {model_res} ({model_conf:.1f}%) | {duration:.2f} วินาที")
             
             # เก็บข้อมูลเพื่อลง CSV
             results_list.append([
