@@ -76,9 +76,9 @@ def run_batch_pipeline(input_folder, output_folder):
         # 1. LOAD MODELS
         start_load = time.time()
         print("1. กำลังโหลดโมเดล ...")
-        learn_seg   = load_learner(file_seg)
-        learn_manuf = load_learner(file_manuf)
-        learn_model = load_learner(file_model)
+        learn_seg   = load_learner(file_seg, cpu=False)  # โหลด Segmentation บน GPU
+        learn_manuf = load_learner(file_manuf, cpu=False)  # โหลด Classification Manufacturer บน GPU
+        learn_model = load_learner(file_model, cpu=False)  # โหลด Classification Model บน GPU
 
         # 2. GET FILES
         files = get_image_files(in_dir)

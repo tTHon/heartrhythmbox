@@ -34,11 +34,15 @@ def resize_img(img, small_ax=1024):
 
 def fix_bbox(bbox_org, img_shape, minsize=160):
     minr, minc, maxr, maxc = bbox_org
-    h, w = maxr - minr, maxc - minc
+    # Margin 5% รอบตัวเครื่อง
+    dr, dc = int((maxr-minr)*0.05), int((maxc-minc)*0.05)
+    minr, minc, maxr, maxc = minr-dr, minc-dc, maxr+dr, maxc+dc
+    # ปรับเป็นสี่เหลี่ยมจัตุรัส
+    h, w = maxr-minr, maxc-minc
     max_side = max(h, w, minsize)
-    dr_sq, dc_sq = max_side - h, max_side - w
-    minr, maxr = max(0, minr - dr_sq // 2), min(img_shape[0], maxr + dr_sq // 2)
-    minc, maxc = max(0, minc - dc_sq // 2), min(img_shape[1], maxc + dc_sq // 2)
+    dr, dc = max_side-h, max_side-w
+    minr, maxr = max(0, minr - dr//2), min(img_shape[0], maxr + dr//2)
+    minc, maxc = max(0, minc - dc//2), min(img_shape[1], maxc + dc//2)
     return int(minr), int(minc), int(maxr), int(maxc)
 
 def get_vanilla_saliency(learn, img_path, noise_threshold=0.20):
@@ -73,14 +77,14 @@ if __name__ == '__main__':
     file_seg    = 'cied/segmentation.pkl'
     file_manuf  = 'cied/classification_manuf.pkl'
     file_model  = 'cied/classification_model.pkl'
-    img_path    = 'cied/Dataset/Micra full.png'
+    img_path    = 'cied/Dataset/A3 full.jpg'
     temp_path   = 'cied/Dataset/temp_process.jpg'
 
     try:
         print("--- CIED Diagnostic Pipeline Started ---")
-        learn_seg   = load_learner(file_seg, cpu=True)
-        learn_manuf = load_learner(file_manuf, cpu=True)
-        learn_model = load_learner(file_model, cpu=True)
+        learn_seg   = load_learner(file_seg)
+        learn_manuf = load_learner(file_manuf)
+        learn_model = load_learner(file_model)
         raw_img     = PILImage.create(img_path)
 
         # 1. SEGMENTATION
@@ -106,11 +110,17 @@ if __name__ == '__main__':
             print("Step 3: Predicting...")
             manuf_name, _, manuf_probs = learn_manuf.predict(temp_path)
             model_name, _, model_probs = learn_model.predict(temp_path)
-            
+
+            manuf_conf = manuf_probs.max().item() * 100
+            model_conf = model_probs.max().item() * 100
+
+            print(f"   Manufacturer: {manuf_name} ({manuf_conf:.1f}%)")
+            print(f"   Model Group : {model_name} ({model_conf:.1f}%)")
+
             # 4. SALIENCY MAP (Heatmap)
             print("Step 4: Generating Saliency Map...")
             # ใช้ Model Group เป็นตัวทำ Heatmap เพื่อดูจุดสังเกตรุ่น
-            saliency_map = get_vanilla_saliency(learn_model, temp_path)
+            saliency_map = get_vanilla_saliency(learn_manuf, temp_path)
 
             # 5. VISUALIZATION & SAVING
             fig, ax = plt.subplots(figsize=(10, 10), facecolor='black')
