@@ -9,6 +9,14 @@ else:
 
 def extract_vocabs(manuf_pkl, model_pkl):
     try:
+
+        # 0. Extract segmentation Vocab
+        #print(f"Opening {segment_pkl}...")
+        #learn_segment = load_learner(segment_pkl)
+        #segment_list = list(learn_segment.dls.vocab)
+        #pd.DataFrame(segment_list, columns=['segment']).to_csv('cied/segmentation.csv', index=False)
+        #print("Successfully saved: segmentation.csv")
+
         # 1. Extract Manufacturer Vocab
         print(f"Opening {manuf_pkl}...")
         learn_manuf = load_learner(manuf_pkl)
