@@ -163,6 +163,6 @@ def inspect(model_path: str, image_path: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="cied/segmentation.pkl")
-    parser.add_argument("--image", default="cied/Dataset/Micra full.png")
+    parser.add_argument("--image", default="cied/Dataset/VVI full.jpg")
     args = parser.parse_args()
     inspect(args.model, args.image)

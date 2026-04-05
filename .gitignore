@@ -11,6 +11,9 @@ package.json
 
 # CIED_code
 cied_code/
+cied/AbdnL/data
+cied/AbdnL/mask
+
 
 # Exclude Virtual Environments
 cied_env/
