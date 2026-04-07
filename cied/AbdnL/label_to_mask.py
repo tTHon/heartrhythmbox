@@ -12,11 +12,11 @@ def labelme_json_to_mask(json_path, output_path):
     width = data['imageWidth']
     mask = np.zeros((height, width), dtype=np.uint8)
 
+    #remove monitor
     class_map = {
         "generator": 1,
-        "monitor": 2,
-        "lead": 3,
-        "abandoned_lead": 4
+        "lead": 2,
+        "abandoned_lead": 3
     }
 
     for shape in data['shapes']:
@@ -31,7 +31,7 @@ def labelme_json_to_mask(json_path, output_path):
 
         if shape['shape_type'] in ['linestrip', 'line']:
             # สำคัญ: สาย Lead ต้องหนาพอให้ ResNet เห็น (แนะนำ 5-8 pixel)
-            cv2.polylines(mask, [points], False, class_id, thickness=10)
+            cv2.polylines(mask, [points], False, class_id, thickness=15)
         else:
             cv2.fillPoly(mask, [points], class_id)
 

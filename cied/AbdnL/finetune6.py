@@ -1,4 +1,4 @@
-# slow still with 5 classes
+# with 4 classes -- poor numbers
 import sys
 import pathlib
 import platform
@@ -40,8 +40,8 @@ NEW_IMGS = BASE_DIR / "AbdnL/data"
 NEW_MASKS = BASE_DIR / "AbdnL/mask"
 OUTPUT_DIR = BASE_DIR / "AbdnL/models"
 
-N_OUT_NEW = 5
-CLASS_NAMES = ["background","generator","monitor","lead","abandoned_lead"]
+N_OUT_NEW = 4
+CLASS_NAMES = ["background","generator","lead","abandoned_lead"]
 
 SEED = 42
 
@@ -63,7 +63,7 @@ def build_dataframe(args):
         rows.append({
             "image": str(img),
             "mask": str(mask),
-            "has_abandoned": 4 in np.unique(arr)
+            "has_abandoned": 3 in np.unique(arr)
         })
 
     df = pd.DataFrame(rows)
@@ -193,12 +193,12 @@ def dice_abandoned(inp, targ, eps=1e-6):
     # logits → class
     pred = inp.argmax(dim=1)
 
-    # mask class 4
-    pred_4 = (pred == 4).float()
-    targ_4 = (targ == 4).float()
+    # mask class 3 = abandoned lead
+    pred_3 = (pred == 3).float()
+    targ_3 = (targ == 3).float()
 
-    inter = (pred_4 * targ_4).sum()
-    union = pred_4.sum() + targ_4.sum()
+    inter = (pred_3 * targ_3).sum()
+    union = pred_3.sum() + targ_3.sum()
 
     return (2. * inter + eps) / (union + eps)
 
@@ -294,7 +294,7 @@ def finetune(args):
     # background 96.4% → 1.0, generator 1.69% → 20, monitor 0.01% → 50
     # lead 1.50% → 20, abandoned_lead 0.41% → 80
     device    = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    weights   = torch.tensor([1.0, 20.0, 50.0, 20.0, 80.0], dtype=torch.float32).to(device)
+    weights   = torch.tensor([1.0, 20.0, 20.0, 50.0], dtype=torch.float32).to(device)
     loss_func = WeightedSegLoss(class_weights=weights, alpha=0.5)
     
     learner = unet_learner(
@@ -334,7 +334,7 @@ if __name__ == "__main__":
     parser.add_argument("--new_imgs", default=str(NEW_IMGS))
     parser.add_argument("--new_masks", default=str(NEW_MASKS))
     parser.add_argument("--epochs_head", type=int, default=5)
-    parser.add_argument("--epochs_full", type=int, default=20)
+    parser.add_argument("--epochs_full", type=int, default=10)
     parser.add_argument("--batch_size", type=int, default=4)
     parser.add_argument("--img_size", type=int, default=512)
     parser.add_argument("--patch_size", type=int, default=256)
