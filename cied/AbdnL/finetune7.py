@@ -1,11 +1,13 @@
-# ==============================
-# PATCH-BASED FINETUNE VERSION
-# This version extracts random patches from the images during training, with a bias towards areas containing abandoned leads. This allows us to train on smaller patches (e.g. 256x256) instead of the full 512x512 images, which can help with memory and speed while still learning relevant features.
-# not working
-# ==============================
-
-import sys, pathlib, platform, argparse, os, random
-import numpy as np, pandas as pd, torch, warnings
+# with 4 classes -- poor numbers
+import sys
+import pathlib
+import platform
+import argparse
+import os
+import numpy as np
+import pandas as pd
+import torch
+import warnings
 warnings.filterwarnings("ignore")
 
 os.environ["QT_LOGGING_RULES"] = "qt.qpa.fonts=false"
@@ -38,54 +40,10 @@ NEW_IMGS = pathlib.Path("C:/CIEDID_data/AbdnL/data")
 NEW_MASKS = pathlib.Path("C:/CIEDID_data/AbdnL/mask")
 OUTPUT_DIR = pathlib.Path("C:/CIEDID_data/AbdnL/models")
 
-CLASS_NAMES = ["background","generator","lead","abandoned_lead"]
 N_OUT_NEW = 4
+CLASS_NAMES = ["background","generator","lead","abandoned_lead"]
+
 SEED = 42
-
-# ==============================
-# PATCH LOGIC
-# ==============================
-def get_patch_coords(mask, patch_size=256):
-    h, w = mask.shape
-    ys, xs = np.where(mask > 0)
-
-    if len(ys) > 0 and random.random() < 0.7:
-        idx = random.randint(0, len(ys)-1)
-        cy, cx = ys[idx], xs[idx]
-    else:
-        cy = random.randint(0, h-1)
-        cx = random.randint(0, w-1)
-
-    y1 = max(0, cy - patch_size//2)
-    x1 = max(0, cx - patch_size//2)
-    y2 = min(h, y1 + patch_size)
-    x2 = min(w, x1 + patch_size)
-
-    if (y2 - y1) < patch_size:
-        y1 = max(0, y2 - patch_size)
-    if (x2 - x1) < patch_size:
-        x1 = max(0, x2 - patch_size)
-
-    return y1, y2, x1, x2
-
-from fastai.data.transforms import Transform
-
-class PatchTransform(Transform):
-    def __init__(self, patch_size=256):
-        self.patch_size = patch_size
-
-    def encodes(self, x:tuple):
-        img, mask = x   # ✅ ตอนนี้จะเป็น tuple แล้ว
-
-        img_np  = np.array(img)
-        mask_np = np.array(mask)
-
-        y1, y2, x1, x2 = get_patch_coords(mask_np, self.patch_size)
-
-        img_patch  = img_np[y1:y2, x1:x2]
-        mask_patch = mask_np[y1:y2, x1:x2]
-
-        return PILImage.create(img_patch), PILMask.create(mask_patch)
 
 # ==============================
 # DATAFRAME
@@ -96,22 +54,21 @@ def build_dataframe(args):
 
     for img in args.new_imgs.iterdir():
         if img.suffix.lower() not in exts: continue
-
         mask = args.new_masks / f"{img.stem}_mask.png"
         if not mask.exists():
             mask = args.new_masks / f"{img.stem}.png"
         if not mask.exists(): continue
 
         arr = np.array(PILImage.create(mask))
-
         rows.append({
-            "image": str(img.resolve()),
-            "mask": str(mask.resolve()),
+            "image": str(img.resolve()),   # 🔥 FIX
+            "mask": str(mask.resolve()),   # 🔥 FIX
             "has_abandoned": 3 in np.unique(arr)
         })
 
     df = pd.DataFrame(rows)
 
+    # stratified split
     train_idx, valid_idx = train_test_split(
         df.index,
         test_size=args.valid_split,
@@ -122,49 +79,181 @@ def build_dataframe(args):
     df["is_valid"] = False
     df.loc[valid_idx, "is_valid"] = True
 
+    # =========================
+    # 🔥 Oversampling (เฉพาะ train)
+    # =========================
+    train_df = df[~df["is_valid"]]
+
+    with_abl = train_df[train_df["has_abandoned"]]
+    without_abl = train_df[~train_df["has_abandoned"]]
+
+    if len(with_abl) > 0 and len(with_abl) < len(without_abl):
+        ratio = min(len(without_abl) // len(with_abl), args.oversample_new)
+
+        if ratio > 1:
+            extra = pd.concat([with_abl] * (ratio - 1))
+            df = pd.concat([df, extra]).reset_index(drop=True)
+            print(f"🔥 Oversampled Abandoned Lead x{ratio}")
+
     return df
+
+def summarize_dataset(df):
+    print("\n========== DATASET SUMMARY ==========")
+
+    # ---------------------------
+    # IMAGE COUNT
+    # ---------------------------
+    total = len(df)
+    train = len(df[~df["is_valid"]])
+    valid = len(df[df["is_valid"]])
+
+    print(f"Total images : {total}")
+    print(f"Train images : {train}")
+    print(f"Valid images : {valid}")
+
+    # ---------------------------
+    # IMAGE-LEVEL CLASS PRESENCE
+    # ---------------------------
+    print("\n--- Image-level class presence ---")
+
+    class_counts = {i: 0 for i in range(len(CLASS_NAMES))}
+
+    for _, row in df.iterrows():
+        mask = np.array(PILImage.create(row["mask"]))
+        unique = np.unique(mask)
+        for c in unique:
+            class_counts[int(c)] += 1
+
+    for i, name in enumerate(CLASS_NAMES):
+        print(f"Class {i} ({name}): present in {class_counts[i]} images")
+
+    # ---------------------------
+    # PIXEL-LEVEL DISTRIBUTION
+    # ---------------------------
+    print("\n--- Pixel-level distribution ---")
+
+    pixel_counts = {i: 0 for i in range(len(CLASS_NAMES))}
+
+    for m in df["mask"].unique():
+        mask = np.array(PILImage.create(m))
+        vals, counts = np.unique(mask, return_counts=True)
+        for v, c in zip(vals, counts):
+            pixel_counts[int(v)] += int(c)
+
+    total_pixels = sum(pixel_counts.values())
+
+    for i, name in enumerate(CLASS_NAMES):
+        pct = 100 * pixel_counts[i] / total_pixels if total_pixels > 0 else 0
+        print(f"Class {i} ({name}): {pixel_counts[i]:,} pixels ({pct:.2f}%)")
+
+    print("====================================\n")
 
 # ==============================
 # LOSS
 # ==============================
 class WeightedSegLoss(Module):
-    def __init__(self, class_weights, alpha=0.2, axis=1):
-        self.alpha = alpha
-        self.axis = axis
-        self.weights = class_weights
-        self.ce = CrossEntropyLossFlat(axis=axis, weight=class_weights)
+    """
+    Weighted CrossEntropy + DiceLoss
+    - CrossEntropy: ใช้ class weights โดยตรง
+    - DiceLoss: คำนวณแยกต่างหากต่อ class แล้ว weighted average
+    """
+    def __init__(self, class_weights, alpha=0.5, axis=1):
+        self.alpha   = alpha
+        self.axis    = axis
+        self.weights = class_weights          # tensor shape (n_classes,)
+        self.ce      = CrossEntropyLossFlat(axis=axis, weight=class_weights)
 
     def forward(self, pred, targ):
         ce_loss = self.ce(pred, targ)
 
-        pred_soft = pred.softmax(dim=self.axis)
-        dice_loss = 0.
-        w_sum = 0.
-        eps = 1e-6
+        # Dice per class (weighted)
+        pred_soft = pred.softmax(dim=self.axis)   # (B, C, H, W)
+        n_cls     = pred_soft.shape[1]
+        dice_loss = 0.0
+        w_sum     = 0.0
+        eps       = 1e-6
 
-        for c in range(pred_soft.shape[1]):
-            w = self.weights[c].item()
-            p = pred_soft[:, c]
-            t = (targ == c).float()
-            inter = (p*t).sum()
-            union = p.sum() + t.sum()
-            dice_c = 1 - (2*inter+eps)/(union+eps)
-            dice_loss += w*dice_c
-            w_sum += w
+        for c in range(n_cls):
+            w        = self.weights[c].item()
+            p        = pred_soft[:, c]
+            t        = (targ == c).float()
+            inter    = (p * t).sum()
+            union    = p.sum() + t.sum()
+            dice_c   = 1 - (2 * inter + eps) / (union + eps)
+            dice_loss += w * dice_c
+            w_sum    += w
 
-        dice_loss = dice_loss/(w_sum+eps)
-        return self.alpha*ce_loss + (1-self.alpha)*dice_loss
+        dice_loss = dice_loss / (w_sum + eps)
+        return self.alpha * ce_loss + (1 - self.alpha) * dice_loss
 
 # ==============================
-# METRIC
+# METRICS
 # ==============================
 def dice_abandoned(inp, targ, eps=1e-6):
+    # logits → class
     pred = inp.argmax(dim=1)
-    p = (pred==3).float()
-    t = (targ==3).float()
-    inter = (p*t).sum()
-    union = p.sum() + t.sum()
-    return (2*inter+eps)/(union+eps)
+
+    # mask class 3 = abandoned lead
+    pred_3 = (pred == 3).float()
+    targ_3 = (targ == 3).float()
+
+    inter = (pred_3 * targ_3).sum()
+    union = pred_3.sum() + targ_3.sum()
+
+    return (2. * inter + eps) / (union + eps)
+
+# ==============================
+# LOAD WEIGHTS
+# ==============================
+def load_pretrained_weights(learner, path):
+    device = next(learner.model.parameters()).device
+    old = load_learner(path, cpu=True)
+    old_state = old.model.state_dict()
+    new_state = learner.model.state_dict()
+
+    for k, v in old_state.items():
+        if k in new_state and new_state[k].shape == v.shape:
+            new_state[k] = v.to(device)
+
+    learner.model.load_state_dict(new_state)
+    del old
+    return learner
+
+# ==============================
+# PLOT LEARNING CURVE
+# ==============================
+def plot_learning_curves(learner, save_path):
+    rec = learner.recorder
+
+    train_losses = rec.losses
+    val_vals = rec.values
+
+    epochs = range(len(val_vals))
+
+    val_loss = [v[0] for v in val_vals]
+    dice_all = [v[1] for v in val_vals]
+    dice_abl = [v[2] for v in val_vals]
+
+    plt.figure(figsize=(12,5))
+
+    # loss
+    plt.subplot(1,2,1)
+    plt.plot(train_losses, label="Train")
+    plt.plot([i*(len(train_losses)//len(val_loss)) for i in epochs],
+             val_loss, label="Valid")
+    plt.title("Loss")
+    plt.legend()
+
+    # dice
+    plt.subplot(1,2,2)
+    plt.plot(epochs, dice_all, label="Dice All")
+    plt.plot(epochs, dice_abl, label="Dice Abandoned", linestyle="--")
+    plt.title("Dice")
+    plt.legend()
+
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=300)
+    plt.show()
 
 # ==============================
 # TRAIN
@@ -173,8 +262,16 @@ def finetune(args):
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    df = build_dataframe(args)
+    # GPU check
+    if torch.cuda.is_available():
+        print(f"Using GPU: {torch.cuda.get_device_name(0)}")
+    else:
+        print("[WARN] GPU not found — running on CPU (will be slow)")
 
+    df = build_dataframe(args)
+    summarize_dataset(df)
+    
+    # DataBlock
     def get_x(r): return r["image"]
     def get_y(r): return r["mask"]
 
@@ -182,44 +279,54 @@ def finetune(args):
         blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
         get_x=get_x,
         get_y=get_y,
-        splitter=ColSplitter('is_valid'),
-
-        item_tfms=[
-            PatchTransform(patch_size=args.patch_size),
-            Resize(args.patch_size)
-        ],
-
+        splitter=ColSplitter(col='is_valid'),
+        item_tfms=Resize(1024), #to preserve thin lines
         batch_tfms=[
-            *aug_transforms(size=args.patch_size,
+            *aug_transforms(size=256,
                             max_rotate=15,
                             max_zoom=1.2,
                             max_lighting=0.2,
-                            max_warp=0.1),
-        ]
-    )
+                            max_warp=0), #set to 0 to protect thin lines
+    ]
+)
 
     dls = dblock.dataloaders(df, bs=args.batch_size, num_workers=0)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    weights = torch.tensor([1.0, 15.0, 15.0, 100.0]).to(device)
-
-    learn = unet_learner(
+    # loss — class weights จาก pixel distribution
+    # background 96.4% → 1.0, generator 1.69% → 20, monitor 0.01% → 50
+    # lead 1.50% → 20, abandoned_lead 0.41% → 80
+    device    = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    weights   = torch.tensor([1.0, 20.0, 20.0, 50.0], dtype=torch.float32).to(device)
+    loss_func = WeightedSegLoss(class_weights=weights, alpha=0.5)
+    
+    learner = unet_learner(
         dls,
         resnet50,
         n_out=N_OUT_NEW,
-        loss_func=WeightedSegLoss(weights, alpha=0.2),
+        loss_func=loss_func,
         metrics=[DiceMulti(), dice_abandoned]
     ).to_fp16()
 
-    learn.freeze_to(-2)
-    learn.fit_one_cycle(args.epochs_head, 1e-3)
+    learner = load_pretrained_weights(learner, args.model_path)
 
-    learn.show_results(max_n=4)
+    # Phase 1
+    learner.freeze_to(-2)
+    learner.fit_one_cycle(args.epochs_head, 1e-3)
+    learner.show_results(max_n=4, figsize=(8,8))
 
-    learn.unfreeze()
-    learn.fit_one_cycle(args.epochs_full, lr_max=slice(1e-6,1e-4))
+    # Phase 2
+    learner.unfreeze()
+    learner.fit_one_cycle(args.epochs_full, lr_max=slice(1e-6,1e-4))
+    # lr_max = slice(1e-5, 1e-3) for more
 
-    learn.export(OUTPUT_DIR/"seg_patch.pkl")
+    # save
+    model_path = OUTPUT_DIR / "seg_finetune.pkl"
+    learner.export(model_path)
+
+    # plot
+    plot_learning_curves(learner, OUTPUT_DIR / "learning_curve.png")
+
+    print("DONE")
 
 # ==============================
 # MAIN
@@ -232,10 +339,13 @@ if __name__ == "__main__":
     parser.add_argument("--epochs_head", type=int, default=5)
     parser.add_argument("--epochs_full", type=int, default=10)
     parser.add_argument("--batch_size", type=int, default=4)
+    parser.add_argument("--img_size", type=int, default=512)
     parser.add_argument("--patch_size", type=int, default=256)
     parser.add_argument("--valid_split", type=float, default=0.2)
+    parser.add_argument("--oversample_new", type=int, default=5)
 
     args = parser.parse_args()
+    args.model_path = pathlib.Path(args.model_path)
     args.new_imgs = pathlib.Path(args.new_imgs)
     args.new_masks = pathlib.Path(args.new_masks)
 
