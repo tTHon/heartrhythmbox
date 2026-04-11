@@ -38,8 +38,8 @@ def labelme_json_to_mask(json_path, output_path):
     PIL.Image.fromarray(mask).save(output_path)
 
 # --- ส่วนที่ต้องแก้ไขให้ตรงกับเครื่องคุณ ---
-input_folder = Path('cied/AbdnL/data')    # ที่เก็บไฟล์ .json
-output_folder = Path('cied/AbdnL/mask')    # ที่จะเก็บไฟล์ _mask.png (ให้ตรงกับสคริปต์ Finetune)
+input_folder = Path('C:\\CIEDID_data\\AbdnL\\data')    # ที่เก็บไฟล์ .json
+output_folder = Path('C:\\CIEDID_data\\AbdnL\\mask')    # ที่จะเก็บไฟล์ _mask.png (ให้ตรงกับสคริปต์ Finetune)
 output_folder.mkdir(parents=True, exist_ok=True)
 
 # วนลูปจัดการทุกไฟล์ JSON

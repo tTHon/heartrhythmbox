@@ -13,6 +13,7 @@ package.json
 cied_code/
 cied/AbdnL/data
 cied/AbdnL/mask
+cied/anonymizer
 
 
 # Exclude Virtual Environments

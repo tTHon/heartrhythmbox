@@ -1,121 +1,242 @@
-# Finetuning Script for AbdnL Dataset
-# 4 classes: Background, Generator, Active Lead, Abandoned Lead
-# image resize first to 512x512
-# Key Improvements:
-# 1. Class Weighting: เพิ่มน้ำหนักให้ Abandoned Lead เพื่อช่วยให้โมเดลเรียนรู้ได้ดีขึ้น
-# 2. FP16 Training: เปิดใช้งานการฝึกแบบ Half Precision เพื่อประหยัดแรมและเพิ่ม Batch Size ได้
-# 3. Gradient Accumulation: ใช้เทคนิคนี้เพื่อจำลอง Batch Size ใหญ่ขึ้นโดยไม่ต้องใช้แรมมาก
-# 4. Learning Rate Scheduling: ปรับ Learning Rate ให้แคบลงในช่วง Full Finetuning เพื่อความเสถียร
+# ==============================
+# PATCH-BASED FINETUNE VERSION
+# This version extracts random patches from the images during training, with a bias towards areas containing abandoned leads. This allows us to train on smaller patches (e.g. 256x256) instead of the full 512x512 images, which can help with memory and speed while still learning relevant features.
+# not working
+# ==============================
 
-import sys
-import pathlib
-import platform
-import argparse
-import os
-import numpy as np
-import torch
-import warnings
-from fastai.vision.all import *
-
+import sys, pathlib, platform, argparse, os, random
+import numpy as np, pandas as pd, torch, warnings
 warnings.filterwarnings("ignore")
 
-# Fix for Windows/Linux path compatibility
+os.environ["QT_LOGGING_RULES"] = "qt.qpa.fonts=false"
+
+if not hasattr(np, 'int'):
+    np.int = int
+
+import fastai.callback.fp16
+if not hasattr(fastai.callback.fp16, 'AMPMode'):
+    class AMPMode:
+        def __init__(self, *args, **kwargs): pass
+    fastai.callback.fp16.AMPMode = AMPMode
+    sys.modules['fastai.callback.fp16'].AMPMode = AMPMode
+
 if platform.system() == 'Windows':
     pathlib.PosixPath = pathlib.WindowsPath
 else:
     pathlib.WindowsPath = pathlib.PosixPath
 
-# ==============================
-# CONFIG & PATHS
-# ==============================
-BASE_DIR = pathlib.Path("cied")
-MODEL_PATH = BASE_DIR / "segmentation.pkl"
-NEW_IMGS = BASE_DIR / "AbdnL/data"
-NEW_MASKS = BASE_DIR / "AbdnL/mask"
-OUTPUT_DIR = BASE_DIR / "AbdnL/models"
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+from fastai.vision.all import *
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 # ==============================
-# CUSTOM METRICS (เพิ่มตรงนี้)
+# CONFIG
 # ==============================
-def dice_multi(input, target):
-    # คำนวณ Dice Score เฉลี่ยของทุก Class (0-3)
-    return Dice(axis=1)(input, target)
+BASE_DIR = pathlib.Path("C:/CIEDID_data")
+MODEL_PATH = pathlib.Path("C:/CIEDID_data/pkl/segmentation.pkl")
+NEW_IMGS = pathlib.Path("C:/CIEDID_data/AbdnL/data")
+NEW_MASKS = pathlib.Path("C:/CIEDID_data/AbdnL/mask")
+OUTPUT_DIR = pathlib.Path("C:/CIEDID_data/AbdnL/models")
 
-def dice_abandoned(input, target):
-    # คำนวณ Dice Score เฉพาะ Class 3 (Abandoned Lead)
-    return Dice(axis=1, i=3)(input, target)
-
-def get_msk(fn):
-    # ดึงชื่อไฟล์ mask ให้ตรงกับรูปภาพ
-    return NEW_MASKS / f"{fn.stem}_mask.png"
+CLASS_NAMES = ["background","generator","lead","abandoned_lead"]
+N_OUT_NEW = 4
+SEED = 42
 
 # ==============================
-# TRAINING FUNCTION
+# PATCH LOGIC
 # ==============================
-def train():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--model_path", default=str(MODEL_PATH))
-    parser.add_argument("--batch_size", type=int, default=2) # สำหรับ 8GB ใช้ 2-4
-    parser.add_argument("--size", type=int, default=512)    # ปรับเป็น 512 เพื่อความละเอียด
-    parser.add_argument("--epochs_head", type=int, default=5)
-    parser.add_argument("--epochs_full", type=int, default=15) # เพิ่มรอบเพื่อให้ Dice นิ่ง
-    args = parser.parse_args()
+def get_patch_coords(mask, patch_size=256):
+    h, w = mask.shape
+    ys, xs = np.where(mask > 0)
 
-    print(f"Using Device: {default_device()}")
-    
-    fnames = get_image_files(NEW_IMGS)
-    codes = np.array(['background', 'generator', 'lead', 'abandoned_lead'])
+    if len(ys) > 0 and random.random() < 0.7:
+        idx = random.randint(0, len(ys)-1)
+        cy, cx = ys[idx], xs[idx]
+    else:
+        cy = random.randint(0, h-1)
+        cx = random.randint(0, w-1)
 
-    # DataBlock พร้อมการจัดการ Resize ที่ดีขึ้น
-    dls = SegmentationDataLoaders.from_label_func(
-        path=NEW_IMGS,
-        fnames=fnames,
-        label_func=get_msk,
-        codes=codes,
-        bs=args.batch_size,
-        item_tfms=[Resize(args.size, method='pad', pad_mode='zeros')], # ป้องกันรูปเบี้ยว
-        batch_tfms=[IntToFloatTensor(), Normalize.from_stats(*imagenet_stats)]
+    y1 = max(0, cy - patch_size//2)
+    x1 = max(0, cx - patch_size//2)
+    y2 = min(h, y1 + patch_size)
+    x2 = min(w, x1 + patch_size)
+
+    if (y2 - y1) < patch_size:
+        y1 = max(0, y2 - patch_size)
+    if (x2 - x1) < patch_size:
+        x1 = max(0, x2 - patch_size)
+
+    return y1, y2, x1, x2
+
+from fastai.data.transforms import Transform
+
+class PatchTransform(Transform):
+    def __init__(self, patch_size=256):
+        self.patch_size = patch_size
+
+    def encodes(self, x:tuple):
+        img, mask = x   # ✅ ตอนนี้จะเป็น tuple แล้ว
+
+        img_np  = np.array(img)
+        mask_np = np.array(mask)
+
+        y1, y2, x1, x2 = get_patch_coords(mask_np, self.patch_size)
+
+        img_patch  = img_np[y1:y2, x1:x2]
+        mask_patch = mask_np[y1:y2, x1:x2]
+
+        return PILImage.create(img_patch), PILMask.create(mask_patch)
+
+# ==============================
+# DATAFRAME
+# ==============================
+def build_dataframe(args):
+    rows = []
+    exts = {".jpg",".png",".jpeg",".bmp"}
+
+    for img in args.new_imgs.iterdir():
+        if img.suffix.lower() not in exts: continue
+
+        mask = args.new_masks / f"{img.stem}_mask.png"
+        if not mask.exists():
+            mask = args.new_masks / f"{img.stem}.png"
+        if not mask.exists(): continue
+
+        arr = np.array(PILImage.create(mask))
+
+        rows.append({
+            "image": str(img.resolve()),
+            "mask": str(mask.resolve()),
+            "has_abandoned": 3 in np.unique(arr)
+        })
+
+    df = pd.DataFrame(rows)
+
+    train_idx, valid_idx = train_test_split(
+        df.index,
+        test_size=args.valid_split,
+        stratify=df["has_abandoned"],
+        random_state=SEED
     )
 
-    # 1. เพิ่ม Weight ให้ Class 3 (Abandoned Lead) 10 เท่า
-    weights = torch.tensor([1.0, 1.0, 1.0, 10.0]).to(default_device())
-    loss_func = CrossEntropyLossFlat(axis=1, weight=weights)
+    df["is_valid"] = False
+    df.loc[valid_idx, "is_valid"] = True
 
-    # Load Model
-    print("Loading pretrained model...")
-    learn = load_learner(args.model_path, cpu=False)
-    
-    # สร้าง Learner ใหม่โดยใช้โครงสร้างเดิมแต่ปรับ Loss และ Dls
-    learner = unet_learner(dls, resnet34, metrics=[dice_multi, Dice(axis=1, i=3)], 
-                           loss_func=loss_func).to_fp16() # 2. เปิด FP16 ประหยัดแรม
-    
-    learner.model = learn.model # Copy weights
+    return df
 
-    # Phase 1: Train Head
-    print("Phase 1: Training Head...")
-    learner.freeze()
-    learner.fit_one_cycle(args.epochs_head, 1e-3)
+# ==============================
+# LOSS
+# ==============================
+class WeightedSegLoss(Module):
+    def __init__(self, class_weights, alpha=0.2, axis=1):
+        self.alpha = alpha
+        self.axis = axis
+        self.weights = class_weights
+        self.ce = CrossEntropyLossFlat(axis=axis, weight=class_weights)
 
-    # Phase 2: Full Finetuning
-    print("Phase 2: Full Finetuning with Gradient Accumulation...")
-    learner.unfreeze()
-    
-    # 3. ใช้ Gradient Accumulation (n_acc=4) เพื่อจำลอง Batch Size ใหญ่
-    # 4. ปรับ Learning Rate ให้แคบลงเพื่อความเสถียร
-    learner.fit_one_cycle(args.epochs_full, 
-                          lr_max=slice(5e-6, 5e-5), 
-                          cbs=[GradientAccumulation(n_acc=4)])
+    def forward(self, pred, targ):
+        ce_loss = self.ce(pred, targ)
 
-    # Save Results
-    model_path = OUTPUT_DIR / "AbnL_finetune.pkl"
-    learner.export(model_path)
-    
-    # Save Learning Curve
-    learner.recorder.plot_loss()
-    plt.savefig(OUTPUT_DIR / "learning_curve_v2.png")
-    
-    print(f"DONE! Model saved to {model_path}")
+        pred_soft = pred.softmax(dim=self.axis)
+        dice_loss = 0.
+        w_sum = 0.
+        eps = 1e-6
 
+        for c in range(pred_soft.shape[1]):
+            w = self.weights[c].item()
+            p = pred_soft[:, c]
+            t = (targ == c).float()
+            inter = (p*t).sum()
+            union = p.sum() + t.sum()
+            dice_c = 1 - (2*inter+eps)/(union+eps)
+            dice_loss += w*dice_c
+            w_sum += w
+
+        dice_loss = dice_loss/(w_sum+eps)
+        return self.alpha*ce_loss + (1-self.alpha)*dice_loss
+
+# ==============================
+# METRIC
+# ==============================
+def dice_abandoned(inp, targ, eps=1e-6):
+    pred = inp.argmax(dim=1)
+    p = (pred==3).float()
+    t = (targ==3).float()
+    inter = (p*t).sum()
+    union = p.sum() + t.sum()
+    return (2*inter+eps)/(union+eps)
+
+# ==============================
+# TRAIN
+# ==============================
+def finetune(args):
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    df = build_dataframe(args)
+
+    def get_x(r): return r["image"]
+    def get_y(r): return r["mask"]
+
+    dblock = DataBlock(
+        blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
+        get_x=get_x,
+        get_y=get_y,
+        splitter=ColSplitter('is_valid'),
+
+        item_tfms=[
+            PatchTransform(patch_size=args.patch_size),
+            Resize(args.patch_size)
+        ],
+
+        batch_tfms=[
+            *aug_transforms(size=args.patch_size,
+                            max_rotate=15,
+                            max_zoom=1.2,
+                            max_lighting=0.2,
+                            max_warp=0.1),
+        ]
+    )
+
+    dls = dblock.dataloaders(df, bs=args.batch_size, num_workers=0)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    weights = torch.tensor([1.0, 15.0, 15.0, 100.0]).to(device)
+
+    learn = unet_learner(
+        dls,
+        resnet50,
+        n_out=N_OUT_NEW,
+        loss_func=WeightedSegLoss(weights, alpha=0.2),
+        metrics=[DiceMulti(), dice_abandoned]
+    ).to_fp16()
+
+    learn.freeze_to(-2)
+    learn.fit_one_cycle(args.epochs_head, 1e-3)
+
+    learn.show_results(max_n=4)
+
+    learn.unfreeze()
+    learn.fit_one_cycle(args.epochs_full, lr_max=slice(1e-6,1e-4))
+
+    learn.export(OUTPUT_DIR/"seg_patch.pkl")
+
+# ==============================
+# MAIN
+# ==============================
 if __name__ == "__main__":
-    train()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model_path", default=str(MODEL_PATH))
+    parser.add_argument("--new_imgs", default=str(NEW_IMGS))
+    parser.add_argument("--new_masks", default=str(NEW_MASKS))
+    parser.add_argument("--epochs_head", type=int, default=5)
+    parser.add_argument("--epochs_full", type=int, default=10)
+    parser.add_argument("--batch_size", type=int, default=4)
+    parser.add_argument("--patch_size", type=int, default=256)
+    parser.add_argument("--valid_split", type=float, default=0.2)
+
+    args = parser.parse_args()
+    args.new_imgs = pathlib.Path(args.new_imgs)
+    args.new_masks = pathlib.Path(args.new_masks)
+
+    finetune(args)

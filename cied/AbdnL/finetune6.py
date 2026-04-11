@@ -34,11 +34,11 @@ import matplotlib.pyplot as plt
 # ==============================
 # CONFIG
 # ==============================
-BASE_DIR = pathlib.Path("cied")
-MODEL_PATH = BASE_DIR / "segmentation.pkl"
-NEW_IMGS = BASE_DIR / "AbdnL/data"
-NEW_MASKS = BASE_DIR / "AbdnL/mask"
-OUTPUT_DIR = BASE_DIR / "AbdnL/models"
+BASE_DIR = pathlib.Path("C:/CIEDID_data")
+MODEL_PATH = pathlib.Path("C:/CIEDID_data/pkl/segmentation.pkl")
+NEW_IMGS = pathlib.Path("C:/CIEDID_data/AbdnL/data")
+NEW_MASKS = pathlib.Path("C:/CIEDID_data/AbdnL/mask")
+OUTPUT_DIR = pathlib.Path("C:/CIEDID_data/AbdnL/models")
 
 N_OUT_NEW = 4
 CLASS_NAMES = ["background","generator","lead","abandoned_lead"]
@@ -61,8 +61,8 @@ def build_dataframe(args):
 
         arr = np.array(PILImage.create(mask))
         rows.append({
-            "image": str(img),
-            "mask": str(mask),
+            "image": str(img.resolve()),   # 🔥 FIX
+            "mask": str(mask.resolve()),   # 🔥 FIX
             "has_abandoned": 3 in np.unique(arr)
         })
 
@@ -270,13 +270,16 @@ def finetune(args):
 
     df = build_dataframe(args)
     summarize_dataset(df)
+    
+    # DataBlock
+    def get_x(r): return r["image"]
+    def get_y(r): return r["mask"]
 
-    dls = ImageDataLoaders.from_df(
-        df,
-        fn_col="image",
-        label_col="mask",
-        valid_col="is_valid",
-        y_block=MaskBlock(codes=CLASS_NAMES),
+    dblock = DataBlock(
+        blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
+        get_x=get_x,
+        get_y=get_y,
+        splitter=ColSplitter(col='is_valid'),
         item_tfms=Resize(args.img_size),
         batch_tfms=[
             *aug_transforms(size=args.patch_size,
@@ -284,11 +287,10 @@ def finetune(args):
                             max_zoom=1.2,
                             max_lighting=0.2,
                             max_warp=0.1),
-            #Normalize.from_stats(*imagenet_stats)
-        ],
-        bs=args.batch_size,
-        num_workers=0
-    )
+    ]
+)
+
+    dls = dblock.dataloaders(df, bs=args.batch_size, num_workers=0)
 
     # loss — class weights จาก pixel distribution
     # background 96.4% → 1.0, generator 1.69% → 20, monitor 0.01% → 50
@@ -310,6 +312,7 @@ def finetune(args):
     # Phase 1
     learner.freeze_to(-2)
     learner.fit_one_cycle(args.epochs_head, 1e-3)
+    learner.show_results(max_n=4, figsize=(8,8))
 
     # Phase 2
     learner.unfreeze()
