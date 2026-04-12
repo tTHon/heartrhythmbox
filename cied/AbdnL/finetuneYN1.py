@@ -155,7 +155,7 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     parser.add_argument("--epochs_head", type=int, default=5)
     parser.add_argument("--epochs_full", type=int, default=20) # เพิ่มรอบเพื่อให้เรียนรู้คลาสใหม่
-    parser.add_argument("--batch_size", type=int, default=2)
+    parser.add_argument("--batch_size", type=int, default=4)
     parser.add_argument("--patch_size", type=int, default=384) # ใช้ Patch ขนาดใหญ่เพื่อให้เห็นสายยาวๆ -- ดีกว่าเพื่ม oversampling
     parser.add_argument("--valid_split", type=float, default=0.2)
     parser.add_argument("--oversample_new", type=int, default=5) # เพิ่มการเห็น Abandoned Lead ซ้ำๆ
