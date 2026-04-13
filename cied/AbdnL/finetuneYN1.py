@@ -110,12 +110,12 @@ def finetune(args):
     pathlib.Path(args.output_dir).mkdir(parents=True, exist_ok=True)
     df = build_dataframe(args)
     
-    # DataBlock - ใช้กลยุทธ์ Zhukov (Resize 1024)
+    # DataBlock - (Resize 1024-->512)
     dblock = DataBlock(
         blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
         get_x=get_x, get_y=get_y,
         splitter=ColSplitter(col='is_valid'),
-        item_tfms=Resize(1024), 
+        item_tfms=Resize(512), 
         batch_tfms=[*aug_transforms(size=args.patch_size, max_warp=0)] # ปิด warp เพื่อรักษาเส้นสายไฟ
     )
 
