@@ -20,6 +20,7 @@
 #
 # NEW: show_batch_inspection() — visualise raw image + mask overlay + pixel
 #      distribution for every train/valid sample before training starts.
+# model export: save state_dict (.pth) instead of learner.export() to avoid pickle 'code' object error
 
 import pathlib
 import platform
@@ -392,6 +393,10 @@ def finetune(args):
     # Phase 2 — full fine-tune with best-model checkpoint
     print("\n--- Phase 2: Full Fine-Tuning ---")
     learner.unfreeze()
+    # SaveModelCallback บันทึกไว้ที่ learner.path/learner.model_dir/
+    # ตั้ง path ให้ตรงกับ out เพื่อให้หาเจอ
+    learner.path      = out
+    learner.model_dir = ""
     learner.fit_one_cycle(
         args.epochs_full,
         lr_max=slice(1e-6, 1e-4),
@@ -400,16 +405,26 @@ def finetune(args):
                               with_opt=False)
     )
 
+    # --- บรรทัดที่เพิ่มใหม่ ---
+    print("🎨 Saving sample predictions...")
+    learner.show_results(max_n=4, vmin=0, vmax=3)
+    plt.savefig(out / "quick_peek.png")
+    plt.close()
+
     # Load best checkpoint before export
     best_path = out / "best_seg.pth"
     if best_path.exists():
         learner.load(str(out / "best_seg"))
         print("🏆 Loaded best checkpoint (highest dice_generator).")
 
-    model_export_path = out / "seg_abdnL_final.pth"
-    # แทนที่ learner.export(model_export_path) ด้วย:
-    torch.save(learner.model.state_dict(), out / "seg_abdnL_weights.pth")
-    print(f"✅ Weights saved → {out / 'seg_abdnL_weights.pth'}")
+    # ------------------------------------------------------------------
+    # Export — state dict (.pth)
+    # ไม่ใช้ learner.export() เพื่อหลีกเลี่ยง pickle 'code' object error
+    # โหลดกลับด้วย infer_abdnL.py
+    # ------------------------------------------------------------------
+    weights_path = out / "seg_abdnL_weights.pth"
+    torch.save(learner.model.state_dict(), weights_path)
+    print(f"\n✅ Weights saved → {weights_path}")
 
 
 # ==============================
@@ -417,13 +432,13 @@ def finetune(args):
 # ==============================
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_path",     default="C:/CIEDID_data/pkl/segmentation.pkl")
-    parser.add_argument("--new_imgs",       default="C:/CIEDID_data/AbdnL/data")
-    parser.add_argument("--new_masks",      default="C:/CIEDID_data/AbdnL/mask")
-    parser.add_argument("--output_dir",     default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--epochs_decoder",  type=int,   default=10)   # Phase 0: decoder warmup
-    parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=20)
+    parser.add_argument("--model_path", default="C:/CIEDID_data/pkl/segmentation.pkl")
+    parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
+    parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
+    parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
+    parser.add_argument("--epochs_decoder",  type=int,   default=3)   # Phase 0: decoder warmup ลองลดเหลือ 5
+    parser.add_argument("--epochs_head",    type=int,   default=2)    # Phase 1: head only
+    parser.add_argument("--epochs_full",    type=int,   default=10)
     parser.add_argument("--batch_size",     type=int,   default=4)
     parser.add_argument("--patch_size",     type=int,   default=256)
     parser.add_argument("--valid_split",    type=float, default=0.2)
