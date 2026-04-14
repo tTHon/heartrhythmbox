@@ -342,6 +342,17 @@ def finetune(args):
     out.mkdir(parents=True, exist_ok=True)
 
     df = build_dataframe(args)
+    
+    # --- วางโค้ดเช็คจำนวน Abandoned Lead ตรงนี้ ---
+    n_valid_abdn = df[df["is_valid"] & df["has_abandoned"]].shape[0]
+    n_train_abdn = df[~df["is_valid"] & df["has_abandoned"]].shape[0]
+    print(f"🔍 Checking Validation Set: พบ Abandoned Lead {n_valid_abdn} รูป")
+    print(f"🔍 Checking Training Set: พบ Abandoned Lead {n_train_abdn} รูป")
+    
+    if n_valid_abdn == 0:
+        print("⚠️ Warning: ไม่มี Abandoned Lead ใน Validation Set เลย! Metric จะขึ้น nan แน่นอน")
+    # ------------------------------------------
+        
     summarize_dataset(df)
 
     # DataBlock
@@ -361,7 +372,7 @@ def finetune(args):
 
     # Loss with class weights
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    weights    = torch.tensor([1.0, 10.0, 10.0, 50.0]).to(device)
+    weights    = torch.tensor([1.0, 10.0, 10.0, 20.0]).to(device)
     loss_func  = FocalLossFlat(axis=1, weight=weights)
 
     learner = unet_learner(
@@ -436,8 +447,8 @@ if __name__ == "__main__":
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--epochs_decoder",  type=int,   default=3)   # Phase 0: decoder warmup ลองลดเหลือ 5
-    parser.add_argument("--epochs_head",    type=int,   default=2)    # Phase 1: head only
+    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
+    parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
     parser.add_argument("--epochs_full",    type=int,   default=10)
     parser.add_argument("--batch_size",     type=int,   default=4)
     parser.add_argument("--patch_size",     type=int,   default=256)

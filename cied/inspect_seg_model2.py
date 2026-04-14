@@ -19,7 +19,7 @@ else:
 from fastai.vision.all import load_learner
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--model_path", default="C:/CIEDID_data/pkl/segmentation.pkl")
+parser.add_argument("--model_path", default="C:/CIEDID_data/pkl/classification_model.pkl")
 args = parser.parse_args()
 
 print(f"Loading: {args.model_path}")
