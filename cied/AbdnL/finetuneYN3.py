@@ -72,7 +72,7 @@ def dice_generator(inp, targ, eps=1e-6):
 # ------------------------------------------------------------------
 def abdn_lead_sensitivity(inp, targ):
     """Yes/No sensitivity: did the model detect abandoned lead when present?"""
-    threshold_pixels = 20
+    threshold_pixels = 1
     pred = inp.argmax(dim=1)
     pred_yes = (pred == 3).sum(dim=(1, 2)) > threshold_pixels
     targ_yes = (targ == 3).sum(dim=(1, 2)) > 0
@@ -442,7 +442,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size",     type=int,   default=4)
     parser.add_argument("--patch_size",     type=int,   default=256)
     parser.add_argument("--valid_split",    type=float, default=0.2)
-    parser.add_argument("--oversample_new", type=int,   default=5)
+    parser.add_argument("--oversample_new", type=int,   default=3)
 
     args = parser.parse_args()
     args.new_imgs    = pathlib.Path(args.new_imgs)
