@@ -361,7 +361,9 @@ def finetune(args):
         get_x=get_x, get_y=get_y,
         splitter=ColSplitter(col='is_valid'),
         item_tfms=Resize(512),
-        batch_tfms=[*aug_transforms(size=args.patch_size, max_warp=0)],  # warp off → preserves lead geometry
+        batch_tfms=[*aug_transforms
+                    (size=args.patch_size, 
+                     max_warp=0)],  # warp off → preserves lead geometry
     )
     dls = dblock.dataloaders(df, bs=args.batch_size, num_workers=0)
 
@@ -436,6 +438,11 @@ def finetune(args):
     weights_path = out / "seg_abdnL_weights.pth"
     torch.save(learner.model.state_dict(), weights_path)
     print(f"\n✅ Weights saved → {weights_path}")
+
+    # Export — Full Learner (.pkl)
+    #export_path = out / "segmentation_abdnL.pkl"
+    #learner.export(export_path) 
+    #print(f"\n✅ Model Exported as Pickle → {export_path}")
 
 
 # ==============================

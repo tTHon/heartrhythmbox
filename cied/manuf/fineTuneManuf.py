@@ -10,6 +10,14 @@ Vocab เดิมของโมเดล (5 class, index 0-4):
   3: ST. Jude Medical
   4: Vitatron   ← ไม่มีในข้อมูลเรา
 
+--- FastAI Model Inspection ---
+✅ Found Vocab in dls.vocab:
+  Index 0: Biotronik
+  Index 1: Boston Scientific
+  Index 2: Medtronic
+  Index 3: St. Jude Medical
+  Index 4: Vitatron
+
 Strategy: คง head 5 class ไว้ทั้งหมด — ไม่ replace head
   - Weight ของ 4 class ที่เรามีนั้น pretrained มาแล้ว → เก็บไว้
   - Dataset folder ต้องชื่อตาม OUR_CLASSES ด้านล่าง
@@ -50,9 +58,9 @@ import numpy as np
 # ────────────────────────────────────────────────
 ORIG_VOCAB = {
     "Biotronik":        0,
-    "BSX": 1,   # folder ชื่อ "BostonScientific" (ไม่มีช่องว่าง)
+    "BSX": 1,         # ในโมเดลเดิมชื่อ "Boston Scientific" แต่ใน dataset เราใช้ "BSX" → remap ใน code ด้านล่าง
     "Medtronic":        2,
-    "Abbott":           3,
+    "Abbott":           3, # ในโมเดลเดิมชื่อ "ST. Jude Medical" แต่ใน dataset เราใช้ "Abbott" → remap ใน code ด้านล่าง
     "Vitatron":         4,   # ไม่มีในข้อมูลเรา → weight=0
 }
 OUR_CLASSES    = ["Biotronik", "BSX", "Medtronic","Abbott"]  # ชื่อ folder ต้องตรงนี้']
