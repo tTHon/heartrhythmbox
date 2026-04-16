@@ -23,7 +23,8 @@
 #      distribution for every train/valid sample before training starts.
 # model export: save state_dict (.pth) instead of learner.export() to avoid pickle 'code' object error
 # NEW: custom dataset statistics calculation (mean/std) with --calc_stats flag, used for normalization instead of ImageNet stats.
-    # w/o custom normalization: best model dice_generator = 0.72335
+    # Epochs 5/5/10: w/o vs w/ custom normalization: best model dice_generator = 0.72335 vs 0.712614
+    # F1 score is better with custom normalization (0.73-->0.85 for abndL, pixel level: 0.58-->0.61 for generator, 0.07-->0.13 for lead, and 0.03-->0.05) 
 
 # NEW: add LR_FIND suggestion for Phase 2 full fine-tuning (currently set to a conservative slice(1e-6, 1e-4))
 
@@ -38,6 +39,14 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from fastai.vision.all import *
 from sklearn.model_selection import train_test_split
+
+# PyTorch 2.6+ fix: monkey-patch torch.load to use weights_only=False for fastai compatibility
+import torch
+_original_torch_load = torch.load
+def _patched_torch_load(*args, **kwargs):
+    kwargs.setdefault('weights_only', False)
+    return _original_torch_load(*args, **kwargs)
+torch.load = _patched_torch_load
 
 warnings.filterwarnings("ignore")
 
@@ -436,6 +445,11 @@ def finetune(args):
     print("\n📦 Loading pretrained encoder weights …")
     learner = load_pretrained_weights(learner, args.model_path)
 
+    #print("🔍 finding optimal Learning Rate for Phase 0 (Full Fine-tuning)...")
+    #suggestions = learner.lr_find(suggest_funcs=(minimum, steep, valley, slide))
+    #print(f"suggestions (Valley): {suggestions.valley}")
+    #phase 0 suggestions (Valley): 2.511886486900039e-05
+
     # ------------------------------------------------------------------
     # Phase 0 — Decoder warmup (encoder frozen)
     # Train the randomly-initialised decoder and head while the encoder
@@ -447,17 +461,23 @@ def finetune(args):
     # Freeze only the encoder (groups[0] in FastAI UNet = backbone)
     learner.freeze_to(1)          # freeze group 0 (encoder), leave rest free
     learner.fit_one_cycle(args.epochs_decoder, 1e-3)
+    learner.show_results(max_n=4, vmin=0, vmax=3)
+    learner.save(out / "after_decoder_warmup")
 
     # Phase 1 — head only
     print("\n--- Phase 1: Training Head (all except head frozen) ---")
     learner.freeze()              # freeze everything except last param group (head)
     learner.fit_one_cycle(args.epochs_head, 3e-4)
+    learner.show_results(max_n=4, vmin=0, vmax=3)
+    learner.save(out / "after_head_only")
+    learner.plot.loss()
+    plt.savefig(out / "phase1_head_loss.png")
 
     # Phase 2 — full fine-tune with best-model checkpoint
     print("\n--- Phase 2: Full Fine-Tuning ---")
     learner.unfreeze()
 
-    # 2. รันหาค่าความเร็วใหม่สำหรับทั้งโมเดล
+    # 2. show lr_find suggestions for Phase 2 full fine-tuning
     print("🔍 finding optimal Learning Rate for Phase 2 (Full Fine-tuning)...")
     suggestions = learner.lr_find(suggest_funcs=(minimum, steep, valley, slide))
     print(f"suggestions (Valley): {suggestions.valley}")
@@ -465,8 +485,7 @@ def finetune(args):
     # learner.fit_one_cycle(args.epochs_decoder, suggestions.valley)
 
 
-    # SaveModelCallback บันทึกไว้ที่ learner.path/learner.model_dir/
-    # ตั้ง path ให้ตรงกับ out เพื่อให้หาเจอ
+    # SaveModelCallback at learner.path/learner.model_dir/
     learner.path      = out
     learner.model_dir = ""
     learner.fit_one_cycle(
@@ -477,10 +496,13 @@ def finetune(args):
                               with_opt=False)
     )
 
-    # --- บรรทัดที่เพิ่มใหม่ ---
+    # --- Save Sample Predictions ---
     print("🎨 Saving sample predictions...")
     learner.show_results(max_n=4, vmin=0, vmax=3)
     plt.savefig(out / "quick_peek.png")
+    learner.plot.loss()
+    plt.savefig(out / "phase2_full_finetuning_loss.png")
+
     plt.close()
 
     # Load best checkpoint before export
@@ -520,8 +542,8 @@ if __name__ == "__main__":
     parser.add_argument("--patch_size",     type=int,   default=256)
     parser.add_argument("--valid_split",    type=float, default=0.2)
     parser.add_argument("--oversample_new", type=int,   default=3)
-# Added --calc_stats to the argparse section so you can choose when to perform this calculation.
-
+    
+    # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
     parser.add_argument("--calc_stats",     action="store_true",
                         help="Calculate mean/std from the dataset instead of using ImageNet values")
     

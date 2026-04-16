@@ -1,3 +1,5 @@
+# Grid Search for Threshold and Pixel Count Parameters
+# last run: Sweetspot = Threshold 0.7, Pixel_min 80 (F1 0.81, Recall 1.00, pPrecision 0.69)
 import torch
 import pathlib
 import numpy as np
