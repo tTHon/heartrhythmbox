@@ -1,3 +1,7 @@
+# inferAbdn.py
+# This script performs inference on a single X-ray image using a pre-trained UNet model for segmentation.
+# This script loads the pretrained .pth.
+
 import torch
 import pathlib
 import cv2
