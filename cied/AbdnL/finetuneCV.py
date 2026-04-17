@@ -11,7 +11,7 @@
 #        full fine-tune).  The fold with the best validation dice_generator is exported
 #        as the final model.
 #
-# DATA FLOW:
+# DATA FLOW: -- ไปคิดก่อนว่าข้อมูลจะไหลยังไงในสคริปต์นี้ --
 #   all images
 #     └─ abandoned-lead images (~50–55)
 #         ├─ TEST SET  (~20%, fixed, never used in CV)  → evaluated once at the very end
