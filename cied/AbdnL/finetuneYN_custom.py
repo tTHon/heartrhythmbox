@@ -405,7 +405,7 @@ def finetune(args):
             blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
             get_x=get_x, get_y=get_y,
             splitter=ColSplitter(col='is_valid'),
-            item_tfms=Resize(512),
+            item_tfms=Resize(args.img_size, method='pad'), 
             batch_tfms=[IntToFloatTensor()] # Convert 0-255 to 0-1 but NO normalization
         )
         stats_dls = stats_db.dataloaders(df, bs=args.batch_size, num_workers=0)
@@ -425,6 +425,7 @@ def finetune(args):
                     ],  # warp off → preserves lead geometry
     )
     dls = dblock.dataloaders(df, bs=args.batch_size, num_workers=0)
+    
 
     # --- What does the model see? ---
     print("\n📸 Generating batch inspection figures …")
@@ -440,6 +441,8 @@ def finetune(args):
         dls, resnet50, n_out=4,
         loss_func=loss_func,
         metrics=[dice_generator, abdn_lead_sensitivity],
+        # Add CSVLogger here to capture all phases in one file
+        cbs=[CSVLogger(fname=str(out / "training_history.csv"), append=True)]
     ).to_fp16()
 
     print("\n📦 Loading pretrained encoder weights …")
@@ -462,27 +465,31 @@ def finetune(args):
     learner.freeze_to(1)          # freeze group 0 (encoder), leave rest free
     learner.fit_one_cycle(args.epochs_decoder, 1e-3)
     learner.show_results(max_n=4, vmin=0, vmax=3)
-    learner.save(out / "after_decoder_warmup")
+    plt.savefig(out / "phase0_decoder_warmup.png")
+    #learner.save(out / "after_decoder_warmup")
 
     # Phase 1 — head only
     print("\n--- Phase 1: Training Head (all except head frozen) ---")
     learner.freeze()              # freeze everything except last param group (head)
     learner.fit_one_cycle(args.epochs_head, 3e-4)
     learner.show_results(max_n=4, vmin=0, vmax=3)
-    learner.save(out / "after_head_only")
-    learner.plot.loss()
     plt.savefig(out / "phase1_head_loss.png")
+    #learner.save(out / "after_head_only")
+    #learner.recorder.plot.loss()
+
 
     # Phase 2 — full fine-tune with best-model checkpoint
     print("\n--- Phase 2: Full Fine-Tuning ---")
     learner.unfreeze()
 
     # 2. show lr_find suggestions for Phase 2 full fine-tuning
-    print("🔍 finding optimal Learning Rate for Phase 2 (Full Fine-tuning)...")
-    suggestions = learner.lr_find(suggest_funcs=(minimum, steep, valley, slide))
-    print(f"suggestions (Valley): {suggestions.valley}")
-    # may use the valley suggestion with fit_one_cycle
+    #print("🔍 finding optimal Learning Rate for Phase 2 (Full Fine-tuning)...")
+    #suggestions = learner.lr_find(suggest_funcs=(minimum, steep, valley, slide))
+    #print(f"suggestions (Valley): {suggestions.valley}")
+    # may use the valley suggestion with fit_one_cycle esp on this phase. 
+    # for phase 0,1 -- may keep learning rate as they are
     # learner.fit_one_cycle(args.epochs_decoder, suggestions.valley)
+
 
 
     # SaveModelCallback at learner.path/learner.model_dir/
@@ -500,8 +507,9 @@ def finetune(args):
     print("🎨 Saving sample predictions...")
     learner.show_results(max_n=4, vmin=0, vmax=3)
     plt.savefig(out / "quick_peek.png")
-    learner.plot.loss()
-    plt.savefig(out / "phase2_full_finetuning_loss.png")
+    learner.recorder.plot_loss()
+    plt.savefig(out / "learning_stats_plot.png")
+    print(f"📈 Loss plot saved → {out / 'learning_stats_plot.png'}")
 
     plt.close()
 
@@ -513,8 +521,8 @@ def finetune(args):
 
     # ------------------------------------------------------------------
     # Export — state dict (.pth)
-    # ไม่ใช้ learner.export() เพื่อหลีกเลี่ยง pickle 'code' object error
-    # โหลดกลับด้วย infer_abdnL.py
+    # no learner.export() to avoid pickle 'code' object error
+    # use infer_abdnL.py to load the state dict into a model for inference instead.
     # ------------------------------------------------------------------
     weights_path = out / "seg_abdnL_weights.pth"
     torch.save(learner.model.state_dict(), weights_path)
@@ -535,11 +543,12 @@ if __name__ == "__main__":
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
-    parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=10)
-    parser.add_argument("--batch_size",     type=int,   default=4)
-    parser.add_argument("--patch_size",     type=int,   default=256)
+    parser.add_argument("--img_size",      type=int,   default=512)  # Resize all images to this size (square)
+    parser.add_argument("--epochs_decoder",  type=int,   default=3)   # Phase 0: decoder warmup ลองลดเหลือ 5
+    parser.add_argument("--epochs_head",    type=int,   default=3)    # Phase 1: head only
+    parser.add_argument("--epochs_full",    type=int,   default=5)
+    parser.add_argument("--batch_size",     type=int,   default=2)
+    parser.add_argument("--patch_size",     type=int,   default=256) 
     parser.add_argument("--valid_split",    type=float, default=0.2)
     parser.add_argument("--oversample_new", type=int,   default=3)
     
