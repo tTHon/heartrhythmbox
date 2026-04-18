@@ -11,7 +11,7 @@ from fastai.vision.all import *
 # 1. ตั้งค่าพื้นฐาน
 class_names = ["background", "generator", "lead", "abandoned_lead"]
 path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
-path_img = "C:/CIEDID_data/AbdnL/data/n_x12.png" # เปลี่ยนเป็นรูปที่อยากลอง
+path_img = "C:/CIEDID_data/AbdnL/data/n_x14.png" # เปลี่ยนเป็นรูปที่อยากลอง
 
 # 2. สร้างโครงสร้างโมเดล (ต้องเหมือนตอนเทรนเป๊ะๆ)
 # ใช้ ResNet50 และ n_out=4 ตามที่คุณเทรนไว้

@@ -23,9 +23,9 @@
 #      distribution for every train/valid sample before training starts.
 # model export: save state_dict (.pth) instead of learner.export() to avoid pickle 'code' object error
 # NEW: custom dataset statistics calculation (mean/std) with --calc_stats flag, used for normalization instead of ImageNet stats.
-    # Epochs 5/5/10: w/o vs w/ custom normalization: best model dice_generator = 0.72335 vs 0.712614
-    # F1 score is better with custom normalization (0.73-->0.85 for abndL, pixel level: 0.58-->0.61 for generator, 0.07-->0.13 for lead, and 0.03-->0.05) 
-
+       # default is False. Enable at argparse.
+# NEW: added GradientAccumulation callback to simulate larger batch size (effective batch size = batch_size * n_acc)
+    
 # NEW: add LR_FIND suggestion for Phase 2 full fine-tuning (currently set to a conservative slice(1e-6, 1e-4))
 
 import pathlib
@@ -107,8 +107,10 @@ def abdn_lead_sensitivity(inp, targ):
 def get_segmentation_stats(dls):
     """Calculates mean and std from a FastAI DataLoaders object."""
     print("  📊 Calculating custom dataset statistics (mean/std)...")
-    sum_ = torch.zeros(3)
-    sum_sq = torch.zeros(3)
+    # Get device from first batch
+    device = dls.train.device
+    sum_ = torch.zeros(3, device=device)
+    sum_sq = torch.zeros(3, device=device)
     count = 0
 
     # We use the train loader to calculate stats
@@ -122,6 +124,7 @@ def get_segmentation_stats(dls):
 
     mean = sum_ / count
     std = torch.sqrt((sum_sq / count) - (mean**2))
+    print(f"  📊 Calculated Mean: {mean.tolist()}, Std: {std.tolist()}")
     return mean.cpu(), std.cpu()
 
 # Standard ImageNet Fallbacks
@@ -401,6 +404,7 @@ def finetune(args):
 
     if args.calc_stats:
         # Temporary DataBlock without normalization to measure raw pixels
+        print("📊 เริ่มคำนวณ stats ใหม่จาก Dataset...")
         stats_db = DataBlock(
             blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
             get_x=get_x, get_y=get_y,
@@ -424,7 +428,8 @@ def finetune(args):
                      Normalize.from_stats(stats_mean, stats_std)
                     ],  # warp off → preserves lead geometry
     )
-    dls = dblock.dataloaders(df, bs=args.batch_size, num_workers=0)
+    dls = dblock.dataloaders(df, bs=args.batch_size, 
+                             num_workers=0, pin_memory=True, persistent_workers=False)
     
 
     # --- What does the model see? ---
@@ -442,7 +447,7 @@ def finetune(args):
         loss_func=loss_func,
         metrics=[dice_generator, abdn_lead_sensitivity],
         # Add CSVLogger here to capture all phases in one file
-        cbs=[CSVLogger(fname=str(out / "training_history.csv"), append=True)]
+        cbs=[CSVLogger(fname=str(out / "training_history.csv"), append=True), GradientAccumulation(n_acc=4)]
     ).to_fp16()
 
     print("\n📦 Loading pretrained encoder weights …")
@@ -464,16 +469,16 @@ def finetune(args):
     # Freeze only the encoder (groups[0] in FastAI UNet = backbone)
     learner.freeze_to(1)          # freeze group 0 (encoder), leave rest free
     learner.fit_one_cycle(args.epochs_decoder, 1e-3)
-    learner.show_results(max_n=4, vmin=0, vmax=3)
-    plt.savefig(out / "phase0_decoder_warmup.png")
+    #learner.show_results(max_n=4, vmin=0, vmax=3)
+    #plt.savefig(out / "phase0_decoder_warmup.png")
     #learner.save(out / "after_decoder_warmup")
 
     # Phase 1 — head only
     print("\n--- Phase 1: Training Head (all except head frozen) ---")
     learner.freeze()              # freeze everything except last param group (head)
     learner.fit_one_cycle(args.epochs_head, 3e-4)
-    learner.show_results(max_n=4, vmin=0, vmax=3)
-    plt.savefig(out / "phase1_head_loss.png")
+    #learner.show_results(max_n=4, vmin=0, vmax=3)
+    #plt.savefig(out / "phase1_head_loss.png")
     #learner.save(out / "after_head_only")
     #learner.recorder.plot.loss()
 
@@ -507,10 +512,6 @@ def finetune(args):
     print("🎨 Saving sample predictions...")
     learner.show_results(max_n=4, vmin=0, vmax=3)
     plt.savefig(out / "quick_peek.png")
-    learner.recorder.plot_loss()
-    plt.savefig(out / "learning_stats_plot.png")
-    print(f"📈 Loss plot saved → {out / 'learning_stats_plot.png'}")
-
     plt.close()
 
     # Load best checkpoint before export
@@ -543,17 +544,17 @@ if __name__ == "__main__":
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--img_size",      type=int,   default=512)  # Resize all images to this size (square)
-    parser.add_argument("--epochs_decoder",  type=int,   default=3)   # Phase 0: decoder warmup ลองลดเหลือ 5
-    parser.add_argument("--epochs_head",    type=int,   default=3)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=5)
+    parser.add_argument("--img_size",      type=int,   default=1024)  # Resize all images to this size (square)
+    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
+    parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
+    parser.add_argument("--epochs_full",    type=int,   default=10)
     parser.add_argument("--batch_size",     type=int,   default=2)
     parser.add_argument("--patch_size",     type=int,   default=256) 
     parser.add_argument("--valid_split",    type=float, default=0.2)
     parser.add_argument("--oversample_new", type=int,   default=3)
     
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
-    parser.add_argument("--calc_stats",     action="store_true",
+    parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
                         help="Calculate mean/std from the dataset instead of using ImageNet values")
     
     args = parser.parse_args()
