@@ -51,11 +51,11 @@ def batch_anonymize(input_folder, output_folder):
         result = cv2.inpaint(img, mask, inpaintRadius=7, flags=cv2.INPAINT_TELEA)
 
         # 7. บันทึกไฟล์
-        save_path = os.path.join(output_folder, f"anon_{filename}")
+        save_path = os.path.join(output_folder, f"{filename}")
         cv2.imwrite(save_path, result)
 
     print("\n--- เสร็จสิ้นการทำ Batch Processing ---")
 
 # --- วิธีใช้งาน ---
 # ใส่ชื่อโฟลเดอร์ที่เก็บภาพ X-ray และโฟลเดอร์ที่จะให้บันทึกผลลัพธ์
-batch_anonymize('cied/anonymizer/in', 'cied/anonymizer/out')
+batch_anonymize('c:\CIEDID_data\images', 'c:\CIEDID_data\images')
