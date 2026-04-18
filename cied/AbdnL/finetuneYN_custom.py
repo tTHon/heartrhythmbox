@@ -548,7 +548,7 @@ if __name__ == "__main__":
     parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
     parser.add_argument("--epochs_full",    type=int,   default=10)
-    parser.add_argument("--batch_size",     type=int,   default=2)
+    parser.add_argument("--batch_size",     type=int,   default=2) #BS 1 for PS 512 GradientAccumulation(n_acc=8)
     parser.add_argument("--patch_size",     type=int,   default=256) 
     parser.add_argument("--valid_split",    type=float, default=0.2)
     parser.add_argument("--oversample_new", type=int,   default=3)
