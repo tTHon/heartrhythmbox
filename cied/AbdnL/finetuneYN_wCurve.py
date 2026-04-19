@@ -475,13 +475,13 @@ def finetune(args):
                 size         = args.patch_size,
                 do_flip      = True,
                 flip_vert    = False,
-                max_rotate   = 10,
+                max_rotate   = 15,
                 min_zoom     = 0.9,
                 max_zoom     = 1.15,
-                max_lighting = 0.2,
+                max_lighting = 0.1,
                 max_warp     = 0.0,
                 p_affine     = 0.75,
-                p_lighting   = 0.75,
+                p_lighting   = 0.5,
             ),      
             Normalize.from_stats(stats_mean, stats_std)
             ],  
@@ -510,6 +510,7 @@ def finetune(args):
 
     print("\n📦 Loading pretrained encoder weights …")
     learner = load_pretrained_weights(learner, args.model_path)
+    print("image size:", args.img_size, "patch size:", args.patch_size)
 
     #print("🔍 finding optimal Learning Rate for Phase 0 (Full Fine-tuning)...")
     #suggestions = learner.lr_find(suggest_funcs=(minimum, steep, valley, slide))
@@ -560,7 +561,7 @@ def finetune(args):
     learner.model_dir = ""
     learner.fit_one_cycle(
         args.epochs_full,
-        lr_max=slice(2e-6, 2e-4),  # consider using the lr_find suggestion here
+        lr_max=slice(1e-6, 5e-5),  # was 2e-6, 2e-4
         cbs=SaveModelCallback(monitor='dice_generator',
                               fname='best_seg',
                               with_opt=False)
@@ -601,13 +602,13 @@ if __name__ == "__main__":
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     parser.add_argument("--img_size",      type=int,   default=512)  # Resize all images to this size (square)
-    parser.add_argument("--epochs_decoder",  type=int,   default=3)   # Phase 0: decoder warmup ลองลดเหลือ 5
-    parser.add_argument("--epochs_head",    type=int,   default=3)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=5)  # if N increases, set as 20
+    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
+    parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
+    parser.add_argument("--epochs_full",    type=int,   default=10)  # if N increases, set as 20
     parser.add_argument("--batch_size",     type=int,   default=2) #BS 2 for PS 320 GradientAccumulation(n_acc=8)
-    parser.add_argument("--patch_size",     type=int,   default=256)  # 320x320 patches for training (full images are resized to 1024x1024, then augmented with RandomResizedCrop
+    parser.add_argument("--patch_size",     type=int,   default=320)  # 320x320 patches for training (full images are resized to 1024x1024, then augmented with RandomResizedCrop
     parser.add_argument("--valid_split",    type=float, default=0.2)
-    parser.add_argument("--oversample_new", type=int,   default=2) # if N increases, set as 1
+    parser.add_argument("--oversample_new", type=int,   default=3) # if N increases, set as 1
     
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
     parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation

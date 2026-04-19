@@ -17,6 +17,7 @@
 #         ├─ abandoned-lead cases (has_abandoned=True) → K-fold CV
 #         │     Each fold's train split gains normal cases at 2:1 (normal:abandoned)
 #         └─ normal cases (has_abandoned=False) → sampled into each fold's train split
+# ****** don't forget to add extra abandoned cases!!!!!! 
 #
 # UNCHANGED from finetuneYN_custom.py:
 #   - Encoder-only weight transfer from segmentation.pkl
