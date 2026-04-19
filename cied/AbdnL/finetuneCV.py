@@ -2,25 +2,21 @@
 # finetuning script for abandoned lead segmentation 
 # using encoder-only transfer from the original segmentation model (segmentation.pkl).
 #
-# CHANGES vs finetuneYN_custom.py:
-#   [CV] Fixed test set (20% of abandoned-lead cases, stratified) is held out BEFORE
-#        any cross-validation.  The remaining abandoned-lead cases are split into K
-#        stratified folds.  For each fold's TRAIN split, normal (non-abandoned) cases
-#        are added at a 2:1 ratio (normal:abandoned) to help prevent catastrophic
-#        forgetting.  Each fold trains all three phases (decoder warmup → head-only →
-#        full fine-tune).  The fold with the best validation dice_generator is exported
-#        as the final model.
+# DATA SOURCE:
+#   Reads C:/cied_data/workbook.csv which must contain at minimum:
+#       ID          — filename stem (image = <ID>.png, mask = <ID>.png in mask folder)
+#       finalTest   — 1 = held-out test set, 0 = available for CV training
+#   Images  : C:/cied_data/images/<ID>.png
+#   Masks   : C:/cied_data/masks/<ID>.png   (or override with --mask_dir)
+#   Output  : C:/cied_data/model/
 #
-# DATA FLOW: -- ไปคิดก่อนว่าข้อมูลจะไหลยังไงในสคริปต์นี้ --
-#   all images
-#     └─ abandoned-lead images (~50–55)
-#         ├─ TEST SET  (~20%, fixed, never used in CV)  → evaluated once at the very end
-#         └─ CV POOL  (~80%)
-#             ├─ Fold 0 → val fold 0  |  train = remaining abandoned + normal (2:1)
-#             ├─ Fold 1 → val fold 1  |  ...
-#             └─ Fold K-1 …
-#   normal (non-abandoned) images
-#     └─ sampled at 2× the number of abandoned-lead TRAIN images per fold
+# DATA FLOW:
+#   workbook.csv
+#     ├─ finalTest == 1  →  TEST SET (fixed, never touched during CV)
+#     └─ finalTest == 0  →  CV POOL
+#         ├─ abandoned-lead cases (has_abandoned=True) → K-fold CV
+#         │     Each fold's train split gains normal cases at 2:1 (normal:abandoned)
+#         └─ normal cases (has_abandoned=False) → sampled into each fold's train split
 #
 # UNCHANGED from finetuneYN_custom.py:
 #   - Encoder-only weight transfer from segmentation.pkl
@@ -40,7 +36,7 @@ import warnings
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from fastai.vision.all import *
-from sklearn.model_selection import StratifiedKFold, train_test_split
+from sklearn.model_selection import StratifiedKFold
 
 # PyTorch 2.6+ fix
 import torch
@@ -232,57 +228,85 @@ def show_batch_inspection(dls, n=4, save_path=None):
 
 
 # ==============================
-# 4. DATA SPLITTING
+# 4. DATA LOADING & SPLITTING
 # ==============================
-def load_all_images(args):
+def load_from_workbook(args):
     """
-    Scan image/mask directories and return two DataFrames:
-        abdn_df  — images that contain at least one abandoned-lead pixel (class 3)
-        normal_df — all other images
-    """
-    rows = []
-    exts = {".jpg", ".png", ".jpeg", ".bmp"}
-    for img in args.new_imgs.iterdir():
-        if img.suffix.lower() not in exts:
-            continue
-        mask = args.new_masks / f"{img.stem}_mask.png"
-        if not mask.exists():
-            mask = args.new_masks / f"{img.stem}.png"
-        if not mask.exists():
-            continue
-        arr = np.array(PILImage.create(mask))
-        rows.append({
-            "image":         str(img.resolve()),
-            "mask":          str(mask.resolve()),
-            "has_abandoned": bool(3 in np.unique(arr)),
-        })
+    Read workbook.csv and resolve image/mask paths.
 
-    df = pd.DataFrame(rows)
-    abdn_df   = df[df["has_abandoned"]].reset_index(drop=True)
-    normal_df = df[~df["has_abandoned"]].reset_index(drop=True)
-    print(f"\n📂 Found {len(abdn_df)} abandoned-lead images, "
-          f"{len(normal_df)} normal images.")
-    return abdn_df, normal_df
-
-
-def split_test_set(abdn_df, test_size=0.20, random_state=42):
-    """
-    Hold out a fixed test set from the abandoned-lead pool.
-    Normal images are NOT included in the test set (they are not the primary
-    evaluation target; the test set is used to judge abandoned-lead detection).
+    Expected CSV columns:
+        ID          — filename stem; image = <img_dir>/<ID>.png,
+                                     mask  = <mask_dir>/<ID>.png
+        finalTest   — 1 = held-out test set (never used in CV)
+                      0 = available for CV (train + validation folds)
 
     Returns:
-        cv_abdn_df   — abandoned-lead images available for cross-validation
-        test_abdn_df — held-out test images (never touched during CV)
+        cv_abdn_df   — finalTest==0 AND has_abandoned==True  (CV pool, abandoned)
+        normal_df    — finalTest==0 AND has_abandoned==False (normal cases for mixing)
+        test_df      — finalTest==1                          (fixed test set)
     """
-    n_test = max(1, round(len(abdn_df) * test_size))
-    # stratification not meaningful here (all positives); use random split
-    test_idx = abdn_df.sample(n=n_test, random_state=random_state).index
-    test_abdn_df = abdn_df.loc[test_idx].reset_index(drop=True)
-    cv_abdn_df   = abdn_df.drop(index=test_idx).reset_index(drop=True)
-    print(f"🔒 Test set  : {len(test_abdn_df)} abandoned-lead images (held out)")
-    print(f"🔄 CV pool   : {len(cv_abdn_df)} abandoned-lead images")
-    return cv_abdn_df, test_abdn_df
+    wb = pd.read_csv(args.workbook)
+
+    # Validate required columns
+    for col in ("ID", "finalTest"):
+        if col not in wb.columns:
+            raise ValueError(f"workbook.csv is missing required column: '{col}'")
+
+    img_dir  = pathlib.Path(args.img_dir)
+    mask_dir = pathlib.Path(args.mask_dir)
+
+    rows = []
+    missing = []
+    for _, row in wb.iterrows():
+        sid      = str(row["ID"]).strip()
+        img_path = img_dir  / f"{sid}.png"
+        msk_path = mask_dir / f"{sid}.png"
+
+        if not img_path.exists():
+            missing.append(f"image: {img_path}")
+            continue
+        if not msk_path.exists():
+            missing.append(f"mask : {msk_path}")
+            continue
+
+        arr = np.array(PILImage.create(msk_path))
+        rows.append({
+            "ID":            sid,
+            "image":         str(img_path.resolve()),
+            "mask":          str(msk_path.resolve()),
+            "has_abandoned": bool(3 in np.unique(arr)),
+            "finalTest":     int(row["finalTest"]),
+        })
+
+    if missing:
+        print(f"  ⚠️  {len(missing)} file(s) not found — skipped:")
+        for m in missing[:10]:
+            print(f"       {m}")
+        if len(missing) > 10:
+            print(f"       … and {len(missing) - 10} more")
+
+    df = pd.DataFrame(rows)
+
+    test_df      = df[df["finalTest"] == 1].reset_index(drop=True)
+    cv_df        = df[df["finalTest"] == 0].reset_index(drop=True)
+    cv_abdn_df   = cv_df[cv_df["has_abandoned"]].reset_index(drop=True)
+    normal_df    = cv_df[~cv_df["has_abandoned"]].reset_index(drop=True)
+
+    print(f"\n📂 Workbook loaded: {len(df)} total images")
+    print(f"   🔒 Test set       : {len(test_df)} images "
+          f"({test_df['has_abandoned'].sum()} abandoned, "
+          f"{(~test_df['has_abandoned']).sum()} normal)")
+    print(f"   🔄 CV pool        : {len(cv_df)} images")
+    print(f"      ↳ abandoned    : {len(cv_abdn_df)}")
+    print(f"      ↳ normal       : {len(normal_df)}")
+
+    if len(cv_abdn_df) == 0:
+        raise RuntimeError(
+            "No abandoned-lead images found in CV pool (finalTest==0). "
+            "Check workbook.csv and mask files."
+        )
+
+    return cv_abdn_df, normal_df, test_df
 
 
 def build_fold_dataframe(fold_train_abdn, fold_val_abdn, normal_df,
@@ -370,14 +394,35 @@ def train_one_fold(fold_idx, df, args, out, stats_mean, stats_std):
     fold_out = out / f"fold_{fold_idx}"
     fold_out.mkdir(parents=True, exist_ok=True)
 
+    # aug_transforms tuned for chest X-ray lead segmentation:
+    #   do_flip=True        horizontal flip OK (pacemaker left OR right sided)
+    #   flip_vert=False     upside-down X-ray never happens clinically
+    #   max_rotate=10       mild tilt — patient positioning variation
+    #   min_zoom=0.9        slight zoom-out to see full lead course
+    #   max_zoom=1.15       slight zoom-in without losing context
+    #   max_lighting=0.2    simulate exposure/contrast variation between scanners
+    #   max_warp=0          MUST stay 0 — warp distorts lead geometry/trajectory
+    #   p_affine=0.75       apply spatial augmentation 75% of the time
+    #   p_lighting=0.75     apply lighting augmentation 75% of the time
     dblock = DataBlock(
         blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
         get_x=get_x, get_y=get_y,
         splitter=ColSplitter(col='is_valid'),
         item_tfms=Resize(args.img_size),
         batch_tfms=[
-            *aug_transforms(size=args.patch_size, max_warp=0),
-            Normalize.from_stats(stats_mean, stats_std)
+            *aug_transforms(
+                size         = args.patch_size,
+                do_flip      = True,
+                flip_vert    = False,
+                max_rotate   = 10,
+                min_zoom     = 0.9,
+                max_zoom     = 1.15,
+                max_lighting = 0.2,
+                max_warp     = 0.0,
+                p_affine     = 0.75,
+                p_lighting   = 0.75,
+            ),
+            Normalize.from_stats(stats_mean, stats_std),
         ],
     )
     dls = dblock.dataloaders(df, bs=args.batch_size, num_workers=0)
@@ -390,20 +435,30 @@ def train_one_fold(fold_idx, df, args, out, stats_mean, stats_std):
     weights   = torch.tensor([1.0, 10.0, 10.0, 20.0]).to(device)
     loss_func = FocalLossFlat(axis=1, weight=weights)
 
+    # GradientAccumulation(n) simulates effective batch = batch_size × n
+    # without extra VRAM cost. With batch_size=2 and n=4 → effective batch=8.
+    # LRs below are scaled by √n ≈ 2× relative to batch_size=2 baseline.
     learner = unet_learner(
         dls, resnet50, n_out=4,
         loss_func=loss_func,
         metrics=[dice_generator, abdn_lead_sensitivity],
-        cbs=[CSVLogger(fname=str(fold_out / "training_history.csv"), append=True)]
+        cbs=[
+            CSVLogger(fname=str(fold_out / "training_history.csv"), append=True),
+            GradientAccumulation(n_acc=args.grad_accum),
+        ]
     ).to_fp16()
 
     print(f"\n📦 [Fold {fold_idx}] Loading pretrained encoder weights …")
     learner = load_pretrained_weights(learner, args.model_path)
 
+    # LR scaling note: base LRs assume effective batch=8 (batch_size=2 × grad_accum=4).
+    # Using √grad_accum scaling: Phase0 2e-3, Phase1 6e-4, Phase2 slice(2e-6, 2e-4).
+    # If you change --grad_accum, rescale LRs by √(new/4) accordingly.
+
     # Phase 0 — decoder warmup
     print(f"\n--- [Fold {fold_idx}] Phase 0: Decoder warmup ---")
     learner.freeze_to(1)
-    learner.fit_one_cycle(args.epochs_decoder, 1e-3)
+    learner.fit_one_cycle(args.epochs_decoder, 2e-3)
     learner.show_results(max_n=4, vmin=0, vmax=3)
     plt.savefig(fold_out / "phase0_decoder_warmup.png")
     plt.close()
@@ -411,22 +466,29 @@ def train_one_fold(fold_idx, df, args, out, stats_mean, stats_std):
     # Phase 1 — head only
     print(f"\n--- [Fold {fold_idx}] Phase 1: Head only ---")
     learner.freeze()
-    learner.fit_one_cycle(args.epochs_head, 3e-4)
+    learner.fit_one_cycle(args.epochs_head, 6e-4)
     learner.show_results(max_n=4, vmin=0, vmax=3)
     plt.savefig(fold_out / "phase1_head.png")
     plt.close()
 
-    # Phase 2 — full fine-tune with best-model checkpoint
+    # Phase 2 — full fine-tune with best-model checkpoint + early stopping
+    # EarlyStoppingCallback(patience=6): stop if val dice_generator does not
+    # improve for 6 consecutive epochs — prevents overfitting on small dataset
+    # and saves time when the model has already converged.
     print(f"\n--- [Fold {fold_idx}] Phase 2: Full fine-tune ---")
     learner.unfreeze()
     learner.path      = fold_out
     learner.model_dir = ""
     learner.fit_one_cycle(
         args.epochs_full,
-        lr_max=slice(1e-6, 1e-4),
-        cbs=SaveModelCallback(monitor='dice_generator',
+        lr_max=slice(2e-6, 2e-4),
+        cbs=[
+            SaveModelCallback(monitor='dice_generator',
                               fname='best_seg',
-                              with_opt=False)
+                              with_opt=False),
+            EarlyStoppingCallback(monitor='dice_generator',
+                                  patience=args.early_stop_patience),
+        ]
     )
     learner.show_results(max_n=4, vmin=0, vmax=3)
     plt.savefig(fold_out / "phase2_predictions.png")
@@ -459,19 +521,12 @@ def finetune(args):
     out = pathlib.Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
 
-    # ── 7a. Load all images ──────────────────────────────────────────
-    abdn_df, normal_df = load_all_images(args)
+    # ── 7a. Load data from workbook ──────────────────────────────────
+    cv_abdn_df, normal_df, test_df = load_from_workbook(args)
 
-    if len(abdn_df) == 0:
-        raise RuntimeError("No abandoned-lead images found. Check --new_imgs / --new_masks.")
-
-    # ── 7b. Hold out fixed test set ──────────────────────────────────
-    cv_abdn_df, test_abdn_df = split_test_set(
-        abdn_df, test_size=args.test_split, random_state=42
-    )
-    # Save test set index so it is always reproducible
-    test_abdn_df.to_csv(out / "test_set.csv", index=False)
-    print(f"💾 Test set saved → {out / 'test_set.csv'}")
+    # Save test set for reference (already defined by workbook, just logging)
+    test_df.to_csv(out / "test_set.csv", index=False)
+    print(f"💾 Test set record saved → {out / 'test_set.csv'}")
 
     # ── 7c. Determine normalization stats from ALL cv data (quick pass) ──
     stats_mean, stats_std = IMAGENET_MEAN, IMAGENET_STD
@@ -555,7 +610,7 @@ def finetune(args):
     print(f"\n🏆 Final model (Fold {best_fold_idx}) copied → {final_weights}")
 
     # ── 7g. Reminder: evaluate on held-out test set ───────────────────
-    print(f"\n📋 Held-out test set ({len(test_abdn_df)} abandoned-lead images) "
+    print(f"\n📋 Held-out test set ({len(test_df)} images, defined by finalTest==1 in workbook) "
           f"saved at: {out / 'test_set.csv'}")
     print("   Run inference with infer_abdnL.py using seg_abdnL_final.pth "
           "to get unbiased final performance metrics.")
@@ -567,31 +622,45 @@ def finetune(args):
 # ==============================
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_path",      default="C:/CIEDID_data/pkl/segmentation.pkl")
-    parser.add_argument("--new_imgs",        default="C:/CIEDID_data/AbdnL/data")
-    parser.add_argument("--new_masks",       default="C:/CIEDID_data/AbdnL/mask")
-    parser.add_argument("--output_dir",      default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--img_size",        type=int,   default=512)
-    parser.add_argument("--patch_size",      type=int,   default=256)
-    parser.add_argument("--epochs_decoder",  type=int,   default=3,
+    parser.add_argument("--model_path",      default="C:/cied_data/pkl/segmentation.pkl",
+                        help="Path to pretrained segmentation.pkl")
+    parser.add_argument("--workbook",        default="C:/cied_data/workbook.csv",
+                        help="CSV with columns: ID, finalTest (1=test, 0=CV pool)")
+    parser.add_argument("--img_dir",         default="C:/cied_data/images",
+                        help="Folder containing <ID>.png image files")
+    parser.add_argument("--mask_dir",        default="C:/cied_data/masks",
+                        help="Folder containing <ID>.png mask files")
+    parser.add_argument("--output_dir",      default="C:/cied_data/model")
+    parser.add_argument("--img_size",        type=int,   default=512,
+                        help="Resize all images to this square size before augmentation")
+    parser.add_argument("--patch_size",      type=int,   default=320,
+                        help="aug_transforms crop size (model's actual input). "
+                             "320 suits 8 GB VRAM; try 384 if memory allows.")
+    parser.add_argument("--grad_accum",      type=int,   default=4,
+                        help="Gradient accumulation steps. Effective batch = batch_size × grad_accum. "
+                             "Default 4 → effective batch=8. Does NOT increase VRAM usage.")
+    parser.add_argument("--epochs_decoder",      type=int,   default=5,
                         help="Phase 0: decoder warmup epochs (per fold)")
-    parser.add_argument("--epochs_head",     type=int,   default=3,
+    parser.add_argument("--epochs_head",         type=int,   default=5,
                         help="Phase 1: head-only epochs (per fold)")
-    parser.add_argument("--epochs_full",     type=int,   default=5,
-                        help="Phase 2: full fine-tune epochs (per fold)")
+    parser.add_argument("--epochs_full",         type=int,   default=20,
+                        help="Phase 2: full fine-tune epochs (per fold); "
+                             "EarlyStoppingCallback will stop early if val dice plateaus")
+    parser.add_argument("--early_stop_patience", type=int,   default=6,
+                        help="Phase 2 early stopping: stop if dice_generator does not "
+                             "improve for this many consecutive epochs (default 6)")
     parser.add_argument("--batch_size",      type=int,   default=2)
     parser.add_argument("--n_folds",         type=int,   default=5,
                         help="Number of CV folds (default 5; use 4 for ~40 CV images)")
-    parser.add_argument("--test_split",      type=float, default=0.20,
-                        help="Fraction of abandoned-lead images held out as final test set")
     parser.add_argument("--normal_ratio",    type=int,   default=2,
                         help="Normal images per abandoned-lead image in each fold's train split")
     parser.add_argument("--calc_stats",      action="store_true",
                         help="Calculate mean/std from the CV pool instead of ImageNet values")
 
     args = parser.parse_args()
-    args.new_imgs   = pathlib.Path(args.new_imgs)
-    args.new_masks  = pathlib.Path(args.new_masks)
-    args.model_path = pathlib.Path(args.model_path)
+    args.workbook    = pathlib.Path(args.workbook)
+    args.img_dir     = pathlib.Path(args.img_dir)
+    args.mask_dir    = pathlib.Path(args.mask_dir)
+    args.model_path  = pathlib.Path(args.model_path)
 
     finetune(args)

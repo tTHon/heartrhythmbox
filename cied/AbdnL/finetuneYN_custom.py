@@ -26,7 +26,7 @@
        # default is False. Enable at argparse.
 # NEW: added GradientAccumulation callback to simulate larger batch size (effective batch size = batch_size * n_acc)
     
-# NEW: add LR_FIND suggestion for Phase 2 full fine-tuning (currently set to a conservative slice(1e-6, 1e-4))
+# NEW:  remove lr_find, as it is not suitable while using GradientAccumulation
 
 import pathlib
 import platform
@@ -422,11 +422,21 @@ def finetune(args):
         get_x=get_x, get_y=get_y,
         splitter=ColSplitter(col='is_valid'),
         item_tfms=Resize(512),
-        batch_tfms=[*aug_transforms
-                    (size=args.patch_size, 
-                     max_warp=0),      
-                     Normalize.from_stats(stats_mean, stats_std)
-                    ],  # warp off → preserves lead geometry
+        batch_tfms=[
+            *aug_transforms (
+                size         = args.patch_size,
+                do_flip      = True,
+                flip_vert    = False,
+                max_rotate   = 10,
+                min_zoom     = 0.9,
+                max_zoom     = 1.15,
+                max_lighting = 0.2,
+                max_warp     = 0.0,
+                p_affine     = 0.75,
+                p_lighting   = 0.75,
+            ),      
+            Normalize.from_stats(stats_mean, stats_std)
+            ],  
     )
     dls = dblock.dataloaders(df, bs=args.batch_size, 
                              num_workers=0, pin_memory=True, persistent_workers=False)
@@ -468,7 +478,7 @@ def finetune(args):
     print("\n--- Phase 0: Decoder warmup (encoder frozen, decoder free) ---")
     # Freeze only the encoder (groups[0] in FastAI UNet = backbone)
     learner.freeze_to(1)          # freeze group 0 (encoder), leave rest free
-    learner.fit_one_cycle(args.epochs_decoder, 1e-3)
+    learner.fit_one_cycle(args.epochs_decoder, 2e-3)
     #learner.show_results(max_n=4, vmin=0, vmax=3)
     #plt.savefig(out / "phase0_decoder_warmup.png")
     #learner.save(out / "after_decoder_warmup")
@@ -476,7 +486,7 @@ def finetune(args):
     # Phase 1 — head only
     print("\n--- Phase 1: Training Head (all except head frozen) ---")
     learner.freeze()              # freeze everything except last param group (head)
-    learner.fit_one_cycle(args.epochs_head, 3e-4)
+    learner.fit_one_cycle(args.epochs_head, 6e-4)
     #learner.show_results(max_n=4, vmin=0, vmax=3)
     #plt.savefig(out / "phase1_head_loss.png")
     #learner.save(out / "after_head_only")
@@ -502,7 +512,7 @@ def finetune(args):
     learner.model_dir = ""
     learner.fit_one_cycle(
         args.epochs_full,
-        lr_max=slice(1e-6, 1e-4),  # consider using the lr_find suggestion here
+        lr_max=slice(2e-6, 2e-4),  # consider using the lr_find suggestion here
         cbs=SaveModelCallback(monitor='dice_generator',
                               fname='best_seg',
                               with_opt=False)
@@ -544,14 +554,14 @@ if __name__ == "__main__":
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--img_size",      type=int,   default=1024)  # Resize all images to this size (square)
+    parser.add_argument("--img_size",      type=int,   default=512)  # Resize all images to this size (square)
     parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=10)
-    parser.add_argument("--batch_size",     type=int,   default=2) #BS 1 for PS 512 GradientAccumulation(n_acc=8)
-    parser.add_argument("--patch_size",     type=int,   default=256) 
+    parser.add_argument("--epochs_full",    type=int,   default=10)  # if N increases, set as 20
+    parser.add_argument("--batch_size",     type=int,   default=2) #BS 2 for PS 320 GradientAccumulation(n_acc=8)
+    parser.add_argument("--patch_size",     type=int,   default=384)  # 320x320 patches for training (full images are resized to 1024x1024, then augmented with RandomResizedCrop
     parser.add_argument("--valid_split",    type=float, default=0.2)
-    parser.add_argument("--oversample_new", type=int,   default=3)
+    parser.add_argument("--oversample_new", type=int,   default=2) # if N increases, set as 1
     
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
     parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
