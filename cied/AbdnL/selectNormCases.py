@@ -44,7 +44,7 @@ def select_cases(workbook_path, random_state=42):
     df['forAbdnModel'] = 0
 
     eligible = df[
-        (df['isAbandon'] == 0) &
+        (df['isAbandon'] == 0) & (df['FinalTest'] == 0) &
         (df['whyExclude'].isna() | (df['whyExclude'].astype(str).str.strip() == ''))
     ].copy()
 
@@ -89,7 +89,7 @@ def print_summary(df):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--workbook",     default="C:/cied_data/workbook.csv")
+    parser.add_argument("--workbook",     default="cied/workbook.csv")
     parser.add_argument("--output",       default=None,
                         help="Output path — defaults to overwriting input file")
     parser.add_argument("--random_state", type=int, default=42)
