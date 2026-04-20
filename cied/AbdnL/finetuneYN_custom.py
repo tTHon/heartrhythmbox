@@ -564,7 +564,7 @@ if __name__ == "__main__":
     parser.add_argument("--oversample_new", type=int,   default=2) # if N increases, set as 1
     
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
-    parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
+    parser.add_argument("--calc_stats",action="store_true", default=True,  # change to True to enable stats calculation
                         help="Calculate mean/std from the dataset instead of using ImageNet values")
     
     args = parser.parse_args()
