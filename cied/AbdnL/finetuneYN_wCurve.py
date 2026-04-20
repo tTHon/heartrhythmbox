@@ -131,6 +131,9 @@ def get_segmentation_stats(dls):
 IMAGENET_MEAN = torch.tensor([0.485, 0.456, 0.406])
 IMAGENET_STD  = torch.tensor([0.229, 0.224, 0.225])
 
+# Calculated Mean: [0.4987, 0.4987, 0.4987], 
+# Std: [0.2240, 0.2240, 0.2240]
+
 
 # ==============================
 # 2. DATASET SUMMARY
@@ -448,7 +451,17 @@ def finetune(args):
         
     summarize_dataset(df)
     # 1. Determine Normalization Stats
-    stats_mean, stats_std = IMAGENET_MEAN, IMAGENET_STD
+    
+    # Calculated Mean: [0.4987, 0.4987, 0.4987], 
+    # CalculatedStd: [0.2240, 0.2240, 0.2240]
+
+    myMEAN = [0.4987, 0.4987, 0.4987]
+    mySTD  = [0.2240, 0.2240, 0.2240]
+    # stats_mean, stats_std = IMAGENET_MEAN, IMAGENET_STD
+    stats_mean, stats_std = myMEAN, mySTD
+
+    # Calculated Mean: [0.4987, 0.4987, 0.4987], 
+    # CalculatedStd: [0.2240, 0.2240, 0.2240]
 
     if args.calc_stats:
         # Temporary DataBlock without normalization to measure raw pixels
@@ -611,7 +624,7 @@ if __name__ == "__main__":
     parser.add_argument("--oversample_new", type=int,   default=3) # if N increases, set as 1
     
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
-    parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
+    parser.add_argument("--calc_stats",action="store_true", default=True,  # change to True to enable stats calculation
                         help="Calculate mean/std from the dataset instead of using ImageNet values")
     
     args = parser.parse_args()

@@ -1,5 +1,6 @@
 import cv2
 import os
+import shutil
 from pathlib import Path
 
 # กำหนด Path
@@ -21,7 +22,7 @@ count = 0
 for file in source_path.iterdir():
     if file.is_file():
         destination = data_path / file.name
-        os.replace(file, destination)
+        shutil.copy2(file, destination)
         count += 1
 print(f"Copied {count} files from {source_path} to {data_path}.")
 
