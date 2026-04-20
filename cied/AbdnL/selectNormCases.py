@@ -42,10 +42,14 @@ NO_LEAD_TYPES = {'Leadless', 'subcut ICD'}
 def select_cases(workbook_path, random_state=42):
     df = pd.read_csv(workbook_path)
     df['forAbdnModel'] = 0
+    
+    # ป้องกันเรื่อง Data Type: แปลงเป็นตัวเลขเพื่อให้เปรียบเทียบกับ 1 ได้แม่นยำ
+    final_test_val = pd.to_numeric(df['FinalTest'], errors='coerce')
 
     eligible = df[
-        (df['isAbandon'] == 0) & (df['FinalTest'] == 0) &
-        (df['whyExclude'].isna() | (df['whyExclude'].astype(str).str.strip() == ''))
+        (df['isAbandon'] == 0) & 
+        (final_test_val != 1) &
+        (df['whyExclude'].isna() | (df['whyExclude'].astype(str).str.strip() == ''))         
     ].copy()
 
     selected_ids = []
@@ -74,6 +78,12 @@ def select_cases(workbook_path, random_state=42):
 
 def print_summary(df):
     selected = df[df['forAbdnModel'] == 1]
+    # นับจำนวน FinalTest = 1 ในกลุ่มที่ถูกเลือก (ควรจะเป็น 0)
+    # ใช้ pd.to_numeric เพื่อความแม่นยำในการนับ
+    final_test_count = (pd.to_numeric(selected['FinalTest'], errors='coerce') == 1).sum()
+    # แสดงจำนวน FinalTest ที่หลุดมา
+    print(f"  FinalTest = 1 count in selection: {final_test_count} cases")
+
     print(f"\n{'='*52}")
     print(f"  SELECTION SUMMARY  ({len(selected)} cases total)")
     print(f"{'='*52}")
