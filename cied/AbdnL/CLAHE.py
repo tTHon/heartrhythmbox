@@ -3,7 +3,27 @@ import os
 from pathlib import Path
 
 # กำหนด Path
-data_path = Path("C:/CIEDID_data/AbdnL/data/CLAHE")
+source_path = Path("C:/CIEDID_data/images") # main image files
+
+# copy files from main source to here to process with CLAHE
+# all previous files in this folder will be deleted before copying new ones
+data_path = Path("C:/CIEDID_data/AbdnL/data/CLAHE") # processed image files
+
+
+#clear folder
+for file in data_path.iterdir():
+    if file.is_file():
+        os.remove(file)
+print(f"Cleared {data_path} of existing files.")
+
+#copy files from source to data
+count = 0
+for file in source_path.iterdir():
+    if file.is_file():
+        destination = data_path / file.name
+        os.replace(file, destination)
+        count += 1
+print(f"Copied {count} files from {source_path} to {data_path}.")
 
 # สร้างวัตถุ CLAHE (แนะนำ clipLimit=2.0 เพื่อความสมดุล)
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
@@ -31,4 +51,4 @@ for file_path in data_path.iterdir():
         else:
             print(f"Could not read: {file_path}")
 
-print(f"Finished! Processed {count} images and overwritten them.")
+print(f"Finished! Processed {count} images.")
