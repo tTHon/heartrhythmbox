@@ -561,7 +561,7 @@ def finetune(args):
     learner.model_dir = ""
     learner.fit_one_cycle(
         args.epochs_full,
-        lr_max=slice(1e-6, 5e-5),  # was 2e-6, 2e-4
+        lr_max=slice(2e-6, 2e-4),  # slowler ie. 1e-6, 5e-5
         cbs=SaveModelCallback(monitor='dice_generator',
                               fname='best_seg',
                               with_opt=False)
