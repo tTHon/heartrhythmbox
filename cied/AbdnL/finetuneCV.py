@@ -9,15 +9,7 @@
 #   Images  : C:/cied_data/images/<ID>.png
 #   Masks   : C:/cied_data/masks/<ID>.png   (or override with --mask_dir)
 #   Output  : C:/cied_data/model/
-#
-# DATA FLOW:
-#   workbook.csv
-#     ├─ finalTest == 1  →  TEST SET (fixed, never touched during CV)
-#     └─ finalTest == 0  →  CV POOL
-#         ├─ abandoned-lead cases (has_abandoned=True) → K-fold CV
-#         │     Each fold's train split gains normal cases at 2:1 (normal:abandoned)
-#         └─ normal cases (has_abandoned=False) → sampled into each fold's train split
-# ****** don't forget to add extra abandoned cases!!!!!! 
+
 #
 # UNCHANGED from finetuneYN_custom.py:
 #   - Encoder-only weight transfer from segmentation.pkl
@@ -228,46 +220,44 @@ def show_batch_inspection(dls, n=4, save_path=None):
     plt.close(fig)
 
 
-# ==============================
-# 4. DATA LOADING & SPLITTING
-# ==============================
-def load_from_workbook(args):
-    """
-    Read workbook.csv and resolve image/mask paths.
 
-    Expected CSV columns:
-        ID          — filename stem; image = <img_dir>/<ID>.png,
-                                     mask  = <mask_dir>/<ID>.png
-        finalTest   — 1 = held-out test set (never used in CV)
-                      0 = available for CV (train + validation folds)
+# ==============================
+# 4. DATA LOADING
+# ==============================
+def scan_from_folders(args):
+    """
+    Scan mask_dir for all .png mask files and pair each with its image.
+
+    For every <ID>.png found in mask_dir:
+      - image is looked up as <img_dir>/<ID>.png  (fallback: .jpg)
+      - has_abandoned is detected automatically:
+            any pixel == 3 in the mask → True
+
+    No CSV needed. Put only the cases you want to train in mask_dir.
 
     Returns:
-        cv_abdn_df   — finalTest==0 AND has_abandoned==True  (CV pool, abandoned)
-        normal_df    — finalTest==0 AND has_abandoned==False (normal cases for mixing)
-        test_df      — finalTest==1                          (fixed test set)
+        cv_abdn_df  — masks containing class 3  (abandoned lead present)
+        normal_df   — masks with no class 3     (normal cases)
     """
-    wb = pd.read_csv(args.workbook)
-
-    # Validate required columns
-    for col in ("ID", "finalTest"):
-        if col not in wb.columns:
-            raise ValueError(f"workbook.csv is missing required column: '{col}'")
-
     img_dir  = pathlib.Path(args.img_dir)
     mask_dir = pathlib.Path(args.mask_dir)
 
-    rows = []
+    rows    = []
     missing = []
-    for _, row in wb.iterrows():
-        sid      = str(row["ID"]).strip()
-        img_path = img_dir  / f"{sid}.png"
-        msk_path = mask_dir / f"{sid}.png"
+
+    mask_files = sorted(mask_dir.glob("*.png"))
+    if not mask_files:
+        raise RuntimeError(f"No .png mask files found in {mask_dir}")
+
+    for msk_path in mask_files:
+        sid = msk_path.stem
+
+        img_path = img_dir / f"{sid}.png"
+        if not img_path.exists():
+            img_path = img_dir / f"{sid}.jpg"
 
         if not img_path.exists():
-            missing.append(f"image: {img_path}")
-            continue
-        if not msk_path.exists():
-            missing.append(f"mask : {msk_path}")
+            missing.append(str(img_dir / sid))
             continue
 
         arr = np.array(PILImage.create(msk_path))
@@ -276,78 +266,29 @@ def load_from_workbook(args):
             "image":         str(img_path.resolve()),
             "mask":          str(msk_path.resolve()),
             "has_abandoned": bool(3 in np.unique(arr)),
-            "finalTest":     int(row["finalTest"]),
         })
 
     if missing:
-        print(f"  ⚠️  {len(missing)} file(s) not found — skipped:")
+        print(f"  ⚠️  {len(missing)} mask(s) have no matching image — skipped:")
         for m in missing[:10]:
-            print(f"       {m}")
+            print(f"       {m}(.png/.jpg)")
         if len(missing) > 10:
             print(f"       … and {len(missing) - 10} more")
 
     df = pd.DataFrame(rows)
+    cv_abdn_df = df[df["has_abandoned"]].reset_index(drop=True)
+    normal_df  = df[~df["has_abandoned"]].reset_index(drop=True)
 
-    test_df      = df[df["finalTest"] == 1].reset_index(drop=True)
-    cv_df        = df[df["finalTest"] == 0].reset_index(drop=True)
-    cv_abdn_df   = cv_df[cv_df["has_abandoned"]].reset_index(drop=True)
-    normal_df    = cv_df[~cv_df["has_abandoned"]].reset_index(drop=True)
-
-    print(f"\n📂 Workbook loaded: {len(df)} total images")
-    print(f"   🔒 Test set       : {len(test_df)} images "
-          f"({test_df['has_abandoned'].sum()} abandoned, "
-          f"{(~test_df['has_abandoned']).sum()} normal)")
-    print(f"   🔄 CV pool        : {len(cv_df)} images")
-    print(f"      ↳ abandoned    : {len(cv_abdn_df)}")
-    print(f"      ↳ normal       : {len(normal_df)}")
+    print(f"\n📂 Scanned {len(df)} image-mask pairs from {mask_dir.name}/")
+    print(f"   ↳ abandoned-lead : {len(cv_abdn_df)}")
+    print(f"   ↳ normal         : {len(normal_df)}")
 
     if len(cv_abdn_df) == 0:
         raise RuntimeError(
-            "No abandoned-lead images found in CV pool (finalTest==0). "
-            "Check workbook.csv and mask files."
+            "No abandoned-lead cases found (no mask has class-3 pixels). "
+            f"Check mask files in {mask_dir}"
         )
-
-    return cv_abdn_df, normal_df, test_df
-
-
-def build_fold_dataframe(fold_train_abdn, fold_val_abdn, normal_df,
-                         normal_ratio=2, random_state=42):
-    """
-    Build a single fold's DataFrame.
-
-    Train set  = fold_train_abdn  +  normal images sampled at normal_ratio:1
-    Valid set  = fold_val_abdn    (abandoned-lead only — the held-out fold)
-
-    normal_ratio : int
-        Number of normal images to include per abandoned-lead training image.
-        Default 2 → 2:1 normal:abandoned in the training split.
-    """
-    n_abdn_train = len(fold_train_abdn)
-    n_normal_needed = normal_ratio * n_abdn_train
-
-    if len(normal_df) >= n_normal_needed:
-        sampled_normal = normal_df.sample(n=n_normal_needed,
-                                          random_state=random_state)
-    else:
-        # Not enough normal images — use all (with a warning)
-        sampled_normal = normal_df.copy()
-        print(f"  ⚠️  Only {len(normal_df)} normal images available; "
-              f"wanted {n_normal_needed} for {normal_ratio}:1 ratio.")
-
-    train_df = pd.concat([fold_train_abdn, sampled_normal],
-                         ignore_index=True)
-    train_df["is_valid"] = False
-
-    val_df = fold_val_abdn.copy()
-    val_df["is_valid"] = True
-
-    df = pd.concat([train_df, val_df], ignore_index=True)
-
-    print(f"  Fold train : {len(train_df)} images  "
-          f"({n_abdn_train} abandoned + {len(sampled_normal)} normal)")
-    print(f"  Fold valid : {len(val_df)} images  "
-          f"({len(val_df)} abandoned)")
-    return df
+    return cv_abdn_df, normal_df
 
 
 # ==============================
@@ -418,10 +359,10 @@ def train_one_fold(fold_idx, df, args, out, stats_mean, stats_std):
                 max_rotate   = 10,
                 min_zoom     = 0.9,
                 max_zoom     = 1.15,
-                max_lighting = 0.2,
+                max_lighting = 0.1, # reduce from 0.2 since we CLAHE the image
                 max_warp     = 0.0,
                 p_affine     = 0.75,
-                p_lighting   = 0.75,
+                p_lighting   = 0.5, # reduce from 0.75 due to CLAHE
             ),
             Normalize.from_stats(stats_mean, stats_std),
         ],
@@ -522,29 +463,40 @@ def finetune(args):
     out = pathlib.Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
 
-    # ── 7a. Load data from workbook ──────────────────────────────────
-    cv_abdn_df, normal_df, test_df = load_from_workbook(args)
+    summary_path = out / "cv_summary.csv"
 
-    # Save test set for reference (already defined by workbook, just logging)
-    test_df.to_csv(out / "test_set.csv", index=False)
-    print(f"💾 Test set record saved → {out / 'test_set.csv'}")
+    # ── 7a. Resume logic ─────────────────────────────────────────────
+    completed_folds = []
+    if summary_path.exists():
+        ans = input("📊 พบงานเดิมที่ทำค้างไว้ ต้องการ Resume ต่อไหม? (y/n): ").strip().lower()
+        if ans == "y":
+            old_summary = pd.read_csv(summary_path)
+            completed_folds = (
+                old_summary[pd.to_numeric(old_summary["fold"], errors="coerce").notnull()]
+                ["fold"].astype(int).tolist()
+            )
+            print(f"⏩ จะข้าม Fold ที่ทำเสร็จแล้ว: {completed_folds}")
+        else:
+            print("🧹 เริ่มต้นใหม่ — ลบข้อมูลเดิม...")
+            shutil.rmtree(out)
+            out.mkdir(parents=True, exist_ok=True)
 
-    # ── 7c. Determine normalization stats from ALL cv data (quick pass) ──
+    # ── 7b. Load data ─────────────────────────────────────────────────
+    cv_abdn_df, normal_df = scan_from_folders(args)
+
+    # ── 7c. Normalization stats ───────────────────────────────────────
     stats_mean, stats_std = IMAGENET_MEAN, IMAGENET_STD
     if args.calc_stats:
-        # Use a temporary single-split DataLoaders built from the full CV pool
-        # (treating everything as "train") to calculate pixel statistics.
         temp_df = pd.concat([cv_abdn_df, normal_df], ignore_index=True)
         temp_df["is_valid"] = False
-        # Add a tiny dummy valid row so DataBlock doesn't complain
-        dummy   = temp_df.iloc[[0]].copy()
+        dummy = temp_df.iloc[[0]].copy()
         dummy["is_valid"] = True
         temp_df = pd.concat([temp_df, dummy], ignore_index=True)
 
         stats_db = DataBlock(
             blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
             get_x=get_x, get_y=get_y,
-            splitter=ColSplitter(col='is_valid'),
+            splitter=ColSplitter(col="is_valid"),
             item_tfms=Resize(args.img_size),
             batch_tfms=[IntToFloatTensor()]
         )
@@ -552,70 +504,101 @@ def finetune(args):
         stats_mean, stats_std = get_segmentation_stats(stats_dls)
         print(f"  ✅ Custom Stats: Mean={stats_mean.tolist()}, Std={stats_std.tolist()}")
 
-    # ── 7d. K-Fold Cross-Validation ──────────────────────────────────
-    n_splits = args.n_folds
-    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
-
-    # StratifiedKFold needs a label array — use all-ones (all are abandoned)
-    # but we still benefit from even splits.
+    # ── 7d. K-Fold CV ─────────────────────────────────────────────────
+    skf = StratifiedKFold(n_splits=args.n_folds, shuffle=True, random_state=42)
+    # All CV cases are abandoned (label=1); StratifiedKFold still gives even splits
     dummy_labels = np.ones(len(cv_abdn_df), dtype=int)
 
-    fold_scores  = []   # (fold_idx, best_dice)
-    fold_models  = []   # learner reference for best fold
+    fold_scores = []  # [(fold_num, best_dice), ...]
 
     for fold_idx, (train_idx, val_idx) in enumerate(
             skf.split(cv_abdn_df, dummy_labels)):
 
+        fold_num = fold_idx + 1
+
+        # ── Resume: skip completed folds ──────────────────────────────
+        if fold_num in completed_folds:
+            print(f"\n⏩ Fold {fold_num} / {args.n_folds} — already done, skipping.")
+            old_summary = pd.read_csv(summary_path)
+            saved = old_summary[old_summary["fold"].astype(str) == str(fold_num)]
+            if not saved.empty:
+                fold_scores.append((fold_num, float(saved["best_dice_generator"].iloc[0])))
+            continue
+
         print(f"\n{'='*60}")
-        print(f"  FOLD {fold_idx + 1} / {n_splits}")
+        print(f"  FOLD {fold_num} / {args.n_folds}")
         print(f"{'='*60}")
 
         fold_train_abdn = cv_abdn_df.iloc[train_idx].reset_index(drop=True)
         fold_val_abdn   = cv_abdn_df.iloc[val_idx].reset_index(drop=True)
 
-        df = build_fold_dataframe(
-            fold_train_abdn, fold_val_abdn, normal_df,
-            normal_ratio=args.normal_ratio, random_state=42
+        # Normal cases: ALL normal rows go into every fold's train split.
+        # Ratio is controlled by workbook composition, not by code.
+        df = pd.concat([
+            fold_train_abdn.assign(is_valid=False),
+            normal_df.assign(is_valid=False),
+            fold_val_abdn.assign(is_valid=True),
+        ], ignore_index=True)
+
+        summarize_dataset(df, label=f"[Fold {fold_num}/{args.n_folds}]")
+
+        best_dice, _ = train_one_fold(
+            fold_num, df, args, out, stats_mean, stats_std
         )
-        summarize_dataset(df, label=f"[Fold {fold_idx + 1}/{n_splits}]")
+        fold_scores.append((fold_num, best_dice))
 
-        best_dice, learner = train_one_fold(
-            fold_idx + 1, df, args, out, stats_mean, stats_std
+        # ── Save summary immediately after each fold ──────────────────
+        new_row = pd.DataFrame([[fold_num, best_dice]],
+                               columns=["fold", "best_dice_generator"])
+        if summary_path.exists():
+            summary_df = pd.read_csv(summary_path)
+            summary_df = summary_df[summary_df["fold"].astype(str) != str(fold_num)]
+            summary_df = pd.concat([summary_df, new_row], ignore_index=True)
+        else:
+            summary_df = new_row
+        summary_df.to_csv(summary_path, index=False)
+        print(f"💾 Progress saved → {summary_path}")
+
+        # ── Ask before next fold ──────────────────────────────────────
+        if fold_num < args.n_folds:
+            cont = input(
+                f"\n✅ จบ Fold {fold_num} แล้ว "
+                f"จะทำ Fold {fold_num + 1} ต่อเลยไหม? (y/n): "
+            ).strip().lower()
+            if cont != "y":
+                print("👋 บันทึกสถานะแล้ว รันใหม่แล้วเลือก Resume เพื่อทำต่อครับ")
+                sys.exit(0)
+
+    # ── 7e. Final summary (only when all folds done) ──────────────────
+    if len(fold_scores) == args.n_folds:
+        print(f"\n{'='*60}")
+        print("  CROSS-VALIDATION SUMMARY")
+        print(f"{'='*60}")
+        scores_arr = np.array([s for _, s in fold_scores])
+        for fn, score in fold_scores:
+            marker = " ← best" if score == scores_arr.max() else ""
+            print(f"  Fold {fn}: dice_generator = {score:.4f}{marker}")
+        print(f"\n  Mean ± Std : {scores_arr.mean():.4f} ± {scores_arr.std():.4f}")
+
+        # Append mean±std row to summary
+        summary_df = pd.read_csv(summary_path)
+        summary_df = summary_df[pd.to_numeric(summary_df["fold"], errors="coerce").notnull()]
+        mean_row = pd.DataFrame(
+            [["mean±std", f"{scores_arr.mean():.4f}±{scores_arr.std():.4f}"]],
+            columns=["fold", "best_dice_generator"]
         )
-        fold_scores.append((fold_idx + 1, best_dice))
+        pd.concat([summary_df, mean_row], ignore_index=True).to_csv(summary_path, index=False)
 
-    # ── 7e. Cross-validation summary ─────────────────────────────────
-    print(f"\n{'='*60}")
-    print("  CROSS-VALIDATION SUMMARY")
-    print(f"{'='*60}")
-    scores_arr = np.array([s for _, s in fold_scores])
-    for fold_idx, score in fold_scores:
-        marker = " ← best" if score == scores_arr.max() else ""
-        print(f"  Fold {fold_idx}: dice_generator = {score:.4f}{marker}")
-    print(f"\n  Mean  ± Std : {scores_arr.mean():.4f} ± {scores_arr.std():.4f}")
-    print(f"  Best fold   : Fold {fold_scores[scores_arr.argmax()][0]}")
-
-    # Save CV summary
-    cv_summary = pd.DataFrame(fold_scores, columns=["fold", "best_dice_generator"])
-    cv_summary.loc[len(cv_summary)] = ["mean±std",
-                                        f"{scores_arr.mean():.4f}±{scores_arr.std():.4f}"]
-    cv_summary.to_csv(out / "cv_summary.csv", index=False)
-    print(f"💾 CV summary saved → {out / 'cv_summary.csv'}")
-
-    # ── 7f. Copy best fold weights as the final model ─────────────────
-    best_fold_idx = fold_scores[scores_arr.argmax()][0]
-    best_weights_src = out / f"fold_{best_fold_idx}" / "seg_abdnL_weights.pth"
-    final_weights    = out / "seg_abdnL_final.pth"
-    import shutil
-    shutil.copy(best_weights_src, final_weights)
-    print(f"\n🏆 Final model (Fold {best_fold_idx}) copied → {final_weights}")
-
-    # ── 7g. Reminder: evaluate on held-out test set ───────────────────
-    print(f"\n📋 Held-out test set ({len(test_df)} images, defined by finalTest==1 in workbook) "
-          f"saved at: {out / 'test_set.csv'}")
-    print("   Run inference with infer_abdnL.py using seg_abdnL_final.pth "
-          "to get unbiased final performance metrics.")
-    print(f"{'='*60}\n")
+        # Copy best fold weights as final model
+        best_fold_num    = fold_scores[scores_arr.argmax()][0]
+        best_weights_src = out / f"fold_{best_fold_num}" / "seg_abdnL_weights.pth"
+        final_weights    = out / "seg_abdnL_final.pth"
+        shutil.copy(best_weights_src, final_weights)
+        print(f"\n🏆 Final model (Fold {best_fold_num}) → {final_weights}")
+        print(f"{'='*60}\n")
+    else:
+        remaining = args.n_folds - len(fold_scores)
+        print(f"\n⏸  {remaining} fold(s) remaining — run again and choose Resume.")
 
 
 # ==============================
@@ -623,45 +606,39 @@ def finetune(args):
 # ==============================
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_path",      default="C:/cied_data/pkl/segmentation.pkl",
+    parser.add_argument("--model_path",  default="C:/cied_data/pkl/segmentation.pkl",
                         help="Path to pretrained segmentation.pkl")
-    parser.add_argument("--workbook",        default="C:/cied_data/workbook.csv",
-                        help="CSV with columns: ID, finalTest (1=test, 0=CV pool)")
-    parser.add_argument("--img_dir",         default="C:/cied_data/images",
-                        help="Folder containing <ID>.png image files")
-    parser.add_argument("--mask_dir",        default="C:/cied_data/masks",
-                        help="Folder containing <ID>.png mask files")
-    parser.add_argument("--output_dir",      default="C:/cied_data/model")
-    parser.add_argument("--img_size",        type=int,   default=512,
+    parser.add_argument("--img_dir",    default="C:/cied_data/AbdnL/data",
+                        help="Folder containing <ID>.png or <ID>.jpg image files")
+    parser.add_argument("--mask_dir",   default="C:/cied_data/AbdnL/mask",
+                        help="Folder containing <ID>.png mask files — "
+                             "every mask here will be included in training")
+    parser.add_argument("--output_dir", default="C:/cied_data/model")
+    parser.add_argument("--img_size",   type=int, default=512,
                         help="Resize all images to this square size before augmentation")
-    parser.add_argument("--patch_size",      type=int,   default=320,
-                        help="aug_transforms crop size (model's actual input). "
+    parser.add_argument("--patch_size", type=int, default=320,
+                        help="aug_transforms crop size (model actual input). "
                              "320 suits 8 GB VRAM; try 384 if memory allows.")
-    parser.add_argument("--grad_accum",      type=int,   default=4,
-                        help="Gradient accumulation steps. Effective batch = batch_size × grad_accum. "
-                             "Default 4 → effective batch=8. Does NOT increase VRAM usage.")
-    parser.add_argument("--epochs_decoder",      type=int,   default=5,
+    parser.add_argument("--grad_accum", type=int, default=4,
+                        help="Gradient accumulation steps. Effective batch = batch_size x grad_accum.")
+    parser.add_argument("--epochs_decoder",      type=int, default=5,
                         help="Phase 0: decoder warmup epochs (per fold)")
-    parser.add_argument("--epochs_head",         type=int,   default=5,
+    parser.add_argument("--epochs_head",         type=int, default=5,
                         help="Phase 1: head-only epochs (per fold)")
-    parser.add_argument("--epochs_full",         type=int,   default=20,
+    parser.add_argument("--epochs_full",         type=int, default=20,
                         help="Phase 2: full fine-tune epochs (per fold); "
-                             "EarlyStoppingCallback will stop early if val dice plateaus")
-    parser.add_argument("--early_stop_patience", type=int,   default=6,
-                        help="Phase 2 early stopping: stop if dice_generator does not "
-                             "improve for this many consecutive epochs (default 6)")
-    parser.add_argument("--batch_size",      type=int,   default=2)
-    parser.add_argument("--n_folds",         type=int,   default=5,
-                        help="Number of CV folds (default 5; use 4 for ~40 CV images)")
-    parser.add_argument("--normal_ratio",    type=int,   default=2,
-                        help="Normal images per abandoned-lead image in each fold's train split")
-    parser.add_argument("--calc_stats",      action="store_true",
-                        help="Calculate mean/std from the CV pool instead of ImageNet values")
+                             "EarlyStoppingCallback stops early if val dice plateaus")
+    parser.add_argument("--early_stop_patience", type=int, default=6,
+                        help="Phase 2: stop if dice_generator does not improve for N epochs")
+    parser.add_argument("--batch_size", type=int, default=2)
+    parser.add_argument("--n_folds",    type=int, default=5,
+                        help="Number of CV folds")
+    parser.add_argument("--calc_stats", action="store_true", default = False,   
+                        help="Calculate mean/std from data instead of using ImageNet values")
 
     args = parser.parse_args()
-    args.workbook    = pathlib.Path(args.workbook)
-    args.img_dir     = pathlib.Path(args.img_dir)
-    args.mask_dir    = pathlib.Path(args.mask_dir)
-    args.model_path  = pathlib.Path(args.model_path)
+    args.img_dir    = pathlib.Path(args.img_dir)
+    args.mask_dir   = pathlib.Path(args.mask_dir)
+    args.model_path = pathlib.Path(args.model_path)
 
     finetune(args)

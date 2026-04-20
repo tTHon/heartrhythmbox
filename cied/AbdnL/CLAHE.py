@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 # กำหนด Path
-source_path = Path("C:/CIEDID_data/AbdnL/data/Source") # main image files
+source_path = Path("C:/CIEDID_data/images") # main image files
 
 # copy files from main source to here to process with CLAHE
 # all previous files in this folder will be deleted before copying new ones
