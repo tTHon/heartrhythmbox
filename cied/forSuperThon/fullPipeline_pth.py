@@ -51,7 +51,7 @@ def run_pipeline():
 
     # Detection Thresholds
     PIXEL_MIN = 50
-    PROB_THRESHOLD = 0.6
+    PROB_THRESHOLD = 0.5
     CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"] 
 
     try:

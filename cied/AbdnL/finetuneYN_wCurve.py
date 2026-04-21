@@ -542,7 +542,7 @@ def finetune(args):
 
     # Loss with class weights
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    weights    = torch.tensor([1.0, 5.0, 30.0, 60.0]).to(device)
+    weights    = torch.tensor([1.0, 10, 10, 20]).to(device) 
     loss_func  = FocalLossFlat(axis=1, weight=weights)
 
     learner = unet_learner(
