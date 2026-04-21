@@ -35,7 +35,7 @@ with torch.no_grad():
     mask, _, probs = learn.predict(img)
 
 # --- ส่วนที่แก้ไข: การใช้ Probability Threshold ---
-threshold = 0.75  # ปรับได้ตามต้องการ (เช่น 0.7 หรือ 0.85)
+threshold = 0.7  # ปรับได้ตามต้องการ (เช่น 0.7 หรือ 0.85)
 
 # 1. ดึง mask พื้นฐานที่โมเดลเลือกคลาสที่เด่นที่สุดมาให้ (มีทั้ง 0, 1, 2, 3)
 final_mask = mask.numpy().copy()
@@ -54,8 +54,8 @@ pixel_count = valid_abdn_pixels.sum().item()
 
 # 3. (เสริม) ถ้าอยากให้คลาสอื่นๆ มั่นใจมากขึ้นด้วย 
 # สามารถสั่งให้แสดงเฉพาะ Class 1 ที่มั่นใจ > 0.5 ได้เช่นกัน (ป้องกันสีฟ้าหาย)
-#generator_probs = probs[1].numpy()
-#final_mask[(final_mask == 1) & (generator_probs < 0.5)] = 0
+generator_probs = probs[1].numpy()
+final_mask[(final_mask == 1) & (generator_probs < 0.5)] = 0
 # ------------------------------------------------------------------
 
 # 5. แสดงผลลัพธ์

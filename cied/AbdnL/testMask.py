@@ -9,8 +9,8 @@ from PIL import Image
 
 
 # โหลดรูปต้นฉบับและ Mask
-img = cv2.imread('cied/AbdnL/data/Adbn002.jpg')
-mask = cv2.imread('cied/AbdnL/mask/Adbn002_mask.png', 0)
+img = cv2.imread('C:/CIEDID_data/AbdnL/data/n_x14.png')
+mask = cv2.imread('C:/CIEDID_data/AbdnL/mask/n_x14_mask.png', 0)
 
 # สร้างสีสันให้ Mask (เช่น ให้ Lead เป็นสีแดง)
 color_mask = np.zeros_like(img)
@@ -20,5 +20,5 @@ color_mask[mask == 4] = [0, 255, 0]   # Abandoned Lead = สีเขียว
 # เอามาซ้อนทับกัน (Alpha Blending) ให้เห็นทั้งรูปคนและเส้น Label
 overlay = cv2.addWeighted(img, 0.7, color_mask, 0.3, 0)
 
-cv2.imwrite('cied/AbdnL/check_alignment.png', overlay)
+cv2.imwrite('C:/CIEDID_data/AbdnL/check_alignment.png', overlay)
 print("สร้างไฟล์ check_alignment.png เสร็จแล้ว! ลองดูว่าเส้นตรงไหม")

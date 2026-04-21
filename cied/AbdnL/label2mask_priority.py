@@ -3,6 +3,7 @@
 # use this file !!!!
 
 import json
+from turtle import width
 import numpy as np
 import cv2
 import PIL.Image
@@ -25,6 +26,7 @@ CLASS_MAP = {
 }
 # ==============================
 
+Train_Size = 512  # ขนาดที่ใช้ train model
 def process_single_json(json_path: Path, output_path: Path):
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
@@ -35,7 +37,8 @@ def process_single_json(json_path: Path, output_path: Path):
     final_mask = np.zeros((height, width), dtype=np.uint8)
     
     # line thickness -- adjustable
-    dynamic_thickness = max(1, int(width * 0.008)) 
+    # ใน label2mask_priority.py
+    dynamic_thickness = max(6, min(12, int(width * 0.008)))
 
     for label_name in CLASS_PRIORITY:
         class_id = CLASS_MAP[label_name]
@@ -87,3 +90,92 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# test line thickness
+"""
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import numpy as np
+from pathlib import Path
+from label2mask_priority import process_single_json
+
+# ==============================
+# CONFIG
+# ==============================
+JSON_PATH = Path(r"C:/CIEDID_data/AbdnL/data/n_x14.json")  # เปลี่ยนชื่อไฟล์
+# ==============================
+
+# Build mask โดยไม่ต้อง save
+import json, cv2, PIL.Image
+
+def build_mask_preview(json_path: Path):
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    height = data['imageHeight']
+    width  = data['imageWidth']
+    final_mask = np.zeros((height, width), dtype=np.uint8)
+
+    dynamic_thickness = max(6, min(12, int(width * 0.008)))
+
+    print(f"Image size : {width} x {height}")
+    print(f"Thickness  : {dynamic_thickness} px")
+
+    from label2mask_priority import CLASS_PRIORITY, CLASS_MAP
+    for label_name in CLASS_PRIORITY:
+        class_id = CLASS_MAP[label_name]
+        layer_mask = np.zeros((height, width), dtype=np.uint8)
+        target_shapes = [s for s in data['shapes'] if s['label'].lower().strip() == label_name]
+        for shape in target_shapes:
+            points = np.array(shape['points'], dtype=np.int32)
+            if shape['shape_type'] in ['linestrip', 'line']:
+                cv2.polylines(layer_mask, [points], False, class_id, thickness=dynamic_thickness)
+            else:
+                cv2.fillPoly(layer_mask, [points], class_id)
+        final_mask = np.where(layer_mask > 0, layer_mask, final_mask)
+
+    return final_mask
+
+# Plot
+mask = build_mask_preview(JSON_PATH)
+
+COLOR_MAP = np.array([
+    [0,   0,   0],    # 0 = background → black
+    [0,   255, 0],    # 1 = generator  → green
+    [255, 165, 0],    # 2 = lead       → orange
+    [0,   200, 255],  # 3 = abandoned  → cyan
+], dtype=np.uint8)
+
+rgb = COLOR_MAP[mask]
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# Left: mask only
+axes[0].imshow(rgb)
+axes[0].set_title(f"Mask  (thickness={max(1, int(mask.shape[1]*0.008))}px)")
+axes[0].axis('off')
+
+# Right: zoom บริเวณ lead เพื่อดู thickness
+# crop แถบขวาของ image ที่มักมี generator + lead
+h, w = mask.shape
+crop = rgb[0:h, w//2:]
+axes[1].imshow(crop)
+axes[1].set_title("Zoom right half — ดู lead thickness")
+axes[1].axis('off')
+
+# Legend
+patches = [
+    mpatches.Patch(color='green',  label='1 = generator'),
+    mpatches.Patch(color='orange', label='2 = lead'),
+    mpatches.Patch(color='cyan',   label='3 = abandoned_lead'),
+]
+fig.legend(handles=patches, loc='lower center', ncol=3)
+plt.tight_layout()
+plt.show()
+
+# Summary
+print(f"\nUnique classes in mask: {np.unique(mask).tolist()}")
+print(f"Generator pixels : {(mask==1).sum()}")
+print(f"Lead pixels      : {(mask==2).sum()}")
+print(f"Abandoned pixels : {(mask==3).sum()}")
+"""

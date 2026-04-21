@@ -437,6 +437,34 @@ def finetune(args):
     out = pathlib.Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
 
+    # ── Save Training Config ────────────────────────────────
+    import csv
+    from datetime import datetime
+    csv_path = out / "training_history.csv"
+    with open(csv_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["# TRAINING CONFIG", datetime.now().strftime("%Y-%m-%d %H:%M")])
+        for k, v in {
+            "img_size":        args.img_size,
+            "patch_size":      args.patch_size,
+            "batch_size":      args.batch_size,
+            "epochs_decoder":  args.epochs_decoder,
+            "epochs_head":     args.epochs_head,
+            "epochs_full":     args.epochs_full,
+            "model_path":      args.model_path,
+            "class_weights":   "[1.0, 5.0, 30.0, 60.0]",
+            "loss_func":       "FocalLossFlat",
+            "backbone":        "resnet50",
+            "grad_accum":      4,
+            "fp16":            True,
+            "lr_phase0":       "2e-3",
+            "lr_phase1":       "6e-4",
+            "lr_phase2":       "slice(2e-6, 2e-4)",
+        }.items():
+            writer.writerow([f"# {k}", v])
+        writer.writerow([])  # blank line คั่นก่อน metrics
+    # ────────────────────────────────────────────────────────
+
     df = build_dataframe(args)
     
     # --- วางโค้ดเช็คจำนวน Abandoned Lead ตรงนี้ ---
@@ -454,14 +482,18 @@ def finetune(args):
     
     # Calculated Mean: [0.4987, 0.4987, 0.4987], 
     # CalculatedStd: [0.2240, 0.2240, 0.2240]
+    # new Mean=[0.49453404545783997, 0.49453404545783997, 0.49453404545783997], 
+    # Std=[0.22670553624629974, 0.22670553624629974, 0.22670553624629974]
 
-    myMEAN = [0.4987, 0.4987, 0.4987]
-    mySTD  = [0.2240, 0.2240, 0.2240]
+    myMEAN = [0.4945, 0.4945, 0.4945]
+    mySTD  = [0.2267, 0.2267, 0.2267]
     # stats_mean, stats_std = IMAGENET_MEAN, IMAGENET_STD
     stats_mean, stats_std = myMEAN, mySTD
 
     # Calculated Mean: [0.4987, 0.4987, 0.4987], 
     # CalculatedStd: [0.2240, 0.2240, 0.2240]
+    # Mean=[0.4945, 0.4945, 0.4945], 
+    # Std=[0.2267, 0.2267, 0.2267]
 
     if args.calc_stats:
         # Temporary DataBlock without normalization to measure raw pixels
@@ -510,7 +542,7 @@ def finetune(args):
 
     # Loss with class weights
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    weights    = torch.tensor([1.0, 10.0, 10.0, 20.0]).to(device)
+    weights    = torch.tensor([1.0, 5.0, 30.0, 60.0]).to(device)
     loss_func  = FocalLossFlat(axis=1, weight=weights)
 
     learner = unet_learner(
@@ -619,12 +651,12 @@ if __name__ == "__main__":
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
     parser.add_argument("--epochs_full",    type=int,   default=10)  # if N increases, set as 20
     parser.add_argument("--batch_size",     type=int,   default=2) #BS 2 for PS 320 GradientAccumulation(n_acc=8)
-    parser.add_argument("--patch_size",     type=int,   default=320)  # 320x320 patches for training (full images are resized to 1024x1024, then augmented with RandomResizedCrop
+    parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
     parser.add_argument("--valid_split",    type=float, default=0.2)
     parser.add_argument("--oversample_new", type=int,   default=3) # if N increases, set as 1
     
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
-    parser.add_argument("--calc_stats",action="store_true", default=True,  # change to True to enable stats calculation
+    parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
                         help="Calculate mean/std from the dataset instead of using ImageNet values")
     
     args = parser.parse_args()
