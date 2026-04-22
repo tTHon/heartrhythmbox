@@ -11,7 +11,7 @@ from fastai.vision.all import *
 # 1. ตั้งค่าพื้นฐาน
 class_names = ["background", "generator", "lead", "abandoned_lead"]
 path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
-path_img = "cied\Dataset\A3 full.jpg" # เปลี่ยนเป็นรูปที่อยากลอง
+path_img = "cied\Dataset\CRT.png" # เปลี่ยนเป็นรูปที่อยากลอง
 
 # 2. สร้างโครงสร้างโมเดล (ต้องเหมือนตอนเทรนเป๊ะๆ)
 # ใช้ ResNet50 และ n_out=4 ตามที่คุณเทรนไว้
@@ -35,7 +35,8 @@ with torch.no_grad():
     mask, _, probs = learn.predict(img)
 
 # --- ส่วนที่แก้ไข: การใช้ Probability Threshold ---
-threshold = 0.7  # ปรับได้ตามต้องการ (เช่น 0.7 หรือ 0.85)
+abdn_threshold = 0.5  # ปรับได้ตามต้องการ (เช่น 0.7 หรือ 0.85)
+generator_threshold = 0.5  # สำหรับ Class 1 (Generator) ถ้าต้องการกรองด้วย
 
 # 1. ดึง mask พื้นฐานที่โมเดลเลือกคลาสที่เด่นที่สุดมาให้ (มีทั้ง 0, 1, 2, 3)
 final_mask = mask.numpy().copy()
@@ -44,18 +45,20 @@ final_mask = mask.numpy().copy()
 # ถ้าความมั่นใจใน Class 3 ไม่ถึง threshold ให้สั่ง "ลบ" เฉพาะสีแดงทิ้ง
 # โดยที่ Class 1 (Generator) และ 2 (Lead) จะยังอยู่ที่เดิมไม่โดนลบ
 abdn_probs = probs[3].numpy()
-low_confidence_abdn = (final_mask == 3) & (abdn_probs < threshold)
+low_confidence_abdn = (final_mask == 3) & (abdn_probs < abdn_threshold)
 final_mask[low_confidence_abdn] = 0
 
 # กรองด้วย Threshold 
-valid_abdn_pixels = (final_mask == 3) & (abdn_probs > threshold)
+valid_abdn_pixels = (final_mask == 3) & (abdn_probs > abdn_threshold)
 pixel_count = valid_abdn_pixels.sum().item()
 
 
 # 3. (เสริม) ถ้าอยากให้คลาสอื่นๆ มั่นใจมากขึ้นด้วย 
 # สามารถสั่งให้แสดงเฉพาะ Class 1 ที่มั่นใจ > 0.5 ได้เช่นกัน (ป้องกันสีฟ้าหาย)
 generator_probs = probs[1].numpy()
-final_mask[(final_mask == 1) & (generator_probs < 0.5)] = 0
+final_mask[(final_mask == 1) & (generator_probs < generator_threshold)] = 0
+valid_generator_pixels = (final_mask == 1) & (generator_probs > generator_threshold)
+generator_pixel_count = valid_generator_pixels.sum().item()
 # ------------------------------------------------------------------
 
 # 5. แสดงผลลัพธ์
@@ -69,7 +72,11 @@ ax[0].axis("off")
 
 # ใช้ vmin=0, vmax=3 เพื่อให้สี Class 3 (Abandoned Lead) เป็นสีแดงเสมอ
 ax[1].imshow(final_mask, vmin=0, vmax=3, cmap='jet') 
-ax[1].set_title(f"Filtered Mask (Confidence > {threshold})" f" Abdn Pixels: {pixel_count}")
+#ax[1].set_title(f"Abdn Filtered Mask (Confidence > {abdn_threshold})" f" Abdn Pixels: {pixel_count}" 
+#                f"Generator Filtered Mask (Confidence > {generator_threshold}) Pixels: {generator_pixel_count}"
+#                )
 ax[1].axis("off")
-
+ax[1].labels = (f"Abdn Filtered Mask (Confidence > {abdn_threshold})" f" Abdn Pixels: {pixel_count}" 
+                f"Generator Filtered Mask (Confidence > {generator_threshold}) Pixels: {generator_pixel_count}")
+                
 plt.show()

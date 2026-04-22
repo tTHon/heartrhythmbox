@@ -46,7 +46,7 @@ def run_pipeline():
     file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_seg.pth' 
     file_manuf       = 'C:/CIEDID_data/pkl/classification_manuf.pkl'
     file_model       = 'C:/CIEDID_data/pkl/classification_model.pkl'
-    img_input        = 'cied/Dataset/A3 full.jpg'
+    img_input        = 'cied/Dataset/CRT.png' # เปลี่ยนเป็นรูปที่อยากลอง
     temp_crop        = 'cied/Dataset/temp_crop_pth.jpg'
 
     # Detection Thresholds

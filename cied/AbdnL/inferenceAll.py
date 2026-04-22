@@ -23,8 +23,8 @@ path_mask_folder = "C:/CIEDID_data/AbdnL/mask"
 path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
 class_names = ["Background", "Generator", "Lead", "Abdn_Lead"]
 # Adjust these parameters based on your gridSearch.py results
-threshold = 0.7
-pixel_min = 80 
+threshold = 0.5
+pixel_min = 10 
 
 # 2. model loading
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

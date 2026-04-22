@@ -84,8 +84,10 @@ def dice_generator(inp, targ, eps=1e-6):
 # is computed only over batches that actually contain abandoned leads.
 # Returning 0.0 would drag the average down unfairly.
 # ------------------------------------------------------------------
+"""Yes/No sensitivity: did the model detect abandoned lead when present?
+use class right now
 def abdn_lead_sensitivity(inp, targ):
-    """Yes/No sensitivity: did the model detect abandoned lead when present?"""
+    # Yes/No sensitivity: did the model detect abandoned lead when present?
     threshold_pixels = 1
     pred = inp.argmax(dim=1)
     pred_yes = (pred == 3).sum(dim=(1, 2)) > threshold_pixels
@@ -98,7 +100,31 @@ def abdn_lead_sensitivity(inp, targ):
         return torch.tensor(float('nan'))
 
     tp = (pred_yes & targ_yes).sum()
-    return tp.float() / actual_pos.float()
+    return torch.tensor(tp.item() / actual_pos.item()) 
+"""
+
+# ใส่แทน:
+class AbdnLeadSensitivity(Metric):
+    def reset(self):
+        self.tp  = 0
+        self.pos = 0
+
+    def accumulate(self, learn):
+        inp  = learn.pred
+        targ = learn.yb[0]
+        pred = inp.argmax(dim=1)
+        pred_yes = (pred == 3).sum(dim=(1, 2)) > 1
+        targ_yes = (targ == 3).sum(dim=(1, 2)) > 0
+        self.tp  += (pred_yes & targ_yes).sum().item()
+        self.pos += targ_yes.sum().item()
+
+    @property
+    def value(self):
+        return self.tp / self.pos if self.pos > 0 else float('nan')
+
+    @property
+    def name(self):
+        return "abdn_sensitivity"
 
 # ──────────────────────────────────────────────────────────────────
 # NEW: Custom Normalization Logic
@@ -255,7 +281,7 @@ def show_batch_inspection(dls, n=4, save_path=None):
         ax_bar.set_title("pixel distribution", fontsize=9, pad=4)
         ax_bar.invert_yaxis()
         for bar, pct in zip(bars, pcts):
-            if pct > 1:
+            if pct > 0.1:
                 ax_bar.text(pct + 0.3, bar.get_y() + bar.get_height() / 2,
                             f"{pct:.1f}%", va="center", fontsize=7.5)
         ax_bar.spines[["top", "right"]].set_visible(False)
@@ -452,7 +478,7 @@ def finetune(args):
             "epochs_head":     args.epochs_head,
             "epochs_full":     args.epochs_full,
             "model_path":      args.model_path,
-            "class_weights":   "[1.0, 5.0, 30.0, 60.0]",
+            "class_weights":   args.class_weights,
             "loss_func":       "FocalLossFlat",
             "backbone":        "resnet50",
             "grad_accum":      4,
@@ -514,18 +540,19 @@ def finetune(args):
         blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
         get_x=get_x, get_y=get_y,
         splitter=ColSplitter(col='is_valid'),
-        item_tfms=Resize(512, 
+        item_tfms=Resize(args.patch_size, 
                          method='pad', 
                          pad_mode='zeros'), 
-                         # pad to square first to avoid distortion, then batch_tfms will do the random crop to patch_size
+                         # resize to patch_size directly — no random crop in batch_tfms
+                         # avoids abandoned lead pixels being cropped out on validation
         batch_tfms=[
             *aug_transforms (
-                size         = args.patch_size,
+                # size removed → no RandomResizedCrop, validation sees full image
                 do_flip      = True,
                 flip_vert    = False,
                 max_rotate   = 15,
-                min_zoom     = 0.7,
-                max_zoom     = 1.5,
+                min_zoom     = 0.9,   # tighter zoom — no crop buffer anymore
+                max_zoom     = 1.1,
                 max_lighting = 0.1,
                 max_warp     = 0.0,
                 p_affine     = 0.75,
@@ -546,21 +573,24 @@ def finetune(args):
     # Loss with class weights
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
-    weights    = torch.tensor([1.0, 10, 10, 20]).to(device) 
+    #weights    = torch.tensor([1.0, 10, 20, 30]).to(device) 
+    weights = torch.tensor(args.class_weights, dtype=torch.float32).to(device)
     loss_func  = FocalLossFlat(axis=1, weight=weights)
 
     learner = unet_learner(
         dls, resnet50, n_out=4,
         loss_func=loss_func,
-        metrics=[dice_generator, abdn_lead_sensitivity],
+        metrics=[dice_generator, AbdnLeadSensitivity()],
         # Add CSVLogger here to capture all phases in one file
-        cbs=[CSVLogger(fname=str(out / "training_history.csv"), append=True), GradientAccumulation(n_acc=4)]
-    ).to_fp16()
+        # remove gradient accumulation to avoid NaN issues with abdn sensitivity.
+        cbs=[CSVLogger(fname=str(out / "training_history.csv"), append=True)]).to_fp16()
 
     print("\n📦 Loading pretrained encoder weights …")
     learner = load_pretrained_weights(learner, args.model_path)
     print("image size:", args.img_size, "patch size:", args.patch_size)
 
+    # ─────────────────────────────────────────────────────────────
+ 
     #print("🔍 finding optimal Learning Rate for Phase 0 (Full Fine-tuning)...")
     #suggestions = learner.lr_find(suggest_funcs=(minimum, steep, valley, slide))
     #print(f"suggestions (Valley): {suggestions.valley}")
@@ -576,7 +606,7 @@ def finetune(args):
     print("\n--- Phase 0: Decoder warmup (encoder frozen, decoder free) ---")
     # Freeze only the encoder (groups[0] in FastAI UNet = backbone)
     learner.freeze_to(1)          # freeze group 0 (encoder), leave rest free
-    learner.fit_one_cycle(args.epochs_decoder, 2e-3)
+    learner.fit_one_cycle(args.epochs_decoder, 2e-3, cbs=GradientAccumulation(n_acc=4))
     #learner.show_results(max_n=4, vmin=0, vmax=3)
     #plt.savefig(out / "phase0_decoder_warmup.png")
     #learner.save(out / "after_decoder_warmup")
@@ -584,7 +614,7 @@ def finetune(args):
     # Phase 1 — head only
     print("\n--- Phase 1: Training Head (all except head frozen) ---")
     learner.freeze()              # freeze everything except last param group (head)
-    learner.fit_one_cycle(args.epochs_head, 6e-4)
+    learner.fit_one_cycle(args.epochs_head, 6e-4, cbs=GradientAccumulation(n_acc=4))
     #learner.show_results(max_n=4, vmin=0, vmax=3)
     #plt.savefig(out / "phase1_head_loss.png")
     #learner.save(out / "after_head_only")
@@ -611,9 +641,8 @@ def finetune(args):
     learner.fit_one_cycle(
         args.epochs_full,
         lr_max=slice(2e-6, 2e-4),  # slowler ie. 1e-6, 5e-5
-        cbs=SaveModelCallback(monitor='dice_generator',
-                              fname='best_seg',
-                              with_opt=False)
+        cbs=[GradientAccumulation(n_acc=4),
+         SaveModelCallback(monitor='dice_generator', fname='best_seg', with_opt=False)]
     )
 
     # --- Save Sample Predictions ---
@@ -658,6 +687,8 @@ if __name__ == "__main__":
     parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
     parser.add_argument("--valid_split",    type=float, default=0.2)
     parser.add_argument("--oversample_new", type=int,   default=3) # if N increases, set as 1
+    parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 25],
+                        help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
     parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
