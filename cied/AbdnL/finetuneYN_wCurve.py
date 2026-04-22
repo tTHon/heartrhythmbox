@@ -514,15 +514,18 @@ def finetune(args):
         blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
         get_x=get_x, get_y=get_y,
         splitter=ColSplitter(col='is_valid'),
-        item_tfms=Resize(512),
+        item_tfms=Resize(512, 
+                         method='pad', 
+                         pad_mode='zeros'), 
+                         # pad to square first to avoid distortion, then batch_tfms will do the random crop to patch_size
         batch_tfms=[
             *aug_transforms (
                 size         = args.patch_size,
                 do_flip      = True,
                 flip_vert    = False,
                 max_rotate   = 15,
-                min_zoom     = 0.9,
-                max_zoom     = 1.15,
+                min_zoom     = 0.7,
+                max_zoom     = 1.5,
                 max_lighting = 0.1,
                 max_warp     = 0.0,
                 p_affine     = 0.75,
