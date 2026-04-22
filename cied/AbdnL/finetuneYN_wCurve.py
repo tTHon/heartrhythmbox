@@ -113,8 +113,8 @@ class AbdnLeadSensitivity(Metric):
         inp  = learn.pred
         targ = learn.yb[0]
         pred = inp.argmax(dim=1)
-        pred_yes = (pred == 3).sum(dim=(1, 2)) > 1
-        targ_yes = (targ == 3).sum(dim=(1, 2)) > 0
+        pred_yes = (pred == 3).sum(dim=(1, 2)) > 6 
+        targ_yes = (targ == 3).sum(dim=(1, 2)) > 0 
         self.tp  += (pred_yes & targ_yes).sum().item()
         self.pos += targ_yes.sum().item()
 
@@ -125,6 +125,15 @@ class AbdnLeadSensitivity(Metric):
     @property
     def name(self):
         return "abdn_sensitivity"
+    
+def dice_abdn(inp, targ, eps=1e-6):
+    """Dice for class 3 (abandoned_lead)"""
+    pred  = inp.argmax(dim=1)
+    p     = (pred == 3).float()
+    t     = (targ == 3).float()
+    inter = (p * t).sum()
+    union = p.sum() + t.sum()
+    return (2. * inter + eps) / (union + eps)
 
 # ──────────────────────────────────────────────────────────────────
 # NEW: Custom Normalization Logic
@@ -580,7 +589,7 @@ def finetune(args):
     learner = unet_learner(
         dls, resnet50, n_out=4,
         loss_func=loss_func,
-        metrics=[dice_generator, AbdnLeadSensitivity()],
+        metrics=[dice_generator, AbdnLeadSensitivity(), dice_abdn],
         # Add CSVLogger here to capture all phases in one file
         # remove gradient accumulation to avoid NaN issues with abdn sensitivity.
         cbs=[CSVLogger(fname=str(out / "training_history.csv"), append=True)]).to_fp16()
@@ -679,7 +688,7 @@ if __name__ == "__main__":
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--img_size",      type=int,   default=512)  # Resize all images to this size (square)
+    parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 640/384
     parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
     parser.add_argument("--epochs_full",    type=int,   default=10)  # if N increases, set as 20

@@ -38,7 +38,8 @@ def process_single_json(json_path: Path, output_path: Path):
     
     # line thickness -- adjustable
     # ใน label2mask_priority.py
-    dynamic_thickness = max(6, min(12, int(width * 0.008)))
+    dynamic_thickness = max(6, min(12, int(width * 0.008))) # ปรับตามขนาดภาพ (6-12 px หรือประมาณ 0.8% ของความกว้าง)
+    print(f"Processing {json_path.name} | Image size: {width}x{height} | Line thickness: {dynamic_thickness}px")
 
     for label_name in CLASS_PRIORITY:
         class_id = CLASS_MAP[label_name]
