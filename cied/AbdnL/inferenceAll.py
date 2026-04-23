@@ -7,7 +7,7 @@
 # Results are shown in two tables:
 # 1. Case-level (Yes/No) - whether the model predicts the presence of Abdn_Lead in each image
 # 2. Pixel-level (separated by class) - precision, recall, and F1-score for each class (Background, Generator, Lead, Abdn_Lead)
-# 
+# Assume all images were CLAHE'd.
 
 import torch
 import pathlib

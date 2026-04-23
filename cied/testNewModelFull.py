@@ -1,7 +1,7 @@
 # CIED Automated Segmentation & Classification Pipeline
 # This script performs the following steps:
 # 1. Loads pre-trained segmentation and classification models.
-# 2. Segments the input image to detect the generator and abandoned lead.
+# 2. Segments the input image to detect the generator and abandoned lead. + CLAHE
 # 3. Crops the image around the detected generator.
 # 4. Classifies the manufacturer and model group of the generator.
 # Parameters to adjust: file paths, thresholds, and image processing settings. There are in STEP 3. 
@@ -13,6 +13,7 @@ import numpy as np
 import skimage.measure
 from fastai.vision.all import *
 import scipy.ndimage as ndimage
+import cv2
 
 # ==========================================================
 # STEP 1: COMPATIBILITY PATCHES
@@ -43,6 +44,38 @@ def fix_bbox(bbox_org, img_shape, border, minsize=160):
     minc, maxc = max(0, minc - dc//2), min(img_shape[1], maxc + dc//2)
     return int(minr), int(minc), int(maxr), int(maxc)
 
+def apply_clahe(img_input):
+    """ตรวจสอบว่าภาพควรทำ CLAHE หรือไม่ โดยดูจากค่าสถิติความสว่าง
+    - std_threshold: ถ้า Std ต่ำกว่านี้ แสดงว่าภาพแบน (Low Contrast) ควรทำ CLAHE
+    - mean_range: ถ้า Mean อยู่นอกช่วงนี้ แสดงว่าภาพมืดหรือสว่างไป ควรทำ CLAHE
+    """
+    # 1. อ่านภาพแบบ Grayscale
+    img = cv2.imread(str(img_input), 0)
+
+    # 2. คำนวณค่าสถิติพื้นฐาน
+    mean = np.mean(img)
+    std = np.std(img)
+    
+    # 3. ตัดสินใจ (Logic)
+    # ถ้า Standard Deviation ต่ำ (ภาพมัว/แบน) หรือ Mean ไม่อยู่ในจุดที่เหมาะสม
+    std_threshold=40.0
+    mean_range=(80, 170)
+    apply = False
+    if std < std_threshold:
+        apply = True
+    if mean < mean_range[0] or mean > mean_range[1]:
+        apply = True
+    
+    img_clahe = img_input  # Default: original image
+    if apply:
+        print(f"Applying CLAHE: mean={mean:.2f}, std={std:.2f} (Low Contrast or Unbalanced Brightness)")
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+        img_clahe = clahe.apply(img)
+    else:        
+        print(f"No CLAHE needed: mean={mean:.2f}, std={std:.2f} (Good Contrast and Balanced Brightness)")
+
+    return img_clahe
+
 # ==========================================================
 # STEP 3: MAIN PIPELINE
 # ==========================================================
@@ -51,7 +84,7 @@ def run_pipeline():
     file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_seg.pth' 
     file_manuf       = 'C:/CIEDID_data/pkl/classification_manuf.pkl'
     file_model       = 'C:/CIEDID_data/pkl/classification_model.pkl'
-    img_input        = 'cied/Dataset/VVI full.jpg' # เปลี่ยนเป็นรูปที่อยากลอง
+    img_input        = 'C:/CIEDID_data/AbdnL/data/90.png' # เปลี่ยนเป็นรูปที่อยากลอง
     temp_crop        = 'cied/Dataset/temp_crop_pth.jpg'
 
     # Detection Thresholds for Abandoned Lead
@@ -62,7 +95,7 @@ def run_pipeline():
 
     # Image processing parameters
     IMG_Size = 512
-    Crop_border = 0.2
+    Crop_border = 0.05
 
     try:
         apply_patches()
@@ -91,9 +124,11 @@ def run_pipeline():
         learn_model = load_learner(file_model, cpu=True)
 
         # 2. SEGMENTATION & DETECTION
-        print("2. กำลังวิเคราะห์ตำแหน่งอุปกรณ์ (Segmenting)...")
-        raw_img = PILImage.create(img_input)
+        print("CLAHE processing applied to enhance image contrast before segmentation.")
+        raw_img = apply_clahe(img_input) # เพิ่ม CLAHE เพื่อปรับปรุงความคมชัดก่อนส่งเข้าโมเดล
+        raw_img = PILImage.create(raw_img) # แปลงกลับเป็น PILImage หลังจาก CLAHE แล้ว
         
+        print("2. กำลังวิเคราะห์ตำแหน่งอุปกรณ์ (Segmenting)...")
         # ใช้โมเดล Predict โดยตรงจาก PILImage (FastAI จะจัดการ Resize 512 ให้เองตาม dls)
         with torch.no_grad():
             mask, _, probs = learn_seg.predict(raw_img)

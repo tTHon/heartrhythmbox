@@ -5,16 +5,17 @@ import skimage.measure
 import matplotlib.pyplot as plt
 from fastai.vision.all import *
 import scipy.ndimage as ndimage
+import cv2
 
 # ==========================================================
 # 1. CONFIGURATION & PARAMETERS
 # ==========================================================
 # ใส่ Path ของคุณที่นี่
 path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
-path_img = "cied/Dataset/A3 full.jpg" 
+path_img = "C:/CIEDID_data/AbdnL/data/90.png" 
 
 IMG_Size = 512       # ปรับตามตัวแปร IMG_Size ที่คุณต้องการ
-Crop_border = 0.2    # สัดส่วนขอบที่เพิ่มรอบ Generator
+Crop_border = 0.05    # สัดส่วนขอบที่เพิ่มรอบ Generator
 class_names = ["background", "generator", "lead", "abandoned_lead"]
 
 # ==========================================================
@@ -34,6 +35,37 @@ def fix_bbox(bbox_org, img_shape, border, minsize=160):
     minc, maxc = max(0, minc - dc//2), min(img_shape[1], maxc + dc//2)
     return int(minr), int(minc), int(maxr), int(maxc)
 
+def apply_clahe(img_input):
+
+    """ตรวจสอบว่าภาพควรทำ CLAHE หรือไม่ โดยดูจากค่าสถิติความสว่าง
+    - std_threshold: ถ้า Std ต่ำกว่านี้ แสดงว่าภาพแบน (Low Contrast) ควรทำ CLAHE
+    - mean_range: ถ้า Mean อยู่นอกช่วงนี้ แสดงว่าภาพมืดหรือสว่างไป ควรทำ CLAHE
+    """
+    # 1. อ่านภาพแบบ Grayscale
+    img = cv2.imread(str(img_input), 0)
+
+    # 2. คำนวณค่าสถิติพื้นฐาน
+    mean = np.mean(img)
+    std = np.std(img)
+    
+    # 3. ตัดสินใจ (Logic)
+    # ถ้า Standard Deviation ต่ำ (ภาพมัว/แบน) หรือ Mean ไม่อยู่ในจุดที่เหมาะสม
+    std_threshold=40.0
+    mean_range=(80, 170)
+    apply = False
+    if std < std_threshold:
+        apply = True
+    if mean < mean_range[0] or mean > mean_range[1]:
+        apply = True
+    
+    img_clahe = img_input  # Default: original image
+    if apply:
+        print(f"Applying CLAHE: mean={mean:.2f}, std={std:.2f} (Low Contrast or Unbalanced Brightness)")
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+        img_clahe = clahe.apply(img)
+
+    return img_clahe
+
 # ==========================================================
 # 3. LOAD MODEL & PREDICT
 # ==========================================================
@@ -47,7 +79,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 learn.model.load_state_dict(torch.load(path_weights, map_location=device))
 learn.model.eval()
 
-raw_img = PILImage.create(path_img)
+raw_img = PILImage.create(apply_clahe(path_img))
 with torch.no_grad():
     mask, _, probs = learn.predict(raw_img)
 
