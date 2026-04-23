@@ -1,11 +1,16 @@
-import sys
+# CIED Automated Segmentation & Classification Pipeline
+# This script performs the following steps:
+# 1. Loads pre-trained segmentation and classification models.
+# 2. Segments the input image to detect the generator and abandoned lead.
+# 3. Crops the image around the detected generator.
+# 4. Classifies the manufacturer and model group of the generator.
+# Parameters to adjust: file paths, thresholds, and image processing settings. There are in STEP 3. 
+
 import pathlib
 import platform
-import os
 import torch
 import numpy as np
 import skimage.measure
-from PIL import Image
 from fastai.vision.all import *
 import scipy.ndimage as ndimage
 
@@ -27,9 +32,9 @@ def resize_img(img, small_ax=512):
     scale_f = small_ax / min(img.size)
     return img.resize((int(np.floor(img.size[0] * scale_f)), int(np.floor(img.size[1] * scale_f))))
 
-def fix_bbox(bbox_org, img_shape, minsize=160):
+def fix_bbox(bbox_org, img_shape, border, minsize=160):
     minr, minc, maxr, maxc = bbox_org
-    dr, dc = int((maxr-minr)*0.2), int((maxc-minc)*0.2)
+    dr, dc = int((maxr-minr)*border), int((maxc-minc)*border)
     minr, minc, maxr, maxc = minr-dr, minc-dc, maxr+dr, maxc+dc
     h, w = maxr-minr, maxc-minc
     max_side = max(h, w, minsize)
@@ -55,6 +60,10 @@ def run_pipeline():
     # 4 classes by training: 0=background, 1=generator, 2=lead, 3=abandoned_lead
     CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"] 
 
+    # Image processing parameters
+    IMG_Size = 512
+    Crop_border = 0.2
+
     try:
         apply_patches()
         print("\n" + "="*55)
@@ -68,7 +77,7 @@ def run_pipeline():
         dls_dummy = SegmentationDataLoaders.from_label_func(
             pathlib.Path("."), bs=1, fnames=[img_input], 
             label_func=lambda x: x, codes=CLASS_NAMES, 
-            item_tfms=Resize(512, method='pad', pad_mode='zeros') # use padding to maintain aspect ratio
+            item_tfms=Resize(IMG_Size, method='pad', pad_mode='zeros') # use padding to maintain aspect ratio
         )
 
         learn_seg = unet_learner(dls_dummy, resnet50, n_out=4)
@@ -143,7 +152,7 @@ def run_pipeline():
         print("3. กำลังตัดและเตรียมรูปภาพ (Cropping)...")
 
         # กรองเอาเฉพาะชิ้นส่วนที่มีขนาดใหญ่กว่า 1,000 พิกเซล
-        MIN_GEN_AREA = 1000 
+        MIN_GEN_AREA = (IMG_Size * IMG_Size) * 0.0038 # ประมาณ 1,000 พิกเซลที่ขนาด 512
         large_props = [p for p in props if p.area > MIN_GEN_AREA]
 
         if len(large_props) == 0:
@@ -165,12 +174,12 @@ def run_pipeline():
         
         # 1. หาอัตราส่วนการย่อ (Scaling Factor)
         orig_w, orig_h = raw_img.size
-        scale = max(orig_w, orig_h) / 512
+        scale = max(orig_w, orig_h) / IMG_Size
 
         # 2. ปรับพิกัดจาก Mask (512) กลับไปเป็นขนาดต้นฉบับ
         # (สมมติว่าโมเดลทำ Padding ไว้ตรงกลาง)
-        pad_y = (512 - (orig_h / scale)) / 2 if orig_h < orig_w else 0
-        pad_x = (512 - (orig_w / scale)) / 2 if orig_w < orig_h else 0
+        pad_y = (IMG_Size - (orig_h / scale)) / 2 if orig_h < orig_w else 0
+        pad_x = (IMG_Size - (orig_w / scale)) / 2 if orig_w < orig_h else 0
 
         minr, minc, maxr, maxc = main_obj.bbox
         real_minr = int((minr - pad_y) * scale)
@@ -181,7 +190,7 @@ def run_pipeline():
         # 3. ส่งเข้า fix_bbox โดยใช้ขนาดภาพต้นฉบับ
         raw_np = np.array(raw_img)
         final_minr, final_minc, final_maxr, final_maxc = fix_bbox(
-            (real_minr, real_minc, real_maxr, real_maxc), raw_np.shape
+            (real_minr, real_minc, real_maxr, real_maxc), raw_np.shape, Crop_border
         )
 
         # 4. ตัดจากภาพต้นฉบับเพื่อให้ได้ความละเอียดสูงสุดก่อนส่งไป Classify

@@ -25,6 +25,7 @@ class_names = ["Background", "Generator", "Lead", "Abdn_Lead"]
 # Adjust these parameters based on your gridSearch.py results
 threshold = 0.5
 pixel_min = 10 
+IMG_Size = 512
 
 # 2. model loading
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -32,7 +33,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 first_img = get_image_files(path_img_folder)[0]
 dls = SegmentationDataLoaders.from_label_func(
     pathlib.Path("."), bs=1, fnames=[first_img], 
-    label_func=lambda x: x, codes=class_names, item_tfms=Resize(512, method='pad', pad_mode='zeros')
+    label_func=lambda x: x, codes=class_names, item_tfms=Resize(IMG_Size, method='pad', pad_mode='zeros')
 )
 learn = unet_learner(dls, resnet50, n_out=4)
 learn.model.load_state_dict(torch.load(path_weights, map_location=device))

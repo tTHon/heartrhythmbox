@@ -12,12 +12,13 @@ from fastai.vision.all import *
 class_names = ["background", "generator", "lead", "abandoned_lead"]
 path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
 path_img = "cied\Dataset\micraWAbdn.png" # เปลี่ยนเป็นรูปที่อยากลอง
+IMG_Size = 512  # ขนาดที่โมเดลใช้ตอนเทรน (ต้องเหมือนกันเป๊ะๆ)
 
 # 2. สร้างโครงสร้างโมเดล (ต้องเหมือนตอนเทรนเป๊ะๆ)
 # ใช้ ResNet50 และ n_out=4 ตามที่คุณเทรนไว้
 dls = SegmentationDataLoaders.from_label_func(
     pathlib.Path("."), bs=1, fnames=[path_img], 
-    label_func=lambda x: x, codes=class_names, item_tfms=Resize(512, method='pad', pad_mode='zeros')
+    label_func=lambda x: x, codes=class_names, item_tfms=Resize(IMG_Size, method='pad', pad_mode='zeros')
 )
 learn = unet_learner(dls, resnet50, n_out=4)
 
