@@ -11,13 +11,13 @@ from fastai.vision.all import *
 # 1. ตั้งค่าพื้นฐาน
 class_names = ["background", "generator", "lead", "abandoned_lead"]
 path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
-path_img = "cied\Dataset\CRT.png" # เปลี่ยนเป็นรูปที่อยากลอง
+path_img = "cied\Dataset\micraWAbdn.png" # เปลี่ยนเป็นรูปที่อยากลอง
 
 # 2. สร้างโครงสร้างโมเดล (ต้องเหมือนตอนเทรนเป๊ะๆ)
 # ใช้ ResNet50 และ n_out=4 ตามที่คุณเทรนไว้
 dls = SegmentationDataLoaders.from_label_func(
     pathlib.Path("."), bs=1, fnames=[path_img], 
-    label_func=lambda x: x, codes=class_names, item_tfms=Resize(512)
+    label_func=lambda x: x, codes=class_names, item_tfms=Resize(512, method='pad', pad_mode='zeros')
 )
 learn = unet_learner(dls, resnet50, n_out=4)
 
@@ -47,6 +47,7 @@ final_mask = mask.numpy().copy()
 abdn_probs = probs[3].numpy()
 low_confidence_abdn = (final_mask == 3) & (abdn_probs < abdn_threshold)
 final_mask[low_confidence_abdn] = 0
+has_abdn = abdn_probs.max() > abdn_threshold
 
 # กรองด้วย Threshold 
 valid_abdn_pixels = (final_mask == 3) & (abdn_probs > abdn_threshold)
@@ -66,17 +67,44 @@ generator_pixel_count = valid_generator_pixels.sum().item()
 found_classes = np.unique(final_mask)
 print(f"Classes found in this image: {found_classes}")
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
-ax[0].imshow(img)
-ax[0].set_title("Original X-ray")
+
+# 1. เตรียมภาพต้นฉบับให้เป็น 512 พร้อม Padding เหมือนที่โมเดลใช้
+img_padded = learn.dls.after_item(img) # FastAI จะทำ Resize(512, method='pad') ให้
+if isinstance(img_padded, torch.Tensor):
+    # .permute(1, 2, 0) คือการย้ายแกนที่ 0 (Channel) ไปไว้ลำดับสุดท้าย
+    img_padded = img_padded.permute(1, 2, 0).cpu().numpy()
+
+
+# สร้าง Figure สำหรับเปรียบเทียบ Original และ Mask
+fig, ax = plt.subplots(1, 2, figsize=(15, 7))
+
+# ฝั่งซ้าย: ภาพต้นฉบับที่ทำ Padding แล้ว
+ax[0].imshow(img_padded)
+ax[0].set_title("Original X-ray (Padded 512x512)")
 ax[0].axis("off")
 
-# ใช้ vmin=0, vmax=3 เพื่อให้สี Class 3 (Abandoned Lead) เป็นสีแดงเสมอ
-ax[1].imshow(final_mask, vmin=0, vmax=3, cmap='jet') 
-#ax[1].set_title(f"Abdn Filtered Mask (Confidence > {abdn_threshold})" f" Abdn Pixels: {pixel_count}" 
-#                f"Generator Filtered Mask (Confidence > {generator_threshold}) Pixels: {generator_pixel_count}"
-#                )
+# ฝั่งขวา: Mask ที่ผ่านการกรองแล้ว
+ax[1].imshow(final_mask, vmin=0, vmax=3, cmap='jet')
 ax[1].axis("off")
-ax[1].labels = (f"Abdn Filtered Mask (Confidence > {abdn_threshold})" f" Abdn Pixels: {pixel_count}" 
-                f"Generator Filtered Mask (Confidence > {generator_threshold}) Pixels: {generator_pixel_count}")
-                
+
+# เพิ่มรายละเอียดพิกเซลและ Threshold ตรง Title ของฝั่ง Mask
+detail_text = (
+    f"Abdn Filtered (Conf > {abdn_threshold}): {pixel_count} px\n"
+    f"Gen Filtered (Conf > {generator_threshold}): {generator_pixel_count} px"
+)
+ax[1].set_title(detail_text, fontsize=10, color='red' if has_abdn else 'black')
+
+plt.tight_layout()
+plt.show()
+
+# --- ส่วน Overlay (แสดงการซ้อนทับภาพ) ---
+plt.figure(figsize=(10, 10))
+plt.imshow(img_padded)
+
+# ทำ Mask ให้โปร่งใสเฉพาะส่วนที่เป็น Background (0)
+masked_final = np.ma.masked_where(final_mask == 0, final_mask)
+plt.imshow(masked_final, cmap='jet', alpha=0.4, vmin=0, vmax=3)
+
+plt.title(f"Overlay Analysis\n{detail_text}")
+plt.axis("off")
 plt.show()

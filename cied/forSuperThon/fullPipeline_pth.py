@@ -7,7 +7,7 @@ import numpy as np
 import skimage.measure
 from PIL import Image
 from fastai.vision.all import *
-import scipy.ndimage as ndiamge
+import scipy.ndimage as ndimage
 
 # ==========================================================
 # STEP 1: COMPATIBILITY PATCHES
@@ -29,7 +29,7 @@ def resize_img(img, small_ax=512):
 
 def fix_bbox(bbox_org, img_shape, minsize=160):
     minr, minc, maxr, maxc = bbox_org
-    dr, dc = int((maxr-minr)*0.01), int((maxc-minc)*0.01)
+    dr, dc = int((maxr-minr)*0.2), int((maxc-minc)*0.2)
     minr, minc, maxr, maxc = minr-dr, minc-dc, maxr+dr, maxc+dc
     h, w = maxr-minr, maxc-minc
     max_side = max(h, w, minsize)
@@ -46,12 +46,13 @@ def run_pipeline():
     file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_seg.pth' 
     file_manuf       = 'C:/CIEDID_data/pkl/classification_manuf.pkl'
     file_model       = 'C:/CIEDID_data/pkl/classification_model.pkl'
-    img_input        = 'cied/Dataset/CRT.png' # เปลี่ยนเป็นรูปที่อยากลอง
+    img_input        = 'cied/Dataset/VVI full.jpg' # เปลี่ยนเป็นรูปที่อยากลอง
     temp_crop        = 'cied/Dataset/temp_crop_pth.jpg'
 
-    # Detection Thresholds
-    PIXEL_MIN = 50
+    # Detection Thresholds for Abandoned Lead
+    PIXEL_MIN = 10
     PROB_THRESHOLD = 0.5
+    # 4 classes by training: 0=background, 1=generator, 2=lead, 3=abandoned_lead
     CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"] 
 
     try:
@@ -66,7 +67,8 @@ def run_pipeline():
         # Reconstruct architecture as per finetuneYN_custom.py
         dls_dummy = SegmentationDataLoaders.from_label_func(
             pathlib.Path("."), bs=1, fnames=[img_input], 
-            label_func=lambda x: x, codes=CLASS_NAMES, item_tfms=Resize(512)
+            label_func=lambda x: x, codes=CLASS_NAMES, 
+            item_tfms=Resize(512, method='pad', pad_mode='zeros') # use padding to maintain aspect ratio
         )
 
         learn_seg = unet_learner(dls_dummy, resnet50, n_out=4)
@@ -98,14 +100,13 @@ def run_pipeline():
         # เพิ่ม .numpy() เพื่อแปลง Tensor ให้เป็น NumPy Array ก่อนนำไปคำนวณต่อ
         abdn_probs = probs[abdn_class_idx].numpy()
 
-        # กรองด้วย Threshold 0.7
+        # กรองด้วย Threshold 
         valid_abdn_pixels = (mask_np == abdn_class_idx) & (abdn_probs > PROB_THRESHOLD)
         pixel_count = valid_abdn_pixels.sum().item()
         
         has_abdn = False
         abdn_final_prob = 0.0
-        
-        # ตรวจสอบเกณฑ์ Pixel_min 80
+        # ตรวจสอบเกณฑ์ Pixel_min 
         if pixel_count >= PIXEL_MIN:
             has_abdn = True
             abdn_final_prob = abdn_probs[valid_abdn_pixels].max().item() * 100
@@ -114,7 +115,21 @@ def run_pipeline():
         gen_mask = np.where(mask_np == 1, 1, 0)
 
         # closing and combine the pointes nearby to get better connected components
-        gen_mask = ndimage.binary_closing(gen_mask, iterations=15).astype(np.uint8)
+        #gen_mask = ndimage.binary_closing(gen_mask, iterations=10).astype(np.uint8)
+        #gen_mask = ndimage.binary_fill_holes(gen_mask).astype(np.uint8)
+
+        # dilatation and fill holes to get better connected components
+        # 1. สร้าง Structure สำหรับภาพ 2D (Connectivity 2 คือเชื่อมแนวทแยงด้วย)
+        struct = ndimage.generate_binary_structure(2, 2) 
+
+        # 2. ตรวจสอบให้แน่ใจว่า gen_mask ไม่มีมิติส่วนเกิน (เช่น 1, 512, 512)
+        if gen_mask.ndim > 2:
+            gen_mask = gen_mask.squeeze() # ยุบมิติที่เกินออกให้เหลือแค่ (H, W)
+
+        # 3. รัน Dilation และ Erosion (ระวังคำสะกด ndimage ในโค้ดคุณสะกดผิดเป็น ndiamge ด้วยครับ)
+        # และต้องใส่ () หลัง .astype เพื่อให้เป็นฟังก์ชัน
+        gen_mask = ndimage.binary_dilation(gen_mask, structure=struct, iterations=3).astype(np.uint8) # ขยายขอบเขตของตัวเครื่องให้กว้างขึ้น
+        gen_mask = ndimage.binary_erosion(gen_mask, structure=struct, iterations=3).astype(np.uint8) # ลบ noise เล็กๆ และเชื่อมส่วนที่ขาดให้ติดกันมากขึ้น 
         gen_mask = ndimage.binary_fill_holes(gen_mask).astype(np.uint8)
 
         labeled = skimage.measure.label(gen_mask)
@@ -126,14 +141,52 @@ def run_pipeline():
 
         # 3. CROPPING
         print("3. กำลังตัดและเตรียมรูปภาพ (Cropping)...")
-        main_obj = props[np.argmax([p.area for p in props])]
+
+        # กรองเอาเฉพาะชิ้นส่วนที่มีขนาดใหญ่กว่า 1,000 พิกเซล
+        MIN_GEN_AREA = 1000 
+        large_props = [p for p in props if p.area > MIN_GEN_AREA]
+
+        if len(large_props) == 0:
+            print(f"❌ ไม่พบวัตถุที่มีขนาดใหญ่พอจะเป็น Generator (Area < {MIN_GEN_AREA})")
+            # อาจจะให้ return หรือลองใช้ชิ้นที่ใหญ่ที่สุดที่มีดูถ้าต้องการ
+            return 
+
+        # เลือกชิ้นที่ใหญ่ที่สุดจากบรรดาชิ้นที่ผ่านเกณฑ์
+        main_obj = large_props[np.argmax([p.area for p in large_props])]
+        
+        print(f"✅ พบ Generator พื้นที่: {main_obj.area} พิกเซล")
+        #main_obj = props[np.argmax([p.area for p in props])]
         
         # ขยายพิกัดกลับไปที่ขนาดภาพต้นฉบับ หรือ Resize ภาพก่อนตัด
-        img_512 = raw_img.resize((512, 512))
-        img_512_np = np.array(img_512)
-        minr, minc, maxr, maxc = fix_bbox(main_obj.bbox, img_512_np.shape)
+        #img_512 = raw_img.resize((512, 512))
+        #img_512_np = np.array(img_512)
+        #minr, minc, maxr, maxc = fix_bbox(main_obj.bbox, img_512_np.shape)
+        #crop_arr = img_512_np[minr:maxr, minc:maxc]
         
-        crop_arr = img_512_np[minr:maxr, minc:maxc]
+        # 1. หาอัตราส่วนการย่อ (Scaling Factor)
+        orig_w, orig_h = raw_img.size
+        scale = max(orig_w, orig_h) / 512
+
+        # 2. ปรับพิกัดจาก Mask (512) กลับไปเป็นขนาดต้นฉบับ
+        # (สมมติว่าโมเดลทำ Padding ไว้ตรงกลาง)
+        pad_y = (512 - (orig_h / scale)) / 2 if orig_h < orig_w else 0
+        pad_x = (512 - (orig_w / scale)) / 2 if orig_w < orig_h else 0
+
+        minr, minc, maxr, maxc = main_obj.bbox
+        real_minr = int((minr - pad_y) * scale)
+        real_maxr = int((maxr - pad_y) * scale)
+        real_minc = int((minc - pad_x) * scale)
+        real_maxc = int((maxc - pad_x) * scale)
+
+        # 3. ส่งเข้า fix_bbox โดยใช้ขนาดภาพต้นฉบับ
+        raw_np = np.array(raw_img)
+        final_minr, final_minc, final_maxr, final_maxc = fix_bbox(
+            (real_minr, real_minc, real_maxr, real_maxc), raw_np.shape
+        )
+
+        # 4. ตัดจากภาพต้นฉบับเพื่อให้ได้ความละเอียดสูงสุดก่อนส่งไป Classify
+        crop_arr = raw_np[final_minr:final_maxr, final_minc:final_maxc]
+
         crop_img = PILImage.create(crop_arr).resize((256, 256))
         crop_img.save(temp_crop)
 
