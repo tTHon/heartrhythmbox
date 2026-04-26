@@ -86,7 +86,7 @@ def dice_generator(inp, targ, eps=1e-6):
 # Returning 0.0 would drag the average down unfairly.
 # ------------------------------------------------------------------
 """Yes/No sensitivity: did the model detect abandoned lead when present?
-use class right now
+use class instead of def -- may remove def
 def abdn_lead_sensitivity(inp, targ):
     # Yes/No sensitivity: did the model detect abandoned lead when present?
     threshold_pixels = 1
@@ -428,14 +428,26 @@ def plot_learning_curves(csv_path, output_path):
     if not csv_path.exists():
         return
 
-    df = pd.read_csv(csv_path)
+    # ใหม่ — อ่าน manual กรอง # ก่อนส่งให้ pandas
+    import io
+    lines = csv_path.read_text(encoding='utf-8').splitlines()
+    clean = '\n'.join(l for l in lines if not l.startswith('#') and l.strip())
+    df = pd.read_csv(io.StringIO(clean), on_bad_lines='skip')
+
     # กรองเอาแถวที่เป็นหัวตารางซ้ำออก (กรณี append หลาย Phase)
-    df = df[df['epoch'] != 'epoch']
+    df = df[df['epoch'] != 'epoch'].reset_index(drop=True)
     # แปลงเฉพาะคอลัมน์ที่เป็นตัวเลข
     numeric_cols = ['epoch', 'train_loss', 'valid_loss', 'dice_generator', 'abdn_lead_sensitivity']
     for col in numeric_cols:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
+    phase_boundaries = []
+    if 'epoch' in df.columns:
+        ep = df['epoch'].dropna().astype(int)
+        for i in range(1, len(ep)):
+            if ep.iloc[i] < ep.iloc[i-1]:
+                phase_boundaries.append(i)
+
 
     fig, ax1 = plt.subplots(figsize=(10, 6))
 
@@ -652,7 +664,9 @@ def finetune(args):
         args.epochs_full,
         lr_max=slice(2e-6, 2e-4),  # slowler ie. 1e-6, 5e-5
         cbs=[GradientAccumulation(n_acc=4),
-         SaveModelCallback(monitor='dice_generator', fname='best_seg', with_opt=False)]
+         SaveModelCallback(monitor='dice_generator', fname='best_gen', with_opt=False),
+         SaveModelCallback(monitor='dice_abdn', fname='best_abdn', with_opt=False)
+         ]
     )
 
     # --- Save Sample Predictions ---
@@ -689,7 +703,7 @@ if __name__ == "__main__":
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 640/384
+    parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
     parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
     parser.add_argument("--epochs_full",    type=int,   default=10)  # if N increases, set as 20
