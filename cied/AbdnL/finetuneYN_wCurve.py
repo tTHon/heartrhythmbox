@@ -27,6 +27,7 @@
 # NEW: added GradientAccumulation callback to simulate larger batch size (effective batch size = batch_size * n_acc)
     
 # NEW:  remove lr_find, as it is not suitable while using GradientAccumulation
+# method = pad 
 
 import pathlib
 import platform
