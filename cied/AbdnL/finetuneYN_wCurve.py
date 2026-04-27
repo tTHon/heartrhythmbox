@@ -56,6 +56,32 @@ if platform.system() == 'Windows':
 else:
     pathlib.WindowsPath = pathlib.PosixPath
 
+
+def parse_lr_arg(value):
+    """Parse a learning-rate argument into float or slice for fit_one_cycle."""
+    value = value.strip()
+    if value.startswith("slice(") and value.endswith(")"):
+        inner = value[len("slice("):-1]
+        parts = [p.strip() for p in inner.split(",") if p.strip()]
+        if len(parts) != 2:
+            raise argparse.ArgumentTypeError(
+                "lr_phase2 slice must be in form slice(start, end)"
+            )
+        try:
+            start = float(parts[0])
+            end = float(parts[1])
+        except ValueError as exc:
+            raise argparse.ArgumentTypeError(
+                "lr_phase2 slice values must be floats"
+            ) from exc
+        return slice(start, end)
+    try:
+        return float(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(
+            "lr_phase2 must be a float or slice(start, end)"
+        ) from exc
+
 # ==============================
 # 1. GLOBAL FUNCTIONS (Must be outside for Pickle/export)
 # ==============================
@@ -708,11 +734,12 @@ if __name__ == "__main__":
     parser.add_argument("--epochs_head",    type=int,   default=3)    # Phase 1: head only
     parser.add_argument("--epochs_full",    type=int,   default=8)  # if N increases, set as 20
     parser.add_argument("--batch_size",     type=int,   default=2) #BS 2 for PS 320 GradientAccumulation(n_acc=8)
-    parser.add_argument("--patch_size",     type=int,   default=512)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
+    parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px (3x2 images/min), 448 = 7px, 512 = 8px effective receptive field on original image
     parser.add_argument("--grad_accum",   type=int,   default=4) 
-    parser.add_argument("--lr_phase0",   type=float,   default=5e-4)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
+    parser.add_argument("--valid_split", type=float,   default=0.2)
+    parser.add_argument("--lr_phase0",   type=float,   default=2e-3)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
     parser.add_argument("--lr_phase1",   type=float,   default=6e-4)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
-    parser.add_argument("--lr_phase2",   type=str,     default="slice(2e-6, 2e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
+    parser.add_argument("--lr_phase2",   type=parse_lr_arg, default="slice(2e-6, 2e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
     parser.add_argument("--oversample_new", type=int,   default=3) # if N increases, set as 1
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 25],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
