@@ -503,11 +503,11 @@ def finetune(args):
             "class_weights":   args.class_weights,
             "loss_func":       "FocalLossFlat",
             "backbone":        "resnet50",
-            "grad_accum":      4,
+            "grad_accum":      args.grad_accum,
             "fp16":            True,
-            "lr_phase0":       "2e-3",
-            "lr_phase1":       "6e-4",
-            "lr_phase2":       "slice(2e-6, 2e-4)",
+            "lr_phase0":       args.lr_phase0,
+            "lr_phase1":       args.lr_phase1,
+            "lr_phase2":       args.lr_phase2,
         }.items():
             writer.writerow([f"# {k}", v])
         writer.writerow([])  # blank line คั่นก่อน metrics
@@ -628,7 +628,7 @@ def finetune(args):
     print("\n--- Phase 0: Decoder warmup (encoder frozen, decoder free) ---")
     # Freeze only the encoder (groups[0] in FastAI UNet = backbone)
     learner.freeze_to(1)          # freeze group 0 (encoder), leave rest free
-    learner.fit_one_cycle(args.epochs_decoder, 2e-3, cbs=GradientAccumulation(n_acc=4))
+    learner.fit_one_cycle(args.epochs_decoder, args.lr_phase0, cbs=GradientAccumulation(n_acc=args.grad_accum))  # ลด lr ลงจาก 2e-3
     #learner.show_results(max_n=4, vmin=0, vmax=3)
     #plt.savefig(out / "phase0_decoder_warmup.png")
     #learner.save(out / "after_decoder_warmup")
@@ -636,7 +636,7 @@ def finetune(args):
     # Phase 1 — head only
     print("\n--- Phase 1: Training Head (all except head frozen) ---")
     learner.freeze()              # freeze everything except last param group (head)
-    learner.fit_one_cycle(args.epochs_head, 6e-4, cbs=GradientAccumulation(n_acc=4))
+    learner.fit_one_cycle(args.epochs_head, args.lr_phase1, cbs=GradientAccumulation(n_acc=args.grad_accum))
     #learner.show_results(max_n=4, vmin=0, vmax=3)
     #plt.savefig(out / "phase1_head_loss.png")
     #learner.save(out / "after_head_only")
@@ -662,8 +662,8 @@ def finetune(args):
     learner.model_dir = ""
     learner.fit_one_cycle(
         args.epochs_full,
-        lr_max=slice(2e-6, 2e-4),  # slowler ie. 1e-6, 5e-5
-        cbs=[GradientAccumulation(n_acc=4),
+        lr_max=args.lr_phase2,  # slowler ie. 1e-6, 5e-5
+        cbs=[GradientAccumulation(n_acc=args.grad_accum),
          SaveModelCallback(monitor='dice_generator', fname='best_gen', with_opt=False),
          SaveModelCallback(monitor='dice_abdn', fname='best_abdn', with_opt=False)
          ]
@@ -704,12 +704,15 @@ if __name__ == "__main__":
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
-    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
-    parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=10)  # if N increases, set as 20
+    parser.add_argument("--epochs_decoder",  type=int,   default=3)   # Phase 0: decoder warmup ลองลดเหลือ 5
+    parser.add_argument("--epochs_head",    type=int,   default=3)    # Phase 1: head only
+    parser.add_argument("--epochs_full",    type=int,   default=8)  # if N increases, set as 20
     parser.add_argument("--batch_size",     type=int,   default=2) #BS 2 for PS 320 GradientAccumulation(n_acc=8)
-    parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
-    parser.add_argument("--valid_split",    type=float, default=0.2)
+    parser.add_argument("--patch_size",     type=int,   default=512)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
+    parser.add_argument("--grad_accum",   type=int,   default=4) 
+    parser.add_argument("--lr_phase0",   type=float,   default=5e-4)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
+    parser.add_argument("--lr_phase1",   type=float,   default=6e-4)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
+    parser.add_argument("--lr_phase2",   type=str,     default="slice(2e-6, 2e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
     parser.add_argument("--oversample_new", type=int,   default=3) # if N increases, set as 1
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 25],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")

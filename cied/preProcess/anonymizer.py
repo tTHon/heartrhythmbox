@@ -1,3 +1,8 @@
+# --- Batch Anonymizer Script ---
+# All images undergo CLAHE first,
+# then anonymization.
+# The preprocessing ends here.
+# Check the folder "2_ANON" for the final anonymized images.
 import torch
 print(f"Is CUDA available in this script?: {torch.cuda.is_available()}")
 import easyocr
@@ -58,4 +63,4 @@ def batch_anonymize(input_folder, output_folder):
 
 # --- วิธีใช้งาน ---
 # ใส่ชื่อโฟลเดอร์ที่เก็บภาพ X-ray และโฟลเดอร์ที่จะให้บันทึกผลลัพธ์
-batch_anonymize('c:\CIEDID_data\AbdnL\data', 'c:\CIEDID_data\AbdnL\data')
+batch_anonymize('c:/CIEDID_data/Images_processed/1_CLAHE', 'c:/CIEDID_data/Images_processed/2_ANON')
