@@ -170,11 +170,17 @@ def run_pipeline():
         if gen_mask.ndim > 2:
             gen_mask = gen_mask.squeeze() # ยุบมิติที่เกินออกให้เหลือแค่ (H, W)
 
-        # 3. รัน Dilation และ Erosion (ระวังคำสะกด ndimage ในโค้ดคุณสะกดผิดเป็น ndiamge ด้วยครับ)
-        # และต้องใส่ () หลัง .astype เพื่อให้เป็นฟังก์ชัน
-        gen_mask = ndimage.binary_dilation(gen_mask, structure=struct, iterations=3).astype(np.uint8) # ขยายขอบเขตของตัวเครื่องให้กว้างขึ้น
-        gen_mask = ndimage.binary_erosion(gen_mask, structure=struct, iterations=3).astype(np.uint8) # ลบ noise เล็กๆ และเชื่อมส่วนที่ขาดให้ติดกันมากขึ้น 
-        gen_mask = ndimage.binary_fill_holes(gen_mask).astype(np.uint8)
+        # ทำ Dilation และ Erosion อย่างละ 3 รอบตามโค้ดล่าสุดของคุณ
+        iterations = max(1, int((IMG_Size / 512) * 3))  # ปรับจำนวนรอบตามขนาดภาพ
+        gen_mask_processed = ndimage.binary_dilation(gen_mask, structure=struct, iterations=iterations).astype(np.uint8)
+        gen_mask_processed = ndimage.binary_erosion(gen_mask_processed, structure=struct, iterations=iterations).astype(np.uint8)
+        gen_mask_processed = ndimage.binary_fill_holes(gen_mask_processed).astype(np.uint8)
+        # Convex hull — ทำหลัง fill holes
+        # เหมาะกับ generator เพราะเป็น convex object จริงๆ
+        # ช่วยให้ bbox สมมาตรและ crop ได้สวยกว่า
+        from skimage.morphology import convex_hull_image
+        if gen_mask_processed.sum() > 0:   # มี object อยู่ถึงทำ
+            gen_mask_processed = convex_hull_image(gen_mask_processed).astype(np.uint8)
 
         labeled = skimage.measure.label(gen_mask)
         props = skimage.measure.regionprops(labeled)

@@ -75,6 +75,12 @@ def main():
     print(f"{'Filename':40s} | {'Unique IDs'}")
     print("-" * 60)
 
+    files_with_class = {
+        1: 0,
+        2: 0,
+        3: 0,
+    }
+
     for json_file in json_files:
         mask_name = f"{json_file.stem}_mask.png"
         save_path = OUTPUT_DIR / mask_name
@@ -82,12 +88,20 @@ def main():
         try:
             unique_values = process_single_json(json_file, save_path)
             print(f"{mask_name:40s} | {list(unique_values)}")
+
+            for class_id in files_with_class:
+                if class_id in unique_values:
+                    files_with_class[class_id] += 1
         except Exception as e:
             print(f"❌ Error processing {json_file.name}: {e}")
 
     print("-" * 60)
     print(f"✅ Success! Saved masks to: {OUTPUT_DIR}")
-    print(f"⚠️  Don't forget to check if ID 3 (abandoned_lead) appears in the Unique IDs list")
+    print("Summary — files containing each class:")
+    print(f"  1 = generator         : {files_with_class[1]}")
+    print(f"  2 = lead              : {files_with_class[2]}")
+    print(f"  3 = abandoned_lead    : {files_with_class[3]}")
+    
 
 if __name__ == "__main__":
     main()

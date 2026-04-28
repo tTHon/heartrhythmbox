@@ -94,10 +94,17 @@ if gen_mask.ndim > 2: gen_mask = gen_mask.squeeze()
 
 struct = ndimage.generate_binary_structure(2, 2) 
 
-# ทำ Dilation และ Erosion อย่างละ 3 รอบตามโค้ดล่าสุดของคุณ
-gen_mask_processed = ndimage.binary_dilation(gen_mask, structure=struct, iterations=3).astype(np.uint8)
-gen_mask_processed = ndimage.binary_erosion(gen_mask_processed, structure=struct, iterations=3).astype(np.uint8)
+# ทำ Dilation และ Erosion 
+iterations = max(1, int((IMG_Size / 512) * 3))  # ปรับจำนวนรอบตามขนาดภาพ
+gen_mask_processed = ndimage.binary_dilation(gen_mask, structure=struct, iterations=iterations).astype(np.uint8)
+gen_mask_processed = ndimage.binary_erosion(gen_mask_processed, structure=struct, iterations=iterations).astype(np.uint8)
 gen_mask_processed = ndimage.binary_fill_holes(gen_mask_processed).astype(np.uint8)
+# Convex hull — ทำหลัง fill holes
+# เหมาะกับ generator เพราะเป็น convex object จริงๆ
+# ช่วยให้ bbox สมมาตรและ crop ได้สวยกว่า
+from skimage.morphology import convex_hull_image
+if gen_mask_processed.sum() > 0:   # มี object อยู่ถึงทำ
+    gen_mask_processed = convex_hull_image(gen_mask_processed).astype(np.uint8)
 
 # ==========================================================
 # 5. OBJECT SELECTION & COORDINATE MAPPING

@@ -111,36 +111,21 @@ def dice_generator(inp, targ, eps=1e-6):
 # is computed only over batches that actually contain abandoned leads.
 # Returning 0.0 would drag the average down unfairly.
 # ------------------------------------------------------------------
-"""Yes/No sensitivity: did the model detect abandoned lead when present?
-use class instead of def -- may remove def
-def abdn_lead_sensitivity(inp, targ):
-    # Yes/No sensitivity: did the model detect abandoned lead when present?
-    threshold_pixels = 1
-    pred = inp.argmax(dim=1)
-    pred_yes = (pred == 3).sum(dim=(1, 2)) > threshold_pixels
-    targ_yes = (targ == 3).sum(dim=(1, 2)) > 0
+# Yes/No sensitivity: did the model detect abandoned lead when present?
 
-    actual_pos = targ_yes.sum()
-    if actual_pos == 0:
-        # BUG FIX 2: was torch.tensor(0.0) — use nan so the metric
-        # aggregator ignores this batch rather than counting it as a miss.
-        return torch.tensor(float('nan'))
-
-    tp = (pred_yes & targ_yes).sum()
-    return torch.tensor(tp.item() / actual_pos.item()) 
-"""
-
-# ใส่แทน:
 class AbdnLeadSensitivity(Metric):
     def reset(self):
         self.tp  = 0
         self.pos = 0
 
     def accumulate(self, learn):
+        # find the threshold pixels at the current patch size
+        scale = (args.patch_size / args.img_size) ** 2
+        threshold_px = int(args.abdn_min_512 * scale)
         inp  = learn.pred
         targ = learn.yb[0]
         pred = inp.argmax(dim=1)
-        pred_yes = (pred == 3).sum(dim=(1, 2)) > 6 
+        pred_yes = (pred == 3).sum(dim=(1, 2)) > threshold_px
         targ_yes = (targ == 3).sum(dim=(1, 2)) > 0 
         self.tp  += (pred_yes & targ_yes).sum().item()
         self.pos += targ_yes.sum().item()
@@ -725,25 +710,32 @@ def finetune(args):
 # ==============================
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    # path
     parser.add_argument("--model_path", default="C:/CIEDID_data/pkl/segmentation.pkl")
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
-    parser.add_argument("--epochs_decoder",  type=int,   default=3)   # Phase 0: decoder warmup ลองลดเหลือ 5
-    parser.add_argument("--epochs_head",    type=int,   default=3)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=8)  # if N increases, set as 20
-    parser.add_argument("--batch_size",     type=int,   default=2) #BS 2 for PS 320 GradientAccumulation(n_acc=8)
-    parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px (3x2 images/min), 448 = 7px, 512 = 8px effective receptive field on original image
-    parser.add_argument("--grad_accum",   type=int,   default=4) 
-    parser.add_argument("--valid_split", type=float,   default=0.2)
-    parser.add_argument("--lr_phase0",   type=float,   default=2e-3)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
-    parser.add_argument("--lr_phase1",   type=float,   default=6e-4)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
-    parser.add_argument("--lr_phase2",   type=parse_lr_arg, default="slice(2e-6, 2e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
-    parser.add_argument("--oversample_new", type=int,   default=3) # if N increases, set as 1
+    # training config
+    parser.add_argument("--oversample_new", type=int,   default=2) # if N increases, set as 1
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 25],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
+    # model/hyperparameters
+    parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
+    parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px (3x2 images/min), 448 = 7px, 512 = 8px effective receptive field on original image
+    parser.add_argument("--batch_size",     type=int,   default=4) 
+    parser.add_argument("--grad_accum",   type=int,   default=2) 
+    parser.add_argument("--valid_split", type=float,   default=0.2)
+    parser.add_argument("--abdn_min_512", type=int,   default=2800)  # minimum pixel count at 512x512 to consider "yes" for abandoned lead sensitivity metric
     
+    # training epochs
+    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
+    parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
+    parser.add_argument("--epochs_full",    type=int,   default=10)  # if N increases, set as 20
+    # learning rates   
+    parser.add_argument("--lr_phase0",   type=float,   default=2e-3)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
+    parser.add_argument("--lr_phase1",   type=float,   default=1e-3)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
+    parser.add_argument("--lr_phase2",   type=parse_lr_arg, default="slice(2e-6, 2e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
+        
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
     parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
                         help="Calculate mean/std from the dataset instead of using ImageNet values")

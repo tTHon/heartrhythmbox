@@ -1,3 +1,7 @@
+# count the number of pixels in the abandoned lead class (class 3) across all masks, and calculate statistics to help set a threshold for sensitivity analysis in finetuning.
+# currently, threshold = minimum pixel count at 512x512 to consider "yes" for abandoned lead sensitivity metric, which is used in finetuneYN_wCurve.py to determine if a prediction is considered a true positive for the abandoned lead class.
+# when used in model training, the number needed to be adjusted with patch size
+
 import numpy as np
 from fastai.vision.all import PILImage
 import pathlib
