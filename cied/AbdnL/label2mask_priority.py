@@ -28,6 +28,9 @@ CLASS_MAP = {
 
 Train_Size = 512  # ขนาดที่ใช้ train model
 def process_single_json(json_path: Path, output_path: Path):
+    # Ensure output directory exists
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    
     with open(json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
