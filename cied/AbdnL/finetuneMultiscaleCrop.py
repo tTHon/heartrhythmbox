@@ -772,7 +772,7 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     # training config
     parser.add_argument("--oversample_new", type=int,   default=1) # if N increases, set as 1
-    parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 25],
+    parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 40],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     # model/hyperparameters
     parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512

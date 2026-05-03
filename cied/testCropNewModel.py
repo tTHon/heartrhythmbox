@@ -11,8 +11,8 @@ import cv2
 # 1. CONFIGURATION & PARAMETERS
 # ==========================================================
 # ใส่ Path ของคุณที่นี่
-path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
-path_img = "C:/CIEDID_data/AbdnL/data/90.png" 
+path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
+path_img = "C:/CIEDID_data/AbdnL/data/1607.png" 
 
 IMG_Size = 512       # ปรับตามตัวแปร IMG_Size ที่คุณต้องการ
 Crop_border = 0.05    # สัดส่วนขอบที่เพิ่มรอบ Generator

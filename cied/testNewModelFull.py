@@ -81,21 +81,21 @@ def apply_clahe(img_input):
 # ==========================================================
 def run_pipeline():
     # --- CONFIGURATION ---
-    file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_seg.pth' 
+    file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_abdn.pth' 
     file_manuf       = 'C:/CIEDID_data/pkl/classification_manuf.pkl'
     file_model       = 'C:/CIEDID_data/pkl/classification_model.pkl'
-    img_input        = 'C:/CIEDID_data/AbdnL/data/132.png' # เปลี่ยนเป็นรูปที่อยากลอง
+    img_input        = 'C:/CIEDID_data/AbdnL/data/1565.png' # เปลี่ยนเป็นรูปที่อยากลอง
     temp_crop        = 'cied/Dataset/temp_crop_pth.jpg'
 
     # Detection Thresholds for Abandoned Lead
-    PIXEL_MIN = 10
-    PROB_THRESHOLD = 0.5
+    PIXEL_MIN = 1000
+    PROB_THRESHOLD = 0.05
     # 4 classes by training: 0=background, 1=generator, 2=lead, 3=abandoned_lead
     CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"] 
 
     # Image processing parameters
     IMG_Size = 512
-    Crop_border = 0.05
+    Crop_border = 0.1
 
     try:
         apply_patches()
