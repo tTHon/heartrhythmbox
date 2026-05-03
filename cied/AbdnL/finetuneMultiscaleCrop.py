@@ -771,14 +771,14 @@ if __name__ == "__main__":
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     # training config
-    parser.add_argument("--oversample_new", type=int,   default=2) # if N increases, set as 1
+    parser.add_argument("--oversample_new", type=int,   default=1) # if N increases, set as 1
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 25],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     # model/hyperparameters
     parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
     parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px (3x2 images/min), 448 = 7px, 512 = 8px effective receptive field on original image
-    parser.add_argument("--batch_size",     type=int,   default=4) 
-    parser.add_argument("--grad_accum",   type=int,   default=2) 
+    parser.add_argument("--batch_size",     type=int,   default=2) 
+    parser.add_argument("--grad_accum",   type=int,   default=4) 
     parser.add_argument("--valid_split", type=float,   default=0.2)
     parser.add_argument("--abdn_min_512", type=int,   default=2800)  # minimum pixel count at 512x512 to consider "yes" for abandoned lead sensitivity metric
     
@@ -794,7 +794,7 @@ if __name__ == "__main__":
     # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
     parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
                         help="Calculate mean/std from the dataset instead of using ImageNet values")
-    parser.add_argument("--multiscale_crop", action="store_true", default=False,
+    parser.add_argument("--multiscale_crop", action="store_true", default=True,
                         help="Enable multi-scale patch sampling: randomly crops at 0.6/0.75/0.875/1.0 x img_size "
                              "before Resize(patch_size). Train only — validation unaffected. No VRAM change.")
 
