@@ -771,6 +771,8 @@ if __name__ == "__main__":
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 40],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     # model/hyperparameters
+    # PS 384: Dice Generator 0.72 but Dice Abdn not that good, PS 320 is better.
+    # Dont use PS 256. Numbers are not good.
     parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
     parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
     parser.add_argument("--batch_size",     type=int,   default=3) #PS 384: BS 2x4, PS 320 BS: 3x3 
