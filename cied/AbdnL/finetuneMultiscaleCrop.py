@@ -772,20 +772,20 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     # training config
     parser.add_argument("--oversample_new", type=int,   default=1) # if N increases, set as 1
-    parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 40],
+    parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 30],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     # model/hyperparameters
     parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
-    parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px (3x2 images/min), 448 = 7px, 512 = 8px effective receptive field on original image
-    parser.add_argument("--batch_size",     type=int,   default=2) 
-    parser.add_argument("--grad_accum",   type=int,   default=4) 
+    parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
+    parser.add_argument("--batch_size",     type=int,   default=3) 
+    parser.add_argument("--grad_accum",   type=int,   default=3) 
     parser.add_argument("--valid_split", type=float,   default=0.2)
     parser.add_argument("--abdn_min_512", type=int,   default=2800)  # minimum pixel count at 512x512 to consider "yes" for abandoned lead sensitivity metric
     
     # training epochs
-    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup ลองลดเหลือ 5
+    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup 
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=10)  # if N increases, set as 20
+    parser.add_argument("--epochs_full",    type=int,   default=15)  # if N increases, set as 20
     # learning rates   
     parser.add_argument("--lr_phase0",   type=float,   default=2e-3)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
     parser.add_argument("--lr_phase1",   type=float,   default=1e-3)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
