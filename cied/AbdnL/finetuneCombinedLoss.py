@@ -28,6 +28,7 @@
 # NEW:  remove lr_find, as it is not suitable while using GradientAccumulation
 # method = pad 
 # New: multiscale crop: randomly crop a window of size drawn from `scales` (fractions of img_size) before resizing to patch_size, applied only on training items. This allows the model to see the same image region at different "zoom levels" without changing VRAM usage or batch size. Validation always uses the full image via the fixed Resize(patch_size).
+# New: combined Focal + Dice loss (FocalDiceLoss) to handle class imbalance and directly optimise Dice metric. Configurable weights for focal vs dice components.
 
 import pathlib
 import platform
@@ -139,15 +140,10 @@ class AbdnLeadSensitivity(Metric):
         return "abdn_sensitivity"
     
 def dice_abdn(inp, targ, eps=1e-6):
-    """Dice for class 3 (abandoned_lead).
-    Returns nan when no abandoned_lead pixels in batch so AccumMetric
-    ignores batch rather than unfairly penalising it.
-    """
+    """Dice for class 3 (abandoned_lead)"""
     pred  = inp.argmax(dim=1)
     p     = (pred == 3).float()
     t     = (targ == 3).float()
-    if t.sum() == 0:
-        return torch.tensor(float('nan'))
     inter = (p * t).sum()
     union = p.sum() + t.sum()
     return (2. * inter + eps) / (union + eps)
@@ -159,8 +155,6 @@ def dice_lead(inp, targ, eps=1e-6):
     pred  = inp.argmax(dim=1)
     p     = (pred == 2).float()
     t     = (targ == 2).float()
-    if t.sum() == 0:
-        return torch.tensor(float('nan'))
     inter = (p * t).sum()
     union = p.sum() + t.sum()
     return (2. * inter + eps) / (union + eps)
@@ -860,8 +854,8 @@ if __name__ == "__main__":
     # Dont use PS 256. Numbers are not good.
     parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
     parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
-    parser.add_argument("--batch_size",     type=int,   default=3) #PS 384: BS 2x4, PS 320 BS: 3x3 
-    parser.add_argument("--grad_accum",   type=int,   default=3) 
+    parser.add_argument("--batch_size",     type=int,   default=2) #PS 384: BS 2x4, PS 320 BS: 3x3 
+    parser.add_argument("--grad_accum",   type=int,   default=4) 
     parser.add_argument("--valid_split", type=float,   default=0.2)
     parser.add_argument("--abdn_min_512", type=int,   default=2800)  # minimum pixel count at 512x512 to consider "yes" for abandoned lead sensitivity metric
     
@@ -870,9 +864,9 @@ if __name__ == "__main__":
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
     parser.add_argument("--epochs_full",    type=int,   default=20)  # if N increases, set as 20
     # learning rates   
-    parser.add_argument("--lr_phase0",   type=float,   default=2e-3)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
-    parser.add_argument("--lr_phase1",   type=float,   default=1e-3)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
-    parser.add_argument("--lr_phase2",   type=parse_lr_arg, default="slice(2e-6, 2e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
+    parser.add_argument("--lr_phase0",   type=float,   default=5e-4)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
+    parser.add_argument("--lr_phase1",   type=float,   default=3e-4)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
+    parser.add_argument("--lr_phase2",   type=parse_lr_arg, default="slice(1e-6, 1e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
         
     # FocalDiceLoss parameters
     parser.add_argument("--focal_w",    type=float, default=0.5,
