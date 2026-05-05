@@ -84,7 +84,7 @@ def run_pipeline():
     file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_abdn.pth' 
     file_manuf       = 'C:/CIEDID_data/pkl/classification_manuf.pkl'
     file_model       = 'C:/CIEDID_data/pkl/classification_model.pkl'
-    img_input        = 'C:/CIEDID_data/AbdnL/data/1565.png' # เปลี่ยนเป็นรูปที่อยากลอง
+    img_input        = 'C:/CIEDID_data/AbdnL/data/1094.png' # เปลี่ยนเป็นรูปที่อยากลอง
     temp_crop        = 'cied/Dataset/temp_crop_pth.jpg'
 
     # Detection Thresholds for Abandoned Lead
