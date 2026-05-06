@@ -84,7 +84,7 @@ def run_pipeline():
     file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_abdn.pth' 
     file_manuf       = 'C:/CIEDID_data/pkl/classification_manuf.pkl'
     file_model       = 'C:/CIEDID_data/pkl/classification_model.pkl'
-    img_input        = 'C:/CIEDID_data/AbdnL/data/1094.png' # เปลี่ยนเป็นรูปที่อยากลอง
+    img_input        = 'C:/CIEDID_data/AbdnL/data/927.png' # เปลี่ยนเป็นรูปที่อยากลอง
     temp_crop        = 'cied/Dataset/temp_crop_pth.jpg'
 
     # Detection Thresholds for Abandoned Lead
@@ -182,7 +182,7 @@ def run_pipeline():
         if gen_mask_processed.sum() > 0:   # มี object อยู่ถึงทำ
             gen_mask_processed = convex_hull_image(gen_mask_processed).astype(np.uint8)
 
-        labeled = skimage.measure.label(gen_mask)
+        labeled = skimage.measure.label(gen_mask_processed)
         props = skimage.measure.regionprops(labeled)
         
         if len(props) == 0:
@@ -193,18 +193,27 @@ def run_pipeline():
         print("3. กำลังตัดและเตรียมรูปภาพ (Cropping)...")
 
         # กรองเอาเฉพาะชิ้นส่วนที่มีขนาดใหญ่กว่า 1,000 พิกเซล
-        MIN_GEN_AREA = (IMG_Size * IMG_Size) * 0.0038 # ประมาณ 1,000 พิกเซลที่ขนาด 512
-        large_props = [p for p in props if p.area > MIN_GEN_AREA]
+        #MIN_GEN_AREA = (IMG_Size * IMG_Size) * 0.0038 # ประมาณ 1,000 พิกเซลที่ขนาด 512
+        #large_props = [p for p in props if p.area > MIN_GEN_AREA]
 
-        if len(large_props) == 0:
-            print(f"❌ ไม่พบวัตถุที่มีขนาดใหญ่พอจะเป็น Generator (Area < {MIN_GEN_AREA})")
+        #if len(large_props) == 0:
+            #print(f"❌ ไม่พบวัตถุที่มีขนาดใหญ่พอจะเป็น Generator (Area < {MIN_GEN_AREA})")
             # อาจจะให้ return หรือลองใช้ชิ้นที่ใหญ่ที่สุดที่มีดูถ้าต้องการ
-            return 
+            #return 
 
-        # เลือกชิ้นที่ใหญ่ที่สุดจากบรรดาชิ้นที่ผ่านเกณฑ์
-        main_obj = large_props[np.argmax([p.area for p in large_props])]
-        
-        print(f"✅ พบ Generator พื้นที่: {main_obj.area} พิกเซล")
+        main_obj = None
+        if len(props) > 0:
+        # เรียงลำดับจากก้อนที่ใหญ่ที่สุดไปเล็กสุด
+            props = sorted(props, key=lambda x: x.area, reverse=True)           
+
+        # เลือกก้อนที่ใหญ่ที่สุดมา 1 ก้อน (ซึ่งมักจะเป็น Generator หรือ Leadless PM)
+            # และตั้งเกณฑ์ขั้นต่ำไว้เล็กมากๆ เพื่อตัด Noise ทิ้งเท่านั้น (เช่น 100 pixels)
+            best_prop = props[0]
+            if best_prop.area > 100: 
+                main_obj = best_prop
+            else:
+                print(f"⚠️ พบวัตถุแต่ขนาดเล็กเกินไป ({best_prop.area} px) อาจเป็น Noise")
+                
         #main_obj = props[np.argmax([p.area for p in props])]
         
         # ขยายพิกัดกลับไปที่ขนาดภาพต้นฉบับ หรือ Resize ภาพก่อนตัด

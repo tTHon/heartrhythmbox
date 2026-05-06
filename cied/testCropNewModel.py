@@ -111,13 +111,26 @@ if gen_mask_processed.sum() > 0:   # มี object อยู่ถึงทำ
 # ==========================================================
 labeled = skimage.measure.label(gen_mask_processed)
 props = skimage.measure.regionprops(labeled)
+main_obj = None
 
 # กรองด้วย Area Threshold ที่สัมพันธ์กับ IMG_Size
-MIN_GEN_AREA = (IMG_Size * IMG_Size) * 0.0038 
-large_props = [p for p in props if p.area > MIN_GEN_AREA]
+#MIN_GEN_AREA = (IMG_Size * IMG_Size) * 0.0038 
+#large_props = [p for p in props if p.area > MIN_GEN_AREA]
 
-if len(large_props) > 0:
-    main_obj = large_props[np.argmax([p.area for p in large_props])]
+#if len(large_props) > 0:
+    #main_obj = large_props[np.argmax([p.area for p in large_props])]
+
+if len(props) > 0:
+    # เรียงลำดับจากก้อนที่ใหญ่ที่สุดไปเล็กสุด
+    props = sorted(props, key=lambda x: x.area, reverse=True)
+    
+    # เลือกก้อนที่ใหญ่ที่สุดมา 1 ก้อน (ซึ่งมักจะเป็น Generator หรือ Leadless PM)
+    # และตั้งเกณฑ์ขั้นต่ำไว้เล็กมากๆ เพื่อตัด Noise ทิ้งเท่านั้น (เช่น 100 pixels)
+    best_prop = props[0]
+    if best_prop.area > 100: 
+        main_obj = best_prop
+    else:
+        print(f"⚠️ พบวัตถุแต่ขนาดเล็กเกินไป ({best_prop.area} px) อาจเป็น Noise")
     
     # คำนวณพิกัดกลับไปยังรูปต้นฉบับ (Center Padding Logic)
     orig_w, orig_h = raw_img.size
