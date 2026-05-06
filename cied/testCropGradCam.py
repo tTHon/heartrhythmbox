@@ -10,8 +10,8 @@ import cv2
 # ==========================================================
 # 1. CONFIGURATION & PARAMETERS
 # ==========================================================
-path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
-path_img = "C:/CIEDID_data/AbdnL/data/135x.png" 
+path_weights = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
+path_img = "C:/CIEDID_data/AbdnL/data/294.png" 
 
 IMG_Size = 512       
 Crop_border = 0.15    # เพิ่มขอบให้กว้างขึ้นสำหรับ Leadless / Abandoned Lead
