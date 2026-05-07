@@ -862,17 +862,17 @@ if __name__ == "__main__":
     # training epochs
     parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup 
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=10)  # Phase 2: full fine-tuning — may need more epochs with smaller learning rate for stable convergence on this small dataset
+    parser.add_argument("--epochs_full",    type=int,   default=12)  # Phase 2: full fine-tuning — may need more epochs with smaller learning rate for stable convergence on this small dataset
     # learning rates   
     parser.add_argument("--lr_phase0",   type=float,   default=5e-4)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
     parser.add_argument("--lr_phase1",   type=float,   default=3e-4)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
     parser.add_argument("--lr_phase2",   type=parse_lr_arg, default="slice(1e-6, 1e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
         
     # FocalDiceLoss parameters
-    parser.add_argument("--focal_w",    type=float, default=0.3,
+    parser.add_argument("--focal_w",    type=float, default=0.4,
                         help="Weight for Focal component in FocalDiceLoss (0-1). "
                              "focal_w + dice_w should sum to 1.0.")
-    parser.add_argument("--dice_w",     type=float, default=0.7,
+    parser.add_argument("--dice_w",     type=float, default=0.6,
                         help="Weight for Dice component in FocalDiceLoss (0-1).")
     parser.add_argument("--focal_gamma",type=float, default=2.0,
                         help="Gamma for Focal loss (higher = more focus on hard examples).")
