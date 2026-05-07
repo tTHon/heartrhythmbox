@@ -240,8 +240,9 @@ def get_segmentation_stats(dls):
 IMAGENET_MEAN = torch.tensor([0.485, 0.456, 0.406])
 IMAGENET_STD  = torch.tensor([0.229, 0.224, 0.225])
 
-# Calculated Mean: [0.4987, 0.4987, 0.4987], 
-# Std: [0.2240, 0.2240, 0.2240]
+# Final Dataset 
+  #Calculated Mean: [0.5026684403419495, 0.5026684403419495, 0.5026684403419495], Std: [0.2409660518169403, 0.2409660518169403, 0.2409660518169403]
+  #Custom Stats: Mean=[0.5026684403419495, 0.5026684403419495, 0.5026684403419495], Std=[0.2409660518169403, 0.2409660518169403, 0.2409660518169403]
 
 
 # ==============================
@@ -660,14 +661,11 @@ def finetune(args):
     summarize_dataset(df)
     # 1. Determine Normalization Stats
     
-    # Calculated Mean: [0.4987, 0.4987, 0.4987], 
-    # CalculatedStd: [0.2240, 0.2240, 0.2240]
-    # new Mean=[0.49453404545783997, 0.49453404545783997, 0.49453404545783997], 
-    # Std=[0.22670553624629974, 0.22670553624629974, 0.22670553624629974]
-
-    myMEAN = [0.4945, 0.4945, 0.4945]
-    mySTD  = [0.2267, 0.2267, 0.2267]
-    # stats_mean, stats_std = IMAGENET_MEAN, IMAGENET_STD
+    # mean and SD calculated from the final dataset (after IntToFloatTensor scaling to 0-1)
+    # Calculated Mean: [0.5026684403419495, 0.5026684403419495, 0.5026684403419495], Std: [0.2409660518169403, 0.2409660518169403, 0.2409660518169403]
+   
+    myMEAN = [0.5026684403419495, 0.5026684403419495, 0.5026684403419495]
+    mySTD  = [0.2409660518169403, 0.2409660518169403, 0.2409660518169403]
     stats_mean, stats_std = myMEAN, mySTD
 
 
@@ -846,7 +844,7 @@ if __name__ == "__main__":
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     # training config
-    parser.add_argument("--oversample_new", type=int,   default=1) # if N increases, set as 1
+    parser.add_argument("--oversample_new", type=int,   default=2) 
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 40],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     # model/hyperparameters
