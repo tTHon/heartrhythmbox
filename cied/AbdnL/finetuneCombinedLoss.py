@@ -867,10 +867,10 @@ if __name__ == "__main__":
     parser.add_argument("--lr_phase2",   type=parse_lr_arg, default="slice(1e-6, 1e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
         
     # FocalDiceLoss parameters
-    parser.add_argument("--focal_w",    type=float, default=0.4,
+    parser.add_argument("--focal_w",    type=float, default=0.5,
                         help="Weight for Focal component in FocalDiceLoss (0-1). "
                              "focal_w + dice_w should sum to 1.0.")
-    parser.add_argument("--dice_w",     type=float, default=0.6,
+    parser.add_argument("--dice_w",     type=float, default=0.5,
                         help="Weight for Dice component in FocalDiceLoss (0-1).")
     parser.add_argument("--focal_gamma",type=float, default=2.0,
                         help="Gamma for Focal loss (higher = more focus on hard examples).")
