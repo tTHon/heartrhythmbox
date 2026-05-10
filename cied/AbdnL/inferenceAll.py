@@ -20,7 +20,7 @@ import os
 # 1. path and parameter settings
 path_img_folder = "C:/CIEDID_data/AbdnL/data"   
 path_mask_folder = "C:/CIEDID_data/AbdnL/mask"  
-path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
+path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
 class_names = ["Background", "Generator", "Lead", "Abdn_Lead"]
 # Adjust these parameters based on your gridSearch.py results
 threshold = 0.5

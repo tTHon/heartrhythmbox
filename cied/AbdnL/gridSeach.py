@@ -1,154 +1,162 @@
-# Grid Search for Threshold and Pixel Count Parameters
-# last run: Sweetspot = Threshold 0.7, Pixel_min 80 (F1 0.81, Recall 1.00, pPrecision 0.69)
-import torch
+# grid_search_abdn.py
+# สคริปต์สำหรับหาค่า PIXEL_MIN และ PROB_THRESHOLD ที่ดีที่สุดสำหรับการตรวจจับ Abandoned Lead
+
 import pathlib
+import platform
+import torch
+import torch.nn.functional as F
 import numpy as np
 import pandas as pd
 from fastai.vision.all import *
-from sklearn.metrics import classification_report
 import os
+from tqdm import tqdm
 
-# 1. ตั้งค่าเส้นทางและคลาส (ตรวจสอบให้ตรงกับเครื่องของคุณ)
-path_img_folder = "C:/CIEDID_data/AbdnL/data"   
-path_mask_folder = "C:/CIEDID_data/AbdnL/mask"  
-path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
-class_names = ["Background", "Generator", "Lead", "Abdn_Lead"]
-threshold = 0.7
-pixel_min = 50 
-IMG_SIZE = 512
+# ==========================================================
+# 1. COMPATIBILITY PATCHES
+# ==========================================================
+def apply_patches():
+    if not hasattr(np, 'int'): np.int = int
+    if platform.system() == 'Windows':
+        pathlib.PosixPath = pathlib.WindowsPath
+    else:
+        pathlib.WindowsPath = pathlib.PosixPath
 
-# 2. โหลดโมเดล
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-# ดึงไฟล์รูปแรกมาเพื่อสร้าง dls จำลอง
-first_img = get_image_files(path_img_folder)[0]
-dls = SegmentationDataLoaders.from_label_func(
-    pathlib.Path("."), bs=1, fnames=[first_img], 
-    label_func=lambda x: x, codes=class_names, item_tfms=Resize(IMG_SIZE, method='pad', pad_mode='zeros')
-)
-learn = unet_learner(dls, resnet50, n_out=4)
-learn.model.load_state_dict(torch.load(path_weights, map_location=device))
-learn.model.eval()
+# ==========================================================
+# 2. CONFIGURATION & GRID SEARCH SPACE
+# ==========================================================
+# ตั้งค่าพาธของข้อมูล (ควรใช้รูปในชุด Validation Set เพื่อไม่ให้ Overfit)
+FILE_WEIGHTS  = 'C:/CIEDID_data/AbdnL/models/best_abdn.pth' # แนะนำให้ใช้ best_abdn
+DIR_IMAGES    = 'C:/CIEDID_data/AbdnL/data'
+DIR_MASKS     = 'C:/CIEDID_data/AbdnL/mask'
+CSV_OUTPUT    = 'C:/CIEDID_data/AbdnL/grid_search_results.csv'
 
-# 3. เตรียมตัวแปรเก็บผลลัพธ์
-results_case = [] # สำหรับ Yes/No
-all_y_true = []   # สำหรับพิกเซล (เฉลย)
-all_y_pred = []   # สำหรับพิกเซล (ทำนาย)
+IMG_Size = 512
+CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"]
+ABDN_CLASS_IDX = 3
 
-print("🚀 Starting Inference and calculating metrics...")
+# 🔥 กำหนดช่วงตัวเลขที่ต้องการค้นหา (Grid Search Space)
+# คุณสามารถเพิ่ม/ลดตัวเลขในลิสต์นี้ได้ตามต้องการ
+GRID_PROB_THRESHOLDS = [0.01, 0.05, 0.10, 0.20, 0.30, 0.40, 0.50]
+GRID_PIXEL_MINS      = [50, 100, 200, 300, 500, 800, 1000, 1500]
 
-# 4. วนลูปประมวลผลทุกรูป
-for img_file in get_image_files(path_img_folder):
-    # จัดการชื่อไฟล์ Mask (เติม _mask)
-    mask_name = f"{img_file.stem}_mask{img_file.suffix}"
-    mask_path = pathlib.Path(path_mask_folder) / mask_name
+# ==========================================================
+# 3. MAIN SCRIPT
+# ==========================================================
+def run_grid_search():
+    apply_patches()
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
-    if not mask_path.exists():
-        continue
-    
-    # --- ส่วนที่ 1: Ground Truth ---
-    target_mask = PILMask.create(mask_path).reshape(512, 512)
-    y_true = np.array(target_mask)
-    gt_exists = (y_true == 3).any() # มีคลาส 3 ในรูปไหม
-    
-    # --- ส่วนที่ 2: Prediction ---
-    with torch.no_grad():
-        mask_pred, _, probs = learn.predict(img_file)
-    
-    final_mask = mask_pred.numpy().copy()
-    # กรอง Confidence เฉพาะคลาส 3
-    abdn_probs = probs[3].numpy()
-    final_mask[(final_mask == 3) & (abdn_probs < threshold)] = 0
-    
-    # เช็คว่าทายว่ามีไหม (Yes/No)
-    pred_exists = (np.sum(final_mask == 3) > pixel_min)
-    
-    # --- ส่วนที่ 3: เก็บข้อมูล ---
-    results_case.append({'Actual': gt_exists, 'Predicted': pred_exists})
-    all_y_true.extend(y_true.flatten())
-    all_y_pred.extend(final_mask.flatten())
+    print("="*60)
+    print(" 🔍 STARTING GRID SEARCH FOR ABANDONED LEAD DETECTION")
+    print("="*60)
 
-# 5. แสดงผลตารางที่ 1: Case-level (Yes/No)
-print("\n" + "="*50)
-print("ตารางที่ 1: ประสิทธิภาพการจำแนกรายคน (Yes/No)")
-print("="*50)
-df_case = pd.DataFrame(results_case)
-print(classification_report(df_case['Actual'], df_case['Predicted'], 
-                            target_names=['No Abdn', 'Has Abdn'], zero_division=0))
+    # 1. เตรียมโมเดล (ใช้วิธี Raw PyTorch Inference แบบเดียวกับที่เวิร์ค)
+    print("1. กำลังโหลดโมเดล...")
+    # สร้าง Dummy DLS เพื่อปั้นโครงสร้าง U-Net
+    img_files = get_image_files(DIR_IMAGES)
+    if len(img_files) == 0:
+        print(f"❌ ไม่พบรูปภาพใน {DIR_IMAGES}")
+        return
 
-# 6. แสดงผลตารางที่ 2: Pixel-level (แยกตามคลาส)
-print("\n" + "="*50)
-print("ตารางที่ 2: ประสิทธิภาพระดับพิกเซลแยกตามคลาส")
-print("="*50)
-report_pixel = classification_report(
-    all_y_true, all_y_pred, 
-    target_names=class_names, 
-    labels=[0, 1, 2, 3],
-    output_dict=True,
-    zero_division=0
-)
-df_pixel = pd.DataFrame(report_pixel).transpose()
-final_pixel_table = df_pixel.loc[class_names, ['precision', 'recall', 'f1-score']]
-final_pixel_table.columns = ['Precision', 'Recall', 'F1-score']
-print(final_pixel_table)
+    dls_dummy = SegmentationDataLoaders.from_label_func(
+        pathlib.Path("."), bs=1, fnames=img_files[:2], 
+        label_func=lambda x: x, codes=CLASS_NAMES, 
+        item_tfms=Resize(IMG_Size, method='pad', pad_mode='zeros') 
+    )
+    learn_seg = unet_learner(dls_dummy, resnet50, n_out=4)
+    learn_seg.model.load_state_dict(torch.load(FILE_WEIGHTS, map_location=device))
+    learn_seg.model.to(device).eval()
 
-import pandas as pd
+    # เตรียม Pipeline และค่า Normalize ให้ตรงกับตอน Train
+    timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros'), ToTensor(), IntToFloatTensor()])
+    mean_tensor = torch.tensor([0.502668, 0.502668, 0.502668], device=device).view(3, 1, 1)
+    std_tensor  = torch.tensor([0.240966, 0.240966, 0.240966], device=device).view(3, 1, 1)
 
-# 1. กำหนดค่าที่ต้องการทดสอบ (ปรับเปลี่ยนได้ตามใจชอบ)
-thresholds = [0.5, 0.6, 0.7, 0.8]
-pixel_mins = [30, 50, 80, 100]
-
-grid_results = []
-
-print("🔍 Starting Grid Search for best parameters...")
-
-# โหลดข้อมูลภาพและทำนายไว้ก่อนรอบเดียว (เพื่อความเร็ว)
-all_preds = []
-for img_file in get_image_files(path_img_folder):
-    mask_name = f"{img_file.stem}_mask{img_file.suffix}"
-    mask_path = pathlib.Path(path_mask_folder) / mask_name
-    if not mask_path.exists(): continue
+    # 2. ทำนายผลล่วงหน้า (Pre-calculate Predictions)
+    print(f"\n2. กำลังประมวลผลรูปภาพทั้งหมด {len(img_files)} รูป (ทำครั้งเดียว)...")
     
-    gt_exists = (np.array(PILMask.create(mask_path)) == 3).any()
+    image_results = [] # เก็บ [(gt_has_abdn, prob_map_np), ...]
     
-    # ดึงค่า probability ของคลาส 3 (Abdn Lead) ออกมา
-    with torch.no_grad():
-        _, _, probs = learn.predict(img_file)
-    abdn_probs = probs[3].numpy()
-    
-    all_preds.append({'gt': gt_exists, 'probs': abdn_probs})
-
-# 2. รัน Grid Search
-for t in thresholds:
-    for p in pixel_mins:
-        y_true_case = []
-        y_pred_case = []
+    for img_path in tqdm(img_files):
+        # โหลดภาพและทำ Inference
+        raw_img = Image.open(img_path).convert('RGB')
+        timg = timg_pipe(raw_img).to(device)
+        timg = (timg - mean_tensor) / std_tensor # Normalize
         
-        for item in all_preds:
-            y_true_case.append(item['gt'])
-            # ตัดสินใจ Yes/No ตามเกณฑ์ t และ p
-            pred = (np.sum(item['probs'] >= t) > p)
-            y_pred_case.append(pred)
+        with torch.no_grad():
+            output = learn_seg.model(timg.unsqueeze(0))
+            probs_tensor = F.softmax(output, dim=1)[0].cpu()
+            
+        # ดึงเฉพาะ Probability Map ของ Abandoned Lead (Class 3)
+        abdn_probs_np = probs_tensor[ABDN_CLASS_IDX].numpy()
         
-        # คำนวณ Precision/Recall เฉพาะคลาส Has Abdn (pos_label=True)
-        from sklearn.metrics import precision_score, recall_score, f1_score
-        prec = precision_score(y_true_case, y_pred_case, zero_division=0)
-        rec = recall_score(y_true_case, y_pred_case, zero_division=0)
-        f1 = f1_score(y_true_case, y_pred_case, zero_division=0)
-        
-        grid_results.append({
-            'Threshold': t,
-            'Pixel_Min': p,
-            'Precision': round(prec, 2),
-            'Recall': round(rec, 2),
-            'F1-score': round(f1, 2)
-        })
+        # โหลด Ground Truth (เฉลย) จากไฟล์ Mask
+        # ลองหาไฟล์ _mask.png ก่อน ถ้าไม่มีค่อยใช้ .png
+        mask_path = pathlib.Path(DIR_MASKS) / f"{img_path.stem}_mask.png"
+        if not mask_path.exists():
+            mask_path = pathlib.Path(DIR_MASKS) / f"{img_path.stem}.png"
+            
+        gt_has_abdn = False
+        if mask_path.exists():
+            mask_arr = np.array(PILImage.create(mask_path))
+            gt_has_abdn = (ABDN_CLASS_IDX in np.unique(mask_arr))
+            
+        image_results.append((gt_has_abdn, abdn_probs_np))
 
-# 3. แสดงผลลัพธ์
-df_grid = pd.DataFrame(grid_results)
-print("\n" + "="*60)
-print("📊 สรุปผลการทดสอบ Parameter ต่างๆ (Class: Has Abdn)")
-print("="*60)
-print(df_grid.sort_values(by='F1-score', ascending=False).to_string(index=False))
+    # 3. วนลูปคำนวณ Grid Search
+    print("\n3. กำลังทดสอบจับคู่ Grid Search...")
+    grid_results = []
 
-# เซฟลง CSV ไว้ใส่ในรายงาน
-# final_table.to_csv("model_performance_report.csv")
+    for prob_th in GRID_PROB_THRESHOLDS:
+        for pix_min in GRID_PIXEL_MINS:
+            
+            TP = FP = TN = FN = 0
+            
+            for gt_has_abdn, abdn_probs_np in image_results:
+                # คำนวณหาจำนวนพิกเซลที่ผ่านเกณฑ์ probability
+                pixel_count = (abdn_probs_np > prob_th).sum()
+                pred_has_abdn = (pixel_count >= pix_min)
+                
+                # ตรวจคำตอบ
+                if pred_has_abdn and gt_has_abdn:
+                    TP += 1
+                elif pred_has_abdn and not gt_has_abdn:
+                    FP += 1
+                elif not pred_has_abdn and not gt_has_abdn:
+                    TN += 1
+                elif not pred_has_abdn and gt_has_abdn:
+                    FN += 1
+
+            # คำนวณสถิติ
+            sensitivity = TP / (TP + FN) if (TP + FN) > 0 else 0.0 # ตรวจจับสิ่งที่ผิดปกติเจอไหม
+            specificity = TN / (TN + FP) if (TN + FP) > 0 else 0.0 # รูปปกติ ทายว่าปกติไหม
+            precision   = TP / (TP + FP) if (TP + FP) > 0 else 0.0 # ทายว่ามี แล้วมีจริงไหม
+            
+            # F1-Score: ค่าเฉลี่ยฮาร์โมนิกระหว่าง Precision กับ Sensitivity (ตัวชี้วัดความสมดุลที่ดีที่สุด)
+            f1_score = 2 * (precision * sensitivity) / (precision + sensitivity) if (precision + sensitivity) > 0 else 0.0
+            
+            grid_results.append({
+                'Prob_Threshold': prob_th,
+                'Pixel_Min': pix_min,
+                'TP': TP, 'FP': FP, 'TN': TN, 'FN': FN,
+                'Sensitivity': round(sensitivity, 4),
+                'Specificity': round(specificity, 4),
+                'Precision': round(precision, 4),
+                'F1_Score': round(f1_score, 4)
+            })
+
+    # 4. สรุปผล
+    df_results = pd.DataFrame(grid_results)
+    df_results = df_results.sort_values(by=['F1_Score', 'Sensitivity'], ascending=[False, False])
+    
+    print("\n" + "="*60)
+    print(" 🏆 TOP 5 BEST CONFIGURATIONS (Sorted by F1-Score)")
+    print("="*60)
+    print(df_results.head(5).to_string(index=False))
+    
+    # บันทึกลง CSV
+    df_results.to_csv(CSV_OUTPUT, index=False)
+    print(f"\n💾 บันทึกผลลัพธ์ทั้งหมดลงใน: {CSV_OUTPUT}")
+
+if __name__ == "__main__":
+    run_grid_search()

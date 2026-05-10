@@ -11,7 +11,7 @@ import cv2
 # 1. CONFIGURATION & PARAMETERS
 # ==========================================================
 path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
-path_img = "C:/CIEDID_data/AbdnL/data/208.png" 
+path_img = "C:/CIEDID_data/AbdnL/data/1281.png" 
 
 IMG_Size = 512       
 Crop_border = 0.15    
