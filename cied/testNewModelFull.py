@@ -47,8 +47,8 @@ def run_pipeline():
     img_input        = 'C:/CIEDID_data/AbdnL/data/101.png' 
     temp_crop        = 'cied/Dataset/temp_crop_pth.jpg'
 
-    PIXEL_MIN = 1500
-    PROB_THRESHOLD = 0.4
+    PIXEL_MIN = 1400
+    PROB_THRESHOLD = 0.45
     CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"] 
     IMG_Size = 512
     Crop_border = 0.15
