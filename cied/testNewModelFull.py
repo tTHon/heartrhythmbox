@@ -81,21 +81,21 @@ def apply_clahe(img_input):
 # ==========================================================
 def run_pipeline():
     # --- CONFIGURATION ---
-    file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_abdn.pth' 
+    file_seg_weights = 'C:/CIEDID_data/AbdnL/models/best_gen.pth' 
     file_manuf       = 'C:/CIEDID_data/pkl/classification_manuf.pkl'
     file_model       = 'C:/CIEDID_data/pkl/classification_model.pkl'
-    img_input        = 'C:/CIEDID_data/AbdnL/data/a_x8.png' # เปลี่ยนเป็นรูปที่อยากลอง
+    img_input        = 'C:/CIEDID_data/AbdnL/data/208.png' # เปลี่ยนเป็นรูปที่อยากลอง
     temp_crop        = 'cied/Dataset/temp_crop_pth.jpg'
 
     # Detection Thresholds for Abandoned Lead
     PIXEL_MIN = 1000
-    PROB_THRESHOLD = 0.05
+    PROB_THRESHOLD = 0.5
     # 4 classes by training: 0=background, 1=generator, 2=lead, 3=abandoned_lead
     CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"] 
 
     # Image processing parameters
     IMG_Size = 512
-    Crop_border = 0.1
+    Crop_border = 0.15
 
     try:
         apply_patches()
@@ -126,6 +126,7 @@ def run_pipeline():
         # 2. SEGMENTATION & DETECTION
         print("CLAHE processing applied to enhance image contrast before segmentation.")
         raw_img = apply_clahe(img_input) # เพิ่ม CLAHE เพื่อปรับปรุงความคมชัดก่อนส่งเข้าโมเดล
+        raw_img = Image.open(img_input).convert('RGB')
         raw_img = PILImage.create(raw_img) # แปลงกลับเป็น PILImage หลังจาก CLAHE แล้ว
         
         print("2. กำลังวิเคราะห์ตำแหน่งอุปกรณ์ (Segmenting)...")

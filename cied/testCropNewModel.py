@@ -12,7 +12,7 @@ import cv2
 # ==========================================================
 # ใส่ Path ของคุณที่นี่
 path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
-path_img = "C:/CIEDID_data/AbdnL/data/927.png" 
+path_img = "C:/CIEDID_data/AbdnL/data/955.png" 
 
 IMG_Size = 512       # ปรับตามตัวแปร IMG_Size ที่คุณต้องการ
 Crop_border = 0.05    # สัดส่วนขอบที่เพิ่มรอบ Generator
@@ -127,7 +127,7 @@ if len(props) > 0:
     # เลือกก้อนที่ใหญ่ที่สุดมา 1 ก้อน (ซึ่งมักจะเป็น Generator หรือ Leadless PM)
     # และตั้งเกณฑ์ขั้นต่ำไว้เล็กมากๆ เพื่อตัด Noise ทิ้งเท่านั้น (เช่น 100 pixels)
     best_prop = props[0]
-    if best_prop.area > 100: 
+    if best_prop.area > 50: 
         main_obj = best_prop
     else:
         print(f"⚠️ พบวัตถุแต่ขนาดเล็กเกินไป ({best_prop.area} px) อาจเป็น Noise")

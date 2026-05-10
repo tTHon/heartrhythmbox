@@ -10,8 +10,8 @@ import cv2
 # ==========================================================
 # 1. CONFIGURATION & PARAMETERS
 # ==========================================================
-path_weights = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
-path_img = "C:/CIEDID_data/AbdnL/data/319.png" 
+path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
+path_img = "C:/CIEDID_data/AbdnL/data/208.png" 
 
 IMG_Size = 512       
 Crop_border = 0.15    
@@ -81,7 +81,7 @@ abdn_dilated = cv2.dilate(abdn_mask_raw, kernel, iterations=1) # เชื่อ
 labeled_abdn = skimage.measure.label(abdn_dilated)
 props_abdn = skimage.measure.regionprops(labeled_abdn)
 
-min_abdn_area = 100 
+min_abdn_area = 2000 
 abdn_mask_final = np.zeros_like(abdn_mask_raw)
 for p in props_abdn:
     if p.area >= min_abdn_area:
