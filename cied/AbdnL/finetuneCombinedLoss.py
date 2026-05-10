@@ -845,7 +845,7 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     # training config
     parser.add_argument("--oversample_new", type=int,   default=2) 
-    parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 40],
+    parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 45],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     # model/hyperparameters
     # PS 384: Dice Generator 0.72 but Dice Abdn not that good, PS 320 is better.

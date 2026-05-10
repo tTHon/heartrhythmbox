@@ -11,7 +11,7 @@ from fastai.vision.all import *
 
 # 1. ตั้งค่าพื้นฐาน
 class_names = ["background", "generator", "lead", "abandoned_lead"]
-path_weights = "C:/CIEDID_data/AbdnL/models/best_seg.pth"
+path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
 path_img = "cied\Dataset\micraWAbdn.png" # เปลี่ยนเป็นรูปที่อยากลอง
 IMG_Size = 512  # ขนาดที่โมเดลใช้ตอนเทรน (ต้องเหมือนกันเป๊ะๆ)
 
