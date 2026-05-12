@@ -848,18 +848,18 @@ if __name__ == "__main__":
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 45],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     # model/hyperparameters
-    # PS 384: Dice Generator 0.72 but Dice Abdn not that good, PS 320 is better.
     # Dont use PS 256. Numbers are not good.
-    parser.add_argument("--img_size",      type=int,   default=512)  # try BS/PS 512/320, 640/384; 768/512
-    parser.add_argument("--patch_size",     type=int,   default=320)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
-    parser.add_argument("--batch_size",     type=int,   default=2) #PS 384: BS 2x4, PS 320 BS: 3x3 
-    parser.add_argument("--grad_accum",   type=int,   default=4) 
+    # after testing 640/448 works best --> least overfit (gap 0.191), dice gen 0.795, abdn 0.226
+    parser.add_argument("--img_size",      type=int,   default=640)  # try BS/PS 512/320, 640/384; 768/512
+    parser.add_argument("--patch_size",     type=int,   default=448)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
+    parser.add_argument("--batch_size",     type=int,   default=4) #PS 384: BS 2x4, PS 320 BS: 3x3 
+    parser.add_argument("--grad_accum",   type=int,   default=2) 
     parser.add_argument("--valid_split", type=float,   default=0.2)
-    parser.add_argument("--abdn_min_512", type=int,   default=1500)  # clinical threshold (sens≥0.90, best PPV): 1,500 px  →  Sensitivity=0.909  PPV=0.435
+    parser.add_argument("--abdn_min_512", type=int,   default=2800)  # clinical threshold = 2000 (sens≥0.90, best PPV): 1,500 px  →  Sensitivity=0.909  PPV=0.435
     # training epochs
     parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup 
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
-    parser.add_argument("--epochs_full",    type=int,   default=10)  # Phase 2: full fine-tuning — may need more epochs with smaller learning rate for stable convergence on this small dataset
+    parser.add_argument("--epochs_full",    type=int,   default=8)  # Phase 2: full fine-tuning — may need more epochs with smaller learning rate for stable convergence on this small dataset
     # learning rates   
     parser.add_argument("--lr_phase0",   type=float,   default=5e-4)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
     parser.add_argument("--lr_phase1",   type=float,   default=3e-4)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset

@@ -26,7 +26,7 @@ CLASS_MAP = {
 }
 # ==============================
 
-Train_Size = 512  # ขนาดที่ใช้ train model
+#Train_Size = 640  # ขนาดที่ใช้ train model
 def process_single_json(json_path: Path, output_path: Path):
     # Ensure output directory exists
     output_path.parent.mkdir(parents=True, exist_ok=True)
