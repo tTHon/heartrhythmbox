@@ -664,11 +664,11 @@
     AF Ablation Class Recommendation
   </div>
 
-  <amp-carousel id="carousel6"
+  <amp-carousel id="carousel7"
       height="1200"
       layout="fixed-height"
       type="slides"
-      on="slideChange:carousel6Selector.toggle(index=event.index, value=true)">
+      on="slideChange:carousel7Selector.toggle(index=event.index, value=true)">
 
  
       <div class="container roundBorder" style="background: black;">
@@ -681,6 +681,25 @@
             2023 ACC Guidelines for diagnosis and management of AF.</a>
         </div>
       </div>
+      <div class="container roundBorder" style="background: black;">
+        <amp-img src="image/ESC.png"
+        layout="fill"
+        class="contain"></amp-img>
+        <div class="ref" style="background: #232323;text-align: right;">
+          Ref:
+          <a href="https://doi.org/10.1093/eurheartj/ehae176" target="_blank">
+            2024 ESC Guidelines for diagnosis and management of AF.</a>
+        </div>
+      </div>
+
+      </amp-carousel>
+    
+        <amp-selector id="carousel7Selector" class="tabs" role=tablist on="select:carousel7.goToSlide(index=event.targetOption)">
+    <div option='0' class="dots" selected></div>
+    <div option='1' class="dots"></div>
+    </amp-selector>
+
+</div>
 
 
 
