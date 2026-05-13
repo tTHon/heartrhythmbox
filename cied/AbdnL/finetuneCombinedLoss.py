@@ -848,8 +848,7 @@ if __name__ == "__main__":
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 45],
                         help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
     # model/hyperparameters
-    # Dont use PS 256. Numbers are not good.
-    # after testing 640/448 works best --> least overfit (gap 0.191), dice gen 0.795, abdn 0.226
+    # after testing 640/448 works best --> least overfit (gap 0.191), dice gen 0.795, abdn 0.226, also benefitted from BS 4.
     parser.add_argument("--img_size",      type=int,   default=640)  # try BS/PS 512/320, 640/384; 768/512
     parser.add_argument("--patch_size",     type=int,   default=448)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
     parser.add_argument("--batch_size",     type=int,   default=4) #PS 384: BS 2x4, PS 320 BS: 3x3 
