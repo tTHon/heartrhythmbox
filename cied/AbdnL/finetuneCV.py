@@ -915,7 +915,7 @@ if __name__ == "__main__":
     # Run with --fold 0, --fold 1, ..., --fold 4 for 5-fold CV.
     # Default --fold -1 uses the classic single 80/20 split.
     # Each fold saves to output_dir/fold_N/ automatically.
-    parser.add_argument("--fold",     type=int, default=0,
+    parser.add_argument("--fold",     type=int, default=1,
                         help="CV fold index (0-based). -1 = single split (default). "
                              "Use 0..n_splits-1 for K-Fold CV.")
     parser.add_argument("--n_splits", type=int, default=5,
