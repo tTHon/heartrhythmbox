@@ -11,10 +11,9 @@ from PIL import Image
 # ==========================================================
 # 1. CONFIGURATION
 # ==========================================================
-#FILE_WEIGHTS  = 'C:/CIEDID_data/AbdnL/models/fold_0/seg_abdnL_weights.pth'
 DIR_IMAGES    = 'C:/CIEDID_data/AbdnL/data'
 DIR_MASKS     = 'C:/CIEDID_data/AbdnL/mask'
-CSV_OUTPUT    = 'C:/CIEDID_data/AbdnL/grid_search_results.csv'
+CSV_OUTPUT    = 'C:/CIEDID_data/AbdnL/grid_search_ensemble.csv'
 
 # --- ส่วนการโหลดโมเดล (ปรับปรุง) ---
 model_paths = [f'C:/CIEDID_data/AbdnL/models/fold_{i}/best_gen.pth' for i in range(5)]
@@ -36,7 +35,7 @@ img_files = get_image_files(DIR_IMAGES)
 dls_dummy = SegmentationDataLoaders.from_label_func(
     pathlib.Path("."), bs=1, fnames=img_files[:1], 
     label_func=lambda x: x, codes=CLASS_NAMES, 
-    item_tfms=Resize(IMG_Size, method='pad', pad_mode='zeros')
+    item_tfms=Resize(IMG_Size, method='pad')
 )
 
 for p in model_paths:

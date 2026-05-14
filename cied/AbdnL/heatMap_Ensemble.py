@@ -10,13 +10,13 @@ from PIL import Image
 # ==========================================================
 # 1. SETTINGS & PARAMETERS
 # ==========================================================
-path_img_folder = "C:/CIEDID_data/AbdnL/ImgWIssues"
+path_img_folder = "C:/CIEDID_data/AbdnL/data4Test"
 # เปลี่ยนเป็นรายชื่อ Path ของทั้ง 5 Folds
 model_paths = [f'C:/CIEDID_data/AbdnL/models/fold_{i}/best_gen.pth' for i in range(5)]
 
 IMG_Size = 640
-threshold = 0.2    # ปรับตามผลที่ดีที่สุดจาก Grid Search
-pixel_min = 3500   # ปรับตามผลที่ดีที่สุดจาก Grid Search
+threshold = 0.5    # ปรับตามผลที่ดีที่สุดจาก Grid Search
+pixel_min = 2250   # ปรับตามผลที่ดีที่สุดจาก Grid Search
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
