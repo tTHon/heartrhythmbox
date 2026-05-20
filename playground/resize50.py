@@ -20,8 +20,8 @@ def resize_pngs_in_folder(folder_path):
             try:
                 with Image.open(img_path) as img:
                     # Calculate new dimensions (50% of original)
-                    new_width = int(img.width * 0.25)
-                    new_height = int(img.height * 0.25)
+                    new_width = int(img.width * 0.5)
+                    new_height = int(img.height * 0.5)
                     
                     # Resize the image using high-quality resampling
                     resized_img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
