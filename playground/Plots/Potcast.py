@@ -1,43 +1,39 @@
 import matplotlib.pyplot as plt
 
-# Data extracted from Table 2 of POTCAST.pdf
+
 labels = [
-    "1° End Point",
-    "App ICD Tx/VT",
-    "Arrhythmia Hosp",
-    "HF Hosp",
-    "Any Death"
+    "PREVAIL & \nPROTECT-AF",
+    "PRAGUE-17",
+    "OPTION",
+    "Total"
 ]
 
-# Incidence Data: (n, %)
-# Group 1: High-Normal Potassium (N=600)
+# Incidence of ischemic stroke/se Data: (n, %)
+# LAAO
 group_intervention = [
-    (136, 22.7),
-    (92, 15.3),
-    (40, 6.7),
-    (21, 3.5),
-    (34, 5.7)
+    ('45/732', 6.1),
+    ('13/201', 6.5),
+    ('11/803', 1.4),
+    ('69/1736', 4.0)
 ]
 
-# Group 2: Standard Care (N=600)
+# Group 2: OAC
 group_control = [
-    (175, 29.2),
-    (122, 20.3),
-    (64, 10.7),
-    (33, 5.5),
-    (41, 6.8)
+    ('14/382', 3.7),
+    ('10/201', 5.0),
+    ('11/797', 1.4),
+    ('35/1580', 2.2)
 ]
 
 # Hazard Ratios
-hrs = [0.76, 0.75, 0.63, 0.64, 0.85]
+hrs = [1.68, 1.30, 0.99, 1.38]
 
 # 95% Confidence Intervals (Lower, Upper)
 cis = [
-    (0.61, 0.95),
-    (0.57, 0.98),
-    (0.42, 0.93),
-    (0.37, 1.11),
-    (0.54, 1.34)
+    (0.93, 3.02),
+    (0.58, 2.90),
+    (0.43, 2.28),
+    (0.91, 2.08)
 ]
 
 # Calculate error bar lengths
@@ -46,41 +42,40 @@ error_upper = [ci[1] - hr for hr, ci in zip(hrs, cis)]
 errors = [error_lower, error_upper]
 
 # Settings for large font and dark background
-font_size = 42
+font_size = 40
 plt.rcParams.update({'font.size': font_size, 'font.family': 'inter'})
 
 # Colors suitable for dark blue background
 bg_color = 'none' # DarkBlue
 text_color = 'white'
-marker_color = '#A7FC96' # DeepSkyBlue
-line_color = 'white'
+marker_color = '#FED154' # DeepSkyBlue
+line_color = '#eeeeea'
 grid_color = 'gray'
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(36, 14))
+fig, ax = plt.subplots(figsize=(40, 18), dpi=300)
 fig.patch.set_facecolor(bg_color)
 ax.set_facecolor(bg_color)
 
 # Plot the data points with error bars
 y_pos = range(len(labels))
-# Adjusting xlims to fit the forest plot on the right side
-plot_xlims = (0.2, 2.0)
 
-ax.errorbar(hrs, y_pos, xerr=errors, fmt='o', markersize=35, color=marker_color, ecolor=line_color, capsize=15, linewidth=10)
+ax.errorbar(hrs, y_pos, xerr=errors, fmt='o', markersize=45, color=marker_color, ecolor=line_color, capsize=20, linewidth=15, capthick=5)
 
 # Add a vertical line at HR = 1
 ax.axvline(x=1, color=grid_color, linestyle='--', linewidth=3)
 
 # Remove default y-axis labels
 ax.set_yticks([]) 
-ax.set_xlim(plot_xlims)
+ax.set_ylim(-0.2, len(labels) - 0.7)
+ax.set_xlim(0,4.0)
 
 # Add column headers with white text
-header_y = -1
-ax.text(-1.8, header_y, "End Point", fontweight='bold', ha='left', color=text_color)
-ax.text(-0.6, header_y, "High-Normal K\n(N=600)\nn (%)", fontweight='bold', ha='center', color=text_color)
-ax.text(0.0, header_y, "Standard Care\n(N=600)\nn (%)", fontweight='bold', ha='center', color=text_color)
-ax.text(1.7, header_y, "Hazard Ratio\n(95% CI)", fontweight='bold', ha='center', color=text_color)
+header_y = -0.7
+ax.text(-3, header_y, "Trials", fontweight='bold', ha='left', color=text_color)
+ax.text(-1.2, header_y, "LAAO (n/N, %)", fontweight='bold', ha='center', color=text_color)
+ax.text(-0.1, header_y, "OAC (n/N, %)", fontweight='bold', ha='center', color=text_color)
+ax.text(3.6, header_y, "Hazard Ratio (95% CI)", fontweight='bold', ha='center', color=text_color)
 
 
 # Add data rows
@@ -88,20 +83,20 @@ for i in range(len(labels)):
     y = i
     
     # Endpoint Label
-    ax.text(-1.8, y, labels[i], va='center', ha='left', color=text_color, fontweight='bold', fontsize=font_size+6)
+    ax.text(-3, y, labels[i], va='center', ha='left', color=text_color, fontweight='bold', fontsize=font_size+6)
     
     # Intervention Data
     n_int, p_int = group_intervention[i]
-    ax.text(-0.6, y, f"{n_int} ({p_int}%)", va='center', ha='center', color=text_color)
+    ax.text(-1.2, y, f"{n_int} ({p_int}%)", va='center', ha='center', color=text_color)
     
     # Control Data
     n_ctrl, p_ctrl = group_control[i]
-    ax.text(0.0, y, f"{n_ctrl} ({p_ctrl}%)", va='center', ha='center', color=text_color)
+    ax.text(-0.1, y, f"{n_ctrl} ({p_ctrl}%)", va='center', ha='center', color=text_color)
     
     # HR text
     hr, ci = hrs[i], cis[i]
     hr_text = f"{hr:.2f} ({ci[0]:.2f}-{ci[1]:.2f})"
-    ax.text(1.7, y, hr_text, va='center', ha='center', color=text_color)
+    ax.text(3.6, y, hr_text, va='center', ha='center', color=text_color)
 
 # Formatting
 ax.invert_yaxis()  # Primary endpoint at the top
@@ -117,8 +112,8 @@ ax.spines['bottom'].set_linewidth(2)
 
 # Customize ticks
 ax.tick_params(axis='x', colors=text_color, width=4, length=10)
-ax.set_xticks([0.5, 1.0, 1.5])
-ax.set_xticklabels(['0.5', '1.0', '1.5'])
+ax.set_xticks([0 ,0.5, 1.0, 3])
+ax.set_xticklabels(['0', '0.5', '1.0', '3'])
 
 # Allow drawing outside the axes
 ax.set_clip_on(False)
