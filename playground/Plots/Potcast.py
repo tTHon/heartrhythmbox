@@ -64,6 +64,8 @@ ax.errorbar(hrs, y_pos, xerr=errors, fmt='o', markersize=45, color=marker_color,
 
 # Add a vertical line at HR = 1
 ax.axvline(x=1, color=grid_color, linestyle='--', linewidth=3)
+#ax.axvline(x=0.5, color=grid_color, linestyle='--', linewidth=2, alpha=0.8)
+ax.axvline(x=3, color=grid_color, linestyle='--', linewidth=2, alpha=0.8)
 
 # Remove default y-axis labels
 ax.set_yticks([]) 
@@ -72,10 +74,12 @@ ax.set_xlim(0,4.0)
 
 # Add column headers with white text
 header_y = -0.7
-ax.text(-3, header_y, "Trials", fontweight='bold', ha='left', color=text_color)
-ax.text(-1.2, header_y, "LAAO (n/N, %)", fontweight='bold', ha='center', color=text_color)
-ax.text(-0.1, header_y, "OAC (n/N, %)", fontweight='bold', ha='center', color=text_color)
-ax.text(3.6, header_y, "Hazard Ratio (95% CI)", fontweight='bold', ha='center', color=text_color)
+ax.text(-1, header_y, "Trials", fontweight='bold', ha='left', color=text_color)
+
+#ax.text(-3, header_y, "Trials", fontweight='bold', ha='left', color=text_color)
+#ax.text(-1.2, header_y, "LAAO (n/N, %)", fontweight='bold', ha='center', color=text_color)
+#ax.text(-0.1, header_y, "OAC (n/N, %)", fontweight='bold', ha='center', color=text_color)
+ax.text(3.7, header_y, "Hazard Ratio (95% CI)", fontweight='bold', ha='center', color=text_color)
 
 
 # Add data rows
@@ -83,24 +87,25 @@ for i in range(len(labels)):
     y = i
     
     # Endpoint Label
-    ax.text(-3, y, labels[i], va='center', ha='left', color=text_color, fontweight='bold', fontsize=font_size+6)
+    #ax.text(-3, y, labels[i], va='center', ha='left', color=text_color, fontweight='bold', fontsize=font_size+6)
+    ax.text(-1, y, labels[i], va='center', ha='left', color=text_color, fontweight='bold', fontsize=font_size+6)
     
     # Intervention Data
-    n_int, p_int = group_intervention[i]
-    ax.text(-1.2, y, f"{n_int} ({p_int}%)", va='center', ha='center', color=text_color)
+    #n_int, p_int = group_intervention[i]
+    #ax.text(-1.2, y, f"{n_int} ({p_int}%)", va='center', ha='center', color=text_color)
     
     # Control Data
-    n_ctrl, p_ctrl = group_control[i]
-    ax.text(-0.1, y, f"{n_ctrl} ({p_ctrl}%)", va='center', ha='center', color=text_color)
+    #n_ctrl, p_ctrl = group_control[i]
+    #ax.text(-0.1, y, f"{n_ctrl} ({p_ctrl}%)", va='center', ha='center', color=text_color)
     
     # HR text
     hr, ci = hrs[i], cis[i]
     hr_text = f"{hr:.2f} ({ci[0]:.2f}-{ci[1]:.2f})"
-    ax.text(3.6, y, hr_text, va='center', ha='center', color=text_color)
+    ax.text(3.7, y, hr_text, va='center', ha='center', color=text_color)
 
 # Formatting
 ax.invert_yaxis()  # Primary endpoint at the top
-ax.set_xlabel('Hazard Ratio (log scale)', fontsize=font_size, labelpad=20, color=text_color)
+ax.set_xlabel('Hazard Ratio (log scale) of LAAO vs OAC', fontsize=font_size, labelpad=20, color=text_color)
 #ax.set_title('Primary Endpoint and Components (POTCAST Trial)', fontsize=font_size+4, pad=40, fontweight='bold', color=text_color)
 
 # Customize spines
@@ -112,8 +117,8 @@ ax.spines['bottom'].set_linewidth(2)
 
 # Customize ticks
 ax.tick_params(axis='x', colors=text_color, width=4, length=10)
-ax.set_xticks([0 ,0.5, 1.0, 3])
-ax.set_xticklabels(['0', '0.5', '1.0', '3'])
+ax.set_xticks([0 ,0.5, 1.0, 2,4])
+ax.set_xticklabels(['0', '0.5', '1.0', '2','4'])
 
 # Allow drawing outside the axes
 ax.set_clip_on(False)
