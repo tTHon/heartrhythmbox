@@ -6,7 +6,7 @@
   <meta name="author" content="t'Thon">
   <meta property="og:image" content="https://heartrhythmbox.com/media/LAAO.png">
   <title>DOACs vs. LAAO</title>
-  <meta name="description" content="DOACs vs. LAAO for stroke prevention in AF">
+  <meta name="description" content="DOACs vs. LAAOs for stroke prevention in AF">
   <meta name="keywords" content="Heart, ECG, Electrocardiogram, Arrhythmias, Pacemaker, SVT, VT, ICD, Atrial fibrillation, Defibrillation, Pacemaker,
   Electrophysiology, IBHRE, heart failure, heart rhythm, heart rhythm box, heartrhythmbox, syncope, sudden cardiac arrest">
   <link rel="icon" href="box white.png" type="image/png" sizes="60x60">
@@ -510,7 +510,7 @@
         <img src="Media/Bleeding/Slide42.PNG" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
-        <a href="https://doi.org/10.1056/nejmoa2517213" target="_blank">
+        <a href="https://doi.org/10.1056/nejmoa2517213" target="_blank" style="color: #bbb;">
           Doshi et al. N Engl J Med. 2026.
         </a>
       </div>  
@@ -521,7 +521,7 @@
         <img src="Media/Bleeding/Slide44.PNG" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
-        <a href="https://doi.org/10.1056/nejmoa2517213" target="_blank">
+        <a href="https://doi.org/10.1056/nejmoa2517213" target="_blank" style="color: #bbb;">
           Doshi et al. N Engl J Med. 2026.
         </a>
       </div>   
@@ -532,7 +532,7 @@
         <img src="Media/Bleeding/Slide45.PNG" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
-        <a href="https://doi.org/10.1056/nejmoa2513310" target="_blank">
+        <a href="https://doi.org/10.1056/nejmoa2513310" target="_blank" style="color: #bbb;">
           Landmesser et al. N Engl J Med. 2026.
         </a>
       </div>   
@@ -543,7 +543,7 @@
         <img src="Media/Bleeding/Slide46.PNG" loading="lazy">
       </picture>
       <div class="carousel-item-ref">
-        <a href="https://doi.org/10.1056/nejmoa2513310" target="_blank">
+        <a href="https://doi.org/10.1056/nejmoa2513310" target="_blank" style="color: #bbb;">
           Landmesser et al. N Engl J Med. 2026.
         </a>
       </div>   
@@ -638,35 +638,40 @@
   // Captions for the carousels
   const captions = {
     carousel1: [
-      'Evidence supporting the role of catheter ablation as a first line in persistent AF is limited.',
-      'AVANT GUARD RCT compared PFA vs. AAD as a first line in persistent AF.',
-      'Most patients were in persistent AF for <1yr.',
-      'Higher success in ablation arm. Lower atrial arrhythmia burden in ablation arm.',
-      '6 procedure-related strokes were reported.',
-      'CEPAF is anoter RCT on ablation as 1st line in early persistent AF. This trial used Cryoballoon.'
+      'Evidence supporting DOACs for stroke prevention in patients with AF is STRONG & CONSISTENT.',
+      'In the patient-level meta-analysis of 4 RCTs, DOACs reduced stroke & systemic embolism when compared to Warfarin, the previous standard therapy.',
+      'The safety of DOACs resumption after ischemic stroke is proven.',
+      'DOACs were consistently proven in many clinical conditions. Cardioversion is one of the manys.'
     ],
     carousel2: [
-      'Antithrombotic strategy after AF ablation in intermediate stroke risk is debatable.',
-      '2 RCTs to answer this question.',
-      'OCEAN AF: Similar Stroke/SE in ASA vs Rivaroxaban.',
-      'ALONE-AF: Similar Stroke/SE in OAC vs No OAC.',
-      'Long-term AF monitor remains essential.'      
+      'Evidence supporting AF ablation for stroke prevention is indirect & inconsistent.',
+      'In ablation trial, stroke has never been a component of primary endpoint. Even though the meta-analysis showed the favorable result of catheter ablation, it should be intepreted carefully.',
+      'Ocean AF is an RCT on intermediate stroke risk patients.',
+      'The stroke risk in OAC discontinuation arm is not different than that of the OAC arm.',
+      'Stabled is an RCT on high stroke risk patients.',
+      'Ablation did not further reduce stroke risk over DOAC.'    
     ],
     carousel3: [
-      'Data from RCTs on benefits of CSP over CRT is still limited.',
-      '2 Multicenter RCTs, one from China and another from Brazil.',
-      'Opposite Results!',
-      'Some reasons that may explain the differences in the results.',
-      'Editorial: Event rates were a bit too high in PhysioSync and a bit too low in HeartSync.'
+      'LAAOs are aimed to be non-inferior to OACs in stroke reduction.',
+      'RCTs comparing LAAO vs OAC.',
+      'CHAMPION-AF: The most recent and largest RCT.',
+      'Surgical occlusion (w/o device) significantly reduced stroke over warfarin alone.',
+      'SWISS-APERO: An RCT that also evaluated device functions.',
+      'Incidence of peri-device leaks and thrombus increased over time.',
+      'In EUROC-DRT Registy, overall incidence of stroke in DRT was 9% at 1 year.',
+      '79.5% had complete resolution of thrombus, but still with 12.3% stroke risk at 2 year.',
+      'Among patients who did not have resolution of thrombus, the stroke risk was 17.6% at 1 year. ',
+      'Stroke riks among AF patients w/o anticoagulants are shown here for comparison.'
+    
     ],
     carousel4: [
-      'Guidelines recommend DFT in all sICD but DFT is not free of risk.',
-      'RCT: DFT vs. No DFT. In No-DFT arm, DFT may be performed if the Praetorian Score is not low.',
-      'PRAETORIAN score determines whether the position of the system is optimal.',
-      'The Patient Flow.',
-      'No differences in primary endpoint of failed 1st shock for VT.',
-      'DFT was not free of complications.',
-      ''
+      'The incidence of major bleeding is not different (Noted that the 95% CI of the Hazard Ratio crossed the neutral line of 1.).',
+      'Bleeding in LAAO arm is lower than in DOAC arm only when CRNMB is included.',
+      'Most patients with LAAOs remained on antithrombitics.',
+      '16.4% were on OAC.',
+      'DOACs were tested in patients with spontaneous ICH.',
+      'DOACs markedly reduced ischemic stroke but also markedly increased risks of recurrent ICH.',
+      'Net clinical benefits were inconclusive. In high-bleeding risk, no treatment is likely the best option at the present time.'
     ],
   };
 
