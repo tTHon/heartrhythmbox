@@ -164,11 +164,12 @@ def run_ensemble_inference(models, dls, test_df, device, prob_thresholds):
 
     Returns per-image DataFrame with dice scores and pixel counts.
     """
-    n_models = len(models)
-    records  = []
-    paths    = test_df["image"].tolist()
-    bs       = dls.valid.bs
-    path_idx = 0
+    n_models   = len(models)
+    records    = []
+    records_cm = []   # list of (pred_flat, targ_flat) for confusion matrix
+    paths      = test_df["image"].tolist()
+    bs         = dls.valid.bs
+    path_idx   = 0
 
     n_batches = len(dls.valid)
     with torch.no_grad():
@@ -190,6 +191,12 @@ def run_ensemble_inference(models, dls, test_df, device, prob_thresholds):
             avg_probs = avg_probs / n_models            # mean across folds
             preds     = avg_probs.argmax(dim=1)         # (B, H, W)
             abdn_prob = avg_probs[:, ABDN_CLASS, :, :]  # (B, H, W)
+
+            # accumulate pixel predictions for confusion matrix
+            records_cm.append((
+                preds.cpu().numpy().flatten(),
+                yb.cpu().numpy().flatten()
+            ))
 
             batch_paths = paths[path_idx:path_idx + len(xb)]
             path_idx   += len(xb)
@@ -220,7 +227,7 @@ def run_ensemble_inference(models, dls, test_df, device, prob_thresholds):
 
                 records.append(row)
 
-    return pd.DataFrame(records)
+    return pd.DataFrame(records), records_cm
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -237,6 +244,96 @@ def summarize_dice(df_img, label="Ensemble"):
         vals = df_img[col].dropna()
         print(f"  {cls_name:20s}: mean={vals.mean():.4f}  "
               f"median={vals.median():.4f}  std={vals.std():.4f}  n={len(vals)}")
+
+
+def compute_pixel_confusion_matrix(records_cm, output_dir, label="Ensemble"):
+    """
+    Compute and plot pixel-level confusion matrix across all test images.
+
+    Accumulates per-pixel predictions and ground truth across all batches
+    (stored in records_cm as list of (pred_flat, targ_flat) numpy arrays).
+
+    Rows = Ground Truth class
+    Cols = Predicted class
+    Normalised by row (= recall per class)
+    """
+    from sklearn.metrics import confusion_matrix, classification_report
+    import itertools
+
+    all_preds = np.concatenate([r[0] for r in records_cm])
+    all_targs = np.concatenate([r[1] for r in records_cm])
+
+    cm = confusion_matrix(all_targs, all_preds, labels=list(range(N_CLASSES)))
+
+    # ── Print raw counts ────────────────────────────────────────────
+    print(f"\n{'='*60}")
+    print(f"  PIXEL-LEVEL CONFUSION MATRIX — {label}")
+    print(f"{'='*60}")
+    print(f"  Rows = Ground Truth   Cols = Predicted")
+    print(f"  {'':20s}", end="")
+    for name in CLASS_NAMES:
+        print(f"  {name[:10]:>10s}", end="")
+    print()
+    for i, name in enumerate(CLASS_NAMES):
+        print(f"  {name:20s}", end="")
+        for j in range(N_CLASSES):
+            print(f"  {cm[i,j]:>10,}", end="")
+        print()
+
+    # ── Classification report ───────────────────────────────────────
+    print(f"\n  Classification Report (pixel-level):")
+    report = classification_report(
+        all_targs, all_preds,
+        labels=list(range(N_CLASSES)),
+        target_names=CLASS_NAMES,
+        digits=4, zero_division=0
+    )
+    for line in report.split("\n"):
+        print(f"  {line}")
+
+    # ── Plot normalised confusion matrix ────────────────────────────
+    cm_norm = cm.astype(float)
+    row_sums = cm_norm.sum(axis=1, keepdims=True)
+    cm_norm  = np.divide(cm_norm, row_sums,
+                         out=np.zeros_like(cm_norm), where=row_sums != 0)
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+    for ax, data, title, fmt in [
+        (axes[0], cm,      "Raw Counts",          "d"),
+        (axes[1], cm_norm, "Normalised (by row)",  ".3f"),
+    ]:
+        im = ax.imshow(data, interpolation='nearest',
+                       cmap='Blues' if fmt == "d" else 'Blues')
+        plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+        ax.set_title(f"Pixel Confusion Matrix\n{title}", fontsize=10)
+        ax.set_xlabel("Predicted class"); ax.set_ylabel("True class")
+        tick_marks = np.arange(N_CLASSES)
+        ax.set_xticks(tick_marks); ax.set_xticklabels(CLASS_NAMES, rotation=30, ha="right", fontsize=8)
+        ax.set_yticks(tick_marks); ax.set_yticklabels(CLASS_NAMES, fontsize=8)
+
+        thresh = data.max() / 2.0
+        for i in range(N_CLASSES):
+            for j in range(N_CLASSES):
+                val  = format(data[i,j], fmt) if fmt == "d" else f"{data[i,j]:.3f}"
+                color = "white" if data[i,j] > thresh else "black"
+                ax.text(j, i, val, ha="center", va="center",
+                        color=color, fontsize=7)
+
+    plt.suptitle(f"Pixel-Level Segmentation — {label}", fontsize=12)
+    plt.tight_layout()
+    out_path = pathlib.Path(output_dir) / "pixel_confusion_matrix.png"
+    plt.savefig(out_path, dpi=150, bbox_inches="tight")
+    print(f"\n📊 Confusion matrix saved → {out_path}")
+    plt.close()
+
+    # ── Save raw CM as CSV ──────────────────────────────────────────
+    cm_df = pd.DataFrame(cm, index=CLASS_NAMES, columns=CLASS_NAMES)
+    cm_csv = pathlib.Path(output_dir) / "pixel_confusion_matrix.csv"
+    cm_df.to_csv(cm_csv)
+    print(f"💾 Confusion matrix CSV → {cm_csv}")
+
+    return cm, cm_norm
 
 
 def compute_metrics(df_img, pixel_col, pixel_threshold):
@@ -452,12 +549,16 @@ def main():
 
     # ── Ensemble inference ──────────────────────────────────────────
     print(f"\n🔀 Running {len(models)}-fold ensemble inference ...")
-    df_img = run_ensemble_inference(
+    df_img, records_cm = run_ensemble_inference(
         models, dls, test_df, device, args.prob_thresholds
     )
 
     # ── Report ──────────────────────────────────────────────────────
     summarize_dice(df_img, label=f"{len(models)}-Fold Ensemble")
+
+    # ── Pixel-level confusion matrix ────────────────────────────────
+    compute_pixel_confusion_matrix(records_cm, output_dir,
+                                   label=f"{len(models)}-Fold Ensemble")
 
     det_results = evaluate_detection(df_img, args.thresholds, args.prob_thresholds)
     print_detection_results(det_results, label=f"{len(models)}-Fold Ensemble")
@@ -470,8 +571,13 @@ def main():
 
     plot_detection_curves(det_results, output_dir / "detection_curves.png",
                           label=f"{len(models)}-Fold Ensemble")
-    plot_samples(models, dls, device, n=args.n_samples,
-                 output_path=output_dir / "sample_predictions.png")
+
+    if args.n_samples > 0:
+        print(f"\n📸 Generating {args.n_samples} sample predictions ...")
+        plot_samples(models, dls, device, n=args.n_samples,
+                     output_path=output_dir / "sample_predictions.png")
+    else:
+        print("\n⏭️  Skipping sample predictions (--n_samples 0)")
 
     print(f"\n🎉 Ensemble evaluation complete → {output_dir}")
 

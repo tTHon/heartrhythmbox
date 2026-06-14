@@ -385,16 +385,16 @@ def plot_detection_curves(results, output_path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--weights",
-                        default="C:/CIEDID_data/AbdnL/models/best_gen.pth")
+                        default="C:/CIEDID_data/AbdnL/models/fold1.pth")
     parser.add_argument("--test_imgs",
                         default="C:/CIEDID_data/AbdnL/test_data")
     parser.add_argument("--test_masks",
                         default="C:/CIEDID_data/AbdnL/test_mask")
     parser.add_argument("--img_size",        type=int,   default=512)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
-                        default=[100, 250, 500, 1000, 1500, 2000, 2800, 4000])
+                        default=[100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250,2500, 2750, 3000, 3250, 3500, 3750, 4000])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
-                        default=[0.3, 0.5, 0.7, 0.9])
+                        default=[0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
     parser.add_argument("--n_samples",       type=int,   default=6,
                         help="Number of sample predictions to visualise")
     parser.add_argument("--output_dir",
