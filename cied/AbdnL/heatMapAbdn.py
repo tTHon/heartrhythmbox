@@ -10,14 +10,14 @@ from PIL import Image
 # ==========================================================
 # 1. SETTINGS (ใช้ค่าเดียวกับที่คุณตั้งไว้)
 # ==========================================================
-path_img_folder = "C:/CIEDID_data/AbdnL/data"
-path_weights = "C:/CIEDID_data/AbdnL/models/fold_0/best_gen.pth"
+path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
+path_weights = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
 IMG_Size = 512
 ABDN_CLASS_IDX = 3
 
 # พารามิเตอร์ที่คุณกำหนด
-threshold = 0.5   
-pixel_min = 1500  
+threshold = 0.3   
+pixel_min = 2750  
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -40,12 +40,22 @@ mean = torch.tensor([0.502668]*3, device=device).view(3, 1, 1)
 std = torch.tensor([0.240966]*3, device=device).view(3, 1, 1)
 
 # ==========================================================
-# 3. VISUALIZATION & DETECTION LOGIC
+# 3. VISUALIZATION & DETECTION LOGIC (เวอร์ชันแสดงครบทุกรูป)
 # ==========================================================
-random_imgs = random.sample(img_files, 3)
-fig, axes = plt.subplots(3, 2, figsize=(14, 18))
+# 🟢 เปลี่ยนมาเรียงลำดับภาพทั้งหมดในโฟลเดอร์ (50 รูป)
+img_files_sorted = sorted(img_files)
+n_imgs = len(img_files_sorted)
 
-for i, img_path in enumerate(random_imgs):
+print(f"🚀 กำลังประมวลผลรูปภาพทั้งหมด {n_imgs} รูป... กรุณารอสักครู่")
+
+# 🟢 ปรับให้จำนวนแถวเท่ากับ n_imgs และขยาย figsize ตามความสูงจริง (แถวละ 4.5 หน่วย)
+fig, axes = plt.subplots(n_imgs, 2, figsize=(14, 4.5 * n_imgs))
+
+# ป้องกัน Error ในกรณีที่ตรวจเจอรูปเดียวแล้วมิติของ axes เปลี่ยนไป
+if n_imgs == 1:
+    axes = np.expand_dims(axes, axis=0)
+
+for i, img_path in enumerate(img_files_sorted):
     # --- Inference ---
     timg = timg_pipe(img_path).to(device)
     timg_norm = (timg - mean) / std
@@ -56,7 +66,6 @@ for i, img_path in enumerate(random_imgs):
         abdn_prob_map = probs[ABDN_CLASS_IDX].numpy()
     
     # --- Detection Decision ---
-    # นับพิกเซลที่ความมั่นใจ > threshold
     pixel_count = (abdn_prob_map > threshold).sum()
     is_detected = pixel_count >= pixel_min
     
@@ -64,7 +73,7 @@ for i, img_path in enumerate(random_imgs):
     # 1. รูปต้นฉบับ
     raw_img = timg.permute(1, 2, 0).cpu().numpy()
     axes[i, 0].imshow(raw_img)
-    axes[i, 0].set_title(f"Image: {img_path.name}")
+    axes[i, 0].set_title(f"[{i+1}/{n_imgs}] Image: {img_path.name}")
     axes[i, 0].axis('off')
     
     # 2. Probability Heatmap พร้อมสถานะการตัดสินใจ
@@ -72,15 +81,21 @@ for i, img_path in enumerate(random_imgs):
     
     # แสดงผลข้อความบนรูป
     status_text = f"DETECTED" if is_detected else "NOT DETECTED"
-    color = 'red' if is_detected else 'white'
+    color = 'red' if is_detected else 'green'
     
     axes[i, 1].text(20, 45, f"Status: {status_text}\nPixels > {threshold}: {pixel_count:,}\nRequired: {pixel_min:,}", 
-                  color='white', fontsize=12, fontweight='bold',
+                  color='white', fontsize=11, fontweight='bold',
                   bbox=dict(facecolor=color, alpha=0.7, edgecolor='none'))
     
-    axes[i, 1].set_title(f"Model Perspective (Abdn_Lead)")
+    #axes[i, 1].set_title(f"Model Perspective (Abdn_Lead)")
     axes[i, 1].axis('off')
     plt.colorbar(im, ax=axes[i, 1], fraction=0.046, pad=0.04)
 
+
 plt.tight_layout()
-plt.show()
+print("📊 กำลังเปิดหน้าต่างแสดงผลหน้าจอ...")
+#plt.show()
+
+plt.savefig("C:/CIEDID_data/AbdnL/all_heatmaps_result.png", dpi=100, bbox_inches='tight')
+plt.close()
+print("📸 บันทึกผลลัพธ์ลงไฟล์ all_heatmaps_result.png เรียบร้อยแล้วครับ!")
