@@ -16,9 +16,9 @@ Optional args:
     --weights      path to best_gen.pth or best_abdn.pth
     --test_imgs    test image directory
     --test_masks   test mask directory
-    --img_size     512
-    --thresholds   100 250 500 1000 1500 2000 2800 4000
-    --prob_thresholds  0.3 0.5 0.7 0.9
+    --img_size     640
+    --thresholds   
+    --prob_thresholds  
     --output_dir   results/test_eval
 """
 
@@ -104,8 +104,8 @@ def load_model(weights_path: pathlib.Path,
         splitter  = ColSplitter(col="is_valid"),
         item_tfms = Resize(img_size, method='pad'),
         batch_tfms = [Normalize.from_stats(
-            [0.4945, 0.4945, 0.4945],
-            [0.2267, 0.2267, 0.2267],
+            [0.5027, 0.5027, 0.5027],
+            [0.2410, 0.2410, 0.2410],
         )],
     )
     dls = dblock.dataloaders(eval_df, bs=BS_DUMMY,
@@ -390,7 +390,7 @@ def main():
                         default="C:/CIEDID_data/AbdnL/test_data")
     parser.add_argument("--test_masks",
                         default="C:/CIEDID_data/AbdnL/test_mask")
-    parser.add_argument("--img_size",        type=int,   default=512)
+    parser.add_argument("--img_size",        type=int,   default=640)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
                         default=[100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250,2500, 2750, 3000, 3250, 3500, 3750, 4000])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",

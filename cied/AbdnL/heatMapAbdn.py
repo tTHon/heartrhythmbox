@@ -12,7 +12,7 @@ from PIL import Image
 # ==========================================================
 path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
 path_weights = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
-IMG_Size = 512
+IMG_Size = 640
 ABDN_CLASS_IDX = 3
 
 # พารามิเตอร์ที่คุณกำหนด
