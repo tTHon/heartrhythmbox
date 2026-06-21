@@ -13,8 +13,8 @@ from pathlib import Path
 # ==============================
 # ✏️ CONFIG — all paths
 # ==============================
-INPUT_DIR = Path(r"C:/CIEDID_data/AbdnL/test_data")      # .json
-OUTPUT_DIR = Path(r"C:/CIEDID_data/AbdnL/test_mask")    # mask folder
+INPUT_DIR = Path(r"C:/CIEDID_data/AbdnL/iou/annotator2")      # .json
+OUTPUT_DIR = Path(r"C:/CIEDID_data/AbdnL/iou/annotator2/masks")    # mask folder
 
 # Priority: low to high
 # here: abandoned_lead over lead and lead will override generator
