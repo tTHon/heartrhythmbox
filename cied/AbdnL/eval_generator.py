@@ -54,6 +54,7 @@ from matplotlib.patches import Rectangle
 import scipy.ndimage as ndimage
 import skimage.measure
 from skimage.morphology import convex_hull_image
+import json
 from fastai.vision.all import *
 from tqdm import tqdm
 
@@ -113,7 +114,7 @@ def build_dls(test_df, img_size, device):
         get_x     = get_x,
         get_y     = get_y,
         splitter  = ColSplitter(col="is_valid"),
-        item_tfms = Resize(img_size, method='pad'),
+        item_tfms = Resize(img_size, method='pad', pad_mode='zeros'),
         batch_tfms = [Normalize.from_stats(
             [0.5027, 0.5027, 0.5027],
             [0.2410, 0.2410, 0.2410],
@@ -170,14 +171,16 @@ def find_fold_weights(folds_dir, weight_filename, use_fold=None):
 # ══════════════════════════════════════════════════════════════════════
 def postprocess_generator_mask(raw_mask: np.ndarray,
                                img_size: int,
-                               min_area_frac: float = 0.0038,
+                               min_area_frac: float = 0.00227,
                                dilate_iter: int = 3,
-                               erode_iter: int = 3):
+                               erode_iter: int = 3,
+                               spatial_prior: dict = None):
     """
     Apply the SAME post-processing used in production cropping:
       1. Binary closing (dilate → erode) — merges fragments, smooths edges
       2. Fill holes — removes internal gaps (e.g. lead crossing generator)
-      3. Label components, keep only the largest one above min area
+      3. Label components, apply spatial prior filter, keep the largest
+         remaining component above min area
       4. Convex hull — applied ONLY to the isolated largest component
 
     IMPORTANT ORDERING FIX:
@@ -188,6 +191,25 @@ def postprocess_generator_mask(raw_mask: np.ndarray,
       producing a bounding box that covers most of the image. Isolating
       the largest component first guarantees the hull only wraps the
       generator candidate itself.
+
+    SPATIAL PRIOR:
+      Lowering min_area_frac to detect small leadless pacemakers also makes
+      the pipeline more susceptible to false positives from small artifacts
+      near the image periphery (e.g. text overlays like "AP-UPRIGHT", bone
+      overlap at the shoulder/clavicle). Since generators — including
+      leadless devices implanted in the RV — are physiologically confined
+      to the cardiac silhouette region, components whose centroid falls
+      outside an empirically-derived "plausible zone" (from GT centroid
+      distribution in the training set) are excluded BEFORE largest-area
+      selection. This is a prior on anatomical location, not a hard mask,
+      and is intentionally generous (covers >=99% of training centroids)
+      so true peripheral-lead generators are not excluded by accident.
+
+    Args:
+      spatial_prior: dict with keys 'row_min','row_max','col_min','col_max'
+                     as FRACTIONS of image height/width (0-1). A component
+                     is kept only if its centroid falls inside this box.
+                     If None, no spatial filtering is applied.
 
     Returns:
       processed_mask : final binary mask (after all steps)
@@ -209,12 +231,26 @@ def postprocess_generator_mask(raw_mask: np.ndarray,
     # ── Step 2: Fill holes ────────────────────────────────────────────
     processed = ndimage.binary_fill_holes(processed).astype(np.uint8)
 
-    # ── Step 3: Label components, keep only the largest above min area ──
+    # ── Step 3: Label components, apply spatial prior, keep largest ────
     labeled = skimage.measure.label(processed)
     props   = skimage.measure.regionprops(labeled)
 
     min_area = (img_size * img_size) * min_area_frac
     large_props = [p for p in props if p.area > min_area]
+
+    if spatial_prior is not None:
+        h, w = processed.shape
+        row_lo = spatial_prior.get("row_min", 0.0) * h
+        row_hi = spatial_prior.get("row_max", 1.0) * h
+        col_lo = spatial_prior.get("col_min", 0.0) * w
+        col_hi = spatial_prior.get("col_max", 1.0) * w
+
+        filtered = []
+        for p in large_props:
+            cy, cx = p.centroid  # (row, col)
+            if row_lo <= cy <= row_hi and col_lo <= cx <= col_hi:
+                filtered.append(p)
+        large_props = filtered
 
     if len(large_props) == 0:
         return processed, None, 0
@@ -228,6 +264,44 @@ def postprocess_generator_mask(raw_mask: np.ndarray,
     area       = int(final_mask.sum())
 
     return final_mask, bbox, area
+
+
+def load_spatial_prior(json_path) -> dict:
+    """
+    Load a pre-computed spatial prior produced by check_generator_area.py.
+
+    The prior defines the anatomically plausible zone for generator
+    centroids (as fractions of image height/width), derived from GT
+    masks in the train/val set. It is computed ONCE in check_generator_area.py
+    rather than here, so that:
+      (a) the same prior can be reused consistently across runs/configs,
+      (b) it is computed alongside related GT statistics (area thresholds,
+          leadless-pacemaker identification) in a single exploratory pass,
+      (c) it is clearly visible as a precomputed pipeline hyperparameter,
+          not something silently recomputed inside the evaluation loop.
+
+    Returns dict with keys row_min, row_max, col_min, col_max, or None if
+    the file doesn't exist (spatial filtering then falls back to disabled).
+    """
+    json_path = pathlib.Path(json_path)
+    if not json_path.exists():
+        print(f"  ⚠️  Spatial prior file not found: {json_path}")
+        print(f"     Run check_generator_area.py first to generate it, "
+              f"or use --no_spatial_prior to disable.")
+        return None
+
+    with open(json_path) as f:
+        prior = json.load(f)
+
+    print(f"  📍 Spatial prior loaded from {json_path.name}")
+    print(f"     (derived from {prior.get('n_masks_used', '?')} GT masks, "
+          f"margin={prior.get('margin', '?')})")
+    print(f"     row range: {prior['row_min']:.3f}–{prior['row_max']:.3f}")
+    print(f"     col range: {prior['col_min']:.3f}–{prior['col_max']:.3f}")
+
+    return {"row_min": prior["row_min"], "row_max": prior["row_max"],
+            "col_min": prior["col_min"], "col_max": prior["col_max"]}
+
 
 
 def add_border(bbox, img_shape, border_frac=0.05, min_size=160):
@@ -316,7 +390,7 @@ def centroid_distance(gt_bbox, pred_bbox):
 # 6. Inference + evaluation
 # ══════════════════════════════════════════════════════════════════════
 def run_evaluation(models, dls, test_df, device, img_size,
-                   border_frac, min_area_frac):
+                   border_frac, min_area_frac, spatial_prior=None):
     """
     For each test image:
       1. Get ensemble (or single-model) softmax probability for generator class
@@ -357,7 +431,8 @@ def run_evaluation(models, dls, test_df, device, img_size,
 
                 # ── Post-process PREDICTED mask (production pipeline) ──
                 proc_mask, pred_bbox_raw, pred_area = postprocess_generator_mask(
-                    raw_pred_mask, img_size, min_area_frac
+                    raw_pred_mask, img_size, min_area_frac,
+                    spatial_prior=spatial_prior
                 )
                 pred_bbox = add_border(pred_bbox_raw, raw_pred_mask.shape,
                                        border_frac) if pred_bbox_raw else None
@@ -449,7 +524,8 @@ def plot_summary(df, output_path):
 
 
 def plot_sample_crops(models, dls, test_df, device, img_size,
-                      border_frac, min_area_frac, n=6, output_path=None):
+                      border_frac, min_area_frac, n=6, output_path=None,
+                      spatial_prior=None):
     """Show sample predicted bbox vs GT bbox overlaid on the image."""
     mean = torch.tensor([0.5027, 0.5027, 0.5027]).view(3,1,1)
     std  = torch.tensor([0.2410, 0.2410, 0.2410]).view(3,1,1)
@@ -475,7 +551,8 @@ def plot_sample_crops(models, dls, test_df, device, img_size,
                 raw_pred_mask = (pred_np == GEN_CLASS).astype(np.uint8)
                 gt_mask       = (targ_np == GEN_CLASS).astype(np.uint8)
                 proc_mask, pred_bbox_raw, _ = postprocess_generator_mask(
-                    raw_pred_mask, img_size, min_area_frac)
+                    raw_pred_mask, img_size, min_area_frac,
+                    spatial_prior=spatial_prior)
                 pred_bbox = add_border(pred_bbox_raw, raw_pred_mask.shape,
                                        border_frac) if pred_bbox_raw else None
                 gt_bbox = bbox_from_mask(gt_mask)
@@ -523,10 +600,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--folds_dir",
                         default="C:/CIEDID_data/AbdnL/models")
-    parser.add_argument("--weight_filename", default="best_gen.pth",
+    parser.add_argument("--weight_filename", default="best_abdn.pth",
                         help="Use best_gen.pth for crop evaluation "
                              "(generator localisation is what matters here)")
-    parser.add_argument("--use_fold", type=int, default=None,
+    parser.add_argument("--use_fold", type=int, default=0,
                         help="If set, evaluate a SINGLE fold instead of the "
                              "5-fold ensemble (e.g. --use_fold 0)")
     parser.add_argument("--test_imgs",
@@ -536,11 +613,30 @@ def main():
     parser.add_argument("--img_size",      type=int,   default=640)
     parser.add_argument("--border",        type=float, default=0.05,
                         help="Crop border fraction (matches production pipeline)")
-    parser.add_argument("--min_area_frac", type=float, default=0.0038,
+    parser.add_argument("--min_area_frac", type=float, default=0.00227,
                         help="Min component area as fraction of img_size^2")
-    parser.add_argument("--n_samples",     type=int,   default=6)
+    parser.add_argument("--n_samples",     type=int,   default=50)
     parser.add_argument("--output_dir",
                         default="C:/CIEDID_data/AbdnL/test_results_gen_crop")
+
+    # ── Spatial prior ──────────────────────────────────────────────────
+    # The prior itself is computed by check_generator_area.py (from
+    # train/val GT masks) and saved to spatial_prior.json. This script only
+    # loads and applies it — run check_generator_area.py first.
+    parser.add_argument("--use_spatial_prior", action="store_true", default=True,
+                        help="Filter candidate components by the precomputed "
+                             "anatomical location prior before largest-area "
+                             "selection (rejects shoulder/text-overlay false "
+                             "positives introduced by low min_area_frac). "
+                             "Requires spatial_prior.json from "
+                             "check_generator_area.py.")
+    parser.add_argument("--no_spatial_prior", dest="use_spatial_prior",
+                        action="store_false",
+                        help="Disable spatial prior filtering.")
+    parser.add_argument("--spatial_prior_json",
+                        default="C:/CIEDID_data/AbdnL/spatial_prior.json",
+                        help="Path to spatial_prior.json produced by "
+                             "check_generator_area.py.")
     args = parser.parse_args()
 
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -548,6 +644,13 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
     print(f"🖥️  Device: {device}")
     print(f"📁 Results → {output_dir}")
+
+    # ── Load precomputed spatial prior (from check_generator_area.py) ───
+    spatial_prior = None
+    if args.use_spatial_prior:
+        spatial_prior = load_spatial_prior(args.spatial_prior_json)
+    else:
+        print("\n📍 Spatial prior filtering disabled (--no_spatial_prior)")
 
     test_df = build_test_dataframe(
         pathlib.Path(args.test_imgs), pathlib.Path(args.test_masks))
@@ -564,7 +667,8 @@ def main():
     print(f"✅ {len(models)} model(s) loaded")
 
     df = run_evaluation(models, dls, test_df, device,
-                        args.img_size, args.border, args.min_area_frac)
+                        args.img_size, args.border, args.min_area_frac,
+                        spatial_prior=spatial_prior)
 
     print_summary(df, label=mode)
 
@@ -577,7 +681,9 @@ def main():
     if args.n_samples > 0:
         plot_sample_crops(models, dls, test_df, device, args.img_size,
                           args.border, args.min_area_frac, n=args.n_samples,
-                          output_path=output_dir / "sample_crops.png")
+                          output_path=output_dir / "sample_crops.png",
+                          spatial_prior=spatial_prior)
+
 
     print(f"\n🎉 Done → {output_dir}")
 
