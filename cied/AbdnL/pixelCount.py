@@ -9,7 +9,7 @@ import pathlib
 img_dir  = pathlib.Path("C:/CIEDID_data/AbdnL/data")
 mask_dir = pathlib.Path("C:/CIEDID_data/AbdnL/mask")
 
-TARGET = 512
+TARGET = 640
 scaled_counts = []
 
 for mask_path in mask_dir.glob("*.png"):

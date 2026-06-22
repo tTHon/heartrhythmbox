@@ -1,0 +1,22 @@
+preProcess folder (anon & CLAHE)
+finetuneCV.py ==> 5-fold cross validation
+
+eval_single.py 
+--> using best_abdn.pth from fold_0
+--> output: abdn lead detection threshold, pixel level performance
+--> also see segmentation
+
+check_gen_area.py 
+--> check min area for generator
+--> check anatomy plausible zone
+--> result = spatial_prior.json
+eval_generator.py
+--> eval generator crop using postprocessing including min area, 
+anatomical plausible zone, erosion, fill holes.
+
+genCrop_batch.py
+--> crop img using selected .pth and postProcessing as above.
+--> cropped files are saved in a separate folder.
+--*** need to add CLAHE check
+
+

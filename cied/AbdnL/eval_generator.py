@@ -40,7 +40,7 @@ Optional:
     --test_masks      C:/CIEDID_data/AbdnL/test_mask
     --img_size        640
     --border          0.05           # crop border fraction (matches production)
-    --min_area_frac   0.0038         # min area fraction to keep a component
+    --min_area_frac   0.00227         # min area fraction derived from check_generator_area.py to capture small leadless devices while excluding tiny artifacts
 """
 
 import argparse
@@ -607,9 +607,9 @@ def main():
                         help="If set, evaluate a SINGLE fold instead of the "
                              "5-fold ensemble (e.g. --use_fold 0)")
     parser.add_argument("--test_imgs",
-                        default="C:/CIEDID_data/AbdnL/test_data")
+                        default="C:/CIEDID_data/AbdnL/ImgWIssues")
     parser.add_argument("--test_masks",
-                        default="C:/CIEDID_data/AbdnL/test_mask")
+                        default="C:/CIEDID_data/AbdnL/ImgWIssues")
     parser.add_argument("--img_size",      type=int,   default=640)
     parser.add_argument("--border",        type=float, default=0.05,
                         help="Crop border fraction (matches production pipeline)")

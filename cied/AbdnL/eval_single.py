@@ -591,20 +591,20 @@ def evaluate_generator_crop(df_img: pd.DataFrame,
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--weight_path",
-                        default="C:/CIEDID_data/AbdnL/models/best_abdn.pth",
+                        default="C:/CIEDID_data/AbdnL/models/fold0.pth",
                         help="Path to the specific .pth model weight file")
     parser.add_argument("--test_imgs",
-                        default="C:/CIEDID_data/AbdnL/test_data")
+                        default="C:/CIEDID_data/AbdnL/ImgWIssues")
     parser.add_argument("--test_masks",
-                        default="C:/CIEDID_data/AbdnL/test_mask")
+                        default="C:/CIEDID_data/AbdnL/ImgWIssues")
     parser.add_argument("--img_size",        type=int,   default=640)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
                         default=[100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250,2500, 2750, 3000, 3250, 3500, 3750, 4000])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
                         default=[0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95])
-    parser.add_argument("--n_samples",       type=int,   default=50)
+    parser.add_argument("--n_samples",       type=int,   default=10)
     parser.add_argument("--output_dir",
-                        default="C:/CIEDID_data/AbdnL/test_results_best_abdn")
+                        default="C:/CIEDID_data/AbdnL/test_results_imgWIssues")
     args = parser.parse_args()
 
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
