@@ -1,4 +1,6 @@
 preProcess folder (anon & CLAHE)
+label2mask_priority.py --> masking and set pixel priority
+IOU.py
 finetuneCV.py ==> 5-fold cross validation
 
 eval_single.py 
@@ -18,5 +20,9 @@ genCrop_batch.py
 --> crop img using selected .pth and postProcessing as above.
 --> cropped files are saved in a separate folder.
 --*** need to add CLAHE check
+
+Heat Map
+-- heatMapAbdn.py using pixel threshold to detect abdnLead Y/N
+
 
 
