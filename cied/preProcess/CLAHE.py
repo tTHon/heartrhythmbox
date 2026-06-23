@@ -4,10 +4,10 @@ import shutil
 from pathlib import Path
 
 # กำหนด Path
-source_path = Path("c:/CIEDID_data/Images_processed/in") # main image files
+source_path = Path("c:/CIEDID_data/Preprocessing/in") # main image files
 
 # copy files from main source to here to process with CLAHE
-data_path = Path("c:/CIEDID_data/Images_processed/1_CLAHE") # processed image files
+data_path = Path("c:/CIEDID_data/Preprocessing/1_CLAHE") # processed image files
 
 
 #clear folder

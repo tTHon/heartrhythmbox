@@ -143,13 +143,15 @@ def build_dls(test_df, img_size):
     dummy["is_valid"] = False
     eval_df = pd.concat([dummy, test_df], ignore_index=True)
 
+    #Global Mean: [0.5150052309036255, 0.5150052309036255, 0.5150052309036255]
+    #Global Std : [0.23788487911224365, 0.23788487911224365, 0.23788487911224365]
     dblock = DataBlock(
         blocks    = (ImageBlock, MaskBlock(codes=CLASS_NAMES)),
         get_x     = get_x,
         get_y     = get_y,
         splitter  = ColSplitter(col="is_valid"),
         item_tfms = Resize(img_size, method='pad', pad_mode='zeros'),
-        batch_tfms = [Normalize.from_stats([0.5027, 0.5027, 0.5027], [0.2410, 0.2410, 0.2410])],
+        batch_tfms = [Normalize.from_stats([0.5150052309036255, 0.5150052309036255, 0.5150052309036255], [0.23788487911224365, 0.23788487911224365, 0.23788487911224365])],
     )
     return dblock.dataloaders(eval_df, bs=BS_DUMMY, num_workers=0, pin_memory=True)
 
@@ -161,7 +163,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_dir", default="C:/CIEDID_data/AbdnL/test_data")
     parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/test_data_gen_crop")
-    parser.add_argument("--folds_dir", default="C:/CIEDID_data/AbdnL/models")
+    parser.add_argument("--folds_dir", default="C:/CIEDID_data/AbdnL/models/old")
     parser.add_argument("--weight_filename", default="best_abdn.pth")
     parser.add_argument("--use_fold", type=int, default=0)
     parser.add_argument("--img_size", type=int, default=640)

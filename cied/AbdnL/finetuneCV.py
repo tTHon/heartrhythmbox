@@ -213,37 +213,53 @@ class MultiScaleCrop(ItemTransform):
 # NEW: Custom Normalization Logic
 # ──────────────────────────────────────────────────────────────────
 @torch.no_grad()
-def get_segmentation_stats(dls):
-    """Calculates mean and std from a FastAI DataLoaders object."""
-    print("  📊 Calculating custom dataset statistics (mean/std)...")
-    # Get device from first batch
-    device = dls.train.device
-    sum_ = torch.zeros(3, device=device)
-    sum_sq = torch.zeros(3, device=device)
-    count = 0
+def get_segmentation_stats(image_paths, img_size):
+    """
+    Calculates mean and std from ALL images in the dataset (global stats).
 
-    # We use the train loader to calculate stats
-    for xb, yb in dls.train:
-        # xb is [B, 3, H, W]
-        b, c, h, w = xb.shape
-        num_pixels = b * h * w
-        sum_ += torch.sum(xb, dim=[0, 2, 3])
-        sum_sq += torch.sum(xb**2, dim=[0, 2, 3])
-        count += num_pixels
+    Option 1 approach: stats are computed BEFORE fold splitting so the same
+    values are used for every fold and at inference time. This avoids
+    per-fold normalisation drift and makes ensemble inference consistent.
 
-    mean = sum_ / count
-    std = torch.sqrt((sum_sq / count) - (mean**2))
-    print(f"  📊 Calculated Mean: {mean.tolist()}, Std: {std.tolist()}")
-    return mean.cpu(), std.cpu()
+    Args:
+        image_paths : list of Path/str pointing to all raw images
+        img_size    : resize target (same as args.img_size) for consistent pixel count
+    Returns:
+        (mean, std) as Python lists of 3 floats
+    """
+    print(f"  📊 Calculating global dataset statistics from {len(image_paths)} images "
+          f"(resize → {img_size}px, pre-split) …")
+    from PIL import Image
+    import torchvision.transforms.functional as TF
+
+    sum_   = torch.zeros(3)
+    sum_sq = torch.zeros(3)
+    count  = 0
+
+    for p in image_paths:
+        img = Image.open(p).convert("RGB")
+        # Resize to img_size (square, no crop) — same scale as training input
+        img = TF.resize(img, [img_size, img_size])
+        t   = TF.to_tensor(img)          # (3, H, W), float32 in [0, 1]
+        c, h, w = t.shape
+        n = h * w
+        sum_   += t.sum(dim=[1, 2])
+        sum_sq += (t ** 2).sum(dim=[1, 2])
+        count  += n
+
+    mean = (sum_   / count)
+    std  = torch.sqrt(sum_sq / count - mean ** 2).clamp(min=1e-6)
+    print(f"  ✅ Global Mean: {mean.tolist()}")
+    print(f"  ✅ Global Std : {std.tolist()}")
+    return mean.tolist(), std.tolist()
 
 # Standard ImageNet Fallbacks
 IMAGENET_MEAN = torch.tensor([0.485, 0.456, 0.406])
 IMAGENET_STD  = torch.tensor([0.229, 0.224, 0.225])
 
 # Final Dataset 
-  #Calculated Mean: [0.5026684403419495, 0.5026684403419495, 0.5026684403419495], Std: [0.2409660518169403, 0.2409660518169403, 0.2409660518169403]
-  #Custom Stats: Mean=[0.5026684403419495, 0.5026684403419495, 0.5026684403419495], Std=[0.2409660518169403, 0.2409660518169403, 0.2409660518169403]
-
+  # Global Mean: [0.5150052309036255, 0.5150052309036255, 0.5150052309036255]
+  # Global Std : [0.23788487911224365, 0.23788487911224365, 0.23788487911224365]
 
 # ==============================
 # 2. DATASET SUMMARY
@@ -295,7 +311,7 @@ def _mask_to_rgb(mask_arr):
     return rgb
 
 
-def show_batch_inspection(dls, n=4, save_path=None):
+def show_batch_inspection(dls, n=4, save_path=None, norm_mean=None, norm_std=None):
     """
     Visualise what the model sees for n TRAIN and n VALID samples.
 
@@ -318,10 +334,12 @@ def show_batch_inspection(dls, n=4, save_path=None):
             img_t = xb[i]                          # (3, H, W) float tensor 0..1
             msk_t = yb[i].squeeze().numpy()        # (H, W) int
 
-            # --- denormalize image for display ---
-            mean = torch.tensor([0.485, 0.456, 0.406]).view(3, 1, 1)
-            std  = torch.tensor([0.229, 0.224, 0.225]).view(3, 1, 1)
-            img_np = (img_t * std + mean).clamp(0, 1).permute(1, 2, 0).numpy()
+            # --- denormalize image for display using actual training stats ---
+            _mean = torch.tensor(norm_mean if norm_mean is not None
+                                 else [0.485, 0.456, 0.406]).view(3, 1, 1)
+            _std  = torch.tensor(norm_std  if norm_std  is not None
+                                 else [0.229, 0.224, 0.225]).view(3, 1, 1)
+            img_np = (img_t * _std + _mean).clamp(0, 1).permute(1, 2, 0).numpy()
 
             mask_rgb = _mask_to_rgb(msk_t)
             overlay  = 0.55 * img_np + 0.45 * mask_rgb
@@ -691,27 +709,22 @@ def finetune(args):
     summarize_dataset(df)
     # 1. Determine Normalization Stats
     
-    # mean and SD calculated from the final dataset (after IntToFloatTensor scaling to 0-1)
-    # Calculated Mean: [0.5026684403419495, 0.5026684403419495, 0.5026684403419495], Std: [0.2409660518169403, 0.2409660518169403, 0.2409660518169403]
-   
-    myMEAN = [0.5026684403419495, 0.5026684403419495, 0.5026684403419495]
-    mySTD  = [0.2409660518169403, 0.2409660518169403, 0.2409660518169403]
+    #Global Mean: [0.5150052309036255, 0.5150052309036255, 0.5150052309036255]
+    #Global Std : [0.23788487911224365, 0.23788487911224365, 0.23788487911224365]
+
+    myMEAN = [0.5150052309036255, 0.5150052309036255, 0.5150052309036255]
+    mySTD  = [0.23788487911224365, 0.23788487911224365, 0.23788487911224365]
     stats_mean, stats_std = myMEAN, mySTD
 
 
     if args.calc_stats:
-        # Temporary DataBlock without normalization to measure raw pixels
-        print("📊 เริ่มคำนวณ stats ใหม่จาก Dataset...")
-        stats_db = DataBlock(
-            blocks=(ImageBlock, MaskBlock(codes=CLASS_NAMES)),
-            get_x=get_x, get_y=get_y,
-            splitter=ColSplitter(col='is_valid'),
-            item_tfms=Resize(args.img_size, method='pad'), 
-            batch_tfms=[IntToFloatTensor()] # Convert 0-255 to 0-1 but NO normalization
-        )
-        stats_dls = stats_db.dataloaders(df, bs=args.batch_size, num_workers=0)
-        stats_mean, stats_std = get_segmentation_stats(stats_dls)
-        print(f"  ✅ Custom Stats: Mean={stats_mean.tolist()}, Std={stats_std.tolist()}")
+        # Global stats: computed from ALL images BEFORE fold splitting.
+        # This is Option 1 — one fixed mean/std shared by every fold and
+        # used unchanged at inference time (no per-fold normalisation drift).
+        print("📊 คำนวณ global stats จากทุก image ก่อนแบ่ง fold …")
+        all_image_paths = df["image"].tolist()   # all rows, both train & val
+        stats_mean, stats_std = get_segmentation_stats(all_image_paths, args.img_size)
+        print(f"  💡 Copy ค่าเหล่านี้ไปใส่ใน myMEAN / mySTD เพื่อใช้ซ้ำในรอบหน้า")
 
     # DataBlock
     item_tfms_list = []
@@ -750,7 +763,9 @@ def finetune(args):
     # --- What does the model see? ---
     print("\n📸 Generating batch inspection figures …")
     show_batch_inspection(dls, n=4,
-                          save_path=str(out / "batch_inspection.png"))
+                          save_path=str(out / "batch_inspection.png"),
+                          norm_mean=stats_mean,
+                          norm_std=stats_std)
 
     # Loss with class weights
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")

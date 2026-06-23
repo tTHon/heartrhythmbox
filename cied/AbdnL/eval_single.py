@@ -101,6 +101,8 @@ def build_dls(test_df, img_size, device):
     dummy["is_valid"] = False
     eval_df  = pd.concat([dummy, test_df], ignore_index=True)
 
+    # Mean: [0.5037212371826172, 0.5037212371826172, 0.5037212371826172], 
+    # Std: [0.24160641431808472, 0.24160641431808472, 0.24160641431808472]
     dblock = DataBlock(
         blocks    = (ImageBlock, MaskBlock(codes=CLASS_NAMES)),
         get_x     = get_x,
@@ -108,8 +110,8 @@ def build_dls(test_df, img_size, device):
         splitter  = ColSplitter(col="is_valid"),
         item_tfms = Resize(img_size, method='pad', pad_mode='zeros'),
         batch_tfms = [Normalize.from_stats(
-            [0.5027, 0.5027, 0.5027],
-            [0.2410, 0.2410, 0.2410],
+            [0.5150052309036255, 0.5150052309036255, 0.515005230903625],
+            [0.23788487911224365, 0.23788487911224365, 0.23788487911224365],
         )],
     )
     return dblock.dataloaders(eval_df, bs=BS_DUMMY,

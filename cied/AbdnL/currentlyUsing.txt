@@ -24,5 +24,6 @@ genCrop_batch.py
 Heat Map
 -- heatMapAbdn.py using pixel threshold to detect abdnLead Y/N
 
+Best model to use = best_abdn.pth from fold_0 of model trained in 05/26
 
 

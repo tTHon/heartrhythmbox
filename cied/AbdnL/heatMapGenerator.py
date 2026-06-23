@@ -33,8 +33,8 @@ learn.model.to(device).eval()
 
 # Preprocessing Pipeline (ต้องตรงกับตอนเทรน)
 timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros'), ToTensor(), IntToFloatTensor()])
-mean = torch.tensor([0.502668]*3, device=device).view(3, 1, 1)
-std = torch.tensor([0.240966]*3, device=device).view(3, 1, 1)
+mean = torch.tensor([0.5150052309036255]*3, device=device).view(3, 1, 1)
+std = torch.tensor([0.23788487911224365]*3, device=device).view(3, 1, 1)
 
 # ==========================================================
 # 3. VISUALIZATION (Random 3 Images)
