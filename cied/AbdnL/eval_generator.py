@@ -603,7 +603,7 @@ def plot_sample_crops(models, dls, test_df, device, img_size,
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--folds_dir",
-                        default="C:/CIEDID_data/AbdnL/models")
+                        default="C:/CIEDID_data/AbdnL/models/best")
     parser.add_argument("--weight_filename", default="best_abdn.pth",
                         help="Use best_gen.pth for crop evaluation "
                              "(generator localisation is what matters here)")
@@ -611,9 +611,9 @@ def main():
                         help="If set, evaluate a SINGLE fold instead of the "
                              "5-fold ensemble (e.g. --use_fold 0)")
     parser.add_argument("--test_imgs",
-                        default="C:/CIEDID_data/AbdnL/ImgWIssues")
+                        default="C:/CIEDID_data/AbdnL/test_data")
     parser.add_argument("--test_masks",
-                        default="C:/CIEDID_data/AbdnL/ImgWIssues")
+                        default="C:/CIEDID_data/AbdnL/test_mask")
     parser.add_argument("--img_size",      type=int,   default=640)
     parser.add_argument("--border",        type=float, default=0.05,
                         help="Crop border fraction (matches production pipeline)")
