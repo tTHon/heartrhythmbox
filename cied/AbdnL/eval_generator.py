@@ -12,13 +12,14 @@ Rationale:
   is: "does the final post-processed crop region contain the true generator?"
   — not "does every pixel match the human polygon exactly?"
 
-Post-processing pipeline (identical to testCropNewModel.py):
-  1. Extract predicted generator class mask
-  2. Morphological closing (dilation → erosion) to merge fragments / fill gaps
-  3. Fill holes (binary_fill_holes)
-  4. Convex hull (generator is a convex object — smooths jagged edges)
-  5. Keep only the LARGEST connected component (discard small fragments)
-  6. Compute bounding box with border padding (same as production crop)
+Post-processing pipeline 
+ิby strict order
+1. Binary closing (dilate → erode) — merges fragments, smooths edges
+2. Fill holes — removes internal gaps (e.g. lead crossing generator)
+3. Label components, apply spatial prior filter, keep the largest
+4. Convex hull — applied ONLY to the isolated largest component
+5. Add border padding, force square aspect, clip to image bounds
+
 
 Evaluation metrics (computed on the final post-processed region):
   - Detection rate       : fraction of images where a generator region was found
