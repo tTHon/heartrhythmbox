@@ -133,12 +133,16 @@ def compute_interannotator_iou(
     for c, name in CLASS_NAMES.items():
         vals = all_iou[c]
         if vals:
-            print(f"  {name:20s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}  (n={len(vals)})")
+            print(f"  {name:20s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}  (n={len(vals)})"
+                  f" median={np.median(vals):.4f}  IQR1={np.percentile(vals, 25):.4f}  IQR3={np.percentile(vals, 75):.4f}"
+                  )
         else:
             print(f"  {name:20s}: N/A")
 
     overall = [v for vals in all_iou.values() for v in vals]
-    print(f"\n  {'Mean IoU (all)':20s}: {np.mean(overall):.4f} ± {np.std(overall):.4f}")
+    print(f"\n  {'Mean IoU (all)':20s}: {np.mean(overall):.4f} ± {np.std(overall):.4f}"
+          f"  median={np.median(overall):.4f}  IQR1={np.percentile(overall, 25):.4f}  IQR3={np.percentile(overall, 75):.4f}"
+          )
 
     print(f"\n===== Supplementary Metrics =====")
     print(f"  {'Generator centroid dist':25s}: "

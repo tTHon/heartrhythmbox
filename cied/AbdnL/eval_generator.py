@@ -475,6 +475,7 @@ def print_summary(df, label="Generator Crop"):
     print(f"\n  Bounding Box Coverage (GT fully inside predicted region):")
     cov = detected["bbox_coverage"]
     print(f"  mean={cov.mean():.3f}  median={cov.median():.3f}  "
+          f"  median={cov.median():.3f}  IQR1={cov.quantile(0.25):.3f}  IQR3={cov.quantile(0.75):.3f}  "
           f"std={cov.std():.3f}  min={cov.min():.3f}")
     for thresh in [0.50, 0.75, 0.90, 1.00]:
         n_ok = (cov >= thresh).sum()
@@ -482,11 +483,13 @@ def print_summary(df, label="Generator Crop"):
 
     print(f"\n  Bounding Box IoU:")
     iou = detected["bbox_iou"]
-    print(f"  mean={iou.mean():.3f}  median={iou.median():.3f}  std={iou.std():.3f}")
+    print(f"  mean={iou.mean():.3f}  median={iou.median():.3f}  std={iou.std():.3f}"
+          f"  IQR1={iou.quantile(0.25):.3f}  IQR3={iou.quantile(0.75):.3f}  ")
 
     print(f"\n  Centroid Distance (pixels @ model resolution):")
     cd = detected["centroid_dist"].dropna()
     print(f"  mean={cd.mean():.1f}  median={cd.median():.1f}  "
+          f"  median={cd.median():.1f}  IQR1={cd.quantile(0.25):.1f}  IQR3={cd.quantile(0.75):.1f}  "
           f"std={cd.std():.1f}  max={cd.max():.1f}")
 
     area_ratio = detected["pred_area"] / detected["gt_area"].replace(0, np.nan)
