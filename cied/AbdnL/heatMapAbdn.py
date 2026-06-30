@@ -21,8 +21,8 @@ IMG_Size = 640
 ABDN_CLASS_IDX = 3
 
 # พารามิเตอร์ที่คุณกำหนด
-threshold = 0.3   
-pixel_min = 2750  
+threshold = 0.6   
+pixel_min = 2250  
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

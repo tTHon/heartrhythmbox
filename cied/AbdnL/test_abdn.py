@@ -135,8 +135,7 @@ def load_model_weights(weights_path, dls, device):
 # ══════════════════════════════════════════════════════════════════════
 def run_single_inference(model, dls, test_df, device, prob_thresholds):
     records    = []
-    records_cm = []    
-    records_gen = []   
+    records_cm = []
     paths      = test_df["image"].tolist()
     path_idx   = 0
 
@@ -170,17 +169,15 @@ def run_single_inference(model, dls, test_df, device, prob_thresholds):
                     "has_abandoned": (yb[i] == ABDN_CLASS).sum().item() > 0,
                 }
 
-                for cls_idx, cls_name in enumerate(CLASS_NAMES[1:], start=1):
+                for cls_idx, cls_name in enumerate(CLASS_NAMES):
+                    if cls_idx == 0 or cls_idx == 1:   # skip background & generator
+                        continue
                     p     = (preds[i] == cls_idx).float()
                     t     = (yb[i]   == cls_idx).float()
                     inter = (p * t).sum().item()
                     union = p.sum().item() + t.sum().item()
                     dice  = (2*inter + SMOOTH) / (union + SMOOTH) if union > 0 else float('nan')
                     row[f"dice_{cls_name}"] = round(dice, 4)
-
-                pred_gen = (preds[i] == 1).cpu().numpy().astype(np.uint8)
-                gt_gen   = (yb[i]   == 1).cpu().numpy().astype(np.uint8)
-                records_gen.append((pred_gen, gt_gen))
 
                 row["targ_px"] = (yb[i] == ABDN_CLASS).sum().item()
                 row["pred_px"] = (preds[i] == ABDN_CLASS).sum().item()
@@ -189,7 +186,7 @@ def run_single_inference(model, dls, test_df, device, prob_thresholds):
 
                 records.append(row)
 
-    return pd.DataFrame(records), records_cm, records_gen
+    return pd.DataFrame(records), records_cm
 
 
 # ══════════════════════════════════════════════════════════════════════
@@ -199,7 +196,7 @@ def summarize_dice(df_img, label="Single Model"):
     print(f"\n{'='*60}")
     print(f"  PIXEL-LEVEL PERFORMANCE — {label}")
     print(f"{'='*60}")
-    for cls_name in ["generator", "lead", "abandoned_lead"]:
+    for cls_name in ["lead", "abandoned_lead"]:
         col = f"dice_{cls_name}"
         if col not in df_img.columns:
             continue
@@ -297,6 +294,97 @@ def compute_metrics(df_img, pixel_col, pixel_threshold):
     return {"TP": tp, "FP": fp, "FN": fn, "TN": tn,
             "sensitivity": round(sens, 4), "PPV": round(ppv, 4),
             "specificity": round(spec, 4), "F1": round(f1, 4)}
+
+
+def wilson_ci(successes, n, z=1.96):
+    """Wilson score interval for a binomial proportion. Returns (lower, upper)."""
+    if n == 0:
+        return (float('nan'), float('nan'))
+    phat   = successes / n
+    denom  = 1 + (z**2) / n
+    center = phat + (z**2) / (2*n)
+    margin = z * np.sqrt((phat*(1-phat))/n + (z**2)/(4*n**2))
+    lower  = (center - margin) / denom
+    upper  = (center + margin) / denom
+    return max(0.0, lower), min(1.0, upper)
+
+
+def compute_abandoned_lead_report(df_img, pixel_threshold, prob_threshold):
+    """
+    Case-level abandoned-lead detection performance at a single, pre-selected
+    operating point (pixel_threshold, prob_threshold). Returns a dict with
+    sensitivity, specificity, PPV, NPV, F1, and Wilson 95% CIs for each.
+    """
+    if abs(prob_threshold - 0.5) < 1e-6:
+        col = "pred_px"
+    else:
+        col = f"prob_{int(prob_threshold*100):02d}"
+        if col not in df_img.columns:
+            raise ValueError(
+                f"Column '{col}' not found — prob_threshold={prob_threshold} "
+                f"was not included in --prob_thresholds during inference."
+            )
+
+    has_pred = df_img[col] > pixel_threshold
+    has_targ = df_img["targ_px"] > 0
+
+    tp = int(( has_pred &  has_targ).sum())
+    fp = int(( has_pred & ~has_targ).sum())
+    fn = int((~has_pred &  has_targ).sum())
+    tn = int((~has_pred & ~has_targ).sum())
+
+    n_pos = tp + fn      # cases with abandoned lead (sensitivity denominator)
+    n_neg = tn + fp      # cases without abandoned lead (specificity denominator)
+    n_pp  = tp + fp      # predicted positive (PPV denominator)
+    n_pn  = tn + fn       # predicted negative (NPV denominator)
+
+    sens = tp / n_pos if n_pos > 0 else float('nan')
+    spec = tn / n_neg if n_neg > 0 else float('nan')
+    ppv  = tp / n_pp  if n_pp  > 0 else float('nan')
+    npv  = tn / n_pn  if n_pn  > 0 else float('nan')
+    f1   = (2*sens*ppv / (sens+ppv)) if (np.isfinite(sens) and np.isfinite(ppv)
+                                          and (sens+ppv) > 0) else float('nan')
+
+    sens_ci = wilson_ci(tp, n_pos)
+    spec_ci = wilson_ci(tn, n_neg)
+    ppv_ci  = wilson_ci(tp, n_pp)
+    npv_ci  = wilson_ci(tn, n_pn)
+
+    return {
+        "pixel_threshold": pixel_threshold,
+        "prob_threshold":  prob_threshold,
+        "TP": tp, "FP": fp, "FN": fn, "TN": tn,
+        "n_with_abandoned":    n_pos,
+        "n_without_abandoned": n_neg,
+        "sensitivity": sens, "sensitivity_ci": sens_ci,
+        "specificity": spec, "specificity_ci": spec_ci,
+        "PPV": ppv, "PPV_ci": ppv_ci,
+        "NPV": npv, "NPV_ci": npv_ci,
+        "F1": f1,
+    }
+
+
+def print_abandoned_lead_report(report, label="Single Model"):
+    def fmt(v, ci):
+        if not np.isfinite(v):
+            return "n/a"
+        return f"{v:.3f}  (95% CI {ci[0]:.3f}–{ci[1]:.3f})"
+
+    print(f"\n{'='*60}")
+    print(f"  ABANDONED LEAD CASE-LEVEL PERFORMANCE — {label}")
+    print(f"  (selected operating point: pixel>{report['pixel_threshold']:,}, "
+          f"prob>{report['prob_threshold']:.2f})")
+    print(f"{'='*60}")
+    print(f"  TP={report['TP']}  FP={report['FP']}  "
+          f"FN={report['FN']}  TN={report['TN']}")
+    print(f"  Cases with abandoned lead   : {report['n_with_abandoned']}")
+    print(f"  Cases without abandoned lead: {report['n_without_abandoned']}")
+    print(f"\n  Sensitivity : {fmt(report['sensitivity'], report['sensitivity_ci'])}")
+    print(f"  Specificity : {fmt(report['specificity'], report['specificity_ci'])}")
+    print(f"  PPV         : {fmt(report['PPV'], report['PPV_ci'])}")
+    print(f"  NPV         : {fmt(report['NPV'], report['NPV_ci'])}")
+    f1 = report['F1']
+    print(f"  F1 score    : {f1:.3f}" if np.isfinite(f1) else "  F1 score    : n/a")
 
 
 def evaluate_detection(df_img, pixel_thresholds, prob_thresholds):
@@ -450,145 +538,7 @@ def plot_detection_curves(results, output_path, label="Single Model"):
 
 
 # ══════════════════════════════════════════════════════════════════════
-# 7. Generator Bounding Box Coverage
-# ══════════════════════════════════════════════════════════════════════
-def get_bbox(mask_2d):
-    rows = np.any(mask_2d, axis=1)
-    cols = np.any(mask_2d, axis=0)
-    if not rows.any():
-        return None
-    rmin, rmax = np.where(rows)[0][[0, -1]]
-    cmin, cmax = np.where(cols)[0][[0, -1]]
-    return int(rmin), int(cmin), int(rmax)+1, int(cmax)+1
-
-
-def bbox_coverage(gt_bbox, pred_bbox):
-    if gt_bbox is None or pred_bbox is None:
-        return float('nan')
-    gt_rmin, gt_cmin, gt_rmax, gt_cmax     = gt_bbox
-    pr_rmin, pr_cmin, pr_rmax, pr_cmax     = pred_bbox
-    i_rmin = max(gt_rmin, pr_rmin)
-    i_cmin = max(gt_cmin, pr_cmin)
-    i_rmax = min(gt_rmax, pr_rmax)
-    i_cmax = min(gt_cmax, pr_cmax)
-    inter_area = max(0, i_rmax - i_rmin) * max(0, i_cmax - i_cmin)
-    gt_area    = (gt_rmax - gt_rmin) * (gt_cmax - gt_cmin)
-    return inter_area / gt_area if gt_area > 0 else float('nan')
-
-
-def bbox_iou(gt_bbox, pred_bbox):
-    if gt_bbox is None or pred_bbox is None:
-        return float('nan')
-    gt_rmin, gt_cmin, gt_rmax, gt_cmax = gt_bbox
-    pr_rmin, pr_cmin, pr_rmax, pr_cmax = pred_bbox
-    i_rmin = max(gt_rmin, pr_rmin)
-    i_cmin = max(gt_cmin, pr_cmin)
-    i_rmax = min(gt_rmax, pr_rmax)
-    i_cmax = min(gt_cmax, pr_cmax)
-    inter = max(0, i_rmax - i_rmin) * max(0, i_cmax - i_cmin)
-    gt_a  = (gt_rmax - gt_rmin) * (gt_cmax - gt_cmin)
-    pr_a  = (pr_rmax - pr_rmin) * (pr_cmax - pr_cmin)
-    union = gt_a + pr_a - inter
-    return inter / union if union > 0 else float('nan')
-
-
-def centroid_distance(gt_mask, pred_mask):
-    def centroid(m):
-        ys, xs = np.where(m)
-        if len(ys) == 0:
-            return None
-        return float(ys.mean()), float(xs.mean())
-    gc = centroid(gt_mask)
-    pc = centroid(pred_mask)
-    if gc is None or pc is None:
-        return float('nan')
-    return float(np.sqrt((gc[0]-pc[0])**2 + (gc[1]-pc[1])**2))
-
-
-def evaluate_generator_crop(df_img: pd.DataFrame,
-                             records_gen,
-                             output_dir: pathlib.Path,
-                             label: str = "Single Model"):
-    GEN_CLASS = 1
-    rows = []
-
-    for idx, (pred_mask, gt_mask) in enumerate(records_gen):
-        gt_bbox   = get_bbox(gt_mask)
-        pred_bbox = get_bbox(pred_mask)
-
-        rows.append({
-            "image":            df_img["image"].iloc[idx] if idx < len(df_img) else "",
-            "gt_detected":      gt_bbox is not None,
-            "pred_detected":    pred_bbox is not None,
-            "bbox_coverage":    bbox_coverage(gt_bbox, pred_bbox),
-            "bbox_iou":         bbox_iou(gt_bbox, pred_bbox),
-            "centroid_dist_px": centroid_distance(gt_mask.astype(bool),
-                                                  pred_mask.astype(bool)),
-        })
-
-    crop_df = pd.DataFrame(rows)
-
-    has_gt   = crop_df["gt_detected"].sum()
-    has_pred = crop_df["pred_detected"].sum()
-    detected = (crop_df["gt_detected"] & crop_df["pred_detected"]).sum()
-    det_rate = detected / has_gt if has_gt > 0 else 0.0
-
-    print(f"\n{'='*60}")
-    print(f"  GENERATOR CROP EVALUATION — {label}")
-    print(f"{'='*60}")
-    print(f"  Images with GT generator    : {has_gt}/{len(crop_df)}")
-    print(f"  Generator detected (pred)   : {has_pred}/{len(crop_df)}")
-    print(f"  Detection rate              : {det_rate:.3f}  ({detected}/{has_gt})")
-
-    valid = crop_df["bbox_coverage"].dropna()
-    print("\n  Bounding Box Coverage (GT fully inside predicted region):")
-    print(f"  mean={valid.mean():.4f}  median={valid.median():.4f}  "
-          f"std={valid.std():.4f}  min={valid.min():.4f}")
-
-    for thr in [0.50, 0.75, 0.90, 1.00]:
-        n = (valid >= thr).sum()
-        print(f"  Coverage ≥ {thr:.2f}: {n}/{len(valid)} ({100*n/len(valid):.1f}%)")
-
-    iou_vals = crop_df["bbox_iou"].dropna()
-    print("\n  Bounding Box IoU:")
-    print(f"  mean={iou_vals.mean():.4f}  median={iou_vals.median():.4f}  "
-          f"std={iou_vals.std():.4f}")
-
-    dist_vals = crop_df["centroid_dist_px"].dropna()
-    print(f"\n  Centroid Distance (pixels @ {label} resolution):")
-    print(f"  mean={dist_vals.mean():.1f}  median={dist_vals.median():.1f}  "
-          f"std={dist_vals.std():.1f}  max={dist_vals.max():.1f}")
-
-    crop_csv = output_dir / "generator_crop_eval.csv"
-    crop_df.to_csv(crop_csv, index=False)
-
-    fig, axes = plt.subplots(1, 3, figsize=(14, 4))
-
-    axes[0].hist(valid, bins=20, color="steelblue", edgecolor="white")
-    axes[0].axvline(0.90, color="red", linestyle="--", label="0.90")
-    axes[0].set_xlabel("Bounding Box Coverage"); axes[0].set_ylabel("Count")
-    axes[0].set_title("Generator BBox Coverage\n(GT inside predicted region)")
-    axes[0].legend()
-
-    axes[1].hist(iou_vals, bins=20, color="seagreen", edgecolor="white")
-    axes[1].set_xlabel("BBox IoU"); axes[1].set_ylabel("Count")
-    axes[1].set_title("Generator BBox IoU")
-
-    axes[2].hist(dist_vals, bins=20, color="darkorange", edgecolor="white")
-    axes[2].set_xlabel("Centroid Distance (px)"); axes[2].set_ylabel("Count")
-    axes[2].set_title("Generator Centroid Distance")
-
-    plt.suptitle(f"Generator Crop Evaluation — {label}", fontsize=12)
-    plt.tight_layout()
-    plot_path = output_dir / "generator_crop_eval.png"
-    plt.savefig(plot_path, dpi=150, bbox_inches="tight")
-    plt.close()
-
-    return crop_df
-
-
-# ══════════════════════════════════════════════════════════════════════
-# 8. Main
+# 7. Main
 # ══════════════════════════════════════════════════════════════════════
 def main():
     parser = argparse.ArgumentParser()
@@ -596,17 +546,22 @@ def main():
                         default="C:/CIEDID_data/AbdnL/models/best/best_abdn.pth",
                         help="Path to the specific .pth model weight file")
     parser.add_argument("--test_imgs",
-                        default="C:/CIEDID_data/AbdnL/data")
+                        default="C:/CIEDID_data/AbdnL/test_data")
     parser.add_argument("--test_masks",
-                        default="C:/CIEDID_data/AbdnL/mask")
+                        default="C:/CIEDID_data/AbdnL/test_mask")
     parser.add_argument("--img_size",        type=int,   default=640)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
-                        default=[100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250,2500, 2750, 3000, 3250, 3500, 3750, 4000])
+                        default=[100])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
-                        default=[0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95])
+                        default=[0.85])
+    parser.add_argument("--selected_pixel_threshold", type=int, default=100,
+                        help="Pixel-count threshold for the final abandoned-lead operating point")
+    parser.add_argument("--selected_prob_threshold", type=float, default=0.85,
+                        help="Probability threshold for the final abandoned-lead operating point "
+                             "(must be included in --prob_thresholds, or 0.5 to use argmax)")
     parser.add_argument("--n_samples",       type=int,   default=10)
     parser.add_argument("--output_dir",
-                        default="C:/CIEDID_data/AbdnL/best/eval_results")
+                        default="C:/CIEDID_data/AbdnL/test_abdn")
     args = parser.parse_args()
 
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -640,7 +595,7 @@ def main():
 
     # ── Single Inference ────────────────────────────────────────────
     print("\n🔀 Running single model inference ...")
-    df_img, records_cm, records_gen = run_single_inference(
+    df_img, records_cm = run_single_inference(
         model, dls, test_df, device, args.prob_thresholds
     )
 
@@ -650,10 +605,40 @@ def main():
 
     compute_pixel_confusion_matrix(records_cm, output_dir, label=label)
 
-    evaluate_generator_crop(df_img, records_gen, output_dir, label=label)
-
     det_results = evaluate_detection(df_img, args.thresholds, args.prob_thresholds)
     print_detection_results(det_results, label=label)
+
+    abdn_report = compute_abandoned_lead_report(
+        df_img, args.selected_pixel_threshold, args.selected_prob_threshold
+    )
+    print_abandoned_lead_report(abdn_report, label=label)
+
+    abdn_report_flat = {
+        "pixel_threshold": abdn_report["pixel_threshold"],
+        "prob_threshold":  abdn_report["prob_threshold"],
+        "TP": abdn_report["TP"], "FP": abdn_report["FP"],
+        "FN": abdn_report["FN"], "TN": abdn_report["TN"],
+        "n_with_abandoned":    abdn_report["n_with_abandoned"],
+        "n_without_abandoned": abdn_report["n_without_abandoned"],
+        "sensitivity": abdn_report["sensitivity"],
+        "sensitivity_ci_lower": abdn_report["sensitivity_ci"][0],
+        "sensitivity_ci_upper": abdn_report["sensitivity_ci"][1],
+        "specificity": abdn_report["specificity"],
+        "specificity_ci_lower": abdn_report["specificity_ci"][0],
+        "specificity_ci_upper": abdn_report["specificity_ci"][1],
+        "PPV": abdn_report["PPV"],
+        "PPV_ci_lower": abdn_report["PPV_ci"][0],
+        "PPV_ci_upper": abdn_report["PPV_ci"][1],
+        "NPV": abdn_report["NPV"],
+        "NPV_ci_lower": abdn_report["NPV_ci"][0],
+        "NPV_ci_upper": abdn_report["NPV_ci"][1],
+        "F1": abdn_report["F1"],
+    }
+    pd.DataFrame([abdn_report_flat]).to_csv(
+        output_dir / "abandoned_lead_selected_operating_point.csv", index=False
+    )
+    print(f"\n💾 Abandoned lead operating-point report → "
+          f"{output_dir / 'abandoned_lead_selected_operating_point.csv'}")
 
     # ── Save ────────────────────────────────────────────────────────
     df_img.to_csv(output_dir / "per_image_results.csv", index=False)

@@ -900,7 +900,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size",     type=int,   default=4) #PS 384: BS 2x4, PS 320 BS: 3x3 
     parser.add_argument("--grad_accum",   type=int,   default=2) 
     parser.add_argument("--valid_split", type=float,   default=0.2)
-    parser.add_argument("--abdn_min_512", type=int,   default=2800)  # clinical threshold = 2000 (sens≥0.90, best PPV): 1,500 px  →  Sensitivity=0.909  PPV=0.435
+    parser.add_argument("--abdn_min_512", type=int,   default=2800)  
     # training epochs
     parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup 
     parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
