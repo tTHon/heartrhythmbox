@@ -5,7 +5,7 @@ Evaluate a single segmentation model on a held-out test set.
 * ALL CONSOLE OUTPUTS ARE AUTOMATICALLY SAVED TO A TEXT FILE *
 
 Usage:
-    python eval_single.py --weight_path C:/CIEDID_data/AbdnL/models/best_gen.pth
+    python eval_single.py --weight_path C:/CIEDID_data/AbdnL/models/best_abdn.pth
 """
 
 import argparse

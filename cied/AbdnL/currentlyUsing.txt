@@ -3,7 +3,7 @@ label2mask_priority.py --> masking and set pixel priority
 IOU.py
 finetuneCV.py ==> 5-fold cross validation
 
-eval_single.py, test_abdn.py
+eval_single.py, test_abdn.py, abdnThreshold.py
 --> using best_abdn.pth from fold_0
 --> output: abdn lead detection threshold, pixel level performance -- on training set!!!!
 --> also see segmentation
