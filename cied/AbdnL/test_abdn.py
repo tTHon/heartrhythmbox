@@ -551,15 +551,15 @@ def main():
                         default="C:/CIEDID_data/AbdnL/test_mask")
     parser.add_argument("--img_size",        type=int,   default=640)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
-                        default=[100])
+                        default=[2000])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
-                        default=[0.85])
-    parser.add_argument("--selected_pixel_threshold", type=int, default=100,
+                        default=[0.5])
+    parser.add_argument("--selected_pixel_threshold", type=int, default=2000,
                         help="Pixel-count threshold for the final abandoned-lead operating point")
-    parser.add_argument("--selected_prob_threshold", type=float, default=0.85,
+    parser.add_argument("--selected_prob_threshold", type=float, default=0.5,
                         help="Probability threshold for the final abandoned-lead operating point "
                              "(must be included in --prob_thresholds, or 0.5 to use argmax)")
-    parser.add_argument("--n_samples",       type=int,   default=10)
+    parser.add_argument("--n_samples",       type=int,   default=0)
     parser.add_argument("--output_dir",
                         default="C:/CIEDID_data/AbdnL/test_abdn")
     args = parser.parse_args()

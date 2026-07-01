@@ -1,6 +1,6 @@
 """
 Abandoned Lead Detection — FP / FN Error Analysis
-Threshold: prob > 0.60, pixel > 2250
+Threshold: prob > 0.50, pixel > 2500
 """
 
 import pandas as pd, numpy as np, re
@@ -22,8 +22,8 @@ res["img_id_norm"]  = res["img_id"].apply(norm_id)
 meta_test = meta[meta["A_Test"] == 1].copy()
 meta_test["img_id_norm"] = meta_test["ID"].astype(str).apply(norm_id)
 
-# Apply threshold: prob > 0.60 AND pixel_count > 2250
-res["pred_pos"] = (res["prob_60"] > 2250).astype(int)
+# Apply threshold: prob > 0.50 AND pixel_count > 2500
+res["pred_pos"] = (res["prob_50"] > 2500).astype(int)
 res["gt_pos"]   = res["has_abandoned"].astype(int)
 
 def outcome(row):
@@ -46,7 +46,7 @@ merged["has_any_confounder"] = (
 
 # ─── 1. Overall confusion matrix ─────────────────────────────────────────────
 print("=" * 65)
-print("1. OVERALL CONFUSION MATRIX  (Test set n=50, threshold prob>0.60 & pixel>2250)")
+print("1. OVERALL CONFUSION MATRIX  (Test set n=50, threshold prob>0.50 & pixel>2500)")
 print("=" * 65)
 TP = (merged["outcome"]=="TP").sum()
 FP = (merged["outcome"]=="FP").sum()
@@ -74,7 +74,7 @@ print("\n" + "=" * 65)
 print("2. FALSE NEGATIVE CASES  (missed abandoned lead, n=" + str(FN) + ")")
 print("=" * 65)
 fn_cases = merged[merged["outcome"]=="FN"].copy()
-print(fn_cases[["img_id","Type","noActiveL","noAbdnL","targ_px","pred_px","prob_60",
+print(fn_cases[["img_id","Type","noActiveL","noAbdnL","targ_px","pred_px","prob_50",
                  "Intracardiac device","Extracardiac type"]].to_string(index=False))
 
 # ─── 3. FP cases detail ──────────────────────────────────────────────────────
@@ -82,7 +82,7 @@ print("\n" + "=" * 65)
 print("3. FALSE POSITIVE CASES  (false alarm, n=" + str(FP) + ")")
 print("=" * 65)
 fp_cases = merged[merged["outcome"]=="FP"].copy()
-print(fp_cases[["img_id","Type","noActiveL","pred_px","prob_60",
+print(fp_cases[["img_id","Type","noActiveL","pred_px","prob_50",
                  "Intracardiac device","Extracardiac type"]].to_string(index=False))
 
 # ─── 4. FP stratified by confounder ─────────────────────────────────────────
@@ -155,15 +155,15 @@ print(tbl2.to_string(index=False))
 
 # ─── 8. Pixel count analysis ─────────────────────────────────────────────────
 print("\n" + "=" * 65)
-print("8. PIXEL COUNT ANALYSIS  (prob_60 = pixel count at prob>0.60)")
+print("8. PIXEL COUNT ANALYSIS  (prob_50 = pixel count at prob>0.50)")
 print("=" * 65)
-print(f"\n{'Outcome':<6s}  {'n':>3s}  {'prob_60 mean':>13s}  {'prob_60 median':>14s}  {'targ_px mean':>13s}")
+print(f"\n{'Outcome':<6s}  {'n':>3s}  {'prob_50 mean':>13s}  {'prob_50 median':>14s}  {'targ_px mean':>13s}")
 print("-" * 58)
 for oc in ["TP","FP","FN","TN"]:
     g = merged[merged["outcome"]==oc]
     if len(g)==0: continue
-    print(f"{oc:<6s}  {len(g):>3d}  {g['prob_60'].mean():>13.0f}  {g['prob_60'].median():>14.0f}  {g['targ_px'].mean():>13.0f}")
+    print(f"{oc:<6s}  {len(g):>3d}  {g['prob_50'].mean():>13.0f}  {g['prob_50'].median():>14.0f}  {g['targ_px'].mean():>13.0f}")
 
-# FN: show individual prob_60 vs targ_px vs threshold
-print(f"\nFN cases — pixel detail (threshold = 2250):")
-print(fn_cases[["img_id","targ_px","pred_px","prob_60"]].to_string(index=False))
+# FN: show individual prob_50 vs targ_px vs threshold
+print(f"\nFN cases — pixel detail (threshold = 2500):")
+print(fn_cases[["img_id","targ_px","pred_px","prob_50"]].to_string(index=False))
