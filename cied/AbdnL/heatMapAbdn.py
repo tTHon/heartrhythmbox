@@ -16,13 +16,13 @@ from PIL import Image
 # 1. SETTINGS (ใช้ค่าเดียวกับที่คุณตั้งไว้)
 # ==========================================================
 path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
-path_weights = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
+path_weights = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
 IMG_Size = 640
 ABDN_CLASS_IDX = 3
 
 # พารามิเตอร์ที่คุณกำหนด
-threshold = 0.5   
-pixel_min = 2500 
+threshold = 0.5  # softmax probability threshold   
+pixel_min = 2100 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

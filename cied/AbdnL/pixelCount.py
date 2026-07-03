@@ -38,8 +38,8 @@ for mask_path in mask_dir.glob("*.png"):
 
 scaled_counts = np.array(scaled_counts)
 print(f"N                : {len(scaled_counts)}")
-print(f"Min  @512px      : {scaled_counts.min():,}")
-print(f"5th pct @512px   : {np.percentile(scaled_counts, 5):,.0f}")
-print(f"Median @512px    : {np.median(scaled_counts):,.0f}")
-print(f"Mean @512px      : {scaled_counts.mean():,.0f}")
+print(f"Min  @640px      : {scaled_counts.min():,}")
+print(f"5th pct @640px   : {np.percentile(scaled_counts, 5):,.0f}")
+print(f"Median @640px    : {np.median(scaled_counts):,.0f}")
+print(f"Mean @640px      : {scaled_counts.mean():,.0f}")
 print(f"\n→ Recommended threshold: {int(np.percentile(scaled_counts, 5)):,} px")

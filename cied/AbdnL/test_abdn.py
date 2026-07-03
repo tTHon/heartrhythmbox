@@ -315,15 +315,12 @@ def compute_abandoned_lead_report(df_img, pixel_threshold, prob_threshold):
     operating point (pixel_threshold, prob_threshold). Returns a dict with
     sensitivity, specificity, PPV, NPV, F1, and Wilson 95% CIs for each.
     """
-    if abs(prob_threshold - 0.5) < 1e-6:
-        col = "pred_px"
-    else:
-        col = f"prob_{int(prob_threshold*100):02d}"
-        if col not in df_img.columns:
-            raise ValueError(
-                f"Column '{col}' not found — prob_threshold={prob_threshold} "
-                f"was not included in --prob_thresholds during inference."
-            )
+    col = f"prob_{int(prob_threshold*100):02d}"
+    if col not in df_img.columns:
+        raise ValueError(
+            f"Column '{col}' not found — prob_threshold={prob_threshold} "
+            f"was not included in --prob_thresholds during inference."
+        )
 
     has_pred = df_img[col] > pixel_threshold
     has_targ = df_img["targ_px"] > 0
@@ -551,10 +548,10 @@ def main():
                         default="C:/CIEDID_data/AbdnL/test_mask")
     parser.add_argument("--img_size",        type=int,   default=640)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
-                        default=[2000])
+                        default=[2100])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
                         default=[0.5])
-    parser.add_argument("--selected_pixel_threshold", type=int, default=2000,
+    parser.add_argument("--selected_pixel_threshold", type=int, default=2100,
                         help="Pixel-count threshold for the final abandoned-lead operating point")
     parser.add_argument("--selected_prob_threshold", type=float, default=0.5,
                         help="Probability threshold for the final abandoned-lead operating point "

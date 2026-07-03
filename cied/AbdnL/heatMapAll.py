@@ -11,11 +11,11 @@ import scipy.ndimage as ndimage
 # ==========================================================
 # 1. SETTINGS & PARAMETERS
 # ==========================================================
-path_img_folder = "C:/CIEDID_data/AbdnL/data4Test"
-path_weights    = "C:/CIEDID_data/AbdnL/models/fold_0/best_gen.pth"
+path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
+path_weights    = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
 IMG_Size = 640
 threshold = 0.5   
-pixel_min = 1750
+pixel_min = 2100
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

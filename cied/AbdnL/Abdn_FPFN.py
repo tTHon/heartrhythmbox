@@ -1,6 +1,6 @@
 """
 Abandoned Lead Detection — FP / FN Error Analysis
-Threshold: prob > 0.50, pixel > 2500
+Threshold: prob > 0.50, pixel > 2100
 """
 
 import pandas as pd, numpy as np, re
@@ -22,8 +22,8 @@ res["img_id_norm"]  = res["img_id"].apply(norm_id)
 meta_test = meta[meta["A_Test"] == 1].copy()
 meta_test["img_id_norm"] = meta_test["ID"].astype(str).apply(norm_id)
 
-# Apply threshold: prob > 0.50 AND pixel_count > 2500
-res["pred_pos"] = (res["prob_50"] > 2500).astype(int)
+# Apply threshold: prob > 0.50 AND pixel_count > 2100
+res["pred_pos"] = (res["prob_50"] > 2100).astype(int)
 res["gt_pos"]   = res["has_abandoned"].astype(int)
 
 def outcome(row):
@@ -46,7 +46,7 @@ merged["has_any_confounder"] = (
 
 # ─── 1. Overall confusion matrix ─────────────────────────────────────────────
 print("=" * 65)
-print("1. OVERALL CONFUSION MATRIX  (Test set n=50, threshold prob>0.50 & pixel>2500)")
+print("1. OVERALL CONFUSION MATRIX  (Test set n=50, threshold prob>0.50 & pixel>2100)")
 print("=" * 65)
 TP = (merged["outcome"]=="TP").sum()
 FP = (merged["outcome"]=="FP").sum()
@@ -59,14 +59,30 @@ print(f"{'GT POS (has abandoned)':22s}  {'TP='+str(TP):>10s}  {'FN='+str(FN):>10
 print(f"{'GT NEG (no abandoned)':22s}  {'FP='+str(FP):>10s}  {'TN='+str(TN):>10s}  {neg:>6d}")
 print(f"{'Total':22s}  {TP+FP:>10d}  {FN+TN:>10d}  {len(merged):>6d}")
 
+def wilson_ci(successes, n, z=1.96):
+    """Wilson score interval for a binomial proportion. Returns (lower, upper)."""
+    if n == 0:
+        return (float('nan'), float('nan'))
+    phat   = successes / n
+    denom  = 1 + (z**2) / n
+    center = phat + (z**2) / (2*n)
+    margin = z * np.sqrt((phat*(1-phat))/n + (z**2)/(4*n**2))
+    lower  = (center - margin) / denom
+    upper  = (center + margin) / denom
+    return max(0.0, lower), min(1.0, upper)
+
 sens = TP/pos; spec = TN/neg
 ppv  = TP/(TP+FP) if (TP+FP)>0 else 0
 npv  = TN/(TN+FN) if (TN+FN)>0 else 0
 f1   = 2*TP/(2*TP+FP+FN) if (2*TP+FP+FN)>0 else 0
-print(f"\nSensitivity  : {TP}/{pos}  = {sens:.3f}")
-print(f"Specificity  : {TN}/{neg}  = {spec:.3f}")
-print(f"PPV          : {TP}/{TP+FP}  = {ppv:.3f}")
-print(f"NPV          : {TN}/{TN+FN}  = {npv:.3f}")
+sens_ci = wilson_ci(TP, pos)
+spec_ci = wilson_ci(TN, neg)
+ppv_ci  = wilson_ci(TP, TP+FP)
+npv_ci  = wilson_ci(TN, TN+FN)
+print(f"\nSensitivity  : {TP}/{pos}  = {sens:.3f} [{sens_ci[0]:.3f}, {sens_ci[1]:.3f}]")
+print(f"Specificity  : {TN}/{neg}  = {spec:.3f} [{spec_ci[0]:.3f}, {spec_ci[1]:.3f}]")
+print(f"PPV          : {TP}/{TP+FP}  = {ppv:.3f} [{ppv_ci[0]:.3f}, {ppv_ci[1]:.3f}]")
+print(f"NPV          : {TN}/{TN+FN}  = {npv:.3f} [{npv_ci[0]:.3f}, {npv_ci[1]:.3f}]")
 print(f"F1 score     :            {f1:.3f}")
 
 # ─── 2. FN cases detail ──────────────────────────────────────────────────────
@@ -165,5 +181,5 @@ for oc in ["TP","FP","FN","TN"]:
     print(f"{oc:<6s}  {len(g):>3d}  {g['prob_50'].mean():>13.0f}  {g['prob_50'].median():>14.0f}  {g['targ_px'].mean():>13.0f}")
 
 # FN: show individual prob_50 vs targ_px vs threshold
-print(f"\nFN cases — pixel detail (threshold = 2500):")
+print(f"\nFN cases — pixel detail (threshold = 2100):")
 print(fn_cases[["img_id","targ_px","pred_px","prob_50"]].to_string(index=False))
