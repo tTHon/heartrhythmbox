@@ -11,10 +11,10 @@ from PIL import Image
 # ==========================================================
 # 1. CONFIGURATION
 # ==========================================================
-FILE_WEIGHTS  = 'C:/CIEDID_data/AbdnL/models/fold_0/seg_abdnL_weights.pth'
+FILE_WEIGHTS  = 'C:/CIEDID_data/AbdnL/models/best/best_abdn.pth'
 DIR_IMAGES    = 'C:/CIEDID_data/AbdnL/data'
 DIR_MASKS     = 'C:/CIEDID_data/AbdnL/mask'
-CSV_OUTPUT    = 'C:/CIEDID_data/AbdnL/grid_search_results.csv'
+CSV_OUTPUT    = 'C:/CIEDID_data/AbdnL/best/grid_search_results.csv'
 
 IMG_Size = 640
 CLASS_NAMES = ["Background", "Generator", "Lead", "Abdn_Lead"]
@@ -46,8 +46,8 @@ std_tensor  = torch.tensor([0.240966]*3, device=device).view(3, 1, 1)
 # ==========================================================
 # 3. GRID SEARCH
 # ==========================================================
-PROB_THRESHOLDS = [0.1, 0.2, 0.3, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.70, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
-PIXEL_MIN_SPACE = [500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3250, 3500, 3750, 4000]
+PROB_THRESHOLDS = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.70, 0.8, 0.9, 1.0]
+PIXEL_MIN_SPACE = [100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,3300,3400,3500,3600,3700,3800,3900,4000,4100,4200,4300,4400,4500,4600,4700,4800,4900,5000]
 
 grid_results = []
 all_probs = []

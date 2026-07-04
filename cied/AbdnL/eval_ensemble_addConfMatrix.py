@@ -501,9 +501,9 @@ def plot_detection_curves(results, output_path, label="Ensemble"):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--folds_dir",
-                        default="C:/CIEDID_data/AbdnL/models",
+                        default="C:/CIEDID_data/AbdnL/models/best",
                         help="Directory containing fold_0/, fold_1/, ... subdirs")
-    parser.add_argument("--weight_filename", default="best_gen.pth",
+    parser.add_argument("--weight_filename", default="best_abdn.pth",
                         help="Weight file to use from each fold dir")
     parser.add_argument("--test_imgs",
                         default="C:/CIEDID_data/AbdnL/test_data")

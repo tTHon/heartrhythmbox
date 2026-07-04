@@ -604,7 +604,7 @@ def main():
     parser.add_argument("--thresholds",      type=int,   nargs="+",
                         default=[100, 200, 300,400, 500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900, 2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,3300,3400,3500,3600,3700,3800,3900,4000,4100,4200,4300,4400,4500,4600,4700,4800,4900,5000])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
-                        default=[0.3,0.35,0.4,0.45, 0.5,0.55,0.60,0.65,0.70,0.75,0.80,0.85,0.90,0.95])
+                        default=[0.1,0.2,0.3,0.4,0.5,0.6,0.65,0.7,0.75,0.8,0.85,0.9,1.0])
     parser.add_argument("--n_samples",       type=int,   default=10)
     parser.add_argument("--output_dir",
                         default="C:/CIEDID_data/AbdnL/best/eval_results")

@@ -2,7 +2,7 @@ preProcess folder (anon & CLAHE)
 label2mask_priority.py --> masking and set pixel priority
 IOU.py
 finetuneCV.py ==> 5-fold cross validation
-abdnThreshold search
+abdnThreshold search -- use oof_inference then gridSearch
 postprocessing - eval_generator.py
 
 ---------------------------------------------------------

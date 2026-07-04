@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 from sklearn.metrics import auc
 
-INPUT_CSV = "cied/AbdnL/detection_thresholds.csv"
+INPUT_CSV = "cied/AbdnL/oof_detection_thresholds.csv"
 #OUT_PNG = "cied/AbdnL/roc_all_thresholds.png"
 #OUT_PDF = "cied/AbdnL/roc_all_thresholds.pdf"
 
@@ -78,12 +78,12 @@ plt.scatter(best_row["fpr_calc"], best_row["sensitivity_calc"],
                     f"pixel>{int(best_row['pixel_threshold'])})\n"
                     f"J={best_row['youden_j']:.3f}"))
 
-# Current chosen operating point: prob>0.5, pixel>2700
-chosen = df[(df["prob_threshold"] == 0.5) & (df["pixel_threshold"] == 2750)]
+# Current chosen operating point: prob>0.7, pixel>1000
+chosen = df[(df["prob_threshold"] == 0.7) & (df["pixel_threshold"] == 1000)]
 if not chosen.empty:
     plt.scatter(chosen["fpr_calc"], chosen["sensitivity_calc"],
                 color="crimson", s=110, zorder=6, marker="D",
-                label="Chosen operating point (prob>0.5, pixel>2,750)")
+                label="Chosen operating point (prob>0.7, pixel>1,000)")
 
 plt.xlabel("1 - Specificity (False Positive Rate)")
 plt.ylabel("Sensitivity (True Positive Rate)")
