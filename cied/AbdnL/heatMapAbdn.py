@@ -21,8 +21,8 @@ IMG_Size = 640
 ABDN_CLASS_IDX = 3
 
 # พารามิเตอร์ที่คุณกำหนด
-threshold = 0.7  # softmax probability threshold   
-pixel_min = 1000 
+threshold = 0.8  # softmax probability threshold   
+pixel_min = 600 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

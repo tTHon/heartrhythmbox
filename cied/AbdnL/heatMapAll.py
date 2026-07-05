@@ -12,10 +12,10 @@ import scipy.ndimage as ndimage
 # 1. SETTINGS & PARAMETERS
 # ==========================================================
 path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
-path_weights    = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
+path_weights    = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
 IMG_Size = 640
-threshold = 0.5   
-pixel_min = 2100
+threshold = 0.8   
+pixel_min = 600
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -47,8 +47,27 @@ def get_overlay(img, prob_map, color_rgb):
     # ปรับความเข้มตามความมั่นใจ (Gradient) และทำให้บางลง (Alpha 0.4)
     return overlay, prob_map * 0.3 
 
-random_imgs = random.sample(img_files, 3)
-fig, axes = plt.subplots(1, 3, figsize=(20, 8))
+# ==========================================================
+# ระบุชื่อไฟล์ภาพที่ต้องการทำ heatmap (แทนการสุ่ม)
+# ใส่แค่ชื่อไฟล์ (พร้อมนามสกุล) ตามที่อยู่ใน path_img_folder
+# ==========================================================
+selected_filenames = [
+    "a_x1.png",
+]
+
+selected_imgs = [p for p in img_files if p.name in selected_filenames]
+
+missing = set(selected_filenames) - {p.name for p in selected_imgs}
+if missing:
+    raise FileNotFoundError(
+        f"ไม่พบไฟล์เหล่านี้ใน {path_img_folder}: {missing}\n"
+        f"เช็คว่าพิมพ์ชื่อไฟล์ถูกต้อง (รวมนามสกุล .png/.jpg) และมีไฟล์อยู่จริงในโฟลเดอร์"
+    )
+
+random_imgs = selected_imgs  # ใช้ตัวแปรชื่อเดิมเพื่อไม่ต้องแก้โค้ดส่วนล่าง
+fig, axes = plt.subplots(1, len(random_imgs), figsize=(20, 8))
+if len(random_imgs) == 1:
+    axes = [axes]  # ทำให้ index ได้เหมือนกันแม้มีภาพเดียว
 
 for i, img_path in enumerate(random_imgs):
     timg = timg_pipe(img_path).to(device)
@@ -65,7 +84,7 @@ for i, img_path in enumerate(random_imgs):
     
     # ตรวจสอบเงื่อนไข Abandoned Lead
     pixel_count = (abdn_prob > threshold).sum()
-    detected = pixel_count >= pixel_min
+    detected = pixel_count > pixel_min
     
     # แปลงภาพต้นฉบับเพื่อแสดงผล
     raw_img = timg.permute(1, 2, 0).cpu().numpy()
@@ -83,6 +102,12 @@ for i, img_path in enumerate(random_imgs):
     axes[i].imshow(gen_ov, alpha=gen_alpha)
     axes[i].imshow(lead_ov, alpha=lead_alpha)
     axes[i].imshow(abdn_ov, alpha=abdn_alpha)
+
+    # วาดเส้นขอบ (contour) ที่ threshold จริงที่ใช้ตัดสินใจ abandoned lead
+    # เพื่อให้เห็นชัดว่า "เกินเส้นนี้ = นับเป็น abandoned lead" ไม่ใช่แค่ gradient ลอยๆ
+    if abdn_prob.max() > threshold:
+        axes[i].contour(abdn_prob, levels=[threshold], colors='yellow',
+                         linewidths=1.5, linestyles='solid')
     
     # ตกแต่ง Text
     status_text = "FOUND" if detected else "NOT FOUND"
@@ -95,8 +120,18 @@ for i, img_path in enumerate(random_imgs):
 from matplotlib.lines import Line2D
 custom_lines = [Line2D([0], [0], color=[0, 1, 0], lw=4),
                 Line2D([0], [0], color=[0, 0.6, 1], lw=4),
-                Line2D([0], [0], color=[1, 0, 0], lw=4)]
-fig.legend(custom_lines, ['Generator', 'Normal Lead', 'Abandoned Lead'], loc='lower center', ncol=3)
+                Line2D([0], [0], color=[1, 0, 0], lw=4),
+                Line2D([0], [0], color='yellow', lw=1.5)]
+fig.legend(custom_lines,
+           ['Generator', 'Normal Lead', 'Abandoned Lead',
+            f'Abandoned-lead decision boundary (prob = {threshold})'],
+           loc='lower center', ncol=4, fontsize=9)
 
-plt.tight_layout(rect=[0, 0.05, 1, 0.95])
+# เพิ่มคำอธิบายว่า opacity = ความมั่นใจของโมเดล (probability)
+fig.text(0.5, 0.005,
+         "Color opacity indicates model confidence (softmax probability): "
+         "darker/more saturated = higher probability, faint = lower probability.",
+         ha='center', fontsize=8.5, style='italic', color='dimgray')
+
+plt.tight_layout(rect=[0, 0.08, 1, 0.95])
 plt.show()

@@ -78,12 +78,12 @@ plt.scatter(best_row["fpr_calc"], best_row["sensitivity_calc"],
                     f"pixel>{int(best_row['pixel_threshold'])})\n"
                     f"J={best_row['youden_j']:.3f}"))
 
-# Current chosen operating point: prob>0.7, pixel>1000
-chosen = df[(df["prob_threshold"] == 0.7) & (df["pixel_threshold"] == 1000)]
+# Current chosen operating point: prob>0.8, pixel>600
+chosen = df[(df["prob_threshold"] == 0.8) & (df["pixel_threshold"] == 600)]
 if not chosen.empty:
     plt.scatter(chosen["fpr_calc"], chosen["sensitivity_calc"],
                 color="crimson", s=110, zorder=6, marker="D",
-                label="Chosen operating point (prob>0.7, pixel>1,000)")
+                label="Chosen operating point (prob>0.8, pixel>600)")
 
 plt.xlabel("1 - Specificity (False Positive Rate)")
 plt.ylabel("Sensitivity (True Positive Rate)")

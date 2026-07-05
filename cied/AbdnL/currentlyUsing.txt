@@ -30,5 +30,6 @@ Heat Map
 
 Best model to use = best_abdn.pth from fold_0 of model trained in 05/26
 
-Abdn_FPFN.py -- why the models fail to predict the presence of abdnLead
+A_model_stat.py -- why the models fail to predict the presence of abdnLead
+ROC_simply
 
