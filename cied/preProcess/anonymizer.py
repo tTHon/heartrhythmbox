@@ -63,4 +63,4 @@ def batch_anonymize(input_folder, output_folder):
 
 # --- วิธีใช้งาน ---
 # ใส่ชื่อโฟลเดอร์ที่เก็บภาพ X-ray และโฟลเดอร์ที่จะให้บันทึกผลลัพธ์
-batch_anonymize('c:/CIEDID_data/Images_processed/1_CLAHE', 'c:/CIEDID_data/Images_processed/2_ANON')
+batch_anonymize('c:/CIEDID_data/Preprocessing/1_CLAHE', 'c:/CIEDID_data/Preprocessing/2_ANON')

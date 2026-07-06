@@ -692,9 +692,9 @@ def evaluate_generator_crop(df_img: pd.DataFrame,
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--folds_dir",
-                        default="C:/CIEDID_data/AbdnL/models",
+                        default="C:/CIEDID_data/AbdnL/models/best",
                         help="Directory containing fold_0/, fold_1/, ... subdirs")
-    parser.add_argument("--weight_filename", default="best_gen.pth",
+    parser.add_argument("--weight_filename", default="best_abdn.pth",
                         help="Weight file to use from each fold dir")
     parser.add_argument("--test_imgs",
                         default="C:/CIEDID_data/AbdnL/test_data")
@@ -702,10 +702,10 @@ def main():
                         default="C:/CIEDID_data/AbdnL/test_mask")
     parser.add_argument("--img_size",        type=int,   default=640)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
-                        default=[100, 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250,2500, 2750, 3000, 3250, 3500, 3750, 4000])
+                        default=[500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 4000])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
                         default=[0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95])
-    parser.add_argument("--n_samples",       type=int,   default=50)
+    parser.add_argument("--n_samples",       type=int,   default=5)
     parser.add_argument("--output_dir",
                         default="C:/CIEDID_data/AbdnL/test_results_ensemble")
     args = parser.parse_args()
