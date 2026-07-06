@@ -279,11 +279,6 @@ print(fn_cases[["img_id", "targ_px", "pred_px", PROB_COL]].to_string(index=False
 # =====================================================================
 # PART B — Baseline demographics + FP/FN-based comparisons
 # (formerly A_model_stat.py)
-#
-# Reuses the SAME threshold-derived outcome ("merged"/"res") from
-# PART A above instead of relying on precomputed FP/FN columns in a
-# separately-maintained metadata CSV — this keeps both halves of the
-# analysis consistent with a single threshold application.
 # =====================================================================
 
 # Build df_clean from metadata, excluding the FinalTest=1 pipeline test set,
@@ -354,20 +349,22 @@ for var, label in categorical_vars:
         print(f"  {str(c):<23s}  {str_all:>18s}  {str_0:>18s}  {str_1:>18s}  {p_val:>8s}")
         p_val = ""
 
-# ─── B1b. DEVICE TYPE BY ISABDN MATRIX ────────────────────────────────
+# ─── B1b. DEVICE TYPE BY ISABDN MATRIX WITH DEMOGRAPHICS ──────────────
 print("\n" + "=" * 105)
-print("B1b. DEVICE TYPE BY ISABDN STRATIFIED BY A_TEST COHORTS")
+print("B1b. DEVICE TYPE AND DEMOGRAPHICS BY ISABDN STRATIFIED BY A_TEST COHORTS")
 print("=" * 105)
-print(f"{'Device Type':<16s} | {'A_Test = 0, isAbdn=0':^20s} {'A_Test = 0, isAbdn=1':^20s} | "
+print(f"{'Variable / Stratum':<16s} | {'A_Test = 0, isAbdn=0':^20s} {'A_Test = 0, isAbdn=1':^20s} | "
       f"{'A_Test = 1, isAbdn=0':^20s} {'A_Test = 1, isAbdn=1':^20s}")
 print("-" * 105)
 
-all_types = sorted(df_clean["Type"].dropna().unique())
 t0_abd0 = t0[t0["isAbdn"] == 0]
 t0_abd1 = t0[t0["isAbdn"] == 1]
 t1_abd0 = t1[t1["isAbdn"] == 0]
 t1_abd1 = t1[t1["isAbdn"] == 1]
 
+# 1. Device Type (Categorical)
+print("Device Type")
+all_types = sorted(df_clean["Type"].dropna().unique())
 for t in all_types:
     c0_0 = len(t0_abd0[t0_abd0["Type"] == t])
     p0_0 = (c0_0 / len(t0_abd0) * 100) if len(t0_abd0) > 0 else 0
@@ -377,13 +374,79 @@ for t in all_types:
     p1_0 = (c1_0 / len(t1_abd0) * 100) if len(t1_abd0) > 0 else 0
     c1_1 = len(t1_abd1[t1_abd1["Type"] == t])
     p1_1 = (c1_1 / len(t1_abd1) * 100) if len(t1_abd1) > 0 else 0
-    print(f"{t:<16s} | {c0_0:>5d} ({p0_0:>4.1f}%)     {c0_1:>5d} ({p0_1:>4.1f}%)     | "
+    print(f"  {t:<14s} | {c0_0:>5d} ({p0_0:>4.1f}%)     {c0_1:>5d} ({p0_1:>4.1f}%)     | "
           f"{c1_0:>5d} ({p1_0:>4.1f}%)     {c1_1:>5d} ({p1_1:>4.1f}%)")
 
+# 2. Gender (Categorical)
+print("\nGender")
+all_genders = sorted(df_clean["Gender"].dropna().unique())
+for g in all_genders:
+    c0_0 = len(t0_abd0[t0_abd0["Gender"] == g])
+    p0_0 = (c0_0 / len(t0_abd0) * 100) if len(t0_abd0) > 0 else 0
+    c0_1 = len(t0_abd1[t0_abd1["Gender"] == g])
+    p0_1 = (c0_1 / len(t0_abd1) * 100) if len(t0_abd1) > 0 else 0
+    c1_0 = len(t1_abd0[t1_abd0["Gender"] == g])
+    p1_0 = (c1_0 / len(t1_abd0) * 100) if len(t1_abd0) > 0 else 0
+    c1_1 = len(t1_abd1[t1_abd1["Gender"] == g])
+    p1_1 = (c1_1 / len(t1_abd1) * 100) if len(t1_abd1) > 0 else 0
+    print(f"  {str(g):<14s} | {c0_0:>5d} ({p0_0:>4.1f}%)     {c0_1:>5d} ({p0_1:>4.1f}%)     | "
+          f"{c1_0:>5d} ({p1_0:>4.1f}%)     {c1_1:>5d} ({p1_1:>4.1f}%)")
+
+# 3. Continuous Demographics (Age, Weight, Height, BMI)
+print("\nContinuous Variables (Median [IQR])")
+continuous_vars = [
+    ("Age", "Age (yr)"),
+    ("Kg", "Weight (kg)"),
+    ("cm", "Height (cm)"),
+    ("BMI", "BMI (kg/m²)")
+]
+
+for var, label in continuous_vars:
+    v0_0 = t0_abd0[var].dropna()
+    v0_1 = t0_abd1[var].dropna()
+    v1_0 = t1_abd0[var].dropna()
+    v1_1 = t1_abd1[var].dropna()
+    
+    str0_0 = f"{v0_0.median():.1f} [{v0_0.quantile(.25):.0f}-{v0_0.quantile(.75):.0f}]" if len(v0_0) > 0 else "—"
+    str0_1 = f"{v0_1.median():.1f} [{v0_1.quantile(.25):.0f}-{v0_1.quantile(.75):.0f}]" if len(v0_1) > 0 else "—"
+    str1_0 = f"{v1_0.median():.1f} [{v1_0.quantile(.25):.0f}-{v1_0.quantile(.75):.0f}]" if len(v1_0) > 0 else "—"
+    str1_1 = f"{v1_1.median():.1f} [{v1_1.quantile(.25):.0f}-{v1_1.quantile(.75):.0f}]" if len(v1_1) > 0 else "—"
+    
+    print(f"  {label:<14s} | {str0_0:^20s} {str0_1:^20s} | {str1_0:^20s} {str1_1:^20s}")
+
 print("-" * 105)
-p_t0 = get_categorical_p(t0, "Type", "isAbdn")
-p_t1 = get_categorical_p(t1, "Type", "isAbdn")
-print(f"{'p-value (within split)':<16s} | {p_t0:^46s} | {p_t1:^46s}")
+
+# Calculate p-values for Type and Gender within splits
+p_type_t0 = get_categorical_p(t0, "Type", "isAbdn")
+p_type_t1 = get_categorical_p(t1, "Type", "isAbdn")
+p_gen_t0 = get_categorical_p(t0, "Gender", "isAbdn")
+p_gen_t1 = get_categorical_p(t1, "Gender", "isAbdn")
+
+print(f"{'p-value (Device Type within split)':<36s} | {p_type_t0:^20s} {'':^20s} | {p_type_t1:^20s} {'':^20s}")
+print(f"{'p-value (Gender within split)':<36s} | {p_gen_t0:^20s} {'':^20s} | {p_gen_t1:^20s} {'':^20s}")
+
+# Calculate p-values for Continuous variables within splits (isAbdn=0 vs isAbdn=1)
+for var, label in continuous_vars:
+    # A_Test = 0
+    g0_0 = t0_abd0[var].dropna()
+    g0_1 = t0_abd1[var].dropna()
+    if len(g0_0) >= 2 and len(g0_1) >= 2:
+        _, p0 = mannwhitneyu(g0_0, g0_1, alternative="two-sided")
+        p0_str = f"{p0:.3f}" if p0 >= 0.001 else "<0.001"
+    else:
+        p0_str = "N/A"
+        
+    # A_Test = 1
+    g1_0 = t1_abd0[var].dropna()
+    g1_1 = t1_abd1[var].dropna()
+    if len(g1_0) >= 2 and len(g1_1) >= 2:
+        _, p1 = mannwhitneyu(g1_0, g1_1, alternative="two-sided")
+        p1_str = f"{p1:.3f}" if p1 >= 0.001 else "<0.001"
+    else:
+        p1_str = "N/A"
+        
+    print(f"p-value ({label:<11s} within split)     | {p0_str:^20s} {'':^20s} | {p1_str:^20s} {'':^20s}")
+
 
 # ─── B2. FALSE POSITIVE (FP) vs TRUE NEGATIVE (TN) ────────────────────
 test = df_clean[(df_clean["A_Test"] == 1) & (df_clean["isAbdn"] == 0)].copy()
