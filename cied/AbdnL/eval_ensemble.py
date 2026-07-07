@@ -19,7 +19,7 @@ Usage:
     python eval_ensemble.py --folds_dir C:/CIEDID_data/AbdnL/models
 
     # Compare single vs ensemble
-    python eval_ensemble.py --also_single --single_weights fold_0/best_gen.pth
+    python eval_ensemble.py --also_single --single_weights fold_0/best_abdn.pth
 """
 
 import argparse
@@ -124,11 +124,11 @@ def load_model_weights(weights_path, dls, device):
     return learner.model
 
 
-def find_fold_weights(folds_dir, weight_filename="best_gen.pth"):
+def find_fold_weights(folds_dir, weight_filename="best_abdn.pth"):
     """
     Auto-discover fold weight files.
-    Looks for: folds_dir/fold_0/best_gen.pth, fold_1/best_gen.pth, ...
-    Falls back to: folds_dir/best_gen.pth if no fold subdirs found.
+    Looks for: folds_dir/fold_0/best_abdn.pth, fold_1/best_abdn.pth, ...
+    Falls back to: folds_dir/best_abdn.pth if no fold subdirs found.
     """
     folds_dir = pathlib.Path(folds_dir)
     weights   = []
@@ -201,6 +201,7 @@ def run_ensemble_inference(models, dls, test_df, device, prob_thresholds):
                 row = {
                     "image":         batch_paths[i] if i < len(batch_paths) else "",
                     "has_abandoned": (yb[i] == ABDN_CLASS).sum().item() > 0,
+                    "has_lead":      (yb[i] == 2).sum().item() > 0,
                 }
 
                 # ── Dice per class ──────────────────────────────────
@@ -235,8 +236,33 @@ def summarize_dice(df_img, label="Ensemble"):
         if col not in df_img.columns:
             continue
         vals = df_img[col].dropna()
+        q1, q3 = np.percentile(vals, [25, 75]) if len(vals) else (float('nan'), float('nan'))
         print(f"  {cls_name:20s}: mean={vals.mean():.4f}  "
-              f"median={vals.median():.4f}  std={vals.std():.4f}  n={len(vals)}")
+              f"median={vals.median():.4f}  IQR=({q1:.4f}-{q3:.4f})  "
+              f"std={vals.std():.4f}  n={len(vals)}")
+
+    # ── report class-present-only subsets for lead and abandoned_lead ──
+    # Pixel Dice for a class is 0 by construction whenever that class is
+    # absent from the image (nothing to overlap with), so pooling
+    # class-present and class-absent cases floors the median/IQR and is
+    # not informative about segmentation quality on that class.
+    #   - abandoned_lead: majority of cases are class-absent (no abandoned
+    #     lead), so this matters a lot.
+    #   - lead: only leadless pacemaker cases are class-absent (rare), so
+    #     this has minor effect, but is applied for methodological
+    #     consistency with abandoned_lead.
+    for cls_name, presence_col in [("lead", "has_lead"),
+                                    ("abandoned_lead", "has_abandoned")]:
+        col = f"dice_{cls_name}"
+        if col not in df_img.columns or presence_col not in df_img.columns:
+            continue
+        tp_vals = df_img.loc[df_img[presence_col] == True, col].dropna()
+        if len(tp_vals):
+            q1, q3 = np.percentile(tp_vals, [25, 75])
+            label_str = f"{cls_name} (class-present only)"
+            print(f"  {label_str:28s}: mean={tp_vals.mean():.4f}  "
+                  f"median={tp_vals.median():.4f}  IQR=({q1:.4f}-{q3:.4f})  "
+                  f"std={tp_vals.std():.4f}  n={len(tp_vals)}")
 
 
 def compute_metrics(df_img, pixel_col, pixel_threshold):
@@ -406,7 +432,7 @@ def main():
     parser.add_argument("--folds_dir",
                         default="C:/CIEDID_data/AbdnL/models",
                         help="Directory containing fold_0/, fold_1/, ... subdirs")
-    parser.add_argument("--weight_filename", default="best_gen.pth",
+    parser.add_argument("--weight_filename", default="best_abdn.pth",
                         help="Weight file to use from each fold dir")
     parser.add_argument("--test_imgs",
                         default="C:/CIEDID_data/AbdnL/test_data")

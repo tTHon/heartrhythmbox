@@ -4,7 +4,6 @@ eval_single.py
 Evaluate a single segmentation model.
 grid search for abandoned lead detection thresholds (pixel count and probability).
 * ALL CONSOLE OUTPUTS ARE AUTOMATICALLY SAVED TO A TEXT FILE *
-*************No post processing for generator. Use eval_generator.py for generator post processing evaluation*************
 
 Usage:
     python eval_single.py --weight_path C:/CIEDID_data/AbdnL/models/best_abdn.pth
@@ -170,6 +169,7 @@ def run_single_inference(model, dls, test_df, device, prob_thresholds):
                 row = {
                     "image":         batch_paths[i] if i < len(batch_paths) else "",
                     "has_abandoned": (yb[i] == ABDN_CLASS).sum().item() > 0,
+                    "has_lead":      (yb[i] == 2).sum().item() > 0,
                 }
 
                 for cls_idx, cls_name in enumerate(CLASS_NAMES[1:], start=1):
@@ -211,16 +211,26 @@ def summarize_dice(df_img, label="Single Model"):
               f"median={vals.median():.4f}  IQR=({q1:.4f}-{q3:.4f})  "
               f"std={vals.std():.4f}  n={len(vals)}")
 
-    # ── abandoned_lead: also report restricted to true-positive cases ──
-    # Pixel Dice for abandoned_lead is 0 by construction whenever the class
-    # is absent (nothing to overlap with), so pooling TP and TN cases
-    # floors the median/IQR near zero and is not informative about
-    # segmentation quality. Report the TP-only subset separately.
-    if "dice_abandoned_lead" in df_img.columns and "has_abandoned" in df_img.columns:
-        tp_vals = df_img.loc[df_img["has_abandoned"] == True, "dice_abandoned_lead"].dropna()
+    # ── report class-present-only subsets for lead and abandoned_lead ──
+    # Pixel Dice for a class is 0 by construction whenever that class is
+    # absent from the image (nothing to overlap with), so pooling
+    # class-present and class-absent cases floors the median/IQR and is
+    # not informative about segmentation quality on that class.
+    #   - abandoned_lead: majority of cases are class-absent (no abandoned
+    #     lead), so this matters a lot.
+    #   - lead: only leadless pacemaker cases are class-absent (rare), so
+    #     this has minor effect, but is applied for methodological
+    #     consistency with abandoned_lead.
+    for cls_name, presence_col in [("lead", "has_lead"),
+                                    ("abandoned_lead", "has_abandoned")]:
+        col = f"dice_{cls_name}"
+        if col not in df_img.columns or presence_col not in df_img.columns:
+            continue
+        tp_vals = df_img.loc[df_img[presence_col] == True, col].dropna()
         if len(tp_vals):
             q1, q3 = np.percentile(tp_vals, [25, 75])
-            print(f"  {'abandoned_lead (TP only)':20s}: mean={tp_vals.mean():.4f}  "
+            label_str = f"{cls_name} (class-present only)"
+            print(f"  {label_str:28s}: mean={tp_vals.mean():.4f}  "
                   f"median={tp_vals.median():.4f}  IQR=({q1:.4f}-{q3:.4f})  "
                   f"std={tp_vals.std():.4f}  n={len(tp_vals)}")
 
@@ -613,9 +623,9 @@ def main():
                         default="C:/CIEDID_data/AbdnL/models/best/best_abdn.pth",
                         help="Path to the specific .pth model weight file")
     parser.add_argument("--test_imgs",
-                        default="C:/CIEDID_data/AbdnL/test_data")
+                        default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--test_masks",
-                        default="C:/CIEDID_data/AbdnL/test_mask")
+                        default="C:/CIEDID_data/AbdnL/mask")
     parser.add_argument("--img_size",        type=int,   default=640)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
                         default=[100, 200, 300,400, 500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900, 2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000,3100,3200,3300,3400,3500,3600,3700,3800,3900,4000,4100,4200,4300,4400,4500,4600,4700,4800,4900,5000])
