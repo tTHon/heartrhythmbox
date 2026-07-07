@@ -430,7 +430,7 @@ def plot_detection_curves(results, output_path, label="Ensemble"):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--folds_dir",
-                        default="C:/CIEDID_data/AbdnL/models",
+                        default="C:/CIEDID_data/AbdnL/models/best",
                         help="Directory containing fold_0/, fold_1/, ... subdirs")
     parser.add_argument("--weight_filename", default="best_abdn.pth",
                         help="Weight file to use from each fold dir")
@@ -440,9 +440,9 @@ def main():
                         default="C:/CIEDID_data/AbdnL/test_mask")
     parser.add_argument("--img_size",        type=int,   default=640)
     parser.add_argument("--thresholds",      type=int,   nargs="+",
-                        default=[100, 250, 500, 1000, 1500, 2000, 2800, 4000])
+                        default=[100, 250, 500, 800, 1000, 1500, 2000, 2800, 4000])
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
-                        default=[0.3, 0.5, 0.7, 0.9])
+                        default=[0.3, 0.5, 0.7, 0.8, 0.9])
     parser.add_argument("--n_samples",       type=int,   default=6)
     parser.add_argument("--output_dir",
                         default="C:/CIEDID_data/AbdnL/test_results_ensemble")
