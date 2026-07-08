@@ -108,16 +108,16 @@ def plot_roc(d: pd.DataFrame, auc: float, selected: list[dict], out_path: str):
     # Label every Pareto-frontier point with its (prob, pixel) threshold,
     # skipping the synthetic anchor points (0,0) and (1,1) added for AUC
     # integration, which have no corresponding threshold combination.
-    for _, row in d.iterrows():
-        if pd.isna(row.get("prob_threshold")) or pd.isna(row.get("pixel_threshold")):
-            continue
-        label = f"p>{row['prob_threshold']:.2f}\npx>{int(row['pixel_threshold'])}"
-        ax.annotate(
-            label,
-            xy=(row["fpr"], row["sensitivity"]),
-            xytext=(6, 6), textcoords="offset points",
-            fontsize=6.5, color="#333333",
-        )
+    #for _, row in d.iterrows():
+    #    if pd.isna(row.get("prob_threshold")) or pd.isna(row.get("pixel_threshold")):
+    #        continue
+    #    label = f"p>{row['prob_threshold']:.2f}\npx>{int(row['pixel_threshold'])}"
+    #    ax.annotate(
+    #        label,
+    #        xy=(row["fpr"], row["sensitivity"]),
+    #        xytext=(6, 6), textcoords="offset points",
+    #        fontsize=6.5, color="#333333",
+    #    )
 
     for i, sel in enumerate(selected):
         if "sensitivity" in sel and "specificity" in sel:
