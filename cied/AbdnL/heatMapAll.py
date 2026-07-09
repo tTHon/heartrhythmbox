@@ -1,12 +1,29 @@
 import torch
 import pathlib
 import random
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from fastai.vision.all import *
 from PIL import Image
 import scipy.ndimage as ndimage
+from matplotlib.lines import Line2D
+
+# ==========================================================
+# 0. DETERMINISTIC SETTINGS (คุมการสุ่มให้นิ่ง 100%)
+# ==========================================================
+def set_seed(seed=42):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+set_seed(42)
 
 # ==========================================================
 # 1. SETTINGS & PARAMETERS
@@ -14,15 +31,15 @@ import scipy.ndimage as ndimage
 path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
 path_weights    = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
 IMG_Size = 640
-threshold = 0.8   
-pixel_min = 600
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # ==========================================================
 # 2. LOAD MODEL
 # ==========================================================
-img_files = get_image_files(path_img_folder)
+# บังคับ Sort ไฟล์ตั้งแต่ต้นสายเพื่อป้องกันลำดับ Pipeline เคลื่อน
+img_files = sorted(get_image_files(path_img_folder))
+
 dls = SegmentationDataLoaders.from_label_func(
     pathlib.Path("."), bs=1, fnames=img_files[:1], 
     label_func=lambda x: x, codes=["Background","Generator","Lead","Abdn_Lead"], 
@@ -49,10 +66,9 @@ def get_overlay(img, prob_map, color_rgb):
 
 # ==========================================================
 # ระบุชื่อไฟล์ภาพที่ต้องการทำ heatmap (แทนการสุ่ม)
-# ใส่แค่ชื่อไฟล์ (พร้อมนามสกุล) ตามที่อยู่ใน path_img_folder
 # ==========================================================
 selected_filenames = [
-    "a_x1.png",
+    "a_x4.png"
 ]
 
 selected_imgs = [p for p in img_files if p.name in selected_filenames]
@@ -82,18 +98,14 @@ for i, img_path in enumerate(random_imgs):
     lead_prob = probs[2]
     abdn_prob = probs[3]
     
-    # ตรวจสอบเงื่อนไข Abandoned Lead
-    pixel_count = (abdn_prob > threshold).sum()
-    detected = pixel_count > pixel_min
-    
     # แปลงภาพต้นฉบับเพื่อแสดงผล
     raw_img = timg.permute(1, 2, 0).cpu().numpy()
     
     # แสดงภาพต้นฉบับ
     axes[i].imshow(raw_img)
     
-    # สร้าง Overlay แต่ละคลาส (Gradient บางๆ)
-    # Generator = เขียว, Lead = ฟ้า, Abdn = แดง
+    # สร้าง Overlay แต่ละคลาส (Gradient บางๆ เหมือนกันทั้งหมด)
+    # Generator = เขียว, Lead = ฟ้า, Abandoned Lead = แดง
     gen_ov, gen_alpha   = get_overlay(raw_img, gen_prob, [0, 1, 0])
     lead_ov, lead_alpha = get_overlay(raw_img, lead_prob, [0, 0.6, 1])
     abdn_ov, abdn_alpha = get_overlay(raw_img, abdn_prob, [1, 0, 0])
@@ -103,35 +115,26 @@ for i, img_path in enumerate(random_imgs):
     axes[i].imshow(lead_ov, alpha=lead_alpha)
     axes[i].imshow(abdn_ov, alpha=abdn_alpha)
 
-    # วาดเส้นขอบ (contour) ที่ threshold จริงที่ใช้ตัดสินใจ abandoned lead
-    # เพื่อให้เห็นชัดว่า "เกินเส้นนี้ = นับเป็น abandoned lead" ไม่ใช่แค่ gradient ลอยๆ
-    if abdn_prob.max() > threshold:
-        axes[i].contour(abdn_prob, levels=[threshold], colors='yellow',
-                         linewidths=1.5, linestyles='solid')
-    
-    # ตกแต่ง Text
-    status_text = "FOUND" if detected else "NOT FOUND"
-    res_color = 'red' if detected else 'gray'
-    axes[i].set_title(f"{img_path.name}\nAbdn Lead: {status_text} ({pixel_count:,} px)", 
-                      fontsize=10, color=res_color, fontweight='bold')
+   
+    # ตกแต่ง Text (แสดงเฉพาะชื่อไฟล์เพื่อให้สะอาดตา ไม่มีการแบ่งผลตรวจจับ)
+    #axes[i].set_title(f"{img_path.name}", fontsize=11, fontweight='bold')
     axes[i].axis('off')
 
-# สร้าง Legend อธิบายสี
-from matplotlib.lines import Line2D
+# สร้าง Legend อธิบายสี (ปรับให้เหลือแค่ 3 คลาสหลัก)
 custom_lines = [Line2D([0], [0], color=[0, 1, 0], lw=4),
                 Line2D([0], [0], color=[0, 0.6, 1], lw=4),
-                Line2D([0], [0], color=[1, 0, 0], lw=4),
-                Line2D([0], [0], color='yellow', lw=1.5)]
-fig.legend(custom_lines,
-           ['Generator', 'Normal Lead', 'Abandoned Lead',
-            f'Abandoned-lead decision boundary (prob = {threshold})'],
-           loc='lower center', ncol=4, fontsize=9)
+                Line2D([0], [0], color=[1, 0, 0], lw=4)]
 
-# เพิ่มคำอธิบายว่า opacity = ความมั่นใจของโมเดล (probability)
-fig.text(0.5, 0.005,
+fig.legend(custom_lines,
+           ['Generator', 'Normal Lead', 'Abandoned Lead'],
+           loc='upper center', ncol=3, fontsize=10)
+
+# เพิ่มคำอธิบายเรื่องความมั่นใจสี
+fig.text(0.5, 0.01,
          "Color opacity indicates model confidence (softmax probability): "
          "darker/more saturated = higher probability, faint = lower probability.",
-         ha='center', fontsize=8.5, style='italic', color='dimgray')
+         ha='center', fontsize=9, style='italic', color='dimgray')
 
 plt.tight_layout(rect=[0, 0.08, 1, 0.95])
-plt.show()
+#plt.show()
+plt.savefig("cied/AbdnL/heatmap_overlay.png", dpi=300, bbox_inches='tight')

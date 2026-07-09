@@ -4,13 +4,17 @@ fig_generator_pipeline.py
 Figure 2/3 (generator localization) — 5-panel pipeline visualization for a
 single representative case, left to right:
 
-  1. Ground truth generator mask (overlaid on image)
+  1. Ground truth generator mask (overlaid on image) + solid GT bbox outline
+     (added for visibility — the translucent mask alone was hard to read
+     against bone/soft tissue)
   2. Raw model prediction (argmax, generator class) — shows lead interference
      / fragmentation before any post-processing
   3. Post-processed mask (close -> fill holes -> largest component ->
      convex hull), BEFORE border padding / forced-square step
   4. Final bounding box (after add_border: padding + forced square + clip),
-     drawn on the original image
+     drawn on the original image alongside the GT bbox for direct comparison
+     (green solid = GT, red dashed = final prediction, yellow dotted =
+     pre-square prediction)
   5. Final cropped output (image cropped to the bounding box from panel 4)
 
 Reuses the exact post-processing functions from eval_generator.py
@@ -162,7 +166,14 @@ learn.model.to(device).eval()
 
 timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros'),
                       ToTensor(), IntToFloatTensor()])
-mask_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros')])
+# NOTE: masks must use PILMask.create, NOT PILImage.create.
+# PILImage.create loads the label PNG as RGB (H,W,3) and Resize applies
+# bilinear interpolation by default, which blends label values at edges —
+# this silently produced a 3-channel, interpolation-corrupted "mask" whose
+# bbox_from_mask() (written for a 2D array) then returned a wildly oversized
+# box. PILMask.create keeps it single-channel (H,W) and fastai dispatches
+# Resize to nearest-neighbor for PILMask, preserving exact integer labels.
+mask_pipe = Pipeline([PILMask.create, Resize(IMG_Size, method='pad', pad_mode='zeros')])
 
 # ==========================================================
 # 4. INFERENCE
@@ -179,6 +190,11 @@ raw_pred_mask = (pred == GEN_CLASS).astype(np.uint8)
 gt_mask_img = np.array(mask_pipe(mask_path))
 gt_mask = (gt_mask_img == GEN_CLASS).astype(np.uint8)
 
+# GT bounding box — tight box around the ground-truth generator mask.
+# Drawn as a solid box (Panel 1 + Panel 4) so it reads clearly even when
+# the translucent mask overlay is hard to see against bone/soft tissue.
+gt_bbox = bbox_from_mask(gt_mask)
+
 # Panel 3: post-processed mask, BEFORE border padding / forced square
 proc_mask, tight_bbox, _ = postprocess_generator_mask(
     raw_pred_mask, IMG_Size, min_area_frac=min_area_frac, spatial_prior=None)
@@ -186,7 +202,8 @@ proc_mask, tight_bbox, _ = postprocess_generator_mask(
 # Panel 4: final bbox AFTER border padding + forced square + clip
 final_bbox = add_border(tight_bbox, raw_pred_mask.shape, border_frac) if tight_bbox else None
 
-img_np = (timg.cpu() * STD + MEAN).clamp(0, 1).permute(1, 2, 0).numpy()
+#img_np = (timg.cpu() * STD + MEAN).clamp(0, 1).permute(1, 2, 0).numpy()
+img_np = timg.cpu().clamp(0, 1).permute(1, 2, 0).numpy()
 
 # Panel 5: cropped output
 if final_bbox is not None:
@@ -201,9 +218,13 @@ else:
 # ==========================================================
 fig, axes = plt.subplots(1, 5, figsize=(22, 5))
 
-# Panel 1 — Ground truth
+# Panel 1 — Ground truth (mask overlay + solid bbox outline for clarity)
 axes[0].imshow(img_np)
 axes[0].imshow(np.ma.masked_where(gt_mask == 0, gt_mask), cmap='Greens', alpha=0.5, vmin=0, vmax=1)
+if gt_bbox is not None:
+    r0, c0, r1, c1 = gt_bbox
+    axes[0].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
+                                fill=False, edgecolor='lime', linewidth=2.2))
 axes[0].set_title("1. Ground truth", fontsize=11)
 axes[0].axis('off')
 
@@ -219,18 +240,27 @@ axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', al
 axes[2].set_title("3. Post-processed\n(close\u2192fill\u2192largest component\u2192hull)", fontsize=11)
 axes[2].axis('off')
 
-# Panel 4 — Final bounding box (padded + forced square) on original image
+# Panel 4 — Final bounding box (padded + forced square) on original image,
+# now shown against the GT bbox (solid green) so the reader can judge
+# localization accuracy directly, matching the GT-vs-pred convention used
+# elsewhere (solid green = GT, dashed red = prediction).
 axes[3].imshow(img_np)
+if gt_bbox is not None:
+    r0, c0, r1, c1 = gt_bbox
+    axes[3].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
+                                fill=False, edgecolor='lime', linewidth=2.2))
 if final_bbox is not None:
     r0, c0, r1, c1 = final_bbox
     axes[3].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
-                                fill=False, edgecolor='red', linewidth=2))
+                                fill=False, edgecolor='red', linewidth=2,
+                                linestyle='--'))
 if tight_bbox is not None:
     r0, c0, r1, c1 = tight_bbox
     axes[3].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
-                                fill=False, edgecolor='yellow', linewidth=1.2,
-                                linestyle='--'))
-axes[3].set_title("4. Bounding box\n(red = final, yellow = pre-square)", fontsize=11)
+                                fill=False, edgecolor='yellow', linewidth=1.1,
+                                linestyle=':'))
+axes[3].set_title("4. Bounding box\n(green = GT, red dashed = final, yellow dotted = pre-square)",
+                  fontsize=10)
 axes[3].axis('off')
 
 # Panel 5 — Cropped output
