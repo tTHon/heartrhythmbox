@@ -2,6 +2,8 @@
 Probability heatmap visualization for abandoned-lead detection — Figure 4a/4b.
 
 Adapted from heatMapAbdn.py:
+  - fixed random seed for reproducibility
+  - sorted all images in the test folder for consistent ordering
   - Replaced the full-folder loop (all 50 test images) with an explicit
     filename list, matching the selection pattern already used in
     heatMapAll.py.
@@ -18,6 +20,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from fastai.vision.all import *
+
+
+# ==========================================================
+# 0. REPRODUCIBILITY
+# ==========================================================
+def set_seed(seed=42):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed) # if you are using multi-GPU.
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+set_seed(42)
 
 # ==========================================================
 # 1. SETTINGS
@@ -37,6 +55,12 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # 2. FIGURE 4a — false-negative cases (ground truth: abandoned lead present)
 #    From locked error analysis (A2 in A_model_demographics.txt)
 # ==========================================================
+
+# sorted list of all test images (50 total) for reference
+img_files = get_image_files(path_img_folder)
+img_files_sorted = sorted(img_files)
+n_imgs = len(img_files_sorted)
+
 fig4a_cases = [
     {"filename": "a_x28.png", "label": "FN case 1 — ICD, single-chamber, 1 active lead", "gt_status": "GT: Abandoned lead PRESENT"},
     {"filename": "a_x5.png",  "label": "FN case 2 — Leadless, 0 active leads",            "gt_status": "GT: Abandoned lead PRESENT"},
@@ -48,8 +72,8 @@ fig4a_cases = [
 #    FP candidates available (locked error analysis, A3): 1122, 1417, 1477, 88, 964, 988
 # ==========================================================
 fig4b_cases = [
-    {"filename": "REPLACE_TP.png", "label": "True positive",  "gt_status": "GT: Abandoned lead PRESENT"},
-    {"filename": "REPLACE_TN.png", "label": "True negative",  "gt_status": "GT: Abandoned lead ABSENT"},
+    {"filename": "a_x1.png", "label": "True positive",  "gt_status": "GT: Abandoned lead PRESENT"},
+    {"filename": "1630.png", "label": "True negative",  "gt_status": "GT: Abandoned lead ABSENT"},
     {"filename": "988.png",        "label": "False positive — CRT-P, 3 active leads", "gt_status": "GT: Abandoned lead ABSENT"},
 ]
 
@@ -69,9 +93,6 @@ learn.model.to(device).eval()
 timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros'), ToTensor(), IntToFloatTensor()])
 mean = torch.tensor([0.5150052309036255] * 3, device=device).view(3, 1, 1)
 std  = torch.tensor([0.23788487911224365] * 3, device=device).view(3, 1, 1)
-# NOTE: these normalization stats do not match the locked memory value
-# (mean=0.5027, std=0.2410) — confirm which was actually used for the
-# final locked model before generating publication figures.
 
 
 # ==========================================================
@@ -121,7 +142,7 @@ def run_and_plot(cases, out_path, suptitle):
         im = axes[i, 1].imshow(abdn_prob_map, cmap='jet', vmin=0, vmax=1)
         if abdn_prob_map.max() > threshold:
             axes[i, 1].contour(abdn_prob_map, levels=[threshold], colors='white',
-                                linewidths=1.2, linestyles='solid')
+                                linewidths=0.1, linestyles='solid')
 
         status_text = "Model: DETECTED" if is_detected else "Model: NOT DETECTED"
         box_color = 'firebrick' if is_detected else 'seagreen'

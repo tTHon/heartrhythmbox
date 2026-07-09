@@ -13,6 +13,21 @@ from fastai.vision.all import *
 from PIL import Image
 
 # ==========================================================
+# 0. REPRODUCIBILITY
+# ==========================================================
+def set_seed(seed=42):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed) # if you are using multi-GPU.
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+set_seed(42)
+
+# ==========================================================
 # 1. SETTINGS (ใช้ค่าเดียวกับที่คุณตั้งไว้)
 # ==========================================================
 path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
@@ -52,12 +67,6 @@ img_files_sorted = sorted(img_files)
 n_imgs = len(img_files_sorted)
 
 print(f"🚀 กำลังประมวลผลรูปภาพทั้งหมด {n_imgs} รูป... กรุณารอสักครู่")
-
-selected_filenames = [
-    "a_x28.png",   # FN case 1 — ICD single-chamber
-    "a_x5.png",    # FN case 2 — Leadless
-]
-selected_imgs = [p for p in img_files if p.name in selected_filenames]
 
 # 🟢 ปรับให้จำนวนแถวเท่ากับ n_imgs และขยาย figsize ตามความสูงจริง (แถวละ 4.5 หน่วย)
 fig, axes = plt.subplots(n_imgs, 2, figsize=(14, 4.5 * n_imgs))

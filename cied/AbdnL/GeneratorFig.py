@@ -54,7 +54,7 @@ path_mask_folder = "C:/CIEDID_data/AbdnL/test_mask"
 path_weights     = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
 out_path         = "C:/CIEDID_data/AbdnL/figures/fig_generator_pipeline.png"
 
-SELECTED_FILENAME = "REPLACE_ME.png"   # <-- pick the representative case
+SELECTED_FILENAME = "1570.png"   # <-- pick the representative case
 
 IMG_Size      = 640
 GEN_CLASS     = 1
