@@ -53,6 +53,12 @@ n_imgs = len(img_files_sorted)
 
 print(f"🚀 กำลังประมวลผลรูปภาพทั้งหมด {n_imgs} รูป... กรุณารอสักครู่")
 
+selected_filenames = [
+    "a_x28.png",   # FN case 1 — ICD single-chamber
+    "a_x5.png",    # FN case 2 — Leadless
+]
+selected_imgs = [p for p in img_files if p.name in selected_filenames]
+
 # 🟢 ปรับให้จำนวนแถวเท่ากับ n_imgs และขยาย figsize ตามความสูงจริง (แถวละ 4.5 หน่วย)
 fig, axes = plt.subplots(n_imgs, 2, figsize=(14, 4.5 * n_imgs))
 
