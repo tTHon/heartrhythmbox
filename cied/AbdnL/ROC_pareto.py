@@ -95,15 +95,15 @@ def compute_auc(dedup: pd.DataFrame) -> tuple[float, pd.DataFrame]:
 
 def plot_roc(d: pd.DataFrame, auc: float, selected: list[dict], out_path: str):
 
-    plt.rcParams.update({"font.family": "inter"})
+    plt.rcParams.update({"font.family": "inter", "font.size": 16, "axes.labelsize": 16})
 
-    fig, ax = plt.subplots(figsize=(8, 8))
+    fig, ax = plt.subplots(figsize=(12, 12), dpi=300)
     ax.plot(
         d["fpr"], d["sensitivity"], "-o",
-        color="#2166ac", markersize=4, linewidth=1.8,
-        label="Pareto-optimal operating points",
+        color="#2166ac", markersize=8, linewidth=5,
+        label=f"Pareto-optimal operating points (AUC = {auc:.3f})",
     )
-    ax.plot([0, 1], [0, 1], "--", color="grey", linewidth=1, label="Chance")
+    ax.plot([0, 1], [0, 1], "--", color="grey", linewidth=5, label="Chance")
 
     # Label every Pareto-frontier point with its (prob, pixel) threshold,
     # skipping the synthetic anchor points (0,0) and (1,1) added for AUC
@@ -123,19 +123,26 @@ def plot_roc(d: pd.DataFrame, auc: float, selected: list[dict], out_path: str):
         if "sensitivity" in sel and "specificity" in sel:
             ax.scatter(
                 [1 - sel["specificity"]], [sel["sensitivity"]],
-                color="#d6604d", s=100, zorder=5,
+                color="#ee2b0d", s=250, zorder=5,
                 label=f"Selected: {sel['label']}" if i == 0 else None,
             )
 
-    ax.set_xlabel("1 - Specificity (False Positive Rate)")
-    ax.set_ylabel("Sensitivity")
-    ax.set_title(f"ROC Curve — Pareto Frontier of 2D Threshold Grid\n(AUC = {auc:.3f})")
+    ax.spines['left'].set_linewidth(2)
+    ax.spines['bottom'].set_linewidth(2)
+    ax.spines['right'].set_linewidth(2)
+    ax.spines['top'].set_linewidth(2)
+    ax.tick_params(axis='x', labelsize=16, length=8, width=2)
+    ax.tick_params(axis='y', labelsize=16, length=8, width=2)
+    ax.set_xlabel("1 - Specificity (False Positive Rate)", fontsize=18)
+    ax.set_ylabel("Sensitivity", fontsize=18)
+    ax.set_title(f"ROC Curve of the Pareto Frontier", 
+                 fontsize=24, pad=20, fontweight='bold')
     ax.set_xlim(-0.03, 1.05)
     ax.set_ylim(-0.03, 1.08)
-    ax.legend(loc="lower right", fontsize=8)
+    ax.legend(loc="lower right", fontsize=18)
     ax.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig(out_path, dpi=200)
+    plt.savefig(out_path, dpi=300)
     plt.close(fig)
 
 

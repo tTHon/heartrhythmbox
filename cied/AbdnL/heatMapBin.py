@@ -50,9 +50,7 @@ COLOR_ABDN      = np.array([1, 0, 0])      # red
 
 # ระบุชื่อไฟล์ภาพที่ต้องการทำ heatmap
 selected_filenames = [
-    "944.png",
-    "964.png",
-    "988.png",
+    "1626.png",
 ]
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

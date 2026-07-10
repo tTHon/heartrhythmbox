@@ -68,7 +68,7 @@ def get_overlay(img, prob_map, color_rgb):
 # ระบุชื่อไฟล์ภาพที่ต้องการทำ heatmap (แทนการสุ่ม)
 # ==========================================================
 selected_filenames = [
-    "a_x4.png"
+    "1626.png"
 ]
 
 selected_imgs = [p for p in img_files if p.name in selected_filenames]
@@ -111,7 +111,7 @@ for i, img_path in enumerate(random_imgs):
     abdn_ov, abdn_alpha = get_overlay(raw_img, abdn_prob, [1, 0, 0])
     
     # ซ้อนทับลงบนภาพ
-    axes[i].imshow(gen_ov, alpha=gen_alpha)
+    axes[i].imshow(gen_ov, alpha=gen_alpha) 
     axes[i].imshow(lead_ov, alpha=lead_alpha)
     axes[i].imshow(abdn_ov, alpha=abdn_alpha)
 
@@ -127,13 +127,13 @@ custom_lines = [Line2D([0], [0], color=[0, 1, 0], lw=4),
 
 fig.legend(custom_lines,
            ['Generator', 'Normal Lead', 'Abandoned Lead'],
-           loc='upper center', ncol=3, fontsize=10)
+           loc='upper center', ncol=3, fontsize=14)
 
 # เพิ่มคำอธิบายเรื่องความมั่นใจสี
 fig.text(0.5, 0.01,
          "Color opacity indicates model confidence (softmax probability): "
          "darker/more saturated = higher probability, faint = lower probability.",
-         ha='center', fontsize=9, style='italic', color='dimgray')
+         ha='center', fontsize=12, style='italic', color='darkgray')
 
 plt.tight_layout(rect=[0, 0.08, 1, 0.95])
 #plt.show()
