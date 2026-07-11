@@ -56,7 +56,7 @@ torch.load = _patched_load
 path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
 path_mask_folder = "C:/CIEDID_data/AbdnL/test_mask"
 path_weights     = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
-out_path         = "C:/CIEDID_data/AbdnL/figures/fig_generator_pipeline.png"
+out_path         = "cied/AbdnL/figures/fig_generator_pipeline.png"
 
 SELECTED_FILENAME = "1570.png"   # <-- pick the representative case
 
@@ -216,28 +216,30 @@ else:
 # ==========================================================
 # 5. PLOT — 5 panels, left to right
 # ==========================================================
-fig, axes = plt.subplots(1, 5, figsize=(22, 5))
+plt.rcParams.update({'font.size': 16, 'font.family': 'inter'})
+fig, axes = plt.subplots(5, 1, figsize=(5, 22))
 
 # Panel 1 — Ground truth (mask overlay + solid bbox outline for clarity)
 axes[0].imshow(img_np)
-axes[0].imshow(np.ma.masked_where(gt_mask == 0, gt_mask), cmap='Greens', alpha=0.5, vmin=0, vmax=1)
-if gt_bbox is not None:
-    r0, c0, r1, c1 = gt_bbox
-    axes[0].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
-                                fill=False, edgecolor='lime', linewidth=2.2))
-axes[0].set_title("1. Ground truth", fontsize=11)
+axes[0].imshow(np.ma.masked_where(gt_mask == 0, gt_mask), cmap='Greens', alpha=0.55, vmin=0, vmax=1)
+#if gt_bbox is not None:
+#    r0, c0, r1, c1 = gt_bbox
+#    axes[0].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
+#                                fill=False, edgecolor='lime', linewidth=2.2))
+axes[0].set_title("1. Ground truth", fontsize=14)
 axes[0].axis('off')
 
 # Panel 2 — Raw prediction (pre-post-processing, shows lead interference/fragmentation)
 axes[1].imshow(img_np)
-axes[1].imshow(np.ma.masked_where(raw_pred_mask == 0, raw_pred_mask), cmap='Blues', alpha=0.5, vmin=0, vmax=1)
-axes[1].set_title("2. Raw prediction\n(pre-post-processing)", fontsize=11)
+axes[1].imshow(np.ma.masked_where(raw_pred_mask == 0, raw_pred_mask), cmap='Blues', alpha=0.55, vmin=0, vmax=1)
+axes[1].set_title("2. Raw prediction", fontsize=14)
 axes[1].axis('off')
 
 # Panel 3 — Post-processed mask, before forced-square border step
 axes[2].imshow(img_np)
-axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.5, vmin=0, vmax=1)
-axes[2].set_title("3. Post-processed\n(close\u2192fill\u2192largest component\u2192hull)", fontsize=11)
+axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.55, vmin=0, vmax=1)
+axes[2].set_title("3. Post-processing)", fontsize=14)
+#axes[2].set_title("3. Post-processed\n(close\u2192fill\u2192largest component\u2192hull)", fontsize=14)
 axes[2].axis('off')
 
 # Panel 4 — Final bounding box (padded + forced square) on original image,
@@ -254,25 +256,25 @@ if final_bbox is not None:
     axes[3].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
                                 fill=False, edgecolor='red', linewidth=2,
                                 linestyle='--'))
-if tight_bbox is not None:
-    r0, c0, r1, c1 = tight_bbox
-    axes[3].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
-                                fill=False, edgecolor='yellow', linewidth=1.1,
-                                linestyle=':'))
-axes[3].set_title("4. Bounding box\n(green = GT, red dashed = final, yellow dotted = pre-square)",
-                  fontsize=10)
+#if tight_bbox is not None:
+#    r0, c0, r1, c1 = tight_bbox
+#    axes[3].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
+#                                fill=False, edgecolor='yellow', linewidth=1.1,
+#                                linestyle=':'))
+axes[3].set_title("4. Bounding box\n(green = GT, red dashed = final)",
+                  fontsize=14)
 axes[3].axis('off')
 
 # Panel 5 — Cropped output
 axes[4].imshow(cropped_img)
-axes[4].set_title("5. Final crop", fontsize=11)
+axes[4].set_title("5. Final crop", fontsize=14)
 axes[4].axis('off')
 
-fig.suptitle(f"Generator localization pipeline — {target_path.name}", fontsize=13, y=1.03)
+#fig.suptitle(f"Generator localization pipeline — {target_path.name}", fontsize=13, y=1.03)
 plt.tight_layout()
 
 out_file = pathlib.Path(out_path)
 out_file.parent.mkdir(parents=True, exist_ok=True)
-plt.savefig(out_file, dpi=200, bbox_inches='tight')
+plt.savefig(out_file, dpi=300, bbox_inches='tight')
 plt.close()
 print(f"Saved -> {out_file}")

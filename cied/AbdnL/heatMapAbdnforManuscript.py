@@ -42,7 +42,7 @@ set_seed(42)
 # ==========================================================
 path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
 path_weights    = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
-out_dir         = "C:/CIEDID_data/AbdnL/figures"
+out_dir         = "cied/AbdnL/figures"
 
 IMG_Size    = 640
 ABDN_CLASS_IDX = 3
@@ -61,9 +61,11 @@ img_files = get_image_files(path_img_folder)
 img_files_sorted = sorted(img_files)
 n_imgs = len(img_files_sorted)
 
+plt.rcParams.update({'font.family': 'inter'})
+
 fig4a_cases = [
-    {"filename": "a_x28.png", "label": "FN case 1 — ICD, single-chamber, 1 active lead", "gt_status": "GT: Abandoned lead PRESENT"},
-    {"filename": "a_x5.png",  "label": "FN case 2 — Leadless, 0 active leads",            "gt_status": "GT: Abandoned lead PRESENT"},
+    {"filename": "a_x28.png", "label": "False Negative case 1: Single-chamber ICD"},
+    {"filename": "a_x5.png",  "label": "False Negative case 2: Leadless Pacemaker"},
 ]
 
 # ==========================================================
@@ -72,9 +74,9 @@ fig4a_cases = [
 #    FP candidates available (locked error analysis, A3): 1122, 1417, 1477, 88, 964, 988
 # ==========================================================
 fig4b_cases = [
-    {"filename": "a_x1.png", "label": "True positive",  "gt_status": "GT: Abandoned lead PRESENT"},
-    {"filename": "1630.png", "label": "True negative",  "gt_status": "GT: Abandoned lead ABSENT"},
-    {"filename": "988.png",        "label": "False positive — CRT-P, 3 active leads", "gt_status": "GT: Abandoned lead ABSENT"},
+    {"filename": "a_x1.png", "label": "1)True positive"},
+    {"filename": "1630.png", "label": "2)True negative"},
+    {"filename": "988.png", "label": "3)False positive"},
 ]
 
 # ==========================================================
@@ -98,7 +100,7 @@ std  = torch.tensor([0.23788487911224365] * 3, device=device).view(3, 1, 1)
 # ==========================================================
 # 5. CORE INFERENCE + PLOTTING FUNCTION
 # ==========================================================
-def run_and_plot(cases, out_path, suptitle):
+def run_and_plot(cases, out_path):
     """
     cases: list of dicts with keys "filename", "label", "gt_status"
     Produces an n_rows x 2 figure (raw image | abandoned-lead probability
@@ -114,7 +116,7 @@ def run_and_plot(cases, out_path, suptitle):
         )
 
     n = len(cases)
-    fig, axes = plt.subplots(n, 2, figsize=(11, 4.3 * n))
+    fig, axes = plt.subplots(n, 2, figsize=(11, 5 * n))
     if n == 1:
         axes = np.expand_dims(axes, axis=0)
 
@@ -135,7 +137,7 @@ def run_and_plot(cases, out_path, suptitle):
         # --- Column 1: raw image ---
         raw_img = timg.permute(1, 2, 0).cpu().numpy()
         axes[i, 0].imshow(raw_img)
-        axes[i, 0].set_title(f"{case['label']}\n{case['gt_status']}", fontsize=10)
+        axes[i, 0].set_title(f"{case['label']}", fontsize=16, fontweight='bold', pad=5)
         axes[i, 0].axis('off')
 
         # --- Column 2: probability heatmap ---
@@ -146,22 +148,34 @@ def run_and_plot(cases, out_path, suptitle):
 
         status_text = "Model: DETECTED" if is_detected else "Model: NOT DETECTED"
         box_color = 'firebrick' if is_detected else 'seagreen'
-        axes[i, 1].text(
-            0.03, 0.95,
-            f"{status_text}\npixels > {threshold}: {pixel_count:,} (req. {pixel_min:,})",
-            transform=axes[i, 1].transAxes, ha='left', va='top',
-            color='white', fontsize=9.5, fontweight='bold',
-            bbox=dict(facecolor=box_color, alpha=0.75, edgecolor='none', pad=4)
-        )
+        
+        plt.rcParams.update({'font.family': 'inter'})
+        if cases == fig4a_cases:
+            axes[i, 1].text(
+                0.0, 0.98,
+                f"{status_text}\nRegions>{threshold} probability: {pixel_count:,}px (threshold: >{pixel_min:,})",
+                transform=axes[i, 1].transAxes, ha='left', va='top',
+                color='white',  fontweight='bold', fontsize=14,
+                bbox=dict(facecolor=box_color, alpha=0.75, edgecolor='none', pad=4)
+            )
+        if cases == fig4b_cases:
+            axes[i, 1].text(
+                0.0, 0.1,
+                f"{status_text}\nRegions>{threshold} probability: {pixel_count:,}px (threshold: >{pixel_min:,})",
+                transform=axes[i, 1].transAxes, ha='left', va='top',
+                color='white', fontweight='bold', fontsize=14,
+                bbox=dict(facecolor=box_color, alpha=0.75, edgecolor='none', pad=4)
+            )
         axes[i, 1].axis('off')
         plt.colorbar(im, ax=axes[i, 1], fraction=0.046, pad=0.04, label="Model-predicted probability")
 
-    fig.suptitle(suptitle, fontsize=12, y=1.0 if n == 1 else 1.01)
+    plt.rcParams.update({'font.size': 16, 'font.family': 'inter'})
+    #fig.suptitle(suptitle, fontsize=16, y=1.0 if n == 1 else 1.01)
     plt.tight_layout()
 
     out_file = pathlib.Path(out_dir) / out_path
     out_file.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(out_file, dpi=200, bbox_inches='tight')
+    plt.savefig(out_file, dpi=300, bbox_inches='tight')
     plt.close()
     print(f"Saved -> {out_file}")
 
@@ -173,10 +187,10 @@ if __name__ == "__main__":
     run_and_plot(
         fig4a_cases,
         out_path="fig4a_false_negative_cases.png",
-        suptitle="Figure 4a. Abandoned-lead probability heatmaps — false-negative cases (hold-out test set)"
+        #suptitle="Figure 4a. Abandoned-lead probability heatmaps: False-negative cases"
     )
     run_and_plot(
         fig4b_cases,
         out_path="fig4b_representative_cases.png",
-        suptitle="Figure 4b. Abandoned-lead probability heatmaps — representative TP / TN / FP cases"
+        #suptitle="Figure 4b. Abandoned-lead probability heatmaps: Representative TP / TN / FP cases"
     )
