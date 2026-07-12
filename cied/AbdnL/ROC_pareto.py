@@ -22,8 +22,8 @@ OUTPUT_PNG = "cied/AbdnL/roc_pareto_frontier.png"
 # Threshold combination(s) to highlight on the plot.
 # Multiple entries are supported for tied optima.
 SELECTED_THRESHOLDS = [
-    {"prob_threshold": 0.80, "pixel_threshold": 600, "label": "prob>0.8, pixel>600px"},
-    {"prob_threshold": 0.85, "pixel_threshold": 300, "label": "prob>0.85, pixel>300px (tie)"},
+    {"prob_threshold": 0.80, "pixel_threshold": 600, "label": "probability>0.8, pixel>600pixels"},
+    {"prob_threshold": 0.85, "pixel_threshold": 300, "label": "probability>0.85, pixel>300pixels (tie)"},
 ]
 
 
