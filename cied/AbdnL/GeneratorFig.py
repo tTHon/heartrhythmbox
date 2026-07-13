@@ -217,7 +217,7 @@ else:
 # 5. PLOT — 5 panels, left to right
 # ==========================================================
 plt.rcParams.update({'font.size': 16, 'font.family': 'inter'})
-fig, axes = plt.subplots(5, 1, figsize=(5, 22))
+fig, axes = plt.subplots(1, 5, figsize=(22, 5))
 
 # Panel 1 — Ground truth (mask overlay + solid bbox outline for clarity)
 axes[0].imshow(img_np)
