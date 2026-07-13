@@ -238,7 +238,7 @@ axes[1].axis('off')
 # Panel 3 — Post-processed mask, before forced-square border step
 axes[2].imshow(img_np)
 axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.55, vmin=0, vmax=1)
-axes[2].set_title("3. Post-processing)", fontsize=14)
+axes[2].set_title("3. Post-processing", fontsize=14)
 #axes[2].set_title("3. Post-processed\n(close\u2192fill\u2192largest component\u2192hull)", fontsize=14)
 axes[2].axis('off')
 
