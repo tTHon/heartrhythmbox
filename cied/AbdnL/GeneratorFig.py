@@ -58,7 +58,10 @@ path_mask_folder = "C:/CIEDID_data/AbdnL/test_mask"
 path_weights     = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
 out_path         = "cied/AbdnL/figures/fig_generator_pipeline.png"
 
-SELECTED_FILENAME = "1570.png"   # <-- pick the representative case
+#SELECTED_FILENAME = "1570.png"   # <-- pick the representative case
+#SELECTED_FILENAME = "1609.png"  #scICD
+SELECTED_FILENAME = "944.png"   # leadless
+
 
 IMG_Size      = 640
 GEN_CLASS     = 1
@@ -158,13 +161,13 @@ if not mask_path.exists():
 dls = SegmentationDataLoaders.from_label_func(
     pathlib.Path("."), bs=1, fnames=img_files[:1],
     label_func=lambda x: x, codes=CLASS_NAMES,
-    item_tfms=Resize(IMG_Size, method='pad')
+    item_tfms=Resize(IMG_Size, method='squash', pad_mode='zeros')
 )
 learn = unet_learner(dls, resnet50, n_out=len(CLASS_NAMES))
 learn.model.load_state_dict(torch.load(path_weights, map_location=device))
 learn.model.to(device).eval()
 
-timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros'),
+timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='squash', pad_mode='zeros'),
                       ToTensor(), IntToFloatTensor()])
 # NOTE: masks must use PILMask.create, NOT PILImage.create.
 # PILImage.create loads the label PNG as RGB (H,W,3) and Resize applies
@@ -173,7 +176,7 @@ timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='
 # bbox_from_mask() (written for a 2D array) then returned a wildly oversized
 # box. PILMask.create keeps it single-channel (H,W) and fastai dispatches
 # Resize to nearest-neighbor for PILMask, preserving exact integer labels.
-mask_pipe = Pipeline([PILMask.create, Resize(IMG_Size, method='pad', pad_mode='zeros')])
+mask_pipe = Pipeline([PILMask.create, Resize(IMG_Size, method='squash', pad_mode='zeros')])
 
 # ==========================================================
 # 4. INFERENCE
@@ -221,7 +224,7 @@ fig, axes = plt.subplots(1, 5, figsize=(22, 5))
 
 # Panel 1 — Ground truth (mask overlay + solid bbox outline for clarity)
 axes[0].imshow(img_np)
-axes[0].imshow(np.ma.masked_where(gt_mask == 0, gt_mask), cmap='Greens', alpha=0.55, vmin=0, vmax=1)
+axes[0].imshow(np.ma.masked_where(gt_mask == 0, gt_mask), cmap='Greens', alpha=0.45, vmin=0, vmax=1)
 #if gt_bbox is not None:
 #    r0, c0, r1, c1 = gt_bbox
 #    axes[0].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
@@ -231,13 +234,13 @@ axes[0].axis('off')
 
 # Panel 2 — Raw prediction (pre-post-processing, shows lead interference/fragmentation)
 axes[1].imshow(img_np)
-axes[1].imshow(np.ma.masked_where(raw_pred_mask == 0, raw_pred_mask), cmap='Blues', alpha=0.55, vmin=0, vmax=1)
+axes[1].imshow(np.ma.masked_where(raw_pred_mask == 0, raw_pred_mask), cmap='Blues', alpha=0.45, vmin=0, vmax=1)
 axes[1].set_title("2. Raw prediction", fontsize=14)
 axes[1].axis('off')
 
 # Panel 3 — Post-processed mask, before forced-square border step
 axes[2].imshow(img_np)
-axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.55, vmin=0, vmax=1)
+axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.45, vmin=0, vmax=1)
 axes[2].set_title("3. Post-processing", fontsize=14)
 #axes[2].set_title("3. Post-processed\n(close\u2192fill\u2192largest component\u2192hull)", fontsize=14)
 axes[2].axis('off')
