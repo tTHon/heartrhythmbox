@@ -1,4 +1,10 @@
 """
+#SELECTED_FILENAME = "1570.png"   # <-- pick the representative case
+#SELECTED_FILENAME = "1609.png"  #scICD
+SELECTED_FILENAME = "944.png"   # leadless
+
+fig_generator_pipeline.py
+
 fig_generator_pipeline.py
 ==========================
 Figure 2/3 (generator localization) — 5-panel pipeline visualization for a
@@ -41,6 +47,7 @@ from matplotlib.patches import Rectangle
 import scipy.ndimage as ndimage
 import skimage.measure
 from skimage.morphology import convex_hull_image
+from PIL import Image
 from fastai.vision.all import *
 
 # ── PyTorch 2.6+ fix ────────────────────────────────────────────────
@@ -60,8 +67,7 @@ out_path         = "cied/AbdnL/figures/fig_generator_pipeline.png"
 
 #SELECTED_FILENAME = "1570.png"   # <-- pick the representative case
 #SELECTED_FILENAME = "1609.png"  #scICD
-SELECTED_FILENAME = "944.png"   # leadless
-
+SELECTED_FILENAME = "1614.png"   # leadless
 
 IMG_Size      = 640
 GEN_CLASS     = 1
@@ -161,22 +167,60 @@ if not mask_path.exists():
 dls = SegmentationDataLoaders.from_label_func(
     pathlib.Path("."), bs=1, fnames=img_files[:1],
     label_func=lambda x: x, codes=CLASS_NAMES,
-    item_tfms=Resize(IMG_Size, method='squash', pad_mode='zeros')
+    item_tfms=Resize(IMG_Size, method='pad')
 )
 learn = unet_learner(dls, resnet50, n_out=len(CLASS_NAMES))
 learn.model.load_state_dict(torch.load(path_weights, map_location=device))
 learn.model.to(device).eval()
 
-timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='squash', pad_mode='zeros'),
+timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros'),
                       ToTensor(), IntToFloatTensor()])
-# NOTE: masks must use PILMask.create, NOT PILImage.create.
-# PILImage.create loads the label PNG as RGB (H,W,3) and Resize applies
-# bilinear interpolation by default, which blends label values at edges —
-# this silently produced a 3-channel, interpolation-corrupted "mask" whose
-# bbox_from_mask() (written for a 2D array) then returned a wildly oversized
-# box. PILMask.create keeps it single-channel (H,W) and fastai dispatches
-# Resize to nearest-neighbor for PILMask, preserving exact integer labels.
-mask_pipe = Pipeline([PILMask.create, Resize(IMG_Size, method='squash', pad_mode='zeros')])
+
+# ------------------------------------------------------------------
+# Manual shared-geometry pad+resize for the GT mask.
+# ------------------------------------------------------------------
+# Why not just use a second independent fastai Resize(method='pad') on the
+# mask (as before)? That computes its own scale/offset from the MASK file's
+# own (w, h). If the mask PNG (exported from LabelMe) and the source image
+# PNG don't have pixel-identical dimensions -- easy to happen across an
+# annotation/export pipeline -- the two independent Resize calls derive
+# slightly different geometry and the GT box/overlay drifts off the real
+# device position, exactly what was observed.
+#
+# Fix: compute the pad geometry ONCE from the image's own dimensions (which
+# is what fastai's Resize(method='pad') already does internally to build
+# `timg` above -- pad to a centered square of side max(w,h), then resize
+# that square to IMG_Size), and apply that *exact same* scale/offset to the
+# mask regardless of the mask file's own native resolution. This guarantees
+# both are expanded from the identical center, by construction.
+def _square_pad_geometry(w, h):
+    """Reproduces fastai Resize(method='pad'): pad to a centered square of
+    side max(w,h). Returns (side, left, top, right, bottom)."""
+    side = max(w, h)
+    pad_w, pad_h = side - w, side - h
+    left, top = pad_w // 2, pad_h // 2
+    return side, left, top, pad_w - left, pad_h - top
+
+
+def _pad_to_square_and_resize(pil_img, left, top, right, bottom, out_size, resample, fill=0):
+    canvas = Image.new(pil_img.mode,
+                       (pil_img.width + left + right, pil_img.height + top + bottom), fill)
+    canvas.paste(pil_img, (left, top))
+    return canvas.resize((out_size, out_size), resample)
+
+
+raw_img_pil  = Image.open(target_path).convert("RGB")
+raw_mask_pil = Image.open(mask_path)
+
+if raw_img_pil.size != raw_mask_pil.size:
+    print(f"⚠️  image size {raw_img_pil.size} != mask size {raw_mask_pil.size} — "
+          f"resizing mask onto the image's native pixel grid first (NEAREST) "
+          f"so the shared pad geometry below is computed from one consistent frame")
+    raw_mask_pil = raw_mask_pil.resize(raw_img_pil.size, Image.NEAREST)
+
+_left, _top, _right, _bottom = _square_pad_geometry(*raw_img_pil.size)[1:]
+mask_padded = _pad_to_square_and_resize(raw_mask_pil, _left, _top, _right, _bottom,
+                                        IMG_Size, resample=Image.NEAREST, fill=0)
 
 # ==========================================================
 # 4. INFERENCE
@@ -190,7 +234,7 @@ with torch.no_grad():
 
 raw_pred_mask = (pred == GEN_CLASS).astype(np.uint8)
 
-gt_mask_img = np.array(mask_pipe(mask_path))
+gt_mask_img = np.array(mask_padded)
 gt_mask = (gt_mask_img == GEN_CLASS).astype(np.uint8)
 
 # GT bounding box — tight box around the ground-truth generator mask.
@@ -205,7 +249,12 @@ proc_mask, tight_bbox, _ = postprocess_generator_mask(
 # Panel 4: final bbox AFTER border padding + forced square + clip
 final_bbox = add_border(tight_bbox, raw_pred_mask.shape, border_frac) if tight_bbox else None
 
-#img_np = (timg.cpu() * STD + MEAN).clamp(0, 1).permute(1, 2, 0).numpy()
+# timg is the RAW (unnormalized) tensor already in [0,1] from IntToFloatTensor —
+# only timg_norm (timg - MEAN)/STD was normalized before feeding the model.
+# Previously this line mistakenly re-applied the *denormalize* formula
+# (timg * STD + MEAN) to timg itself, which was never normalized — that
+# squashed the full [0,1] pixel range into roughly [0.515, 0.753], which is
+# exactly why the X-ray looked washed out / low-contrast. Use timg directly.
 img_np = timg.cpu().clamp(0, 1).permute(1, 2, 0).numpy()
 
 # Panel 5: cropped output
@@ -219,7 +268,6 @@ else:
 # ==========================================================
 # 5. PLOT — 5 panels, left to right
 # ==========================================================
-plt.rcParams.update({'font.size': 16, 'font.family': 'inter'})
 fig, axes = plt.subplots(1, 5, figsize=(22, 5))
 
 # Panel 1 — Ground truth (mask overlay + solid bbox outline for clarity)
@@ -229,20 +277,19 @@ axes[0].imshow(np.ma.masked_where(gt_mask == 0, gt_mask), cmap='Greens', alpha=0
 #    r0, c0, r1, c1 = gt_bbox
 #    axes[0].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
 #                                fill=False, edgecolor='lime', linewidth=2.2))
-axes[0].set_title("1. Ground truth", fontsize=14)
+axes[0].set_title("1. Ground truth", fontsize=11)
 axes[0].axis('off')
 
 # Panel 2 — Raw prediction (pre-post-processing, shows lead interference/fragmentation)
 axes[1].imshow(img_np)
 axes[1].imshow(np.ma.masked_where(raw_pred_mask == 0, raw_pred_mask), cmap='Blues', alpha=0.45, vmin=0, vmax=1)
-axes[1].set_title("2. Raw prediction", fontsize=14)
+axes[1].set_title("2. Raw prediction\n(pre-post-processing)", fontsize=11)
 axes[1].axis('off')
 
 # Panel 3 — Post-processed mask, before forced-square border step
 axes[2].imshow(img_np)
-axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.45, vmin=0, vmax=1)
-axes[2].set_title("3. Post-processing", fontsize=14)
-#axes[2].set_title("3. Post-processed\n(close\u2192fill\u2192largest component\u2192hull)", fontsize=14)
+axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.5, vmin=0, vmax=1)
+axes[2].set_title("3. Post-processed\n(close\u2192fill\u2192largest component\u2192hull)", fontsize=11)
 axes[2].axis('off')
 
 # Panel 4 — Final bounding box (padded + forced square) on original image,
@@ -264,20 +311,20 @@ if final_bbox is not None:
 #    axes[3].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
 #                                fill=False, edgecolor='yellow', linewidth=1.1,
 #                                linestyle=':'))
-axes[3].set_title("4. Bounding box\n(green = GT, red dashed = final)",
-                  fontsize=14)
+axes[3].set_title("4. Bounding box\n(green = Ground Truth, red dashed = final)",
+                  fontsize=10)
 axes[3].axis('off')
 
 # Panel 5 — Cropped output
 axes[4].imshow(cropped_img)
-axes[4].set_title("5. Final crop", fontsize=14)
+axes[4].set_title("5. Final crop", fontsize=11)
 axes[4].axis('off')
 
-#fig.suptitle(f"Generator localization pipeline — {target_path.name}", fontsize=13, y=1.03)
+fig.suptitle(f"Generator localization pipeline — {target_path.name}", fontsize=13, y=1.03)
 plt.tight_layout()
 
 out_file = pathlib.Path(out_path)
 out_file.parent.mkdir(parents=True, exist_ok=True)
-plt.savefig(out_file, dpi=300, bbox_inches='tight')
+plt.savefig(out_file, dpi=200, bbox_inches='tight')
 plt.close()
 print(f"Saved -> {out_file}")
