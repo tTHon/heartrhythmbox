@@ -1,9 +1,8 @@
 """
 #SELECTED_FILENAME = "1570.png"   # <-- pick the representative case
 #SELECTED_FILENAME = "1609.png"  #scICD
-SELECTED_FILENAME = "944.png"   # leadless
+SELECTED_FILENAME = "1614.png"   # leadless
 
-fig_generator_pipeline.py
 
 fig_generator_pipeline.py
 ==========================
@@ -65,15 +64,20 @@ path_mask_folder = "C:/CIEDID_data/AbdnL/test_mask"
 path_weights     = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
 out_path         = "cied/AbdnL/figures/fig_generator_pipeline.png"
 
-#SELECTED_FILENAME = "1570.png"   # <-- pick the representative case
-#SELECTED_FILENAME = "1609.png"  #scICD
-SELECTED_FILENAME = "1614.png"   # leadless
+SELECTED_FILENAME = "1614.png"   # <-- pick the representative case
 
 IMG_Size      = 640
 GEN_CLASS     = 1
 CLASS_NAMES   = ["background", "generator", "lead", "abandoned_lead"]
 min_area_frac = 0.00227
 border_frac   = 0.05
+
+# Locked spatial prior for post-processing (from n=199 training/CV masks,
+# empirical centroid range row=0.146-0.894, col=0.093-0.951, +0.10 margin
+# -> final zone below). Nearly unconstrained on columns; mainly rejects
+# candidates whose centroid falls in the extreme top/bottom margins (e.g.
+# corner logos/markers picked up as spurious "generator" blobs).
+SPATIAL_PRIOR = {"row_min": 0.046, "row_max": 0.994, "col_min": 0.000, "col_max": 1.000}
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -173,29 +177,27 @@ learn = unet_learner(dls, resnet50, n_out=len(CLASS_NAMES))
 learn.model.load_state_dict(torch.load(path_weights, map_location=device))
 learn.model.to(device).eval()
 
-timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros'),
-                      ToTensor(), IntToFloatTensor()])
+# ------------------------------------------------------------------
+# *** CONFIRMED BUG, FIXED BELOW ***
+# fastai's Resize(method='pad') decides its padding offset in before_call:
+#     self.pcts = (0.5,0.5) if split_idx else (random.random(),random.random())
+# split_idx is only set to 1 (deterministic, centered) when the transform
+# runs inside a real fastai DataLoaders (train=0, valid=1). Called via a
+# bare Pipeline (as this script previously did), split_idx is None (falsy)
+# -> RANDOM pcts every single call. Verified empirically: calling the same
+# Pipeline twice on the identical image produced two different padding
+# offsets. This -- not the mask loading -- was the actual source of the
+# persistent misalignment: the displayed image itself was silently
+# shifting on every run.
+# Fix: bypass fastai's Resize entirely for this script and use the same
+# manual, deterministic centered pad+resize as the mask (below), built from
+# one shared geometry so image and mask are guaranteed pixel-aligned and
+# the figure is reproducible run-to-run.
+# ------------------------------------------------------------------
 
-# ------------------------------------------------------------------
-# Manual shared-geometry pad+resize for the GT mask.
-# ------------------------------------------------------------------
-# Why not just use a second independent fastai Resize(method='pad') on the
-# mask (as before)? That computes its own scale/offset from the MASK file's
-# own (w, h). If the mask PNG (exported from LabelMe) and the source image
-# PNG don't have pixel-identical dimensions -- easy to happen across an
-# annotation/export pipeline -- the two independent Resize calls derive
-# slightly different geometry and the GT box/overlay drifts off the real
-# device position, exactly what was observed.
-#
-# Fix: compute the pad geometry ONCE from the image's own dimensions (which
-# is what fastai's Resize(method='pad') already does internally to build
-# `timg` above -- pad to a centered square of side max(w,h), then resize
-# that square to IMG_Size), and apply that *exact same* scale/offset to the
-# mask regardless of the mask file's own native resolution. This guarantees
-# both are expanded from the identical center, by construction.
 def _square_pad_geometry(w, h):
-    """Reproduces fastai Resize(method='pad'): pad to a centered square of
-    side max(w,h). Returns (side, left, top, right, bottom)."""
+    """Deterministic centered pad-to-square geometry: side=max(w,h),
+    returns (side, left, top, right, bottom)."""
     side = max(w, h)
     pad_w, pad_h = side - w, side - h
     left, top = pad_w // 2, pad_h // 2
@@ -218,14 +220,24 @@ if raw_img_pil.size != raw_mask_pil.size:
           f"so the shared pad geometry below is computed from one consistent frame")
     raw_mask_pil = raw_mask_pil.resize(raw_img_pil.size, Image.NEAREST)
 
-_left, _top, _right, _bottom = _square_pad_geometry(*raw_img_pil.size)[1:]
+# Geometry computed ONCE from the image's own dimensions, reused verbatim
+# for both the image and the mask -> guaranteed identical alignment.
+_side, _left, _top, _right, _bottom = _square_pad_geometry(*raw_img_pil.size)
+
+img_padded  = _pad_to_square_and_resize(raw_img_pil, _left, _top, _right, _bottom,
+                                        IMG_Size, resample=Image.BILINEAR, fill=0)
 mask_padded = _pad_to_square_and_resize(raw_mask_pil, _left, _top, _right, _bottom,
                                         IMG_Size, resample=Image.NEAREST, fill=0)
+
+# timg built manually from img_padded (deterministic) instead of timg_pipe
+# (random) — same normalization (ToTensor + IntToFloatTensor equivalent:
+# HWC uint8 [0,255] -> CHW float32 [0,1]).
+timg = torch.from_numpy(np.array(img_padded)).permute(2, 0, 1).float() / 255.0
 
 # ==========================================================
 # 4. INFERENCE
 # ==========================================================
-timg = timg_pipe(target_path).to(device)
+timg = timg.to(device)
 timg_norm = (timg - MEAN.to(device)) / STD.to(device)
 
 with torch.no_grad():
@@ -244,7 +256,7 @@ gt_bbox = bbox_from_mask(gt_mask)
 
 # Panel 3: post-processed mask, BEFORE border padding / forced square
 proc_mask, tight_bbox, _ = postprocess_generator_mask(
-    raw_pred_mask, IMG_Size, min_area_frac=min_area_frac, spatial_prior=None)
+    raw_pred_mask, IMG_Size, min_area_frac=min_area_frac, spatial_prior=SPATIAL_PRIOR)
 
 # Panel 4: final bbox AFTER border padding + forced square + clip
 final_bbox = add_border(tight_bbox, raw_pred_mask.shape, border_frac) if tight_bbox else None
@@ -269,6 +281,7 @@ else:
 # 5. PLOT — 5 panels, left to right
 # ==========================================================
 fig, axes = plt.subplots(1, 5, figsize=(22, 5))
+plt.rcParams.update({'font.family': 'inter'})
 
 # Panel 1 — Ground truth (mask overlay + solid bbox outline for clarity)
 axes[0].imshow(img_np)
@@ -283,13 +296,13 @@ axes[0].axis('off')
 # Panel 2 — Raw prediction (pre-post-processing, shows lead interference/fragmentation)
 axes[1].imshow(img_np)
 axes[1].imshow(np.ma.masked_where(raw_pred_mask == 0, raw_pred_mask), cmap='Blues', alpha=0.45, vmin=0, vmax=1)
-axes[1].set_title("2. Raw prediction\n(pre-post-processing)", fontsize=11)
+axes[1].set_title("2. Raw prediction", fontsize=11, fontfamily='inter')
 axes[1].axis('off')
 
 # Panel 3 — Post-processed mask, before forced-square border step
 axes[2].imshow(img_np)
-axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.5, vmin=0, vmax=1)
-axes[2].set_title("3. Post-processed\n(close\u2192fill\u2192largest component\u2192hull)", fontsize=11)
+axes[2].imshow(np.ma.masked_where(proc_mask == 0, proc_mask), cmap='Oranges', alpha=0.45, vmin=0, vmax=1)
+axes[2].set_title("3. Post-processing", fontsize=11, fontfamily='inter')
 axes[2].axis('off')
 
 # Panel 4 — Final bounding box (padded + forced square) on original image,
@@ -311,20 +324,20 @@ if final_bbox is not None:
 #    axes[3].add_patch(Rectangle((c0, r0), c1 - c0, r1 - r0,
 #                                fill=False, edgecolor='yellow', linewidth=1.1,
 #                                linestyle=':'))
-axes[3].set_title("4. Bounding box\n(green = Ground Truth, red dashed = final)",
-                  fontsize=10)
+axes[3].set_title("4. Bounding box\n(green = Ground truth, red dashed = final)",
+                  fontsize=10, fontfamily='inter')
 axes[3].axis('off')
 
 # Panel 5 — Cropped output
 axes[4].imshow(cropped_img)
-axes[4].set_title("5. Final crop", fontsize=11)
+axes[4].set_title("5. Final crop", fontsize=11, fontfamily='inter')
 axes[4].axis('off')
 
-fig.suptitle(f"Generator localization pipeline — {target_path.name}", fontsize=13, y=1.03)
+#fig.suptitle(f"Generator localization pipeline — {target_path.name}", fontsize=13, y=1.03)
 plt.tight_layout()
 
 out_file = pathlib.Path(out_path)
 out_file.parent.mkdir(parents=True, exist_ok=True)
-plt.savefig(out_file, dpi=200, bbox_inches='tight')
+plt.savefig(out_file, dpi=300, bbox_inches='tight')
 plt.close()
 print(f"Saved -> {out_file}")
