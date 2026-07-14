@@ -416,10 +416,11 @@ def build_dataframe(args):
 
     Two modes:
     1. Single split (args.fold == -1, default):
-       Classic 80/20 stratified split — same as before.
+       Classic 80/20 stratified split by abandoned leads.
 
     2. K-Fold CV (args.fold in 0..n_splits-1):
        StratifiedKFold with n_splits=args.n_splits.
+       Stratified by abandoned leads.
        The chosen fold index is used as the validation set.
        This allows running 5 independent training runs by
        setting --fold 0, --fold 1, ..., --fold 4.
