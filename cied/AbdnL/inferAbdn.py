@@ -13,7 +13,7 @@ from fastai.vision.all import *
 class_names = ["background", "generator", "lead", "abandoned_lead"]
 path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
 path_img = "cied\Dataset\micraWAbdn.png" # เปลี่ยนเป็นรูปที่อยากลอง
-IMG_Size = 512  # ขนาดที่โมเดลใช้ตอนเทรน (ต้องเหมือนกันเป๊ะๆ)
+IMG_Size = 640  # ขนาดที่โมเดลใช้ตอนเทรน (ต้องเหมือนกันเป๊ะๆ)
 
 # 2. สร้างโครงสร้างโมเดล (ต้องเหมือนตอนเทรนเป๊ะๆ)
 # ใช้ ResNet50 และ n_out=4 ตามที่คุณเทรนไว้
@@ -37,7 +37,7 @@ with torch.no_grad():
     mask, _, probs = learn.predict(img)
 
 # --- ส่วนที่แก้ไข: การใช้ Probability Threshold ---
-abdn_threshold = 0.5  # ปรับได้ตามต้องการ (เช่น 0.7 หรือ 0.85)
+abdn_threshold = 0.8 # ปรับได้ตามต้องการ (เช่น 0.7 หรือ 0.85)
 generator_threshold = 0.5  # สำหรับ Class 1 (Generator) ถ้าต้องการกรองด้วย
 
 # 1. ดึง mask พื้นฐานที่โมเดลเลือกคลาสที่เด่นที่สุดมาให้ (มีทั้ง 0, 1, 2, 3)
@@ -70,8 +70,8 @@ found_classes = np.unique(final_mask)
 print(f"Classes found in this image: {found_classes}")
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
-# 1. เตรียมภาพต้นฉบับให้เป็น 512 พร้อม Padding เหมือนที่โมเดลใช้
-img_padded = learn.dls.after_item(img) # FastAI จะทำ Resize(512, method='pad') ให้
+# 1. เตรียมภาพต้นฉบับให้เป็น 640 พร้อม Padding เหมือนที่โมเดลใช้
+img_padded = learn.dls.after_item(img) # FastAI จะทำ Resize(640, method='pad') ให้
 if isinstance(img_padded, torch.Tensor):
     # .permute(1, 2, 0) คือการย้ายแกนที่ 0 (Channel) ไปไว้ลำดับสุดท้าย
     img_padded = img_padded.permute(1, 2, 0).cpu().numpy()
