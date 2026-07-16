@@ -20,6 +20,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from fastai.vision.all import *
+from PIL import Image
+import torchvision.transforms.functional as TVF
 
 
 # ==========================================================
@@ -36,6 +38,56 @@ def set_seed(seed=42):
     torch.backends.cudnn.benchmark = False
 
 set_seed(42)
+
+# ==========================================================
+# 0b. DETERMINISTIC RESIZE + PAD (replaces fastai Resize(method='pad'))
+# ==========================================================
+# WHY:
+#   fastai's Resize(method='pad') is a RandTransform. Its padding position
+#   is only guaranteed deterministic (centered) when the transform "knows"
+#   it is operating on the valid/test split (split_idx=1), which happens
+#   automatically inside a DataLoaders pipeline via ColSplitter/Datasets.
+#   Here we call Resize directly inside a standalone Pipeline([...]),
+#   so split_idx defaults to None and the transform can behave as if it
+#   were on the train split — jittering the padding offset on every call,
+#   even with a fixed global seed (the RNG has already been advanced by a
+#   different number of draws by the time this call happens).
+#   That shifts the image (and therefore the predicted abandoned-lead
+#   region) by a few pixels between runs/scripts, changing the pixel
+#   count used against the locked prob>0.80 / pixel>600 threshold.
+#
+# FIX:
+#   Implement the resize+pad ourselves with plain PIL/torchvision ops that
+#   have no randomness at all: resize preserving aspect ratio so the long
+#   side == IMG_Size, then paste onto a zero-filled IMG_Size x IMG_Size
+#   canvas, centered. This always produces the identical output for the
+#   identical input, regardless of call context or how many other random
+#   draws preceded it.
+# ==========================================================
+def resize_pad_deterministic(img: Image.Image, size: int) -> Image.Image:
+    """Aspect-ratio-preserving resize (long side -> size) + centered zero-pad
+    to size x size. Deterministic: no dependence on split_idx or RNG state."""
+    w, h = img.size
+    scale = size / max(w, h)
+    new_w, new_h = round(w * scale), round(h * scale)
+    img_resized = img.resize((new_w, new_h), Image.BILINEAR)
+
+    canvas = Image.new(img.mode, (size, size), 0)  # pad_mode='zeros'
+    left = (size - new_w) // 2
+    top  = (size - new_h) // 2
+    canvas.paste(img_resized, (left, top))
+    return canvas
+
+
+def load_and_preprocess(img_path, size: int) -> torch.Tensor:
+    """Deterministic replacement for
+    Pipeline([PILImage.create, Resize(size, method='pad', pad_mode='zeros'),
+              ToTensor(), IntToFloatTensor()])
+    Returns a float tensor (3, size, size) in [0, 1], CPU."""
+    img = Image.open(img_path).convert("RGB")
+    img = resize_pad_deterministic(img, size)
+    return TVF.to_tensor(img)  # already float32 in [0, 1], matches IntToFloatTensor output
+
 
 # ==========================================================
 # 1. SETTINGS
@@ -80,8 +132,13 @@ fig4b_cases = [
 ]
 
 # ==========================================================
-# 4. LOAD MODEL & PIPELINE (unchanged from heatMapAbdn.py)
+# 4. LOAD MODEL
 # ==========================================================
+# NOTE: this `dls` is only used to give unet_learner() the model
+# architecture/shape (input channels, n_out, etc.) so we can load the
+# state_dict into it. It is NOT used to preprocess the actual inference
+# images below — that now goes through load_and_preprocess() (section 0b)
+# so the padding is always deterministic regardless of this dls' transforms.
 img_files = get_image_files(path_img_folder)
 dls = SegmentationDataLoaders.from_label_func(
     pathlib.Path("."), bs=1, fnames=img_files[:1],
@@ -92,9 +149,9 @@ learn = unet_learner(dls, resnet50, n_out=4)
 learn.model.load_state_dict(torch.load(path_weights, map_location=device))
 learn.model.to(device).eval()
 
-timg_pipe = Pipeline([PILImage.create, Resize(IMG_Size, method='pad', pad_mode='zeros'), ToTensor(), IntToFloatTensor()])
-mean = torch.tensor([0.5150052309036255] * 3, device=device).view(3, 1, 1)
-std  = torch.tensor([0.23788487911224365] * 3, device=device).view(3, 1, 1)
+# แก้ไขใน Section 4 ของ heatMapAbdn.py
+mean = torch.tensor([0.5150052309036255, 0.5150052309036255, 0.515005230903625], device=device).view(3, 1, 1)
+std  = torch.tensor([0.23788487911224365, 0.23788487911224365, 0.23788487911224365], device=device).view(3, 1, 1)
 
 
 # ==========================================================
@@ -123,7 +180,7 @@ def run_and_plot(cases, out_path):
     for i, case in enumerate(cases):
         img_path = name_to_path[case["filename"]]
 
-        timg = timg_pipe(img_path).to(device)
+        timg = load_and_preprocess(img_path, IMG_Size).to(device)
         timg_norm = (timg - mean) / std
 
         with torch.no_grad():
@@ -150,6 +207,7 @@ def run_and_plot(cases, out_path):
         box_color = 'firebrick' if is_detected else 'seagreen'
         
         plt.rcParams.update({'font.family': 'inter'})
+        """
         if cases == fig4a_cases:
             axes[i, 1].text(
                 0.0, 0.98,
@@ -166,7 +224,9 @@ def run_and_plot(cases, out_path):
                 color='white', fontweight='bold', fontsize=14,
                 bbox=dict(facecolor=box_color, alpha=0.75, edgecolor='none', pad=4)
             )
+        """
         axes[i, 1].axis('off')
+       
         plt.colorbar(im, ax=axes[i, 1], fraction=0.046, pad=0.04, label="Model-predicted probability")
 
     plt.rcParams.update({'font.size': 16, 'font.family': 'inter'})
