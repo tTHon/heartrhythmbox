@@ -78,7 +78,7 @@ def auto_crop_center(img, threshold=0.05):
 # ==========================================================
 # 4. PROCESSING SELECTED IMAGES (SIDE-BY-SIDE VIEW)
 # ==========================================================
-selected_filenames = ["a_x23.png"]
+selected_filenames = ["a_x1.png"]
 selected_imgs = [p for p in img_files if p.name in selected_filenames]
 
 missing = set(selected_filenames) - {p.name for p in selected_imgs}
