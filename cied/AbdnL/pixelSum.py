@@ -10,10 +10,15 @@
 #                                number that explains class-weight choice,
 #                                since FocalDiceLoss weights operate on
 #                                pooled pixels, not per-image.
-#   2. PER-CASE MEDIAN [IQR]  — among images where abandoned_lead is
+#   2. PER-CASE MEDIAN [IQR]  — among images where a given class is
 #                                PRESENT, the % of that image's pixels
-#                                occupied by abandoned_lead. Characterizes
-#                                typical lesion size, not class imbalance.
+#                                occupied by that class. Characterizes
+#                                typical lesion/lead size, not class imbalance.
+#
+# CHANGE vs original: per-case stats are now computed for BOTH
+#   class 2 (active lead) and class 3 (abandoned_lead), not just
+#   abandoned_lead -- needed to fill the "Active lead" row of
+#   Supplementary Table S2 (previously left blank).
 #
 # Usage:
 #   python summarize_pixel_distribution.py \
@@ -27,6 +32,9 @@ import pandas as pd
 from PIL import Image
 
 CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"]
+
+# classes for which we want per-case (class-present-only) coverage stats
+PER_CASE_CLASSES = {2: "active_lead", 3: "abandoned_lead"}
 
 
 def find_mask_for_image(img_path: pathlib.Path, masks_dir: pathlib.Path):
@@ -79,8 +87,8 @@ def summarize(df: pd.DataFrame):
     print("\n--- Pixel-level distribution (OVERALL POOLED across all images) ---")
     pixel_counts = {i: 0 for i in range(len(CLASS_NAMES))}
     total_pixels = 0
-    # per-case abandoned_lead % (for cases where present) — collected in same pass
-    per_case_abdn_pct = []
+    # per-case % for each class in PER_CASE_CLASSES (collected in same pass)
+    per_case_pct = {c: [] for c in PER_CASE_CLASSES}
 
     for _, row in df.iterrows():
         arr = np.array(Image.open(row["mask"]))
@@ -95,8 +103,9 @@ def summarize(df: pd.DataFrame):
                 pixel_counts[v] += int(c)
                 case_counts[v] = int(c)
 
-        if case_counts[3] > 0:  # abandoned_lead present in this case
-            per_case_abdn_pct.append(100 * case_counts[3] / img_total)
+        for cls_idx in PER_CASE_CLASSES:
+            if case_counts[cls_idx] > 0:  # this class present in this case
+                per_case_pct[cls_idx].append(100 * case_counts[cls_idx] / img_total)
 
     for i, name in enumerate(CLASS_NAMES):
         pct = 100 * pixel_counts[i] / total_pixels if total_pixels > 0 else 0
@@ -107,20 +116,30 @@ def summarize(df: pd.DataFrame):
     abdn_overall_pct = 100 * pixel_counts[3] / total_pixels if total_pixels > 0 else 0
     print(f"    {abdn_overall_pct:.3f}% of all pixels across the dataset")
 
-    # ---- Per-case stats (cases WITH abandoned_lead present only) ----
-    print("\n--- Per-case abandoned_lead pixel %, among cases where PRESENT "
-          f"(n={len(per_case_abdn_pct)}) ---")
-    if per_case_abdn_pct:
-        arr = np.array(per_case_abdn_pct)
-        median = np.median(arr)
-        q1, q3 = np.percentile(arr, [25, 75])
-        print(f"    Median [IQR]: {median:.3f}% [{q1:.3f}–{q3:.3f}%]")
-        print(f"    Min–Max:      {arr.min():.3f}%–{arr.max():.3f}%")
-        print("\n>>> Use this for optional supplementary lesion-size characterization:")
-        print(f'    "Among cases with abandoned lead present, the lesion occupied a '
-              f'median of {median:.3f}% [IQR {q1:.3f}\u2013{q3:.3f}%] of image pixels."')
-    else:
-        print("    No cases with abandoned_lead found.")
+    # ---- Per-case stats (for each class in PER_CASE_CLASSES, cases where PRESENT only) ----
+    per_case_stats = {}
+    for cls_idx, cls_label in PER_CASE_CLASSES.items():
+        vals = per_case_pct[cls_idx]
+        print(f"\n--- Per-case {CLASS_NAMES[cls_idx]} pixel %, among cases where PRESENT "
+              f"(n={len(vals)}) ---")
+        if vals:
+            arr = np.array(vals)
+            median = np.median(arr)
+            q1, q3 = np.percentile(arr, [25, 75])
+            vmin, vmax = arr.min(), arr.max()
+            print(f"    Median [IQR]: {median:.3f}% [{q1:.3f}\u2013{q3:.3f}%]")
+            print(f"    Min\u2013Max:      {vmin:.3f}%\u2013{vmax:.3f}%")
+            print(f'    For Supplementary Table S2 ("Pixel coverage among class-present '
+                  f'cases only"):')
+            print(f'    "Median {median:.1f}% (IQR {q1:.2f}-{q3:.2f}%), '
+                  f'Range {vmin:.2f}-{vmax:.2f}%"')
+            per_case_stats[cls_idx] = {
+                "median": median, "q1": q1, "q3": q3, "min": vmin, "max": vmax,
+                "n": len(vals),
+            }
+        else:
+            print(f"    No cases with {CLASS_NAMES[cls_idx]} found.")
+            per_case_stats[cls_idx] = None
 
     print("\n>>> Suggested Methods sentence (overall, for class-weight justification):")
     print(f'    "Abandoned lead pixels constituted the smallest proportion of all '
@@ -134,7 +153,8 @@ def summarize(df: pd.DataFrame):
         "pixel_counts": pixel_counts,
         "total_pixels": total_pixels,
         "abdn_overall_pct": abdn_overall_pct,
-        "per_case_abdn_pct": per_case_abdn_pct,
+        "per_case_pct": per_case_pct,
+        "per_case_stats": per_case_stats,
     }
 
 
@@ -142,8 +162,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
-    parser.add_argument("--save_csv", default="C:/CIEDID_data/AbdnL/per_case_abdn_pct.csv",
-                         help="Optional path to save per-case abandoned_lead %% as CSV")
+    parser.add_argument("--save_csv_dir", default="C:/CIEDID_data/AbdnL",
+                         help="Optional directory to save per-case %% CSVs for each tracked class")
     args = parser.parse_args()
 
     imgs_dir = pathlib.Path(args.new_imgs)
@@ -160,11 +180,14 @@ def main():
 
     results = summarize(df)
 
-    if args.save_csv and results["per_case_abdn_pct"]:
-        out_path = pathlib.Path(args.save_csv)
-        pd.DataFrame({"abandoned_lead_pct": results["per_case_abdn_pct"]}).to_csv(
-            out_path, index=False)
-        print(f"📄 Per-case abandoned_lead %% saved → {out_path}")
+    if args.save_csv_dir:
+        out_dir = pathlib.Path(args.save_csv_dir)
+        for cls_idx, cls_label in PER_CASE_CLASSES.items():
+            vals = results["per_case_pct"][cls_idx]
+            if vals:
+                out_path = out_dir / f"per_case_{cls_label}_pct.csv"
+                pd.DataFrame({f"{cls_label}_pct": vals}).to_csv(out_path, index=False)
+                print(f"📄 Per-case {cls_label} %% saved → {out_path}")
 
 
 if __name__ == "__main__":
