@@ -34,7 +34,12 @@ from PIL import Image
 CLASS_NAMES = ["background", "generator", "lead", "abandoned_lead"]
 
 # classes for which we want per-case (class-present-only) coverage stats
-PER_CASE_CLASSES = {2: "active_lead", 3: "abandoned_lead"}
+# NOTE: extended to include background (0) and generator (1) as well, even
+# though they are present in 100% of cases -- this keeps every row of
+# Supplementary Table S2 reporting the SAME statistic (median [IQR], range
+# of per-case %), rather than mixing pooled-% for two rows with per-case
+# median/IQR for the other two.
+PER_CASE_CLASSES = {0: "background", 1: "generator", 2: "active_lead", 3: "abandoned_lead"}
 
 
 def find_mask_for_image(img_path: pathlib.Path, masks_dir: pathlib.Path):

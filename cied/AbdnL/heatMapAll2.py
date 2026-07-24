@@ -28,7 +28,7 @@ set_seed(42)
 # ==========================================================
 # 1. SETTINGS & PARAMETERS
 # ==========================================================
-path_img_folder = "C:/CIEDID_data"
+path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
 path_weights    = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
 IMG_Size = 640
 
