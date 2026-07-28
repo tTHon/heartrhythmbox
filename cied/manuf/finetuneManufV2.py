@@ -49,15 +49,38 @@ ORIG_VOCAB:
 import argparse
 import copy
 import time
+import platform
+import pathlib
 from pathlib import Path
 
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
+from fastai.vision.all import load_learner
 from PIL import Image
 import pickle
 import numpy as np
+
+ 
+# Windows/Linux path-class fix: the pretrained .pkl may have been pickled on
+# a different OS than the one loading it now (e.g. saved with PosixPath on
+# Linux, loaded on Windows). Without this, unpickling raises
+# "cannot instantiate 'PosixPath' on your system". Same fix as finetuneCV.py
+# and genCrop_batch.py.
+if platform.system() == 'Windows':
+    pathlib.PosixPath = pathlib.WindowsPath
+else:
+    pathlib.WindowsPath = pathlib.PosixPath
+
+# PyTorch 2.6+ fix: monkey-patch torch.load to use weights_only=False for
+# fastai compatibility (fastai Learner pickles need full unpickling, not the
+# restricted weights-only mode that became default in torch 2.6)
+_original_torch_load = torch.load
+def _patched_torch_load(*args, **kwargs):
+    kwargs.setdefault('weights_only', False)
+    return _original_torch_load(*args, **kwargs)
+torch.load = _patched_torch_load
 import pandas as pd
 from sklearn.model_selection import train_test_split, StratifiedKFold
 
@@ -124,8 +147,13 @@ VAL_TF = transforms.Compose([
 # ────────────────────────────────────────────────
 
 def load_pkl(path: str):
-    with open(path, "rb") as f:
-        return pickle.load(f)
+    """
+    classification_manuf.pkl is a fastai-exported Learner (torch.save-based,
+    with persistent_id references for tensor storage) — same format as
+    segmentation.pkl elsewhere in the pipeline. Plain pickle.load() cannot
+    open this; fastai's load_learner() is required.
+    """
+    return load_learner(path, cpu=(DEVICE == "cpu"))
 
 
 def extract_pytorch_model(obj) -> nn.Module:
@@ -374,17 +402,18 @@ def load_finetuned(finetuned_pkl: str, original_pkl: str):
 # ────────────────────────────────────────────────
 
 def main():
+    global BATCH_SIZE   # ต้องประกาศก่อนมีการใช้ชื่อ BATCH_SIZE ใดๆ ในฟังก์ชันนี้
     parser = argparse.ArgumentParser(
         description="Finetune manufacturer classifier (5-class head preserved, Vitatron masked)"
     )
-    parser.add_argument("--model",      default="classification_manuf.pkl")
+    parser.add_argument("--model",      default="C:/CIEDID_data/pkl/classification_manuf.pkl")
     parser.add_argument("--labels_csv", default="C:/CIEDID_data/main_workbook.csv")
-    parser.add_argument("--crop_dir",   default="C:/CIEDID_data/crop_image")
-    parser.add_argument("--output_dir", default="C:/CIEDID_data/ManufID/models")
+    parser.add_argument("--crop_dir",   default="C:/CIEDID_data/Images_crop")
+    parser.add_argument("--output_dir", default="C:/CIEDID_data/Manuf/models")
     parser.add_argument("--epochs",  type=int, default=P1_EPOCHS + P2_EPOCHS)
     parser.add_argument("--p1_frac", type=float,
                         default=P1_EPOCHS / (P1_EPOCHS + P2_EPOCHS))
-    parser.add_argument("--out",     default="finetuned_manuf.pkl")
+    parser.add_argument("--out",     default="C:/CIEDID_data/Manuf/manuf_finetuned.pkl")
     parser.add_argument("--batch",   type=int, default=BATCH_SIZE)
     parser.add_argument("--valid_split", type=float, default=0.2)
     parser.add_argument("--fold", type=int, default=-1,
@@ -397,7 +426,6 @@ def main():
     args.output_dir = Path(args.output_dir)
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    global BATCH_SIZE
     BATCH_SIZE = args.batch
 
     p1_ep = max(1, int(args.epochs * args.p1_frac))

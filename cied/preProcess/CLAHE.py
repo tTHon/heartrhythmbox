@@ -5,7 +5,7 @@ from pathlib import Path
 
 # This script applies CLAHE (Contrast Limited Adaptive Histogram Equalization) to all images in a specified folder.
 # specify the source folder containing the original images and the destination folder where the processed images will be saved.
-source_path = Path("c:/CIEDID_data/Preprocessing/in") # main image files
+source_path = Path("c:/CIEDID_data/Images_raw") # main image files
 
 # copy files from main source to here to process with CLAHE
 data_path = Path("c:/CIEDID_data/Preprocessing/1_CLAHE") # processed image files

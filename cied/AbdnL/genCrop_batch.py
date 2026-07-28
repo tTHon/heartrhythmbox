@@ -161,9 +161,9 @@ def build_dls(test_df, img_size):
 # ══════════════════════════════════════════════════════════════════════
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input_dir", default="C:/CIEDID_data/AbdnL/test_data")
-    parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/test_data_gen_crop")
-    parser.add_argument("--folds_dir", default="C:/CIEDID_data/AbdnL/models/old")
+    parser.add_argument("--input_dir", default="C:/CIEDID_data/Preprocessing/1_CLAHE")
+    parser.add_argument("--output_dir", default="C:/CIEDID_data/Images_crop")
+    parser.add_argument("--folds_dir", default="C:/CIEDID_data/AbdnL/models/best")
     parser.add_argument("--weight_filename", default="best_abdn.pth")
     parser.add_argument("--use_fold", type=int, default=0)
     parser.add_argument("--img_size", type=int, default=640)
@@ -259,7 +259,7 @@ def main():
                     cropped_img = orig_img[minr_orig:maxr_orig, minc_orig:maxc_orig]
 
                     if cropped_img.size > 0:
-                        save_path = output_dir / img_p.name
+                        save_path = output_dir / f"{img_p.stem}_crop.png"
                         cv2.imwrite(str(save_path), cropped_img)
                         success_count += 1
                     else:
