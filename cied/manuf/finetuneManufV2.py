@@ -61,7 +61,7 @@ from fastai.vision.all import load_learner
 from PIL import Image
 import pickle
 import numpy as np
-
+from tqdm import tqdm
  
 # Windows/Linux path-class fix: the pretrained .pkl may have been pickled on
 # a different OS than the one loading it now (e.g. saved with PosixPath on
@@ -309,8 +309,14 @@ def run_epoch(model, loader, criterion, optimizer, is_train: bool):
     model.train() if is_train else model.eval()
     total_loss = correct = total = 0
 
+    # สร้างคำอธิบายสถานะหน้า Progress Bar
+    desc = "Train" if is_train else "Valid"
+    
+    # ครอบ loader ด้วย tqdm เพื่อแสดง Progress Bar
+    pbar = tqdm(loader, desc=f"  {desc:>5}", leave=False)
+
     with torch.set_grad_enabled(is_train):
-        for imgs, labels in loader:
+        for imgs, labels in pbar:
             imgs, labels = imgs.to(DEVICE), labels.to(DEVICE)
             outputs = model(imgs)
             loss    = criterion(outputs, labels)
