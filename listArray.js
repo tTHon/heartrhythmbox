@@ -140,12 +140,12 @@ var listArray = [
         mBasic: 0
     },
     {
-        name: 'Basic Electrophysiology for Everyone: 2025 Update',
+        name: 'Basic Electrophysiology for Everyone: 2026 Update',
         description: 'Basic EP | ECG | Clinical Practice for cardiac rhythm device specialists and generial cardiologists.',
         link: 'ibhre/index.html',
         thumb: 'media/basicep.png',
-        date: new Date(25,7,9),
-        latest: 0,
+        date: new Date(26,9,9),
+        latest: 1,
         audFav: 0,
         authFav: 0,
         QA: 0,
