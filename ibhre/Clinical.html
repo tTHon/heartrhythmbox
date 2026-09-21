@@ -725,6 +725,20 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
       <span [text]="expanded ? '▼' : '▲'">▲</span>
       </figcaption>
     </figure>
+
+    <!--nonVas ICD-->
+    <figure>
+      <amp-img layout="fill" src="media\Clinical/nonVascularICD.jpg"></amp-img>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+      <b>Algorithm for Non-vascular ICD Selection</b><br>
+      The use of a nonvascular ICD may be of particular interest for patients with a history of CIED infection or high risk of infection, those with inadequate vascular access, younger patients requiring long lead dwell time, or those with a mechanical tricuspid valve.<br>
+      <i class="ref">
+        <a href="https://doi.org/10.1016/j.hrthm.2026.04.015" target="_blank">
+          2026 HRS consensus for lead management</a>
+      </i>
+      <span [text]="expanded ? '▼' : '▲'">▲</span>
+      </figcaption>
+    </figure>
     
     </amp-carousel>
 </section>
@@ -1413,6 +1427,19 @@ amp-accordion section:not([expanded]) .showLess {display: none;}
         <i class="ref">
           <a href="https://doi.org/10.1093/europace/euz246" target="_blank">
           2019 EHRA Consensus on CIED infections</a>
+        </i>
+        <span [text]="expanded ? '▼' : '▲'">▲</span>
+        </figcaption>
+    </figure>
+
+    <!--pocket infection 2026 update-->
+    <figure>
+        <amp-img layout="fill" src="media\Clinical/pocketInfection.jpg"></amp-img>
+        <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">
+        <b>Pocket Infection Management Algorithm: 2026 Update</b><br>
+        <i class="ref">
+          <a href="https://doi.org/10.1016/j.hrthm.2026.04.015" target="_blank">
+          2026 HRS Consensus on Lead Management</a>
         </i>
         <span [text]="expanded ? '▼' : '▲'">▲</span>
         </figcaption>
