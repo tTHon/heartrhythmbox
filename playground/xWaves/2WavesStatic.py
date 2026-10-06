@@ -26,9 +26,9 @@ FADE    = 0.80         # radial fall-off of amplitude
 LEVELS  = np.array([0.30, 0.75])               # iso-levels of cos(phase) that become shells
 SIGMA   = 0.11         # shell thickness
 ALPHA   = 2.6          # overall opacity
-TILT, ROLL = 70, 25   # view angles (degrees): tilt of orbital axis, in-plane roll
+TILT, ROLL = 58, -12   # view angles (degrees): tilt of orbital axis, in-plane roll
 GAIN    = 1.3          # exposure
-COLOR_R = 0.62         # radius that maps to the blue end of the colormap
+COLOR_R = 0.75         # radius that maps to the blue end of the colormap
 SHOW_AXES = False      # the two thin white lines in the reference image
 
 # colour by radius: core -> outskirts
