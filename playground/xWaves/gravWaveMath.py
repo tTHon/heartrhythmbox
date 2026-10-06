@@ -1,288 +1,185 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
-from matplotlib.colors import LightSource
 
 # =========================================================
-# 1) PARAMETERS
+# SETTINGS
 # =========================================================
 
-# Resolution
-n_layers = 28
-n_u = 190
-n_v = 360
+n_layers = 34
+n_u = 220
+n_v = 420
 
-# ---------------------------------------------------------
-# Two-wave geometry
-# ---------------------------------------------------------
+# ความกว้างรวมของรูปทรง
+main_width = 2.10
+main_height = 1.35
 
+# ความแรงของการบิดเป็นสองปีก
+lobe_strength = 0.72
 
-# Position of each wave center
-left_center = -0.85
-right_center = 0.85
+# ความแรงของการบิดรอบแกนกลาง
+twist_strength = 1.25
 
-# Width of each wave
-left_width = 1.30
-right_width = 1.15
+# ความโค้งตามแกน z
+vertical_wave = 0.42
 
-# Height / thickness in y direction
-left_height = 0.95
-right_height = 0.90
-
-# Rotation of each wave in degrees
-left_angle_deg = 20
-right_angle_deg = -20
-
-left_angle = np.deg2rad(left_angle_deg)
-right_angle = np.deg2rad(right_angle_deg)
-
-# ---------------------------------------------------------
-# Curl parameters
-# ---------------------------------------------------------
-
-# Main curling strength
-# Higher value = more curled
-left_curl = 5.0
-right_curl = 5.0
-
-# Additional twist between layers
-left_twist = 0.85
-right_twist = -0.85
-
-# Wave thickness along z
-layer_spacing = 1.90
-
-# Strength of wave undulation
-wave_strength = 0.22
-
-# Number of turns around the center
-n_turns = 1.55
-
+# มุมกล้อง
+camera_elev = 18
+camera_azim = -62
 
 # =========================================================
-# 2) PARAMETER GRID
+# GRID
 # =========================================================
 
-# u controls movement from center toward the outer edge
-u = np.linspace(0.02, 1.0, n_u)
-
-# v controls the cross-section of each ribbon
-v = np.linspace(-np.pi, np.pi, n_v)
+u = np.linspace(0, 1, n_u)
+v = np.linspace(0, 2 * np.pi, n_v)
 
 U, V = np.meshgrid(u, v, indexing="ij")
 
 # =========================================================
-# 3) COLOR MAP
+# COLOR MAP
 # =========================================================
 
 colors = [
-    (0.005, 0.015, 0.07),
-    (0.00, 0.12, 0.35),
-    (0.00, 0.42, 0.62),
-    (0.20, 0.72, 0.70),
-    (0.92, 0.88, 0.52),
-    (1.00, 0.70, 0.18)
+    (0.005, 0.015, 0.06),
+    (0.00, 0.12, 0.32),
+    (0.00, 0.42, 0.58),
+    (0.10, 0.70, 0.70),
+    (0.86, 0.88, 0.57),
+    (1.00, 0.72, 0.20)
 ]
 
-wave_cmap = LinearSegmentedColormap.from_list(
-    "curled_wave",
+cmap = LinearSegmentedColormap.from_list(
+    "reference_colors",
     colors
 )
 
 # =========================================================
-# 4) ROTATION FUNCTION
+# ROTATION
 # =========================================================
 
-def rotate_xy(X, Y, angle):
-    """
-    Rotate coordinates around the z-axis.
-    """
-
-    X_new = (
-        X * np.cos(angle)
-        - Y * np.sin(angle)
-    )
-
-    Y_new = (
-        X * np.sin(angle)
-        + Y * np.cos(angle)
-    )
-
-    return X_new, Y_new
+def rotate_xy(x, y, angle):
+    xr = x * np.cos(angle) - y * np.sin(angle)
+    yr = x * np.sin(angle) + y * np.cos(angle)
+    return xr, yr
 
 
 # =========================================================
-# 5) CREATE ONE CURLED WAVE
+# CREATE ONE BIPOLAR WAVE SURFACE
 # =========================================================
 
-def create_curled_wave(
-    center_x,
-    direction,
-    layer,
-    width,
-    height,
-    curl,
-    twist,
-    phase_shift,
-    rotation_angle
-):
-    """
-    Create a curled ribbon-like wave.
+def make_bipolar_surface(layer_index):
 
-    center_x:
-        Center position of the wave.
+    # ตำแหน่งแนวดิ่งของชั้นนี้
+    z_layer = (
+        -1.0
+        + 2.0 * layer_index / (n_layers - 1)
+    )
 
-    direction:
-        +1 for left wave moving right.
-        -1 for right wave moving left.
+    # ความเข้มของชั้นบริเวณด้านนอก
+    radial = 0.18 + 0.82 * U ** 0.72
 
-    layer:
-        z-position of the surface layer.
-
-    width:
-        Overall radial width.
-
-    height:
-        Thickness across the ribbon.
-
-    curl:
-        Curling strength.
-
-    twist:
-        Rotation change between layers.
-
-    phase_shift:
-        Phase difference between left and right wave.
-
-    rotation_angle:
-        Overall orientation angle.
-    """
+    # มุมบิดเพิ่มขึ้นจากด้านในออกด้านนอก
+    twist = (
+        twist_strength
+        * (U ** 1.25)
+        * np.sin(2 * V)
+    )
 
     # -----------------------------------------------------
-    # Radial distance from the inner center
+    # สร้างรูปทรงพื้นฐาน
     # -----------------------------------------------------
 
-    # Nonlinear profile:
-    # small near the center, broad at the outside
-    radius = (
-        0.08
-        + width
+    # ความกว้างในแนว x
+    # cos(2V) ทำให้เกิดปีกใหญ่สองข้าง
+    two_lobes = (
+        1.0
+        + lobe_strength
+        * np.cos(2 * V)
+        * (0.25 + 0.75 * U)
+    )
+
+    # ความกว้างหลัก
+    x_radius = (
+        main_width
+        * radial
+        * two_lobes
+    )
+
+    # ความสูงในแนว y
+    y_radius = (
+        main_height
+        * radial
         * (
-            0.18 * U
-            + 0.82 * U ** 0.72
+            0.78
+            + 0.22 * np.cos(2 * V)
         )
     )
 
-    # -----------------------------------------------------
-    # Angle around the spiral
-    # -----------------------------------------------------
-
-    # Several turns as the surface moves outward
-    spiral_angle = (
-        direction
-        * (
-            2.0 * np.pi
-            * n_turns
-            * U
-        )
-        + V
-        + phase_shift
-        + twist * layer
+    # มุมที่ใช้หมุน cross-section
+    angle = (
+        V
+        + twist
+        + 0.30 * z_layer
     )
 
-    # -----------------------------------------------------
-    # Elliptical cross-section
-    # -----------------------------------------------------
-
-    # Width perpendicular to the spiral
-    cross_width = (
-        0.10
-        + height
-        * (
-            0.18
-            + 0.82 * U
-        )
-    )
-
-    # Main curled coordinates
-    X = radius * np.cos(spiral_angle)
-    Y = cross_width * np.sin(V)
-
-    # Move the two wave centers apart
-    X = direction * X + center_x
+    # รูปร่าง elliptical shell
+    X = x_radius * np.cos(angle)
+    Y = y_radius * np.sin(angle)
 
     # -----------------------------------------------------
-    # Add wave-like deformation
+    # ทำให้ตรงกลางแคบและด้านนอกแผ่กว้าง
     # -----------------------------------------------------
 
-    deformation_phase = (
-        curl * U
-        + 2.0 * V
-        + phase_shift
+    center_pinching = (
+        0.35
+        + 0.65 * U
     )
 
-    deformation = (
-        np.sin(deformation_phase)
-        + 0.35
-        * np.sin(
-            3.0 * deformation_phase
-            - 2.0 * V
-        )
-    )
-
-    # Deformation is stronger toward the outside
-    deformation *= (
-        wave_strength
-        * (0.25 + 0.90 * U)
-    )
-
-    # Apply deformation perpendicular to the spiral
-    X = X + (
-        deformation
-        * np.cos(spiral_angle)
-    )
-
-    Y = Y + (
-        0.75
-        * deformation
-        * np.sin(spiral_angle)
-    )
+    X = X * center_pinching
+    Y = Y * center_pinching
 
     # -----------------------------------------------------
-    # z curvature
+    # สร้างการบิดตัวในแนว z
     # -----------------------------------------------------
-
-    # Two broad lobes, similar to the reference image
-    z_wave = (
-        0.20 * np.sin(2.0 * spiral_angle)
-        + 0.10 * np.sin(5.0 * spiral_angle)
-    )
 
     Z = (
-        layer
-        + z_wave * (0.25 + 0.75 * U)
-        + 0.08 * deformation
+        z_layer
+        + vertical_wave
+        * radial
+        * np.sin(2 * V + 1.2 * U)
+    )
+
+    # เพิ่มการยกตัวบริเวณปีก
+    Z = Z + (
+        0.13
+        * np.cos(2 * V)
+        * U ** 1.4
     )
 
     # -----------------------------------------------------
-    # Rotate the complete wave
+    # หมุนทั้งชั้นเล็กน้อย
     # -----------------------------------------------------
+
+    layer_angle = (
+        0.38 * z_layer
+    )
 
     X, Y = rotate_xy(
         X,
         Y,
-        rotation_angle
+        layer_angle
     )
 
     return X, Y, Z
 
 
 # =========================================================
-# 6) CREATE FIGURE
+# FIGURE
 # =========================================================
 
 fig = plt.figure(
-    figsize=(11, 11),
+    figsize=(10, 10),
     facecolor="black"
 )
 
@@ -294,250 +191,133 @@ ax = fig.add_subplot(
 ax.set_facecolor("black")
 
 # =========================================================
-# 7) DRAW THE TWO CURLED WAVES
+# DRAW LAYERS
 # =========================================================
 
 for layer_index in range(n_layers):
 
-    # z-position of each translucent layer
+    X, Y, Z = make_bipolar_surface(layer_index)
+
     layer = (
-        -layer_spacing / 2
-        + layer_spacing
-        * layer_index
-        / (n_layers - 1)
+        -1.0
+        + 2.0 * layer_index / (n_layers - 1)
     )
 
-    # -----------------------------------------------------
-    # Left curled wave
-    # -----------------------------------------------------
-
-    X_left, Y_left, Z_left = create_curled_wave(
-        center_x=left_center,
-        direction=+1,
-        layer=layer,
-        width=left_width,
-        height=left_height,
-        curl=left_curl,
-        twist=left_twist,
-        phase_shift=0.0,
-        rotation_angle=left_angle
-    )
-
-    # -----------------------------------------------------
-    # Right curled wave
-    # -----------------------------------------------------
-
-    X_right, Y_right, Z_right = create_curled_wave(
-        center_x=right_center,
-        direction=-1,
-        layer=layer,
-        width=right_width,
-        height=right_height,
-        curl=right_curl,
-        twist=right_twist,
-        phase_shift=np.pi,
-        rotation_angle=right_angle
-    )
-
-    # -----------------------------------------------------
-    # Colors
-    # -----------------------------------------------------
-
-    left_color_value = np.clip(
-        0.20
-        + 0.45 * U
-        + 0.18 * layer,
+    # สีเหลืองบริเวณกลางและสีฟ้าบริเวณด้านนอก
+    color_value = np.clip(
+        0.52
+        + 0.28 * U
+        - 0.18 * abs(layer),
         0,
         1
     )
 
-    right_color_value = np.clip(
-        0.38
-        + 0.35 * U
-        - 0.12 * layer,
-        0,
-        1
-    )
-
-    # -----------------------------------------------------
-    # Draw left surface
-    # -----------------------------------------------------
-
     ax.plot_surface(
-        X_left,
-        Y_left,
-        Z_left,
-        facecolors=wave_cmap(left_color_value),
-        rcount=80,
-        ccount=150,
+        X,
+        Y,
+        Z,
+        facecolors=cmap(color_value),
+        rcount=100,
+        ccount=180,
         linewidth=0,
         antialiased=True,
         shade=True,
-        alpha=0.25
-    )
-
-    # -----------------------------------------------------
-    # Draw right surface
-    # -----------------------------------------------------
-
-    ax.plot_surface(
-        X_right,
-        Y_right,
-        Z_right,
-        facecolors=wave_cmap(right_color_value),
-        rcount=80,
-        ccount=150,
-        linewidth=0,
-        antialiased=True,
-        shade=True,
-        alpha=0.25
+        alpha=0.23
     )
 
 
 # =========================================================
-# 8) CENTRAL COLLISION REGION
+# CENTRAL SMALL SPIRAL
 # =========================================================
 
-# A translucent central rotating region
-central_u = np.linspace(0.02, 1.0, 120)
-central_v = np.linspace(0, 2 * np.pi, 240)
+uc = np.linspace(0, 1, 100)
+vc = np.linspace(0, 2 * np.pi, 260)
 
-CU, CV = np.meshgrid(
-    central_u,
-    central_v,
-    indexing="ij"
-)
+UC, VC = np.meshgrid(uc, vc, indexing="ij")
 
-central_radius = 0.05 + 0.48 * CU
+central_r = 0.08 + 0.42 * UC
 
 central_angle = (
-    2.0 * np.pi * 1.6 * CU
-    + CV
+    VC
+    + 2.0 * np.pi * 0.75 * UC
 )
 
-X_center = (
-    central_radius
+Xc = (
+    central_r
     * np.cos(central_angle)
 )
 
-Y_center = (
-    0.42
-    * central_radius
-    * np.sin(CV)
+Yc = (
+    0.70
+    * central_r
+    * np.sin(VC)
 )
 
-Z_center = (
-    0.32
-    * np.sin(2.0 * central_angle)
-    * (1.0 - CU)
-)
-
-X_center, Y_center = rotate_xy(
-    X_center,
-    Y_center,
-    0.0
+Zc = (
+    0.24
+    * np.sin(2 * central_angle)
+    * (1 - UC)
 )
 
 ax.plot_surface(
-    X_center,
-    Y_center,
-    Z_center,
-    color=(1.0, 0.72, 0.20),
+    Xc,
+    Yc,
+    Zc,
+    color=(1.0, 0.75, 0.25),
     linewidth=0,
-    antialiased=True,
     alpha=0.28,
     shade=True
 )
 
 
 # =========================================================
-# 9) THIN TRAJECTORY LINES
+# LONG THIN LINES
 # =========================================================
 
-t = np.linspace(0, 1, 700)
+t = np.linspace(-1, 1, 800)
 
-for side in [-1, 1]:
+for offset in [-0.16, 0.0, 0.16]:
 
-    for line_index in range(5):
+    # เส้นแนวเฉียงผ่านจุดกลาง
+    x = 0.55 * t + offset
+    y = 0.05 * np.sin(4 * t)
+    z = 1.25 * t
 
-        if side == -1:
-            start_x = -2.0
-            end_x = -0.05
-            line_angle = left_angle
-        else:
-            start_x = 2.0
-            end_x = 0.05
-            line_angle = right_angle
-
-        x = (
-            start_x * (1 - t)
-            + end_x * t
-        )
-
-        y = (
-            0.22
-            * np.sin(
-                2.0 * np.pi * t
-                + line_index * 0.8
-            )
-            * (1.0 - t)
-        )
-
-        z = (
-            0.42
-            * np.sin(
-                2.7 * np.pi * t
-                + line_index
-            )
-        )
-
-        x, y = rotate_xy(
-            x,
-            y,
-            line_angle
-        )
-
-        ax.plot(
-            x,
-            y,
-            z,
-            color=(0.72, 0.90, 1.0),
-            linewidth=0.40,
-            alpha=0.40
-        )
+    ax.plot(
+        x,
+        y,
+        z,
+        color=(0.72, 0.88, 1.0),
+        linewidth=0.45,
+        alpha=0.55
+    )
 
 
 # =========================================================
-# 10) CAMERA AND APPEARANCE
+# CAMERA AND DISPLAY
 # =========================================================
 
-# Camera angle
 ax.view_init(
-    elev=20,
-    azim=-58
+    elev=camera_elev,
+    azim=camera_azim
 )
 
-# Axis limits
-ax.set_xlim(-2.35, 2.35)
-ax.set_ylim(-1.80, 1.80)
-ax.set_zlim(-1.35, 1.35)
+ax.set_xlim(-2.50, 2.50)
+ax.set_ylim(-1.85, 1.85)
+ax.set_zlim(-1.40, 1.40)
 
-# Aspect ratio
 ax.set_box_aspect(
     (1.45, 1.00, 0.85)
 )
 
-# Hide axes
 ax.set_axis_off()
 
 plt.tight_layout()
-
-# Display
 plt.show()
 
-# Save image if needed:
+# บันทึกไฟล์ได้ด้วยคำสั่งนี้
 # plt.savefig(
-#     "two_strongly_curled_waves.png",
+#     "closer_reference_shape.png",
 #     dpi=300,
 #     facecolor="black",
 #     bbox_inches="tight"
