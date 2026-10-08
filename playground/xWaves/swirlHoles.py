@@ -23,8 +23,8 @@ WIDTH  = 1920
 SEED   = 7
 
 # ---------------- black holes ----------------
-P1 = np.array([-0.15, 0])      # holes in world units (y in [-1,1], x in [-ASPECT,ASPECT])
-P2 = np.array([ 0.15, 0])
+P1 = np.array([-0.13, -0.02])      # holes in world units (y in [-1,1], x in [-ASPECT,ASPECT])
+P2 = np.array([ 0.13, 0.02])
 R1, R2 = 0.10, 0.10                # horizon radii
 
 # ---------------- crossing waves (they distort the grid) ----------------
@@ -54,7 +54,7 @@ PALETTES = {
 }
 PALETTE     = "fire_ice"
 RING_COVER  = 0.7      # how strongly rings replace the blue sky (keeps orange orange)
-RING_COUPLE = 0.18      # how strongly each hole bends the other's rings (0 = independent circles)
+RING_COUPLE = 0.15     # how strongly each hole bends the other's rings (0 = independent circles)
 RIM_GLOW    = 0.5      # bright rim hugging the horizon
 # the disc in the middle (0 for CORE_EDGE = plain black)
 CORE_EDGE   = 0.3      # brightness of the coloured disc at the horizon edge
@@ -63,7 +63,7 @@ CORE_POWER  = 5       # how quickly the colour falls off towards the centre
 CORE_SWIRL  = 0.2     # faint spiral texture inside the disc
 
 # ---------------- light rings ----------------
-RING_GAIN = 0.75      # how bright the rings are (0 = invisible, 1 = full colour)
+RING_GAIN = 0.6      # how bright the rings are (0 = invisible, 1 = full colour)
 STAR_N = 300  
 BLOOM     = 0.5
 VIGNETTE  = 0.5
