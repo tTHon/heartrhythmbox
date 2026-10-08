@@ -1,10 +1,11 @@
 """
 Crosstalk of two black holes: warped spacetime grid + swirling light rings + star field.
-Colors accurately calibrated to match the reference graphic's warm amber core & fire orange rings.
+Two wave systems (one per hole) travel toward each other and distort the grid in between.
 
 Usage:
     python crosstalk_bh.py            # -> crosstalk_bh.png  (1920 px wide)
     python crosstalk_bh.py --gif      # + crosstalk_bh.gif   (looping)
+    python crosstalk_bh.py --sheet    # contact sheet of parameter variants
 Needs: numpy, scipy, matplotlib, Pillow
 """
 import os
@@ -13,63 +14,61 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 from scipy.ndimage import gaussian_filter
 
 # ---------------- frame ----------------
-ASPECT = 2.39            # 2.39 = cinematic scope
+ASPECT = 2.39            # 2.39 = cinematic scope, 16/9 = HD, 1.85 = same as the reference photo
 WIDTH  = 1920
 SEED   = 7
 
 # ---------------- black holes ----------------
-P1 = np.array([-0.22,  0.0])      # holes in world units
-P2 = np.array([ 0.36,  0.0])
+P1 = np.array([-0.20, -0.04])      # holes in world units (y in [-1,1], x in [-ASPECT,ASPECT])
+P2 = np.array([ 0.20, 0.04])
 R1, R2 = 0.15, 0.15                # horizon radii
 
 # ---------------- crossing waves (they distort the grid) ----------------
-K = 3.14        # wavenumber of the waves each hole sends out
-M        = 2            # spiral twist of the wavefronts (integer)
-WAVE_AMP = 0.115  # grid displacement from the waves
-WAVE_DEC = 5.0  # how far the waves reach
-CROSS = 0.8  # extra displacement where the two waves overlap (the crosstalk)
-SWIRL = 0.22  # tangential twist of the grid around each hole
-PULL = 0.85  # grid squeezed towards each hole
+K = 5  # wavenumber of the waves each hole sends out
+M        = 2        # spiral twist of the wavefronts (integer)
+WAVE_AMP = 0.10 # grid displacement from the waves
+WAVE_DEC = 0.9  # how far the waves reach
+CROSS = 1  # extra displacement where the two waves overlap (the crosstalk)
+SWIRL = 0.1  # tangential twist of the grid around each hole
+PULL = 2  # grid squeezed towards each hole
 
 # ---------------- grid ----------------
-GRID_STEP = 0.1   # cell size (world units)
-GRID_ROT   = -14.0 # grid rotation (deg)
+GRID_STEP = 0.15  # cell size (world units)
+GRID_ROT   = -25.0 # grid rotation (deg)
 GRID_LINE  = 2.5   # line thickness (pixels)
-GRID_ALPHA = 0.8   # 1 = fully black lines
+GRID_ALPHA = 0.6  # 1 = fully black lines
 
 # ---------------- colour of the black holes ----------------
-# กำหนดค่าสีตามรูปอ้างอิง:
-# Base Halo/Rings: สีส้มเพลิงเรืองแสง (Bright Fire Orange)
-# Hot Rim/Core Edge: สีส้มอำพัน/ทองนวลสว่าง (Warm Amber Gold)
+# each hole: (base colour of halo + rings, hot colour of the brightest rings / horizon rim)  RGB 0-1
 PALETTES = {
-    "fire_ice": [
-        ((1.00, 0.38, 0.05), (1.00, 0.68, 0.22)),
-        ((1.00, 0.38, 0.05), (1.00, 0.68, 0.22)),
-    ],
+    "fire_ice": [((1.00, 0.45, 0.10), (1.00, 0.88, 0.55)),     # hole 1: orange / gold
+                 ((0.10, 0.75, 1.00), (0.80, 1.00, 1.00))],    # hole 2: cyan / ice
     "fire":     [((1.00, 0.42, 0.08), (1.00, 0.85, 0.50))] * 2,
     "violet":   [((0.75, 0.25, 1.00), (1.00, 0.80, 1.00)),
                  ((1.00, 0.30, 0.55), (1.00, 0.85, 0.80))],
-    "ice":      [((0.35, 0.50, 1.00), (0.85, 0.92, 1.00))] * 2,
+    "ice":      [((0.35, 0.50, 1.00), (0.85, 0.92, 1.00))] * 2,  # the original blue look
 }
 PALETTE     = "fire_ice"
-RING_COVER  = 0.75      # how strongly rings replace the blue sky
-RIM_GLOW    = 1.1       # bright rim hugging the horizon
-
-# ---------------- ดิสก์ตรงกลาง (Core Parameters) ----------------
-CORE_EDGE   = 0.9      # ความสว่างขอบดิสก์ส้มอำพัน
-CORE_CENTER = 0.02      # ความสว่างใจกลาง (มืดเกือบสนิท)
-CORE_POWER  = 0.01       # การลาดเอียงของสีเข้าสู่ใจกลาง
-CORE_SWIRL  = 0.1      # ลวดลายหมุนวนบางๆ
+RING_COVER  = 0.7      # how strongly rings replace the blue sky (keeps orange orange)
+RING_COUPLE = 0.4      # how strongly each hole bends the other's rings (0 = independent circles)
+RIM_GLOW    = 1.4       # bright rim hugging the horizon
+# the disc in the middle (0 for CORE_EDGE = plain black)
+CORE_EDGE   = 0.3      # brightness of the coloured disc at the horizon edge
+CORE_CENTER = 0.05      # brightness at the very centre
+CORE_POWER  = 7       # how quickly the colour falls off towards the centre
+CORE_SWIRL  = 1.1      # faint spiral texture inside the disc
 
 # ---------------- light rings ----------------
-RING_GAIN = 0.5
-STAR_N    = 3000  
-BLOOM     = 0.30
-VIGNETTE  = 0.35
+RING_GAIN = 0.7      # how bright the rings are (0 = invisible, 1 = full colour)
+STAR_N = 3000  
+BLOOM     = 0.3
+VIGNETTE  = 0.3
 GRAIN     = 0.0
+nRings    = 5           # number of rings per hole
 
 def smoothstep(a, b, x):
     t = np.clip((x - a) / (b - a + 1e-12), 0, 1)
@@ -86,7 +85,7 @@ def make_world(width):
     X, Y = np.meshgrid(x, y)
     return X, Y, w, h
 
-# ---------------- background ----------------
+# ---------------- background: nebula + stars ----------------
 def background(X, Y, w, h, rng):
     n1 = noise2d(h, w, w / 18, rng)
     n2 = noise2d(h, w, w / 60, rng)
@@ -99,13 +98,17 @@ def background(X, Y, w, h, rng):
     t = neb[..., None]
     img = np.where(t < 0.5, c_dark + (c_mid - c_dark) * (t / 0.5),
                             c_mid + (c_hi - c_mid) * ((t - 0.5) / 0.5))
+    # a few warm dust lanes
     dust = np.clip(noise2d(h, w, w / 35, rng) - 0.8, 0, 1)
     img = img + dust[..., None] * np.array([0.10, 0.05, 0.03])
     return img
 
 def stars(X, Y, w, h, rng):
     layer = np.zeros((h, w, 3))
+    # denser towards the upper right
     prob = 0.35 + 0.65 * smoothstep(-0.2, 1.0, (X / ASPECT + Y) * 0.5 + 0.2)
+    ys, xs, keep = [], [], []
+    N = STAR_N * int(w / 1200 + 0.5) ** 2 if w > 1200 else STAR_N
     N = int(STAR_N * (w / 1200) ** 2)
     xi = rng.integers(0, w, N); yi = rng.integers(0, h, N)
     ok = rng.random(N) < prob[yi, xi]
@@ -116,6 +119,7 @@ def stars(X, Y, w, h, rng):
     for c in range(3):
         np.add.at(layer[..., c], (yi, xi), (0.25 + 1.6 * mag) * col[:, c])
     small = gaussian_filter(layer, (0.8, 0.8, 0))
+    # a handful of big bright stars with a soft halo
     big = np.zeros((h, w, 3))
     nb = 90
     bx = rng.integers(0, w, nb); by = rng.integers(0, h, nb)
@@ -124,24 +128,37 @@ def stars(X, Y, w, h, rng):
     big = gaussian_filter(big, (1.8, 1.8, 0)) + 0.5 * gaussian_filter(big, (6, 6, 0))
     return small * 3.4 + big * 1.3
 
+# ---------------- shared geometry: combined (Roche-like) radius ----------------
+GRID_FOLLOW = 1.0       # 0 = grid warps around each hole as plain circles, 1 = grid follows the bent rings
+
+def r_eff(X, Y, k):
+    """Effective radius of hole k in the field of both holes: 1/r_eff = 1/r + c (R_other/R) / r_other.
+    Its level sets are the bent 'rings' (stretched towards the neighbour, pinched at the saddle)."""
+    holes = ((P1, R1), (P2, R2))
+    P, R = holes[k]; Po, Ro = holes[1 - k]
+    r = np.hypot(X - P[0], Y - P[1]) + 1e-6
+    ro = np.hypot(X - Po[0], Y - Po[1]) + 1e-6
+    return 1.0 / (1.0 / r + RING_COUPLE * (Ro / R) / ro), r
+
 # ---------------- displacement of the spacetime grid ----------------
 def displacement(X, Y, t):
     dx = np.zeros_like(X); dy = np.zeros_like(Y)
     waves = []
-    for P in (P1, P2):
+    for k, P in enumerate((P1, P2)):
         ex, ey = X - P[0], Y - P[1]
-        r = np.hypot(ex, ey) + 1e-6
+        re, r = r_eff(X, Y, k)
+        rg = r + GRID_FOLLOW * (re - r)                  # radius that shapes the warp
         rx, ry = ex / r, ey / r
         th = np.arctan2(ey, ex)
-        amp = np.exp(-r / WAVE_DEC)
-        wv = amp * np.cos(K * r + M * th - t)
+        amp = np.exp(-rg / WAVE_DEC)
+        wv = amp * np.cos(K * rg + M * th - t)           # wavefronts follow the bent rings
         waves.append(wv)
-        dx += WAVE_AMP * wv * rx;  dy += WAVE_AMP * wv * ry
-        sw = SWIRL * np.exp(-(r / 0.55) ** 2)
+        dx += WAVE_AMP * wv * rx;  dy += WAVE_AMP * wv * ry          # radial wave
+        sw = SWIRL * np.exp(-(rg / 0.55) ** 2)                        # twist (frame dragging)
         dx += sw * (-ry);          dy += sw * rx
-        pl = PULL * np.exp(-(r / 0.45) ** 2)
+        pl = PULL * np.exp(-(rg / 0.45) ** 2)                         # funnel
         dx += pl * ex;             dy += pl * ey
-
+    # crosstalk: where the two wave systems meet they add a shear along the connecting line
     d = P2 - P1; d = d / np.linalg.norm(d); nrm = np.array([-d[1], d[0]])
     cross = waves[0] * waves[1]
     dx += CROSS * WAVE_AMP * 3 * cross * nrm[0]
@@ -157,25 +174,31 @@ def grid_lines(X, Y, w, t):
     out = np.zeros_like(U)
     for G in (U, V):
         gy, gx = np.gradient(G)
-        width = (np.abs(gx) + np.abs(gy)) * GRID_LINE * 0.5 + 1e-6
+        width = (np.abs(gx) + np.abs(gy)) * GRID_LINE * 0.5 + 1e-6      # in grid units
         dist = np.abs(G - np.round(G))
         out = np.maximum(out, 1 - smoothstep(0.0, 1.0, dist / width))
     return out
 
-# ---------------- swirling light rings ----------------
+# ---------------- swirling light rings around each hole ----------------
 def rings(X, Y, w, h, t, rng_seed=3):
     rng = np.random.default_rng(rng_seed)
     light = np.zeros((h, w, 3))
-    for k, (P, R) in enumerate(((P1, R1), (P2, R2))):
+    holes = ((P1, R1), (P2, R2))
+    for k, (P, R) in enumerate(holes):
+        Po, Ro = holes[1 - k]
         ex, ey = X - P[0], Y - P[1]
         r = np.hypot(ex, ey) + 1e-6
         th = np.arctan2(ey, ex)
-        rr = r / R
-        base, hot = (np.array(c) for c in PALETTES[PALETTE][k % 2])
-        
+        # rings follow equipotentials of BOTH holes (see r_eff)
+        r_e, _ = r_eff(X, Y, k)
+        rr = r_e / R                 # used by halo and rings
+        rr_true = r / R              # used to keep the disc and rim attached to the hole itself
+        blue, pale = (np.array(c) for c in PALETTES[PALETTE][k % 2])
+        # broad coloured halo
         halo = (np.exp(-((rr - 2.1) / 1.3) ** 2) + 0.5 * np.exp(-((rr - 1.3) / 0.35) ** 2)) * (rr > 1.0)
+        # concentric bright rings (random radii/strength) broken up along the angle
         ring = np.zeros_like(r)
-        for j in range(14):
+        for j in range(nRings):
             Rj = rng.uniform(1.12, 3.6)
             sj = rng.uniform(0.015, 0.07)
             aj = rng.uniform(0.35, 1.0)
@@ -184,45 +207,35 @@ def rings(X, Y, w, h, t, rng_seed=3):
             gate = 0.5 + 0.5 * np.cos(kk * tw + ph)
             gate = smoothstep(0.15, 0.95, gate)
             ring += aj * gate * np.exp(-((rr - Rj) / sj) ** 2)
-            
+        # fine light-trail streaks along the angular direction
         streak = gaussian_filter(rng.normal(size=(h, w)), (0.6, 0.6))
         trail = 0.55 + 0.45 * np.cos(60 * th + 6 * np.log(rr + 0.2) * 10)
         ring *= (0.55 + 0.45 * trail)
-        inner = smoothstep(0.98, 1.12, rr)
+        inner = smoothstep(0.98, 1.12, rr_true)                  # rings stay outside the disc
         a = (0.85 * halo + 1.6 * ring) * inner
-        rim = np.exp(-((rr - 1.04) / 0.07) ** 2) * (rr > 1.0)
-        
-        light += a[..., None] * (base * 0.85 + hot * (0.35 * np.clip(ring[..., None] * 2, 0, 1)))
-        light += (RIM_GLOW * rim)[..., None] * hot
+        rim = np.exp(-((rr_true - 1.04) / 0.07) ** 2) * (rr_true > 1.0)
+        light += a[..., None] * (blue * 0.75 + pale * (0.45 * np.clip(ring[..., None] * 2, 0, 1)))
+        light += (RIM_GLOW * rim)[..., None] * pale
     return light * RING_GAIN
 
-# ---------------- paint_holes (ขอบส้มทองอำพันแบบในรูปเป๊ะๆ) ----------------
+def hole_mask(X, Y):
+    m = np.ones_like(X)
+    for P, R in ((P1, R1), (P2, R2)):
+        r = np.hypot(X - P[0], Y - P[1])
+        m *= smoothstep(R * 0.97, R * 1.06, r)
+    return m
+
 def paint_holes(img, X, Y):
-    """ ปรับแก้การผสมสีในดิสก์ให้ขอบนอกเป็นส้มอำพันเรืองแสง แล้วค่อยๆ มืดลงเป็นส้มน้ำตาลเข้ม """
+    """Coloured disc: palette colour, bright at the edge and dark in the middle."""
     for k, (P, R) in enumerate(((P1, R1), (P2, R2))):
         base, hot = (np.array(c) for c in PALETTES[PALETTE][k % 2])
-        
-        # สีขอบดิสก์ (Amber Gold) และสีตรงกลาง (Dark Brown-Orange)
-        c_edge = hot                          # [1.00, 0.68, 0.22] - ส้มอำพันเรืองแสงตรงขอบ
-        c_mid  = base * 0.7 + hot * 0.3       # ส้มอมน้ำตาลทอง
-        c_dark = np.array([0.08, 0.02, 0.00])  # เกือบดำสนิทที่ใจกลาง
-        
         ex, ey = X - P[0], Y - P[1]
         r = np.hypot(ex, ey)
         th = np.arctan2(ey, ex)
         u = np.clip(r / R, 0, 1)
-        
         swirl = 1 + CORE_SWIRL * np.cos(2 * th + 7 * u)
-        lvl = (CORE_CENTER + (CORE_EDGE - CORE_CENTER) * (u ** CORE_POWER)) * swirl
-        
-        # การไล่เฉดสีในดิสก์จาก ดำ -> ส้มน้ำตาล -> ส้มทองอำพันตรงขอบสุด
-        color_grad = np.where(
-            u[..., None] < 0.6,
-            c_dark + (c_mid - c_dark) * (u[..., None] / 0.6),
-            c_mid + (c_edge - c_mid) * ((u[..., None] - 0.6) / 0.4)
-        )
-        
-        core = lvl[..., None] * color_grad
+        lvl = (CORE_CENTER + (CORE_EDGE - CORE_CENTER) * u ** CORE_POWER) * swirl
+        core = lvl[..., None] * (0.75 * base + 0.25 * hot)
         inside = 1 - smoothstep(R * 0.97, R * 1.06, r)
         img = img * (1 - inside)[..., None] + core * inside[..., None]
     return img
@@ -231,32 +244,27 @@ def paint_holes(img, X, Y):
 def render(t=0.0, width=WIDTH, seed=SEED):
     X, Y, w, h = make_world(width)
     rng = np.random.default_rng(seed)
-    
     bg = background(X, Y, w, h, rng)
     st = stars(X, Y, w, h, rng)
-    
+    # stars are lensed away / dimmed close to the holes
     dim = np.ones_like(X)
     for P, R in ((P1, R1), (P2, R2)):
         dim *= 1 - 0.85 * np.exp(-(np.hypot(X - P[0], Y - P[1]) / (R * 2.4)) ** 2)
-        
     img = bg + st * dim[..., None]
     light = rings(X, Y, w, h, t)
-    cov = np.clip(light.max(axis=2) * 1.1, 0, 1)
+    cov = np.clip(light.max(axis=2) * 1.1, 0, 1)             # ring colour replaces part of the blue sky
     img = img * (1 - RING_COVER * cov)[..., None] + light
-    
+    # soft glow around the holes
     img = np.clip(img, 0, 1.6)
-    
-    # Warped grid on top
+    # warped grid on top (dark lines)
     g = grid_lines(X, Y, w, t)
     img = img * (1 - GRID_ALPHA * g[..., None])
-    
-    # M87-colored Core on top
+    # coloured holes on top
     img = paint_holes(img, X, Y)
-    
+    # cinematic finish
     img = np.clip(img, 0, 1)
     if BLOOM > 0:
         img = np.clip(img + BLOOM * gaussian_filter(np.clip(img - 0.55, 0, 1), (w / 200, w / 200, 0)), 0, 1)
-        
     yy, xx = np.mgrid[0:h, 0:w]
     d = np.hypot((xx - w / 2) / (w / 2), (yy - h / 2) / (h / 2))
     img = img * (1 - VIGNETTE * np.clip(d - 0.45, 0, 1) ** 1.6)[..., None]
@@ -267,7 +275,7 @@ def save_static(path="playground/xWaves/crosstalk_bh.png", t=0.0, width=WIDTH):
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
     plt.imsave(path, render(t, width)); print("saved", path)
 
-def save_gif(path="playground/xWaves/crosstalk_bh.gif", frames=30, width=800):
+def save_gif(path="crosstalk_bh.gif", frames=30, width=800):
     from PIL import Image
     imgs = [Image.fromarray((render(t, width) * 255).astype(np.uint8))
             for t in np.linspace(0, 2 * np.pi, frames, endpoint=False)]
