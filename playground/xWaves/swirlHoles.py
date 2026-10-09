@@ -23,9 +23,9 @@ WIDTH  = 1920
 SEED   = 7
 
 # ---------------- black holes ----------------
-P1 = np.array([-0.13, -0.02])      # holes in world units (y in [-1,1], x in [-ASPECT,ASPECT])
-P2 = np.array([ 0.13, 0.02])
-R1, R2 = 0.10, 0.10                # horizon radii
+P1 = np.array([-0.16, -0.02])      # holes in world units (y in [-1,1], x in [-ASPECT,ASPECT])
+P2 = np.array([ 0.16, 0.02])
+R1, R2 = 0.12, 0.12                # horizon radii
 
 # ---------------- crossing waves (they distort the grid) ----------------
 K = 3  # wavenumber of the waves each hole sends out
@@ -34,7 +34,7 @@ WAVE_AMP = 0.05 # grid displacement from the waves
 WAVE_DEC = 6 # how far the waves reach
 CROSS = 1.5  # extra displacement where the two waves overlap (the crosstalk)
 SWIRL = 0.5  # tangential twist of the grid around each hole
-PULL = 1  # grid squeezed towards each hole
+PULL = 2  # grid squeezed towards each hole
 
 # ---------------- grid ----------------
 GRID_STEP = 0.10  # cell size (world units)
@@ -54,8 +54,8 @@ PALETTES = {
 }
 PALETTE     = "fire_ice"
 RING_COVER  = 0.7      # how strongly rings replace the blue sky (keeps orange orange)
-RING_COUPLE = 0.15     # how strongly each hole bends the other's rings (0 = independent circles)
-RIM_GLOW    = 0.5      # bright rim hugging the horizon
+RING_COUPLE = 0.19     # how strongly each hole bends the other's rings (0 = independent circles)
+RIM_GLOW    = 0.8      # bright rim hugging the horizon
 # the disc in the middle (0 for CORE_EDGE = plain black)
 CORE_EDGE   = 0.3      # brightness of the coloured disc at the horizon edge
 CORE_CENTER = 0.3      # brightness at the very centre
@@ -68,7 +68,7 @@ STAR_N = 300
 BLOOM     = 0.5
 VIGNETTE  = 0.5
 GRAIN     = 0.05
-nRings    = 6           # number of rings per hole
+nRings    = 8           # number of rings per hole
 
 def smoothstep(a, b, x):
     t = np.clip((x - a) / (b - a + 1e-12), 0, 1)

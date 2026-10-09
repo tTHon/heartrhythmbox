@@ -1,115 +1,1005 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ระบบจัดตารางประชุม - Conference Agenda Builder & Task Summarizer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SheetJS (xlsx) for Excel import/export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Prompt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Prompt', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        /* Custom Scrollbar for better UI */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
 </head>
-<style>
-    *{background-color: #333;color: aquamarine;font-family: 'Rubik', sans-serif;}
-    .button {max-width: 400px;padding: 1vmax 2vmax;cursor: pointer;text-align: center;
-    border-radius: 2vw;margin-left: auto;margin-right: auto;}
-    a {text-decoration: none;}
-    #user {display: none;max-width: 400px;margin-top: 0.5vmax;
-    margin-left: auto;margin-right: auto;border: #555 solid 0.1vmax;border-radius: 0.4vmax;}
-</style>
+<body class="bg-slate-100 text-slate-800 min-h-screen pb-12">
 
-<body>
-    <div style="font-size: 7vmax;text-align: center;line-height: 95%;margin-top: 10vh;">
-        MeetinG&nbsp;<br><span style="color:#333">M</span>
-        <span style="color:#f1f1f1">MediuM</span>
-    </div>
-    <div style="padding: 2vmax;text-align: center;color: #bbb;font-size: 2vmax;">
-        &#729;meeting setup &#729;session scheduling &#729;speakers assignment
-    </div>
+    <!-- Top Navigation Header -->
+    <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 p-2.5 rounded-xl shadow-md">
+                    <i class="fa-solid fa-calendar-days text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide">Conference Agenda Builder</h1>
+                    <p class="text-xs text-indigo-200">ระบบบริหารจัดการตารางประชุมและสรุปภารกิจวิทยากร</p>
+                </div>
+            </div>
 
-    <!--button-->
-    <div style="margin-top: 5vh;margin-bottom: 10vh;">
-        <a href="calendar.html">
-        <div class="button" style="background-color: rgb(27, 145, 102);
-        color: #ddd;font-size: 2.2vmax;">
-            Start new meeting
+            <!-- Global Action Controls (Backup/Restore & Export) -->
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+                <!-- Backup JSON -->
+                <button onclick="exportJSONBackup()" class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm" title="ดาวน์โหลดไฟล์สำรองข้อมูล JSON">
+                    <i class="fa-solid fa-download"></i> สำรองข้อมูล (JSON)
+                </button>
+                <!-- Restore JSON -->
+                <label class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition cursor-pointer shadow-sm" title="กู้คืนข้อมูลจากไฟล์ JSON">
+                    <i class="fa-solid fa-upload"></i> นำเข้าสำรอง (JSON)
+                    <input type="file" id="jsonFileInput" accept=".json" class="hidden" onchange="importJSONBackup(event)">
+                </label>
+                <!-- Export to Excel -->
+                <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm" title="ส่งออกข้อมูลเป็น Excel">
+                    <i class="fa-solid fa-file-excel"></i> ส่งออก Excel
+                </button>
+                <!-- Reset Data -->
+                <button onclick="clearAllData()" class="bg-rose-700 hover:bg-rose-600 text-white font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm" title="ล้างข้อมูลทั้งหมดในระบบ">
+                    <i class="fa-solid fa-trash-can"></i> ล้างข้อมูล
+                </button>
+            </div>
         </div>
-        </a>
-        <div class="button" onclick="showLogin()"
-        style="background-color: #555;color: #ddd;font-size: 2vmax;
-        margin-top: 2vh;">
-            I have my userID
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- 1. Room Management Panel -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-door-open text-indigo-600"></i> จัดการห้องประชุม
+                        </h2>
+                        <span id="roomCountBadge" class="bg-indigo-100 text-indigo-800 text-xs px-2 py-0.5 rounded-full font-semibold">2 ห้อง</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">สามารถเพิ่ม เปลี่ยนชื่อ หรือลบห้องประชุมที่ใช้ในการประชุมได้</p>
+                    
+                    <div class="flex gap-2 mb-3">
+                        <input type="text" id="newRoomInput" placeholder="ชื่อห้อง เช่น Room C, Main Hall" class="w-full text-xs p-2 rounded-lg border border-slate-300 focus:outline-none focus:border-indigo-500">
+                        <button onclick="addNewRoom()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-2 rounded-lg font-medium transition whitespace-nowrap">
+                            + เพิ่มห้อง
+                        </button>
+                    </div>
+                </div>
+
+                <div id="roomListTags" class="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pt-1">
+                    <!-- Room Tags are injected here -->
+                </div>
+            </div>
+
+            <!-- 2. Import Speakers / Moderators CSV/Excel -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 md:col-span-2 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-file-import text-emerald-600"></i> นำเข้าไฟล์รายชื่อ Moderators / Speakers
+                        </h2>
+                        <span id="peopleCountBadge" class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">0 คน</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-3">รองรับไฟล์ CSV หรือ Excel (.xlsx) ที่มีหัวคอลัมน์ชื่อ <code class="bg-slate-100 px-1 py-0.5 rounded text-indigo-600 font-semibold">Name</code> (ชื่อ-นามสกุล ภาษาไทย) และ <code class="bg-slate-100 px-1 py-0.5 rounded text-indigo-600 font-semibold">Institute</code> (สถาบัน)</p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center gap-3">
+                        <input type="file" id="excelFileInput" accept=".csv, .xlsx, .xls" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer border border-slate-200 rounded-lg"/>
+                        <button onclick="downloadSampleCSV()" class="w-full sm:w-auto text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-medium px-3 py-2 rounded-lg flex items-center justify-center gap-1.5 whitespace-nowrap transition">
+                            <i class="fa-solid fa-file-csv"></i> ตัวอย่างไฟล์ CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-3 flex items-center justify-between text-xs text-slate-500 border-t border-slate-100 pt-2">
+                    <span id="fileStatus"><i class="fa-solid fa-circle-info text-indigo-500"></i> คุณสามารถเพิ่มรายชื่อบุคคลใหม่ตอนสร้าง Session ได้ทันที</span>
+                    <button onclick="openAddPersonModal()" class="text-indigo-600 hover:text-indigo-800 font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-user-plus"></i> + เพิ่มวิทยากรใหม่
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div id="user" style="padding: 2vmax 0;text-align: center;font-size: 2vmax;">
-            <label for="username">ID: </label> 
-            <input style="color: #ddd;" type="text" id="username" name="username" autofocus>
-            <br>
-            <div style="padding-top: 2vmax">
-                <button style="color: #ddd;cursor: pointer;border-radius: 0.4vmax;" onclick="showLogin('x')">Back</button>
-                <button style="color: #ddd;cursor: pointer;border-radius: 0.4vmax;" onclick="checkUser()">Next</button>
-                <a href="calendar.html">
-                    <button style="display: none;" id="invisible"></button>
-                </a>
+        <!-- 3. Form to Add New Session -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-plus text-indigo-600"></i> เพิ่ม Session การประชุม
+                </h2>
+                <span class="text-xs text-slate-400">* หัวข้อภาษาอังกฤษ / ชื่อวิทยากรภาษาไทย</span>
+            </div>
+
+            <form id="sessionForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Date -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">วันที่ (Date)</label>
+                    <input type="date" id="sessionDate" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+
+                <!-- Room -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">ห้องประชุม (Room)</label>
+                    <select id="sessionRoom" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                        <!-- Dynamic Options -->
+                    </select>
+                </div>
+
+                <!-- Time range -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">เวลาเริ่ม - สิ้นสุด (Start - End Time)</label>
+                    <div class="flex items-center gap-2">
+                        <input type="time" id="startTime" required class="w-1/2 text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <span class="text-xs text-slate-400">ถึง</span>
+                        <input type="time" id="endTime" required class="w-1/2 text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Title (English) -->
+                <div class="lg:col-span-2">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ Session (English Title)</label>
+                    <input type="text" id="sessionTitle" placeholder="e.g. Keynote: AI Transformation in Medical Diagnostics" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+
+                <!-- Subtopics (English) -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">หัวข้อย่อย (Sub-topics - English, คั่นด้วย ,)</label>
+                    <input type="text" id="subTopics" placeholder="e.g. Clinical Applications, Future Roadmap, Q&A" class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+
+                <!-- Moderators (Thai) -->
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="text-xs font-semibold text-slate-700">Moderator(s) (ภาษาไทย)</label>
+                        <span class="text-[10px] text-slate-400">กด Ctrl/Cmd เพื่อเลือกหลายคน</span>
+                    </div>
+                    <select id="moderatorSelect" multiple class="w-full text-xs rounded-lg border-slate-300 border p-2 h-28 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                        <!-- Loaded dynamically -->
+                    </select>
+                </div>
+
+                <!-- Speakers (Thai) -->
+                <div class="lg:col-span-2">
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="text-xs font-semibold text-slate-700">Speaker(s) (ภาษาไทย)</label>
+                        <span class="text-[10px] text-slate-400">กด Ctrl/Cmd เพื่อเลือกหลายคน</span>
+                    </div>
+                    <select id="speakerSelect" multiple class="w-full text-xs rounded-lg border-slate-300 border p-2 h-28 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                        <!-- Loaded dynamically -->
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="lg:col-span-3 flex justify-end pt-2">
+                    <button type="submit" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-6 py-2.5 rounded-lg transition shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-plus"></i> บันทึกเพิ่ม Session ลงตาราง
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 4. Parallel Track Agenda View Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4 border-b border-slate-100 pb-3">
+                <div>
+                    <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-table-columns text-indigo-600"></i> ตารางประชุมขนาน (Parallel Agenda Schedule)
+                    </h2>
+                    <p class="text-xs text-slate-500">เรียงตาม วันที่ → เวลาเริ่ม → คอลัมน์ห้องประชุม</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-md flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb text-amber-500"></i> คลิกที่ข้อความในตารางเพื่อแก้ไขหัวข้อได้ทันที
+                    </span>
+                </div>
+            </div>
+
+            <!-- Table Container -->
+            <div class="overflow-x-auto rounded-lg border border-slate-200">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead>
+                        <tr id="agendaTableHeader" class="bg-slate-800 text-white text-xs uppercase tracking-wider text-center">
+                            <!-- Injected dynamically based on active rooms -->
+                        </tr>
+                    </thead>
+                    <tbody id="agendaTableBody" class="bg-white divide-y divide-slate-200 text-xs text-slate-700">
+                        <!-- Agenda items injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 5. Personal Task Summary Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4 border-b border-slate-100 pb-3">
+                <div>
+                    <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-user-check text-purple-600"></i> สรุปภารกิจส่วนบุคคล (Personal Task Summary)
+                    </h2>
+                    <p class="text-xs text-slate-500">สรุปจำนวนและรายละเอียด Session ที่ Moderator และ Speaker แต่ละท่านต้องรับผิดชอบ</p>
+                </div>
+                <button onclick="exportSummaryExcel()" class="text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-file-excel"></i> ส่งออกสรุปภารกิจเป็น Excel
+                </button>
+            </div>
+
+            <div class="overflow-x-auto rounded-lg border border-slate-200">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-purple-900 text-white text-xs uppercase tracking-wider">
+                        <tr>
+                            <th scope="col" class="py-3 px-4 text-left w-1/5 font-semibold">ชื่อ-นามสกุล (Thai Name)</th>
+                            <th scope="col" class="py-3 px-4 text-left w-1/5 font-semibold">สถาบัน / หน่วยงาน</th>
+                            <th scope="col" class="py-3 px-4 text-center w-28 font-semibold">จำนวน Session</th>
+                            <th scope="col" class="py-3 px-4 text-left font-semibold">รายการภารกิจ (วัน-เวลา, ห้อง, ชื่อ Session & บทบาท)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryTableBody" class="bg-white divide-y divide-slate-200 text-xs">
+                        <!-- Summary injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal: Add New Person -->
+    <div id="personModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-6 border border-slate-100">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-indigo-600"></i> เพิ่มรายชื่อ Speaker / Moderator
+                </h3>
+                <button onclick="closeAddPersonModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">&times;</button>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ-นามสกุล (ภาษาไทย) <span class="text-rose-500">*</span></label>
+                    <input type="text" id="newPersonName" placeholder="เช่น ศ.ดร.นพ.สมชาย ใจดี" class="w-full text-xs rounded-lg border border-slate-300 p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">สถาบัน / หน่วยงาน (ภาษาไทย)</label>
+                    <input type="text" id="newPersonInstitute" placeholder="เช่น โรงพยาบาลรามาธิบดี, มหาวิทยาลัยเชียงใหม่" class="w-full text-xs rounded-lg border border-slate-300 p-2.5 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-end gap-2 border-t border-slate-100 pt-3">
+                <button type="button" onclick="closeAddPersonModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-50 transition">ยกเลิก</button>
+                <button type="button" onclick="saveNewPerson()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold transition">บันทึกรายชื่อ</button>
             </div>
         </div>
     </div>
 
-    <!--foot-->
-    <div style="border-top: #555 solid 0.1vmax;margin:0;padding: 2vw 5vw;text-align: center;
-    color: #aaa;font-size: 1.8vmax;">
-        &copy;&nbsp;&nbsp;CODINDG OF A KIND<br>
-        <span style="color:#888;font-size: 1.6vmax;">design to your style &middot; write to your need</span>
-    </div>
+    <script>
+        /* ==========================================================================
+           STATE MANAGEMENT & DATA STRUCTURES
+           ========================================================================== */
+        
+        // Initial Default Rooms
+        let rooms = ["Room A", "Room B"];
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
+        // Initial People Database
+        let peopleDatabase = [
+            { Name: "ดร.สมชาย ใจดี", Institute: "มหาวิทยาลัยเชียงใหม่" },
+            { Name: "พญ.สมหญิง สุขเสริฐ", Institute: "โรงพยาบาลรามาธิบดี" },
+            { Name: "นพ.กิตติศักดิ์ พัฒนา", Institute: "จุฬาลงกรณ์มหาวิทยาลัย" },
+            { Name: "ผศ.ดร.อนันต์ ประเสริฐ", Institute: "มหาวิทยาลัยมหิดล" }
+        ];
 
-function showLogin(x){
-    const box = document.getElementById('user')
-    if (x=='x'){
-        box.style.display = 'none'
-    } else {
-        if (box.style.display=='block'){
-            box.style.display = 'none'
-        } else {
-        box.style.display = 'block'}
-    }
- 
-}
+        // Sessions List
+        let sessions = [];
 
-function checkUser(){
-    const u = document.getElementById('username')
-    const userName = u.value
-    
-    //supabase
-    supUrl = 'https://entgoevitfioaiavmrfb.supabase.co'
-    supKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVudGdvZXZpdGZpb2FpYXZtcmZiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk1MzA2MTcsImV4cCI6MTk5NTEwNjYxN30.3ZFVeca2n5G0A43pgnFXWhSIZ0WO9rn9wuyWOFVuRfY'
-    const database = supabase.createClient(supUrl,supKey)
-    //get data
-    const fetchData = async () => {
-    const feed = await database
-        .from("index")
-        .select()
-        .eq ('username', userName)
-        doesExist(feed)
-    }
-    fetchData()
+        /* ==========================================================================
+           INITIALIZATION & LOCALSTORAGE SYNC
+           ========================================================================== */
 
-    function doesExist(feed){
-        //console.log(feed)
-        if (feed.data.length==0){
-            alert('The userID does not exist.')
-            u.value = ''
-            u.innerHTML = ''
-        } else {
-            sessionStorage.setItem("meetingMedium",userName)
-            document.getElementById('invisible').click()
+        document.addEventListener("DOMContentLoaded", () => {
+            loadFromLocalStorage();
+            
+            // Default Session Date to Today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('sessionDate').value = today;
+
+            // Render all UI components
+            refreshUI();
+        });
+
+        function refreshUI() {
+            renderRoomTags();
+            updateRoomSelectOptions();
+            updateDropdowns();
+            renderAgenda();
+            updateSummaryTable();
+            updateBadges();
+            saveToLocalStorage();
         }
-    }
 
-}
+        // Save application state to LocalStorage
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('conf_rooms', JSON.stringify(rooms));
+                localStorage.setItem('conf_people', JSON.stringify(peopleDatabase));
+                localStorage.setItem('conf_sessions', JSON.stringify(sessions));
+            } catch (e) {
+                console.error("Failed to save to LocalStorage:", e);
+            }
+        }
 
+        // Load application state from LocalStorage
+        function loadFromLocalStorage() {
+            try {
+                const savedRooms = localStorage.getItem('conf_rooms');
+                const savedPeople = localStorage.getItem('conf_people');
+                const savedSessions = localStorage.getItem('conf_sessions');
 
-</script>
+                if (savedRooms) rooms = JSON.parse(savedRooms);
+                if (savedPeople) peopleDatabase = JSON.parse(savedPeople);
+                if (savedSessions) sessions = JSON.parse(savedSessions);
+            } catch (e) {
+                console.error("Failed to load from LocalStorage:", e);
+            }
+        }
+
+        function updateBadges() {
+            document.getElementById('roomCountBadge').innerText = `${rooms.length} ห้อง`;
+            document.getElementById('peopleCountBadge').innerText = `${peopleDatabase.length} คน`;
+        }
+
+        /* ==========================================================================
+           ROOM MANAGEMENT
+           ========================================================================== */
+
+        function renderRoomTags() {
+            const container = document.getElementById('roomListTags');
+            container.innerHTML = '';
+
+            rooms.forEach(room => {
+                const tag = document.createElement('span');
+                tag.className = "inline-flex items-center bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs px-2.5 py-1 rounded-md font-medium group transition";
+                tag.innerHTML = `
+                    <span>${room}</span>
+                    <button onclick="editRoomName('${room}')" class="ml-1.5 text-indigo-500 hover:text-indigo-800" title="เปลี่ยนชื่อห้อง"><i class="fa-solid fa-pen text-[10px]"></i></button>
+                    <button onclick="removeRoom('${room}')" class="ml-1 text-rose-500 hover:text-rose-700" title="ลบห้อง"><i class="fa-solid fa-xmark text-[11px]"></i></button>
+                `;
+                container.appendChild(tag);
+            });
+        }
+
+        function updateRoomSelectOptions() {
+            const select = document.getElementById('sessionRoom');
+            const currentVal = select.value;
+            select.innerHTML = '';
+
+            rooms.forEach(r => {
+                const opt = new Option(r, r);
+                select.add(opt);
+            });
+
+            if (rooms.includes(currentVal)) {
+                select.value = currentVal;
+            }
+        }
+
+        function addNewRoom() {
+            const input = document.getElementById('newRoomInput');
+            const newRoom = input.value.trim();
+
+            if (!newRoom) return;
+            if (rooms.includes(newRoom)) {
+                alert('มีชื่อห้องนี้อยู่ในระบบแล้ว');
+                return;
+            }
+
+            rooms.push(newRoom);
+            input.value = '';
+            refreshUI();
+        }
+
+        function editRoomName(oldName) {
+            const newName = prompt(`แก้ไขชื่อห้องประชุม "${oldName}" เป็น:`, oldName);
+            if (newName && newName.trim() !== "" && newName !== oldName) {
+                const trimmed = newName.trim();
+                if (rooms.includes(trimmed)) {
+                    alert('มีชื่อห้องนี้ในระบบแล้ว');
+                    return;
+                }
+
+                const index = rooms.indexOf(oldName);
+                if (index !== -1) rooms[index] = trimmed;
+
+                // Update room name in existing sessions
+                sessions.forEach(s => {
+                    if (s.room === oldName) s.room = trimmed;
+                });
+
+                refreshUI();
+            }
+        }
+
+        function removeRoom(roomName) {
+            if (rooms.length <= 1) {
+                alert('ระบบต้องมีห้องประชุมอย่างน้อย 1 ห้อง');
+                return;
+            }
+
+            if (confirm(`คุณต้องการลบห้อง "${roomName}" ใช่หรือไม่? (Session ในห้องนี้จะยังอยู่ในระบบ)`)) {
+                rooms = rooms.filter(r => r !== roomName);
+                refreshUI();
+            }
+        }
+
+        /* ==========================================================================
+           PEOPLE DATABASE & CSV/EXCEL IMPORT
+           ========================================================================== */
+
+        document.getElementById('excelFileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const importedData = XLSX.utils.sheet_to_json(firstSheet);
+
+                    let addedCount = 0;
+                    importedData.forEach(p => {
+                        // Accept Name / name / ชื่อ
+                        const nameKey = Object.keys(p).find(k => k.toLowerCase() === 'name' || k === 'ชื่อ' || k === 'ชื่อ-นามสกุล');
+                        const instKey = Object.keys(p).find(k => k.toLowerCase() === 'institute' || k === 'สถาบัน' || k === 'หน่วยงาน');
+
+                        const personName = nameKey ? String(p[nameKey]).trim() : null;
+                        const personInst = instKey ? String(p[instKey]).trim() : '';
+
+                        if (personName && !peopleDatabase.some(existing => existing.Name === personName)) {
+                            peopleDatabase.push({ Name: personName, Institute: personInst });
+                            addedCount++;
+                        }
+                    });
+
+                    refreshUI();
+                    document.getElementById('fileStatus').innerHTML = `<span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check"></i> นำเข้าข้อมูลสำเร็จ +${addedCount} รายชื่อ</span>`;
+                } catch (err) {
+                    alert('ไม่สามารถอ่านไฟล์ได้ กรุณาตรวจสอบโครงสร้างไฟล์ CSV/Excel');
+                    console.error(err);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        function downloadSampleCSV() {
+            const csvContent = "data:text/csv;charset=utf-8,\uFEFFName,Institute\nสมชาย ใจดี,มหาวิทยาลัยเชียงใหม่\nสมหญิง สุขเสริฐ,โรงพยาบาลรามาธิบดี\nกิตติศักดิ์ พัฒนา,จุฬาลงกรณ์มหาวิทยาลัย";
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "speakers_sample.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function openAddPersonModal() {
+            document.getElementById('personModal').classList.remove('hidden');
+        }
+
+        function closeAddPersonModal() {
+            document.getElementById('personModal').classList.add('hidden');
+            document.getElementById('newPersonName').value = '';
+            document.getElementById('newPersonInstitute').value = '';
+        }
+
+        function saveNewPerson() {
+            const name = document.getElementById('newPersonName').value.trim();
+            const institute = document.getElementById('newPersonInstitute').value.trim();
+
+            if (!name) {
+                alert('กรุณากรอกชื่อ-นามสกุลภาษาไทย');
+                return;
+            }
+
+            if (!peopleDatabase.some(p => p.Name === name)) {
+                peopleDatabase.push({ Name: name, Institute: institute });
+                refreshUI();
+                closeAddPersonModal();
+            } else {
+                alert('มีรายชื่อนี้ในฐานข้อมูลอยู่แล้ว');
+            }
+        }
+
+        function updateDropdowns() {
+            const modSelect = document.getElementById('moderatorSelect');
+            const spkSelect = document.getElementById('speakerSelect');
+
+            const selectedMods = Array.from(modSelect.selectedOptions).map(o => o.value);
+            const selectedSpks = Array.from(spkSelect.selectedOptions).map(o => o.value);
+
+            modSelect.innerHTML = '';
+            spkSelect.innerHTML = '';
+
+            peopleDatabase.sort((a, b) => a.Name.localeCompare(b.Name, 'th')).forEach(person => {
+                const label = `${person.Name} ${person.Institute ? `(${person.Institute})` : ''}`;
+                
+                const opt1 = new Option(label, person.Name, false, selectedMods.includes(person.Name));
+                const opt2 = new Option(label, person.Name, false, selectedSpks.includes(person.Name));
+                
+                modSelect.add(opt1);
+                spkSelect.add(opt2);
+            });
+        }
+
+        /* ==========================================================================
+           SESSION FORM & CRUD OPERATIONS
+           ========================================================================== */
+
+        document.getElementById('sessionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const date = document.getElementById('sessionDate').value;
+            const room = document.getElementById('sessionRoom').value;
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            const title = document.getElementById('sessionTitle').value.trim();
+            const subTopics = document.getElementById('subTopics').value.trim();
+
+            const moderators = Array.from(document.getElementById('moderatorSelect').selectedOptions).map(o => o.value);
+            const speakers = Array.from(document.getElementById('speakerSelect').selectedOptions).map(o => o.value);
+
+            if (startTime >= endTime) {
+                alert('เวลาเริ่มต้นต้องน้อยกว่าเวลาสิ้นสุด');
+                return;
+            }
+
+            const sessionData = {
+                id: Date.now(),
+                date,
+                room,
+                time: `${startTime} - ${endTime}`,
+                title,
+                subTopics,
+                moderators,
+                speakers
+            };
+
+            sessions.push(sessionData);
+            refreshUI();
+
+            // Reset title & subtopics inputs
+            document.getElementById('sessionTitle').value = '';
+            document.getElementById('subTopics').value = '';
+            document.getElementById('moderatorSelect').selectedIndex = -1;
+            document.getElementById('speakerSelect').selectedIndex = -1;
+        });
+
+        /* ==========================================================================
+           PARALLEL TRACK AGENDA TABLE RENDERER
+           ========================================================================== */
+
+        function renderAgenda() {
+            const theader = document.getElementById('agendaTableHeader');
+            const tbody = document.getElementById('agendaTableBody');
+
+            // 1. Render Table Headers dynamically based on rooms
+            let headerHtml = `<th scope="col" class="py-3 px-3 border-r border-slate-700 w-36 bg-slate-900 font-semibold">Time / Date</th>`;
+            rooms.forEach(r => {
+                headerHtml += `<th scope="col" class="py-3 px-3 border-r border-slate-700 text-center font-semibold">${r}</th>`;
+            });
+            theader.innerHTML = headerHtml;
+
+            tbody.innerHTML = '';
+
+            if (sessions.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="${rooms.length + 1}" class="text-center py-10 text-slate-400 italic">ยังไม่มีข้อมูล Session การประชุม กดบันทึกเพื่อเพิ่มรายการลงในตาราง</td></tr>`;
+                return;
+            }
+
+            // 2. Group sessions by Date and Time Slot
+            const groupedSlots = {};
+
+            sessions.forEach(s => {
+                const slotKey = `${s.date}_${s.time}`;
+                if (!groupedSlots[slotKey]) {
+                    groupedSlots[slotKey] = {
+                        date: s.date,
+                        time: s.time,
+                        roomMap: {}
+                    };
+                }
+                groupedSlots[slotKey].roomMap[s.room] = s;
+            });
+
+            // 3. Sort Chronologically by Date -> Time Start
+            const sortedSlots = Object.values(groupedSlots).sort((a, b) => {
+                if (a.date !== b.date) return a.date.localeCompare(b.date);
+                return a.time.localeCompare(b.time);
+            });
+
+            // 4. Render Table Body Rows
+            let currentDate = '';
+
+            sortedSlots.forEach(slot => {
+                // Insert Date Divider Header Banner when date changes
+                if (slot.date !== currentDate) {
+                    currentDate = slot.date;
+                    const formattedDate = new Date(currentDate).toLocaleDateString('th-TH', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    const dateHeaderRow = document.createElement('tr');
+                    dateHeaderRow.className = "bg-indigo-50/80 font-bold text-indigo-900 border-y border-indigo-200";
+                    dateHeaderRow.innerHTML = `
+                        <td colspan="${rooms.length + 1}" class="py-2.5 px-4 text-xs tracking-wide">
+                            <i class="fa-regular fa-calendar-check text-indigo-600 mr-1.5"></i> วัน${formattedDate} (${currentDate})
+                        </td>
+                    `;
+                    tbody.appendChild(dateHeaderRow);
+                }
+
+                const row = document.createElement('tr');
+                row.className = "hover:bg-slate-50 transition border-b border-slate-200";
+
+                let rowHtml = `
+                    <td class="py-3 px-3 border-r border-slate-200 font-semibold text-slate-700 bg-slate-50/50 align-top text-center">
+                        <div class="text-xs text-indigo-700 font-bold">${slot.time}</div>
+                    </td>
+                `;
+
+                // Render session card for each room column
+                rooms.forEach(r => {
+                    const sessionInRoom = slot.roomMap[r];
+                    rowHtml += `
+                        <td class="py-3 px-3 border-r border-slate-200 align-top w-${12 / rooms.length}/12">
+                            ${renderSessionCard(sessionInRoom)}
+                        </td>
+                    `;
+                });
+
+                row.innerHTML = rowHtml;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderSessionCard(session) {
+            if (!session) {
+                return `<div class="text-center py-6 text-slate-300 italic text-[11px] select-none">- ไม่มี Session -</div>`;
+            }
+
+            const mods = session.moderators.length > 0 ? session.moderators.join(', ') : '-';
+            const spks = session.speakers.length > 0 ? session.speakers.join(', ') : '-';
+
+            return `
+                <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-xs hover:shadow-md transition relative group">
+                    <!-- Title Editable -->
+                    <div class="flex justify-between items-start gap-2 mb-1">
+                        <div contenteditable="true" 
+                             onblur="updateSessionField(${session.id}, 'title', this.innerText)" 
+                             class="font-bold text-slate-800 text-xs p-1 rounded hover:bg-amber-50 focus:bg-amber-50 focus:outline-indigo-500 leading-snug flex-grow"
+                             title="คลิกเพื่อพิมพ์แก้ไขชื่อ Session">
+                            ${session.title}
+                        </div>
+                        <button onclick="deleteSession(${session.id})" class="text-slate-300 hover:text-rose-600 text-xs transition p-0.5" title="ลบ Session นี้">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <!-- Sub-topics Editable -->
+                    <div contenteditable="true" 
+                         onblur="updateSessionField(${session.id}, 'subTopics', this.innerText)" 
+                         class="text-[11px] text-slate-500 italic mb-2.5 p-1 rounded hover:bg-amber-50 focus:bg-amber-50 focus:outline-indigo-500"
+                         title="คลิกเพื่อพิมพ์แก้ไขหัวข้อย่อย">
+                        ${session.subTopics || 'คลิกเพื่อเพิ่มหัวข้อย่อย...'}
+                    </div>
+
+                    <!-- Moderators & Speakers List -->
+                    <div class="text-[11px] border-t border-slate-100 pt-2 space-y-1.5">
+                        <div>
+                            <div class="flex justify-between items-center text-slate-400 text-[10px] uppercase tracking-wider">
+                                <span><i class="fa-solid fa-user-gear text-indigo-500"></i> Moderator(s):</span>
+                                <button onclick="editPeopleInSession(${session.id}, 'moderators')" class="text-indigo-600 hover:underline font-semibold">แก้ไข</button>
+                            </div>
+                            <div class="font-medium text-slate-700 leading-tight">${mods}</div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center text-slate-400 text-[10px] uppercase tracking-wider">
+                                <span><i class="fa-solid fa-microphone text-emerald-500"></i> Speaker(s):</span>
+                                <button onclick="editPeopleInSession(${session.id}, 'speakers')" class="text-indigo-600 hover:underline font-semibold">แก้ไข</button>
+                            </div>
+                            <div class="font-medium text-slate-700 leading-tight">${spks}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateSessionField(id, field, value) {
+            const session = sessions.find(s => s.id === id);
+            if (session) {
+                session[field] = value.trim();
+                saveToLocalStorage();
+                updateSummaryTable();
+            }
+        }
+
+        function deleteSession(id) {
+            if (confirm('คุณต้องการลบ Session นี้ออกจากตารางประชุมหรือไม่?')) {
+                sessions = sessions.filter(s => s.id !== id);
+                refreshUI();
+            }
+        }
+
+        function editPeopleInSession(sessionId, roleType) {
+            const session = sessions.find(s => s.id === sessionId);
+            if (!session) return;
+
+            const currentList = session[roleType].join(', ');
+            const peopleOptions = peopleDatabase.map(p => `${p.Name}`).join('\n');
+
+            const newNamesInput = prompt(
+                `แก้ไขรายการ ${roleType.toUpperCase()}\nกรอกชื่อรายชื่อคั่นด้วยเครื่องหมาย , (จุลภาค):\n\nรายชื่อวิทยากรทั้งหมดในระบบ:\n${peopleOptions}`,
+                currentList
+            );
+
+            if (newNamesInput !== null) {
+                const newNames = newNamesInput.split(',').map(n => n.trim()).filter(n => n);
+
+                // Auto add to people database if not exists
+                newNames.forEach(name => {
+                    if (!peopleDatabase.some(p => p.Name === name)) {
+                        peopleDatabase.push({ Name: name, Institute: '' });
+                    }
+                });
+
+                session[roleType] = newNames;
+                refreshUI();
+            }
+        }
+
+        /* ==========================================================================
+           PERSONAL TASK SUMMARY TABLE
+           ========================================================================== */
+
+        function updateSummaryTable() {
+            const tbody = document.getElementById('summaryTableBody');
+            tbody.innerHTML = '';
+
+            let hasTasks = false;
+
+            // Sort people by name
+            peopleDatabase.sort((a, b) => a.Name.localeCompare(b.Name, 'th')).forEach(person => {
+                let taskCount = 0;
+                let taskDetails = [];
+
+                // Search in sessions
+                sessions.forEach(s => {
+                    const isMod = s.moderators.includes(person.Name);
+                    const isSpk = s.speakers.includes(person.Name);
+
+                    if (isMod || isSpk) {
+                        taskCount++;
+                        let roles = [];
+                        if (isMod) roles.push('<span class="text-indigo-600 font-semibold bg-indigo-50 px-1.5 py-0.5 rounded">Moderator</span>');
+                        if (isSpk) roles.push('<span class="text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded">Speaker</span>');
+
+                        taskDetails.push(`
+                            <div class="py-1">
+                                <div class="font-medium text-slate-800">
+                                    <i class="fa-regular fa-clock text-slate-400 mr-1"></i> ${s.date} (${s.time}) [${s.room}]
+                                </div>
+                                <div class="text-slate-600 pl-4">
+                                    📌 <strong>${s.title}</strong> — บทบาท: ${roles.join(' & ')}
+                                </div>
+                            </div>
+                        `);
+                    }
+                });
+
+                if (taskCount > 0) {
+                    hasTasks = true;
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50 transition";
+                    row.innerHTML = `
+                        <td class="py-3 px-4 font-semibold text-slate-800 align-top">${person.Name}</td>
+                        <td class="py-3 px-4 text-slate-600 align-top">${person.Institute || '-'}</td>
+                        <td class="py-3 px-4 text-center align-top">
+                            <span class="inline-block bg-purple-100 text-purple-800 font-bold px-2.5 py-0.5 rounded-full text-xs">${taskCount} Session</span>
+                        </td>
+                        <td class="py-3 px-4 align-top text-xs divide-y divide-slate-100">
+                            ${taskDetails.join('')}
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            });
+
+            if (!hasTasks) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-slate-400 italic">ยังไม่มีวิทยากรหรือผู้ดำเนินรายการที่มีภารกิจในตารางขณะนี้</td></tr>`;
+            }
+        }
+
+        /* ==========================================================================
+           IMPORT / EXPORT BACKUP (JSON & EXCEL)
+           ========================================================================== */
+
+        // 1. Export JSON Backup
+        function exportJSONBackup() {
+            const dataState = {
+                version: "2.0",
+                exportDate: new Date().toISOString(),
+                rooms: rooms,
+                peopleDatabase: peopleDatabase,
+                sessions: sessions
+            };
+
+            const blob = new Blob([JSON.stringify(dataState, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `conference_agenda_backup_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // 2. Import JSON Backup
+        function importJSONBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (imported.rooms && imported.peopleDatabase && imported.sessions) {
+                        rooms = imported.rooms;
+                        peopleDatabase = imported.peopleDatabase;
+                        sessions = imported.sessions;
+                        refreshUI();
+                        alert('กู้คืนข้อมูลจากไฟล์ JSON สำเร็จเรียบร้อย!');
+                    } else {
+                        alert('รูปแบบไฟล์ JSON ไม่ถูกต้อง');
+                    }
+                } catch (err) {
+                    alert('เกิดข้อผิดพลาดในการอ่านไฟล์ JSON');
+                    console.error(err);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ''; // reset
+        }
+
+        // 3. Export Full Schedule & Task Summary to Excel
+        function exportToExcel() {
+            if (sessions.length === 0) {
+                alert('ไม่มีข้อมูล Session สำหรับส่งออก');
+                return;
+            }
+
+            const wb = XLSX.utils.book_new();
+
+            // Sheet 1: Full Agenda
+            const agendaData = sessions.map(s => ({
+                "Date": s.date,
+                "Time": s.time,
+                "Room": s.room,
+                "Session Title (EN)": s.title,
+                "Sub-topics": s.subTopics,
+                "Moderators (TH)": s.moderators.join(', '),
+                "Speakers (TH)": s.speakers.join(', ')
+            }));
+            const ws1 = XLSX.utils.json_to_sheet(agendaData);
+            XLSX.utils.book_append_sheet(wb, ws1, "Conference Agenda");
+
+            // Sheet 2: Personal Task Summary
+            const summaryData = [];
+            peopleDatabase.forEach(p => {
+                const pSessions = sessions.filter(s => s.moderators.includes(p.Name) || s.speakers.includes(p.Name));
+                if (pSessions.length > 0) {
+                    pSessions.forEach(s => {
+                        let role = [];
+                        if (s.moderators.includes(p.Name)) role.push('Moderator');
+                        if (s.speakers.includes(p.Name)) role.push('Speaker');
+
+                        summaryData.push({
+                            "Name": p.Name,
+                            "Institute": p.Institute || '',
+                            "Role": role.join(' & '),
+                            "Date": s.date,
+                            "Time": s.time,
+                            "Room": s.room,
+                            "Session Title": s.title
+                        });
+                    });
+                }
+            });
+
+            if (summaryData.length > 0) {
+                const ws2 = XLSX.utils.json_to_sheet(summaryData);
+                XLSX.utils.book_append_sheet(wb, ws2, "Personal Task Summary");
+            }
+
+            XLSX.writeFile(wb, `Conference_Schedule_Export_${new Date().toISOString().split('T')[0]}.xlsx`);
+        }
+
+        // 4. Export Personal Task Summary Only
+        function exportSummaryExcel() {
+            const summaryData = [];
+            peopleDatabase.forEach(p => {
+                const pSessions = sessions.filter(s => s.moderators.includes(p.Name) || s.speakers.includes(p.Name));
+                if (pSessions.length > 0) {
+                    pSessions.forEach(s => {
+                        let role = [];
+                        if (s.moderators.includes(p.Name)) role.push('Moderator');
+                        if (s.speakers.includes(p.Name)) role.push('Speaker');
+
+                        summaryData.push({
+                            "ชื่อ-นามสกุล": p.Name,
+                            "สถาบัน/หน่วยงาน": p.Institute || '',
+                            "จำนวน Session ทั้งหมด": pSessions.length,
+                            "บทบาท": role.join(' & '),
+                            "วันที่": s.date,
+                            "เวลา": s.time,
+                            "ห้องประชุม": s.room,
+                            "หัวข้อ Session": s.title
+                        });
+                    });
+                }
+            });
+
+            if (summaryData.length === 0) {
+                alert('ยังไม่มีข้อมูลภารกิจวิทยากรในระบบ');
+                return;
+            }
+
+            const ws = XLSX.utils.json_to_sheet(summaryData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Personal Tasks");
+            XLSX.writeFile(wb, `Personal_Task_Summary_${new Date().toISOString().split('T')[0]}.xlsx`);
+        }
+
+        // 5. Clear All Data
+        function clearAllData() {
+            if (confirm('คุณแน่ใจหรือไม่ที่จะล้างข้อมูลทั้งหมด? (ข้อมูลทั้งหมดในระบบจะถูกลบรวมถึง LocalStorage)')) {
+                localStorage.clear();
+                rooms = ["Room A", "Room B"];
+                peopleDatabase = [];
+                sessions = [];
+                refreshUI();
+                alert('ล้างข้อมูลเรียบร้อยแล้ว');
+            }
+        }
+    </script>
 </body>
 </html>
