@@ -53,15 +53,13 @@
 
             <!-- Global Action Controls (Backup/Restore & Export) -->
             <div class="flex flex-wrap items-center gap-2 text-xs">
-                <!-- Backup JSON -->
-                <button onclick="exportJSONBackup()" class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm" title="ดาวน์โหลดไฟล์สำรองข้อมูล JSON">
-                    <i class="fa-solid fa-download"></i> สำรองข้อมูล (JSON)
+                <!-- File System Access API Controls -->
+                <button onclick="connectLocalFile()" id="fileHandleBtn" class="bg-amber-600 hover:bg-amber-500 text-white font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm" title="เลือกไฟล์ข้อมูลในโฟลเดอร์เพื่อเซฟลงไฟล์โดยตรง">
+                    <i class="fa-solid fa-folder-open"></i> <span id="fileHandleStatus">เปิด/เลือกไฟล์บันทึกตรง</span>
                 </button>
-                <!-- Restore JSON -->
-                <label class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition cursor-pointer shadow-sm" title="กู้คืนข้อมูลจากไฟล์ JSON">
-                    <i class="fa-solid fa-upload"></i> นำเข้าสำรอง (JSON)
-                    <input type="file" id="jsonFileInput" accept=".json" class="hidden" onchange="importJSONBackup(event)">
-                </label>
+                <button onclick="createNewLocalFile()" class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm" title="สร้างไฟล์บันทึกใหม่ในโฟลเดอร์">
+                    <i class="fa-solid fa-file-circle-plus"></i> สร้างไฟล์ใหม่
+                </button>
                 <!-- Export to Excel -->
                 <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm" title="ส่งออกข้อมูลเป็น Excel">
                     <i class="fa-solid fa-file-excel"></i> ส่งออก Excel
@@ -85,7 +83,7 @@
                         <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
                             <i class="fa-solid fa-door-open text-indigo-600"></i> จัดการห้องประชุม
                         </h2>
-                        <span id="roomCountBadge" class="bg-indigo-100 text-indigo-800 text-xs px-2 py-0.5 rounded-full font-semibold">2 ห้อง</span>
+                        <span id="roomCountBadge" class="bg-indigo-100 text-indigo-800 text-xs px-2 py-0.5 rounded-full font-semibold">0 ห้อง</span>
                     </div>
                     <p class="text-xs text-slate-500 mb-3">สามารถเพิ่ม เปลี่ยนชื่อ หรือลบห้องประชุมที่ใช้ในการประชุมได้</p>
                     
@@ -154,48 +152,62 @@
                     </select>
                 </div>
 
-                <!-- Time range -->
+                <!-- Time range (24hr) -->
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 mb-1">เวลาเริ่ม - สิ้นสุด (Start - End Time)</label>
                     <div class="flex items-center gap-2">
-                        <input type="time" id="startTime" required class="w-1/2 text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <input type="time" id="startTime" value="09:00" required class="w-1/2 text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                         <span class="text-xs text-slate-400">ถึง</span>
-                        <input type="time" id="endTime" required class="w-1/2 text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <input type="time" id="endTime" value="10:30" required class="w-1/2 text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                     </div>
                 </div>
 
                 <!-- Title (English) -->
                 <div class="lg:col-span-2">
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ Session (English Title)</label>
-                    <input type="text" id="sessionTitle" placeholder="e.g. Keynote: AI Transformation in Medical Diagnostics" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                </div>
-
-                <!-- Subtopics (English) -->
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">หัวข้อย่อย (Sub-topics - English, คั่นด้วย ,)</label>
-                    <input type="text" id="subTopics" placeholder="e.g. Clinical Applications, Future Roadmap, Q&A" class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ Session ใหญ่ (English Title)</label>
+                    <input type="text" id="sessionTitle" placeholder="e.g. General Cardiology Update" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                 </div>
 
                 <!-- Moderators (Thai) -->
                 <div>
                     <div class="flex justify-between items-center mb-1">
-                        <label class="text-xs font-semibold text-slate-700">Moderator(s) (ภาษาไทย)</label>
-                        <span class="text-[10px] text-slate-400">กด Ctrl/Cmd เพื่อเลือกหลายคน</span>
+                        <label class="text-xs font-semibold text-slate-700">Moderator(s)</label>
+                        <span class="text-[10px] text-slate-400">เลือกหลายคนได้</span>
                     </div>
-                    <select id="moderatorSelect" multiple class="w-full text-xs rounded-lg border-slate-300 border p-2 h-28 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                    <select id="moderatorSelect" multiple onchange="renderSelectedTags('moderatorSelect', 'moderatorTags')" class="w-full text-xs rounded-lg border-slate-300 border p-2 h-20 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
                         <!-- Loaded dynamically -->
                     </select>
+                    <div id="moderatorTags" class="flex flex-wrap gap-1 mt-1.5 min-h-[20px]"></div>
                 </div>
 
-                <!-- Speakers (Thai) -->
-                <div class="lg:col-span-2">
+                <!-- Session-level Speakers (Thai) Optional -->
+                <div class="lg:col-span-3">
                     <div class="flex justify-between items-center mb-1">
-                        <label class="text-xs font-semibold text-slate-700">Speaker(s) (ภาษาไทย)</label>
-                        <span class="text-[10px] text-slate-400">กด Ctrl/Cmd เพื่อเลือกหลายคน</span>
+                        <label class="text-xs font-semibold text-slate-700">Speaker(s)</label>
+                        <span class="text-[10px] text-slate-400">เลือกหลายคนได้</span>
                     </div>
-                    <select id="speakerSelect" multiple class="w-full text-xs rounded-lg border-slate-300 border p-2 h-28 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                    <select id="speakerSelect" multiple onchange="renderSelectedTags('speakerSelect', 'speakerTags')" class="w-full text-xs rounded-lg border-slate-300 border p-2 h-16 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
                         <!-- Loaded dynamically -->
                     </select>
+                    <div id="speakerTags" class="flex flex-wrap gap-1 mt-1.5 min-h-[20px]"></div>
+                </div>
+
+                <!-- Structured Subtopics Section -->
+                <div class="lg:col-span-3 bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-list-check text-indigo-600"></i> รายการหัวข้อย่อย (Subtopics)
+                            <span class="text-[10px] text-indigo-500 font-normal">(เรียงตามเวลาอัตโนมัติ)</span>
+                        </label>
+                        <button type="button" onclick="addSubtopicRow('subtopicsContainer')" class="text-xs bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1">
+                            <i class="fa-solid fa-plus text-[10px]"></i> เพิ่มหัวข้อย่อย
+                        </button>
+                    </div>
+                    <p class="text-[11px] text-slate-500">กำหนดชื่อหัวข้อย่อย เวลาบรรยาย และเลือก Speaker(s) ประจำแต่ละหัวข้อได้มากกว่า 1 คน</p>
+                    
+                    <div id="subtopicsContainer" class="space-y-2.5">
+                        <!-- Dynamic Subtopic Items -->
+                    </div>
                 </div>
 
                 <!-- Submit Button -->
@@ -208,68 +220,134 @@
         </div>
 
         <!-- 4. Parallel Track Agenda View Table -->
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4 border-b border-slate-100 pb-3">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800">
                 <div>
-                    <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-table-columns text-indigo-600"></i> ตารางประชุมขนาน (Parallel Agenda Schedule)
+                    <h2 class="text-base font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-table-columns text-indigo-400"></i> ตารางประชุมขนาน (Parallel Agenda Schedule)
                     </h2>
-                    <p class="text-xs text-slate-500">เรียงตาม วันที่ → เวลาเริ่ม → คอลัมน์ห้องประชุม</p>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-xs bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-md flex items-center gap-1.5">
-                        <i class="fa-solid fa-lightbulb text-amber-500"></i> คลิกที่ข้อความในตารางเพื่อแก้ไขหัวข้อได้ทันที
-                    </span>
+                    <p class="text-xs text-slate-400">แสดงรายการ Session เรียงตามช่วงเวลาและแยกตามห้องประชุม</p>
                 </div>
             </div>
 
-            <!-- Table Container -->
-            <div class="overflow-x-auto rounded-lg border border-slate-200">
-                <table class="min-w-full divide-y divide-slate-200">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr id="agendaTableHeader" class="bg-slate-800 text-white text-xs uppercase tracking-wider text-center">
-                            <!-- Injected dynamically based on active rooms -->
+                        <tr id="agendaTableHeader" class="bg-slate-800 text-slate-200 border-b border-slate-700">
+                            <!-- Dynamic Room Header Columns injected here -->
                         </tr>
                     </thead>
-                    <tbody id="agendaTableBody" class="bg-white divide-y divide-slate-200 text-xs text-slate-700">
-                        <!-- Agenda items injected here -->
+                    <tbody id="agendaTableBody" class="divide-y divide-slate-200 text-sm">
+                        <!-- Dynamic Sessions per Time Slot injected here -->
                     </tbody>
                 </table>
             </div>
         </div>
 
         <!-- 5. Personal Task Summary Table -->
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4 border-b border-slate-100 pb-3">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-950 text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-indigo-900">
                 <div>
-                    <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-user-check text-purple-600"></i> สรุปภารกิจส่วนบุคคล (Personal Task Summary)
+                    <h2 class="text-base font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-users-gear text-indigo-400"></i> สรุปภารกิจวิทยากรและผู้ดำเนินรายการ (Personal Task Summary)
                     </h2>
-                    <p class="text-xs text-slate-500">สรุปจำนวนและรายละเอียด Session ที่ Moderator และ Speaker แต่ละท่านต้องรับผิดชอบ</p>
+                    <p class="text-xs text-indigo-200">สรุปจำนวนและรายละเอียด Session/Subtopics ที่แต่ละท่านได้รับมอบหมาย</p>
                 </div>
-                <button onclick="exportSummaryExcel()" class="text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-file-excel"></i> ส่งออกสรุปภารกิจเป็น Excel
+                <button onclick="exportSummaryExcel()" class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3.5 py-1.5 rounded-lg text-xs flex items-center justify-center gap-1.5 transition">
+                    <i class="fa-solid fa-file-excel"></i> ส่งออกตารางสรุปภารกิจ Excel
                 </button>
             </div>
 
-            <div class="overflow-x-auto rounded-lg border border-slate-200">
-                <table class="min-w-full divide-y divide-slate-200">
-                    <thead class="bg-purple-900 text-white text-xs uppercase tracking-wider">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 text-sm">
                         <tr>
-                            <th scope="col" class="py-3 px-4 text-left w-1/5 font-semibold">ชื่อ-นามสกุล (Thai Name)</th>
-                            <th scope="col" class="py-3 px-4 text-left w-1/5 font-semibold">สถาบัน / หน่วยงาน</th>
-                            <th scope="col" class="py-3 px-4 text-center w-28 font-semibold">จำนวน Session</th>
-                            <th scope="col" class="py-3 px-4 text-left font-semibold">รายการภารกิจ (วัน-เวลา, ห้อง, ชื่อ Session & บทบาท)</th>
+                            <th scope="col" class="py-3 px-4 w-1/5">ชื่อ-นามสกุล</th>
+                            <th scope="col" class="py-3 px-4 w-1/5">สถาบัน/หน่วยงาน</th>
+                            <th scope="col" class="py-3 px-4 text-center w-28">ภารกิจรวม</th>
+                            <th scope="col" class="py-3 px-4">รายละเอียด Session & หัวข้อย่อยที่รับผิดชอบ</th>
                         </tr>
                     </thead>
-                    <tbody id="summaryTableBody" class="bg-white divide-y divide-slate-200 text-xs">
-                        <!-- Summary injected here -->
+                    <tbody id="summaryTableBody" class="divide-y divide-slate-200 text-slate-700 text-sm">
+                        <!-- Summary Rows injected here -->
                     </tbody>
                 </table>
             </div>
         </div>
 
     </main>
+
+    <!-- Modal: Edit Session -->
+    <div id="editSessionModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full p-6 border border-slate-100 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-3">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-indigo-600"></i> แก้ไข Session การประชุม
+                </h3>
+                <button onclick="closeEditSessionModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">&times;</button>
+            </div>
+            
+            <form id="editSessionForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="hidden" id="editSessionId">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">วันที่ (Date)</label>
+                    <input type="date" id="editSessionDate" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">ห้องประชุม (Room)</label>
+                    <select id="editSessionRoom" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                        <!-- Loaded dynamically -->
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">เวลาเริ่ม - สิ้นสุด (24hr Format)</label>
+                    <div class="flex items-center gap-2">
+                        <input type="time" id="editStartTime" required class="w-1/2 text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <span class="text-xs text-slate-400">ถึง</span>
+                        <input type="time" id="editEndTime" required class="w-1/2 text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ Session (English Title)</label>
+                    <input type="text" id="editSessionTitle" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Moderator(s)</label>
+                    <select id="editModeratorSelect" multiple onchange="renderSelectedTags('editModeratorSelect', 'editModeratorTags')" class="w-full text-xs rounded-lg border-slate-300 border p-2 h-20 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                        <!-- Loaded dynamically -->
+                    </select>
+                    <div id="editModeratorTags" class="flex flex-wrap gap-1 mt-1.5 min-h-[20px]"></div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Speaker(s)</label>
+                    <select id="editSpeakerSelect" multiple onchange="renderSelectedTags('editSpeakerSelect', 'editSpeakerTags')" class="w-full text-xs rounded-lg border-slate-300 border p-2 h-20 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                        <!-- Loaded dynamically -->
+                    </select>
+                    <div id="editSpeakerTags" class="flex flex-wrap gap-1 mt-1.5 min-h-[20px]"></div>
+                </div>
+
+                <!-- Structured Subtopics Section in Edit Modal -->
+                <div class="md:col-span-2 bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3 mt-2">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                            <i class="fa-solid fa-list-check text-indigo-600"></i> รายการหัวข้อย่อย (Subtopics)
+                        </label>
+                        <button type="button" onclick="addSubtopicRow('editSubtopicsContainer')" class="text-xs bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1">
+                            <i class="fa-solid fa-plus text-[10px]"></i> เพิ่มหัวข้อย่อย
+                        </button>
+                    </div>
+                    <div id="editSubtopicsContainer" class="space-y-3">
+                        <!-- Dynamic Subtopics -->
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 flex justify-end gap-2 border-t border-slate-100 pt-3 mt-2">
+                    <button type="button" onclick="closeEditSessionModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-50 transition">ยกเลิก</button>
+                    <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold transition">บันทึกการแก้ไข</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Modal: Add New Person -->
     <div id="personModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 transition-opacity">
@@ -304,36 +382,28 @@
            STATE MANAGEMENT & DATA STRUCTURES
            ========================================================================== */
         
-        // Initial Default Rooms
         let rooms = ["Room A", "Room B"];
-
-        // Initial People Database
-        let peopleDatabase = [
-            { Name: "ดร.สมชาย ใจดี", Institute: "มหาวิทยาลัยเชียงใหม่" },
-            { Name: "พญ.สมหญิง สุขเสริฐ", Institute: "โรงพยาบาลรามาธิบดี" },
-            { Name: "นพ.กิตติศักดิ์ พัฒนา", Institute: "จุฬาลงกรณ์มหาวิทยาลัย" },
-            { Name: "ผศ.ดร.อนันต์ ประเสริฐ", Institute: "มหาวิทยาลัยมหิดล" }
-        ];
-
-        // Sessions List
+        let peopleDatabase = [];
         let sessions = [];
+        let fileHandle = null;
 
         /* ==========================================================================
-           INITIALIZATION & LOCALSTORAGE SYNC
+           INITIALIZATION
            ========================================================================== */
 
         document.addEventListener("DOMContentLoaded", () => {
             loadFromLocalStorage();
             
-            // Default Session Date to Today
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('sessionDate').value = today;
+            const sessionDateInput = document.getElementById('sessionDate');
+            if (sessionDateInput) {
+                sessionDateInput.value = today;
+            }
 
-            // Render all UI components
             refreshUI();
         });
 
-        function refreshUI() {
+        async function refreshUI() {
             renderRoomTags();
             updateRoomSelectOptions();
             updateDropdowns();
@@ -341,9 +411,260 @@
             updateSummaryTable();
             updateBadges();
             saveToLocalStorage();
+            await saveDirectToFile();
         }
 
-        // Save application state to LocalStorage
+        /* ==========================================================================
+           DYNAMIC SUBTOPICS ROW BUILDER (MULTIPLE SPEAKERS ENHANCEMENT)
+           ========================================================================== */
+
+        function addSubtopicRow(containerId, data = null) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const rowId = 'subtopic_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4);
+            const subRow = document.createElement('div');
+            subRow.id = rowId;
+            subRow.className = "p-3 bg-white border border-slate-200 rounded-lg shadow-xs space-y-2 relative group";
+
+            const selectId = `sub_spk_sel_${rowId}`;
+            const tagContainerId = `sub_spk_tags_${rowId}`;
+
+            let optionsHtml = '';
+            peopleDatabase.sort((a,b) => a.Name.localeCompare(b.Name, 'th')).forEach(p => {
+                optionsHtml += `<option value="${p.Name}">${p.Name} ${p.Institute ? `(${p.Institute})` : ''}</option>`;
+            });
+
+            const titleVal = data ? data.title || '' : '';
+            const startVal = data ? data.startTime || '10:30' : '10:30';
+            const endVal = data ? data.endTime || '10:45' : '10:45';
+
+            subRow.innerHTML = `
+                <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-1.5">
+                    <span class="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                        <i class="fa-solid fa-angle-right text-indigo-500"></i> หัวข้อย่อย (Subtopic)
+                    </span>
+                    <button type="button" onclick="removeSubtopicRow('${rowId}')" class="text-rose-500 hover:text-rose-700 text-xs font-bold transition">
+                        <i class="fa-solid fa-xmark"></i> ลบหัวข้อนี้
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-2 text-xs">
+                    <div class="md:col-span-5">
+                        <label class="block text-[10px] text-slate-500 font-semibold mb-0.5">ชื่อหัวข้อย่อย (English Title)</label>
+                        <input type="text" placeholder="e.g. Keynote Presentation" value="${titleVal}" class="sub-title w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                    </div>
+                    <div class="md:col-span-3">
+                        <label class="block text-[10px] text-slate-500 font-semibold mb-0.5">เวลา (Start - End)</label>
+                        <div class="flex items-center gap-1">
+                            <input type="time" value="${startVal}" class="sub-start w-1/2 p-1.5 border border-slate-300 rounded-md text-[11px] focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                            <span class="text-slate-400 text-[10px]">-</span>
+                            <input type="time" value="${endVal}" class="sub-end w-1/2 p-1.5 border border-slate-300 rounded-md text-[11px] focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                        </div>
+                    </div>
+                    <div class="md:col-span-4">
+                        <div class="flex justify-between items-center mb-0.5">
+                            <label class="block text-[10px] text-slate-500 font-semibold">Speaker(s) ประจำหัวข้อนี้</label>
+                            <span class="text-[9px] text-slate-400">เลือกหลายคนได้</span>
+                        </div>
+                        <select id="${selectId}" multiple onchange="renderSelectedTags('${selectId}', '${tagContainerId}')" class="sub-speaker-select w-full p-1.5 border border-slate-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-indigo-500 text-xs h-16">
+                            ${optionsHtml}
+                        </select>
+                        <div id="${tagContainerId}" class="flex flex-wrap gap-1 mt-1 min-h-[16px]"></div>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(subRow);
+
+            // Populate selected speakers if data provided (handling backward compatibility with single string speaker or array)
+            if (data) {
+                let speakersArr = [];
+                if (Array.isArray(data.speakers)) {
+                    speakersArr = data.speakers;
+                } else if (data.speaker) {
+                    speakersArr = [data.speaker]; // backward compatibility
+                }
+
+                const selEl = document.getElementById(selectId);
+                if (selEl && speakersArr.length > 0) {
+                    Array.from(selEl.options).forEach(opt => {
+                        opt.selected = speakersArr.includes(opt.value);
+                    });
+                    renderSelectedTags(selectId, tagContainerId);
+                }
+            }
+        }
+
+        function removeSubtopicRow(rowId) {
+            const el = document.getElementById(rowId);
+            if (el) el.remove();
+        }
+
+        function getSubtopicsData(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return [];
+
+            const rows = container.querySelectorAll('[id^="subtopic_"]');
+            const result = [];
+
+            rows.forEach(r => {
+                const title = r.querySelector('.sub-title')?.value.trim();
+                const startTime = r.querySelector('.sub-start')?.value || '00:00';
+                const endTime = r.querySelector('.sub-end')?.value || '00:00';
+                const selectEl = r.querySelector('.sub-speaker-select');
+                
+                const speakers = selectEl ? Array.from(selectEl.selectedOptions).map(o => o.value) : [];
+
+                if (title) {
+                    result.push({ title, startTime, endTime, speakers });
+                }
+            });
+
+            // Automatically sort subtopics chronologically by startTime
+            result.sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
+
+            return result;
+        }
+
+        // Render selected tags for Multi-select dropdowns
+        function renderSelectedTags(selectId, tagContainerId) {
+            const select = document.getElementById(selectId);
+            const container = document.getElementById(tagContainerId);
+            if (!select || !container) return;
+
+            container.innerHTML = '';
+            const selectedOptions = Array.from(select.selectedOptions);
+
+            selectedOptions.forEach(opt => {
+                const tag = document.createElement('span');
+                const isMod = selectId.toLowerCase().includes('moderator');
+                const bgClass = isMod ? 'bg-indigo-100 text-indigo-800 border-indigo-200' : 'bg-emerald-100 text-emerald-800 border-emerald-200';
+                
+                const safeVal = opt.value.replace(/'/g, "\\'");
+                tag.className = `inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-full border ${bgClass}`;
+                tag.innerHTML = `
+                    <span>${opt.value}</span>
+                    <button type="button" onclick="unselectOption('${selectId}', '${tagContainerId}', '${safeVal}')" class="hover:text-rose-600 font-bold ml-0.5">&times;</button>
+                `;
+                container.appendChild(tag);
+            });
+        }
+
+        function unselectOption(selectId, tagContainerId, value) {
+            const select = document.getElementById(selectId);
+            if (!select) return;
+
+            for (let i = 0; i < select.options.length; i++) {
+                if (select.options[i].value === value) {
+                    select.options[i].selected = false;
+                    break;
+                }
+            }
+            renderSelectedTags(selectId, tagContainerId);
+        }
+
+        /* ==========================================================================
+           FILE SYSTEM ACCESS API IMPLEMENTATION
+           ========================================================================== */
+
+        async function connectLocalFile() {
+            if (!('showOpenFilePicker' in window)) {
+                alert('เบราว์เซอร์ของคุณไม่รองรับ File System Access API (แนะนำให้ใช้ Google Chrome หรือ Microsoft Edge)');
+                return;
+            }
+
+            try {
+                const [handle] = await window.showOpenFilePicker({
+                    types: [{
+                        description: 'JSON Conference Data',
+                        accept: { 'application/json': ['.json'] }
+                    }],
+                    multiple: false
+                });
+
+                fileHandle = handle;
+                const file = await fileHandle.getFile();
+                const contents = await file.text();
+                
+                if (contents.trim()) {
+                    const data = JSON.parse(contents);
+                    if (data.rooms && data.peopleDatabase && data.sessions) {
+                        rooms = data.rooms;
+                        peopleDatabase = data.peopleDatabase;
+                        sessions = data.sessions;
+                        alert(`เชื่อมต่อและโหลดข้อมูลจากไฟล์ "${fileHandle.name}" เรียบร้อยแล้ว!`);
+                    }
+                }
+
+                updateFileStatusUI();
+                refreshUI();
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error("Error connecting to file:", err);
+                    alert("ไม่สามารถเปิดไฟล์ได้: " + err.message);
+                }
+            }
+        }
+
+        async function createNewLocalFile() {
+            if (!('showSaveFilePicker' in window)) {
+                alert('เบราว์เซอร์ของคุณไม่รองรับ File System Access API');
+                return;
+            }
+
+            try {
+                const handle = await window.showSaveFilePicker({
+                    suggestedName: 'agenda_data.json',
+                    types: [{
+                        description: 'JSON Conference Data',
+                        accept: { 'application/json': ['.json'] }
+                    }]
+                });
+
+                fileHandle = handle;
+                updateFileStatusUI();
+                await saveDirectToFile();
+                alert(`สร้างและเชื่อมต่อไฟล์ "${fileHandle.name}" สำเร็จ! ทุกการแก้ไขจะถูกเซฟลงไฟล์นี้โดยตรง`);
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error("Error creating file:", err);
+                }
+            }
+        }
+
+        async function saveDirectToFile() {
+            if (!fileHandle) return;
+
+            try {
+                const writable = await fileHandle.createWritable();
+                const dataState = {
+                    version: "2.2",
+                    lastUpdated: new Date().toISOString(),
+                    rooms: rooms,
+                    peopleDatabase: peopleDatabase,
+                    sessions: sessions
+                };
+                await writable.write(JSON.stringify(dataState, null, 2));
+                await writable.close();
+            } catch (err) {
+                console.error("Failed writing directly to file:", err);
+            }
+        }
+
+        function updateFileStatusUI() {
+            const btnText = document.getElementById('fileHandleStatus');
+            const btn = document.getElementById('fileHandleBtn');
+            if (!btnText || !btn) return;
+
+            if (fileHandle) {
+                btnText.innerText = `เชื่อมไฟล์: ${fileHandle.name}`;
+                btn.className = "bg-emerald-700 hover:bg-emerald-600 text-white font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm";
+            } else {
+                btnText.innerText = `เปิด/เลือกไฟล์บันทึกตรง`;
+                btn.className = "bg-amber-600 hover:bg-amber-500 text-white font-medium px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm";
+            }
+        }
+
         function saveToLocalStorage() {
             try {
                 localStorage.setItem('conf_rooms', JSON.stringify(rooms));
@@ -354,7 +675,6 @@
             }
         }
 
-        // Load application state from LocalStorage
         function loadFromLocalStorage() {
             try {
                 const savedRooms = localStorage.getItem('conf_rooms');
@@ -370,8 +690,10 @@
         }
 
         function updateBadges() {
-            document.getElementById('roomCountBadge').innerText = `${rooms.length} ห้อง`;
-            document.getElementById('peopleCountBadge').innerText = `${peopleDatabase.length} คน`;
+            const roomBadge = document.getElementById('roomCountBadge');
+            const peopleBadge = document.getElementById('peopleCountBadge');
+            if (roomBadge) roomBadge.innerText = `${rooms.length} ห้อง`;
+            if (peopleBadge) peopleBadge.innerText = `${peopleDatabase.length} คน`;
         }
 
         /* ==========================================================================
@@ -380,15 +702,17 @@
 
         function renderRoomTags() {
             const container = document.getElementById('roomListTags');
+            if (!container) return;
             container.innerHTML = '';
 
             rooms.forEach(room => {
                 const tag = document.createElement('span');
+                const safeRoom = room.replace(/'/g, "\\'");
                 tag.className = "inline-flex items-center bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs px-2.5 py-1 rounded-md font-medium group transition";
                 tag.innerHTML = `
                     <span>${room}</span>
-                    <button onclick="editRoomName('${room}')" class="ml-1.5 text-indigo-500 hover:text-indigo-800" title="เปลี่ยนชื่อห้อง"><i class="fa-solid fa-pen text-[10px]"></i></button>
-                    <button onclick="removeRoom('${room}')" class="ml-1 text-rose-500 hover:text-rose-700" title="ลบห้อง"><i class="fa-solid fa-xmark text-[11px]"></i></button>
+                    <button onclick="editRoomName('${safeRoom}')" class="ml-1.5 text-indigo-500 hover:text-indigo-800" title="เปลี่ยนชื่อห้อง"><i class="fa-solid fa-pen text-[10px]"></i></button>
+                    <button onclick="removeRoom('${safeRoom}')" class="ml-1 text-rose-500 hover:text-rose-700" title="ลบห้อง"><i class="fa-solid fa-xmark text-[11px]"></i></button>
                 `;
                 container.appendChild(tag);
             });
@@ -396,21 +720,27 @@
 
         function updateRoomSelectOptions() {
             const select = document.getElementById('sessionRoom');
+            const editSelect = document.getElementById('editSessionRoom');
+            if (!select) return;
+
             const currentVal = select.value;
+            const currentEditVal = editSelect ? editSelect.value : '';
+            
             select.innerHTML = '';
+            if (editSelect) editSelect.innerHTML = '';
 
             rooms.forEach(r => {
-                const opt = new Option(r, r);
-                select.add(opt);
+                select.add(new Option(r, r));
+                if (editSelect) editSelect.add(new Option(r, r));
             });
 
-            if (rooms.includes(currentVal)) {
-                select.value = currentVal;
-            }
+            if (rooms.includes(currentVal)) select.value = currentVal;
+            if (editSelect && rooms.includes(currentEditVal)) editSelect.value = currentEditVal;
         }
 
         function addNewRoom() {
             const input = document.getElementById('newRoomInput');
+            if (!input) return;
             const newRoom = input.value.trim();
 
             if (!newRoom) return;
@@ -436,7 +766,6 @@
                 const index = rooms.indexOf(oldName);
                 if (index !== -1) rooms[index] = trimmed;
 
-                // Update room name in existing sessions
                 sessions.forEach(s => {
                     if (s.room === oldName) s.room = trimmed;
                 });
@@ -451,7 +780,7 @@
                 return;
             }
 
-            if (confirm(`คุณต้องการลบห้อง "${roomName}" ใช่หรือไม่? (Session ในห้องนี้จะยังอยู่ในระบบ)`)) {
+            if (confirm(`คุณต้องการลบห้อง "${roomName}" ใช่หรือไม่?`)) {
                 rooms = rooms.filter(r => r !== roomName);
                 refreshUI();
             }
@@ -461,42 +790,47 @@
            PEOPLE DATABASE & CSV/EXCEL IMPORT
            ========================================================================== */
 
-        document.getElementById('excelFileInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
+        const excelInput = document.getElementById('excelFileInput');
+        if (excelInput) {
+            excelInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const data = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(data, { type: 'array' });
-                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                    const importedData = XLSX.utils.sheet_to_json(firstSheet);
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                        const importedData = XLSX.utils.sheet_to_json(firstSheet);
 
-                    let addedCount = 0;
-                    importedData.forEach(p => {
-                        // Accept Name / name / ชื่อ
-                        const nameKey = Object.keys(p).find(k => k.toLowerCase() === 'name' || k === 'ชื่อ' || k === 'ชื่อ-นามสกุล');
-                        const instKey = Object.keys(p).find(k => k.toLowerCase() === 'institute' || k === 'สถาบัน' || k === 'หน่วยงาน');
+                        let addedCount = 0;
+                        importedData.forEach(p => {
+                            const nameKey = Object.keys(p).find(k => k.toLowerCase() === 'name' || k === 'ชื่อ' || k === 'ชื่อ-นามสกุล');
+                            const instKey = Object.keys(p).find(k => k.toLowerCase() === 'institute' || k === 'สถาบัน' || k === 'หน่วยงาน');
 
-                        const personName = nameKey ? String(p[nameKey]).trim() : null;
-                        const personInst = instKey ? String(p[instKey]).trim() : '';
+                            const personName = nameKey ? String(p[nameKey]).trim() : null;
+                            const personInst = instKey ? String(p[instKey]).trim() : '';
 
-                        if (personName && !peopleDatabase.some(existing => existing.Name === personName)) {
-                            peopleDatabase.push({ Name: personName, Institute: personInst });
-                            addedCount++;
+                            if (personName && !peopleDatabase.some(existing => existing.Name === personName)) {
+                                peopleDatabase.push({ Name: personName, Institute: personInst });
+                                addedCount++;
+                            }
+                        });
+
+                        refreshUI();
+                        const statusEl = document.getElementById('fileStatus');
+                        if (statusEl) {
+                            statusEl.innerHTML = `<span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check"></i> นำเข้าข้อมูลสำเร็จ +${addedCount} รายชื่อ</span>`;
                         }
-                    });
-
-                    refreshUI();
-                    document.getElementById('fileStatus').innerHTML = `<span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check"></i> นำเข้าข้อมูลสำเร็จ +${addedCount} รายชื่อ</span>`;
-                } catch (err) {
-                    alert('ไม่สามารถอ่านไฟล์ได้ กรุณาตรวจสอบโครงสร้างไฟล์ CSV/Excel');
-                    console.error(err);
-                }
-            };
-            reader.readAsArrayBuffer(file);
-        });
+                    } catch (err) {
+                        alert('ไม่สามารถอ่านไฟล์ได้ กรุณาตรวจสอบโครงสร้างไฟล์ CSV/Excel');
+                        console.error(err);
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
 
         function downloadSampleCSV() {
             const csvContent = "data:text/csv;charset=utf-8,\uFEFFName,Institute\nสมชาย ใจดี,มหาวิทยาลัยเชียงใหม่\nสมหญิง สุขเสริฐ,โรงพยาบาลรามาธิบดี\nกิตติศักดิ์ พัฒนา,จุฬาลงกรณ์มหาวิทยาลัย";
@@ -510,18 +844,26 @@
         }
 
         function openAddPersonModal() {
-            document.getElementById('personModal').classList.remove('hidden');
+            const modal = document.getElementById('personModal');
+            if (modal) modal.classList.remove('hidden');
         }
 
         function closeAddPersonModal() {
-            document.getElementById('personModal').classList.add('hidden');
-            document.getElementById('newPersonName').value = '';
-            document.getElementById('newPersonInstitute').value = '';
+            const modal = document.getElementById('personModal');
+            if (modal) modal.classList.add('hidden');
+            const nameInput = document.getElementById('newPersonName');
+            const instInput = document.getElementById('newPersonInstitute');
+            if (nameInput) nameInput.value = '';
+            if (instInput) instInput.value = '';
         }
 
         function saveNewPerson() {
-            const name = document.getElementById('newPersonName').value.trim();
-            const institute = document.getElementById('newPersonInstitute').value.trim();
+            const nameInput = document.getElementById('newPersonName');
+            const instInput = document.getElementById('newPersonInstitute');
+            if (!nameInput) return;
+
+            const name = nameInput.value.trim();
+            const institute = instInput ? instInput.value.trim() : '';
 
             if (!name) {
                 alert('กรุณากรอกชื่อ-นามสกุลภาษาไทย');
@@ -538,68 +880,170 @@
         }
 
         function updateDropdowns() {
-            const modSelect = document.getElementById('moderatorSelect');
-            const spkSelect = document.getElementById('speakerSelect');
+            const selects = [
+                { id: 'moderatorSelect', tagId: 'moderatorTags' },
+                { id: 'speakerSelect', tagId: 'speakerTags' },
+                { id: 'editModeratorSelect', tagId: 'editModeratorTags' },
+                { id: 'editSpeakerSelect', tagId: 'editSpeakerTags' }
+            ];
 
-            const selectedMods = Array.from(modSelect.selectedOptions).map(o => o.value);
-            const selectedSpks = Array.from(spkSelect.selectedOptions).map(o => o.value);
+            selects.forEach(item => {
+                const select = document.getElementById(item.id);
+                if (!select) return;
 
-            modSelect.innerHTML = '';
-            spkSelect.innerHTML = '';
+                const selectedVals = Array.from(select.selectedOptions).map(o => o.value);
+                select.innerHTML = '';
 
-            peopleDatabase.sort((a, b) => a.Name.localeCompare(b.Name, 'th')).forEach(person => {
-                const label = `${person.Name} ${person.Institute ? `(${person.Institute})` : ''}`;
-                
-                const opt1 = new Option(label, person.Name, false, selectedMods.includes(person.Name));
-                const opt2 = new Option(label, person.Name, false, selectedSpks.includes(person.Name));
-                
-                modSelect.add(opt1);
-                spkSelect.add(opt2);
+                peopleDatabase.sort((a, b) => a.Name.localeCompare(b.Name, 'th')).forEach(person => {
+                    const label = `${person.Name} ${person.Institute ? `(${person.Institute})` : ''}`;
+                    const opt = new Option(label, person.Name, false, selectedVals.includes(person.Name));
+                    select.add(opt);
+                });
+
+                renderSelectedTags(item.id, item.tagId);
             });
         }
 
         /* ==========================================================================
-           SESSION FORM & CRUD OPERATIONS
+           SESSION FORM & CRUD OPERATIONS (NEW & EDIT MODAL)
            ========================================================================== */
 
-        document.getElementById('sessionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        const sessionForm = document.getElementById('sessionForm');
+        if (sessionForm) {
+            sessionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            const date = document.getElementById('sessionDate').value;
-            const room = document.getElementById('sessionRoom').value;
-            const startTime = document.getElementById('startTime').value;
-            const endTime = document.getElementById('endTime').value;
-            const title = document.getElementById('sessionTitle').value.trim();
-            const subTopics = document.getElementById('subTopics').value.trim();
+                const date = document.getElementById('sessionDate').value;
+                const room = document.getElementById('sessionRoom').value;
+                const startTime = document.getElementById('startTime').value;
+                const endTime = document.getElementById('endTime').value;
+                const title = document.getElementById('sessionTitle').value.trim();
 
-            const moderators = Array.from(document.getElementById('moderatorSelect').selectedOptions).map(o => o.value);
-            const speakers = Array.from(document.getElementById('speakerSelect').selectedOptions).map(o => o.value);
+                const moderatorSelect = document.getElementById('moderatorSelect');
+                const speakerSelect = document.getElementById('speakerSelect');
 
-            if (startTime >= endTime) {
-                alert('เวลาเริ่มต้นต้องน้อยกว่าเวลาสิ้นสุด');
-                return;
+                const moderators = moderatorSelect ? Array.from(moderatorSelect.selectedOptions).map(o => o.value) : [];
+                const speakers = speakerSelect ? Array.from(speakerSelect.selectedOptions).map(o => o.value) : [];
+                const subtopicsList = getSubtopicsData('subtopicsContainer');
+
+                if (startTime >= endTime) {
+                    alert('เวลาเริ่มต้นต้องน้อยกว่าเวลาสิ้นสุด');
+                    return;
+                }
+
+                const sessionData = {
+                    id: Date.now(),
+                    date,
+                    room,
+                    time: `${startTime} - ${endTime}`,
+                    title,
+                    subtopicsList,
+                    moderators,
+                    speakers
+                };
+
+                sessions.push(sessionData);
+                refreshUI();
+
+                document.getElementById('sessionTitle').value = '';
+                document.getElementById('subtopicsContainer').innerHTML = '';
+                if (moderatorSelect) moderatorSelect.selectedIndex = -1;
+                if (speakerSelect) speakerSelect.selectedIndex = -1;
+                renderSelectedTags('moderatorSelect', 'moderatorTags');
+                renderSelectedTags('speakerSelect', 'speakerTags');
+            });
+        }
+
+        // Open Edit Session Modal
+        function openEditSessionModal(sessionId) {
+            const session = sessions.find(s => s.id === sessionId);
+            if (!session) return;
+
+            document.getElementById('editSessionId').value = session.id;
+            document.getElementById('editSessionDate').value = session.date;
+            document.getElementById('editSessionRoom').value = session.room;
+
+            const timeParts = (session.time || '09:00 - 10:30').split('-').map(t => t.trim());
+            document.getElementById('editStartTime').value = timeParts[0] || '09:00';
+            document.getElementById('editEndTime').value = timeParts[1] || '10:30';
+
+            document.getElementById('editSessionTitle').value = session.title;
+
+            const modSelect = document.getElementById('editModeratorSelect');
+            const spkSelect = document.getElementById('editSpeakerSelect');
+
+            const mods = session.moderators || [];
+            const spks = session.speakers || [];
+
+            if (modSelect) {
+                Array.from(modSelect.options).forEach(opt => {
+                    opt.selected = mods.includes(opt.value);
+                });
             }
 
-            const sessionData = {
-                id: Date.now(),
-                date,
-                room,
-                time: `${startTime} - ${endTime}`,
-                title,
-                subTopics,
-                moderators,
-                speakers
-            };
+            if (spkSelect) {
+                Array.from(spkSelect.options).forEach(opt => {
+                    opt.selected = spks.includes(opt.value);
+                });
+            }
 
-            sessions.push(sessionData);
-            refreshUI();
+            renderSelectedTags('editModeratorSelect', 'editModeratorTags');
+            renderSelectedTags('editSpeakerSelect', 'editSpeakerTags');
 
-            // Reset title & subtopics inputs
-            document.getElementById('sessionTitle').value = '';
-            document.getElementById('subTopics').value = '';
-            document.getElementById('moderatorSelect').selectedIndex = -1;
-            document.getElementById('speakerSelect').selectedIndex = -1;
-        });
+            // Render subtopics (Ensure sorted chronologically by startTime)
+            const subContainer = document.getElementById('editSubtopicsContainer');
+            if (subContainer) {
+                subContainer.innerHTML = '';
+                const subList = [...(session.subtopicsList || [])];
+                subList.sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
+                
+                subList.forEach(st => {
+                    addSubtopicRow('editSubtopicsContainer', st);
+                });
+            }
+
+            const editModal = document.getElementById('editSessionModal');
+            if (editModal) editModal.classList.remove('hidden');
+        }
+
+        function closeEditSessionModal() {
+            const editModal = document.getElementById('editSessionModal');
+            if (editModal) editModal.classList.add('hidden');
+        }
+
+        const editSessionForm = document.getElementById('editSessionForm');
+        if (editSessionForm) {
+            editSessionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const id = parseInt(document.getElementById('editSessionId').value, 10);
+                const session = sessions.find(s => s.id === id);
+                if (!session) return;
+
+                const startTime = document.getElementById('editStartTime').value;
+                const endTime = document.getElementById('editEndTime').value;
+
+                if (startTime >= endTime) {
+                    alert('เวลาเริ่มต้นต้องน้อยกว่าเวลาสิ้นสุด');
+                    return;
+                }
+
+                session.date = document.getElementById('editSessionDate').value;
+                session.room = document.getElementById('editSessionRoom').value;
+                session.time = `${startTime} - ${endTime}`;
+                session.title = document.getElementById('editSessionTitle').value.trim();
+
+                const modSelect = document.getElementById('editModeratorSelect');
+                const spkSelect = document.getElementById('editSpeakerSelect');
+
+                session.moderators = modSelect ? Array.from(modSelect.selectedOptions).map(o => o.value) : [];
+                session.speakers = spkSelect ? Array.from(spkSelect.selectedOptions).map(o => o.value) : [];
+                session.subtopicsList = getSubtopicsData('editSubtopicsContainer');
+
+                closeEditSessionModal();
+                refreshUI();
+            });
+        }
 
         /* ==========================================================================
            PARALLEL TRACK AGENDA TABLE RENDERER
@@ -608,22 +1052,21 @@
         function renderAgenda() {
             const theader = document.getElementById('agendaTableHeader');
             const tbody = document.getElementById('agendaTableBody');
+            if (!theader || !tbody) return;
 
-            // 1. Render Table Headers dynamically based on rooms
-            let headerHtml = `<th scope="col" class="py-3 px-3 border-r border-slate-700 w-36 bg-slate-900 font-semibold">Time / Date</th>`;
+            let headerHtml = `<th scope="col" class="py-3.5 px-4 border-r border-slate-700 w-44 bg-slate-900 font-semibold text-base text-center">Time / Room</th>`;
             rooms.forEach(r => {
-                headerHtml += `<th scope="col" class="py-3 px-3 border-r border-slate-700 text-center font-semibold">${r}</th>`;
+                headerHtml += `<th scope="col" class="py-3.5 px-4 border-r border-slate-700 text-center font-semibold text-base">${r}</th>`;
             });
             theader.innerHTML = headerHtml;
 
             tbody.innerHTML = '';
 
             if (sessions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${rooms.length + 1}" class="text-center py-10 text-slate-400 italic">ยังไม่มีข้อมูล Session การประชุม กดบันทึกเพื่อเพิ่มรายการลงในตาราง</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${rooms.length + 1}" class="text-center py-12 text-slate-400 italic text-base">ยังไม่มีข้อมูล Session การประชุม กดบันทึกเพื่อเพิ่มรายการลงในตาราง</td></tr>`;
                 return;
             }
 
-            // 2. Group sessions by Date and Time Slot
             const groupedSlots = {};
 
             sessions.forEach(s => {
@@ -638,31 +1081,33 @@
                 groupedSlots[slotKey].roomMap[s.room] = s;
             });
 
-            // 3. Sort Chronologically by Date -> Time Start
             const sortedSlots = Object.values(groupedSlots).sort((a, b) => {
                 if (a.date !== b.date) return a.date.localeCompare(b.date);
                 return a.time.localeCompare(b.time);
             });
 
-            // 4. Render Table Body Rows
             let currentDate = '';
 
             sortedSlots.forEach(slot => {
-                // Insert Date Divider Header Banner when date changes
                 if (slot.date !== currentDate) {
                     currentDate = slot.date;
-                    const formattedDate = new Date(currentDate).toLocaleDateString('th-TH', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
+                    let formattedDate = currentDate;
+                    try {
+                        formattedDate = new Date(currentDate).toLocaleDateString('th-TH', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                    } catch (err) {
+                        formattedDate = currentDate;
+                    }
 
                     const dateHeaderRow = document.createElement('tr');
-                    dateHeaderRow.className = "bg-indigo-50/80 font-bold text-indigo-900 border-y border-indigo-200";
+                    dateHeaderRow.className = "bg-indigo-900 text-white font-bold border-y border-indigo-800";
                     dateHeaderRow.innerHTML = `
-                        <td colspan="${rooms.length + 1}" class="py-2.5 px-4 text-xs tracking-wide">
-                            <i class="fa-regular fa-calendar-check text-indigo-600 mr-1.5"></i> วัน${formattedDate} (${currentDate})
+                        <td colspan="${rooms.length + 1}" class="py-3 px-4 text-base tracking-wide">
+                            <i class="fa-regular fa-calendar-check text-indigo-300 mr-2"></i> ${formattedDate} (${currentDate})
                         </td>
                     `;
                     tbody.appendChild(dateHeaderRow);
@@ -672,16 +1117,15 @@
                 row.className = "hover:bg-slate-50 transition border-b border-slate-200";
 
                 let rowHtml = `
-                    <td class="py-3 px-3 border-r border-slate-200 font-semibold text-slate-700 bg-slate-50/50 align-top text-center">
-                        <div class="text-xs text-indigo-700 font-bold">${slot.time}</div>
+                    <td class="py-4 px-3 border-r border-slate-200 font-bold text-slate-800 bg-slate-50/50 align-top text-center">
+                        <div class="text-base text-indigo-700 font-bold">${slot.time}</div>
                     </td>
                 `;
 
-                // Render session card for each room column
                 rooms.forEach(r => {
                     const sessionInRoom = slot.roomMap[r];
                     rowHtml += `
-                        <td class="py-3 px-3 border-r border-slate-200 align-top w-${12 / rooms.length}/12">
+                        <td class="py-3 px-3 border-r border-slate-200 align-top">
                             ${renderSessionCard(sessionInRoom)}
                         </td>
                     `;
@@ -694,64 +1138,81 @@
 
         function renderSessionCard(session) {
             if (!session) {
-                return `<div class="text-center py-6 text-slate-300 italic text-[11px] select-none">- ไม่มี Session -</div>`;
+                return `<div class="text-center py-8 text-slate-300 italic text-sm select-none">- ไม่มี Session -</div>`;
             }
 
-            const mods = session.moderators.length > 0 ? session.moderators.join(', ') : '-';
-            const spks = session.speakers.length > 0 ? session.speakers.join(', ') : '-';
+            const modsList = session.moderators || [];
+            const spksList = session.speakers || [];
+            
+            // Sort subtopics chronologically by time before rendering
+            const subList = [...(session.subtopicsList || [])];
+            subList.sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
+
+            const mods = modsList.length > 0 ? modsList.join(', ') : '-';
+            const spks = spksList.length > 0 ? spksList.join(', ') : '-';
+
+            let subtopicsHtml = '';
+            if (subList.length > 0) {
+                subtopicsHtml = `
+                    <div class="mt-2.5 pt-2 border-t border-slate-100 space-y-1.5">
+                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1">
+                            <i class="fa-solid fa-list-ul text-indigo-500"></i> Subtopics (${subList.length}):
+                        </div>
+                        ${subList.map((st, idx) => {
+                            let stSpeakersStr = '-';
+                            if (Array.isArray(st.speakers) && st.speakers.length > 0) {
+                                stSpeakersStr = st.speakers.join(', ');
+                            } else if (st.speaker) {
+                                stSpeakersStr = st.speaker; // backward compatibility
+                            }
+
+                            return `
+                            <div class="bg-slate-50 border border-slate-200 p-2 rounded-md text-xs">
+                                <div class="font-bold text-slate-800 flex justify-between items-start gap-1">
+                                    <span>${idx + 1}. ${st.title}</span>
+                                    <span class="text-[11px] text-indigo-600 font-semibold whitespace-nowrap bg-indigo-50 px-1 rounded">${st.startTime || ''} - ${st.endTime || ''}</span>
+                                </div>
+                                ${stSpeakersStr !== '-' ? `<div class="text-emerald-700 font-medium text-[11px] mt-0.5 flex items-center gap-1"><i class="fa-solid fa-microphone text-[10px]"></i> <span>${stSpeakersStr}</span></div>` : ''}
+                            </div>
+                        `;
+                        }).join('')}
+                    </div>
+                `;
+            }
 
             return `
-                <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-xs hover:shadow-md transition relative group">
-                    <!-- Title Editable -->
-                    <div class="flex justify-between items-start gap-2 mb-1">
-                        <div contenteditable="true" 
-                             onblur="updateSessionField(${session.id}, 'title', this.innerText)" 
-                             class="font-bold text-slate-800 text-xs p-1 rounded hover:bg-amber-50 focus:bg-amber-50 focus:outline-indigo-500 leading-snug flex-grow"
-                             title="คลิกเพื่อพิมพ์แก้ไขชื่อ Session">
+                <div class="bg-white rounded-lg border border-slate-200 p-4 shadow-xs hover:shadow-md transition relative group">
+                    <div class="flex justify-between items-start gap-2 mb-2">
+                        <div onclick="openEditSessionModal(${session.id})" 
+                             class="font-bold text-slate-800 text-base p-1 rounded hover:bg-indigo-50 leading-snug flex-grow cursor-pointer"
+                             title="คลิกเพื่อปรับแต่งรายละเอียด Session นี้">
                             ${session.title}
                         </div>
-                        <button onclick="deleteSession(${session.id})" class="text-slate-300 hover:text-rose-600 text-xs transition p-0.5" title="ลบ Session นี้">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-
-                    <!-- Sub-topics Editable -->
-                    <div contenteditable="true" 
-                         onblur="updateSessionField(${session.id}, 'subTopics', this.innerText)" 
-                         class="text-[11px] text-slate-500 italic mb-2.5 p-1 rounded hover:bg-amber-50 focus:bg-amber-50 focus:outline-indigo-500"
-                         title="คลิกเพื่อพิมพ์แก้ไขหัวข้อย่อย">
-                        ${session.subTopics || 'คลิกเพื่อเพิ่มหัวข้อย่อย...'}
-                    </div>
-
-                    <!-- Moderators & Speakers List -->
-                    <div class="text-[11px] border-t border-slate-100 pt-2 space-y-1.5">
-                        <div>
-                            <div class="flex justify-between items-center text-slate-400 text-[10px] uppercase tracking-wider">
-                                <span><i class="fa-solid fa-user-gear text-indigo-500"></i> Moderator(s):</span>
-                                <button onclick="editPeopleInSession(${session.id}, 'moderators')" class="text-indigo-600 hover:underline font-semibold">แก้ไข</button>
-                            </div>
-                            <div class="font-medium text-slate-700 leading-tight">${mods}</div>
-                        </div>
-
-                        <div>
-                            <div class="flex justify-between items-center text-slate-400 text-[10px] uppercase tracking-wider">
-                                <span><i class="fa-solid fa-microphone text-emerald-500"></i> Speaker(s):</span>
-                                <button onclick="editPeopleInSession(${session.id}, 'speakers')" class="text-indigo-600 hover:underline font-semibold">แก้ไข</button>
-                            </div>
-                            <div class="font-medium text-slate-700 leading-tight">${spks}</div>
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="openEditSessionModal(${session.id})" class="text-indigo-500 hover:text-indigo-700 text-base p-1" title="แก้ไข Session">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button onclick="deleteSession(${session.id})" class="text-slate-300 hover:text-rose-600 text-base p-1" title="ลบ Session">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
                         </div>
                     </div>
+
+                    <div class="text-xs space-y-1.5 bg-indigo-50/50 p-2.5 rounded-lg border border-indigo-100/60 mb-2">
+                        <div>
+                            <span class="text-slate-500 font-medium"><i class="fa-solid fa-user-gear text-indigo-500 mr-1"></i> Moderator(s):</span>
+                            <span class="font-semibold text-slate-800 text-xs leading-tight ml-1">${mods}</span>
+                        </div>
+                        ${spksList.length > 0 ? `
+                        <div>
+                            <span class="text-slate-500 font-medium"><i class="fa-solid fa-microphone text-emerald-500 mr-1"></i> Speaker(s):</span>
+                            <span class="font-semibold text-slate-800 text-xs leading-tight ml-1">${spks}</span>
+                        </div>` : ''}
+                    </div>
+
+                    ${subtopicsHtml}
                 </div>
             `;
-        }
-
-        function updateSessionField(id, field, value) {
-            const session = sessions.find(s => s.id === id);
-            if (session) {
-                session[field] = value.trim();
-                saveToLocalStorage();
-                updateSummaryTable();
-            }
         }
 
         function deleteSession(id) {
@@ -761,84 +1222,101 @@
             }
         }
 
-        function editPeopleInSession(sessionId, roleType) {
-            const session = sessions.find(s => s.id === sessionId);
-            if (!session) return;
-
-            const currentList = session[roleType].join(', ');
-            const peopleOptions = peopleDatabase.map(p => `${p.Name}`).join('\n');
-
-            const newNamesInput = prompt(
-                `แก้ไขรายการ ${roleType.toUpperCase()}\nกรอกชื่อรายชื่อคั่นด้วยเครื่องหมาย , (จุลภาค):\n\nรายชื่อวิทยากรทั้งหมดในระบบ:\n${peopleOptions}`,
-                currentList
-            );
-
-            if (newNamesInput !== null) {
-                const newNames = newNamesInput.split(',').map(n => n.trim()).filter(n => n);
-
-                // Auto add to people database if not exists
-                newNames.forEach(name => {
-                    if (!peopleDatabase.some(p => p.Name === name)) {
-                        peopleDatabase.push({ Name: name, Institute: '' });
-                    }
-                });
-
-                session[roleType] = newNames;
-                refreshUI();
-            }
-        }
-
         /* ==========================================================================
-           PERSONAL TASK SUMMARY TABLE
+           PERSONAL TASK SUMMARY TABLE (UPDATED FOR MULTIPLE SUBTOPIC SPEAKERS)
            ========================================================================== */
 
         function updateSummaryTable() {
             const tbody = document.getElementById('summaryTableBody');
+            if (!tbody) return;
             tbody.innerHTML = '';
 
             let hasTasks = false;
 
-            // Sort people by name
             peopleDatabase.sort((a, b) => a.Name.localeCompare(b.Name, 'th')).forEach(person => {
-                let taskCount = 0;
-                let taskDetails = [];
+                const name = person.Name;
+                
+                // Find all sessions/subtopics this person is attached to
+                const matchedTasks = [];
 
-                // Search in sessions
                 sessions.forEach(s => {
-                    const isMod = s.moderators.includes(person.Name);
-                    const isSpk = s.speakers.includes(person.Name);
+                    const mods = s.moderators || [];
+                    const spks = s.speakers || [];
+                    const subList = s.subtopicsList || [];
 
-                    if (isMod || isSpk) {
-                        taskCount++;
-                        let roles = [];
-                        if (isMod) roles.push('<span class="text-indigo-600 font-semibold bg-indigo-50 px-1.5 py-0.5 rounded">Moderator</span>');
-                        if (isSpk) roles.push('<span class="text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded">Speaker</span>');
+                    const isMod = mods.includes(name);
+                    const isSpk = spks.includes(name);
 
-                        taskDetails.push(`
-                            <div class="py-1">
-                                <div class="font-medium text-slate-800">
-                                    <i class="fa-regular fa-clock text-slate-400 mr-1"></i> ${s.date} (${s.time}) [${s.room}]
-                                </div>
-                                <div class="text-slate-600 pl-4">
-                                    📌 <strong>${s.title}</strong> — บทบาท: ${roles.join(' & ')}
-                                </div>
-                            </div>
-                        `);
+                    // Filter subtopics where this person is included in speakers array or speaker string
+                    const matchedSubtopics = subList.filter(st => {
+                        if (Array.isArray(st.speakers)) {
+                            return st.speakers.includes(name);
+                        } else if (st.speaker) {
+                            return st.speaker === name;
+                        }
+                        return false;
+                    });
+
+                    if (isMod || isSpk || matchedSubtopics.length > 0) {
+                        matchedTasks.push({
+                            session: s,
+                            isMod,
+                            isSpk,
+                            subtopics: matchedSubtopics
+                        });
                     }
                 });
 
-                if (taskCount > 0) {
+                if (matchedTasks.length > 0) {
                     hasTasks = true;
+                    const totalTaskCount = matchedTasks.length;
+                    let taskDetailsHtml = [];
+
+                    matchedTasks.forEach(t => {
+                        const s = t.session;
+                        let roles = [];
+                        if (t.isMod) roles.push('<span class="text-indigo-600 font-semibold bg-indigo-50 px-1.5 py-0.5 rounded">Moderator</span>');
+                        if (t.isSpk) roles.push('<span class="text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded">Speaker</span>');
+
+                        let subtopicDetails = '';
+                        if (t.subtopics.length > 0) {
+                            subtopicDetails = t.subtopics.map(st => {
+                                const allSubSpeakers = Array.isArray(st.speakers) ? st.speakers : [st.speaker];
+                                const speakerListStr = allSubSpeakers.filter(Boolean).join(', ');
+                                const speakerText = speakerListStr ? `<span class="text-slate-500 font-normal"> (Speakers: ${speakerListStr})</span>` : '';
+
+                                return `
+                                <div class="text-slate-700 text-xs pl-3 py-0.5 font-medium border-l-2 border-indigo-300 my-1">
+                                    🎤 <strong>${st.title}</strong> (${st.startTime || ''} - ${st.endTime || ''})${speakerText}
+                                </div>
+                            `;
+                            }).join('');
+                        }
+
+                        taskDetailsHtml.push(`
+                            <div class="py-1.5">
+                                <div class="font-medium text-slate-800 text-xs">
+                                    <i class="fa-regular fa-clock text-indigo-500 mr-1"></i> <strong>${s.date}</strong> (${s.time}) [${s.room}]
+                                </div>
+                                <div class="text-slate-700 font-semibold text-sm pl-2 mt-0.5">
+                                    📌 ${s.title}
+                                </div>
+                                ${roles.length > 0 ? `<div class="pl-2 mt-1 text-xs">${roles.join(' & ')}</div>` : ''}
+                                ${subtopicDetails}
+                            </div>
+                        `);
+                    });
+
                     const row = document.createElement('tr');
-                    row.className = "hover:bg-slate-50 transition";
+                    row.className = "hover:bg-slate-50 transition border-b border-slate-200";
                     row.innerHTML = `
-                        <td class="py-3 px-4 font-semibold text-slate-800 align-top">${person.Name}</td>
-                        <td class="py-3 px-4 text-slate-600 align-top">${person.Institute || '-'}</td>
-                        <td class="py-3 px-4 text-center align-top">
-                            <span class="inline-block bg-purple-100 text-purple-800 font-bold px-2.5 py-0.5 rounded-full text-xs">${taskCount} Session</span>
+                        <td class="py-3.5 px-4 font-semibold text-slate-800 align-top text-sm">${person.Name}</td>
+                        <td class="py-3.5 px-4 text-slate-600 align-top text-xs">${person.Institute || '-'}</td>
+                        <td class="py-3.5 px-4 text-center align-top">
+                            <span class="inline-block bg-purple-100 text-purple-800 font-bold px-2.5 py-1 rounded-full text-xs">${totalTaskCount} Sessions</span>
                         </td>
-                        <td class="py-3 px-4 align-top text-xs divide-y divide-slate-100">
-                            ${taskDetails.join('')}
+                        <td class="py-3.5 px-4 align-top text-xs divide-y divide-slate-100">
+                            ${taskDetailsHtml.join('')}
                         </td>
                     `;
                     tbody.appendChild(row);
@@ -846,61 +1324,14 @@
             });
 
             if (!hasTasks) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-slate-400 italic">ยังไม่มีวิทยากรหรือผู้ดำเนินรายการที่มีภารกิจในตารางขณะนี้</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-10 text-slate-400 italic text-sm">ยังไม่มีวิทยากรหรือผู้ดำเนินรายการที่มีภารกิจในตารางขณะนี้</td></tr>`;
             }
         }
 
         /* ==========================================================================
-           IMPORT / EXPORT BACKUP (JSON & EXCEL)
+           EXPORT BACKUP & EXCEL
            ========================================================================== */
 
-        // 1. Export JSON Backup
-        function exportJSONBackup() {
-            const dataState = {
-                version: "2.0",
-                exportDate: new Date().toISOString(),
-                rooms: rooms,
-                peopleDatabase: peopleDatabase,
-                sessions: sessions
-            };
-
-            const blob = new Blob([JSON.stringify(dataState, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `conference_agenda_backup_${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        // 2. Import JSON Backup
-        function importJSONBackup(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const imported = JSON.parse(e.target.result);
-                    if (imported.rooms && imported.peopleDatabase && imported.sessions) {
-                        rooms = imported.rooms;
-                        peopleDatabase = imported.peopleDatabase;
-                        sessions = imported.sessions;
-                        refreshUI();
-                        alert('กู้คืนข้อมูลจากไฟล์ JSON สำเร็จเรียบร้อย!');
-                    } else {
-                        alert('รูปแบบไฟล์ JSON ไม่ถูกต้อง');
-                    }
-                } catch (err) {
-                    alert('เกิดข้อผิดพลาดในการอ่านไฟล์ JSON');
-                    console.error(err);
-                }
-            };
-            reader.readAsText(file);
-            event.target.value = ''; // reset
-        }
-
-        // 3. Export Full Schedule & Task Summary to Excel
         function exportToExcel() {
             if (sessions.length === 0) {
                 alert('ไม่มีข้อมูล Session สำหรับส่งออก');
@@ -909,73 +1340,88 @@
 
             const wb = XLSX.utils.book_new();
 
-            // Sheet 1: Full Agenda
-            const agendaData = sessions.map(s => ({
-                "Date": s.date,
-                "Time": s.time,
-                "Room": s.room,
-                "Session Title (EN)": s.title,
-                "Sub-topics": s.subTopics,
-                "Moderators (TH)": s.moderators.join(', '),
-                "Speakers (TH)": s.speakers.join(', ')
-            }));
-            const ws1 = XLSX.utils.json_to_sheet(agendaData);
-            XLSX.utils.book_append_sheet(wb, ws1, "Conference Agenda");
+            const agendaData = [];
+            sessions.forEach(s => {
+                const subList = s.subtopicsList || [];
+                if (subList.length > 0) {
+                    subList.forEach(st => {
+                        let stSpeakers = '-';
+                        if (Array.isArray(st.speakers) && st.speakers.length > 0) {
+                            stSpeakers = st.speakers.join(', ');
+                        } else if (st.speaker) {
+                            stSpeakers = st.speaker;
+                        }
 
-            // Sheet 2: Personal Task Summary
-            const summaryData = [];
-            peopleDatabase.forEach(p => {
-                const pSessions = sessions.filter(s => s.moderators.includes(p.Name) || s.speakers.includes(p.Name));
-                if (pSessions.length > 0) {
-                    pSessions.forEach(s => {
-                        let role = [];
-                        if (s.moderators.includes(p.Name)) role.push('Moderator');
-                        if (s.speakers.includes(p.Name)) role.push('Speaker');
-
-                        summaryData.push({
-                            "Name": p.Name,
-                            "Institute": p.Institute || '',
-                            "Role": role.join(' & '),
+                        agendaData.push({
                             "Date": s.date,
-                            "Time": s.time,
+                            "Session Time": s.time,
                             "Room": s.room,
-                            "Session Title": s.title
+                            "Session Title": s.title,
+                            "Subtopic Title": st.title,
+                            "Subtopic Time": `${st.startTime || ''} - ${st.endTime || ''}`,
+                            "Subtopic Speaker(s)": stSpeakers,
+                            "Session Moderators": (s.moderators || []).join(', ')
                         });
+                    });
+                } else {
+                    agendaData.push({
+                        "Date": s.date,
+                        "Session Time": s.time,
+                        "Room": s.room,
+                        "Session Title": s.title,
+                        "Subtopic Title": "-",
+                        "Subtopic Time": "-",
+                        "Subtopic Speaker(s)": (s.speakers || []).join(', '),
+                        "Session Moderators": (s.moderators || []).join(', ')
                     });
                 }
             });
 
-            if (summaryData.length > 0) {
-                const ws2 = XLSX.utils.json_to_sheet(summaryData);
-                XLSX.utils.book_append_sheet(wb, ws2, "Personal Task Summary");
-            }
+            const ws1 = XLSX.utils.json_to_sheet(agendaData);
+            XLSX.utils.book_append_sheet(wb, ws1, "Conference Agenda");
 
             XLSX.writeFile(wb, `Conference_Schedule_Export_${new Date().toISOString().split('T')[0]}.xlsx`);
         }
 
-        // 4. Export Personal Task Summary Only
         function exportSummaryExcel() {
             const summaryData = [];
+
             peopleDatabase.forEach(p => {
-                const pSessions = sessions.filter(s => s.moderators.includes(p.Name) || s.speakers.includes(p.Name));
-                if (pSessions.length > 0) {
-                    pSessions.forEach(s => {
-                        let role = [];
-                        if (s.moderators.includes(p.Name)) role.push('Moderator');
-                        if (s.speakers.includes(p.Name)) role.push('Speaker');
+                const name = p.Name;
+                sessions.forEach(s => {
+                    const mods = s.moderators || [];
+                    const spks = s.speakers || [];
+                    const subList = s.subtopicsList || [];
+
+                    const isMod = mods.includes(name);
+                    const isSpk = spks.includes(name);
+                    const matchedSubtopics = subList.filter(st => {
+                        if (Array.isArray(st.speakers)) {
+                            return st.speakers.includes(name);
+                        } else if (st.speaker) {
+                            return st.speaker === name;
+                        }
+                        return false;
+                    });
+
+                    if (isMod || isSpk || matchedSubtopics.length > 0) {
+                        let roleDesc = [];
+                        if (isMod) roleDesc.push('Moderator');
+                        if (isSpk) roleDesc.push('Speaker');
+                        if (matchedSubtopics.length > 0) roleDesc.push(`Subtopic Speaker (${matchedSubtopics.length} หัวข้อ)`);
 
                         summaryData.push({
                             "ชื่อ-นามสกุล": p.Name,
                             "สถาบัน/หน่วยงาน": p.Institute || '',
-                            "จำนวน Session ทั้งหมด": pSessions.length,
-                            "บทบาท": role.join(' & '),
+                            "บทบาท": roleDesc.join(' & '),
                             "วันที่": s.date,
-                            "เวลา": s.time,
+                            "เวลา Session": s.time,
                             "ห้องประชุม": s.room,
-                            "หัวข้อ Session": s.title
+                            "หัวข้อ Session": s.title,
+                            "หัวข้อย่อยที่รับผิดชอบ": matchedSubtopics.map(st => `${st.title} (${st.startTime}-${st.endTime})`).join('; ') || '-'
                         });
-                    });
-                }
+                    }
+                });
             });
 
             if (summaryData.length === 0) {
@@ -989,10 +1435,11 @@
             XLSX.writeFile(wb, `Personal_Task_Summary_${new Date().toISOString().split('T')[0]}.xlsx`);
         }
 
-        // 5. Clear All Data
         function clearAllData() {
             if (confirm('คุณแน่ใจหรือไม่ที่จะล้างข้อมูลทั้งหมด? (ข้อมูลทั้งหมดในระบบจะถูกลบรวมถึง LocalStorage)')) {
                 localStorage.clear();
+                fileHandle = null;
+                updateFileStatusUI();
                 rooms = ["Room A", "Room B"];
                 peopleDatabase = [];
                 sessions = [];

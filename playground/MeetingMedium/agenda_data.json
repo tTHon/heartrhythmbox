@@ -1,0 +1,331 @@
+{
+  "version": "2.2",
+  "lastUpdated": "2026-10-28T09:04:33.479Z",
+  "rooms": [
+    "Fidella",
+    "Fauna"
+  ],
+  "peopleDatabase": [
+    {
+      "Name": "อ.กฤษฎา มีมุข",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ครรชิต ลิขิตธนสมบัติ",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ณัฐ ซึ่งสนธิพร",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ถวาย เงินศรีตระกูล",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ทศพล ลิ้มพิจารณ์กิจ",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ทินกฤต ศศิประภา",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ธัชพงศ์ งามอุโฆษ",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ธารินี ตั้งเจริญ",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ธีรภัทร ยิ่งชนม์เจริญ",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.นันทกร ทองแตง",
+      "Institute": "โรงพยาบาลศิริราช"
+    },
+    {
+      "Name": "อ.นิลุบล เมธาจิตติพันธ์",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.บัณฑิต นราตรีคูณ",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ปริญญ์ วาทีสาธกกิจ",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ปิยะมิตร ศรีธรา",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.พลาย ชี้เจริญ",
+      "Institute": "คณะแพทยศาสตร์ ม.สงขลานครินทร์"
+    },
+    {
+      "Name": "อ.ภากร จันทนมัฏฐะ",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.ภาวิทย์ เพียรวิจิตร",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.แมน จันทวิมล",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.สรณ บุญใบชัยพฤกษ์",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.สิรินทร์ อภิญาสวัสดิ์",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.สุรเกียรติ ลีละศศิธร",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.สุรชัย คงรัตน์",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.อรพร สีห์",
+      "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.อัษฎายุธ พูลพิทยาธร",
+      "Institute": "รพ.รามาธิบดี"
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1793166866878,
+      "date": "2027-02-19",
+      "room": "Fauna",
+      "time": "16:30 - 17:30",
+      "title": "Echo, CT, MRI: 20x20 Spotlight",
+      "subTopics": "คลิกเพื่อเพิ่มหัวข้อย่อย...",
+      "moderators": [
+        "อ.แมน จันทวิมล",
+        "อ.อรพร สีห์"
+      ],
+      "speakers": [
+        "อ.ถวาย เงินศรีตระกูล",
+        "อ.สุรเกียรติ ลีละศศิธร",
+        "อ.สุรชัย คงรัตน์"
+      ]
+    },
+    {
+      "id": 1793168049939,
+      "date": "2027-02-19",
+      "room": "Fauna",
+      "time": "17:30 - 18:15",
+      "title": "Dinner Symposium",
+      "subTopics": "",
+      "moderators": [],
+      "speakers": []
+    },
+    {
+      "id": 1793169702783,
+      "date": "2027-02-19",
+      "room": "Fauna",
+      "time": "18:15 - 20:15",
+      "title": "Quiz Show",
+      "subTopics": "EGM and CIED Tracings",
+      "moderators": [
+        "อ.ธัชพงศ์ งามอุโฆษ"
+      ],
+      "speakers": [],
+      "subtopicsList": [
+        {
+          "title": "EGM and CIED Tracings",
+          "startTime": "18:15",
+          "endTime": "18:45",
+          "speakers": [
+            "อ.ณัฐ ซึ่งสนธิพร",
+            "อ.นิลุบล เมธาจิตติพันธ์"
+          ]
+        },
+        {
+          "title": "\"Number Need To Teach\" - Essential Stats for Trials Interpretation",
+          "startTime": "18:45",
+          "endTime": "19:15",
+          "speakers": [
+            "อ.ปริญญ์ วาทีสาธกกิจ",
+            "อ.พลาย ชี้เจริญ"
+          ]
+        },
+        {
+          "title": "CXR, CAD, andd Hemodynamic Quiz",
+          "startTime": "19:15",
+          "endTime": "20:15",
+          "speakers": [
+            "อ.กฤษฎา มีมุข",
+            "อ.ทินกฤต ศศิประภา"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1793170184329,
+      "date": "2027-02-20",
+      "room": "Fidella",
+      "time": "07:45 - 08:45",
+      "title": "Breakfast Symposium",
+      "subTopics": "",
+      "moderators": [],
+      "speakers": []
+    },
+    {
+      "id": 1793170205109,
+      "date": "2027-02-20",
+      "room": "Fauna",
+      "time": "07:45 - 08:45",
+      "title": "Breakfast Symposium",
+      "subTopics": "",
+      "moderators": [],
+      "speakers": []
+    },
+    {
+      "id": 1793177785554,
+      "date": "2027-02-20",
+      "room": "Fidella",
+      "time": "09:00 - 09:15",
+      "title": "Welcome to CC2024",
+      "subtopicsList": [],
+      "moderators": [
+        "อ.ภาวิทย์ เพียรวิจิตร",
+        "อ.สิรินทร์ อภิญาสวัสดิ์"
+      ],
+      "speakers": []
+    },
+    {
+      "id": 1793177827977,
+      "date": "2027-02-20",
+      "room": "Fidella",
+      "time": "09:15 - 10:00",
+      "title": "Year in Review",
+      "subtopicsList": [],
+      "moderators": [
+        "อ.ปิยะมิตร ศรีธรา"
+      ],
+      "speakers": [
+        "อ.ธีรภัทร ยิ่งชนม์เจริญ",
+        "อ.ภาวิทย์ เพียรวิจิตร",
+        "อ.สิรินทร์ อภิญาสวัสดิ์"
+      ]
+    },
+    {
+      "id": 1793177972571,
+      "date": "2027-02-20",
+      "room": "Fidella",
+      "time": "10:30 - 11:45",
+      "title": "General Cardiology Update",
+      "subtopicsList": [
+        {
+          "title": "Have we changed our mind on LPa",
+          "startTime": "10:30",
+          "endTime": "10:45",
+          "speakers": [
+            "อ.ปริญญ์ วาทีสาธกกิจ"
+          ]
+        },
+        {
+          "title": "Diabesity: When HbA1C is not enough!",
+          "startTime": "10:45",
+          "endTime": "11:00",
+          "speakers": [
+            "อ.นันทกร ทองแตง"
+          ]
+        },
+        {
+          "title": "Stress Test, CTCA, or Statin for non-ACS chest pain",
+          "startTime": "11:00",
+          "endTime": "11:15",
+          "speakers": []
+        },
+        {
+          "title": "Why haven't we been replaced by AI (yet)?",
+          "startTime": "11:15",
+          "endTime": "11:30",
+          "speakers": [
+            "อ.สิรินทร์ อภิญาสวัสดิ์"
+          ]
+        },
+        {
+          "title": "Radiation related cardiovascular abnormalities",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": []
+        }
+      ],
+      "moderators": [
+        "อ.ภาวิทย์ เพียรวิจิตร"
+      ],
+      "speakers": []
+    },
+    {
+      "id": 1793178273447,
+      "date": "2027-02-20",
+      "room": "Fauna",
+      "time": "10:30 - 11:45",
+      "title": "Subspecialties Update",
+      "subtopicsList": [
+        {
+          "title": "Percutaneous Intervention for Acute Pulmonary Embolism",
+          "startTime": "10:30",
+          "endTime": "10:45",
+          "speakers": [
+            "อ.แมน จันทวิมล"
+          ]
+        },
+        {
+          "title": "Stressor related AF: Similar Management to Standard AF?",
+          "startTime": "10:45",
+          "endTime": "11:00",
+          "speakers": []
+        },
+        {
+          "title": "From asymptomatic to acute valve syndrome: Prevention and Management Strategies",
+          "startTime": "11:00",
+          "endTime": "11:15",
+          "speakers": []
+        },
+        {
+          "title": "BNP: Appropriate Use and Cutoff",
+          "startTime": "11:15",
+          "endTime": "11:30",
+          "speakers": []
+        },
+        {
+          "title": "Which AF in HFrEF is worth ablating?",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": []
+        },
+        {
+          "title": "When is it too late to intervene valvular lesions?",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": []
+        },
+        {
+          "title": "Exercise testing for evaluation of severe valvular disease..",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": []
+        }
+      ],
+      "moderators": [
+        "อ.ธัชพงศ์ งามอุโฆษ"
+      ],
+      "speakers": []
+    }
+  ]
+}
