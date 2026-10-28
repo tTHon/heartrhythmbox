@@ -58,7 +58,7 @@ Phase 1 (head only, lr 1e-3, 10 ep)
   - Val acc 84.2% -> 92.7% (best at ep 10); train acc 94.7%.
   - Val loss fell steadily 0.524 -> 0.259; no overfitting yet.
 
-Phase 2 (full unfreeze, lr 1e-5, 20 ep)
+Phase 2 (full unfreeze, lr 1e-5, 15 ep)
   - Best val acc 96.9% (ep 12; ep 19 tied at 96.9%). Plateau ~96.2-96.9%
     from ep 3 onward.
   - Train acc kept rising to ~98.4% while val loss rose again after its
@@ -159,7 +159,7 @@ NUM_WORKERS  = 2
 
 P1_EPOCHS    = 10
 P1_LR        = 1e-3
-P2_EPOCHS    = 20
+P2_EPOCHS    = 15
 P2_LR        = 1e-5
 WEIGHT_DECAY = 1e-4
 
