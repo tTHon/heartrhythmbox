@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-10-28T09:04:33.479Z",
+  "lastUpdated": "2026-10-29T05:50:35.702Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -117,9 +117,11 @@
       ],
       "speakers": [
         "อ.ถวาย เงินศรีตระกูล",
+        "อ.บัณฑิต นราตรีคูณ",
         "อ.สุรเกียรติ ลีละศศิธร",
         "อ.สุรชัย คงรัตน์"
-      ]
+      ],
+      "subtopicsList": []
     },
     {
       "id": 1793168049939,
@@ -199,10 +201,7 @@
       "time": "09:00 - 09:15",
       "title": "Welcome to CC2024",
       "subtopicsList": [],
-      "moderators": [
-        "อ.ภาวิทย์ เพียรวิจิตร",
-        "อ.สิรินทร์ อภิญาสวัสดิ์"
-      ],
+      "moderators": [],
       "speakers": []
     },
     {
@@ -229,7 +228,7 @@
       "title": "General Cardiology Update",
       "subtopicsList": [
         {
-          "title": "Have we changed our mind on LPa",
+          "title": "Have we changed our mind on LPa?",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
@@ -245,24 +244,24 @@
           ]
         },
         {
-          "title": "Stress Test, CTCA, or Statin for non-ACS chest pain",
+          "title": "Athlete's Heart: The Thin Line between Pathologic and Physiologic Changes",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": []
         },
         {
-          "title": "Why haven't we been replaced by AI (yet)?",
+          "title": "Diet and Exercise Recommendation during GLP1a Treatment for Weight Loss",
           "startTime": "11:15",
           "endTime": "11:30",
+          "speakers": []
+        },
+        {
+          "title": "Why haven't we been replaced by AI (yet)?",
+          "startTime": "11:30",
+          "endTime": "11:45",
           "speakers": [
             "อ.สิรินทร์ อภิญาสวัสดิ์"
           ]
-        },
-        {
-          "title": "Radiation related cardiovascular abnormalities",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
         }
       ],
       "moderators": [
@@ -304,6 +303,12 @@
           "speakers": []
         },
         {
+          "title": "Stress Echo to Unmask HFpEF and Significant Valvular Disease",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": []
+        },
+        {
           "title": "Which AF in HFrEF is worth ablating?",
           "startTime": "11:30",
           "endTime": "11:45",
@@ -316,7 +321,19 @@
           "speakers": []
         },
         {
-          "title": "Exercise testing for evaluation of severe valvular disease..",
+          "title": "Arrhythmia Management in Myocarditis from Hot to Cold Phase",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": []
+        },
+        {
+          "title": "Stress Test, CTCA, or Statin for non-ACS chest pain",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": []
+        },
+        {
+          "title": "Cardiac imagings for Cancer Treatment Related Cardiac Abnormalities",
           "startTime": "11:30",
           "endTime": "11:45",
           "speakers": []
@@ -324,6 +341,199 @@
       ],
       "moderators": [
         "อ.ธัชพงศ์ งามอุโฆษ"
+      ],
+      "speakers": []
+    },
+    {
+      "id": 1793239150884,
+      "date": "2027-02-20",
+      "room": "Fidella",
+      "time": "12:00 - 13:00",
+      "title": "Lunch Symposium",
+      "subtopicsList": [],
+      "moderators": [],
+      "speakers": []
+    },
+    {
+      "id": 1793239156487,
+      "date": "2027-02-20",
+      "room": "Fauna",
+      "time": "12:00 - 13:00",
+      "title": "Lunch Symposium",
+      "subtopicsList": [],
+      "moderators": [],
+      "speakers": []
+    },
+    {
+      "id": 1793239204627,
+      "date": "2027-02-20",
+      "room": "Fauna",
+      "time": "13:15 - 14:45",
+      "title": "ECGs Speed Jam",
+      "subtopicsList": [],
+      "moderators": [
+        "อ.ครรชิต ลิขิตธนสมบัติ",
+        "อ.ณัฐ ซึ่งสนธิพร",
+        "อ.สิรินทร์ อภิญาสวัสดิ์",
+        "อ.อัษฎายุธ พูลพิทยาธร"
+      ],
+      "speakers": [
+        "อ.ธัชพงศ์ งามอุโฆษ"
+      ]
+    },
+    {
+      "id": 1793239284560,
+      "date": "2027-02-20",
+      "room": "Fidella",
+      "time": "13:15 - 14:45",
+      "title": "Guidelines Update: From PDFs to Practice",
+      "subtopicsList": [
+        {
+          "title": "New MI Definitions",
+          "startTime": "13:15",
+          "endTime": "13:30",
+          "speakers": []
+        },
+        {
+          "title": "New HF Re-Classification",
+          "startTime": "13:30",
+          "endTime": "13:45",
+          "speakers": []
+        },
+        {
+          "title": "Latest Evidence supporting or conflicting the Lipid Guidelines",
+          "startTime": "13:45",
+          "endTime": "14:00",
+          "speakers": []
+        },
+        {
+          "title": "Preop Troponin or Stress Testing: Who still need them?",
+          "startTime": "14:00",
+          "endTime": "14:15",
+          "speakers": []
+        },
+        {
+          "title": "How to Risk Stratify Acute PE",
+          "startTime": "14:15",
+          "endTime": "14:30",
+          "speakers": []
+        }
+      ],
+      "moderators": [
+        "อ.สรณ บุญใบชัยพฤกษ์"
+      ],
+      "speakers": []
+    },
+    {
+      "id": 1793239750502,
+      "date": "2027-02-20",
+      "room": "Fidella",
+      "time": "15:00 - 16:30",
+      "title": "Cross Talk: Mini Debates on Clinical Relevant, yet Controversial Topics",
+      "subtopicsList": [
+        {
+          "title": "CAC as a Screening Tool for CAD",
+          "startTime": "15:00",
+          "endTime": "15:20",
+          "speakers": []
+        },
+        {
+          "title": "Physical Examination in Asymptomatic Adults",
+          "startTime": "15:20",
+          "endTime": "15:40",
+          "speakers": []
+        },
+        {
+          "title": "Cardiovascular Benefits of Triglycerides Reduction",
+          "startTime": "15:40",
+          "endTime": "16:00",
+          "speakers": []
+        },
+        {
+          "title": "Over-the-counter Statin",
+          "startTime": "15:40",
+          "endTime": "16:00",
+          "speakers": []
+        },
+        {
+          "title": "LAAO in AF with Absolute Contraindications for DOAC",
+          "startTime": "16:00",
+          "endTime": "16:20",
+          "speakers": [
+            "อ.แมน จันทวิมล",
+            "อ.สิรินทร์ อภิญาสวัสดิ์"
+          ]
+        },
+        {
+          "title": "Should MDs be sharing medical advice on social media?",
+          "startTime": "16:00",
+          "endTime": "16:20",
+          "speakers": []
+        }
+      ],
+      "moderators": [
+        "อ.ภาวิทย์ เพียรวิจิตร"
+      ],
+      "speakers": []
+    },
+    {
+      "id": 1793241090088,
+      "date": "2027-02-21",
+      "room": "Fidella",
+      "time": "07:45 - 08:45",
+      "title": "หัตถการเสริมความงาม",
+      "subtopicsList": [],
+      "moderators": [
+        "อ.ภาวิทย์ เพียรวิจิตร"
+      ],
+      "speakers": []
+    },
+    {
+      "id": 1793241111507,
+      "date": "2027-02-21",
+      "room": "Fidella",
+      "time": "08:45 - 09:30",
+      "title": "Breakfast Symposium",
+      "subtopicsList": [],
+      "moderators": [],
+      "speakers": []
+    },
+    {
+      "id": 1793241183973,
+      "date": "2027-02-21",
+      "room": "Fidella",
+      "time": "09:30 - 10:30",
+      "title": "Cases of The Year",
+      "subtopicsList": [],
+      "moderators": [
+        "อ.ทศพล ลิ้มพิจารณ์กิจ"
+      ],
+      "speakers": []
+    },
+    {
+      "id": 1793241266586,
+      "date": "2027-02-21",
+      "room": "Fidella",
+      "time": "10:30 - 11:00",
+      "title": "Trending Ideas",
+      "subtopicsList": [
+        {
+          "title": "Entering the New Era of HCM Management",
+          "startTime": "10:30",
+          "endTime": "10:40",
+          "speakers": [
+            "อ.ธีรภัทร ยิ่งชนม์เจริญ"
+          ]
+        },
+        {
+          "title": "No Routine Bicarb in Shock or Cardiac Arrest",
+          "startTime": "10:40",
+          "endTime": "10:50",
+          "speakers": []
+        }
+      ],
+      "moderators": [
+        "อ.ภาวิทย์ เพียรวิจิตร"
       ],
       "speakers": []
     }
