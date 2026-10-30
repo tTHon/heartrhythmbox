@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-10-29T07:10:30.864Z",
+  "lastUpdated": "2026-10-30T06:22:18.849Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -465,7 +465,7 @@
           ]
         },
         {
-          "title": "Should MDs be providing medical advice over social medias?",
+          "title": "Should MDs be providing medical consultation over social medias?",
           "startTime": "16:00",
           "endTime": "16:20",
           "speakers": []
@@ -523,6 +523,14 @@
           "endTime": "10:40",
           "speakers": [
             "อ.ธีรภัทร ยิ่งชนม์เจริญ"
+          ]
+        },
+        {
+          "title": "New antihypersive medication class for resistant hypertension",
+          "startTime": "10:30",
+          "endTime": "10:45",
+          "speakers": [
+            "อ.ปริญญ์ วาทีสาธกกิจ"
           ]
         },
         {
