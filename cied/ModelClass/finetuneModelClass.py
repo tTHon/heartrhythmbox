@@ -35,6 +35,21 @@ DATA CONTRACT (same as finetune_manuf_v2.py):
   - Images: crop_dir/{ID}_crop.png
   - FinalTest: 0 = train/CV pool, 1 = held-out pipeline test set (excluded
     from all training/CV here)
+
+CHANGES (final-epoch reporting + reproducibility):
+  - FINAL-EPOCH weights are now the primary model (final_epoch_weights.pth and
+    modelclass_classifier_weights.pth). fastai's SaveModelCallback silently
+    reloads the BEST checkpoint at the end of fit, which made the earlier
+    validation report/exports optimistic (checkpoint chosen on the same fold).
+    The best-balanced-accuracy checkpoint is still saved (best_ckpt_weights.pth)
+    ONLY to quantify that selection bias; it is not the reported model.
+  - Per-fold out-of-fold predictions are written directly:
+        oof_final_epoch.csv   (primary)     oof_best_ckpt.csv (bias comparison)
+    columns: ID, fold, [patient], true, pred, p_<class> ...
+    Pool the 5 folds with analyze_oof.py / run_ablation.py.
+  - --seed (fastai set_seed, reproducible=True); --patient_col (optional, adds
+    the patient identifier to the OOF files for the leakage check).
+  - Config is otherwise UNCHANGED (8 + 20 epochs, same lrs / augmentation).
 """
 
 import argparse
@@ -102,7 +117,8 @@ def build_grouping_map(pool_df, min_count):
 
 
 def build_dataframe(args):
-    df = pd.read_csv(args.labels_csv, usecols=["ID", "ModelClass", "FinalTest"])
+    cols = ["ID", "ModelClass", "FinalTest"] + ([args.patient_col] if args.patient_col else [])
+    df = pd.read_csv(args.labels_csv, usecols=cols)
     df["ID"] = df["ID"].astype(str)
     df["image_path"] = df["ID"].apply(lambda i: str((args.crop_dir / f"{i}_crop.png").resolve()))
 
@@ -202,9 +218,45 @@ def load_pretrained_encoder(learner, path):
 
 
 # ==============================
-# 3. MAIN
+# 3. FINAL-EPOCH CAPTURE + OOF EXPORT
+# ==============================
+class SaveFinalEpoch(Callback):
+    """Save the model state_dict at the end of the LAST epoch of a fit.
+    Needed because SaveModelCallback reloads the best checkpoint in after_fit."""
+    def __init__(self, path):
+        self.path = path
+
+    def after_epoch(self):
+        if self.epoch == self.n_epoch - 1:
+            torch.save(self.learn.model.state_dict(), self.path)
+
+
+def write_oof(learner, df, class_names, path, fold, patient_col=None):
+    """Predict on the validation fold with the learner's CURRENT weights and write a CSV."""
+    probs, targs = learner.get_preds()
+    val_df = df[df["is_valid"]].reset_index(drop=True)
+    assert len(val_df) == len(probs), "validation ordering mismatch"
+    out = pd.DataFrame({
+        "ID": val_df["ID"],
+        "fold": fold,
+        "true": [class_names[i] for i in targs.numpy()],
+        "pred": [class_names[i] for i in probs.argmax(1).numpy()],
+    })
+    assert (out["true"].values == val_df["ModelClass_grouped"].values).all(), \
+        "dataloader order != dataframe order"
+    if patient_col:
+        out.insert(2, "patient", val_df[patient_col].values)
+    for j, c in enumerate(class_names):
+        out[f"p_{c}"] = probs[:, j].numpy()
+    out.to_csv(path, index=False)
+    return out, probs, targs
+
+
+# ==============================
+# 4. MAIN
 # ==============================
 def finetune(args):
+    set_seed(args.seed, reproducible=True)
     out = pathlib.Path(args.output_dir) / (f"fold_{args.fold}" if args.fold >= 0 else "single_split")
     out.mkdir(parents=True, exist_ok=True)
     args.output_dir = pathlib.Path(args.output_dir)
@@ -227,6 +279,8 @@ def finetune(args):
             "lr_head": args.lr_head, "lr_full": args.lr_full,
             "pretrained_path": args.pretrained_path,
             "min_class_count": args.min_class_count,
+            "seed": args.seed,
+            "patient_col": args.patient_col,
             "classes": class_names,
         }.items():
             writer.writerow([f"# {k}", v])
@@ -277,25 +331,35 @@ def finetune(args):
     learner.unfreeze()
     learner.path = out
     learner.model_dir = ""
+    final_path = out / "final_epoch_weights.pth"
     learner.fit_one_cycle(
         args.epochs_full, lr_max=args.lr_full,
         cbs=[GradientAccumulation(n_acc=args.grad_accum),
+             SaveFinalEpoch(final_path),
              SaveModelCallback(monitor='balanced_accuracy_score', fname='best_modelclass', with_opt=False)]
     )
 
-    best_path = out / "best_modelclass.pth"
-    if best_path.exists():
-        learner.load(str(out / "best_modelclass"))
-        print("🏆 Loaded best checkpoint (highest balanced accuracy).")
+    # NOTE: SaveModelCallback has just reloaded the BEST checkpoint into the learner.
+    # 1) best-checkpoint OOF (bias comparison only)
+    torch.save(learner.model.state_dict(), out / "best_ckpt_weights.pth")
+    best_oof, _, _ = write_oof(learner, df, class_names, out / "oof_best_ckpt.csv",
+                               args.fold, args.patient_col)
+    # 2) FINAL-EPOCH weights = primary model
+    learner.model.load_state_dict(torch.load(final_path, map_location=device))
+    final_oof, preds, targs = write_oof(learner, df, class_names, out / "oof_final_epoch.csv",
+                                        args.fold, args.patient_col)
+    acc_final = (final_oof["true"] == final_oof["pred"]).mean()
+    acc_best = (best_oof["true"] == best_oof["pred"]).mean()
+    print(f"\n🔎 Fold {args.fold}: accuracy FINAL epoch = {acc_final:.4f} | "
+          f"BEST checkpoint = {acc_best:.4f} (selection-bias gap = {acc_best - acc_final:+.4f})")
 
-    # ── validation-fold report ───────────────────────────────────────
-    print("\n📊 Validation fold performance:")
-    preds, targs = learner.get_preds()
+    # ── validation-fold report (FINAL epoch) ─────────────────────────
+    print("\n📊 Validation fold performance (final-epoch weights):")
     pred_labels = preds.argmax(dim=1).numpy()
     targ_labels = targs.numpy()
-    print(classification_report(targ_labels, pred_labels, target_names=class_names,
-                                 digits=3, zero_division=0))
-    cm = confusion_matrix(targ_labels, pred_labels)
+    print(classification_report(targ_labels, pred_labels, labels=list(range(len(class_names))),
+                                 target_names=class_names, digits=3, zero_division=0))
+    cm = confusion_matrix(targ_labels, pred_labels, labels=list(range(len(class_names))))
     print("Confusion matrix (rows=true, cols=pred):")
     print(pd.DataFrame(cm, index=class_names, columns=class_names))
 
@@ -310,7 +374,7 @@ def finetune(args):
     plt.close(fig)
 
     # ── export ────────────────────────────────────────────────────
-    weights_path = out / "modelclass_classifier_weights.pth"
+    weights_path = out / "modelclass_classifier_weights.pth"   # = FINAL-epoch weights
     torch.save(learner.model.state_dict(), weights_path)
     with open(out / "class_names.txt", "w") as f:
         f.write("\n".join(class_names))
@@ -346,7 +410,11 @@ if __name__ == "__main__":
     parser.add_argument("--lr_head", type=float, default=3e-3)
     parser.add_argument("--lr_full", type=parse_lr_arg, default="slice(1e-6, 1e-4)")
 
-    parser.add_argument("--fold", type=int, default=0,
+    parser.add_argument("--seed", type=int, default=42,
+                         help="Seed for init/shuffling/augmentation (CV split seed is fixed at 42).")
+    parser.add_argument("--patient_col", default=None,
+                         help="Optional patient-identifier column in labels_csv (adds 'patient' to OOF files).")
+    parser.add_argument("--fold", type=int, default=1,
                          help="CV fold index (0-based). -1 = single 80/20 split.")
     parser.add_argument("--n_splits", type=int, default=5)
 
