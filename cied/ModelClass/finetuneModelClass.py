@@ -414,7 +414,7 @@ if __name__ == "__main__":
                          help="Seed for init/shuffling/augmentation (CV split seed is fixed at 42).")
     parser.add_argument("--patient_col", default=None,
                          help="Optional patient-identifier column in labels_csv (adds 'patient' to OOF files).")
-    parser.add_argument("--fold", type=int, default=1,
+    parser.add_argument("--fold", type=int, default=4,
                          help="CV fold index (0-based). -1 = single 80/20 split.")
     parser.add_argument("--n_splits", type=int, default=5)
 

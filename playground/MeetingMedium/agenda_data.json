@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-10-30T08:45:22.490Z",
+  "lastUpdated": "2026-11-01T10:04:06.329Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -285,9 +285,9 @@
           ]
         },
         {
-          "title": "Stressor related AF: Similar Management to Standard AF?",
-          "startTime": "10:45",
-          "endTime": "11:00",
+          "title": "How to clear an unclear cause of syncope.",
+          "startTime": "10:30",
+          "endTime": "10:45",
           "speakers": []
         },
         {
@@ -300,6 +300,12 @@
           "title": "BNP: Appropriate Use and Cutoff",
           "startTime": "11:15",
           "endTime": "11:30",
+          "speakers": []
+        },
+        {
+          "title": "Stressor related AF: Similar Management to Standard AF?",
+          "startTime": "11:30",
+          "endTime": "11:45",
           "speakers": []
         },
         {
@@ -333,7 +339,7 @@
           "speakers": []
         },
         {
-          "title": "Diagnosing Cancer Treatment Associated Cardiovascular Abnormalities: Which Imaging Studies to Choose?",
+          "title": "Imaging Tests for Detection of Cardiovascular Effects from Oncological Treatment",
           "startTime": "11:30",
           "endTime": "11:45",
           "speakers": []
@@ -541,6 +547,12 @@
         },
         {
           "title": "No Routine Bicarb in Shock or Cardiac Arrest",
+          "startTime": "10:40",
+          "endTime": "10:50",
+          "speakers": []
+        },
+        {
+          "title": "Air pollution is a Cardiovascular Risk Factor.",
           "startTime": "10:40",
           "endTime": "10:50",
           "speakers": []
