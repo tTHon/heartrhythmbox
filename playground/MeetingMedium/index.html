@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตารางประชุมและสรุปภารกิจวิทยากร (Read-Only)</title>
+    <title>ตารางประชุมและสรุปภารกิจวิทยากร (Read-Only Viewer)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -44,12 +44,12 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-wide">Conference Agenda Viewer</h1>
-                    <p class="text-xs text-indigo-200">ตารางประชุมและสรุปภารกิจวิทยากร (โหมดแสดงผลอย่างเดียว)</p>
+                    <p class="text-xs text-indigo-200">ตารางประชุมและสรุปภารกิจวิทยากร (โหมดแสดงผลอย่างเดียว - ดึงข้อมูลอัตโนมัติ)</p>
                 </div>
             </div>
             
             <button onclick="refreshData()" class="bg-indigo-700 hover:bg-indigo-600 text-white text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm">
-                <i class="fa-solid fa-rotate-right"></i> รีเฟรชข้อมูล
+                <i class="fa-solid fa-rotate-right"></i> รีเฟรชข้อมูลล่าสุด
             </button>
         </div>
     </header>
@@ -69,11 +69,11 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr id="agendaTableHeader" class="bg-slate-800 text-slate-200 border-b border-slate-700">
-                            <!-- Dynamic Room Header Columns injected here -->
+                            <!-- Dynamic Room Header Columns -->
                         </tr>
                     </thead>
                     <tbody id="agendaTableBody" class="divide-y divide-slate-200 text-sm">
-                        <!-- Dynamic Sessions per Time Slot injected here -->
+                        <!-- Dynamic Sessions per Time Slot -->
                     </tbody>
                 </table>
             </div>
@@ -99,7 +99,7 @@
                         </tr>
                     </thead>
                     <tbody id="summaryTableBody" class="divide-y divide-slate-200 text-slate-700 text-sm">
-                        <!-- Summary Rows injected here -->
+                        <!-- Summary Rows -->
                     </tbody>
                 </table>
             </div>
@@ -112,6 +112,7 @@
         let peopleDatabase = [];
         let sessions = [];
 
+        // โหลดข้อมูลอัตโนมัติทันทีเมื่อเปิดหน้าเว็บ (DOM Ready)
         document.addEventListener("DOMContentLoaded", () => {
             refreshData();
         });
@@ -122,6 +123,7 @@
             updateSummaryTable();
         }
 
+        // อ่านข้อมูลจาก LocalStorage ของเบราว์เซอร์
         function loadFromLocalStorage() {
             try {
                 const savedRooms = localStorage.getItem('conf_rooms');
@@ -137,7 +139,7 @@
         }
 
         /* ==========================================================================
-           PARALLEL TRACK AGENDA TABLE RENDERER (READ-ONLY)
+           PARALLEL TRACK AGENDA TABLE RENDERER
            ========================================================================== */
 
         function renderAgenda() {
@@ -154,7 +156,7 @@
             tbody.innerHTML = '';
 
             if (sessions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${rooms.length + 1}" class="text-center py-12 text-slate-400 italic text-base">ไม่มีข้อมูล Session การประชุม</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${rooms.length + 1}" class="text-center py-12 text-slate-400 italic text-base">ไม่พบข้อมูล Session ใน LocalStorage (กรุณาเพิ่มข้อมูลในหน้าหลักก่อน)</td></tr>`;
                 return;
             }
 
@@ -235,7 +237,7 @@
             const modsList = session.moderators || [];
             const spksList = session.speakers || [];
             
-            // Sort subtopics by time
+            // เรียงลำดับ subtopics ตาม startTime
             const subList = [...(session.subtopicsList || [])].sort((a, b) => 
                 (a.startTime || '').localeCompare(b.startTime || '')
             );
@@ -290,7 +292,7 @@
         }
 
         /* ==========================================================================
-           PERSONAL TASK SUMMARY TABLE (READ-ONLY)
+           PERSONAL TASK SUMMARY TABLE
            ========================================================================== */
 
         function updateSummaryTable() {
@@ -387,7 +389,7 @@
             });
 
             if (!hasTasks) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-10 text-slate-400 italic text-sm">ไม่มีข้อมูลภารกิจวิทยากร</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-10 text-slate-400 italic text-sm">ยังไม่มีภารกิจวิทยากรใน LocalStorageขณะนี้</td></tr>`;
             }
         }
     </script>
