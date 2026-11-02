@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตารางประชุมและสรุปภารกิจวิทยากร (Read-Only Viewer)</title>
+    <title>ตารางประชุมและสรุปภารกิจวิทยากร (Auto-Fetch JSON Viewer)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -44,17 +44,20 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-wide">Conference Agenda Viewer</h1>
-                    <p class="text-xs text-indigo-200">ตารางประชุมและสรุปภารกิจวิทยากร (โหมดแสดงผลอย่างเดียว - ดึงข้อมูลอัตโนมัติ)</p>
+                    <p class="text-xs text-indigo-200">โหมดแสดงผลอย่างเดียว (Auto-Fetch จากไฟล์ agenda_data.json)</p>
                 </div>
             </div>
             
-            <button onclick="refreshData()" class="bg-indigo-700 hover:bg-indigo-600 text-white text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm">
-                <i class="fa-solid fa-rotate-right"></i> รีเฟรชข้อมูลล่าสุด
+            <button onclick="loadDefaultJSON()" class="bg-indigo-700 hover:bg-indigo-600 text-white text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm">
+                <i class="fa-solid fa-rotate-right"></i> รีโหลดไฟล์ JSON
             </button>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+
+        <!-- Status Indicator Banner -->
+        <div id="statusBanner" class="hidden p-3 rounded-lg text-xs font-semibold flex items-center gap-2"></div>
 
         <!-- 1. Parallel Track Agenda View Table -->
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
@@ -112,18 +115,60 @@
         let peopleDatabase = [];
         let sessions = [];
 
-        // โหลดข้อมูลอัตโนมัติทันทีเมื่อเปิดหน้าเว็บ (DOM Ready)
+        // กำหนดชื่อไฟล์ JSON ที่จะดึงข้อมูลอัตโนมัติ
+        const JSON_FILE_PATH = 'agenda_data.json';
+
         document.addEventListener("DOMContentLoaded", () => {
-            refreshData();
+            loadDefaultJSON();
         });
 
-        function refreshData() {
-            loadFromLocalStorage();
-            renderAgenda();
-            updateSummaryTable();
+        // ฟังก์ชัน Auto-Fetch ไฟล์ JSON จาก Server / Folder เดียวกัน
+        async function loadDefaultJSON() {
+            const banner = document.getElementById('statusBanner');
+            try {
+                // Fetch ไฟล์ JSON พร้อมใส่ cache-busting เพื่อให้ได้ข้อมูลล่าสุดเสมอ
+                const response = await fetch(`${JSON_FILE_PATH}?t=${Date.now()}`); 
+                if (!response.ok) {
+                    throw new Error(`ไม่พบไฟล์ ${JSON_FILE_PATH} (HTTP ${response.status})`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.rooms && data.sessions) {
+                    rooms = data.rooms || [];
+                    peopleDatabase = data.peopleDatabase || [];
+                    sessions = data.sessions || [];
+                    
+                    showStatusBanner(`ดึงข้อมูลจากไฟล์ "${JSON_FILE_PATH}" สำเร็จแล้ว`, 'success');
+                    renderAgenda();
+                    updateSummaryTable();
+                } else {
+                    throw new Error('โครงสร้างข้อมูลในไฟล์ JSON ไม่ถูกต้อง');
+                }
+            } catch (error) {
+                console.warn("Auto-fetch JSON ไม่สำเร็จ เปลี่ยนไปใช้ข้อมูลจาก LocalStorage สำรอง:", error);
+                showStatusBanner(`ไม่สามารถโหลดไฟล์ ${JSON_FILE_PATH} ได้ (ระบบกำลังแสดงผลข้อมูลสำรองจาก LocalStorage)`, 'warning');
+                
+                loadFromLocalStorage();
+                renderAgenda();
+                updateSummaryTable();
+            }
         }
 
-        // อ่านข้อมูลจาก LocalStorage ของเบราว์เซอร์
+        function showStatusBanner(message, type) {
+            const banner = document.getElementById('statusBanner');
+            if (!banner) return;
+            banner.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-amber-100', 'text-amber-800');
+            
+            if (type === 'success') {
+                banner.classList.add('bg-emerald-100', 'text-emerald-800');
+                banner.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> ${message}`;
+            } else {
+                banner.classList.add('bg-amber-100', 'text-amber-800');
+                banner.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-600"></i> ${message}`;
+            }
+        }
+
         function loadFromLocalStorage() {
             try {
                 const savedRooms = localStorage.getItem('conf_rooms');
@@ -156,7 +201,7 @@
             tbody.innerHTML = '';
 
             if (sessions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${rooms.length + 1}" class="text-center py-12 text-slate-400 italic text-base">ไม่พบข้อมูล Session ใน LocalStorage (กรุณาเพิ่มข้อมูลในหน้าหลักก่อน)</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${rooms.length + 1}" class="text-center py-12 text-slate-400 italic text-base">ไม่พบข้อมูล Session ในไฟล์ JSON</td></tr>`;
                 return;
             }
 
@@ -389,7 +434,7 @@
             });
 
             if (!hasTasks) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-10 text-slate-400 italic text-sm">ยังไม่มีภารกิจวิทยากรใน LocalStorageขณะนี้</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-10 text-slate-400 italic text-sm">ยังไม่มีภารกิจวิทยากรในขณะนี้</td></tr>`;
             }
         }
     </script>
