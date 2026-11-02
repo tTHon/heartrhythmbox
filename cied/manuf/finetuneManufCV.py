@@ -3,6 +3,23 @@ finetune_manuf_v5.py
 =====================
 Finetune classification_manuf.pkl on our CIED chest radiograph dataset.
 
+CHANGES in V6 vs V5 (ABLATION; every edit is tagged "# [ABLATION]"):
+  - --init selects the starting weights. Output space is ALWAYS the 5-class vocab
+    (Vitatron masked, weight 0), so metrics / confusion matrices / file formats are
+    identical across conditions and the ONLY thing that changes is initialisation:
+        pretrained_full   (A) pretrained body + pretrained head   (= V5 behaviour, default)
+        encoder_newhead   (B) pretrained body + FRESH head
+        imagenet_newhead  (C) ImageNet ResNet-50 body + FRESH head
+    A vs B = value of the pretrained head;  B vs C = value of the CIED-specific body.
+  - FINAL-epoch validation predictions are now exported as
+        val_predictions_phase2_finalepoch.csv   (before the best checkpoint is reloaded)
+    next to the original selected-checkpoint files, and the final-epoch weights as
+        final_epoch_weights_phase2.pth   (state_dict; Phase-2 file is the one to use)
+    The selected-checkpoint model is still saved as manuf_finetuned.pkl. The selected checkpoint is chosen on
+    the same fold it is scored on (optimistic); the final-epoch file is not.
+    Use  --summarize --summary_phase phase2_finalepoch  for the unbiased CV summary.
+  - Run all conditions with run_manuf_ablation.py.
+
 CHANGES in V5 vs V4:
   - 5-fold CV, ONE FOLD PER RUN:
         python finetuneManufV5.py --fold 0     (then 1, 2, 3, 4)
@@ -138,7 +155,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
-from fastai.vision.all import load_learner
+from fastai.vision.all import load_learner, create_cnn_model, resnet50   # [ABLATION] create_cnn_model, resnet50
 from PIL import Image
 import pickle
 import numpy as np
@@ -266,6 +283,33 @@ def set_grad(model: nn.Module, phase: int):
         for param in model.parameters():
             param.requires_grad = True
         print(f"  Phase 2 | unfreeze ทั้งหมด")
+
+
+def build_model(args) -> nn.Module:
+    """[ABLATION] Build the starting model for the chosen --init condition.
+    All conditions output NUM_ORIG (=5) logits so the rest of the pipeline is untouched."""
+    if args.init == "pretrained_full":
+        model = extract_pytorch_model(load_pkl(args.model))
+        verify_head(model)
+        return model
+
+    # B and C share the same fresh-head construction (fastai default head, NUM_ORIG outputs);
+    # ImageNet weights are downloaded/cached by torchvision on first use.
+    model = create_cnn_model(resnet50, NUM_ORIG, pretrained=True)
+    if args.init == "encoder_newhead":
+        old = extract_pytorch_model(load_pkl(args.model))
+        try:
+            model[0].load_state_dict(old[0].state_dict(), strict=True)
+        except RuntimeError as e:
+            raise RuntimeError(
+                "Body of the pretrained model does not match fastai resnet50 body "
+                "(strict load failed). Check the architecture before running this condition.\n"
+                + str(e)) from e
+        print(f"  body transferred from pretrained model ({len(old[0].state_dict())} tensors); head is FRESH")
+    else:
+        print("  ImageNet ResNet-50 body; head is FRESH")
+    verify_head(model)
+    return model
 
 
 def set_seed(seed: int = 42):
@@ -606,6 +650,10 @@ def train_phase(model, train_loader, val_loader, criterion,
         for h in history:
             if h["phase"] == tag:
                 h["selected"] = (h["epoch"] == best_ep)
+    # [ABLATION] FINAL-epoch predictions, taken BEFORE the selected checkpoint is reloaded.
+    _, _, fp_, ft_, fprob_ = run_epoch(model, val_loader, criterion, optimizer, False)
+    export_predictions(val_df, ft_, fp_, fprob_, out_dir, f"{tag}_finalepoch")
+    torch.save(model.state_dict(), out_dir / f"final_epoch_weights_{tag}.pth")     # [ABLATION] final-epoch weights (for held-out test / ensemble)
     model.load_state_dict(best_state)
 
     # Full per-class report for the selected checkpoint
@@ -713,10 +761,9 @@ def run_fold(args, pool_df, fold: int):
     print(f"  seed={args.seed}  phase1={p1_ep}ep (head only)  phase2={p2_ep}ep (full)")
     print(f"{'='*70}")
 
-    print(f"\n[1/5] โหลดโมเดล: {args.model}")
-    base_obj = load_pkl(args.model)
-    model    = extract_pytorch_model(base_obj)
-    verify_head(model)
+    print(f"\n[1/5] init = {args.init}   (pretrained file: {args.model})")   # [ABLATION]
+    model    = build_model(args)                                          # [ABLATION]
+    base_obj = None                                                       # [ABLATION] (kept for the del below)
     model    = model.to(DEVICE)
 
     print(f"\n[2/5] split + dataloaders ({label})")
@@ -727,7 +774,7 @@ def run_fold(args, pool_df, fold: int):
     config = {
         "created": datetime.now().strftime("%Y-%m-%d %H:%M"),
         "script": "finetuneManufV5.py", "fold": fold, "n_splits": args.n_splits,
-        "seed": args.seed, "split_random_state": 42,
+        "seed": args.seed, "init": args.init, "split_random_state": 42,
         "n_train": len(train_df), "n_val": len(val_df),
         "train_class_counts": class_counts,
         "val_class_counts": val_df["Manuf"].value_counts().to_dict(),
@@ -851,6 +898,12 @@ def main():
                         help="No training: pool the saved fold_N/val_predictions_phase2.csv of all folds "
                              "→ cv_summary.csv, pooled_per_class_report.csv, pooled_confusion_matrix.csv.")
     parser.add_argument("--n_splits", type=int, default=5)
+    parser.add_argument("--init", choices=["pretrained_full", "encoder_newhead", "imagenet_newhead"],
+                        default="pretrained_full",
+                        help="[ABLATION] starting weights (see header). Default = original behaviour.")
+    parser.add_argument("--summary_phase", default="phase2",
+                        help="[ABLATION] which val_predictions_<x>.csv --summarize pools: "
+                             "'phase2' (selected checkpoint) or 'phase2_finalepoch' (unbiased).")
     parser.add_argument("--seed", type=int, default=42,
                         help="Training seed (set at the start of each run). Fold assignment is fixed (random_state=42).")
     args = parser.parse_args()
@@ -862,7 +915,7 @@ def main():
     BATCH_SIZE = args.batch
 
     if args.summarize:
-        summarize_cv(args.output_dir, args.n_splits)
+        summarize_cv(args.output_dir, args.n_splits, phase=args.summary_phase)   # [ABLATION]
         return
 
     print(f"\n{'='*70}")
