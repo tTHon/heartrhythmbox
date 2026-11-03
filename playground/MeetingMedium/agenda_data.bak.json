@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-01T10:19:08.293Z",
+  "lastUpdated": "2026-11-02T05:53:01.989Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -67,6 +67,10 @@
       "Institute": "คณะแพทยศาสตร์ ม.สงขลานครินทร์"
     },
     {
+      "Name": "อ.ภัทรพงษ์ มกรเวส",
+      "Institute": "ศูนย์หัวใจสิริกิติ์ฯ มหาวิทยาลัยขอนแก่น"
+    },
+    {
       "Name": "อ.ภากร จันทนมัฏฐะ",
       "Institute": "รพ.รามาธิบดี"
     },
@@ -77,6 +81,10 @@
     {
       "Name": "อ.แมน จันทวิมล",
       "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.วรรณวรางค์ วงศ์เจริญ",
+      "Institute": "คณะแพทยศาสตร์ มหาวิทยาลัยเชียงใหม่"
     },
     {
       "Name": "อ.สรณ บุญใบชัยพฤกษ์",
@@ -259,9 +267,7 @@
           "title": "Why haven't we been replaced by AI (yet)?",
           "startTime": "11:30",
           "endTime": "11:45",
-          "speakers": [
-            "อ.สิรินทร์ อภิญาสวัสดิ์"
-          ]
+          "speakers": []
         }
       ],
       "moderators": [
@@ -286,20 +292,28 @@
         },
         {
           "title": "How to clear an unclear cause of syncope.",
-          "startTime": "10:30",
-          "endTime": "10:45",
-          "speakers": []
+          "startTime": "10:45",
+          "endTime": "11:00",
+          "speakers": [
+            "อ.วรรณวรางค์ วงศ์เจริญ"
+          ]
         },
         {
-          "title": "From asymptomatic to acute valve syndrome: Prevention and Management Strategies",
+          "title": "Detection of cardiotoxicity from modern oncologic treatment",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": []
         },
         {
-          "title": "BNP: Appropriate Use and Cutoff",
+          "title": "BNP: Appropriate Use and Optimal Cutoff",
           "startTime": "11:15",
           "endTime": "11:30",
+          "speakers": []
+        },
+        {
+          "title": "From asymptomatic to acute valve syndrome: Prevention and Management Strategies",
+          "startTime": "11:30",
+          "endTime": "11:45",
           "speakers": []
         },
         {
@@ -334,12 +348,6 @@
         },
         {
           "title": "Stress Test, CTCA, or Statin for non-ACS chest pain",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
-        },
-        {
-          "title": "Imaging Tests for Detection of Cardiovascular Effects from Oncological Treatment",
           "startTime": "11:30",
           "endTime": "11:45",
           "speakers": []
@@ -395,33 +403,39 @@
       "title": "Guidelines Update: From PDFs to Practice",
       "subtopicsList": [
         {
-          "title": "New MI Definitions",
+          "title": "The new language of myocardial infarction",
           "startTime": "13:15",
           "endTime": "13:30",
           "speakers": []
         },
         {
-          "title": "New HF Re-Classification",
+          "title": "New HF Re-Classification: Is simpler better?",
           "startTime": "13:30",
           "endTime": "13:45",
           "speakers": []
         },
         {
-          "title": "Latest Evidence supporting or conflicting the Lipid Guidelines",
+          "title": "CIEDs and AF Ablation in HF patients: What's New?",
           "startTime": "13:45",
           "endTime": "14:00",
           "speakers": []
         },
         {
-          "title": "Preop Troponin or Stress Testing: Who still need them?",
+          "title": "Lipid Guidelines",
           "startTime": "14:00",
           "endTime": "14:15",
           "speakers": []
         },
         {
-          "title": "How to Risk Stratify Acute PE",
+          "title": "Preop Troponin or Stress Testing: Who still need them?",
           "startTime": "14:15",
           "endTime": "14:30",
+          "speakers": []
+        },
+        {
+          "title": "How to Risk Stratify Acute PE",
+          "startTime": "14:30",
+          "endTime": "14:45",
           "speakers": []
         }
       ],
@@ -465,13 +479,16 @@
           "title": "LAAO in AF with Absolute Contraindications for DOAC",
           "startTime": "16:00",
           "endTime": "16:20",
-          "speakers": [
-            "อ.แมน จันทวิมล",
-            "อ.สิรินทร์ อภิญาสวัสดิ์"
-          ]
+          "speakers": []
         },
         {
           "title": "Should MDs be providing medical consultation over social medias?",
+          "startTime": "16:00",
+          "endTime": "16:20",
+          "speakers": []
+        },
+        {
+          "title": "Metabolically healthy obesity (\"หมูที่แข็งแรง\") - Does it exist?",
           "startTime": "16:00",
           "endTime": "16:20",
           "speakers": []

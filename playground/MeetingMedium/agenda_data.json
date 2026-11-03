@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-02T05:53:01.989Z",
+  "lastUpdated": "2026-11-03T06:03:05.108Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -302,55 +302,17 @@
           "title": "Detection of cardiotoxicity from modern oncologic treatment",
           "startTime": "11:00",
           "endTime": "11:15",
-          "speakers": []
+          "speakers": [
+            "อ.สุรชัย คงรัตน์"
+          ]
         },
         {
           "title": "BNP: Appropriate Use and Optimal Cutoff",
           "startTime": "11:15",
           "endTime": "11:30",
-          "speakers": []
-        },
-        {
-          "title": "From asymptomatic to acute valve syndrome: Prevention and Management Strategies",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
-        },
-        {
-          "title": "Stressor related AF: Similar Management to Standard AF?",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
-        },
-        {
-          "title": "Stress Echo to Unmask HFpEF and Significant Valvular Disease",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
-        },
-        {
-          "title": "Which AF in HFrEF is worth ablating?",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
-        },
-        {
-          "title": "When is it too late to intervene valvular lesions?",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
-        },
-        {
-          "title": "Arrhythmia Management in Myocarditis from Hot to Cold Phase",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
-        },
-        {
-          "title": "Stress Test, CTCA, or Statin for non-ACS chest pain",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": []
+          "speakers": [
+            "อ.บัณฑิต นราตรีคูณ"
+          ]
         }
       ],
       "moderators": [
@@ -470,25 +432,7 @@
           "speakers": []
         },
         {
-          "title": "Over-the-counter Statin",
-          "startTime": "15:40",
-          "endTime": "16:00",
-          "speakers": []
-        },
-        {
-          "title": "LAAO in AF with Absolute Contraindications for DOAC",
-          "startTime": "16:00",
-          "endTime": "16:20",
-          "speakers": []
-        },
-        {
-          "title": "Should MDs be providing medical consultation over social medias?",
-          "startTime": "16:00",
-          "endTime": "16:20",
-          "speakers": []
-        },
-        {
-          "title": "Metabolically healthy obesity (\"หมูที่แข็งแรง\") - Does it exist?",
+          "title": "Do we endorsed \"Metabolically healthy obesity\"?",
           "startTime": "16:00",
           "endTime": "16:20",
           "speakers": []
@@ -557,21 +501,9 @@
           ]
         },
         {
-          "title": "Triple G Synergy for Metabolic Syndrome",
+          "title": "Percutaneous intervention for severe symptomatic tricuspid regurgitation",
           "startTime": "10:30",
           "endTime": "10:45",
-          "speakers": []
-        },
-        {
-          "title": "No Routine Bicarb in Shock or Cardiac Arrest",
-          "startTime": "10:40",
-          "endTime": "10:50",
-          "speakers": []
-        },
-        {
-          "title": "Air pollution is a Cardiovascular Risk Factor.",
-          "startTime": "10:40",
-          "endTime": "10:50",
           "speakers": []
         }
       ],
