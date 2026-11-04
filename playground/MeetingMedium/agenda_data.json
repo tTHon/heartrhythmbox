@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-03T06:03:05.108Z",
+  "lastUpdated": "2026-11-04T08:49:53.190Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -154,16 +154,21 @@
       "speakers": [],
       "subtopicsList": [
         {
-          "title": "EGM and CIED Tracings",
+          "title": "CXR Quiz - ไพโรจน์",
           "startTime": "18:15",
+          "endTime": "18:30",
+          "speakers": []
+        },
+        {
+          "title": "EGM Quiz",
+          "startTime": "18:30",
           "endTime": "18:45",
           "speakers": [
-            "อ.ณัฐ ซึ่งสนธิพร",
             "อ.นิลุบล เมธาจิตติพันธ์"
           ]
         },
         {
-          "title": "\"Number Need To Teach\" - Essential Stats for Trials Interpretation",
+          "title": "Number Need To Teach - Essential Stats for Trials Interpretation",
           "startTime": "18:45",
           "endTime": "19:15",
           "speakers": [
@@ -172,8 +177,20 @@
           ]
         },
         {
-          "title": "CXR, CAD, andd Hemodynamic Quiz",
+          "title": "Arrhythmia Case Scenario Quiz - ธรณิศ",
           "startTime": "19:15",
+          "endTime": "19:30",
+          "speakers": []
+        },
+        {
+          "title": "Heart Failure Case Scenario Quiz - ศริญญา or ศรีสกุล or หยง",
+          "startTime": "19:30",
+          "endTime": "19:45",
+          "speakers": []
+        },
+        {
+          "title": "CAG and Hemodynamic Quiz",
+          "startTime": "19:45",
           "endTime": "20:15",
           "speakers": [
             "อ.กฤษฎา มีมุข",
@@ -244,7 +261,7 @@
           ]
         },
         {
-          "title": "Diabesity: When HbA1C is not enough!",
+          "title": "Diabesity: Whan HbA1C is not enough?",
           "startTime": "10:45",
           "endTime": "11:00",
           "speakers": [
@@ -253,6 +270,12 @@
         },
         {
           "title": "Athlete's Heart: The Thin Line between Pathologic and Physiologic Changes",
+          "startTime": "11:00",
+          "endTime": "11:15",
+          "speakers": []
+        },
+        {
+          "title": "Safe to Sweat? Cardiac evaluation before exercise",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": []
@@ -267,7 +290,9 @@
           "title": "Why haven't we been replaced by AI (yet)?",
           "startTime": "11:30",
           "endTime": "11:45",
-          "speakers": []
+          "speakers": [
+            "อ.สิรินทร์ อภิญาสวัสดิ์"
+          ]
         }
       ],
       "moderators": [
@@ -313,6 +338,12 @@
           "speakers": [
             "อ.บัณฑิต นราตรีคูณ"
           ]
+        },
+        {
+          "title": "More than ischemia: What else can stress echo tell us?",
+          "startTime": "11:15",
+          "endTime": "11:30",
+          "speakers": []
         }
       ],
       "moderators": [
@@ -383,7 +414,7 @@
           "speakers": []
         },
         {
-          "title": "Lipid Guidelines",
+          "title": "Lipid Guidelines: How is the new evidence conflicting with the guidelines?",
           "startTime": "14:00",
           "endTime": "14:15",
           "speakers": []
@@ -392,7 +423,9 @@
           "title": "Preop Troponin or Stress Testing: Who still need them?",
           "startTime": "14:15",
           "endTime": "14:30",
-          "speakers": []
+          "speakers": [
+            "อ.สุรเกียรติ ลีละศศิธร"
+          ]
         },
         {
           "title": "How to Risk Stratify Acute PE",
@@ -423,7 +456,9 @@
           "title": "Physical Examination in Asymptomatic Adults",
           "startTime": "15:20",
           "endTime": "15:40",
-          "speakers": []
+          "speakers": [
+            "อ.ภัทรพงษ์ มกรเวส"
+          ]
         },
         {
           "title": "Cardiovascular Benefits of Triglycerides Reduction",
@@ -432,7 +467,7 @@
           "speakers": []
         },
         {
-          "title": "Do we endorsed \"Metabolically healthy obesity\"?",
+          "title": "Should we end the concept of Fat but Fit?",
           "startTime": "16:00",
           "endTime": "16:20",
           "speakers": []
@@ -501,7 +536,7 @@
           ]
         },
         {
-          "title": "Percutaneous intervention for severe symptomatic tricuspid regurgitation",
+          "title": "Percutaneous tricuspid valve intervention for cardiovascularr benefits",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": []
