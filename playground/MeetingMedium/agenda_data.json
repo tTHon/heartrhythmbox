@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-05T04:00:14.050Z",
+  "lastUpdated": "2026-11-05T05:27:43.126Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -342,6 +342,12 @@
           "speakers": [
             "อ.บัณฑิต นราตรีคูณ"
           ]
+        },
+        {
+          "title": "ฺBeyond the happy ending: Life after heart transplantation",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": []
         }
       ],
       "moderators": [
@@ -378,7 +384,7 @@
       "subtopicsList": [],
       "moderators": [
         "อ.ครรชิต ลิขิตธนสมบัติ",
-        "อ.ณัฐ ซึ่งสนธิพร",
+        "อ.นิลุบล เมธาจิตติพันธ์",
         "อ.สิรินทร์ อภิญาสวัสดิ์",
         "อ.อัษฎายุธ พูลพิทยาธร"
       ],
@@ -409,10 +415,12 @@
           "title": "CIEDs and AF Ablation in HF patients: What's New?",
           "startTime": "13:45",
           "endTime": "14:00",
-          "speakers": []
+          "speakers": [
+            "อ.ณัฐ ซึ่งสนธิพร"
+          ]
         },
         {
-          "title": "Lipid Guidelines: How is the new evidence conflicting with the guidelines?",
+          "title": "Lipid Guidelines: Is the new evidence conflicting with the guidelines?",
           "startTime": "14:00",
           "endTime": "14:15",
           "speakers": []
