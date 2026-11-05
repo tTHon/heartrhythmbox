@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-04T08:49:53.190Z",
+  "lastUpdated": "2026-11-05T04:00:14.050Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -269,19 +269,15 @@
           ]
         },
         {
-          "title": "Athlete's Heart: The Thin Line between Pathologic and Physiologic Changes",
+          "title": "CAC in the Statin Era: Scan, Repeat, or Intensify?",
           "startTime": "11:00",
           "endTime": "11:15",
-          "speakers": []
+          "speakers": [
+            "อ.แมน จันทวิมล"
+          ]
         },
         {
-          "title": "Safe to Sweat? Cardiac evaluation before exercise",
-          "startTime": "11:00",
-          "endTime": "11:15",
-          "speakers": []
-        },
-        {
-          "title": "Diet and Exercise Recommendation during GLP1a Treatment for Weight Loss",
+          "title": "Athlete's Heart: The Thin Line between Pathologic and Physiologic Changes  ******* OR ******* Safe to Sweat? Cardiac evaluation before exercise",
           "startTime": "11:15",
           "endTime": "11:30",
           "speakers": []
@@ -308,15 +304,15 @@
       "title": "Subspecialties Update",
       "subtopicsList": [
         {
-          "title": "Percutaneous Intervention for Acute Pulmonary Embolism",
+          "title": "Resolving Diagnostic Uncertainties in Aortic Stenosis",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
-            "อ.แมน จันทวิมล"
+            "อ.ถวาย เงินศรีตระกูล"
           ]
         },
         {
-          "title": "How to clear an unclear cause of syncope.",
+          "title": "How to clear an unclear cause of syncope",
           "startTime": "10:45",
           "endTime": "11:00",
           "speakers": [
@@ -332,18 +328,20 @@
           ]
         },
         {
-          "title": "BNP: Appropriate Use and Optimal Cutoff",
+          "title": "Acute Coronary Syndrome in women: is SCAD to blame?",
           "startTime": "11:15",
           "endTime": "11:30",
           "speakers": [
-            "อ.บัณฑิต นราตรีคูณ"
+            "อ.ทินกฤต ศศิประภา"
           ]
         },
         {
-          "title": "More than ischemia: What else can stress echo tell us?",
-          "startTime": "11:15",
-          "endTime": "11:30",
-          "speakers": []
+          "title": "BNP: Appropriate Use and Optimal Cutoff",
+          "startTime": "11:30",
+          "endTime": "11:45",
+          "speakers": [
+            "อ.บัณฑิต นราตรีคูณ"
+          ]
         }
       ],
       "moderators": [
@@ -428,10 +426,12 @@
           ]
         },
         {
-          "title": "How to Risk Stratify Acute PE",
+          "title": "Catheter based intervention in acute pulmonary embolism",
           "startTime": "14:30",
           "endTime": "14:45",
-          "speakers": []
+          "speakers": [
+            "อ.แมน จันทวิมล"
+          ]
         }
       ],
       "moderators": [
@@ -447,12 +447,6 @@
       "title": "Cross Talk: Mini Debates on Clinical Relevant, yet Controversial Topics",
       "subtopicsList": [
         {
-          "title": "CAC as a Screening Tool for CAD",
-          "startTime": "15:00",
-          "endTime": "15:20",
-          "speakers": []
-        },
-        {
           "title": "Physical Examination in Asymptomatic Adults",
           "startTime": "15:20",
           "endTime": "15:40",
@@ -464,12 +458,6 @@
           "title": "Cardiovascular Benefits of Triglycerides Reduction",
           "startTime": "15:40",
           "endTime": "16:00",
-          "speakers": []
-        },
-        {
-          "title": "Should we end the concept of Fat but Fit?",
-          "startTime": "16:00",
-          "endTime": "16:20",
           "speakers": []
         }
       ],
@@ -528,17 +516,25 @@
           ]
         },
         {
-          "title": "New antihypersive medication class for resistant hypertension",
+          "title": "CT-FFR: a non-invasive physiologic guide to significant CAD",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
-            "อ.ปริญญ์ วาทีสาธกกิจ"
+            "อ.สุรชัย คงรัตน์"
           ]
         },
         {
           "title": "Percutaneous tricuspid valve intervention for cardiovascularr benefits",
-          "startTime": "10:30",
-          "endTime": "10:45",
+          "startTime": "10:50",
+          "endTime": "11:00",
+          "speakers": [
+            "อ.กฤษฎา มีมุข"
+          ]
+        },
+        {
+          "title": "New antihypersive medication class for resistant hypertension",
+          "startTime": "11:10",
+          "endTime": "11:15",
           "speakers": []
         }
       ],
