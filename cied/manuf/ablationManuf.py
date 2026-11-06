@@ -61,7 +61,15 @@ def run_one(args, init, seed, fold):
     if done.exists() and not args.force:
         print(f"[skip] {init} seed={seed} fold={fold}")
         return
-    cmd = [sys.executable, args.train_script, "--init", init, "--fold", str(fold),
+    # Resolve the training script: as given, else next to this runner (fixes "can't open file"
+    # when the command is launched from a different working directory, e.g. the VS Code root).
+    script = Path(args.train_script)
+    if not script.is_absolute() and not script.exists():
+        script = Path(__file__).resolve().parent / script
+    if not script.exists():
+        raise FileNotFoundError(f"Training script not found: {script}. Put finetuneManufCV.py next to "
+                                f"this runner or pass its full path with --train_script.")
+    cmd = [sys.executable, str(script), "--init", init, "--fold", str(fold),
            "--seed", str(seed), "--output_dir", str(out_dir),
            "--model", args.model, "--labels_csv", args.labels_csv, "--crop_dir", args.crop_dir]
     print("\n>>>", " ".join(cmd))
