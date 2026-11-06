@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-05T05:27:43.126Z",
+  "lastUpdated": "2026-11-06T01:47:34.915Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -467,6 +467,36 @@
           "startTime": "15:40",
           "endTime": "16:00",
           "speakers": []
+        },
+        {
+          "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention",
+          "startTime": "16:00",
+          "endTime": "16:10",
+          "speakers": []
+        },
+        {
+          "title": "Preventive PCI in non-flow limiting vulnerable plaques",
+          "startTime": "16:10",
+          "endTime": "16:15",
+          "speakers": []
+        },
+        {
+          "title": "Daily glass of wine: heart help or risk in disguise?",
+          "startTime": "16:15",
+          "endTime": "16:20",
+          "speakers": []
+        },
+        {
+          "title": "GLP1a therapy in metabolically healthy obesity",
+          "startTime": "16:20",
+          "endTime": "16:30",
+          "speakers": []
+        },
+        {
+          "title": "Functional Test vs. Anatomical Imaging for Coronary Artery Evaluation",
+          "startTime": "16:30",
+          "endTime": "16:30",
+          "speakers": []
         }
       ],
       "moderators": [
@@ -532,7 +562,7 @@
           ]
         },
         {
-          "title": "Percutaneous tricuspid valve intervention for cardiovascularr benefits",
+          "title": "Percutaneous tricuspid valve intervention to improve cardiovascular outcomes",
           "startTime": "10:50",
           "endTime": "11:00",
           "speakers": [
@@ -542,7 +572,7 @@
         {
           "title": "New antihypersive medication class for resistant hypertension",
           "startTime": "11:10",
-          "endTime": "11:15",
+          "endTime": "11:10",
           "speakers": []
         }
       ],
