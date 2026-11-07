@@ -162,7 +162,7 @@ def build_dls(test_df, img_size):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_dir", default="C:/CIEDID_data/Preprocessing/1_CLAHE")
-    parser.add_argument("--output_dir", default="C:/CIEDID_data/Images_crop")
+    parser.add_argument("--output_dir", default="C:/CIEDID_data/Preprocessing/Images_crop")
     parser.add_argument("--folds_dir", default="C:/CIEDID_data/AbdnL/models/best")
     parser.add_argument("--weight_filename", default="best_abdn.pth")
     parser.add_argument("--use_fold", type=int, default=0)

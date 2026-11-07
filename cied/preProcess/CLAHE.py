@@ -8,7 +8,7 @@ from pathlib import Path
 source_path = Path("c:/CIEDID_data/Images_raw") # main image files
 
 # copy files from main source to here to process with CLAHE
-data_path = Path("c:/CIEDID_data/Preprocessing/1_CLAHE") # processed image files
+data_path = Path("c:/CIEDID_data/Images_processed") # processed image files
 
 
 #clear folder

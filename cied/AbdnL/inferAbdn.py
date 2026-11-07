@@ -11,8 +11,8 @@ from fastai.vision.all import *
 
 # 1. ตั้งค่าพื้นฐาน
 class_names = ["background", "generator", "lead", "abandoned_lead"]
-path_weights = "C:/CIEDID_data/AbdnL/models/best_gen.pth"
-path_img = "cied\Dataset\micraWAbdn.png" # เปลี่ยนเป็นรูปที่อยากลอง
+path_weights = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
+path_img = "C:/CIEDID_data/Images_processed/1.png" # เปลี่ยนเป็นรูปที่อยากลอง
 IMG_Size = 640  # ขนาดที่โมเดลใช้ตอนเทรน (ต้องเหมือนกันเป๊ะๆ)
 
 # 2. สร้างโครงสร้างโมเดล (ต้องเหมือนตอนเทรนเป๊ะๆ)
@@ -28,7 +28,7 @@ learn = unet_learner(dls, resnet50, n_out=4)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 learn.model.load_state_dict(torch.load(path_weights, map_location=device))
 learn.model.eval()
-print("✅ Loaded best_seg.pth successfully!")
+print("✅ Loaded best_abdn.pth successfully!")
 
 # 4. ทำนายผล (Inference)
 img = PILImage.create(path_img)
