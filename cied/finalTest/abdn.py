@@ -53,15 +53,17 @@ class DualLogger(object):
 
     def write(self, message):
         self.terminal.write(message)
-        self.log.write(message)  
-        if not self.log.closed:         
+        if not self.log.closed:
             self.log.write(message)
 
     def flush(self):
         self.terminal.flush()
-        self.log.flush()
-        if not self.log.closed:         
+        if not self.log.closed:
             self.log.flush()
+
+    def close(self):
+        if not self.log.closed:
+            self.log.close()
 
 # ==========================================================
 # 0. REPRODUCIBILITY
@@ -347,6 +349,20 @@ def compute_metrics(df_img, pixel_col, pixel_threshold):
             "specificity": round(spec, 4), "F1": round(f1, 4)}
 
 
+def wilson_confidence_interval(successes, total, z=1.96):
+    if total == 0:
+        return float("nan"), float("nan")
+    proportion = successes / total
+    denominator = 1 + z**2 / total
+    center = (proportion + z**2 / (2 * total)) / denominator
+    margin = (
+        z
+        * np.sqrt(proportion * (1 - proportion) / total + z**2 / (4 * total**2))
+        / denominator
+    )
+    return center - margin, center + margin
+
+
 def evaluate_detection(df_img, pixel_thresholds, prob_thresholds):
     rows = []
     for pt in pixel_thresholds:
@@ -382,6 +398,27 @@ def print_detection_results(results, label="Single Model"):
                   f"{row['specificity']:>7.3f} {row['F1']:>7.3f} "
                   f"{int(row['TP']):>4} {int(row['FP']):>4} "
                   f"{int(row['FN']):>4} {int(row['TN']):>4}")
+
+    summary = results[
+        np.isclose(results["prob_threshold"], 0.8)
+        & results["pixel_threshold"].eq(600)
+    ]
+    print("\n  Summary (prob>0.80, pixels>600):")
+    if summary.empty:
+        print("  Not evaluated; include prob_threshold=0.8 and pixel_threshold=600.")
+    else:
+        row = summary.iloc[0]
+        sens_ci = wilson_confidence_interval(
+            int(row["TP"]), int(row["TP"] + row["FN"])
+        )
+        spec_ci = wilson_confidence_interval(
+            int(row["TN"]), int(row["TN"] + row["FP"])
+        )
+        print(f"  Sens={row['sensitivity']:.3f} "
+              f"(95% CI: {sens_ci[0]:.3f}-{sens_ci[1]:.3f})  "
+              f"Spec={row['specificity']:.3f} "
+              f"(95% CI: {spec_ci[0]:.3f}-{spec_ci[1]:.3f})  "
+              f"TP={int(row['TP'])}  FP={int(row['FP'])}")
 
     best = results.loc[results["F1"].idxmax()]
     print(f"\n  ⭐ Best F1: prob={best['prob_threshold']:.2f}  "
@@ -709,9 +746,11 @@ def main():
 
     print(f"\n🎉 Evaluation complete → {output_dir}")
 
-    if hasattr(sys.stdout, 'log'):
-        sys.stdout.flush()
-        sys.stdout.log.close()
+    if isinstance(sys.stdout, DualLogger):
+        logger = sys.stdout
+        logger.flush()
+        sys.stdout = logger.terminal
+        logger.close()
 
 
 if __name__ == "__main__":

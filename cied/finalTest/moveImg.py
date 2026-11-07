@@ -4,7 +4,7 @@ import pandas as pd
 
 # 1. กำหนดพาธของไฟล์ CSV และโฟลเดอร์
 csv_file = 'C:/CIEDID_data/main_workbook.csv'
-source_folder = 'C:/CIEDID_data/Images_processed'       # โฟลเดอร์ต้นทางที่เก็บรูป png
+source_folder = 'c:/CIEDID_data/Preprocessing/2_ANON'       # โฟลเดอร์ต้นทางที่เก็บรูป png
 destination_folder = 'C:/CIEDID_data/Images_finalTest'  # โฟลเดอร์ปลายทางที่ต้องการ copy ไปวาง
 
 # สร้างโฟลเดอร์ปลายทางหากยังไม่มี

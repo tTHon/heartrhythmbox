@@ -28,8 +28,8 @@ set_seed(42)
 # ==========================================================
 # 1. SETTINGS & PARAMETERS
 # ==========================================================
-path_img_folder = "C:/CIEDID_data/AbdnL/test_data"
-path_weights    = "C:/CIEDID_data/AbdnL/models/best/best_abdn.pth"
+path_img_folder = "C:/CIEDID_data/Images_finalTest"
+path_weights    = "C:/CIEDID_data/AbdnL/models/best_abdn.pth"
 IMG_Size = 640
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -68,7 +68,9 @@ def get_overlay(img, prob_map, color_rgb):
 # ระบุชื่อไฟล์ภาพที่ต้องการทำ heatmap (แทนการสุ่ม)
 # ==========================================================
 selected_filenames = [
-    "1626.png"
+    "1465.png",
+    "491.png",
+    "1586.png",
 ]
 
 selected_imgs = [p for p in img_files if p.name in selected_filenames]
@@ -137,4 +139,4 @@ fig.text(0.5, 0.01,
 
 plt.tight_layout(rect=[0, 0.08, 1, 0.95])
 #plt.show()
-plt.savefig("cied/AbdnL/heatmap_overlay.png", dpi=300, bbox_inches='tight')
+plt.savefig("C:/CIEDID_data/finalTest/heatmap_overlay.png", dpi=300, bbox_inches='tight')

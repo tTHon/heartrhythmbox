@@ -63,4 +63,4 @@ def batch_anonymize(input_folder, output_folder):
 
 # --- Usage ---
 # Enter the names of the folders containing the X-ray images and the output folder
-batch_anonymize('c:/CIEDID_data/Preprocessing/1_CLAHE', 'c:/CIEDID_data/Preprocessing/2_ANON')
+batch_anonymize('c:/CIEDID_data/Images_processed', 'c:/CIEDID_data/Preprocessing/2_ANON')
