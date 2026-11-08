@@ -231,8 +231,8 @@ def leak_check(dirs, test_ids, all_ids):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workbook", default="C:/CIEDID_data/main_workbook.csv")
-    ap.add_argument("--pred")
-    ap.add_argument("--out", default="C:/CIEDID_data/results_heldout")
+    ap.add_argument("--pred", default="C:/CIEDID_data/finalTest/preds.csv")
+    ap.add_argument("--out", default="C:/CIEDID_data/finalTest/results_heldout")
     ap.add_argument("--abdn_px_thr", type=int, default=600, help="pre-specified: pixels > 600 at prob > 0.80")
     ap.add_argument("--other_classes", default="", help="comma-separated ModelClass labels merged into 'Other' in training")
     ap.add_argument("--make_template", default="", help="write a CSV template with the test IDs and empty prediction columns")
