@@ -206,8 +206,8 @@ NUM_WORKERS  = 2
 
 P1_EPOCHS    = 10
 P1_LR        = 1e-3
-P2_EPOCHS    = 15
-P2_LR        = 1e-5
+P2_EPOCHS    = 20 #default 15
+P2_LR        = 1e-4 #default 1e-5 
 WEIGHT_DECAY = 1e-4
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"

@@ -162,11 +162,11 @@ def stageiv_compare(a_oof, path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--train_script", default="finetuneManufCV.py")
-    ap.add_argument("--root", default="C:/CIEDID_data/Manuf")
+    ap.add_argument("--root", default="C:/CIEDID_data/Manuf/20epochs_1e-4")
     ap.add_argument("--model", default="C:/CIEDID_data/pkl/classification_manuf.pkl")
     ap.add_argument("--labels_csv", default="C:/CIEDID_data/main_workbook.csv")
     ap.add_argument("--crop_dir", default="C:/CIEDID_data/Images_crop")
-    ap.add_argument("--n_folds", type=int, default=5)
+    ap.add_argument("--n_folds", type=int, default=2) #default 5
     ap.add_argument("--inits", nargs="+", choices=INITS, default=["encoder_newhead", "imagenet_newhead"],
                     help="conditions to run/analyse, e.g. INITS, encoder_newhead, imagenet_newhead (A, B, C)")
     ap.add_argument("--seeds", type=int, nargs="+", default=[42])

@@ -406,10 +406,9 @@ if __name__ == "__main__":
     parser.add_argument("--valid_split", type=float, default=0.2)
 
     parser.add_argument("--epochs_head", type=int, default=8)
-    parser.add_argument("--epochs_full", type=int, default=20)
+    parser.add_argument("--epochs_full", type=int, default=25) #default=20
     parser.add_argument("--lr_head", type=float, default=3e-3)
-    parser.add_argument("--lr_full", type=parse_lr_arg, default="slice(1e-6, 1e-4)")
-
+    parser.add_argument("--lr_full", type=parse_lr_arg, default="slice(1e-5, 1e-3)") #default="slice(1e-6, 1e-4)")
     parser.add_argument("--seed", type=int, default=42,
                          help="Seed for init/shuffling/augmentation (CV split seed is fixed at 42).")
     parser.add_argument("--patient_col", default=None,

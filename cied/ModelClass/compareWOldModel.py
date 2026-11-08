@@ -89,7 +89,7 @@ def mcnemar_exact(a, b):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--train_script", default="cied/ModelClass/finetuneModelClass.py")
-    ap.add_argument("--root", default="C:/CIEDID_data/ModelClass")
+    ap.add_argument("--root", default="C:/CIEDID_data/ModelClass/epoch_25_lrslice(1e-5, 1e-3)")
     ap.add_argument("--labels_csv", default="C:/CIEDID_data/main_workbook.csv")
     ap.add_argument("--crop_dir", default="C:/CIEDID_data/Images_crop")
     ap.add_argument("--encoder_pkl", default="C:/CIEDID_data/pkl/classification_model.pkl")
