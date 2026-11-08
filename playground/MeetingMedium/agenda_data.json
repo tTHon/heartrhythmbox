@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-06T04:39:19.499Z",
+  "lastUpdated": "2026-11-08T09:27:24.476Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -475,7 +475,7 @@
           "speakers": []
         },
         {
-          "title": "Preventive PCI in non-flow limiting vulnerable plaques",
+          "title": "Medical Treatment vs. Plaque-based PCI in stable, symptomatic stable CAD",
           "startTime": "16:10",
           "endTime": "16:15",
           "speakers": []
@@ -489,12 +489,6 @@
         {
           "title": "GLP1a therapy in metabolically healthy obesity",
           "startTime": "16:20",
-          "endTime": "16:30",
-          "speakers": []
-        },
-        {
-          "title": "Functional Test vs. Anatomical Imaging for Coronary Artery Evaluation",
-          "startTime": "16:30",
           "endTime": "16:30",
           "speakers": []
         }
