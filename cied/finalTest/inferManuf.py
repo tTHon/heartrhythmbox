@@ -11,7 +11,7 @@ from PIL import Image
 from torchvision import transforms
 from fastai.vision.all import load_learner, create_cnn_model, resnet50
 
-MODEL_DIR = "C:/CIEDID_data/Manuf/models_encoder_newhead_s42"
+MODEL_DIR = "C:/CIEDID_data/Manuf/20epochs_1e-4/models_encoder_newhead_s42"
 FOLDS     = [0, 1, 2, 3, 4]                       # use [k] for a single fold
 WEIGHTS   = [f"{MODEL_DIR}/fold_{k}/final_epoch_weights_phase2.pth" for k in FOLDS]
 BASE_PKL  = "C:/CIEDID_data/pkl/classification_manuf.pkl"   # only used if the architecture fallback is needed

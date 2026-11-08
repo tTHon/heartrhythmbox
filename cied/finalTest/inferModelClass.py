@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np, pandas as pd, torch
 from fastai.vision.all import *
 
-MODEL_DIR = "C:/CIEDID_data/ModelClass/models"
+MODEL_DIR = "C:/CIEDID_data/ModelClass/epoch_25_lrslice(1e-5, 1e-3)/models_encoder_s42"
 FOLDS     = [0, 1, 2, 3, 4]                       # use [k] for a single fold
 WORKBOOK  = "C:/CIEDID_data/main_workbook.csv"
 CROP_DIR  = "C:/CIEDID_data/Images_crop"
