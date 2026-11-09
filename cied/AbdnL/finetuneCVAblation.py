@@ -30,7 +30,7 @@
 # method = pad 
 # New: multiscale crop: randomly crop a window of size drawn from `scales` (fractions of img_size) before resizing to patch_size, applied only on training items. This allows the model to see the same image region at different "zoom levels" without changing VRAM usage or batch size. Validation always uses the full image via the fixed Resize(patch_size).
 # New: combined Focal + Dice loss (FocalDiceLoss) to handle class imbalance and directly optimise Dice metric. Configurable weights for focal vs dice components.
-# NEW (ablation): --init {scratch,imagenet,busch_enc,busch_full}, --train_frac, --seed, --no_ckpt_select;
+# NEW (ablation): --init {scratch,imagenet,busch_enc,busch_full}, --train_frac, --seed, --ckpt_select;
 #      per-case out-of-fold predictions are saved to oof_predictions.csv (for case-level AUC / bootstrap).
 
 import pathlib
@@ -679,9 +679,9 @@ def subsample_train(train_df, frac, seed):
 
 
 def ckpt_cbs(args):
-    """Best-checkpoint selection on the validation fold. Disable with --no_ckpt_select
+    """Best-checkpoint selection on the validation fold. Enable with --ckpt_select (default OFF)
     (final epoch is used instead -> no selection on the evaluation fold)."""
-    if args.no_ckpt_select:
+    if (not args.ckpt_select):
         return []
     return [SaveModelCallback(monitor='dice_generator', fname='best_gen', with_opt=False),
             SaveModelCallback(monitor='dice_abdn', fname='best_abdn', with_opt=False)]
@@ -729,7 +729,7 @@ def export_oof_predictions(learner, df, out, patch_size, probs=(0.5, 0.8, 0.9)):
 def finetune(args):
     # Append fold suffix to output_dir so each fold saves separately
     set_seed(args.seed)
-    tag  = f"{args.init}_frac{args.train_frac:g}_seed{args.seed}" + ("_nockpt" if args.no_ckpt_select else "")
+    tag  = f"{args.init}_frac{args.train_frac:g}_seed{args.seed}" + ("_ckptsel" if args.ckpt_select else "")
     base = pathlib.Path(args.output_dir) / tag
     out  = base / f"fold_{args.fold}" if args.fold >= 0 else base
     out.mkdir(parents=True, exist_ok=True)
@@ -766,7 +766,7 @@ def finetune(args):
             "train_frac":      args.train_frac,
             "seed":            args.seed,
             "lr_scratch":      args.lr_scratch,
-            "ckpt_select":     not args.no_ckpt_select,
+            "ckpt_select":     args.ckpt_select,
         }.items():
             writer.writerow([f"# {k}", v])
         writer.writerow([])  # blank line คั่นก่อน metrics
@@ -1023,7 +1023,7 @@ if __name__ == "__main__":
     # Run with --fold 0, --fold 1, ..., --fold 4 for 5-fold CV.
     # Default --fold -1 uses the classic single 80/20 split.
     # Each fold saves to output_dir/fold_N/ automatically.
-    parser.add_argument("--fold",     type=int, default=0,
+    parser.add_argument("--fold",     type=int, default=1,
                         help="CV fold index (0-based). -1 = single split (default). "
                              "Use 0..n_splits-1 for K-Fold CV.")
     parser.add_argument("--n_splits", type=int, default=5,
@@ -1031,7 +1031,7 @@ if __name__ == "__main__":
 
     # ── Ablation: initialisation / data fraction ─────────────────────
     parser.add_argument("--init", choices=["scratch", "imagenet", "busch_enc", "busch_full"],
-                        default="busch_enc",
+                        default="imagenet",
                         help="scratch = random; imagenet = torchvision ResNet50 encoder; "
                              "busch_enc = Busch encoder only (manuscript setting); "
                              "busch_full = Busch encoder + decoder (head re-initialised).")
@@ -1042,8 +1042,9 @@ if __name__ == "__main__":
                         help="Seed for training randomness and subsampling (fold split stays at 42).")
     parser.add_argument("--lr_scratch", type=float, default=1e-3,
                         help="lr_max for the single-phase scratch arm (UNTUNED - sweep before reporting).")
-    parser.add_argument("--no_ckpt_select", action="store_true", default=False,
-                        help="Disable best-checkpoint selection on the validation fold; use final epoch.")
+    parser.add_argument("--ckpt_select", action="store_true", default=False,
+                        help="Enable best-checkpoint selection on the validation fold (biased for ablation). "
+                             "Default OFF: final epoch is used.")
 
     args = parser.parse_args()
     if not 0 < args.train_frac <= 1:

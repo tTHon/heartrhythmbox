@@ -190,8 +190,8 @@ def norm_id(s):
 
 
 def load_truth(path):
-    # the workbook carries ~16,000 empty "Unnamed" columns; only the first 13 are real
-    df = pd.read_csv(path, usecols=range(13), low_memory=False)
+    # the workbook carries ~16,000 empty "Unnamed" columns; only the first 14 are real
+    df = pd.read_csv(path, usecols=range(14), low_memory=False)
     df["ID"] = df["ID"].map(norm_id)
     df["Manuf"] = df["Manuf"].str.strip()
     df["ModelClass"] = df["ModelClass"].str.strip()

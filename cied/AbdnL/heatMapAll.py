@@ -68,9 +68,7 @@ def get_overlay(img, prob_map, color_rgb):
 # ระบุชื่อไฟล์ภาพที่ต้องการทำ heatmap (แทนการสุ่ม)
 # ==========================================================
 selected_filenames = [
-    "1465.png",
-    "491.png",
-    "1586.png",
+    "560.png"   
 ]
 
 selected_imgs = [p for p in img_files if p.name in selected_filenames]
