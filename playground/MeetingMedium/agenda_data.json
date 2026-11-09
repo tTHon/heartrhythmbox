@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-09T04:50:18.625Z",
+  "lastUpdated": "2026-11-09T05:02:05.920Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -253,7 +253,7 @@
       "title": "General Cardiology Update",
       "subtopicsList": [
         {
-          "title": "Have we changed our mind on LPa?",
+          "title": "CAC in the Statin Era: Scan, Repeat, or Intensify?",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
@@ -269,11 +269,11 @@
           ]
         },
         {
-          "title": "CAC in the Statin Era: Scan, Repeat, or Intensify?",
+          "title": "BNP Update: Appropriate Use and Optimal Cutoff",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": [
-            "อ.แมน จันทวิมล"
+            "อ.บัณฑิต นราตรีคูณ"
           ]
         },
         {
@@ -336,14 +336,6 @@
           ]
         },
         {
-          "title": "BNP Update: Appropriate Use and Optimal Cutoff",
-          "startTime": "11:30",
-          "endTime": "11:45",
-          "speakers": [
-            "อ.บัณฑิต นราตรีคูณ"
-          ]
-        },
-        {
           "title": "ฺBeyond the happy ending: Life after heart transplantation",
           "startTime": "11:30",
           "endTime": "11:45",
@@ -351,7 +343,7 @@
         }
       ],
       "moderators": [
-        "อ.ธัชพงศ์ งามอุโฆษ"
+        "อ.แมน จันทวิมล"
       ],
       "speakers": []
     },
@@ -455,40 +447,46 @@
       "title": "Cross Talk: Mini Debates on Clinical Relevant, yet Controversial Topics",
       "subtopicsList": [
         {
-          "title": "Physical Examination in Asymptomatic Adults",
-          "startTime": "15:20",
-          "endTime": "15:40",
+          "title": "LPa: A true driver or just a marker of atherosclerosis",
+          "startTime": "15:00",
+          "endTime": "15:15",
           "speakers": [
             "อ.ภัทรพงษ์ มกรเวส"
           ]
         },
         {
-          "title": "Cardiovascular Benefits of Triglycerides Reduction",
-          "startTime": "15:40",
+          "title": "Physical Examination in Asymptomatic Adults: Is it necessary?",
+          "startTime": "15:15",
+          "endTime": "15:30",
+          "speakers": []
+        },
+        {
+          "title": "Medical Treatment vs. Plaque-based PCI in stable, symptomatic CAD",
+          "startTime": "15:30",
+          "endTime": "15:45",
+          "speakers": []
+        },
+        {
+          "title": "Cardiovascular benefit of wine: Science or Myth?",
+          "startTime": "15:45",
           "endTime": "16:00",
           "speakers": []
         },
         {
-          "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention",
+          "title": "GLP1a therapy in metabolically healthy obesity",
           "startTime": "16:00",
-          "endTime": "16:10",
-          "speakers": []
-        },
-        {
-          "title": "Medical Treatment vs. Plaque-based PCI in stable, symptomatic stable CAD",
-          "startTime": "16:10",
           "endTime": "16:15",
           "speakers": []
         },
         {
-          "title": "Daily glass of wine: heart help or risk in disguise?",
-          "startTime": "16:15",
-          "endTime": "16:20",
+          "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention",
+          "startTime": "16:20",
+          "endTime": "16:30",
           "speakers": []
         },
         {
-          "title": "GLP1a therapy in metabolically healthy obesity",
-          "startTime": "16:20",
+          "title": "Cardiovascular Benefits of Triglycerides Reduction",
+          "startTime": "16:25",
           "endTime": "16:30",
           "speakers": []
         }
