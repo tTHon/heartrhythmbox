@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-09T05:02:05.920Z",
+  "lastUpdated": "2026-11-09T05:06:16.115Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -461,7 +461,7 @@
           "speakers": []
         },
         {
-          "title": "Medical Treatment vs. Plaque-based PCI in stable, symptomatic CAD",
+          "title": "Medical Treatment vs. vulnerable plaque guided PCI in stable, symptomatic CAD",
           "startTime": "15:30",
           "endTime": "15:45",
           "speakers": []
@@ -565,7 +565,9 @@
           "title": "New antihypersive medication class for resistant hypertension",
           "startTime": "11:10",
           "endTime": "11:10",
-          "speakers": []
+          "speakers": [
+            "อ.ปริญญ์ วาทีสาธกกิจ"
+          ]
         }
       ],
       "moderators": [
