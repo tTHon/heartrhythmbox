@@ -1,3 +1,4 @@
+# finetuneCV_ablation.py - ablation variant of finetuneCV.py (init comparison + train-fraction learning curve)
 # finetuning script for abandoned lead segmentation 
 # using encoder-only transfer from the original segmentation model (segmentation.pkl).
 #
@@ -29,13 +30,12 @@
 # method = pad 
 # New: multiscale crop: randomly crop a window of size drawn from `scales` (fractions of img_size) before resizing to patch_size, applied only on training items. This allows the model to see the same image region at different "zoom levels" without changing VRAM usage or batch size. Validation always uses the full image via the fixed Resize(patch_size).
 # New: combined Focal + Dice loss (FocalDiceLoss) to handle class imbalance and directly optimise Dice metric. Configurable weights for focal vs dice components.
+# NEW (ablation): --init {scratch,imagenet,busch_enc,busch_full}, --train_frac, --seed, --no_ckpt_select;
+#      per-case out-of-fold predictions are saved to oof_predictions.csv (for case-level AUC / bootstrap).
 
 import pathlib
 import platform
 import argparse
-import copy
-import json
-import random
 import numpy as np
 import pandas as pd
 import torch
@@ -44,6 +44,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from fastai.vision.all import *
 from sklearn.model_selection import train_test_split, StratifiedKFold
+from sklearn.metrics import roc_auc_score
 
 # PyTorch 2.6+ fix: monkey-patch torch.load to use weights_only=False for fastai compatibility
 import torch
@@ -410,39 +411,6 @@ def show_batch_inspection(dls, n=4, save_path=None, norm_mean=None, norm_std=Non
     plt.close(fig)
 
 
-
-def set_run_seed(seed):
-    """Set all relevant RNGs so each repeated run is reproducible."""
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed_all(seed)
-    try:
-        set_seed(seed, reproducible=True)
-    except Exception:
-        pass
-
-
-def stratified_training_subset(train_df, fraction, seed):
-    """
-    Draw a stratified subset from TRAIN ONLY.
-    The validation set is never sampled or changed.
-    Keeps at least one case from each represented class when possible.
-    """
-    if fraction >= 0.999:
-        return train_df.copy()
-
-    pieces = []
-    for _, group in train_df.groupby("has_abandoned", sort=True):
-        n = max(1, int(round(len(group) * fraction)))
-        n = min(n, len(group))
-        pieces.append(group.sample(n=n, random_state=seed))
-
-    subset = pd.concat(pieces).sample(frac=1, random_state=seed).reset_index(drop=True)
-    return subset
-
-
 # ==============================
 # 4. DATAFRAME BUILDER
 # ==============================
@@ -452,11 +420,10 @@ def build_dataframe(args):
 
     Two modes:
     1. Single split (args.fold == -1, default):
-       Classic 80/20 stratified split by abandoned leads.
+       Classic 80/20 stratified split — same as before.
 
     2. K-Fold CV (args.fold in 0..n_splits-1):
        StratifiedKFold with n_splits=args.n_splits.
-       Stratified by abandoned leads.
        The chosen fold index is used as the validation set.
        This allows running 5 independent training runs by
        setting --fold 0, --fold 1, ..., --fold 4.
@@ -464,7 +431,7 @@ def build_dataframe(args):
     """
     rows = []
     exts = {".jpg", ".png", ".jpeg", ".bmp"}
-    for img in args.new_imgs.iterdir():
+    for img in sorted(args.new_imgs.iterdir()):
         if img.suffix.lower() not in exts:
             continue
         mask = args.new_masks / f"{img.stem}_mask.png"
@@ -509,34 +476,21 @@ def build_dataframe(args):
         print(f"📂 CV fold {args.fold+1}/{args.n_splits}: "
               f"train={len(train_idx)}  val={len(valid_idx)}")
 
-    # ── Fixed validation set; subsample TRAIN only for learning curves ──
+    # ── Oversample abandoned lead in TRAIN only (BUG FIX 1) ─────────
     train_df = df[~df["is_valid"]].copy()
-    valid_df = df[df["is_valid"]].copy()
+    valid_df = df[ df["is_valid"]].copy()
+    train_df = subsample_train(train_df, args.train_frac, args.seed)
 
-    # Save the true, non-oversampled subset composition for audit/reporting.
-    fraction = float(getattr(args, "data_fraction", 1.0))
-    subset_seed = int(getattr(args, "seed", 42))
-    train_df = stratified_training_subset(train_df, fraction, subset_seed)
-
-    n_train_positive = int(train_df["has_abandoned"].sum())
-    n_train_negative = int((~train_df["has_abandoned"]).sum())
-    n_val_positive = int(valid_df["has_abandoned"].sum())
-    n_val_negative = int((~valid_df["has_abandoned"]).sum())
-
-    print(f"📉 Training fraction: {fraction:.3f}")
-    print(f"   Selected training cases: {len(train_df)} "
-          f"(abandoned-positive={n_train_positive}, negative={n_train_negative})")
-    print(f"   Fixed validation cases: {len(valid_df)} "
-          f"(abandoned-positive={n_val_positive}, negative={n_val_negative})")
-
-    # Oversampling is applied only after selecting the subset, and only to TRAIN.
     with_abl = train_df[train_df["has_abandoned"]]
     if len(with_abl) > 0 and args.oversample_new > 1:
-        extra = pd.concat([with_abl] * (args.oversample_new - 1), ignore_index=True)
+        extra    = pd.concat([with_abl] * (args.oversample_new - 1), ignore_index=True)
         train_df = pd.concat([train_df, extra], ignore_index=True)
-        print(f"🔥 Training-only oversampling ×{args.oversample_new}: "
-              f"{n_train_positive} positive cases -> "
-              f"{int(train_df['has_abandoned'].sum())} training rows")
+        print(f"🔥 Oversampled abandoned lead ×{args.oversample_new} "
+              f"({len(with_abl)} → {len(train_df[train_df['has_abandoned']])} train rows)")
+
+    n_val_abdn = valid_df["has_abandoned"].sum()
+    print(f"🔍 Val abdn: {n_val_abdn}  Train abdn (after oversample): "
+          f"{train_df['has_abandoned'].sum()}")
 
     return pd.concat([train_df, valid_df], ignore_index=True)
 
@@ -556,7 +510,10 @@ def build_dataframe(args):
 # Head    = layers.12.* (shape mismatch: old=3 classes, new=4 classes)
 ENCODER_PREFIXES = ("layers.0.",)
 
-def load_pretrained_weights(learner, path):
+def load_pretrained_weights(learner, path, mode="enc"):
+    # mode='enc'  -> encoder only (layers.0.*)
+    # mode='full' -> every tensor whose name AND shape match (encoder + decoder);
+    #                the 4-class head (old=3 classes) is skipped by the shape check
     device    = next(learner.model.parameters()).device
     old       = load_learner(path, cpu=True)
     old_state = old.model.state_dict()
@@ -565,7 +522,7 @@ def load_pretrained_weights(learner, path):
     loaded = skipped_mismatch = skipped_decoder = 0
     for k, v in old_state.items():
         is_encoder = any(k.startswith(p) for p in ENCODER_PREFIXES)
-        if not is_encoder:
+        if mode == "enc" and not is_encoder:
             # Decoder / head from old model — intentionally ignored
             skipped_decoder += 1
             continue
@@ -685,8 +642,8 @@ def plot_learning_curves(csv_path, output_path):
     ax2 = ax1.twinx()
     if 'dice_generator' in df.columns:
         ax2.plot(df['dice_generator'], label='Dice (Generator)', color='green')
-    if 'abdn_lead_sensitivity' in df.columns:
-        ax2.plot(df['abdn_lead_sensitivity'], label='Sensitivity (Abdn Lead)', color='red')
+    if 'abdn_sensitivity' in df.columns:
+        ax2.plot(df['abdn_sensitivity'], label='Sensitivity (Abdn Lead)', color='red')
     
     ax2.set_ylabel('Score (0-1)', color='black')
     ax2.set_ylim(0, 1.1)
@@ -704,13 +661,77 @@ def plot_learning_curves(csv_path, output_path):
     print(f"📈 Learning curves saved → {output_path}")
     plt.close()
 
+def subsample_train(train_df, frac, seed):
+    """Stratified (by has_abandoned) subsample of the TRAIN rows only.
+    Same seed -> nested subsets (25% is contained in 50% is contained in 100%).
+    Validation rows and the fold split itself never depend on frac/seed."""
+    if frac >= 1.0:
+        return train_df
+    parts = []
+    for _, g in train_df.groupby("has_abandoned"):
+        order = np.random.RandomState(seed).permutation(len(g))
+        k = max(1, int(np.ceil(frac * len(g))))
+        parts.append(g.iloc[order[:k]])
+    sub = pd.concat(parts).sort_index()
+    print(f"[subsample] train_frac={frac}: {len(train_df)} -> {len(sub)} images "
+          f"(abandoned: {int(train_df['has_abandoned'].sum())} -> {int(sub['has_abandoned'].sum())})")
+    return sub
+
+
+def ckpt_cbs(args):
+    """Best-checkpoint selection on the validation fold. Disable with --no_ckpt_select
+    (final epoch is used instead -> no selection on the evaluation fold)."""
+    if args.no_ckpt_select:
+        return []
+    return [SaveModelCallback(monitor='dice_generator', fname='best_gen', with_opt=False),
+            SaveModelCallback(monitor='dice_abdn', fname='best_abdn', with_opt=False)]
+
+
+def _case_dice(pred_cls, targ, c, eps=1e-6):
+    t = (targ == c)
+    if t.sum() == 0:
+        return float("nan")
+    p = (pred_cls == c)
+    return float((2. * (p & t).sum() + eps) / (p.sum() + t.sum() + eps))
+
+
+@torch.no_grad()
+def export_oof_predictions(learner, df, out, patch_size, probs=(0.5, 0.8, 0.9)):
+    """Per-case out-of-fold outputs for the validation fold of this run.
+    Pixel areas are counted at patch_size resolution (padded square) - rescale
+    by (img_size/patch_size)**2 if you need areas at img_size."""
+    valid_df = df[df["is_valid"]].reset_index(drop=True)
+    preds, targs = learner.get_preds(dl=learner.dls.valid)   # softmax via loss activation
+    preds, targs = preds.float().cpu(), targs.cpu()
+    assert len(valid_df) == preds.shape[0], (len(valid_df), preds.shape)
+    p3, cls = preds[:, 3], preds.argmax(dim=1)
+    rows = []
+    for i, r in valid_df.iterrows():
+        d = {"image": r["image"], "has_abandoned": int(r["has_abandoned"]),
+             "max_prob_abdn": p3[i].max().item(),
+             "soft_area_abdn": p3[i].sum().item(),
+             "gt_abdn_px": int((targs[i] == 3).sum()),
+             "dice_gen": _case_dice(cls[i], targs[i], 1),
+             "dice_abdn": _case_dice(cls[i], targs[i], 3)}
+        for th in probs:
+            d[f"area_p{th}"] = int((p3[i] > th).sum())
+        rows.append(d)
+    res = pd.DataFrame(rows)
+    res["patch_size"] = patch_size
+    res.to_csv(out / "oof_predictions.csv", index=False)
+    print(f"OOF predictions saved -> {out / 'oof_predictions.csv'}")
+    if res["has_abandoned"].nunique() == 2:
+        for col in ["max_prob_abdn", "soft_area_abdn", "area_p0.8"]:
+            print(f"   case-level AUC ({col}): {roc_auc_score(res['has_abandoned'], res[col]):.3f}")
+        print(f"   mean abandoned-lead Dice (positives only): {res['dice_abdn'].mean():.3f}")
+
+
 def finetune(args):
-    set_run_seed(args.seed)
     # Append fold suffix to output_dir so each fold saves separately
-    if args.fold >= 0:
-        out = pathlib.Path(args.output_dir) / f"fold_{args.fold}"
-    else:
-        out = pathlib.Path(args.output_dir)
+    set_seed(args.seed)
+    tag  = f"{args.init}_frac{args.train_frac:g}_seed{args.seed}" + ("_nockpt" if args.no_ckpt_select else "")
+    base = pathlib.Path(args.output_dir) / tag
+    out  = base / f"fold_{args.fold}" if args.fold >= 0 else base
     out.mkdir(parents=True, exist_ok=True)
     print(f"📁 Output dir: {out}")
 
@@ -741,18 +762,17 @@ def finetune(args):
             "lr_phase1":       args.lr_phase1,
             "lr_phase2":       args.lr_phase2,
             "multiscale_crop": args.multiscale_crop,
-            "initialization": args.init_mode,
-            "data_fraction": args.data_fraction,
-            "seed": args.seed,
-            "experiment_name": args.experiment_name,
+            "init":            args.init,
+            "train_frac":      args.train_frac,
+            "seed":            args.seed,
+            "lr_scratch":      args.lr_scratch,
+            "ckpt_select":     not args.no_ckpt_select,
         }.items():
             writer.writerow([f"# {k}", v])
         writer.writerow([])  # blank line คั่นก่อน metrics
     # ────────────────────────────────────────────────────────
 
     df = build_dataframe(args)
-    manifest = df[["image", "mask", "has_abandoned", "is_valid"]].copy()
-    manifest.to_csv(out / "run_manifest.csv", index=False)
     
     # --- วางโค้ดเช็คจำนวน Abandoned Lead ตรงนี้ ---
     n_valid_abdn = df[df["is_valid"] & df["has_abandoned"]].shape[0]
@@ -780,7 +800,7 @@ def finetune(args):
         # This is Option 1 — one fixed mean/std shared by every fold and
         # used unchanged at inference time (no per-fold normalisation drift).
         print("📊 คำนวณ global stats จากทุก image ก่อนแบ่ง fold …")
-        all_image_paths = df.loc[~df["is_valid"], "image"].drop_duplicates().tolist()  # training cases only
+        all_image_paths = df["image"].tolist()   # all rows, both train & val
         stats_mean, stats_std = get_segmentation_stats(all_image_paths, args.img_size)
         print(f"  💡 Copy ค่าเหล่านี้ไปใส่ใน myMEAN / mySTD เพื่อใช้ซ้ำในรอบหน้า")
 
@@ -842,20 +862,20 @@ def finetune(args):
     )
 
     learner = unet_learner(
-        dls, resnet50, n_out=4,
+        dls, resnet50, n_out=4, pretrained=(args.init == "imagenet"),
         loss_func=loss_func,
         metrics=[dice_generator, dice_lead, AbdnLeadSensitivity(), dice_abdn],
         # Add CSVLogger here to capture all phases in one file
         # remove gradient accumulation to avoid NaN issues with abdn sensitivity.
         cbs=[CSVLogger(fname=str(out / "training_history.csv"), append=True)]).to_fp16()
 
-    if args.init_mode == "pretrained":
-        print("\n📦 Loading pretrained encoder weights …")
-        learner = load_pretrained_weights(learner, args.model_path)
-    elif args.init_mode == "scratch":
-        print("\n🆕 Scratch baseline: encoder and decoder retain random initialization.")
+    print("\n📦 Loading pretrained encoder weights …")
+    if args.init in ("busch_enc", "busch_full"):
+        learner = load_pretrained_weights(learner, args.model_path,
+                                          mode="enc" if args.init == "busch_enc" else "full")
     else:
-        raise ValueError(f"Unknown init_mode: {args.init_mode}")
+        print(f"   init={args.init}: Busch weights NOT loaded")
+    print(f"   sanity: mean|w| of first conv = {next(learner.model.parameters()).abs().mean().item():.5f}")
     print("image size:", args.img_size, "patch size:", args.patch_size)
 
     # ─────────────────────────────────────────────────────────────
@@ -872,53 +892,58 @@ def finetune(args):
     # with a decoder that is completely random, which produces unstable
     # gradients that can corrupt the encoder weights later.
     # ------------------------------------------------------------------
-    print("\n--- Phase 0: Decoder warmup (encoder frozen, decoder free) ---")
-    # Freeze only the encoder (groups[0] in FastAI UNet = backbone)
-    if args.init_mode == "pretrained":
-        learner.freeze_to(1)      # freeze pretrained encoder; train decoder/head
+    if args.init == "scratch":
+        # Random init everywhere: freezing a random encoder is meaningless, so train all
+        # layers for the same TOTAL number of epochs as the staged arms.
+        total_ep = args.epochs_decoder + args.epochs_head + args.epochs_full
+        print(f"\n--- Scratch: full training, {total_ep} epochs, lr_max={args.lr_scratch} ---")
+        learner.unfreeze()
+        learner.path      = out
+        learner.model_dir = ""
+        learner.fit_one_cycle(total_ep, args.lr_scratch,
+                              cbs=[GradientAccumulation(n_acc=args.grad_accum), *ckpt_cbs(args)])
     else:
-        learner.unfreeze()        # scratch baseline must learn its encoder from the start
-    learner.fit_one_cycle(args.epochs_decoder, args.lr_phase0,
-                           cbs=GradientAccumulation(n_acc=args.grad_accum))  # ลด lr ลงจาก 2e-3
-    #learner.show_results(max_n=4, vmin=0, vmax=3)
-    #plt.savefig(out / "phase0_decoder_warmup.png")
-    #learner.save(out / "after_decoder_warmup")
+        print("\n--- Phase 0: Decoder warmup (encoder frozen, decoder free) ---")
+        # Freeze only the encoder (groups[0] in FastAI UNet = backbone)
+        learner.freeze_to(1)          # freeze group 0 (encoder), leave rest free
+        learner.fit_one_cycle(args.epochs_decoder, args.lr_phase0, cbs=GradientAccumulation(n_acc=args.grad_accum))  # ลด lr ลงจาก 2e-3
+        #learner.show_results(max_n=4, vmin=0, vmax=3)
+        #plt.savefig(out / "phase0_decoder_warmup.png")
+        #learner.save(out / "after_decoder_warmup")
 
-    # Phase 1 — head only
-    print("\n--- Phase 1: Training Head (all except head frozen) ---")
-    learner.freeze()              # freeze everything except last param group (head)
-    learner.fit_one_cycle(args.epochs_head, args.lr_phase1, cbs=GradientAccumulation(n_acc=args.grad_accum))
-    #learner.show_results(max_n=4, vmin=0, vmax=3)
-    #plt.savefig(out / "phase1_head_loss.png")
-    #learner.save(out / "after_head_only")
-    #learner.recorder.plot.loss()
-
-
-    # Phase 2 — full fine-tune with best-model checkpoint
-    print("\n--- Phase 2: Full Fine-Tuning ---")
-    learner.unfreeze()
-
-    # 2. show lr_find suggestions for Phase 2 full fine-tuning
-    #print("🔍 finding optimal Learning Rate for Phase 2 (Full Fine-tuning)...")
-    #suggestions = learner.lr_find(suggest_funcs=(minimum, steep, valley, slide))
-    #print(f"suggestions (Valley): {suggestions.valley}")
-    # may use the valley suggestion with fit_one_cycle esp on this phase. 
-    # for phase 0,1 -- may keep learning rate as they are
-    # learner.fit_one_cycle(args.epochs_decoder, suggestions.valley)
+        # Phase 1 — head only
+        print("\n--- Phase 1: Training Head (all except head frozen) ---")
+        learner.freeze()              # freeze everything except last param group (head)
+        learner.fit_one_cycle(args.epochs_head, args.lr_phase1, cbs=GradientAccumulation(n_acc=args.grad_accum))
+        #learner.show_results(max_n=4, vmin=0, vmax=3)
+        #plt.savefig(out / "phase1_head_loss.png")
+        #learner.save(out / "after_head_only")
+        #learner.recorder.plot.loss()
 
 
+        # Phase 2 — full fine-tune with best-model checkpoint
+        print("\n--- Phase 2: Full Fine-Tuning ---")
+        learner.unfreeze()
 
-    # SaveModelCallback at learner.path/learner.model_dir/
-    learner.path      = out
-    learner.model_dir = ""
-    learner.fit_one_cycle(
-        args.epochs_full,
-        lr_max=args.lr_phase2,  # slowler ie. 1e-6, 5e-5
-        cbs=[GradientAccumulation(n_acc=args.grad_accum),
-         SaveModelCallback(monitor='dice_generator', fname='best_gen', with_opt=False),
-         SaveModelCallback(monitor='dice_abdn', fname='best_abdn', with_opt=False)
-         ]
-    )
+        # 2. show lr_find suggestions for Phase 2 full fine-tuning
+        #print("🔍 finding optimal Learning Rate for Phase 2 (Full Fine-tuning)...")
+        #suggestions = learner.lr_find(suggest_funcs=(minimum, steep, valley, slide))
+        #print(f"suggestions (Valley): {suggestions.valley}")
+        # may use the valley suggestion with fit_one_cycle esp on this phase. 
+        # for phase 0,1 -- may keep learning rate as they are
+        # learner.fit_one_cycle(args.epochs_decoder, suggestions.valley)
+
+
+
+        # SaveModelCallback at learner.path/learner.model_dir/
+        learner.path      = out
+        learner.model_dir = ""
+        learner.fit_one_cycle(
+            args.epochs_full,
+            lr_max=args.lr_phase2,  # slowler ie. 1e-6, 5e-5
+            cbs=[GradientAccumulation(n_acc=args.grad_accum), *ckpt_cbs(args)]
+        )
+
 
     # --- Save Sample Predictions ---
     print("🎨 Saving sample predictions...")
@@ -927,12 +952,10 @@ def finetune(args):
     plt.close()
 
     # Load best checkpoint before export
-    best_path = out / "best_abdn.pth"
+    best_path = out / "best_seg.pth"
     if best_path.exists():
-        learner.load(str(out / "best_abdn"))
-        print("🏆 Loaded best checkpoint (highest validation abandoned-lead Dice).")
-    else:
-        print("⚠️ No best_abdn checkpoint found; exporting final-epoch weights.")
+        learner.load(str(out / "best_seg"))
+        print("🏆 Loaded best checkpoint (highest dice_generator).")
 
     # ------------------------------------------------------------------
     # Export — state dict (.pth)
@@ -941,6 +964,7 @@ def finetune(args):
     # ------------------------------------------------------------------
     weights_path = out / "seg_abdnL_weights.pth"
     torch.save(learner.model.state_dict(), weights_path)
+    export_oof_predictions(learner, df, out, args.patch_size)
     print(f"\n✅ Weights saved → {weights_path}")
 
     # --- Plot Learning Curves ---
@@ -950,203 +974,82 @@ def finetune(args):
 # ==============================
 # 7. ENTRY POINT
 # ==============================
-def run_data_efficiency_experiment(base_args):
-    """
-    Run a paired learning-curve experiment:
-      - fixed 80/20 stratified train/validation split (same for all runs)
-      - stratified training subsets at each fraction
-      - pretrained encoder vs random initialization
-      - repeated subset/model seeds
-    Each run writes its own folder and run_manifest.csv.
-    """
-    root = pathlib.Path(base_args.output_dir) / base_args.experiment_name
-    root.mkdir(parents=True, exist_ok=True)
-
-    fractions = [float(x) for x in base_args.data_fractions.split(",")]
-    modes = ["pretrained", "scratch"]
-    summary_rows = []
-
-    for fraction in fractions:
-        for repeat in range(base_args.repeats):
-            # The same seed is paired between pretrained and scratch.
-            run_seed = base_args.seed + repeat
-            for mode in modes:
-                run_args = copy.deepcopy(base_args)
-                run_args.fold = -1  # one fixed validation split for all learning-curve runs
-                run_args.data_fraction = fraction
-                run_args.seed = run_seed
-                run_args.init_mode = mode
-                run_args.output_dir = str(root / f"fraction_{fraction:.3f}" /
-                                          f"repeat_{repeat+1:02d}" / mode)
-                run_args.experiment_name = base_args.experiment_name
-
-                print("\\n" + "=" * 78)
-                print(f"EXPERIMENT: fraction={fraction:.3f}, repeat={repeat+1}, "
-                      f"seed={run_seed}, initialization={mode}")
-                print("=" * 78)
-
-                finetune(run_args)
-
-                # Extract the final best-validation metrics from the CSV.
-                hist_path = pathlib.Path(run_args.output_dir) / "training_history.csv"
-                try:
-                    import io
-                    lines = hist_path.read_text(encoding="utf-8").splitlines()
-                    clean = "\\n".join(line for line in lines
-                                       if not line.startswith("#") and line.strip())
-                    hist = pd.read_csv(io.StringIO(clean), on_bad_lines="skip")
-                    hist = hist[hist["epoch"].astype(str) != "epoch"].copy()
-                    for col in ["dice_abdn", "abdn_sensitivity", "valid_loss"]:
-                        if col in hist:
-                            hist[col] = pd.to_numeric(hist[col], errors="coerce")
-                    row = {
-                        "fraction": fraction,
-                        "repeat": repeat + 1,
-                        "seed": run_seed,
-                        "initialization": mode,
-                        "n_train": np.nan,
-                        "n_train_abandoned_positive": np.nan,
-                        "n_validation": np.nan,
-                        "n_validation_abandoned_positive": np.nan,
-                        "best_dice_abdn": hist["dice_abdn"].max()
-                            if "dice_abdn" in hist else np.nan,
-                        "best_abdn_sensitivity": hist["abdn_sensitivity"].max()
-                            if "abdn_sensitivity" in hist else np.nan,
-                        "minimum_valid_loss": hist["valid_loss"].min()
-                            if "valid_loss" in hist else np.nan,
-                        "run_dir": run_args.output_dir,
-                    }
-                    manifest_path = pathlib.Path(run_args.output_dir) / "run_manifest.csv"
-                    if manifest_path.exists():
-                        mf = pd.read_csv(manifest_path)
-                        tr = mf[~mf["is_valid"]]
-                        va = mf[mf["is_valid"]]
-                        row["n_train"] = len(tr)
-                        row["n_train_abandoned_positive"] = int(tr["has_abandoned"].sum())
-                        row["n_validation"] = len(va)
-                        row["n_validation_abandoned_positive"] = int(va["has_abandoned"].sum())
-                    summary_rows.append(row)
-                except Exception as exc:
-                    print(f"⚠️ Could not parse metrics for summary: {exc}")
-
-                pd.DataFrame(summary_rows).to_csv(root / "experiment_summary_partial.csv",
-                                                   index=False)
-
-    if summary_rows:
-        summary = pd.DataFrame(summary_rows)
-        summary.to_csv(root / "experiment_summary.csv", index=False)
-
-        grouped = (summary.groupby(["fraction", "initialization"])
-                   .agg(n_runs=("best_dice_abdn", "count"),
-                        mean_dice_abdn=("best_dice_abdn", "mean"),
-                        sd_dice_abdn=("best_dice_abdn", "std"),
-                        mean_sensitivity=("best_abdn_sensitivity", "mean"),
-                        sd_sensitivity=("best_abdn_sensitivity", "std"))
-                   .reset_index())
-        grouped.to_csv(root / "learning_curve_summary.csv", index=False)
-
-        # Plot mean +/- SD across repeats for each initialization.
-        fig, ax = plt.subplots(figsize=(8, 5))
-        for mode in modes:
-            g = grouped[grouped["initialization"] == mode].sort_values("fraction")
-            ax.errorbar(g["fraction"], g["mean_dice_abdn"],
-                        yerr=g["sd_dice_abdn"], marker="o", capsize=4,
-                        label=mode)
-        ax.set_xlabel("Fraction of available training cases")
-        ax.set_ylabel("Best validation Dice (abandoned lead)")
-        ax.set_title("Data-efficiency learning curve")
-        ax.set_ylim(0, 1)
-        ax.grid(True, alpha=0.3)
-        ax.legend()
-        fig.tight_layout()
-        fig.savefig(root / "learning_curve_dice_abdn.png", dpi=180)
-        plt.close(fig)
-
-        fig, ax = plt.subplots(figsize=(8, 5))
-        for mode in modes:
-            g = grouped[grouped["initialization"] == mode].sort_values("fraction")
-            ax.errorbar(g["fraction"], g["mean_sensitivity"],
-                        yerr=g["sd_sensitivity"], marker="o", capsize=4,
-                        label=mode)
-        ax.set_xlabel("Fraction of available training cases")
-        ax.set_ylabel("Best validation abandoned-lead sensitivity")
-        ax.set_title("Detection-sensitivity learning curve")
-        ax.set_ylim(0, 1)
-        ax.grid(True, alpha=0.3)
-        ax.legend()
-        fig.tight_layout()
-        fig.savefig(root / "learning_curve_sensitivity.png", dpi=180)
-        plt.close(fig)
-
-    print(f"\\n✅ Data-efficiency experiment completed. Results: {root}")
-
-
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="CIED abandoned-lead segmentation fine-tuning and data-efficiency experiment"
-    )
-    # paths
+    parser = argparse.ArgumentParser()
+    # path
     parser.add_argument("--model_path", default="C:/CIEDID_data/pkl/segmentation.pkl")
     parser.add_argument("--new_imgs", default="C:/CIEDID_data/AbdnL/data")
     parser.add_argument("--new_masks", default="C:/CIEDID_data/AbdnL/mask")
-    parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models/dataEff/scratch")
-
-    # Experiment controls
-    parser.add_argument("--run_experiment", action="store_true",
-                        help="Run learning curves: pretrained vs scratch across data fractions.")
-    parser.add_argument("--experiment_name", default="data_efficiency")
-    parser.add_argument("--data_fractions", default="0.2,0.4,0.6,0.8,1.0",
-                        help="Comma-separated fractions of the training split.")
-    parser.add_argument("--repeats", type=int, default=3,
-                        help="Number of paired repeats per fraction and initialization.")
-    parser.add_argument("--data_fraction", type=float, default=1.0,
-                        help="Internal single-run fraction; normally set by experiment runner.")
-    parser.add_argument("--init_mode", choices=["pretrained", "scratch"], default="scratch")
-    parser.add_argument("--seed", type=int, default=42)
-
+    parser.add_argument("--output_dir", default="C:/CIEDID_data/AbdnL/models")
     # training config
-    parser.add_argument("--oversample_new", type=int, default=2)
+    parser.add_argument("--oversample_new", type=int,   default=2) 
     parser.add_argument("--class_weights", nargs=4, type=float, default=[1.0, 10, 10, 45],
-                        help="Class weights: background, generator, lead, abandoned_lead")
-    parser.add_argument("--img_size", type=int, default=640)
-    parser.add_argument("--patch_size", type=int, default=448)
-    parser.add_argument("--batch_size", type=int, default=4)
-    parser.add_argument("--grad_accum", type=int, default=2)
-    parser.add_argument("--valid_split", type=float, default=0.2)
-    parser.add_argument("--abdn_min_512", type=int, default=2800)
+                        help="Class weights for the loss function (background, generator, lead, abandoned_lead)")
+    # model/hyperparameters
+    # Dont use PS 256. Numbers are not good.
+    # after testing 640/448 works best --> least overfit (gap 0.191), dice gen 0.795, abdn 0.226
+    parser.add_argument("--img_size",      type=int,   default=640)  # try BS/PS 512/320, 640/384; 768/512
+    parser.add_argument("--patch_size",     type=int,   default=448)  # 320 = 5px, 384 = 6px, 448 = 7px, 512 = 8px effective receptive field on original image
+    parser.add_argument("--batch_size",     type=int,   default=4) #PS 384: BS 2x4, PS 320 BS: 3x3 
+    parser.add_argument("--grad_accum",   type=int,   default=2) 
+    parser.add_argument("--valid_split", type=float,   default=0.2)
+    parser.add_argument("--abdn_min_512", type=int,   default=2800)  
+    # training epochs
+    parser.add_argument("--epochs_decoder",  type=int,   default=5)   # Phase 0: decoder warmup 
+    parser.add_argument("--epochs_head",    type=int,   default=5)    # Phase 1: head only
+    parser.add_argument("--epochs_full",    type=int,   default=12)  # Phase 2: full fine-tuning — may need more epochs with smaller learning rate for stable convergence on this small dataset
+    # learning rates   
+    parser.add_argument("--lr_phase0",   type=float,   default=5e-4)  # Phase 0: decoder warmup — reduced from 2e-3 to 5e-4 for more stable training with small dataset
+    parser.add_argument("--lr_phase1",   type=float,   default=3e-4)  # Phase 1: head only — reduced from 1e-3 to 6e-4 to prevent overfitting and instability with small dataset
+    parser.add_argument("--lr_phase2",   type=parse_lr_arg, default="slice(1e-6, 1e-4)")  # Phase 2: full fine-tuning — use a learning rate slice for gradual unfreezing and stable convergence
+        
+    # FocalDiceLoss parameters
+    parser.add_argument("--focal_w",    type=float, default=0.5,
+                        help="Weight for Focal component in FocalDiceLoss (0-1). "
+                             "focal_w + dice_w should sum to 1.0.")
+    parser.add_argument("--dice_w",     type=float, default=0.5,
+                        help="Weight for Dice component in FocalDiceLoss (0-1).")
+    parser.add_argument("--focal_gamma",type=float, default=2.0,
+                        help="Gamma for Focal loss (higher = more focus on hard examples).")
 
-    # training epochs and learning rates
-    parser.add_argument("--epochs_decoder", type=int, default=5)
-    parser.add_argument("--epochs_head", type=int, default=5)
-    parser.add_argument("--epochs_full", type=int, default=12)
-    parser.add_argument("--lr_phase0", type=float, default=5e-4)
-    parser.add_argument("--lr_phase1", type=float, default=3e-4)
-    parser.add_argument("--lr_phase2", type=parse_lr_arg, default="slice(1e-6, 1e-4)")
+    # Added --calc_stats to the argparse section so you can choose when to perform this calculation.
+    parser.add_argument("--calc_stats",action="store_true", default=False,  # change to True to enable stats calculation
+                        help="Calculate mean/std from the dataset instead of using ImageNet values")
+    parser.add_argument("--multiscale_crop", action="store_true", default=True,
+                        help="Enable multi-scale patch sampling: randomly crops at 0.6/0.75/0.875/1.0 x img_size "
+                             "before Resize(patch_size). Train only — validation unaffected. No VRAM change.")
 
-    # loss
-    parser.add_argument("--focal_w", type=float, default=0.5)
-    parser.add_argument("--dice_w", type=float, default=0.5)
-    parser.add_argument("--focal_gamma", type=float, default=2.0)
+    # ── Cross-validation ─────────────────────────────────────────────
+    # Run with --fold 0, --fold 1, ..., --fold 4 for 5-fold CV.
+    # Default --fold -1 uses the classic single 80/20 split.
+    # Each fold saves to output_dir/fold_N/ automatically.
+    parser.add_argument("--fold",     type=int, default=0,
+                        help="CV fold index (0-based). -1 = single split (default). "
+                             "Use 0..n_splits-1 for K-Fold CV.")
+    parser.add_argument("--n_splits", type=int, default=5,
+                        help="Number of CV folds (default: 5).")
 
-    # preprocessing
-    parser.add_argument("--calc_stats", action="store_true", default=False)
-    parser.add_argument("--multiscale_crop", action="store_true", default=True)
-
-    # Legacy CV options (used only when --run_experiment is not selected)
-    parser.add_argument("--fold", type=int, default=0,
-                        help="-1 = stratified 80/20 split; 0..n_splits-1 = K-fold.")
-    parser.add_argument("--n_splits", type=int, default=5)
+    # ── Ablation: initialisation / data fraction ─────────────────────
+    parser.add_argument("--init", choices=["scratch", "imagenet", "busch_enc", "busch_full"],
+                        default="busch_enc",
+                        help="scratch = random; imagenet = torchvision ResNet50 encoder; "
+                             "busch_enc = Busch encoder only (manuscript setting); "
+                             "busch_full = Busch encoder + decoder (head re-initialised).")
+    parser.add_argument("--train_frac", type=float, default=1.0,
+                        help="Fraction of the fold's TRAIN images used (stratified, nested across fractions "
+                             "for a fixed --seed). Validation fold is never subsampled.")
+    parser.add_argument("--seed", type=int, default=42,
+                        help="Seed for training randomness and subsampling (fold split stays at 42).")
+    parser.add_argument("--lr_scratch", type=float, default=1e-3,
+                        help="lr_max for the single-phase scratch arm (UNTUNED - sweep before reporting).")
+    parser.add_argument("--no_ckpt_select", action="store_true", default=False,
+                        help="Disable best-checkpoint selection on the validation fold; use final epoch.")
 
     args = parser.parse_args()
-    args.new_imgs = pathlib.Path(args.new_imgs)
-    args.new_masks = pathlib.Path(args.new_masks)
-    args.model_path = pathlib.Path(args.model_path)
+    if not 0 < args.train_frac <= 1:
+        parser.error("--train_frac must be in (0, 1]")
+    args.new_imgs    = pathlib.Path(args.new_imgs)
+    args.new_masks   = pathlib.Path(args.new_masks)
+    args.model_path  = pathlib.Path(args.model_path)
 
-    if args.run_experiment:
-        if args.repeats < 1:
-            parser.error("--repeats must be >= 1")
-        if not args.data_fractions:
-            parser.error("--data_fractions cannot be empty")
-        run_data_efficiency_experiment(args)
-    else:
-        finetune(args)
+    finetune(args)
