@@ -691,7 +691,7 @@ def main():
     parser.add_argument("--prob_thresholds", type=float, nargs="+",
                         default=[0.1,0.2,0.3,0.4,0.5,0.6,0.65,0.7,0.75,0.8,0.85,0.9,1.0])
     parser.add_argument("--output_dir",
-                        default="C:/CIEDID_data/finalTest/eval_results")
+                        default="C:/CIEDID_data/finalTest/inferAbdn_results")
     args = parser.parse_args()
 
     device     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -699,7 +699,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # 🔥 เปิดใช้งานระบบบันทึก Log ลงไฟล์
-    log_file_path = output_dir / "evaluation_report.txt"
+    log_file_path = output_dir / "inferAbdn_report.txt"
     sys.stdout = DualLogger(log_file_path)
 
     print(f"🖥️  Device: {device}")
