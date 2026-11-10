@@ -182,7 +182,7 @@ def main():
                     help="same as --output_dir of finetuneCV_ablation.py")
     ap.add_argument("--inits", nargs="+", default=["busch_enc", "imagenet"],
                     help="arms to compare; the FIRST is the reference")
-    ap.add_argument("--train_frac", type=float, default=1.0)
+    ap.add_argument("--train_frac", type=float, default=0.25, help="fraction of the training fold used (stratified, nested across fractions)")
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--ckpt_select", action="store_true",
                     help="arms were trained with --ckpt_select (folder suffix _ckptsel)")

@@ -169,7 +169,7 @@ def main():
     ap.add_argument("--n_folds", type=int, default=5) #default 5
     ap.add_argument("--inits", nargs="+", choices=INITS, default=["encoder_newhead", "imagenet_newhead"],
                     help="conditions to run/analyse, e.g. INITS, encoder_newhead, imagenet_newhead (A, B, C)")
-    ap.add_argument("--seeds", type=int, nargs="+", default=[42])
+    ap.add_argument("--seeds", type=int, nargs="+", default=[43])
     ap.add_argument("--stageiv_oof", default=None)
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--skip_training", action="store_true")
