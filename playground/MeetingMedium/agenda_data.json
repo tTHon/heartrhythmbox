@@ -1,6 +1,6 @@
 {
   "version": "2.2",
-  "lastUpdated": "2026-11-10T03:16:09.545Z",
+  "lastUpdated": "2026-11-10T10:15:07.812Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -328,8 +328,14 @@
           ]
         },
         {
-          "title": "Transcatheter intervention for grown up congenital heart diseases: What, When, and How?",
+          "title": "The changing face of endocarditis in the modern era: from epidemiology to advance management",
           "startTime": "11:15",
+          "endTime": "11:30",
+          "speakers": []
+        },
+        {
+          "title": "Transcatheter intervention for grown up congenital heart diseases: What, When, and How?",
+          "startTime": "11:16",
           "endTime": "11:30",
           "speakers": []
         },
@@ -410,7 +416,7 @@
           ]
         },
         {
-          "title": "Lipid Guidelines: early Screening and lowering the target",
+          "title": "Lipid Guidelines: Screen Earlier, Target Lower",
           "startTime": "14:00",
           "endTime": "14:15",
           "speakers": []

@@ -1031,11 +1031,11 @@ if __name__ == "__main__":
 
     # ── Ablation: initialisation / data fraction ─────────────────────
     parser.add_argument("--init", choices=["scratch", "imagenet", "busch_enc", "busch_full"],
-                        default="imagenet",
+                        default="busch_enc",
                         help="scratch = random; imagenet = torchvision ResNet50 encoder; "
                              "busch_enc = Busch encoder only (manuscript setting); "
                              "busch_full = Busch encoder + decoder (head re-initialised).")
-    parser.add_argument("--train_frac", type=float, default=1.0,
+    parser.add_argument("--train_frac", type=float, default=0.25,
                         help="Fraction of the fold's TRAIN images used (stratified, nested across fractions "
                              "for a fixed --seed). Validation fold is never subsampled.")
     parser.add_argument("--seed", type=int, default=42,
