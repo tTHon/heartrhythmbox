@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-11-11T05:22:54.123Z",
+  "lastUpdated": "2026-11-11T08:57:08.298Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -41,6 +41,10 @@
     {
       "Name": "อ.ธีรภัทร ยิ่งชนม์เจริญ",
       "Institute": "รพ.รามาธิบดี"
+    },
+    {
+      "Name": "อ.นรศักดิ์ สุวจิตตานนท์",
+      "Institute": "โรงพยาบาลสมิติเวช"
     },
     {
       "Name": "อ.นันทกร ทองแตง",
@@ -117,7 +121,7 @@
       "date": "2027-02-19",
       "room": "Fauna",
       "time": "16:30 - 17:30",
-      "title": "Echo, CT, MRI: 20x20 Spotlight",
+      "title": "Echo, CT, MRI: 15x20 Spotlight",
       "subTopics": "คลิกเพื่อเพิ่มหัวข้อย่อย...",
       "moderators": [
         "อ.แมน จันทวิมล",
@@ -125,7 +129,6 @@
       ],
       "speakers": [
         "อ.ถวาย เงินศรีตระกูล",
-        "อ.บัณฑิต นราตรีคูณ",
         "อ.สุรเกียรติ ลีละศศิธร",
         "อ.สุรชัย คงรัตน์"
       ],
@@ -269,10 +272,12 @@
           ]
         },
         {
-          "title": "The HYROX Heart: Athletic Adaptation or Hidden Disease?",
+          "title": "From Screening to Performance: The Heart Behind HYROX",
           "startTime": "11:15",
           "endTime": "11:30",
-          "speakers": []
+          "speakers": [
+            "อ.นรศักดิ์ สุวจิตตานนท์"
+          ]
         },
         {
           "title": "Why haven't we been replaced by AI (yet)?",
@@ -296,7 +301,7 @@
       "title": "Subspecialties Update",
       "subtopicsList": [
         {
-          "title": "Diagnostic Uncertainties in Aortic Stenosis: LFLG, pressure recovery, and etc..",
+          "title": "Diagnostic Uncertainties in Aortic Stenosis (LFLG, pressure recovery, and etc..)",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
@@ -337,7 +342,7 @@
         }
       ],
       "moderators": [
-        "อ.แมน จันทวิมล"
+        "อ.ธัชพงศ์ งามอุโฆษ"
       ],
       "speakers": []
     },
@@ -366,7 +371,7 @@
       "date": "2027-02-20",
       "room": "Fauna",
       "time": "13:15 - 14:45",
-      "title": "ECGs Speed Jam",
+      "title": "ECGs Speed Jam -- Guests: แจน, ก็อต (จุฬา), ตั้ม (army), กันนพ (kk)",
       "subtopicsList": [],
       "moderators": [
         "อ.ครรชิต ลิขิตธนสมบัติ",
@@ -438,30 +443,30 @@
       "date": "2027-02-20",
       "room": "Fidella",
       "time": "15:00 - 16:30",
-      "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics (Format: 22 mins/topic - 1min intro, 8 minsx2 talk, 5 mins sum)",
+      "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics (Format: 22 mins/topic - 1 min intro, 8 mins x2 talk, 5 mins sum)",
       "subtopicsList": [
         {
-          "title": "LPa: A true driver or just a marker of atherosclerosis",
+          "title": "LPa: A true driver or just a marker of atherosclerosis -- วิชัย or สิระ / ปริญญ์",
           "startTime": "15:00",
           "endTime": "15:22",
           "speakers": [
-            "อ.ภัทรพงษ์ มกรเวส"
+            "อ.ปริญญ์ วาทีสาธกกิจ"
           ]
         },
         {
-          "title": "Physical Examination in Asymptomatic Adults: Is it necessary?",
+          "title": "Physical Examination in Asymptomatic Adults: Is it necessary? -- ธัชพงศ์ / อรินทยา",
           "startTime": "15:22",
           "endTime": "15:44",
           "speakers": []
         },
         {
-          "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention",
+          "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention  --  / ทินกฤต",
           "startTime": "15:44",
           "endTime": "16:06",
           "speakers": []
         },
         {
-          "title": "Cardiovascular Benefits of Triglycerides Reduction",
+          "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome? -- ภัทรพงศ์ /",
           "startTime": "16:06",
           "endTime": "16:28",
           "speakers": []
@@ -553,7 +558,7 @@
         }
       ],
       "moderators": [
-        "อ.ภาวิทย์ เพียรวิจิตร"
+        "อ.สิรินทร์ อภิญาสวัสดิ์"
       ],
       "speakers": []
     }
