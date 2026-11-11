@@ -1,6 +1,6 @@
 {
-  "version": "2.2",
-  "lastUpdated": "2026-11-10T12:18:32.872Z",
+  "version": "3.0",
+  "lastUpdated": "2026-11-11T05:22:54.123Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -145,7 +145,7 @@
       "id": 1793169702783,
       "date": "2027-02-19",
       "room": "Fauna",
-      "time": "18:15 - 20:15",
+      "time": "18:15 - 20:00",
       "title": "Quiz Show",
       "subTopics": "EGM and CIED Tracings",
       "moderators": [
@@ -154,48 +154,40 @@
       "speakers": [],
       "subtopicsList": [
         {
-          "title": "CXR Quiz - ไพโรจน์",
+          "title": "CAG and Hemodynamic Quiz",
           "startTime": "18:15",
-          "endTime": "18:30",
-          "speakers": []
-        },
-        {
-          "title": "EGM Quiz",
-          "startTime": "18:30",
           "endTime": "18:45",
           "speakers": [
-            "อ.นิลุบล เมธาจิตติพันธ์"
+            "อ.กฤษฎา มีมุข",
+            "อ.ทินกฤต ศศิประภา"
           ]
         },
         {
-          "title": "Number Need To Teach - Essential Stats for Trials Interpretation",
+          "title": "CXR Quiz - ไพโรจน์",
           "startTime": "18:45",
-          "endTime": "19:15",
+          "endTime": "19:00",
+          "speakers": []
+        },
+        {
+          "title": "Number Need To Teach - Essential Stats for Trials Interpretation",
+          "startTime": "19:00",
+          "endTime": "19:20",
           "speakers": [
             "อ.ปริญญ์ วาทีสาธกกิจ",
             "อ.พลาย ชี้เจริญ"
           ]
         },
         {
-          "title": "Arrhythmia Case Scenario Quiz - ธรณิศ",
-          "startTime": "19:15",
-          "endTime": "19:30",
+          "title": "Arrhythmia Case Scenario Quiz",
+          "startTime": "19:20",
+          "endTime": "19:40",
           "speakers": []
         },
         {
           "title": "Heart Failure Case Scenario Quiz - ศริญญา or ศรีสกุล or หยง",
-          "startTime": "19:30",
-          "endTime": "19:45",
+          "startTime": "19:40",
+          "endTime": "20:00",
           "speakers": []
-        },
-        {
-          "title": "CAG and Hemodynamic Quiz",
-          "startTime": "19:45",
-          "endTime": "20:15",
-          "speakers": [
-            "อ.กฤษฎา มีมุข",
-            "อ.ทินกฤต ศศิประภา"
-          ]
         }
       ]
     },
@@ -261,7 +253,7 @@
           ]
         },
         {
-          "title": "Diabesity: Whan HbA1C is not enough?",
+          "title": "Continuous glucose monitoring: How to interpret and Why it matters?",
           "startTime": "10:45",
           "endTime": "11:00",
           "speakers": [
@@ -269,7 +261,7 @@
           ]
         },
         {
-          "title": "BNP Update: Appropriate Use and Optimal Cutoff",
+          "title": "BNP Update: Appropriate Use, Overuse, and Optimal Cutoff",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": [
@@ -277,7 +269,7 @@
           ]
         },
         {
-          "title": "Athlete's Heart: The Thin Line between Pathologic and Physiologic Changes  ******* OR ******* Safe to Sweat? Cardiac evaluation before exercise",
+          "title": "The HYROX Heart: Athletic Adaptation or Hidden Disease?",
           "startTime": "11:15",
           "endTime": "11:30",
           "speakers": []
@@ -304,7 +296,7 @@
       "title": "Subspecialties Update",
       "subtopicsList": [
         {
-          "title": "Resolving Diagnostic Uncertainties in Aortic Stenosis",
+          "title": "Diagnostic Uncertainties in Aortic Stenosis: LFLG, pressure recovery, and etc..",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
@@ -312,7 +304,7 @@
           ]
         },
         {
-          "title": "How to clear an unclear cause of syncope",
+          "title": "Management of Unexplained Syncope",
           "startTime": "10:45",
           "endTime": "11:00",
           "speakers": [
@@ -320,7 +312,7 @@
           ]
         },
         {
-          "title": "Detection of cardiotoxicity from modern oncologic treatment",
+          "title": "Role of imagings for cardiovascular effects from modern oncologic treatment",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": [
@@ -328,22 +320,20 @@
           ]
         },
         {
-          "title": "The changing face of endocarditis in the modern era: from epidemiology to advance management",
-          "startTime": "11:15",
-          "endTime": "11:30",
-          "speakers": []
-        },
-        {
-          "title": "Transcatheter intervention for grown up congenital heart diseases: What, When, and How?",
+          "title": "Transcatheter intervention for grown up congenital heart diseases",
           "startTime": "11:16",
           "endTime": "11:30",
-          "speakers": []
+          "speakers": [
+            "อ.แมน จันทวิมล"
+          ]
         },
         {
-          "title": "ฺBeyond the happy ending: Life after heart transplantation",
+          "title": "ฺAdvanced mechanical support for cardiogenic shock: When is it worth the cost?",
           "startTime": "11:30",
           "endTime": "11:45",
-          "speakers": []
+          "speakers": [
+            "อ.ธีรภัทร ยิ่งชนม์เจริญ"
+          ]
         }
       ],
       "moderators": [
@@ -408,7 +398,7 @@
           "speakers": []
         },
         {
-          "title": "CIEDs and AF Ablation in HF patients: What's New?",
+          "title": "AF Ablation and New CIED Option in HFrEF",
           "startTime": "13:45",
           "endTime": "14:00",
           "speakers": [
@@ -416,7 +406,7 @@
           ]
         },
         {
-          "title": "Lipid Guidelines: Screen Earlier, Target Lower",
+          "title": "Lipid Management: Discrepancy between guidelines and evidence",
           "startTime": "14:00",
           "endTime": "14:15",
           "speakers": []
@@ -448,49 +438,37 @@
       "date": "2027-02-20",
       "room": "Fidella",
       "time": "15:00 - 16:30",
-      "title": "Cross Talk: Mini Debates on Clinical Relevant, yet Controversial Topics",
+      "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics (Format: 22 mins/topic - 1min intro, 8 minsx2 talk, 5 mins sum)",
       "subtopicsList": [
         {
           "title": "LPa: A true driver or just a marker of atherosclerosis",
           "startTime": "15:00",
-          "endTime": "15:15",
+          "endTime": "15:22",
           "speakers": [
             "อ.ภัทรพงษ์ มกรเวส"
           ]
         },
         {
           "title": "Physical Examination in Asymptomatic Adults: Is it necessary?",
-          "startTime": "15:15",
-          "endTime": "15:30",
-          "speakers": []
-        },
-        {
-          "title": "Medical Treatment vs. vulnerable plaque-guided PCI in stable, symptomatic CAD",
-          "startTime": "15:30",
-          "endTime": "15:45",
-          "speakers": []
-        },
-        {
-          "title": "Cardiovascular benefit of wine: Science or Myth?",
-          "startTime": "15:45",
-          "endTime": "16:00",
-          "speakers": []
-        },
-        {
-          "title": "GLP1a therapy in metabolically healthy obesity",
-          "startTime": "16:00",
-          "endTime": "16:15",
+          "startTime": "15:22",
+          "endTime": "15:44",
           "speakers": []
         },
         {
           "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention",
-          "startTime": "16:20",
-          "endTime": "16:30",
+          "startTime": "15:44",
+          "endTime": "16:06",
           "speakers": []
         },
         {
           "title": "Cardiovascular Benefits of Triglycerides Reduction",
-          "startTime": "16:25",
+          "startTime": "16:06",
+          "endTime": "16:28",
+          "speakers": []
+        },
+        {
+          "title": "Medical Treatment vs. vulnerable plaque-guided PCI in stable, symptomatic CAD",
+          "startTime": "16:27",
           "endTime": "16:30",
           "speakers": []
         }

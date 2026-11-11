@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตารางประชุมและสรุปภารกิจวิทยากร (Auto-Fetch JSON Viewer)</title>
+    <title>ตารางประชุมและสรุปภารกิจวิทยากร (Mobile Friendly Viewer)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -37,40 +37,47 @@
 
     <!-- Top Navigation Header -->
     <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div class="flex items-center space-x-3">
-                <div class="bg-indigo-600 p-2.5 rounded-xl shadow-md">
-                    <i class="fa-solid fa-calendar-days text-2xl text-white"></i>
+                <div class="bg-indigo-600 p-2 sm:p-2.5 rounded-xl shadow-md shrink-0">
+                    <i class="fa-solid fa-calendar-days text-xl sm:text-2xl text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-wide">Conference Agenda Viewer</h1>
-                    <p class="text-xs text-indigo-200">โหมดแสดงผลอย่างเดียว (Auto-Fetch จากไฟล์ agenda_data.json)</p>
-                    <p class="text-md">Status: Preliminary (ถ้า final จะแสดงสถานะ)</p>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-wide leading-tight">Conference Agenda Viewer</h1>
+                    <p class="text-[11px] sm:text-xs text-indigo-200">โหมดแสดงผลอย่างเดียว (Auto-Fetch)</p>
+                    <p class="text-xs sm:text-sm text-indigo-100 font-medium">Status: Preliminary</p>
                 </div>
             </div>
             
-            <button onclick="loadDefaultJSON()" class="bg-indigo-700 hover:bg-indigo-600 text-white text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 transition shadow-sm">
+            <button onclick="loadDefaultJSON()" class="w-full sm:w-auto bg-indigo-700 hover:bg-indigo-600 active:bg-indigo-800 text-white text-xs px-3.5 py-2 rounded-lg flex items-center justify-center gap-1.5 transition shadow-sm">
                 <i class="fa-solid fa-rotate-right"></i> รีโหลดไฟล์ JSON
             </button>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+    <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-4 sm:mt-6 space-y-4 sm:space-y-6">
 
         <!-- Status Indicator Banner -->
         <div id="statusBanner" class="hidden p-3 rounded-lg text-xs font-semibold flex items-center gap-2"></div>
 
-        <!-- 1. Parallel Track Agenda View Table -->
+        <!-- 1. Parallel Track Agenda View -->
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-slate-900 text-white px-6 py-4 border-b border-slate-800">
-                <h2 class="text-base font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-table-columns text-indigo-400"></i> ตารางประชุมขนาน (Parallel Agenda Schedule)
-                </h2>
-                <p class="text-xs text-slate-400">แสดงรายการ Session เรียงตามช่วงเวลาและแยกตามห้องประชุม</p>
+            <div class="bg-slate-900 text-white px-4 sm:px-6 py-3.5 sm:py-4 border-b border-slate-800 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                <div>
+                    <h2 class="text-sm sm:text-base font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-table-columns text-indigo-400"></i> ตารางประชุมขนาน (Parallel Agenda Schedule)
+                    </h2>
+                    <p class="text-[11px] sm:text-xs text-slate-400">แสดงรายการ Session เรียงตามช่วงเวลาและแยกตามห้องประชุม</p>
+                </div>
+                
+                <!-- Room Filter Tabs for Mobile View -->
+                <div id="mobileRoomFilter" class="flex md:hidden items-center gap-1 overflow-x-auto pt-2 pb-1 scrollbar-none">
+                    <!-- Dynamic Mobile Room Tabs -->
+                </div>
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
+                <table class="w-full text-left border-collapse min-w-[640px] md:min-w-0 md:table-fixed">
                     <thead>
                         <tr id="agendaTableHeader" class="bg-slate-800 text-slate-200 border-b border-slate-700">
                             <!-- Dynamic Room Header Columns -->
@@ -83,16 +90,17 @@
             </div>
         </div>
 
-        <!-- 2. Personal Task Summary Table -->
+        <!-- 2. Personal Task Summary Table & Mobile Card View -->
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-indigo-950 text-white px-6 py-4 border-b border-indigo-900">
-                <h2 class="text-base font-bold flex items-center gap-2">
+            <div class="bg-indigo-950 text-white px-4 sm:px-6 py-3.5 sm:py-4 border-b border-indigo-900">
+                <h2 class="text-sm sm:text-base font-bold flex items-center gap-2">
                     <i class="fa-solid fa-users-gear text-indigo-400"></i> สรุปภารกิจวิทยากรและผู้ดำเนินรายการ (Personal Task Summary)
                 </h2>
-                <p class="text-xs text-indigo-200">สรุปจำนวนและรายละเอียด Session/Subtopics ที่แต่ละท่านได้รับมอบหมาย</p>
+                <p class="text-[11px] sm:text-xs text-indigo-200">สรุปจำนวนและรายละเอียด Session/Subtopics ที่แต่ละท่านได้รับมอบหมาย</p>
             </div>
 
-            <div class="overflow-x-auto">
+            <!-- Desktop View: Table -->
+            <div class="hidden md:block overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 text-sm">
                         <tr>
@@ -103,9 +111,14 @@
                         </tr>
                     </thead>
                     <tbody id="summaryTableBody" class="divide-y divide-slate-200 text-slate-700 text-sm">
-                        <!-- Summary Rows -->
+                        <!-- Summary Rows injected here -->
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Mobile View: Cards -->
+            <div id="summaryMobileCards" class="block md:hidden divide-y divide-slate-200 p-3 space-y-3">
+                <!-- Mobile Personal Summary Cards injected here -->
             </div>
         </div>
 
@@ -115,19 +128,16 @@
         let rooms = ["Room A", "Room B"];
         let peopleDatabase = [];
         let sessions = [];
+        let selectedMobileRoom = 'ALL';
 
-        // กำหนดชื่อไฟล์ JSON ที่จะดึงข้อมูลอัตโนมัติ
         const JSON_FILE_PATH = 'agenda_data.json';
 
         document.addEventListener("DOMContentLoaded", () => {
             loadDefaultJSON();
         });
 
-        // ฟังก์ชัน Auto-Fetch ไฟล์ JSON จาก Server / Folder เดียวกัน
         async function loadDefaultJSON() {
-            const banner = document.getElementById('statusBanner');
             try {
-                // Fetch ไฟล์ JSON พร้อมใส่ cache-busting เพื่อให้ได้ข้อมูลล่าสุดเสมอ
                 const response = await fetch(`${JSON_FILE_PATH}?t=${Date.now()}`); 
                 if (!response.ok) {
                     throw new Error(`ไม่พบไฟล์ ${JSON_FILE_PATH} (HTTP ${response.status})`);
@@ -141,6 +151,7 @@
                     sessions = data.sessions || [];
                     
                     showStatusBanner(`ดึงข้อมูลจากไฟล์ "${JSON_FILE_PATH}" สำเร็จแล้ว`, 'success');
+                    renderMobileRoomTabs();
                     renderAgenda();
                     updateSummaryTable();
                 } else {
@@ -151,6 +162,7 @@
                 showStatusBanner(`ไม่สามารถโหลดไฟล์ ${JSON_FILE_PATH} ได้ (ระบบกำลังแสดงผลข้อมูลสำรองจาก LocalStorage)`, 'warning');
                 
                 loadFromLocalStorage();
+                renderMobileRoomTabs();
                 renderAgenda();
                 updateSummaryTable();
             }
@@ -185,6 +197,38 @@
         }
 
         /* ==========================================================================
+           MOBILE ROOM TAB FILTER
+           ========================================================================== */
+
+        function renderMobileRoomTabs() {
+            const container = document.getElementById('mobileRoomFilter');
+            if (!container) return;
+
+            let tabsHtml = `
+                <button onclick="setMobileRoom('ALL')" class="px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition ${selectedMobileRoom === 'ALL' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+                    ทุกห้อง
+                </button>
+            `;
+
+            rooms.forEach(r => {
+                const active = selectedMobileRoom === r;
+                tabsHtml += `
+                    <button onclick="setMobileRoom('${r}')" class="px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition ${active ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}">
+                        ${r}
+                    </button>
+                `;
+            });
+
+            container.innerHTML = tabsHtml;
+        }
+
+        function setMobileRoom(roomName) {
+            selectedMobileRoom = roomName;
+            renderMobileRoomTabs();
+            renderAgenda();
+        }
+
+        /* ==========================================================================
            PARALLEL TRACK AGENDA TABLE RENDERER
            ========================================================================== */
 
@@ -193,16 +237,19 @@
             const tbody = document.getElementById('agendaTableBody');
             if (!theader || !tbody) return;
 
-            let headerHtml = `<th scope="col" class="py-3.5 px-4 border-r border-slate-700 w-44 bg-slate-900 font-semibold text-base text-center">Time / Room</th>`;
-            rooms.forEach(r => {
-                headerHtml += `<th scope="col" class="py-3.5 px-4 border-r border-slate-700 text-center font-semibold text-base">${r}</th>`;
+            // Display rooms based on mobile filter
+            const displayRooms = selectedMobileRoom === 'ALL' ? rooms : rooms.filter(r => r === selectedMobileRoom);
+
+            let headerHtml = `<th scope="col" class="py-3 px-3 sm:px-4 border-r border-slate-700 w-28 sm:w-36 bg-slate-900 font-semibold text-xs sm:text-base text-center">Time</th>`;
+            displayRooms.forEach(r => {
+                headerHtml += `<th scope="col" class="py-3 px-3 sm:px-4 border-r border-slate-700 text-center font-semibold text-xs sm:text-base">${r}</th>`;
             });
             theader.innerHTML = headerHtml;
 
             tbody.innerHTML = '';
 
             if (sessions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${rooms.length + 1}" class="text-center py-12 text-slate-400 italic text-base">ไม่พบข้อมูล Session ในไฟล์ JSON</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${displayRooms.length + 1}" class="text-center py-8 text-slate-400 italic text-sm">ไม่พบข้อมูล Session ในไฟล์ JSON</td></tr>`;
                 return;
             }
 
@@ -245,8 +292,8 @@
                     const dateHeaderRow = document.createElement('tr');
                     dateHeaderRow.className = "bg-indigo-900 text-white font-bold border-y border-indigo-800";
                     dateHeaderRow.innerHTML = `
-                        <td colspan="${rooms.length + 1}" class="py-3 px-4 text-base tracking-wide">
-                            <i class="fa-regular fa-calendar-check text-indigo-300 mr-2"></i> ${formattedDate} (${currentDate})
+                        <td colspan="${displayRooms.length + 1}" class="py-2.5 px-3 sm:px-4 text-xs sm:text-base tracking-wide">
+                            <i class="fa-regular fa-calendar-check text-indigo-300 mr-1.5"></i> ${formattedDate} (${currentDate})
                         </td>
                     `;
                     tbody.appendChild(dateHeaderRow);
@@ -256,15 +303,15 @@
                 row.className = "hover:bg-slate-50 transition border-b border-slate-200";
 
                 let rowHtml = `
-                    <td class="py-4 px-3 border-r border-slate-200 font-bold text-slate-800 bg-slate-50/50 align-top text-center">
-                        <div class="text-base text-indigo-700 font-bold">${slot.time}</div>
+                    <td class="py-3 px-2 sm:px-3 border-r border-slate-200 font-bold text-slate-800 bg-slate-50/50 align-top text-center">
+                        <div class="text-xs sm:text-base text-indigo-700 font-bold">${slot.time}</div>
                     </td>
                 `;
 
-                rooms.forEach(r => {
+                displayRooms.forEach(r => {
                     const sessionInRoom = slot.roomMap[r];
                     rowHtml += `
-                        <td class="py-3 px-3 border-r border-slate-200 align-top">
+                        <td class="py-2.5 px-2 sm:px-3 border-r border-slate-200 align-top">
                             ${renderSessionCard(sessionInRoom)}
                         </td>
                     `;
@@ -277,13 +324,12 @@
 
         function renderSessionCard(session) {
             if (!session) {
-                return `<div class="text-center py-8 text-slate-300 italic text-sm select-none">- ไม่มี Session -</div>`;
+                return `<div class="text-center py-6 text-slate-300 italic text-xs select-none">- ไม่มี Session -</div>`;
             }
 
             const modsList = session.moderators || [];
             const spksList = session.speakers || [];
             
-            // เรียงลำดับ subtopics ตาม startTime
             const subList = [...(session.subtopicsList || [])].sort((a, b) => 
                 (a.startTime || '').localeCompare(b.startTime || '')
             );
@@ -294,19 +340,19 @@
             let subtopicsHtml = '';
             if (subList.length > 0) {
                 subtopicsHtml = `
-                    <div class="mt-2.5 pt-2 border-t border-slate-100 space-y-1.5">
-                        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <div class="mt-2 pt-2 border-t border-slate-100 space-y-1.5">
+                        <div class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1">
                             <i class="fa-solid fa-list-ul text-indigo-500"></i> Subtopics (${subList.length}):
                         </div>
                         ${subList.map((st, idx) => {
                             const subSpks = Array.isArray(st.speakers) ? st.speakers.join(', ') : (st.speaker || '');
                             return `
-                                <div class="bg-slate-50 border border-slate-200 p-2 rounded-md text-xs">
+                                <div class="bg-slate-50 border border-slate-200 p-1.5 sm:p-2 rounded-md text-xs">
                                     <div class="font-bold text-slate-800 flex justify-between items-start gap-1">
-                                        <span>${idx + 1}. ${st.title}</span>
-                                        <span class="text-[11px] text-indigo-600 font-semibold whitespace-nowrap bg-indigo-50 px-1 rounded">${st.startTime || ''} - ${st.endTime || ''}</span>
+                                        <span class="text-xs">${idx + 1}. ${st.title}</span>
+                                        <span class="text-[10px] text-indigo-600 font-semibold whitespace-nowrap bg-indigo-50 px-1 rounded">${st.startTime || ''}-${st.endTime || ''}</span>
                                     </div>
-                                    ${subSpks ? `<div class="text-emerald-700 font-medium text-[11px] mt-0.5"><i class="fa-solid fa-microphone text-[10px] mr-0.5"></i> ${subSpks}</div>` : ''}
+                                    ${subSpks ? `<div class="text-emerald-700 font-medium text-[11px] mt-0.5"><i class="fa-solid fa-microphone text-[9px] mr-0.5"></i> ${subSpks}</div>` : ''}
                                 </div>
                             `;
                         }).join('')}
@@ -315,20 +361,20 @@
             }
 
             return `
-                <div class="bg-white rounded-lg border border-slate-200 p-4 shadow-xs relative">
-                    <div class="font-bold text-slate-800 text-base mb-2 leading-snug">
+                <div class="bg-white rounded-lg border border-slate-200 p-2.5 sm:p-4 shadow-xs relative">
+                    <div class="font-bold text-slate-800 text-sm sm:text-base mb-1.5 leading-snug">
                         ${session.title}
                     </div>
 
-                    <div class="text-xs space-y-1.5 bg-indigo-50/50 p-2.5 rounded-lg border border-indigo-100/60 mb-2">
-                        <div>
-                            <span class="text-slate-500 font-medium"><i class="fa-solid fa-user-gear text-indigo-500 mr-1"></i> Moderator(s):</span>
-                            <span class="font-semibold text-slate-800 text-xs leading-tight ml-1">${mods}</span>
+                    <div class="text-xs space-y-1 bg-indigo-50/50 p-2 rounded-lg border border-indigo-100/60 mb-1.5">
+                        <div class="text-[11px] sm:text-xs">
+                            <span class="text-slate-500 font-medium"><i class="fa-solid fa-user-gear text-indigo-500 mr-1"></i> Mod:</span>
+                            <span class="font-semibold text-slate-800 ml-0.5">${mods}</span>
                         </div>
                         ${spksList.length > 0 ? `
-                        <div>
-                            <span class="text-slate-500 font-medium"><i class="fa-solid fa-microphone text-emerald-500 mr-1"></i> Speaker(s):</span>
-                            <span class="font-semibold text-slate-800 text-xs leading-tight ml-1">${spks}</span>
+                        <div class="text-[11px] sm:text-xs">
+                            <span class="text-slate-500 font-medium"><i class="fa-solid fa-microphone text-emerald-500 mr-1"></i> Speaker:</span>
+                            <span class="font-semibold text-slate-800 ml-0.5">${spks}</span>
                         </div>` : ''}
                     </div>
 
@@ -338,13 +384,16 @@
         }
 
         /* ==========================================================================
-           PERSONAL TASK SUMMARY TABLE
+           PERSONAL TASK SUMMARY (DESKTOP & MOBILE RESPONSIVE)
            ========================================================================== */
 
         function updateSummaryTable() {
             const tbody = document.getElementById('summaryTableBody');
-            if (!tbody) return;
+            const mobileContainer = document.getElementById('summaryMobileCards');
+            if (!tbody || !mobileContainer) return;
+
             tbody.innerHTML = '';
+            mobileContainer.innerHTML = '';
 
             let hasTasks = false;
 
@@ -397,7 +446,7 @@
                                 const otherSpks = Array.isArray(st.speakers) ? st.speakers.filter(sp => sp !== name) : [];
                                 const coSpkText = otherSpks.length > 0 ? ` (ร่วมกับ: ${otherSpks.join(', ')})` : '';
                                 return `
-                                    <div class="text-slate-700 text-xs pl-3 py-0.5 font-medium border-l-2 border-indigo-300 my-1">
+                                    <div class="text-slate-700 text-xs pl-2.5 py-0.5 font-medium border-l-2 border-indigo-300 my-1">
                                         🎤 <strong>${st.title}</strong> (${st.startTime || ''} - ${st.endTime || ''})${coSpkText}
                                     </div>
                                 `;
@@ -418,6 +467,7 @@
                         `);
                     });
 
+                    // 1. Render Desktop Table Row
                     const row = document.createElement('tr');
                     row.className = "hover:bg-slate-50 transition border-b border-slate-200";
                     row.innerHTML = `
@@ -431,11 +481,31 @@
                         </td>
                     `;
                     tbody.appendChild(row);
+
+                    // 2. Render Mobile Card Item
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-50 border border-slate-200 rounded-lg p-3 space-y-2";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start border-b border-slate-200 pb-2">
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-sm">${person.Name}</h3>
+                                <p class="text-xs text-slate-500">${person.Institute || 'ไม่ระบุสถาบัน'}</p>
+                            </div>
+                            <span class="bg-purple-100 text-purple-800 font-bold text-[10px] px-2 py-0.5 rounded-full shrink-0">
+                                ${totalTaskCount} Sessions
+                            </span>
+                        </div>
+                        <div class="text-xs divide-y divide-slate-200/60 pt-1">
+                            ${taskDetailsHtml.join('')}
+                        </div>
+                    `;
+                    mobileContainer.appendChild(card);
                 }
             });
 
             if (!hasTasks) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-10 text-slate-400 italic text-sm">ยังไม่มีภารกิจวิทยากรในขณะนี้</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-slate-400 italic text-sm">ยังไม่มีภารกิจวิทยากรในขณะนี้</td></tr>`;
+                mobileContainer.innerHTML = `<div class="text-center py-8 text-slate-400 italic text-sm">ยังไม่มีภารกิจวิทยากรในขณะนี้</div>`;
             }
         }
     </script>
