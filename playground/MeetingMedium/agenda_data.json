@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-11-11T08:57:08.298Z",
+  "lastUpdated": "2026-11-12T01:56:21.588Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -181,16 +181,18 @@
           ]
         },
         {
-          "title": "Arrhythmia Case Scenario Quiz",
+          "title": "Arrhythmia Case Scenario Quiz - ปัญญภัทร (air force)",
           "startTime": "19:20",
           "endTime": "19:40",
           "speakers": []
         },
         {
-          "title": "Heart Failure Case Scenario Quiz - ศริญญา or ศรีสกุล or หยง",
+          "title": "Heart Failure Case Scenario Quiz",
           "startTime": "19:40",
           "endTime": "20:00",
-          "speakers": []
+          "speakers": [
+            "อ.ธีรภัทร ยิ่งชนม์เจริญ"
+          ]
         }
       ]
     },
@@ -309,12 +311,10 @@
           ]
         },
         {
-          "title": "Management of Unexplained Syncope",
+          "title": "Management of Unexplained Syncope - ตรีชฎา",
           "startTime": "10:45",
           "endTime": "11:00",
-          "speakers": [
-            "อ.วรรณวรางค์ วงศ์เจริญ"
-          ]
+          "speakers": []
         },
         {
           "title": "Role of imagings for cardiovascular effects from modern oncologic treatment",
@@ -325,11 +325,11 @@
           ]
         },
         {
-          "title": "Transcatheter intervention for grown up congenital heart diseases",
-          "startTime": "11:16",
+          "title": "Next-generation arsenal in coronary intervention",
+          "startTime": "11:15",
           "endTime": "11:30",
           "speakers": [
-            "อ.แมน จันทวิมล"
+            "อ.ทินกฤต ศศิประภา"
           ]
         },
         {
@@ -338,6 +338,14 @@
           "endTime": "11:45",
           "speakers": [
             "อ.ธีรภัทร ยิ่งชนม์เจริญ"
+          ]
+        },
+        {
+          "title": "Transcatheter intervention for grown up congenital heart diseases",
+          "startTime": "11:31",
+          "endTime": "11:32",
+          "speakers": [
+            "อ.แมน จันทวิมล"
           ]
         }
       ],
@@ -454,19 +462,19 @@
           ]
         },
         {
-          "title": "Physical Examination in Asymptomatic Adults: Is it necessary? -- ธัชพงศ์ / อรินทยา",
+          "title": "Physical Examination in Asymptomatic Adults: Is it necessary? -- ธัชพงศ์ / ภัทรพงศ์",
           "startTime": "15:22",
           "endTime": "15:44",
           "speakers": []
         },
         {
-          "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention  --  / ทินกฤต",
+          "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention  --  นครินทร์ / ทินกฤต, แมน",
           "startTime": "15:44",
           "endTime": "16:06",
           "speakers": []
         },
         {
-          "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome? -- ภัทรพงศ์ /",
+          "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome? -- วรรณวรางค์ /",
           "startTime": "16:06",
           "endTime": "16:28",
           "speakers": []
@@ -545,7 +553,7 @@
           "startTime": "10:50",
           "endTime": "11:00",
           "speakers": [
-            "อ.กฤษฎา มีมุข"
+            "อ.สุรเกียรติ ลีละศศิธร"
           ]
         },
         {
