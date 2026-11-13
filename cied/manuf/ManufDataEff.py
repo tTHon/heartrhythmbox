@@ -973,7 +973,7 @@ def main():
                              "→ cv_summary.csv, pooled_per_class_report.csv, pooled_confusion_matrix.csv.")
     parser.add_argument("--n_splits", type=int, default=5)
     parser.add_argument("--init", choices=["pretrained_full", "encoder_newhead", "imagenet_newhead", "scratch"],   # [DATA-EFF] +scratch
-                        default="encoder_newhead",
+                        default="imagenet_newhead",
                         help="[ABLATION] starting weights (see header). Default = original behaviour.")
     parser.add_argument("--summary_phase", default="phase2_finalepoch",   # [DATA-EFF] was "phase2"
                         help="[ABLATION] which val_predictions_<x>.csv --summarize pools: "
