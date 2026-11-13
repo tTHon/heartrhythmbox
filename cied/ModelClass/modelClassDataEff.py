@@ -1,0 +1,484 @@
+"""
+finetune_modelclass.py
+========================
+Stage IV: CIED specific-model classification, fine-tuned ResNet-50 on the
+same 256x256 generator crops used for Stage III (crop_image/{ID}_crop.png).
+
+WHY THIS IS DIFFERENT FROM finetune_manuf_v2.py:
+  Our ModelClass vocabulary shares NO classes with classification_manuf.pkl's
+  original vocab (that pkl predicts manufacturer, not specific model). There
+  is nothing to remap and nothing to mask — the head must be freshly
+  initialised at our own vocab size.
+
+  What IS still worth reusing: the pretrained model's ENCODER (backbone).
+  Per the project's established principle — transfer learning is
+  layer-based, not class-based — the backbone's low/mid-level CXR features
+  (edges, generator silhouette, texture) don't depend on what the head was
+  originally trained to predict. This is the same logic already applied in
+  finetuneCV.py (segmentation): decoder/head randomly initialised, encoder
+  transferred.
+
+  So: encoder-only transfer from --pretrained_path (defaults to
+  classification_manuf.pkl), head randomly initialised at
+  len(our ModelClass vocab, after rare-class grouping).
+
+CLASS GROUPING (per REC-MURA.06 protocol, Stage IV):
+  "Models with fewer than 20 images are grouped as 'others' to avoid
+  overfitting." Threshold configurable via --min_class_count (default 20).
+  Grouping is computed from the train/CV pool (FinalTest==0) only, then the
+  same mapping is applied to the held-out test set for label consistency
+  (the held-out set itself is still never used for training/threshold
+  selection).
+
+DATA CONTRACT (same as finetune_manuf_v2.py):
+  - Labels: main_workbook.csv (ID, ModelClass, FinalTest, ...)
+  - Images: crop_dir/{ID}_crop.png
+  - FinalTest: 0 = train/CV pool, 1 = held-out pipeline test set (excluded
+    from all training/CV here)
+
+CHANGES (DATA-EFFICIENCY; this file = finetuneModelClass_dataeff.py; edits tagged "# [DATA-EFF]"):
+  - --init {busch_enc, imagenet, scratch}  (default busch_enc = previous behaviour).
+    The head is fresh in EVERY arm (vocab differs), so the arms differ only in the body:
+    busch_enc = CIED-domain body, imagenet = ImageNet body, scratch = random body.
+    scratch skips Phase 1 (freezing a random body is meaningless) and trains everything for
+    the SAME total epochs (epochs_head + epochs_full) at --lr_scratch (default 1e-3, UNTUNED).
+  - --train_frac f in (0,1]: stratified (by grouped ModelClass) subsample of the fold's TRAIN
+    rows only; nested across fractions for a fixed --seed. Validation rows are untouched.
+    The class vocabulary / grouping map is computed from the FULL pool, so it is identical
+    across fractions (class_names never change; a class may simply have few train images).
+  - Output goes to <output_dir>/<init>_frac<f>_seed<s>/fold_N/.
+  - NOTE: --min_class_count default is 1 (no grouping); the protocol says 20. Decide once,
+    keep it fixed for every arm / fraction, and state it in Methods.
+
+CHANGES (final-epoch reporting + reproducibility):
+  - FINAL-EPOCH weights are now the primary model (final_epoch_weights.pth and
+    modelclass_classifier_weights.pth). fastai's SaveModelCallback silently
+    reloads the BEST checkpoint at the end of fit, which made the earlier
+    validation report/exports optimistic (checkpoint chosen on the same fold).
+    The best-balanced-accuracy checkpoint is still saved (best_ckpt_weights.pth)
+    ONLY to quantify that selection bias; it is not the reported model.
+  - Per-fold out-of-fold predictions are written directly:
+        oof_final_epoch.csv   (primary)     oof_best_ckpt.csv (bias comparison)
+    columns: ID, fold, [patient], true, pred, p_<class> ...
+    Pool the 5 folds with analyze_oof.py / run_ablation.py.
+  - --seed (fastai set_seed, reproducible=True); --patient_col (optional, adds
+    the patient identifier to the OOF files for the leakage check).
+  - Config is otherwise UNCHANGED (8 + 20 epochs, same lrs / augmentation).
+"""
+
+import argparse
+import pathlib
+import platform
+import warnings
+from datetime import datetime
+
+import numpy as np
+import pandas as pd
+import torch
+import matplotlib.pyplot as plt
+from fastai.vision.all import *
+from sklearn.model_selection import train_test_split, StratifiedKFold
+from sklearn.metrics import confusion_matrix, classification_report, balanced_accuracy_score
+
+# ── Windows/Linux path-class fix (same as other scripts in the pipeline) ──
+if platform.system() == 'Windows':
+    pathlib.PosixPath = pathlib.WindowsPath
+else:
+    pathlib.WindowsPath = pathlib.PosixPath
+
+# ── PyTorch 2.6+ fix ────────────────────────────────────────────────────
+_original_torch_load = torch.load
+def _patched_torch_load(*args, **kwargs):
+    kwargs.setdefault('weights_only', False)
+    return _original_torch_load(*args, **kwargs)
+torch.load = _patched_torch_load
+
+warnings.filterwarnings("ignore")
+
+
+def parse_lr_arg(value):
+    value = value.strip()
+    if value.startswith("slice(") and value.endswith(")"):
+        inner = value[len("slice("):-1]
+        parts = [p.strip() for p in inner.split(",") if p.strip()]
+        return slice(float(parts[0]), float(parts[1]))
+    return float(value)
+
+
+# ==============================
+# 1. LABEL / GROUPING / PATH HELPERS
+# ==============================
+def get_x(r): return r["image_path"]
+def get_y(r): return r["ModelClass_grouped"]
+
+
+def build_grouping_map(pool_df, min_count):
+    """
+    Classes with < min_count images in the train/CV pool get grouped into
+    'Other'. Computed on the pool ONLY (never on the held-out test set),
+    then applied to both — same convention Busch et al. and the protocol
+    use (grouping decided from training-available data, not test data).
+    """
+    counts = pool_df["ModelClass"].value_counts()
+    keep = set(counts[counts >= min_count].index)
+    mapping = {c: (c if c in keep else "Other") for c in counts.index}
+    n_grouped_classes = len(counts) - len(keep)
+    n_grouped_images = int(counts[~counts.index.isin(keep)].sum())
+    print(f"🗂️  Class grouping (min_count={min_count}): "
+          f"{len(keep)} kept as-is, {n_grouped_classes} classes "
+          f"({n_grouped_images} images) grouped into 'Other'")
+    return mapping
+
+
+def build_dataframe(args):
+    cols = ["ID", "ModelClass", "FinalTest"] + ([args.patient_col] if args.patient_col else [])
+    df = pd.read_csv(args.labels_csv, usecols=cols)
+    df["ID"] = df["ID"].astype(str)
+    df["image_path"] = df["ID"].apply(lambda i: str((args.crop_dir / f"{i}_crop.png").resolve()))
+
+    missing_img = ~df["image_path"].apply(lambda p: pathlib.Path(p).exists())
+    if missing_img.sum():
+        print(f"⚠️  {missing_img.sum()} rows missing image in {args.crop_dir} — dropped.")
+    df = df.loc[~missing_img].reset_index(drop=True)
+
+    missing_label = df["ModelClass"].isna()
+    if missing_label.sum():
+        print(f"⚠️  {missing_label.sum()} rows have no ModelClass label — dropped.")
+        df = df.loc[~missing_label].reset_index(drop=True)
+
+    test_df = df[df["FinalTest"] == 1].reset_index(drop=True)
+    pool_df = df[df["FinalTest"] == 0].reset_index(drop=True)
+    print(f"📂 Train/CV pool: {len(pool_df)}   Held-out pipeline test set (excluded): {len(test_df)}")
+
+    # ── class grouping, computed from pool only ─────────────────────
+    mapping = build_grouping_map(pool_df, args.min_class_count)
+    pool_df["ModelClass_grouped"] = pool_df["ModelClass"].map(mapping)
+    # apply same mapping to held-out test set; unseen classes (shouldn't
+    # normally happen since pool should be a superset) fall back to 'Other'
+    test_df["ModelClass_grouped"] = test_df["ModelClass"].map(lambda c: mapping.get(c, "Other"))
+
+    test_df.to_csv(args.output_dir / "held_out_pipeline_test_set.csv", index=False)
+
+    class_names = sorted(pool_df["ModelClass_grouped"].unique().tolist())
+    print(f"Classes after grouping ({len(class_names)}): {class_names}")
+    print("Pool distribution (grouped):")
+    print(pool_df["ModelClass_grouped"].value_counts())
+
+    if args.fold == -1:
+        train_idx, valid_idx = train_test_split(
+            pool_df.index, test_size=args.valid_split,
+            stratify=pool_df["ModelClass_grouped"], random_state=42
+        )
+        pool_df["is_valid"] = False
+        pool_df.loc[valid_idx, "is_valid"] = True
+        print(f"📂 Single split: train={len(train_idx)}  val={len(valid_idx)}")
+    else:
+        if args.fold >= args.n_splits:
+            raise ValueError(f"--fold {args.fold} out of range for --n_splits {args.n_splits}")
+        skf = StratifiedKFold(n_splits=args.n_splits, shuffle=True, random_state=42)
+        splits = list(skf.split(pool_df, pool_df["ModelClass_grouped"]))
+        train_idx, valid_idx = splits[args.fold]
+        pool_df["is_valid"] = False
+        pool_df.loc[pool_df.index[valid_idx], "is_valid"] = True
+        print(f"📂 CV fold {args.fold+1}/{args.n_splits}: train={len(train_idx)}  val={len(valid_idx)}")
+
+    # [DATA-EFF] subsample TRAIN rows only (valid untouched); vocab/mapping already fixed from full pool
+    if args.train_frac < 1.0:
+        tr = pool_df[~pool_df["is_valid"]]
+        keep_idx = []
+        for _, g in tr.groupby("ModelClass_grouped"):
+            order = np.random.RandomState(args.seed).permutation(len(g))
+            k = max(1, int(np.ceil(args.train_frac * len(g))))
+            keep_idx.extend(g.index[order[:k]].tolist())
+        n_before = len(tr)
+        pool_df = pool_df.loc[sorted(keep_idx) + pool_df.index[pool_df["is_valid"]].tolist()]
+        pool_df = pool_df.sort_index().reset_index(drop=True)
+        print(f"[subsample] train_frac={args.train_frac}: train {n_before} -> {int((~pool_df['is_valid']).sum())} "
+              f"(val unchanged: {int(pool_df['is_valid'].sum())})")
+
+    return pool_df, class_names, mapping
+
+
+def compute_class_weights(df, class_names):
+    train_counts = df.loc[~df["is_valid"], "ModelClass_grouped"].value_counts()
+    counts = np.array([train_counts.get(c, 0) for c in class_names], dtype=float)
+    counts = np.clip(counts, 1, None)
+    weights = counts.sum() / (len(class_names) * counts)
+    print("Class weights (inverse frequency, from train split):")
+    for c, w in zip(class_names, weights):
+        print(f"  {c}: {w:.3f}")
+    return torch.tensor(weights, dtype=torch.float32)
+
+
+# ==============================
+# 2. ENCODER-ONLY TRANSFER (layer-based, not class-based)
+# ==============================
+def load_pretrained_encoder(learner, path):
+    """
+    Load ONLY the backbone/body from a pretrained fastai classification
+    Learner (e.g. classification_manuf.pkl). The head is intentionally left
+    at its fresh random init because the class vocab has no overlap with
+    ours. This mirrors the encoder-only transfer used for the segmentation
+    model in finetuneCV.py.
+
+    fastai cnn_learner models are nn.Sequential(body, head):
+      model[0] = body/backbone (ResNet-50 conv layers)
+      model[1] = head (adaptive pool + linear layers, class-count dependent)
+    We only touch model[0].
+    """
+    device = next(learner.model.parameters()).device
+    old = load_learner(path, cpu=True)
+    old_body_state = old.model[0].state_dict()
+    new_body_state = learner.model[0].state_dict()
+
+    loaded = skipped = 0
+    for k, v in old_body_state.items():
+        if k in new_body_state and new_body_state[k].shape == v.shape:
+            new_body_state[k] = v.to(device)
+            loaded += 1
+        else:
+            skipped += 1
+    learner.model[0].load_state_dict(new_body_state)
+    print(f"✅ Encoder (backbone) transferred: {loaded} layers loaded, {skipped} skipped "
+          f"(shape mismatch)")
+    print(f"   Head (model[1]) left at fresh random init — vocab has no overlap with pretrained model.")
+    return learner
+
+
+# ==============================
+# 3. FINAL-EPOCH CAPTURE + OOF EXPORT
+# ==============================
+class SaveFinalEpoch(Callback):
+    """Save the model state_dict at the end of the LAST epoch of a fit.
+    Needed because SaveModelCallback reloads the best checkpoint in after_fit."""
+    def __init__(self, path):
+        self.path = path
+
+    def after_epoch(self):
+        if self.epoch == self.n_epoch - 1:
+            torch.save(self.learn.model.state_dict(), self.path)
+
+
+def write_oof(learner, df, class_names, path, fold, patient_col=None):
+    """Predict on the validation fold with the learner's CURRENT weights and write a CSV."""
+    probs, targs = learner.get_preds()
+    val_df = df[df["is_valid"]].reset_index(drop=True)
+    assert len(val_df) == len(probs), "validation ordering mismatch"
+    out = pd.DataFrame({
+        "ID": val_df["ID"],
+        "fold": fold,
+        "true": [class_names[i] for i in targs.numpy()],
+        "pred": [class_names[i] for i in probs.argmax(1).numpy()],
+    })
+    assert (out["true"].values == val_df["ModelClass_grouped"].values).all(), \
+        "dataloader order != dataframe order"
+    if patient_col:
+        out.insert(2, "patient", val_df[patient_col].values)
+    for j, c in enumerate(class_names):
+        out[f"p_{c}"] = probs[:, j].numpy()
+    out.to_csv(path, index=False)
+    return out, probs, targs
+
+
+# ==============================
+# 4. MAIN
+# ==============================
+def finetune(args):
+    set_seed(args.seed, reproducible=True)
+    tag = f"{args.init}_frac{args.train_frac:g}_seed{args.seed}"                      # [DATA-EFF]
+    out = pathlib.Path(args.output_dir) / tag / (f"fold_{args.fold}" if args.fold >= 0 else "single_split")
+    out.mkdir(parents=True, exist_ok=True)
+    args.output_dir = pathlib.Path(args.output_dir)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    print(f"📁 Output dir: {out}")
+
+    df, class_names, grouping_map = build_dataframe(args)
+    weights_tensor = compute_class_weights(df, class_names)
+
+    # ── save config + grouping map for reproducibility ──────────────
+    import csv
+    csv_path = out / "training_history.csv"
+    with open(csv_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["# TRAINING CONFIG", datetime.now().strftime("%Y-%m-%d %H:%M")])
+        for k, v in {
+            "img_size": args.img_size, "batch_size": args.batch_size,
+            "epochs_head": args.epochs_head, "epochs_full": args.epochs_full,
+            "backbone": "resnet50", "grad_accum": args.grad_accum,
+            "lr_head": args.lr_head, "lr_full": args.lr_full,
+            "pretrained_path": args.pretrained_path,
+            "min_class_count": args.min_class_count,
+            "seed": args.seed,
+            "init": args.init, "train_frac": args.train_frac, "lr_scratch": args.lr_scratch,   # [DATA-EFF]
+            "patient_col": args.patient_col,
+            "classes": class_names,
+        }.items():
+            writer.writerow([f"# {k}", v])
+        writer.writerow([])
+    pd.Series(grouping_map, name="grouped_into").to_csv(out / "class_grouping_map.csv")
+
+    dblock = DataBlock(
+        blocks=(ImageBlock, CategoryBlock(vocab=class_names)),
+        get_x=get_x, get_y=get_y,
+        splitter=ColSplitter(col='is_valid'),
+        item_tfms=Resize(args.img_size, method='pad', pad_mode='zeros'),
+        batch_tfms=[
+            *aug_transforms(
+                do_flip=True, flip_vert=False, max_rotate=15,
+                min_zoom=0.9, max_zoom=1.1, max_lighting=0.15,
+                max_warp=0.0, p_affine=0.75, p_lighting=0.5,
+            ),
+            Normalize.from_stats(*imagenet_stats),
+        ],
+    )
+    dls = dblock.dataloaders(df, bs=args.batch_size, num_workers=0, pin_memory=True)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+    weights_tensor = weights_tensor.to(device)
+    loss_func = CrossEntropyLossFlat(weight=weights_tensor)
+
+    learner = cnn_learner(
+        dls, resnet50, loss_func=loss_func, pretrained=(args.init == "imagenet"),   # [DATA-EFF]
+        metrics=[accuracy, BalancedAccuracy(), F1Score(average='macro')],
+        cbs=[CSVLogger(fname=str(out / "training_history.csv"), append=True)],
+    ).to_fp16()
+
+    if args.init == "busch_enc":                                           # [DATA-EFF]
+        assert args.pretrained_path, "--init busch_enc needs --pretrained_path"
+        print("\n[load] domain-matched pretrained ENCODER only (head stays fresh)")
+        learner = load_pretrained_encoder(learner, args.pretrained_path)
+    else:
+        print(f"\n[load] init={args.init}: Busch encoder NOT loaded")
+    print(f"   sanity: mean|w| of first conv = {next(learner.model.parameters()).abs().mean().item():.5f}")
+
+    if args.init == "scratch":                                             # [DATA-EFF]
+        # random body: no frozen phase; same TOTAL epochs as the staged arms
+        total_ep = args.epochs_head + args.epochs_full
+        print(f"\n--- Scratch: full training, {total_ep} epochs, lr_max={args.lr_scratch} ---")
+        learner.unfreeze()
+        learner.path = out
+        learner.model_dir = ""
+        final_path = out / "final_epoch_weights.pth"
+        learner.fit_one_cycle(
+            total_ep, lr_max=args.lr_scratch,
+            cbs=[GradientAccumulation(n_acc=args.grad_accum),
+                 SaveFinalEpoch(final_path),
+                 SaveModelCallback(monitor='balanced_accuracy_score', fname='best_modelclass', with_opt=False)]
+        )
+    else:
+        # Phase 1 — head only
+        print("\n--- Phase 1: Training head (backbone frozen) ---")
+        learner.freeze()
+        learner.fit_one_cycle(args.epochs_head, args.lr_head,
+                               cbs=GradientAccumulation(n_acc=args.grad_accum))
+
+        # Phase 2 — full fine-tune with best-model checkpoint
+        print("\n--- Phase 2: Full fine-tuning ---")
+        learner.unfreeze()
+        learner.path = out
+        learner.model_dir = ""
+        final_path = out / "final_epoch_weights.pth"
+        learner.fit_one_cycle(
+            args.epochs_full, lr_max=args.lr_full,
+            cbs=[GradientAccumulation(n_acc=args.grad_accum),
+                 SaveFinalEpoch(final_path),
+                 SaveModelCallback(monitor='balanced_accuracy_score', fname='best_modelclass', with_opt=False)]
+        )
+
+
+    # NOTE: SaveModelCallback has just reloaded the BEST checkpoint into the learner.
+    # 1) best-checkpoint OOF (bias comparison only)
+    torch.save(learner.model.state_dict(), out / "best_ckpt_weights.pth")
+    best_oof, _, _ = write_oof(learner, df, class_names, out / "oof_best_ckpt.csv",
+                               args.fold, args.patient_col)
+    # 2) FINAL-EPOCH weights = primary model
+    learner.model.load_state_dict(torch.load(final_path, map_location=device))
+    final_oof, preds, targs = write_oof(learner, df, class_names, out / "oof_final_epoch.csv",
+                                        args.fold, args.patient_col)
+    acc_final = (final_oof["true"] == final_oof["pred"]).mean()
+    acc_best = (best_oof["true"] == best_oof["pred"]).mean()
+    print(f"\n🔎 Fold {args.fold}: accuracy FINAL epoch = {acc_final:.4f} | "
+          f"BEST checkpoint = {acc_best:.4f} (selection-bias gap = {acc_best - acc_final:+.4f})")
+
+    # ── validation-fold report (FINAL epoch) ─────────────────────────
+    print("\n📊 Validation fold performance (final-epoch weights):")
+    pred_labels = preds.argmax(dim=1).numpy()
+    targ_labels = targs.numpy()
+    print(classification_report(targ_labels, pred_labels, labels=list(range(len(class_names))),
+                                 target_names=class_names, digits=3, zero_division=0))
+    cm = confusion_matrix(targ_labels, pred_labels, labels=list(range(len(class_names))))
+    print("Confusion matrix (rows=true, cols=pred):")
+    print(pd.DataFrame(cm, index=class_names, columns=class_names))
+
+    fig, ax = plt.subplots(figsize=(max(6, 0.5 * len(class_names)), max(5, 0.5 * len(class_names))))
+    im = ax.imshow(cm, cmap='Blues')
+    ax.set_xticks(range(len(class_names))); ax.set_xticklabels(class_names, rotation=90, ha='right', fontsize=7)
+    ax.set_yticks(range(len(class_names))); ax.set_yticklabels(class_names, fontsize=7)
+    ax.set_xlabel('Predicted'); ax.set_ylabel('True')
+    fig.colorbar(im)
+    plt.tight_layout()
+    plt.savefig(out / "confusion_matrix.png", dpi=150)
+    plt.close(fig)
+
+    # ── export ────────────────────────────────────────────────────
+    weights_path = out / "modelclass_classifier_weights.pth"   # = FINAL-epoch weights
+    torch.save(learner.model.state_dict(), weights_path)
+    with open(out / "class_names.txt", "w") as f:
+        f.write("\n".join(class_names))
+    print(f"\n✅ Weights saved → {weights_path}")
+    print(f"✅ Class order saved → {out / 'class_names.txt'}")
+    print(f"✅ Grouping map saved → {out / 'class_grouping_map.csv'}")
+
+
+# ==============================
+# 4. ENTRY POINT
+# ==============================
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--labels_csv", default="C:/CIEDID_data/main_workbook.csv")
+    parser.add_argument("--crop_dir", default="C:/CIEDID_data/Images_crop")
+    parser.add_argument("--output_dir", default="C:/CIEDID_data/ModelClass/models/Fractions")
+    parser.add_argument("--pretrained_path", default="C:/CIEDID_data/pkl/classification_model.pkl",
+                         help="fastai Learner .pkl to transfer the ENCODER (backbone) from. "
+                              "Head is always freshly initialised regardless — set to '' / None "
+                              "to skip and use plain ImageNet-pretrained ResNet-50 instead.")
+
+    parser.add_argument("--min_class_count", type=int, default=1,
+                         help="Models with fewer than this many images in the train/CV pool "
+                              "are grouped into 'Other' (per REC-MURA.06 Stage IV protocol).")
+
+    parser.add_argument("--img_size", type=int, default=256)
+    parser.add_argument("--batch_size", type=int, default=16)
+    parser.add_argument("--grad_accum", type=int, default=2)
+    parser.add_argument("--valid_split", type=float, default=0.2)
+
+    parser.add_argument("--epochs_head", type=int, default=8)
+    parser.add_argument("--epochs_full", type=int, default=25) #better than 20
+    parser.add_argument("--lr_head", type=float, default=3e-3)
+    parser.add_argument("--lr_full", type=parse_lr_arg, default="slice(1e-5, 1e-3)") #better than "slice(1e-6, 1e-4)")
+    parser.add_argument("--seed", type=int, default=42,
+                         help="Seed for init/shuffling/augmentation (CV split seed is fixed at 42).")
+    parser.add_argument("--patient_col", default=None,
+                         help="Optional patient-identifier column in labels_csv (adds 'patient' to OOF files).")
+    parser.add_argument("--fold", type=int, default=0,
+                         help="CV fold index (0-based). -1 = single 80/20 split.")
+    parser.add_argument("--n_splits", type=int, default=5)
+
+    parser.add_argument("--init", choices=["busch_enc", "imagenet", "scratch"], default="imagenet",
+                        help="[DATA-EFF] body initialisation (head is always fresh).")
+    parser.add_argument("--train_frac", type=float, default=0.5,
+                        help="[DATA-EFF] fraction of the fold's TRAIN images used (stratified, nested for fixed seed).")
+    parser.add_argument("--lr_scratch", type=float, default=1e-3,
+                        help="[DATA-EFF] lr for the single-stage scratch arm (UNTUNED).")
+
+    args = parser.parse_args()
+    if not 0 < args.train_frac <= 1:
+        parser.error("--train_frac must be in (0, 1]")
+    args.labels_csv = pathlib.Path(args.labels_csv)
+    args.crop_dir = pathlib.Path(args.crop_dir)
+    args.output_dir = pathlib.Path(args.output_dir)
+    if not args.pretrained_path:
+        args.pretrained_path = None
+
+    finetune(args)
