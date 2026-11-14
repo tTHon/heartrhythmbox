@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-11-13T14:13:55.243Z",
+  "lastUpdated": "2026-11-14T10:17:55.825Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -178,13 +178,13 @@
           ]
         },
         {
-          "title": "Heart Failure Case Scenario Quiz - ศรีสกุล (SI)",
+          "title": "Heart Failure Case Scenario Quiz - ศริญญา (จุฬา)",
           "startTime": "19:05",
           "endTime": "19:25",
           "speakers": []
         },
         {
-          "title": "Arrhythmia Case Scenario Quiz - ปัญญภัทร (air force)",
+          "title": "Arrhythmia Case Scenario Quiz - อาจบดินทร์ (SI)",
           "startTime": "19:25",
           "endTime": "19:45",
           "speakers": []
@@ -408,7 +408,7 @@
           "speakers": []
         },
         {
-          "title": "New HF Re-Classification: Is simpler better? -- ศริญญา (Chula)",
+          "title": "New HF Re-Classification: Is simpler better? -- ศรีสกุล (SI)",
           "startTime": "13:45",
           "endTime": "14:00",
           "speakers": []

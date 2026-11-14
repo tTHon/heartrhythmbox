@@ -221,9 +221,9 @@ def learning_curves(models_dir, n_folds, out):
 # ---------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--oof", default="C:/CIEDID_data/ModelClass/oof_predictions.csv")
-    ap.add_argument("--out_dir", default="C:/CIEDID_data/ModelClass/analysis")
-    ap.add_argument("--models_dir", default="C:/CIEDID_data/ModelClass/models")
+    ap.add_argument("--oof", default="C:/CIEDID_data/ModelClass/models/Fractions/oof_predictions.csv")
+    ap.add_argument("--out_dir", default="C:/CIEDID_data/ModelClass/models/Fractions/analysis")
+    ap.add_argument("--models_dir", default="C:/CIEDID_data/ModelClass/models/Fractions")
     ap.add_argument("--compare", default=None,
                 help="second OOF csv for McNemar (e.g. ImageNet ablation)")
     args = ap.parse_args()
