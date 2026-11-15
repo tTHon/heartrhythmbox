@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-11-15T07:26:43.012Z",
+  "lastUpdated": "2026-11-15T08:28:55.579Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -125,7 +125,7 @@
       "date": "2027-02-19",
       "room": "Fauna",
       "time": "16:30 - 17:30",
-      "title": "The 15x20 Imaging Challenges (format: 15 slides x 20s per slides = 5 mins per case + Q/A 3 mins; Total 8 mins/case)",
+      "title": "The 15x20 Imaging Challenges (Format: 8 mins/case, 15 slides x 20s per slides = 5 mins per case + Q/A 3 mins; Total 8 mins/case) -- imagings include CXR, Echo, CT, MRI, Nuclear",
       "subTopics": "คลิกเพื่อเพิ่มหัวข้อย่อย...",
       "moderators": [
         "อ.แมน จันทวิมล",
@@ -133,6 +133,7 @@
       ],
       "speakers": [
         "อ.ถวาย เงินศรีตระกูล",
+        "อ.บัณฑิต นราตรีคูณ",
         "อ.สุรเกียรติ ลีละศศิธร",
         "อ.สุรชัย คงรัตน์"
       ],
@@ -402,7 +403,7 @@
           ]
         },
         {
-          "title": "The new language of myocardial infarction -- เหมือนเพชร (ธรรมศาสตร์)",
+          "title": "Case based approach to the new language of myocardial infarction -- เหมือนเพชร (ธรรมศาสตร์)",
           "startTime": "13:30",
           "endTime": "13:45",
           "speakers": []

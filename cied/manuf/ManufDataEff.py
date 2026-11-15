@@ -222,7 +222,7 @@ BATCH_SIZE   = 16
 NUM_WORKERS  = 2
 
 P1_EPOCHS    = 10
-P1_LR        = 1e-4
+P1_LR        = 1e-3
 P2_EPOCHS    = 20 #better than 15
 P2_LR        = 1e-4 #better than 1e-5 
 WEIGHT_DECAY = 1e-4
@@ -966,14 +966,14 @@ def main():
                         help="Model path for the single split only; --fold N saves to fold_N/manuf_finetuned.pkl")
     parser.add_argument("--batch",   type=int, default=BATCH_SIZE)
     parser.add_argument("--valid_split", type=float, default=0.2)
-    parser.add_argument("--fold", type=int, default=1,
+    parser.add_argument("--fold", type=int, default=3,
                         help="Run ONE CV fold (0-based). -1 = single stratified split (default).")
     parser.add_argument("--summarize", action="store_true",
                         help="No training: pool the saved fold_N/val_predictions_phase2.csv of all folds "
                              "→ cv_summary.csv, pooled_per_class_report.csv, pooled_confusion_matrix.csv.")
     parser.add_argument("--n_splits", type=int, default=5)
     parser.add_argument("--init", choices=["pretrained_full", "encoder_newhead", "imagenet_newhead", "scratch"],   # [DATA-EFF] +scratch
-                        default="imagenet_newhead",
+                        default="encoder_newhead",
                         help="[ABLATION] starting weights (see header). Default = original behaviour.")
     parser.add_argument("--summary_phase", default="phase2_finalepoch",   # [DATA-EFF] was "phase2"
                         help="[ABLATION] which val_predictions_<x>.csv --summarize pools: "
