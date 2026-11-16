@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-11-16T01:09:39.959Z",
+  "lastUpdated": "2026-11-16T01:46:48.822Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -166,7 +166,8 @@
           "startTime": "18:15",
           "endTime": "18:35",
           "speakers": [
-            "อ.กฤษฎา มีมุข"
+            "อ.กฤษฎา มีมุข",
+            "อ.ทินกฤต ศศิประภา"
           ]
         },
         {
@@ -262,7 +263,7 @@
           ]
         },
         {
-          "title": "BNP Update: Overuse, Appropriate Use, Overuse, and Optimal Cutoff",
+          "title": "BNP Update: Overuse, Appropriate Use, and Optimal Cutoff",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": [
@@ -307,10 +308,12 @@
           ]
         },
         {
-          "title": "Unexplained Syncope: Should we Monitor Longer or early Pacemaker? - bee",
+          "title": "Unexplained Syncope: Should we Monitor Longer or early Pacemaker?",
           "startTime": "10:45",
           "endTime": "11:00",
-          "speakers": []
+          "speakers": [
+            "อ.วรรณวรางค์ วงศ์เจริญ"
+          ]
         },
         {
           "title": "Role of imagings for cardiovascular side effects from modern oncologic treatment",
@@ -321,7 +324,7 @@
           ]
         },
         {
-          "title": "Next-gen arsenal in coronary intervention",
+          "title": "Next-gen Arsenal in Coronary Intervention",
           "startTime": "11:15",
           "endTime": "11:30",
           "speakers": [
@@ -329,24 +332,15 @@
           ]
         },
         {
-          "title": "ฺAdvanced mechanical support for cardiogenic shock: When is it worth the cost?",
+          "title": "ฺAdvanced mechanical support for cardiogenic shock",
           "startTime": "11:30",
           "endTime": "11:45",
           "speakers": [
             "อ.ธีรภัทร ยิ่งชนม์เจริญ"
           ]
-        },
-        {
-          "title": "**ไม่น่าจะเอา** Transcatheter intervention for grown up congenital heart diseases",
-          "startTime": "11:31",
-          "endTime": "11:32",
-          "speakers": [
-            "อ.แมน จันทวิมล"
-          ]
         }
       ],
       "moderators": [
-        "อ.ธัชพงศ์ งามอุโฆษ",
         "อ.แมน จันทวิมล"
       ],
       "speakers": []
@@ -453,19 +447,19 @@
           ]
         },
         {
-          "title": "Last topic:: Physical Examination in Asymptomatic Adults: Is it necessary? -- ธัชพงศ์ / ภัทรพงศ์",
+          "title": "Does CAC add value to traditional risk score?  --  นครินทร์ / mann, or ณัฐวุฒิ or ไพโรจน์ / ทินกฤต, แมน",
           "startTime": "15:22",
           "endTime": "15:44",
           "speakers": []
         },
         {
-          "title": "Does CAC add value to traditional risk score?  --  นครินทร์ / mann, or ณัฐวุฒิ or ไพโรจน์ / ทินกฤต, แมน",
+          "title": "Echo vs PA catheter for hemodynamic monitoring during cardiogenic shock -- ถวาย / ธีรภัทร",
           "startTime": "15:44",
           "endTime": "16:06",
           "speakers": []
         },
         {
-          "title": "Echo vs PA catheter for hemodynamic monitoring during cardiogenic shock -- ถวาย / ธีรภัทร",
+          "title": "Last topic:: Physical Examination in Asymptomatic Adults: Is it necessary? -- ธัชพงศ์ / ภัทรพงศ์",
           "startTime": "16:06",
           "endTime": "16:28",
           "speakers": []
