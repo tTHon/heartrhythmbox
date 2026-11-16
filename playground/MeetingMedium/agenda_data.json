@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-11-15T10:14:04.543Z",
+  "lastUpdated": "2026-11-16T01:09:39.959Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -262,7 +262,7 @@
           ]
         },
         {
-          "title": "BNP Update: Appropriate Use, Overuse, and Optimal Cutoff",
+          "title": "BNP Update: Overuse, Appropriate Use, Overuse, and Optimal Cutoff",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": [
@@ -307,13 +307,13 @@
           ]
         },
         {
-          "title": "Unexplained Syncope: Monitor Longer or Pace Earlier? - ตรีชฎา",
+          "title": "Unexplained Syncope: Should we Monitor Longer or early Pacemaker? - bee",
           "startTime": "10:45",
           "endTime": "11:00",
           "speakers": []
         },
         {
-          "title": "Role of imagings for cardiovascular effects from modern oncologic treatment",
+          "title": "Role of imagings for cardiovascular side effects from modern oncologic treatment",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": [
@@ -321,7 +321,7 @@
           ]
         },
         {
-          "title": "Next-generation arsenal in coronary intervention",
+          "title": "Next-gen arsenal in coronary intervention",
           "startTime": "11:15",
           "endTime": "11:30",
           "speakers": [
@@ -396,7 +396,7 @@
       "title": "Guidelines Update: From PDFs to Practice (18 mins/topic)",
       "subtopicsList": [
         {
-          "title": "Preop Troponin or Stress Testing: Who still need them?",
+          "title": "Preop Troponin or Stress Testing: Who needs them?",
           "startTime": "13:15",
           "endTime": "13:33",
           "speakers": [
@@ -410,7 +410,7 @@
           "speakers": []
         },
         {
-          "title": "AF Ablation and New CIED Option in HFrEF",
+          "title": "AF Ablation and New implantable device Option in HFrEF",
           "startTime": "13:51",
           "endTime": "14:09",
           "speakers": [
@@ -418,7 +418,7 @@
           ]
         },
         {
-          "title": "Lipid Management: Discrepancy between guidelines and evidence -- วิชัย / เหมือนเพชร",
+          "title": "Lipid Management: Discrepancy between guidelines and evidence -- วิชัย",
           "startTime": "14:09",
           "endTime": "14:27",
           "speakers": []
@@ -445,7 +445,7 @@
       "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics (Format: 22 mins/topic - 1 min intro, 8 mins x2 talk, 5 mins sum)",
       "subtopicsList": [
         {
-          "title": "LPa: A true driver or just a marker of atherosclerosis -- วิชัย or สิระ or วรรณวรางค์ / ปริญญ์",
+          "title": "LPa: A true driver or just a marker of atherosclerosis --  สิระ / ปริญญ์",
           "startTime": "15:00",
           "endTime": "15:22",
           "speakers": [
@@ -453,13 +453,13 @@
           ]
         },
         {
-          "title": "Physical Examination in Asymptomatic Adults: Is it necessary? -- ธัชพงศ์ / ภัทรพงศ์",
+          "title": "Last topic:: Physical Examination in Asymptomatic Adults: Is it necessary? -- ธัชพงศ์ / ภัทรพงศ์",
           "startTime": "15:22",
           "endTime": "15:44",
           "speakers": []
         },
         {
-          "title": "Coronary Imaging vs. Traditional Risk Score for Primary Prevention  --  นครินทร์ or ณัฐวุฒิ or ไพโรจน์ / ทินกฤต, แมน",
+          "title": "Does CAC add value to traditional risk score?  --  นครินทร์ / mann, or ณัฐวุฒิ or ไพโรจน์ / ทินกฤต, แมน",
           "startTime": "15:44",
           "endTime": "16:06",
           "speakers": []
