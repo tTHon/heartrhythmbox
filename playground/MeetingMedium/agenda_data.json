@@ -1,6 +1,6 @@
 {
   "version": "3.0",
-  "lastUpdated": "2026-11-16T03:08:33.737Z",
+  "lastUpdated": "2026-11-16T03:37:16.900Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -456,13 +456,19 @@
           "title": "Echo vs PA catheter for hemodynamic monitoring during cardiogenic shock -- ถวาย / ธีรภัทร",
           "startTime": "15:44",
           "endTime": "16:06",
-          "speakers": []
+          "speakers": [
+            "อ.ถวาย เงินศรีตระกูล",
+            "อ.ธีรภัทร ยิ่งชนม์เจริญ"
+          ]
         },
         {
-          "title": "Last topic:: Physical Examination in Asymptomatic Adults: Is it necessary? -- ธัชพงศ์ / ภัทรพงศ์",
+          "title": "Physical Examination in Asymptomatic Adults: Is it necessary?",
           "startTime": "16:06",
           "endTime": "16:28",
-          "speakers": []
+          "speakers": [
+            "อ.ธัชพงศ์ งามอุโฆษ",
+            "อ.ภัทรพงษ์ มกรเวส"
+          ]
         },
         {
           "title": "** spare ** Does Triglycerides Reduction Improve Cardiovascular Outcome?",
