@@ -196,6 +196,16 @@
             });
         });
 
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
         async function loadConferenceData() {
             try {
                 const response = await fetch(`${JSON_FILE_PATH}?t=${Date.now()}`);
@@ -280,7 +290,7 @@
             if (matches.length === 0) {
                 suggestionsBox.innerHTML = `
                     <div class="p-4 text-center text-xs text-slate-400">
-                        ไม่พบรายชื่อที่ตรงกับ "${trimmed}"
+                        ไม่พบรายชื่อที่ตรงกับ "${escapeHtml(trimmed)}"
                     </div>
                 `;
             } else {
@@ -290,8 +300,8 @@
                         <button type="button" onclick="selectSpeaker('${safeName}')" 
                                 class="w-full text-left px-4 py-3 hover:bg-indigo-50 transition flex items-center justify-between gap-2 group">
                             <div>
-                                <div class="text-sm font-semibold text-slate-800 group-hover:text-indigo-700">${person.Name}</div>
-                                <div class="text-xs text-slate-500">${person.Institute || 'ไม่ระบุสถาบัน/หน่วยงาน'}</div>
+                                <div class="text-sm font-semibold text-slate-800 group-hover:text-indigo-700">${escapeHtml(person.Name)}</div>
+                                <div class="text-xs text-slate-500">${escapeHtml(person.Institute || 'ไม่ระบุสถาบัน/หน่วยงาน')}</div>
                             </div>
                             <i class="fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-indigo-500"></i>
                         </button>
@@ -379,12 +389,19 @@
             } else {
                 listEl.innerHTML = matchedTasks.map(task => {
                     const s = task.session;
+                    const formatText = (s.format || '').trim();
                     let formattedDate = s.date;
                     try {
                         formattedDate = new Date(s.date).toLocaleDateString('th-TH', {
                             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
                         });
                     } catch (e) {}
+
+                    const formatHtml = formatText ? `
+                        <div class="text-xs sm:text-sm text-slate-600 bg-amber-50/80 border border-amber-200/70 rounded-xl px-3 py-2 mb-3 whitespace-pre-line leading-relaxed">
+                            <i class="fa-solid fa-circle-info text-amber-600 mr-1.5"></i> ${escapeHtml(formatText)}
+                        </div>
+                    ` : '';
 
                     let roleBadges = [];
                     if (task.isMod) {
@@ -405,8 +422,8 @@
                                     return `
                                         <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                             <div>
-                                                <div class="font-bold text-slate-800 text-sm">${st.title}</div>
-                                                ${coSpeakers.length > 0 ? `<div class="text-xs text-slate-600 mt-0.5"><i class="fa-solid fa-user-group text-emerald-600 mr-1"></i> ร่วมบรรยายกับ: ${coSpeakers.join(', ')}</div>` : ''}
+                                                <div class="font-bold text-slate-800 text-sm">${escapeHtml(st.title)}</div>
+                                                ${coSpeakers.length > 0 ? `<div class="text-xs text-slate-600 mt-0.5"><i class="fa-solid fa-user-group text-emerald-600 mr-1"></i> ร่วมบรรยายกับ: ${escapeHtml(coSpeakers.join(', '))}</div>` : ''}
                                             </div>
                                             <div class="bg-white border border-emerald-200 text-emerald-700 font-bold text-xs px-3 py-1.5 rounded-lg whitespace-nowrap self-start sm:self-center">
                                                 <i class="fa-regular fa-clock mr-1"></i> ${st.startTime || ''} - ${st.endTime || ''}
@@ -424,14 +441,16 @@
                                 <div class="flex items-center gap-2 font-semibold text-indigo-700">
                                     <span><i class="fa-regular fa-calendar mr-1"></i> ${formattedDate}</span>
                                     <span>•</span>
-                                    <span><i class="fa-regular fa-clock mr-1"></i> ${s.time}</span>
+                                    <span><i class="fa-regular fa-clock mr-1"></i> ${escapeHtml(s.time)}</span>
                                 </div>
                                 <span class="bg-slate-800 text-white font-semibold px-3 py-1 rounded-lg">
-                                    <i class="fa-solid fa-location-dot text-rose-400 mr-1"></i> ${s.room}
+                                    <i class="fa-solid fa-location-dot text-rose-400 mr-1"></i> ${escapeHtml(s.room)}
                                 </span>
                             </div>
 
-                            <h4 class="text-base sm:text-lg font-bold text-slate-800 mb-2.5">${s.title}</h4>
+                            <h4 class="text-base sm:text-lg font-bold text-slate-800 ${formatText ? 'mb-2' : 'mb-2.5'}">${escapeHtml(s.title)}</h4>
+
+                            ${formatHtml}
 
                             ${roleBadges.length > 0 ? `<div class="flex flex-wrap gap-2 mb-2">${roleBadges.join('')}</div>` : ''}
 
@@ -486,7 +505,7 @@
                 const active = selectedMobileRoom === r;
                 tabsHtml += `
                     <button onclick="setMobileRoom('${r}')" class="px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition ${active ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300'}">
-                        ${r}
+                        ${escapeHtml(r)}
                     </button>
                 `;
             });
@@ -508,7 +527,7 @@
 
             let headerHtml = `<th scope="col" class="py-3 px-4 border-r border-slate-700 w-32 sm:w-36 bg-slate-900 font-semibold text-xs sm:text-sm text-center">Time</th>`;
             displayRooms.forEach(r => {
-                headerHtml += `<th scope="col" class="py-3 px-4 border-r border-slate-700 text-center font-semibold text-xs sm:text-sm">${r}</th>`;
+                headerHtml += `<th scope="col" class="py-3 px-4 border-r border-slate-700 text-center font-semibold text-xs sm:text-sm">${escapeHtml(r)}</th>`;
             });
             theader.innerHTML = headerHtml;
             tbody.innerHTML = '';
@@ -544,7 +563,7 @@
 
                 const row = document.createElement('tr');
                 row.className = "border-b border-slate-200";
-                let rowHtml = `<td class="py-3 px-3 border-r border-slate-200 font-bold text-indigo-700 bg-slate-50 align-top text-center text-xs sm:text-sm">${slot.time}</td>`;
+                let rowHtml = `<td class="py-3 px-3 border-r border-slate-200 font-bold text-indigo-700 bg-slate-50 align-top text-center text-xs sm:text-sm">${escapeHtml(slot.time)}</td>`;
                 
                 displayRooms.forEach(r => {
                     const s = slot.roomMap[r];
@@ -554,22 +573,30 @@
                         const subList = [...(s.subtopicsList || [])].sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
                         const mods = (s.moderators || []).join(', ');
                         const spks = (s.speakers || []).join(', ');
+                        const formatText = (s.format || '').trim();
+
+                        const formatHtml = formatText ? `
+                            <div class="text-[11px] sm:text-xs text-slate-600 bg-amber-50/80 border border-amber-200/70 rounded-md px-2 py-1 mb-1.5 whitespace-pre-line leading-relaxed">
+                                <i class="fa-solid fa-circle-info text-amber-600 mr-1"></i> ${escapeHtml(formatText)}
+                            </div>
+                        ` : '';
                         
                         const subHtml = subList.map((st, idx) => {
                             const stSpks = Array.isArray(st.speakers) ? st.speakers.join(', ') : (st.speaker || '');
                             return `
                                 <div class="bg-slate-50 border border-slate-200 p-2 rounded-md text-xs mt-1.5">
-                                    <div class="font-bold text-slate-800">${idx + 1}. ${st.title} <span class="text-indigo-600 font-normal">(${st.startTime}-${st.endTime})</span></div>
-                                    ${stSpks ? `<div class="text-emerald-700 text-[11px] mt-0.5"><i class="fa-solid fa-microphone text-[9px] mr-1"></i>${stSpks}</div>` : ''}
+                                    <div class="font-bold text-slate-800">${idx + 1}. ${escapeHtml(st.title)} <span class="text-indigo-600 font-normal">(${st.startTime}-${st.endTime})</span></div>
+                                    ${stSpks ? `<div class="text-emerald-700 text-[11px] mt-0.5"><i class="fa-solid fa-microphone text-[9px] mr-1"></i>${escapeHtml(stSpks)}</div>` : ''}
                                 </div>
                             `;
                         }).join('');
 
                         rowHtml += `
                             <td class="py-3 px-3 border-r border-slate-200 align-top">
-                                <div class="font-bold text-slate-800 text-sm mb-1">${s.title}</div>
-                                ${mods ? `<div class="text-xs text-slate-600"><span class="font-semibold">Mod:</span> ${mods}</div>` : ''}
-                                ${spks ? `<div class="text-xs text-slate-600"><span class="font-semibold">Speaker:</span> ${spks}</div>` : ''}
+                                <div class="font-bold text-slate-800 text-sm mb-1">${escapeHtml(s.title)}</div>
+                                ${formatHtml}
+                                ${mods ? `<div class="text-xs text-slate-600"><span class="font-semibold">Mod:</span> ${escapeHtml(mods)}</div>` : ''}
+                                ${spks ? `<div class="text-xs text-slate-600"><span class="font-semibold">Speaker:</span> ${escapeHtml(spks)}</div>` : ''}
                                 ${subHtml}
                             </td>
                         `;

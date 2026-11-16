@@ -172,14 +172,20 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-2">
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ Session ใหญ่ (Title)</label>
-                    <input type="text" id="sessionTitle" placeholder="e.g. General Cardiology Update" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                <div class="lg:col-span-2 space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ Session ใหญ่ (Title)</label>
+                        <input type="text" id="sessionTitle" placeholder="e.g. General Cardiology Update" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">รูปแบบ / คำอธิบาย Session (Format / Description) <span class="text-slate-400 font-normal">(ไม่บังคับ หากไม่ระบุจะไม่แสดงในตาราง)</span></label>
+                        <textarea id="sessionFormat" rows="2" placeholder="e.g. Panel Discussion 60 mins + Q&A 30 mins หรือ บรรยาย 20 นาที/ท่าน" class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+                    </div>
                 </div>
 
                 <div>
                     <label class="text-xs font-semibold text-slate-700 mb-1 block">Moderator(s)</label>
-                    <select id="moderatorSelect" multiple onchange="renderSelectedTags('moderatorSelect', 'moderatorTags')" class="w-full text-xs rounded-lg border-slate-300 border p-2 h-20 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                    <select id="moderatorSelect" multiple onchange="renderSelectedTags('moderatorSelect', 'moderatorTags')" class="w-full text-xs rounded-lg border-slate-300 border p-2 h-24 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
                     </select>
                     <div id="moderatorTags" class="flex flex-wrap gap-1 mt-1.5 min-h-[20px]"></div>
                 </div>
@@ -295,6 +301,10 @@
                     <label class="block text-xs font-semibold text-slate-700 mb-1">ชื่อ Session (Title)</label>
                     <input type="text" id="editSessionTitle" required class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                 </div>
+                <div class="md:col-span-2">
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">รูปแบบ / คำอธิบาย Session (Format / Description) <span class="text-slate-400 font-normal">(ไม่บังคับ หากไม่ระบุจะไม่แสดงในตาราง)</span></label>
+                    <textarea id="editSessionFormat" rows="2" placeholder="e.g. Panel Discussion 60 mins + Q&A 30 mins หรือ บรรยาย 20 นาที/ท่าน" class="w-full text-xs rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+                </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 mb-1">Moderator(s)</label>
                     <select id="editModeratorSelect" multiple onchange="renderSelectedTags('editModeratorSelect', 'editModeratorTags')" class="w-full text-xs rounded-lg border-slate-300 border p-2 h-20 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
@@ -381,6 +391,16 @@
             await saveDirectToFile();
         }
 
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
         /* Subtopics Row Builder with Multiple Speakers & Chronological Sorting */
         function addSubtopicRow(containerId, data = null) {
             const container = document.getElementById(containerId);
@@ -399,7 +419,7 @@
                 optionsHtml += `<option value="${p.Name}">${p.Name} ${p.Institute ? `(${p.Institute})` : ''}</option>`;
             });
 
-            const titleVal = data ? data.title || '' : '';
+            const titleVal = data ? escapeHtml(data.title || '') : '';
             const startVal = data ? data.startTime || '10:30' : '10:30';
             const endVal = data ? data.endTime || '10:45' : '10:45';
 
@@ -566,7 +586,7 @@
             try {
                 const writable = await fileHandle.createWritable();
                 const dataState = {
-                    version: "3.0",
+                    version: "3.1",
                     lastUpdated: new Date().toISOString(),
                     rooms, peopleDatabase, sessions
                 };
@@ -688,6 +708,17 @@
             });
         }
 
+        function downloadSampleCSV() {
+            const csvContent = "data:text/csv;charset=utf-8,\uFEFFName,Institute\nศ.ดร.นพ.สมชาย ใจดี,โรงพยาบาลรามาธิบดี\nรศ.พญ.สมหญิง รักเรียน,โรงพยาบาลศิริราช";
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "sample_speakers.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
         function openAddPersonModal() { document.getElementById('personModal').classList.remove('hidden'); }
         function closeAddPersonModal() { document.getElementById('personModal').classList.add('hidden'); }
         function saveNewPerson() {
@@ -696,6 +727,8 @@
             if (!name) return alert('กรุณากรอกชื่อ');
             if (!peopleDatabase.some(p => p.Name === name)) {
                 peopleDatabase.push({ Name: name, Institute: institute });
+                document.getElementById('newPersonName').value = '';
+                document.getElementById('newPersonInstitute').value = '';
                 refreshUI();
                 closeAddPersonModal();
             }
@@ -730,6 +763,7 @@
             const startTime = document.getElementById('startTime').value;
             const endTime = document.getElementById('endTime').value;
             const title = document.getElementById('sessionTitle').value.trim();
+            const format = document.getElementById('sessionFormat').value.trim();
 
             const moderators = Array.from(document.getElementById('moderatorSelect').selectedOptions).map(o => o.value);
             const speakers = Array.from(document.getElementById('speakerSelect').selectedOptions).map(o => o.value);
@@ -737,10 +771,21 @@
 
             if (startTime >= endTime) return alert('เวลาเริ่มต้นต้องน้อยกว่าเวลาสิ้นสุด');
 
-            sessions.push({ id: Date.now(), date, room, time: `${startTime} - ${endTime}`, title, subtopicsList, moderators, speakers });
+            sessions.push({ 
+                id: Date.now(), 
+                date, 
+                room, 
+                time: `${startTime} - ${endTime}`, 
+                title, 
+                format, 
+                subtopicsList, 
+                moderators, 
+                speakers 
+            });
             refreshUI();
 
             document.getElementById('sessionTitle').value = '';
+            document.getElementById('sessionFormat').value = '';
             document.getElementById('subtopicsContainer').innerHTML = '';
         });
 
@@ -755,6 +800,7 @@
             document.getElementById('editStartTime').value = timeParts[0];
             document.getElementById('editEndTime').value = timeParts[1];
             document.getElementById('editSessionTitle').value = session.title;
+            document.getElementById('editSessionFormat').value = session.format || '';
 
             const modSelect = document.getElementById('editModeratorSelect');
             const spkSelect = document.getElementById('editSpeakerSelect');
@@ -784,6 +830,7 @@
             session.room = document.getElementById('editSessionRoom').value;
             session.time = `${document.getElementById('editStartTime').value} - ${document.getElementById('editEndTime').value}`;
             session.title = document.getElementById('editSessionTitle').value.trim();
+            session.format = document.getElementById('editSessionFormat').value.trim();
             session.moderators = Array.from(document.getElementById('editModeratorSelect').selectedOptions).map(o => o.value);
             session.speakers = Array.from(document.getElementById('editSpeakerSelect').selectedOptions).map(o => o.value);
             session.subtopicsList = getSubtopicsData('editSubtopicsContainer');
@@ -842,6 +889,13 @@
             const subList = [...(session.subtopicsList || [])].sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
             const mods = (session.moderators || []).join(', ') || '-';
             const spks = (session.speakers || []).join(', ') || '-';
+            const formatText = (session.format || '').trim();
+
+            const formatHtml = formatText ? `
+                <div class="text-xs text-slate-600 bg-amber-50/80 border border-amber-200/70 rounded-md px-2.5 py-1.5 mb-2.5 whitespace-pre-line leading-relaxed">
+                    <i class="fa-solid fa-circle-info text-amber-600 mr-1"></i> ${escapeHtml(formatText)}
+                </div>
+            ` : '';
 
             let subtopicsHtml = '';
             if (subList.length > 0) {
@@ -855,10 +909,10 @@
                             return `
                                 <div class="bg-slate-50 border border-slate-200 p-2 rounded-md text-xs">
                                     <div class="font-bold text-slate-800 flex justify-between items-start gap-1">
-                                        <span>${idx + 1}. ${st.title}</span>
+                                        <span>${idx + 1}. ${escapeHtml(st.title)}</span>
                                         <span class="text-[11px] text-indigo-600 font-semibold bg-indigo-50 px-1 rounded">${st.startTime || ''} - ${st.endTime || ''}</span>
                                     </div>
-                                    ${stSpeakersStr !== '-' ? `<div class="text-emerald-700 font-medium text-[11px] mt-0.5"><i class="fa-solid fa-microphone text-[10px]"></i> ${stSpeakersStr}</div>` : ''}
+                                    ${stSpeakersStr !== '-' ? `<div class="text-emerald-700 font-medium text-[11px] mt-0.5"><i class="fa-solid fa-microphone text-[10px]"></i> ${escapeHtml(stSpeakersStr)}</div>` : ''}
                                 </div>
                             `;
                         }).join('')}
@@ -868,16 +922,17 @@
 
             return `
                 <div class="bg-white rounded-lg border border-slate-200 p-4 shadow-xs relative">
-                    <div class="flex justify-between items-start gap-2 mb-2">
-                        <div onclick="openEditSessionModal(${session.id})" class="font-bold text-slate-800 text-base leading-snug cursor-pointer">${session.title}</div>
-                        <div class="flex items-center gap-1">
-                            <button onclick="openEditSessionModal(${session.id})" class="text-indigo-500 p-1"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <div class="flex justify-between items-start gap-2 ${formatText ? 'mb-1.5' : 'mb-2'}">
+                        <div onclick="openEditSessionModal(${session.id})" class="font-bold text-slate-800 text-base leading-snug cursor-pointer hover:text-indigo-700 transition">${escapeHtml(session.title)}</div>
+                        <div class="flex items-center gap-1 shrink-0">
+                            <button onclick="openEditSessionModal(${session.id})" class="text-indigo-500 hover:text-indigo-700 p-1"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button onclick="deleteSession(${session.id})" class="text-slate-300 hover:text-rose-600 p-1"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
+                    ${formatHtml}
                     <div class="text-xs space-y-1.5 bg-indigo-50/50 p-2.5 rounded-lg border border-indigo-100/60 mb-2">
-                        <div><span class="text-slate-500 font-medium">Mod:</span> <span class="font-semibold text-slate-800">${mods}</span></div>
-                        ${spks !== '-' ? `<div><span class="text-slate-500 font-medium">Speaker:</span> <span class="font-semibold text-slate-800">${spks}</span></div>` : ''}
+                        <div><span class="text-slate-500 font-medium">Mod:</span> <span class="font-semibold text-slate-800">${escapeHtml(mods)}</span></div>
+                        ${spks !== '-' ? `<div><span class="text-slate-500 font-medium">Speaker:</span> <span class="font-semibold text-slate-800">${escapeHtml(spks)}</span></div>` : ''}
                     </div>
                     ${subtopicsHtml}
                 </div>
@@ -919,20 +974,22 @@
                     hasTasks = true;
                     let taskDetailsHtml = matchedTasks.map(t => {
                         const s = t.session;
+                        const formatText = (s.format || '').trim();
                         let roles = [];
                         if (t.isMod) roles.push('<span class="text-indigo-600 font-semibold bg-indigo-50 px-1.5 py-0.5 rounded">Moderator</span>');
                         if (t.isSpk) roles.push('<span class="text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded">Speaker</span>');
 
                         let subtopicDetails = t.subtopics.map(st => `
                             <div class="text-slate-700 text-xs pl-3 py-0.5 font-medium border-l-2 border-indigo-300 my-1">
-                                🎤 <strong>${st.title}</strong> (${st.startTime || ''} - ${st.endTime || ''})
+                                🎤 <strong>${escapeHtml(st.title)}</strong> (${st.startTime || ''} - ${st.endTime || ''})
                             </div>
                         `).join('');
 
                         return `
                             <div class="py-1.5">
-                                <div class="font-medium text-slate-800 text-xs"><strong>${s.date}</strong> (${s.time}) [${s.room}]</div>
-                                <div class="text-slate-700 font-semibold text-sm pl-2">📌 ${s.title}</div>
+                                <div class="font-medium text-slate-800 text-xs"><strong>${s.date}</strong> (${s.time}) [${escapeHtml(s.room)}]</div>
+                                <div class="text-slate-700 font-semibold text-sm pl-2">📌 ${escapeHtml(s.title)}</div>
+                                ${formatText ? `<div class="text-slate-500 text-xs pl-6 mt-0.5 italic">รูปแบบ: ${escapeHtml(formatText)}</div>` : ''}
                                 ${roles.length > 0 ? `<div class="pl-2 mt-1 text-xs">${roles.join(' & ')}</div>` : ''}
                                 ${subtopicDetails}
                             </div>
@@ -942,8 +999,8 @@
                     const row = document.createElement('tr');
                     row.className = "hover:bg-slate-50 transition border-b border-slate-200";
                     row.innerHTML = `
-                        <td class="py-3.5 px-4 font-semibold text-slate-800 align-top text-sm">${person.Name}</td>
-                        <td class="py-3.5 px-4 text-slate-600 align-top text-xs">${person.Institute || '-'}</td>
+                        <td class="py-3.5 px-4 font-semibold text-slate-800 align-top text-sm">${escapeHtml(person.Name)}</td>
+                        <td class="py-3.5 px-4 text-slate-600 align-top text-xs">${escapeHtml(person.Institute || '-')}</td>
                         <td class="py-3.5 px-4 text-center align-top"><span class="bg-purple-100 text-purple-800 font-bold px-2.5 py-1 rounded-full text-xs">${matchedTasks.length} Sessions</span></td>
                         <td class="py-3.5 px-4 align-top text-xs divide-y divide-slate-100">${taskDetailsHtml}</td>
                     `;
@@ -960,14 +1017,26 @@
             const wb = XLSX.utils.book_new();
             const agendaData = [];
             sessions.forEach(s => {
-                (s.subtopicsList || []).forEach(st => {
+                const subList = s.subtopicsList || [];
+                if (subList.length === 0) {
                     agendaData.push({
                         "Date": s.date, "Session Time": s.time, "Room": s.room, "Session Title": s.title,
-                        "Subtopic Title": st.title, "Subtopic Time": `${st.startTime || ''} - ${st.endTime || ''}`,
-                        "Subtopic Speaker(s)": Array.isArray(st.speakers) ? st.speakers.join(', ') : st.speaker,
+                        "Session Format": s.format || '',
+                        "Subtopic Title": "-", "Subtopic Time": "-",
+                        "Subtopic Speaker(s)": (s.speakers || []).join(', ') || '-',
                         "Session Moderators": (s.moderators || []).join(', ')
                     });
-                });
+                } else {
+                    subList.forEach(st => {
+                        agendaData.push({
+                            "Date": s.date, "Session Time": s.time, "Room": s.room, "Session Title": s.title,
+                            "Session Format": s.format || '',
+                            "Subtopic Title": st.title, "Subtopic Time": `${st.startTime || ''} - ${st.endTime || ''}`,
+                            "Subtopic Speaker(s)": Array.isArray(st.speakers) ? st.speakers.join(', ') : st.speaker,
+                            "Session Moderators": (s.moderators || []).join(', ')
+                        });
+                    });
+                }
             });
             const ws1 = XLSX.utils.json_to_sheet(agendaData);
             XLSX.utils.book_append_sheet(wb, ws1, "Conference Agenda");
@@ -983,6 +1052,7 @@
                         summaryData.push({
                             "ชื่อ-นามสกุล": p.Name, "สถาบัน/หน่วยงาน": p.Institute || '',
                             "วันที่": s.date, "เวลา Session": s.time, "ห้องประชุม": s.room, "หัวข้อ Session": s.title,
+                            "รูปแบบ Session": s.format || '',
                             "หัวข้อย่อยที่รับผิดชอบ": matchedSubtopics.map(st => `${st.title} (${st.startTime}-${st.endTime})`).join('; ') || '-'
                         });
                     }

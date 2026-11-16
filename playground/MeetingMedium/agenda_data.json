@@ -1,6 +1,6 @@
 {
-  "version": "3.0",
-  "lastUpdated": "2026-11-16T05:07:29.444Z",
+  "version": "3.1",
+  "lastUpdated": "2026-11-16T05:20:35.493Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -125,7 +125,7 @@
       "date": "2027-02-19",
       "room": "Fauna",
       "time": "16:30 - 17:30",
-      "title": "The 15x20 Imaging Challenges (Format: 8 mins/case, 15 slides x 20s per slides = 5 mins per case + Q/A 3 mins; Total 8 mins/case) -- imagings include CXR, Echo, CT, MRI, Nuclear",
+      "title": "The 15x20 Imaging Challenges",
       "subTopics": "คลิกเพื่อเพิ่มหัวข้อย่อย...",
       "moderators": [
         "อ.แมน จันทวิมล",
@@ -137,7 +137,8 @@
         "อ.สุรเกียรติ ลีละศศิธร",
         "อ.สุรชัย คงรัตน์"
       ],
-      "subtopicsList": []
+      "subtopicsList": [],
+      "format": "- Format: 8 mins/case, 15 slides x 20s per slides = 5 mins per case + Q/A 3 mins; Total 8 mins/case \n- Imaging includes CXR, Echo, CT, MRI, Nuclear"
     },
     {
       "id": 1793168049939,
@@ -370,7 +371,7 @@
       "date": "2027-02-20",
       "room": "Fauna",
       "time": "13:15 - 14:45",
-      "title": "ECGs Speed Jam -- Guests: แจน, ก็อต (จุฬา), ตั้ม (army), กันนพ (kk)",
+      "title": "ECGs Speed Jam",
       "subtopicsList": [],
       "moderators": [
         "อ.ครรชิต ลิขิตธนสมบัติ",
@@ -381,14 +382,15 @@
       ],
       "speakers": [
         "อ.ธัชพงศ์ งามอุโฆษ"
-      ]
+      ],
+      "format": "-- Guests: แจน, ก็อต (จุฬา), ตั้ม (army), กันนพ (kk)"
     },
     {
       "id": 1793239284560,
       "date": "2027-02-20",
       "room": "Fidella",
       "time": "13:15 - 14:45",
-      "title": "Guidelines Update: From PDFs to Practice (18 mins/topic)",
+      "title": "Guidelines Update: From PDFs to Practice",
       "subtopicsList": [
         {
           "title": "Preop Troponin or Stress Testing: Who needs them?",
@@ -428,14 +430,15 @@
       "moderators": [
         "อ.สรณ บุญใบชัยพฤกษ์"
       ],
-      "speakers": []
+      "speakers": [],
+      "format": "18 mins/topic"
     },
     {
       "id": 1793239750502,
       "date": "2027-02-20",
       "room": "Fidella",
       "time": "15:00 - 16:30",
-      "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics (Format: 22 mins/topic - 1 min intro, 8 mins x2 talk, 5 mins sum)",
+      "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics",
       "subtopicsList": [
         {
           "title": "LPa: A true driver or just a marker of atherosclerosis --  สิระ / ปริญญ์",
@@ -479,7 +482,8 @@
       "moderators": [
         "อ.ภาวิทย์ เพียรวิจิตร"
       ],
-      "speakers": []
+      "speakers": [],
+      "format": "Format: 22 mins/topic - 1 min intro, 8 mins x2 talk, 5 mins sum"
     },
     {
       "id": 1793241090088,
@@ -508,7 +512,7 @@
       "date": "2027-02-21",
       "room": "Fidella",
       "time": "09:30 - 10:30",
-      "title": "Cases of The Year (format: 12 mins presentation + 3 mins Q/A) -- รัญญวรรณ (ตำรวจ), กานต์ (ธรรมศาสตร์), ดนณ (ขอนแก่น)",
+      "title": "Cases of The Year",
       "subtopicsList": [],
       "moderators": [
         "อ.ทศพล ลิ้มพิจารณ์กิจ"
@@ -516,7 +520,8 @@
       "speakers": [
         "อ.บัณฑิต นราตรีคูณ",
         "อ.วริษฐา เพชรคุปต์"
-      ]
+      ],
+      "format": "- format: 12 mins presentation + 3 mins Q/A \n-- รัญญวรรณ (ตำรวจ), กานต์ (ธรรมศาสตร์), ดนณ (ขอนแก่น)"
     },
     {
       "id": 1793241266586,
