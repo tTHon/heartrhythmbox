@@ -245,7 +245,6 @@
                     <h2 class="text-base font-bold flex items-center gap-2">
                         <i class="fa-solid fa-users-gear text-indigo-400"></i> สรุปภารกิจวิทยากรและผู้ดำเนินรายการ (Personal Task Summary)
                     </h2>
-                    <p class="text-xs text-indigo-200 mt-0.5">กดปุ่ม "คัดลอกลิงก์ส่วนตัว" เพื่อส่งลิงก์เฉพาะบุคคลให้วิทยากรแต่ละท่าน</p>
                 </div>
                 <button onclick="exportSummaryExcel()" class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3.5 py-1.5 rounded-lg text-xs flex items-center justify-center gap-1.5 transition">
                     <i class="fa-solid fa-file-excel"></i> ส่งออกตารางสรุปภารกิจ Excel
@@ -256,7 +255,7 @@
                 <table class="w-full text-left text-xs">
                     <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200 text-sm">
                         <tr>
-                            <th scope="col" class="py-3 px-4 w-1/4">ชื่อ-นามสกุล & ลิงก์ส่วนตัว</th>
+                            <th scope="col" class="py-3 px-4 w-1/5">ชื่อ-นามสกุล</th>
                             <th scope="col" class="py-3 px-4 w-1/5">สถาบัน/หน่วยงาน</th>
                             <th scope="col" class="py-3 px-4 text-center w-28">ภารกิจรวม</th>
                             <th scope="col" class="py-3 px-4">รายละเอียด Session & หัวข้อย่อยที่รับผิดชอบ</th>
@@ -368,9 +367,6 @@
     </div>
 
     <script>
-        // ระบุชื่อไฟล์หรือ URL เต็มของหน้า Speaker Portal (เช่น 'speakerPortal.html' หรือ 'https://yourdomain.com/speakerPortal.html')
-        const PORTAL_BASE_URL = 'speakerPortal.html';
-
         let rooms = ["Room A", "Room B"];
         let peopleDatabase = [];
         let sessions = [];
@@ -386,7 +382,6 @@
         });
 
         async function refreshUI() {
-            ensurePersonIds();
             renderRoomTags();
             updateRoomSelectOptions();
             updateDropdowns();
@@ -394,53 +389,6 @@
             updateSummaryTable();
             updateBadges();
             await saveDirectToFile();
-        }
-
-        // สร้าง ID เฉพาะตัวให้วิทยากรแต่ละคนเพื่อใช้ในลิงก์ส่วนตัว (ป้องกันการเปลี่ยนชื่อใน URL เพื่อแอบดูของคนอื่น)
-        function generatePersonId(name) {
-            let hash = 0;
-            for (let i = 0; i < name.length; i++) {
-                hash = ((hash << 5) - hash) + name.charCodeAt(i);
-                hash |= 0;
-            }
-            const hex = Math.abs(hash).toString(36);
-            const rand = Math.random().toString(36).substring(2, 6);
-            return `spk_${hex}${rand}`;
-        }
-
-        function ensurePersonIds() {
-            peopleDatabase.forEach(p => {
-                if (!p.id) {
-                    p.id = generatePersonId(p.Name || String(Date.now()));
-                }
-            });
-        }
-
-        function getPersonalPortalLink(personId) {
-            try {
-                const url = new URL(PORTAL_BASE_URL, window.location.href);
-                url.searchParams.set('id', personId);
-                return url.toString();
-            } catch (e) {
-                return `${PORTAL_BASE_URL}?id=${encodeURIComponent(personId)}`;
-            }
-        }
-
-        function copyPersonalLink(personId, btnEl) {
-            const link = getPersonalPortalLink(personId);
-            navigator.clipboard.writeText(link).then(() => {
-                const originalHtml = btnEl.innerHTML;
-                btnEl.innerHTML = `<i class="fa-solid fa-check"></i> คัดลอกลิงก์แล้ว`;
-                btnEl.classList.remove('bg-sky-50', 'text-sky-700', 'border-sky-200');
-                btnEl.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
-                setTimeout(() => {
-                    btnEl.innerHTML = originalHtml;
-                    btnEl.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600');
-                    btnEl.classList.add('bg-sky-50', 'text-sky-700', 'border-sky-200');
-                }, 2000);
-            }).catch(() => {
-                prompt("คัดลอกลิงก์ส่วนตัวนี้เพื่อส่งให้วิทยากร:", link);
-            });
         }
 
         function escapeHtml(text) {
@@ -636,10 +584,9 @@
         async function saveDirectToFile() {
             if (!fileHandle) return;
             try {
-                ensurePersonIds();
                 const writable = await fileHandle.createWritable();
                 const dataState = {
-                    version: "3.2",
+                    version: "3.1",
                     lastUpdated: new Date().toISOString(),
                     rooms, peopleDatabase, sessions
                 };
@@ -742,6 +689,7 @@
                         const workbook = XLSX.read(data, { type: 'array' });
                         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
                         const importedData = XLSX.utils.sheet_to_json(firstSheet);
+                        let addedCount = 0;
                         importedData.forEach(p => {
                             const nameKey = Object.keys(p).find(k => k.toLowerCase() === 'name' || k === 'ชื่อ');
                             const instKey = Object.keys(p).find(k => k.toLowerCase() === 'institute' || k === 'สถาบัน');
@@ -749,11 +697,8 @@
                             const personInst = instKey ? String(p[instKey]).trim() : '';
 
                             if (personName && !peopleDatabase.some(existing => existing.Name === personName)) {
-                                peopleDatabase.push({ 
-                                    id: generatePersonId(personName),
-                                    Name: personName, 
-                                    Institute: personInst 
-                                });
+                                peopleDatabase.push({ Name: personName, Institute: personInst });
+                                addedCount++;
                             }
                         });
                         refreshUI();
@@ -781,11 +726,7 @@
             const institute = document.getElementById('newPersonInstitute').value.trim();
             if (!name) return alert('กรุณากรอกชื่อ');
             if (!peopleDatabase.some(p => p.Name === name)) {
-                peopleDatabase.push({ 
-                    id: generatePersonId(name),
-                    Name: name, 
-                    Institute: institute 
-                });
+                peopleDatabase.push({ Name: name, Institute: institute });
                 document.getElementById('newPersonName').value = '';
                 document.getElementById('newPersonInstitute').value = '';
                 refreshUI();
@@ -1005,14 +946,12 @@
             }
         }
 
-        /* Summary Table with Personal Link Generator */
+        /* Summary Table */
         function updateSummaryTable() {
             const tbody = document.getElementById('summaryTableBody');
             if (!tbody) return;
             tbody.innerHTML = '';
             let hasTasks = false;
-
-            ensurePersonIds();
 
             peopleDatabase.sort((a, b) => a.Name.localeCompare(b.Name, 'th')).forEach(person => {
                 const name = person.Name;
@@ -1060,13 +999,7 @@
                     const row = document.createElement('tr');
                     row.className = "hover:bg-slate-50 transition border-b border-slate-200";
                     row.innerHTML = `
-                        <td class="py-3.5 px-4 align-top">
-                            <div class="font-semibold text-slate-800 text-sm">${escapeHtml(person.Name)}</div>
-                            <button type="button" onclick="copyPersonalLink('${person.id}', this)" 
-                                    class="mt-1.5 inline-flex items-center gap-1.5 text-[11px] font-medium bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 px-2.5 py-1 rounded-md transition">
-                                <i class="fa-solid fa-link"></i> คัดลอกลิงก์ส่วนตัว
-                            </button>
-                        </td>
+                        <td class="py-3.5 px-4 font-semibold text-slate-800 align-top text-sm">${escapeHtml(person.Name)}</td>
                         <td class="py-3.5 px-4 text-slate-600 align-top text-xs">${escapeHtml(person.Institute || '-')}</td>
                         <td class="py-3.5 px-4 text-center align-top"><span class="bg-purple-100 text-purple-800 font-bold px-2.5 py-1 rounded-full text-xs">${matchedTasks.length} Sessions</span></td>
                         <td class="py-3.5 px-4 align-top text-xs divide-y divide-slate-100">${taskDetailsHtml}</td>
@@ -1111,16 +1044,13 @@
         }
 
         function exportSummaryExcel() {
-            ensurePersonIds();
             const summaryData = [];
             peopleDatabase.forEach(p => {
                 sessions.forEach(s => {
                     const matchedSubtopics = (s.subtopicsList || []).filter(st => Array.isArray(st.speakers) ? st.speakers.includes(p.Name) : st.speaker === p.Name);
                     if ((s.moderators || []).includes(p.Name) || (s.speakers || []).includes(p.Name) || matchedSubtopics.length > 0) {
                         summaryData.push({
-                            "ชื่อ-นามสกุล": p.Name, 
-                            "สถาบัน/หน่วยงาน": p.Institute || '',
-                            "ลิงก์ส่วนตัว": getPersonalPortalLink(p.id),
+                            "ชื่อ-นามสกุล": p.Name, "สถาบัน/หน่วยงาน": p.Institute || '',
                             "วันที่": s.date, "เวลา Session": s.time, "ห้องประชุม": s.room, "หัวข้อ Session": s.title,
                             "รูปแบบ Session": s.format || '',
                             "หัวข้อย่อยที่รับผิดชอบ": matchedSubtopics.map(st => `${st.title} (${st.startTime}-${st.endTime})`).join('; ') || '-'
