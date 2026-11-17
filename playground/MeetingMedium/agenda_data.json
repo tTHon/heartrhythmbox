@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "lastUpdated": "2026-11-17T05:06:47.655Z",
+  "lastUpdated": "2026-11-17T06:59:59.782Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -20,6 +20,10 @@
       "Name": "อ.ณัฐ ซึ่งสนธิพร",
       "Institute": "รพ.รามาธิบดี",
       "id": "spk_pr6wi12qen"
+    },
+    {
+      "Name": "อ.ตรีชฎา วิสารทพงศ์",
+      "Institute": "คณะแพทยศาสตร์ มหาวิทยาลัยสงขลานครินทร์"
     },
     {
       "Name": "อ.ถวาย เงินศรีตระกูล",
@@ -337,10 +341,12 @@
           ]
         },
         {
-          "title": "Unexplained Syncope: Should we Monitor Longer or early Pacemaker? -- ตรีชฎา",
+          "title": "Unexplained Syncope: Should we Monitor Longer or early Pacemaker?",
           "startTime": "10:45",
           "endTime": "11:00",
-          "speakers": []
+          "speakers": [
+            "อ.ตรีชฎา วิสารทพงศ์"
+          ]
         },
         {
           "title": "Role of imagings for cardiovascular side effects from modern oncologic treatment",
@@ -484,7 +490,7 @@
         {
           "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome?",
           "startTime": "15:44",
-          "endTime": "16:05",
+          "endTime": "16:06",
           "speakers": [
             "อ.ทินกฤต ศศิประภา",
             "อ.วรรณวรางค์ วงศ์เจริญ"
