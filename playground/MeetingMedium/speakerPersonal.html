@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตารางภารกิจวิทยากร - Speaker & Moderator Portal</title>
+    <title>ตารางภารกิจวิทยากร - Speaker & Moderator Portal (CC2027)</title>
+    
+    <!-- Open Graph Meta Tags สำหรับแสดงพรีวิวใน LINE / แอปแชต -->
+    <meta property="og:title" content="ตารางภารกิจวิทยากรและผู้ดำเนินรายการ (CC2027)">
+    <meta property="og:description" content="คลิกเพื่อตรวจสอบวัน เวลา ห้องประชุม และหัวข้อบรรยายของท่าน (19-21 Feb 2027, The Zign, Pattaya)">
+    <meta property="og:type" content="website">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -60,16 +66,14 @@
         <!-- Status / File Fallback Banner -->
         <div id="statusBanner" class="hidden p-3 rounded-xl text-xs font-medium flex flex-col sm:flex-row sm:items-center justify-between gap-2 border"></div>
 
-        <!-- Invalid / Unauthorized Link State -->
-        <div id="accessDeniedContainer" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-8 sm:p-12 text-center space-y-3">
-            <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-            <h2 class="text-lg sm:text-xl font-bold text-slate-800">ไม่พบข้อมูลลิงก์ส่วนบุคคล</h2>
-            <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
-                กรุณาเปิดใช้งานผ่านลิงก์เฉพาะบุคคลที่ได้รับจากทีมผู้จัดงานเท่านั้น<br>หากพบปัญหาในการเข้าถึง กรุณาติดต่อผู้ประสานงาน
-            </p>
+        <!-- Loading State (แสดงระหว่างรอโหลด JSON และเป็นข้อความเริ่มต้นให้บอทอ่านแทนข้อความ Error) -->
+        <div id="loadingContainer" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 sm:p-12 text-center space-y-3">
+            <div class="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mx-auto"></div>
+            <p class="text-sm font-medium text-slate-600">กำลังโหลดข้อมูลตารางภารกิจของท่าน...</p>
         </div>
+
+        <!-- Invalid / Unauthorized Link State (ข้อความจะถูกเติมผ่าน JS เมื่อตรวจสอบไม่พบเท่านั้น) -->
+        <div id="accessDeniedContainer" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-8 sm:p-12 text-center space-y-3"></div>
 
         <!-- 1. Selected Speaker Personal Task Result -->
         <div id="personalTaskContainer" class="hidden space-y-4">
@@ -150,10 +154,7 @@
            ⚙️ การตั้งค่าสถานะตารางประชุม (แก้ไขตัวแปรนี้เมื่อตาราง Final แล้ว)
            ========================================================================== */
         
-        // เปลี่ยนจาก false เป็น true เมื่อต้องการเปิดให้กดดู "ตารางประชุมทั้งหมด" ได้
         const IS_SCHEDULE_FINAL = false; 
-
-        // ชื่อไฟล์ JSON ที่เก็บข้อมูล (ต้องวางอยู่ในโฟลเดอร์เดียวกันบน Server)
         const JSON_FILE_PATH = 'agenda_data.json';
 
         /* ==========================================================================
@@ -179,7 +180,6 @@
                 .replace(/'/g, "&#039;");
         }
 
-        // สร้างรหัสอ้างอิงให้ตรงกับ speakerPortal_2.html
         function getPersonToken(person) {
             if (person.id) return person.id;
             const name = (person.Name || '').trim();
@@ -208,6 +208,7 @@
                 hideStatusBanner();
                 resolveSpeakerFromUrl();
             } catch (error) {
+                document.getElementById('loadingContainer').classList.add('hidden');
                 showStatusBanner();
             }
         }
@@ -252,6 +253,7 @@
         }
 
         function resolveSpeakerFromUrl() {
+            document.getElementById('loadingContainer').classList.add('hidden');
             const params = new URLSearchParams(window.location.search);
             const speakerId = params.get('id');
 
@@ -273,7 +275,17 @@
 
         function showAccessDenied() {
             document.getElementById('personalTaskContainer').classList.add('hidden');
-            document.getElementById('accessDeniedContainer').classList.remove('hidden');
+            const deniedContainer = document.getElementById('accessDeniedContainer');
+            deniedContainer.innerHTML = `
+                <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h2 class="text-lg sm:text-xl font-bold text-slate-800">ไม่พบข้อมูลลิงก์ส่วนบุคคล</h2>
+                <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
+                    กรุณาเปิดใช้งานผ่านลิงก์เฉพาะบุคคลที่ได้รับจากทีมผู้จัดงานเท่านั้น<br>หากพบปัญหาในการเข้าถึง กรุณาติดต่อผู้ประสานงาน
+                </p>
+            `;
+            deniedContainer.classList.remove('hidden');
         }
 
         function renderPersonalTasks(person) {
