@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตารางภารกิจวิทยากร - Speaker & Moderator Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Prompt', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen pb-12">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 p-2.5 rounded-xl shadow-md shrink-0">
+                    <i class="fa-solid fa-microphone-lines text-xl sm:text-2xl text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-wide">Speaker & Moderator Portal</h1>
+                    <p class="text-[10px] sm:text-sm text-white/80 mt-0.5">CC2027: 19-21 Feb 2027, The Zign, Pattaya</p>
+                </div>
+            </div>
+
+            <!-- ปุ่มดูตารางประชุมทั้งหมด -->
+            <button onclick="handleViewFullSchedule()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 transition shadow-md">
+                <i class="fa-solid fa-calendar-days"></i> ดูตารางประชุมทั้งหมด
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 mt-6 space-y-6">
+
+        <!-- Status / File Fallback Banner -->
+        <div id="statusBanner" class="hidden p-3 rounded-xl text-xs font-medium flex flex-col sm:flex-row sm:items-center justify-between gap-2 border"></div>
+
+        <!-- Invalid / Unauthorized Link State -->
+        <div id="accessDeniedContainer" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-8 sm:p-12 text-center space-y-3">
+            <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-800">ไม่พบข้อมูลลิงก์ส่วนบุคคล</h2>
+            <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
+                กรุณาเปิดใช้งานผ่านลิงก์เฉพาะบุคคลที่ได้รับจากทีมผู้จัดงานเท่านั้น<br>หากพบปัญหาในการเข้าถึง กรุณาติดต่อผู้ประสานงาน
+            </p>
+        </div>
+
+        <!-- 1. Selected Speaker Personal Task Result -->
+        <div id="personalTaskContainer" class="hidden space-y-4">
+            <!-- Profile Header Card -->
+            <div class="bg-gradient-to-r from-indigo-900 to-indigo-800 text-white rounded-2xl p-5 sm:p-6 shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <span class="inline-block bg-indigo-700/80 text-indigo-200 text-[11px] font-semibold px-2.5 py-0.5 rounded-full mb-1.5">
+                        ข้อมูลภารกิจส่วนบุคคล
+                    </span>
+                    <h3 id="selectedSpeakerName" class="text-xl sm:text-2xl font-bold"></h3>
+                    <p id="selectedSpeakerInstitute" class="text-xs sm:text-sm text-indigo-200 mt-0.5"></p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-xs px-4 py-2.5 rounded-xl text-center shrink-0 border border-white/15">
+                    <div id="selectedSpeakerTaskCount" class="text-2xl font-bold text-amber-300">0</div>
+                    <div class="text-[11px] text-indigo-100">Session ที่รับผิดชอบ</div>
+                </div>
+            </div>
+
+            <!-- Task List Cards -->
+            <div id="personalTaskList" class="space-y-4">
+                <!-- Dynamic Session Cards -->
+            </div>
+        </div>
+
+        <!-- 2. Full Schedule View Container (Shown only when IS_SCHEDULE_FINAL = true) -->
+        <div id="fullScheduleContainer" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-slate-900 text-white px-5 py-4 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                <div>
+                    <h2 class="text-base font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-table-columns text-emerald-400"></i> ตารางการประชุมทั้งหมด (Final Schedule)
+                    </h2>
+                    <p class="text-xs text-slate-400">แสดงรายการประชุมทุกห้องเรียงตามวันและเวลา</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div id="mobileRoomFilter" class="flex md:hidden items-center gap-1 overflow-x-auto"></div>
+                    <button onclick="closeFullSchedule()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs px-3.5 py-1.5 rounded-lg transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> กลับไปตารางส่วนตัว
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[640px] md:min-w-0 md:table-fixed">
+                    <thead>
+                        <tr id="agendaTableHeader" class="bg-slate-800 text-slate-200 border-b border-slate-700"></tr>
+                    </thead>
+                    <tbody id="agendaTableBody" class="divide-y divide-slate-200 text-sm"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal: Not Final Warning -->
+    <div id="notFinalModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center space-y-4 border border-slate-100">
+            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-800">ตารางประชุมทั้งหมดยังไม่ Final</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                ขณะนี้ตารางการประชุมรวมยังอยู่ในระหว่างการปรับปรุงรายละเอียด จึงยังไม่เปิดให้ดูตารางรวมทั้งหมด<br>
+                <span class="text-indigo-600 font-medium">ท่านสามารถตรวจสอบภารกิจเฉพาะส่วนของท่านได้ตามปกติ</span>
+            </p>
+            <div class="pt-2">
+                <button onclick="closeNotFinalModal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-3 rounded-xl transition">
+                    รับทราบ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden File Input for Offline / Local File Fallback -->
+    <input type="file" id="fallbackFileInput" accept=".json" class="hidden" onchange="handleManualFileUpload(event)">
+
+    <script>
+        /* ==========================================================================
+           ⚙️ การตั้งค่าสถานะตารางประชุม (แก้ไขตัวแปรนี้เมื่อตาราง Final แล้ว)
+           ========================================================================== */
+        
+        // เปลี่ยนจาก false เป็น true เมื่อต้องการเปิดให้กดดู "ตารางประชุมทั้งหมด" ได้
+        const IS_SCHEDULE_FINAL = false; 
+
+        // ชื่อไฟล์ JSON ที่เก็บข้อมูล (ต้องวางอยู่ในโฟลเดอร์เดียวกันบน Server)
+        const JSON_FILE_PATH = 'agenda_data.json';
+
+        /* ==========================================================================
+           STATE & INITIALIZATION
+           ========================================================================== */
+        let rooms = ["Room A", "Room B"];
+        let peopleDatabase = [];
+        let sessions = [];
+        let selectedMobileRoom = 'ALL';
+        let currentPerson = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadConferenceData();
+        });
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // สร้างรหัสอ้างอิงให้ตรงกับ speakerPortal_2.html
+        function getPersonToken(person) {
+            if (person.id) return person.id;
+            const name = (person.Name || '').trim();
+            let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+            for (let i = 0; i < name.length; i++) {
+                const ch = name.charCodeAt(i);
+                h1 = Math.imul(h1 ^ ch, 2654435761);
+                h2 = Math.imul(h2 ^ ch, 1597334677);
+            }
+            h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+            h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+            const combined = 4294967296 * (2097151 & h2) + (h1 >>> 0);
+            return 'spk_' + combined.toString(36);
+        }
+
+        async function loadConferenceData() {
+            try {
+                const response = await fetch(`${JSON_FILE_PATH}?t=${Date.now()}`);
+                if (!response.ok) throw new Error('Cannot fetch JSON file');
+                const data = await response.json();
+
+                rooms = data.rooms || ["Room A", "Room B"];
+                peopleDatabase = data.peopleDatabase || [];
+                sessions = data.sessions || [];
+                
+                hideStatusBanner();
+                resolveSpeakerFromUrl();
+            } catch (error) {
+                showStatusBanner();
+            }
+        }
+
+        function showStatusBanner() {
+            const banner = document.getElementById('statusBanner');
+            if (!banner) return;
+            banner.className = "p-3.5 rounded-xl text-xs font-medium flex flex-col sm:flex-row sm:items-center justify-between gap-2 border bg-amber-50 border-amber-200 text-amber-800";
+            banner.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-amber-600 text-base"></i>
+                    <span>หากเปิดไฟล์บนเครื่องโดยตรง กรุณาเลือกไฟล์ <strong>agenda_data.json</strong> เพื่อโหลดข้อมูล</span>
+                </div>
+                <button onclick="document.getElementById('fallbackFileInput').click()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap transition">
+                    <i class="fa-solid fa-folder-open mr-1"></i> เลือกไฟล์ JSON
+                </button>
+            `;
+        }
+
+        function hideStatusBanner() {
+            const banner = document.getElementById('statusBanner');
+            if (banner) banner.classList.add('hidden');
+        }
+
+        function handleManualFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    rooms = data.rooms || ["Room A", "Room B"];
+                    peopleDatabase = data.peopleDatabase || [];
+                    sessions = data.sessions || [];
+                    hideStatusBanner();
+                    resolveSpeakerFromUrl();
+                } catch (err) {
+                    alert('ไฟล์ JSON ไม่ถูกต้อง');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function resolveSpeakerFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const speakerId = params.get('id');
+
+            if (!speakerId) {
+                showAccessDenied();
+                return;
+            }
+
+            const person = peopleDatabase.find(p => getPersonToken(p) === speakerId);
+            if (!person) {
+                showAccessDenied();
+                return;
+            }
+
+            currentPerson = person;
+            document.getElementById('accessDeniedContainer').classList.add('hidden');
+            renderPersonalTasks(person);
+        }
+
+        function showAccessDenied() {
+            document.getElementById('personalTaskContainer').classList.add('hidden');
+            document.getElementById('accessDeniedContainer').classList.remove('hidden');
+        }
+
+        function renderPersonalTasks(person) {
+            const container = document.getElementById('personalTaskContainer');
+            const nameEl = document.getElementById('selectedSpeakerName');
+            const instEl = document.getElementById('selectedSpeakerInstitute');
+            const countEl = document.getElementById('selectedSpeakerTaskCount');
+            const listEl = document.getElementById('personalTaskList');
+
+            nameEl.innerText = person.Name;
+            instEl.innerText = person.Institute || 'ไม่ระบุสถาบัน/หน่วยงาน';
+
+            const name = person.Name;
+            const matchedTasks = [];
+
+            const sortedSessions = [...sessions].sort((a, b) => {
+                if (a.date !== b.date) return a.date.localeCompare(b.date);
+                return a.time.localeCompare(b.time);
+            });
+
+            sortedSessions.forEach(s => {
+                const mods = s.moderators || [];
+                const spks = s.speakers || [];
+                const subList = [...(s.subtopicsList || [])].sort((a, b) => 
+                    (a.startTime || '').localeCompare(b.startTime || '')
+                );
+
+                const isMod = mods.includes(name);
+                const isSessionSpk = spks.includes(name);
+                const matchedSubtopics = subList.filter(st => 
+                    Array.isArray(st.speakers) ? st.speakers.includes(name) : st.speaker === name
+                );
+
+                if (isMod || isSessionSpk || matchedSubtopics.length > 0) {
+                    matchedTasks.push({
+                        session: s,
+                        isMod,
+                        isSessionSpk,
+                        subtopics: matchedSubtopics
+                    });
+                }
+            });
+
+            countEl.innerText = matchedTasks.length;
+
+            if (matchedTasks.length === 0) {
+                listEl.innerHTML = `
+                    <div class="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-500 text-sm">
+                        <i class="fa-regular fa-calendar-xmark text-3xl text-slate-300 mb-2 block"></i>
+                        ยังไม่มีรายการ Session หรือหัวข้อบรรยายที่ได้รับมอบหมายในขณะนี้
+                    </div>
+                `;
+            } else {
+                listEl.innerHTML = matchedTasks.map(task => {
+                    const s = task.session;
+                    const formatText = (s.format || '').trim();
+                    let formattedDate = s.date;
+                    try {
+                        formattedDate = new Date(s.date).toLocaleDateString('th-TH', {
+                            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                        });
+                    } catch (e) {}
+
+                    const formatHtml = formatText ? `
+                        <div class="text-xs sm:text-sm text-slate-600 bg-amber-50/80 border border-amber-200/70 rounded-xl px-3 py-2 mb-3 whitespace-pre-line leading-relaxed">
+                            <i class="fa-solid fa-circle-info text-amber-600 mr-1.5"></i> ${escapeHtml(formatText)}
+                        </div>
+                    ` : '';
+
+                    let roleBadges = [];
+                    if (task.isMod) {
+                        roleBadges.push(`<span class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-xs font-semibold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-user-tie mr-1"></i> Moderator ประจำ Session</span>`);
+                    }
+                    if (task.isSessionSpk) {
+                        roleBadges.push(`<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-semibold px-2.5 py-1 rounded-lg"><i class="fa-solid fa-microphone mr-1"></i> Speaker ประจำ Session</span>`);
+                    }
+
+                    let subtopicsHtml = '';
+                    if (task.subtopics.length > 0) {
+                        subtopicsHtml = `
+                            <div class="mt-3 pt-3 border-t border-slate-100 space-y-2">
+                                <div class="text-xs font-bold text-slate-600">หัวข้อย่อยที่รับผิดชอบบรรยาย (Subtopics):</div>
+                                ${task.subtopics.map(st => {
+                                    const allSpks = Array.isArray(st.speakers) ? st.speakers : (st.speaker ? [st.speaker] : []);
+                                    const coSpeakers = allSpks.filter(sp => sp !== name);
+                                    return `
+                                        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                            <div>
+                                                <div class="font-bold text-slate-800 text-sm">${escapeHtml(st.title)}</div>
+                                                ${coSpeakers.length > 0 ? `<div class="text-xs text-slate-600 mt-0.5"><i class="fa-solid fa-user-group text-emerald-600 mr-1"></i> ร่วมบรรยายกับ: ${escapeHtml(coSpeakers.join(', '))}</div>` : ''}
+                                            </div>
+                                            <div class="bg-white border border-emerald-200 text-emerald-700 font-bold text-xs px-3 py-1.5 rounded-lg whitespace-nowrap self-start sm:self-center">
+                                                <i class="fa-regular fa-clock mr-1"></i> ${st.startTime || ''} - ${st.endTime || ''}
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        `;
+                    }
+
+                    return `
+                        <div class="bg-white rounded-2xl shadow-xs border border-slate-200 p-5 hover:border-indigo-300 transition">
+                            <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 mb-2">
+                                <div class="flex items-center gap-2 font-semibold text-indigo-700">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i> ${formattedDate}</span>
+                                    <span>•</span>
+                                    <span><i class="fa-regular fa-clock mr-1"></i> ${escapeHtml(s.time)}</span>
+                                </div>
+                                <span class="bg-slate-800 text-white font-semibold px-3 py-1 rounded-lg">
+                                    <i class="fa-solid fa-location-dot text-rose-400 mr-1"></i> ${escapeHtml(s.room)}
+                                </span>
+                            </div>
+
+                            <h4 class="text-base sm:text-lg font-bold text-slate-800 ${formatText ? 'mb-2' : 'mb-2.5'}">${escapeHtml(s.title)}</h4>
+
+                            ${formatHtml}
+
+                            ${roleBadges.length > 0 ? `<div class="flex flex-wrap gap-2 mb-2">${roleBadges.join('')}</div>` : ''}
+
+                            ${subtopicsHtml}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            container.classList.remove('hidden');
+        }
+
+        /* ==========================================================================
+           FULL SCHEDULE VIEW & FINAL CHECK
+           ========================================================================== */
+
+        function handleViewFullSchedule() {
+            if (!IS_SCHEDULE_FINAL) {
+                document.getElementById('notFinalModal').classList.remove('hidden');
+                return;
+            }
+
+            document.getElementById('personalTaskContainer').classList.add('hidden');
+            const fullContainer = document.getElementById('fullScheduleContainer');
+            fullContainer.classList.remove('hidden');
+            
+            renderMobileRoomTabs();
+            renderFullAgendaTable();
+            fullContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeNotFinalModal() {
+            document.getElementById('notFinalModal').classList.add('hidden');
+        }
+
+        function closeFullSchedule() {
+            document.getElementById('fullScheduleContainer').classList.add('hidden');
+            if (currentPerson) {
+                document.getElementById('personalTaskContainer').classList.remove('hidden');
+            }
+        }
+
+        function renderMobileRoomTabs() {
+            const container = document.getElementById('mobileRoomFilter');
+            if (!container) return;
+
+            let tabsHtml = `
+                <button onclick="setMobileRoom('ALL')" class="px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition ${selectedMobileRoom === 'ALL' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300'}">
+                    ทุกห้อง
+                </button>
+            `;
+            rooms.forEach(r => {
+                const active = selectedMobileRoom === r;
+                tabsHtml += `
+                    <button onclick="setMobileRoom('${r}')" class="px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition ${active ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300'}">
+                        ${escapeHtml(r)}
+                    </button>
+                `;
+            });
+            container.innerHTML = tabsHtml;
+        }
+
+        function setMobileRoom(roomName) {
+            selectedMobileRoom = roomName;
+            renderMobileRoomTabs();
+            renderFullAgendaTable();
+        }
+
+        function renderFullAgendaTable() {
+            const theader = document.getElementById('agendaTableHeader');
+            const tbody = document.getElementById('agendaTableBody');
+            if (!theader || !tbody) return;
+
+            const displayRooms = selectedMobileRoom === 'ALL' ? rooms : rooms.filter(r => r === selectedMobileRoom);
+
+            let headerHtml = `<th scope="col" class="py-3 px-4 border-r border-slate-700 w-32 sm:w-36 bg-slate-900 font-semibold text-xs sm:text-sm text-center">Time</th>`;
+            displayRooms.forEach(r => {
+                headerHtml += `<th scope="col" class="py-3 px-4 border-r border-slate-700 text-center font-semibold text-xs sm:text-sm">${escapeHtml(r)}</th>`;
+            });
+            theader.innerHTML = headerHtml;
+            tbody.innerHTML = '';
+
+            if (sessions.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="${displayRooms.length + 1}" class="text-center py-8 text-slate-400 italic text-sm">ไม่มีข้อมูล Session</td></tr>`;
+                return;
+            }
+
+            const groupedSlots = {};
+            sessions.forEach(s => {
+                const slotKey = `${s.date}_${s.time}`;
+                if (!groupedSlots[slotKey]) groupedSlots[slotKey] = { date: s.date, time: s.time, roomMap: {} };
+                groupedSlots[slotKey].roomMap[s.room] = s;
+            });
+
+            const sortedSlots = Object.values(groupedSlots).sort((a, b) => a.date !== b.date ? a.date.localeCompare(b.date) : a.time.localeCompare(b.time));
+            let currentDate = '';
+
+            sortedSlots.forEach(slot => {
+                if (slot.date !== currentDate) {
+                    currentDate = slot.date;
+                    let formattedDate = currentDate;
+                    try {
+                        formattedDate = new Date(currentDate).toLocaleDateString('th-TH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    } catch (e) {}
+
+                    const dateHeaderRow = document.createElement('tr');
+                    dateHeaderRow.className = "bg-indigo-900 text-white font-bold";
+                    dateHeaderRow.innerHTML = `<td colspan="${displayRooms.length + 1}" class="py-2.5 px-4 text-xs sm:text-sm"><i class="fa-regular fa-calendar-check text-indigo-300 mr-1.5"></i> ${formattedDate}</td>`;
+                    tbody.appendChild(dateHeaderRow);
+                }
+
+                const row = document.createElement('tr');
+                row.className = "border-b border-slate-200";
+                let rowHtml = `<td class="py-3 px-3 border-r border-slate-200 font-bold text-indigo-700 bg-slate-50 align-top text-center text-xs sm:text-sm">${escapeHtml(slot.time)}</td>`;
+                
+                displayRooms.forEach(r => {
+                    const s = slot.roomMap[r];
+                    if (!s) {
+                        rowHtml += `<td class="py-3 px-3 border-r border-slate-200 text-center text-slate-300 italic text-xs">-</td>`;
+                    } else {
+                        const subList = [...(s.subtopicsList || [])].sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
+                        const mods = (s.moderators || []).join(', ');
+                        const spks = (s.speakers || []).join(', ');
+                        const formatText = (s.format || '').trim();
+
+                        const formatHtml = formatText ? `
+                            <div class="text-[11px] sm:text-xs text-slate-600 bg-amber-50/80 border border-amber-200/70 rounded-md px-2 py-1 mb-1.5 whitespace-pre-line leading-relaxed">
+                                <i class="fa-solid fa-circle-info text-amber-600 mr-1"></i> ${escapeHtml(formatText)}
+                            </div>
+                        ` : '';
+                        
+                        const subHtml = subList.map((st, idx) => {
+                            const stSpks = Array.isArray(st.speakers) ? st.speakers.join(', ') : (st.speaker || '');
+                            return `
+                                <div class="bg-slate-50 border border-slate-200 p-2 rounded-md text-xs mt-1.5">
+                                    <div class="font-bold text-slate-800">${idx + 1}. ${escapeHtml(st.title)} <span class="text-indigo-600 font-normal">(${st.startTime}-${st.endTime})</span></div>
+                                    ${stSpks ? `<div class="text-emerald-700 text-[11px] mt-0.5"><i class="fa-solid fa-microphone text-[9px] mr-1"></i>${escapeHtml(stSpks)}</div>` : ''}
+                                </div>
+                            `;
+                        }).join('');
+
+                        rowHtml += `
+                            <td class="py-3 px-3 border-r border-slate-200 align-top">
+                                <div class="font-bold text-slate-800 text-sm mb-1">${escapeHtml(s.title)}</div>
+                                ${formatHtml}
+                                ${mods ? `<div class="text-xs text-slate-600"><span class="font-semibold">Mod:</span> ${escapeHtml(mods)}</div>` : ''}
+                                ${spks ? `<div class="text-xs text-slate-600"><span class="font-semibold">Speaker:</span> ${escapeHtml(spks)}</div>` : ''}
+                                ${subHtml}
+                            </td>
+                        `;
+                    }
+                });
+
+                row.innerHTML = rowHtml;
+                tbody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>
