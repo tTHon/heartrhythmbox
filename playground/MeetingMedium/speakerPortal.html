@@ -37,60 +37,34 @@
 
     <!-- Top Navigation Header -->
     <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-30">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-            <div class="flex items-center space-x-3">
-                <div class="bg-indigo-600 p-2.5 rounded-xl shadow-md shrink-0">
-                    <i class="fa-solid fa-microphone-lines text-xl sm:text-2xl text-white"></i>
-                </div>
-                <div>
-                    <h1 class="text-lg sm:text-xl font-bold tracking-wide">Speaker & Moderator Portal</h1>
-                    <p class="text-[10px] sm:text-sm text-white/80 mt-0.5">CC2027: 19-21 Feb 2027, The Zign, Pattaya</p>
-                </div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center space-x-3">
+            <div class="bg-indigo-600 p-2.5 rounded-xl shadow-md shrink-0">
+                <i class="fa-solid fa-microphone-lines text-xl sm:text-2xl text-white"></i>
             </div>
-
-            <!-- ปุ่มดูตารางประชุมทั้งหมด -->
-            <button onclick="handleViewFullSchedule()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl flex items-center justify-center gap-2 transition shadow-md">
-                <i class="fa-solid fa-calendar-days"></i> ดูตารางประชุมทั้งหมด
-            </button>
+            <div>
+                <h1 class="text-lg sm:text-xl font-bold tracking-wide">Speaker & Moderator Portal</h1>
+                <p class="text-[11px] sm:text-sm text-white/80 mt-0.5">CC2027: 19-21 Feb 2027, The Zign, Pattaya</p>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 mt-6 space-y-6">
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 mt-6 space-y-6">
 
         <!-- Status / File Fallback Banner -->
         <div id="statusBanner" class="hidden p-3 rounded-xl text-xs font-medium flex flex-col sm:flex-row sm:items-center justify-between gap-2 border"></div>
 
-        <!-- 1. Search Section -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8">
-            <div class="max-w-xl mx-auto text-center space-y-2 mb-5">
-                <h2 class="text-lg sm:text-xl font-bold text-slate-800">ค้นหารายชื่อของท่านเพื่อดูตารางภารกิจ</h2>
-                <p class="text-xs sm:text-sm text-slate-500">พิมพ์ชื่อหรือนามสกุลภาษาไทย (เริ่มต้นเพียง 1 ตัวอักษร) ระบบจะแสดงรายชื่อให้เลือกทันที</p>
+        <!-- Invalid / Unauthorized Link State -->
+        <div id="accessDeniedContainer" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 p-8 sm:p-12 text-center space-y-3">
+            <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-lock"></i>
             </div>
-
-            <div class="max-w-xl mx-auto relative">
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <input type="text" id="speakerSearchInput" 
-                           oninput="handleSearchInput(this.value)" 
-                           onfocus="handleSearchInput(this.value)"
-                           placeholder="พิมพ์ชื่อวิทยากร เช่น สมชาย, กิตติ..." 
-                           autocomplete="off"
-                           class="w-full pl-11 pr-10 py-3.5 text-sm sm:text-base rounded-xl border-2 border-indigo-200 focus:border-indigo-600 focus:outline-none shadow-xs transition">
-                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600">
-                        <i class="fa-solid fa-circle-xmark text-lg"></i>
-                    </button>
-                </div>
-
-                <!-- Autocomplete Dropdown Suggestions -->
-                <div id="searchSuggestions" class="hidden absolute z-40 w-full mt-1.5 bg-white rounded-xl shadow-xl border border-slate-200 max-h-64 overflow-y-auto divide-y divide-slate-100">
-                    <!-- Dynamic Suggestions -->
-                </div>
-            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-800">ไม่พบข้อมูลลิงก์ส่วนบุคคล</h2>
+            <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
+                กรุณาเปิดใช้งานผ่านลิงก์เฉพาะบุคคลที่ได้รับจากทีมผู้จัดงานเท่านั้น<br>หากพบปัญหาในการเข้าถึง กรุณาติดต่อผู้ประสานงาน
+            </p>
         </div>
 
-        <!-- 2. Selected Speaker Personal Task Result -->
+        <!-- Selected Speaker Personal Task Result -->
         <div id="personalTaskContainer" class="hidden space-y-4">
             <!-- Profile Header Card -->
             <div class="bg-gradient-to-r from-indigo-900 to-indigo-800 text-white rounded-2xl p-5 sm:p-6 shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -113,87 +87,20 @@
             </div>
         </div>
 
-        <!-- 3. Full Schedule View Container (Shown only when IS_SCHEDULE_FINAL = true) -->
-        <div id="fullScheduleContainer" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="bg-slate-900 text-white px-5 py-4 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
-                <div>
-                    <h2 class="text-base font-bold flex items-center gap-2">
-                        <i class="fa-solid fa-table-columns text-emerald-400"></i> ตารางการประชุมทั้งหมด (Final Schedule)
-                    </h2>
-                    <p class="text-xs text-slate-400">แสดงรายการประชุมทุกห้องเรียงตามวันและเวลา</p>
-                </div>
-                <div class="flex items-center gap-2">
-                    <div id="mobileRoomFilter" class="flex md:hidden items-center gap-1 overflow-x-auto"></div>
-                    <button onclick="closeFullSchedule()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs px-3 py-1.5 rounded-lg transition">
-                        <i class="fa-solid fa-xmark mr-1"></i> ปิดตารางรวม
-                    </button>
-                </div>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse min-w-[640px] md:min-w-0 md:table-fixed">
-                    <thead>
-                        <tr id="agendaTableHeader" class="bg-slate-800 text-slate-200 border-b border-slate-700"></tr>
-                    </thead>
-                    <tbody id="agendaTableBody" class="divide-y divide-slate-200 text-sm"></tbody>
-                </table>
-            </div>
-        </div>
-
     </main>
-
-    <!-- Modal: Not Final Warning -->
-    <div id="notFinalModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-center space-y-4 border border-slate-100">
-            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-800">ตารางประชุมทั้งหมดยังไม่ Final</h3>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                ขณะนี้ตารางการประชุมรวมยังอยู่ในระหว่างการปรับปรุงรายละเอียด จึงยังไม่เปิดให้ดูตารางรวมทั้งหมด<br>
-                <span class="text-indigo-600 font-medium">ท่านสามารถค้นหาชื่อของท่านเพื่อตรวจสอบภารกิจเฉพาะส่วนของท่านได้ตามปกติ</span>
-            </p>
-            <div class="pt-2">
-                <button onclick="closeNotFinalModal()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs py-3 rounded-xl transition">
-                    รับทราบ
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Hidden File Input for Offline / Local File Fallback -->
     <input type="file" id="fallbackFileInput" accept=".json" class="hidden" onchange="handleManualFileUpload(event)">
 
     <script>
-        /* ==========================================================================
-           ⚙️ การตั้งค่าสถานะตารางประชุม (แก้ไขตัวแปรนี้เมื่อตาราง Final แล้ว)
-           ========================================================================== */
-        
-        // เปลี่ยนจาก false เป็น true เมื่อต้องการเปิดให้กดดู "ตารางประชุมทั้งหมด" ได้
-        const IS_SCHEDULE_FINAL = false; 
-
         // ชื่อไฟล์ JSON ที่เก็บข้อมูล (ต้องวางอยู่ในโฟลเดอร์เดียวกันบน Server)
         const JSON_FILE_PATH = 'agenda_data.json';
 
-        /* ==========================================================================
-           STATE & INITIALIZATION
-           ========================================================================== */
-        let rooms = ["Room A", "Room B"];
         let peopleDatabase = [];
         let sessions = [];
-        let selectedMobileRoom = 'ALL';
 
         document.addEventListener("DOMContentLoaded", () => {
             loadConferenceData();
-
-            // ปิด Dropdown เมื่อคลิกพื้นที่อื่นนอกช่องค้นหา
-            document.addEventListener('click', (e) => {
-                const searchBox = document.getElementById('speakerSearchInput');
-                const suggestions = document.getElementById('searchSuggestions');
-                if (searchBox && suggestions && !searchBox.contains(e.target) && !suggestions.contains(e.target)) {
-                    suggestions.classList.add('hidden');
-                }
-            });
         });
 
         function escapeHtml(text) {
@@ -212,11 +119,11 @@
                 if (!response.ok) throw new Error('Cannot fetch JSON file');
                 const data = await response.json();
 
-                rooms = data.rooms || ["Room A", "Room B"];
                 peopleDatabase = data.peopleDatabase || [];
                 sessions = data.sessions || [];
                 
                 hideStatusBanner();
+                resolveSpeakerFromUrl();
             } catch (error) {
                 // Fallback กรณีเปิดไฟล์บนเครื่องโดยตรง (file://) ที่เบราว์เซอร์บล็อก fetch()
                 showStatusBanner();
@@ -230,7 +137,7 @@
             banner.innerHTML = `
                 <div class="flex items-center gap-2">
                     <i class="fa-solid fa-circle-exclamation text-amber-600 text-base"></i>
-                    <span>หากเปิดไฟล์บนเครื่องโดยตรง กรุณาเลือกไฟล์ <strong>agenda_data.json</strong> เพื่อโหลดรายชื่อ</span>
+                    <span>หากเปิดไฟล์บนเครื่องโดยตรง กรุณาเลือกไฟล์ <strong>agenda_data.json</strong> เพื่อโหลดข้อมูล</span>
                 </div>
                 <button onclick="document.getElementById('fallbackFileInput').click()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg font-semibold whitespace-nowrap transition">
                     <i class="fa-solid fa-folder-open mr-1"></i> เลือกไฟล์ JSON
@@ -250,14 +157,10 @@
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    rooms = data.rooms || ["Room A", "Room B"];
                     peopleDatabase = data.peopleDatabase || [];
                     sessions = data.sessions || [];
                     hideStatusBanner();
-                    
-                    // อัปเดตผลลัพธ์หากมีการพิมพ์ค้างไว้
-                    const currentVal = document.getElementById('speakerSearchInput').value;
-                    if (currentVal) handleSearchInput(currentVal);
+                    resolveSpeakerFromUrl();
                 } catch (err) {
                     alert('ไฟล์ JSON ไม่ถูกต้อง');
                 }
@@ -265,74 +168,28 @@
             reader.readAsText(file);
         }
 
-        /* ==========================================================================
-           1. THAI SPEAKER AUTOCOMPLETE SEARCH (1+ CHARACTER)
-           ========================================================================== */
+        function resolveSpeakerFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const speakerId = params.get('id');
 
-        function handleSearchInput(query) {
-            const trimmed = query.trim();
-            const clearBtn = document.getElementById('clearSearchBtn');
-            const suggestionsBox = document.getElementById('searchSuggestions');
-
-            if (trimmed.length > 0) {
-                clearBtn.classList.remove('hidden');
-            } else {
-                clearBtn.classList.add('hidden');
-                suggestionsBox.classList.add('hidden');
+            if (!speakerId) {
+                showAccessDenied();
                 return;
             }
 
-            // กรองรายชื่อภาษาไทยทันทีเมื่อพิมพ์ตั้งแต่ 1 ตัวอักษรขึ้นไป
-            const matches = peopleDatabase
-                .filter(p => p.Name && p.Name.toLowerCase().includes(trimmed.toLowerCase()))
-                .sort((a, b) => a.Name.localeCompare(b.Name, 'th'));
-
-            if (matches.length === 0) {
-                suggestionsBox.innerHTML = `
-                    <div class="p-4 text-center text-xs text-slate-400">
-                        ไม่พบรายชื่อที่ตรงกับ "${escapeHtml(trimmed)}"
-                    </div>
-                `;
-            } else {
-                suggestionsBox.innerHTML = matches.map(person => {
-                    const safeName = person.Name.replace(/'/g, "\\'");
-                    return `
-                        <button type="button" onclick="selectSpeaker('${safeName}')" 
-                                class="w-full text-left px-4 py-3 hover:bg-indigo-50 transition flex items-center justify-between gap-2 group">
-                            <div>
-                                <div class="text-sm font-semibold text-slate-800 group-hover:text-indigo-700">${escapeHtml(person.Name)}</div>
-                                <div class="text-xs text-slate-500">${escapeHtml(person.Institute || 'ไม่ระบุสถาบัน/หน่วยงาน')}</div>
-                            </div>
-                            <i class="fa-solid fa-chevron-right text-xs text-slate-300 group-hover:text-indigo-500"></i>
-                        </button>
-                    `;
-                }).join('');
+            const person = peopleDatabase.find(p => p.id === speakerId);
+            if (!person) {
+                showAccessDenied();
+                return;
             }
 
-            suggestionsBox.classList.remove('hidden');
-        }
-
-        function clearSearch() {
-            const input = document.getElementById('speakerSearchInput');
-            input.value = '';
-            document.getElementById('clearSearchBtn').classList.add('hidden');
-            document.getElementById('searchSuggestions').classList.add('hidden');
-            document.getElementById('personalTaskContainer').classList.add('hidden');
-            input.focus();
-        }
-
-        function selectSpeaker(speakerName) {
-            const person = peopleDatabase.find(p => p.Name === speakerName);
-            if (!person) return;
-
-            document.getElementById('speakerSearchInput').value = person.Name;
-            document.getElementById('searchSuggestions').classList.add('hidden');
-            document.getElementById('clearSearchBtn').classList.remove('hidden');
-
-            // ซ่อนตารางรวม (ถ้าเปิดอยู่) เพื่อให้โฟกัสที่ข้อมูลส่วนตัว
-            document.getElementById('fullScheduleContainer').classList.add('hidden');
-
+            document.getElementById('accessDeniedContainer').classList.add('hidden');
             renderPersonalTasks(person);
+        }
+
+        function showAccessDenied() {
+            document.getElementById('personalTaskContainer').classList.add('hidden');
+            document.getElementById('accessDeniedContainer').classList.remove('hidden');
         }
 
         function renderPersonalTasks(person) {
@@ -348,7 +205,6 @@
             const name = person.Name;
             const matchedTasks = [];
 
-            // ค้นหา Session และ Subtopic ที่เกี่ยวข้องกับวิทยากรท่านนี้
             const sortedSessions = [...sessions].sort((a, b) => {
                 if (a.date !== b.date) return a.date.localeCompare(b.date);
                 return a.time.localeCompare(b.time);
@@ -461,151 +317,6 @@
             }
 
             container.classList.remove('hidden');
-        }
-
-        /* ==========================================================================
-           2. FULL SCHEDULE VIEW & FINAL CHECK
-           ========================================================================== */
-
-        function handleViewFullSchedule() {
-            if (!IS_SCHEDULE_FINAL) {
-                // แสดง Modal แจ้งเตือนว่าตารางยังไม่ Final
-                document.getElementById('notFinalModal').classList.remove('hidden');
-                return;
-            }
-
-            // หาก IS_SCHEDULE_FINAL = true ให้เปิดแสดงตารางประชุมทั้งหมด
-            document.getElementById('personalTaskContainer').classList.add('hidden');
-            const fullContainer = document.getElementById('fullScheduleContainer');
-            fullContainer.classList.remove('hidden');
-            
-            renderMobileRoomTabs();
-            renderFullAgendaTable();
-            fullContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function closeNotFinalModal() {
-            document.getElementById('notFinalModal').classList.add('hidden');
-        }
-
-        function closeFullSchedule() {
-            document.getElementById('fullScheduleContainer').classList.add('hidden');
-        }
-
-        function renderMobileRoomTabs() {
-            const container = document.getElementById('mobileRoomFilter');
-            if (!container) return;
-
-            let tabsHtml = `
-                <button onclick="setMobileRoom('ALL')" class="px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition ${selectedMobileRoom === 'ALL' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300'}">
-                    ทุกห้อง
-                </button>
-            `;
-            rooms.forEach(r => {
-                const active = selectedMobileRoom === r;
-                tabsHtml += `
-                    <button onclick="setMobileRoom('${r}')" class="px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition ${active ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-300'}">
-                        ${escapeHtml(r)}
-                    </button>
-                `;
-            });
-            container.innerHTML = tabsHtml;
-        }
-
-        function setMobileRoom(roomName) {
-            selectedMobileRoom = roomName;
-            renderMobileRoomTabs();
-            renderFullAgendaTable();
-        }
-
-        function renderFullAgendaTable() {
-            const theader = document.getElementById('agendaTableHeader');
-            const tbody = document.getElementById('agendaTableBody');
-            if (!theader || !tbody) return;
-
-            const displayRooms = selectedMobileRoom === 'ALL' ? rooms : rooms.filter(r => r === selectedMobileRoom);
-
-            let headerHtml = `<th scope="col" class="py-3 px-4 border-r border-slate-700 w-32 sm:w-36 bg-slate-900 font-semibold text-xs sm:text-sm text-center">Time</th>`;
-            displayRooms.forEach(r => {
-                headerHtml += `<th scope="col" class="py-3 px-4 border-r border-slate-700 text-center font-semibold text-xs sm:text-sm">${escapeHtml(r)}</th>`;
-            });
-            theader.innerHTML = headerHtml;
-            tbody.innerHTML = '';
-
-            if (sessions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="${displayRooms.length + 1}" class="text-center py-8 text-slate-400 italic text-sm">ไม่มีข้อมูล Session</td></tr>`;
-                return;
-            }
-
-            const groupedSlots = {};
-            sessions.forEach(s => {
-                const slotKey = `${s.date}_${s.time}`;
-                if (!groupedSlots[slotKey]) groupedSlots[slotKey] = { date: s.date, time: s.time, roomMap: {} };
-                groupedSlots[slotKey].roomMap[s.room] = s;
-            });
-
-            const sortedSlots = Object.values(groupedSlots).sort((a, b) => a.date !== b.date ? a.date.localeCompare(b.date) : a.time.localeCompare(b.time));
-            let currentDate = '';
-
-            sortedSlots.forEach(slot => {
-                if (slot.date !== currentDate) {
-                    currentDate = slot.date;
-                    let formattedDate = currentDate;
-                    try {
-                        formattedDate = new Date(currentDate).toLocaleDateString('th-TH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-                    } catch (e) {}
-
-                    const dateHeaderRow = document.createElement('tr');
-                    dateHeaderRow.className = "bg-indigo-900 text-white font-bold";
-                    dateHeaderRow.innerHTML = `<td colspan="${displayRooms.length + 1}" class="py-2.5 px-4 text-xs sm:text-sm"><i class="fa-regular fa-calendar-check text-indigo-300 mr-1.5"></i> ${formattedDate}</td>`;
-                    tbody.appendChild(dateHeaderRow);
-                }
-
-                const row = document.createElement('tr');
-                row.className = "border-b border-slate-200";
-                let rowHtml = `<td class="py-3 px-3 border-r border-slate-200 font-bold text-indigo-700 bg-slate-50 align-top text-center text-xs sm:text-sm">${escapeHtml(slot.time)}</td>`;
-                
-                displayRooms.forEach(r => {
-                    const s = slot.roomMap[r];
-                    if (!s) {
-                        rowHtml += `<td class="py-3 px-3 border-r border-slate-200 text-center text-slate-300 italic text-xs">-</td>`;
-                    } else {
-                        const subList = [...(s.subtopicsList || [])].sort((a, b) => (a.startTime || '').localeCompare(b.startTime || ''));
-                        const mods = (s.moderators || []).join(', ');
-                        const spks = (s.speakers || []).join(', ');
-                        const formatText = (s.format || '').trim();
-
-                        const formatHtml = formatText ? `
-                            <div class="text-[11px] sm:text-xs text-slate-600 bg-amber-50/80 border border-amber-200/70 rounded-md px-2 py-1 mb-1.5 whitespace-pre-line leading-relaxed">
-                                <i class="fa-solid fa-circle-info text-amber-600 mr-1"></i> ${escapeHtml(formatText)}
-                            </div>
-                        ` : '';
-                        
-                        const subHtml = subList.map((st, idx) => {
-                            const stSpks = Array.isArray(st.speakers) ? st.speakers.join(', ') : (st.speaker || '');
-                            return `
-                                <div class="bg-slate-50 border border-slate-200 p-2 rounded-md text-xs mt-1.5">
-                                    <div class="font-bold text-slate-800">${idx + 1}. ${escapeHtml(st.title)} <span class="text-indigo-600 font-normal">(${st.startTime}-${st.endTime})</span></div>
-                                    ${stSpks ? `<div class="text-emerald-700 text-[11px] mt-0.5"><i class="fa-solid fa-microphone text-[9px] mr-1"></i>${escapeHtml(stSpks)}</div>` : ''}
-                                </div>
-                            `;
-                        }).join('');
-
-                        rowHtml += `
-                            <td class="py-3 px-3 border-r border-slate-200 align-top">
-                                <div class="font-bold text-slate-800 text-sm mb-1">${escapeHtml(s.title)}</div>
-                                ${formatHtml}
-                                ${mods ? `<div class="text-xs text-slate-600"><span class="font-semibold">Mod:</span> ${escapeHtml(mods)}</div>` : ''}
-                                ${spks ? `<div class="text-xs text-slate-600"><span class="font-semibold">Speaker:</span> ${escapeHtml(spks)}</div>` : ''}
-                                ${subHtml}
-                            </td>
-                        `;
-                    }
-                });
-
-                row.innerHTML = rowHtml;
-                tbody.appendChild(row);
-            });
         }
     </script>
 </body>
