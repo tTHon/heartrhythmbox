@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "lastUpdated": "2026-11-17T03:10:06.003Z",
+  "lastUpdated": "2026-11-17T04:42:50.113Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -127,7 +127,7 @@
       "id": "spk_fg33m52kiq"
     },
     {
-      "Name": "อ.สุรเกียรติ ลีละศิธร",
+      "Name": "อ.สุรเกียรติ ลีละศศิธร",
       "Institute": "รพ.รามาธิบดี",
       "id": "spk_4y46horgrt"
     },
@@ -340,9 +340,7 @@
           "title": "Unexplained Syncope: Should we Monitor Longer or early Pacemaker?",
           "startTime": "10:45",
           "endTime": "11:00",
-          "speakers": [
-            "อ.วรรณวรางค์ วงศ์เจริญ"
-          ]
+          "speakers": []
         },
         {
           "title": "Role of imagings for cardiovascular side effects from modern oncologic treatment",
@@ -372,7 +370,8 @@
       "moderators": [
         "อ.แมน จันทวิมล"
       ],
-      "speakers": []
+      "speakers": [],
+      "format": ""
     },
     {
       "id": 1793239150884,
@@ -483,12 +482,12 @@
           "speakers": []
         },
         {
-          "title": "Echo vs PA catheter for hemodynamic monitoring during cardiogenic shock -- ถวาย / ธีรภัทร",
+          "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome?",
           "startTime": "15:44",
-          "endTime": "16:06",
+          "endTime": "16:05",
           "speakers": [
-            "อ.ถวาย เงินศรีตระกูล",
-            "อ.ธีรภัทร ยิ่งชนม์เจริญ"
+            "อ.ทินกฤต ศศิประภา",
+            "อ.วรรณวรางค์ วงศ์เจริญ"
           ]
         },
         {
@@ -499,12 +498,6 @@
             "อ.ธัชพงศ์ งามอุโฆษ",
             "อ.ภัทรพงษ์ มกรเวส"
           ]
-        },
-        {
-          "title": "** spare ** Does Triglycerides Reduction Improve Cardiovascular Outcome?",
-          "startTime": "16:28",
-          "endTime": "16:29",
-          "speakers": []
         }
       ],
       "moderators": [
@@ -549,7 +542,7 @@
         "อ.บัณฑิต นราตรีคูณ",
         "อ.วริษฐา เพชรคุปต์"
       ],
-      "format": "- format: 15 mins/case (12 mins presentation + 3 mins Q/A) \n-- รัญญวรรณ (ตำรวจ), กานต์ (ธรรมศาสตร์), ดนณ (ขอนแก่น), Patita พาธิตา (chula)"
+      "format": "- format: 15 mins/case (12 mins presentation + 3 mins Q/A) \n-- รัญญวรรณ (ตำรวจ), กานต์ (ธรรมศาสตร์), ดนณ (ขอนแก่น), Patita พาธิตา (chula), wasan (Police)"
     },
     {
       "id": 1793241266586,
