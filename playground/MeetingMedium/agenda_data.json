@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "lastUpdated": "2026-11-18T05:07:34.915Z",
+  "lastUpdated": "2026-11-18T08:51:20.495Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -211,7 +211,7 @@
       "room": "Fauna",
       "time": "18:15 - 19:45",
       "title": "Quiz Show",
-      "subTopics": "EGM and CIED Tracings",
+      "subTopics": "คลิกเพื่อเพิ่มหัวข้อย่อย...",
       "moderators": [
         "อ.ธัชพงศ์ งามอุโฆษ"
       ],
@@ -227,7 +227,7 @@
           ]
         },
         {
-          "title": "Number Need To Teach - Essential Stats for Trials Interpretation",
+          "title": "Number Needed To Teach - Essential Stats for Trials Interpretation",
           "startTime": "18:35",
           "endTime": "19:05",
           "speakers": [
@@ -341,7 +341,7 @@
           ]
         },
         {
-          "title": "Why haven't we been replaced by AI (yet)?",
+          "title": "Why Haven't We Been Replaced by AI (yet)?",
           "startTime": "11:30",
           "endTime": "11:45",
           "speakers": [
@@ -362,7 +362,7 @@
       "title": "Subspecialties Update",
       "subtopicsList": [
         {
-          "title": "Diagnostic Uncertainties in Aortic Stenosis (LFLG, pressure recovery, and etc..)",
+          "title": "Diagnostic Uncertainties in Aortic Stenosis (LFLG, pressure recovery, and others)",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
@@ -370,7 +370,7 @@
           ]
         },
         {
-          "title": "Unexplained Syncope: Should we Monitor Longer or early Pacemaker?",
+          "title": "Unexplained Syncope: Should We Monitor Longer or Early Pacemaker?",
           "startTime": "10:45",
           "endTime": "11:00",
           "speakers": [
@@ -378,7 +378,7 @@
           ]
         },
         {
-          "title": "Role of imagings for cardiovascular side effects from modern oncologic treatment",
+          "title": "Role of Imagings for Cardiovascular Side Effects from Modern Oncologic Treatment",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": [
@@ -394,7 +394,7 @@
           ]
         },
         {
-          "title": "ฺAdvanced mechanical support for cardiogenic shock",
+          "title": "ฺAdvanced Mechanical Support for Cardiogenic Shock",
           "startTime": "11:30",
           "endTime": "11:45",
           "speakers": [
@@ -455,7 +455,7 @@
       "title": "Guidelines Update: From PDFs to Practice",
       "subtopicsList": [
         {
-          "title": "Preop Troponin or Stress Testing: Who needs them?",
+          "title": "Pre-op Troponin or Stress Testing: Who needs them?",
           "startTime": "13:15",
           "endTime": "13:33",
           "speakers": [
@@ -463,7 +463,7 @@
           ]
         },
         {
-          "title": "New HF Re-Classification: Is simpler better?",
+          "title": "New HF Re-Classification: Is Simpler Better?",
           "startTime": "13:33",
           "endTime": "13:51",
           "speakers": [
@@ -471,7 +471,7 @@
           ]
         },
         {
-          "title": "AF Ablation and New implantable device Option in HFrEF",
+          "title": "AF Ablation and New Implantable Device Option in HFrEF",
           "startTime": "13:51",
           "endTime": "14:09",
           "speakers": [
@@ -479,13 +479,13 @@
           ]
         },
         {
-          "title": "Lipid Management: Discrepancy between guidelines and evidence",
+          "title": "Lipid Management: Discrepancy between Guidelines and Evidence",
           "startTime": "14:09",
           "endTime": "14:27",
           "speakers": []
         },
         {
-          "title": "Catheter based intervention in acute pulmonary embolism",
+          "title": "Catheter-based Intervention in Acute Pulmonary Embolism",
           "startTime": "14:27",
           "endTime": "14:45",
           "speakers": [
@@ -507,7 +507,7 @@
       "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics",
       "subtopicsList": [
         {
-          "title": "LPa: A true driver or just a marker of atherosclerosis --  Pro: วิชัย / Con: ปริญญ์",
+          "title": "LPa: A True Driver or just a Marker of Atherosclerosis --  Pro: วิชัย / Con: ปริญญ์",
           "startTime": "15:00",
           "endTime": "15:22",
           "speakers": [
@@ -516,7 +516,7 @@
           ]
         },
         {
-          "title": "Should we use CAC for 1) CAD screening and 2) risk stratification?  --  Yes: แมน / No: นครินทร์",
+          "title": "Should We Use CAC for 1) CAD Screening and 2) Risk Stratification?  --  Yes: แมน / No: นครินทร์",
           "startTime": "15:22",
           "endTime": "15:44",
           "speakers": [
@@ -534,7 +534,7 @@
           ]
         },
         {
-          "title": "Physical Examination in Asymptomatic Adults: Is it necessary?  -- Yes: ภัทรพงษ์ / No: ธัชพงศ์",
+          "title": "Physical Examination in Asymptomatic Adults: Is It Necessary?  -- Yes: ภัทรพงษ์ / No: ธัชพงศ์",
           "startTime": "16:06",
           "endTime": "16:28",
           "speakers": [
@@ -604,7 +604,7 @@
           ]
         },
         {
-          "title": "CT-FFR: a non-invasive physiologic guide to significant CAD",
+          "title": "CT-FFR: A Non-invasive Physiologic Guide to Significant CAD",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
@@ -612,7 +612,7 @@
           ]
         },
         {
-          "title": "Percutaneous tricuspid valve intervention to improve cardiovascular outcomes",
+          "title": "Percutaneous Tricuspid Valve Intervention to Improve Cardiovascular Outcomes",
           "startTime": "10:50",
           "endTime": "11:00",
           "speakers": [
@@ -620,7 +620,7 @@
           ]
         },
         {
-          "title": "New antihypersive medication class for resistant hypertension",
+          "title": "New Antihypertensive Medication Class for Resistant Hypertension",
           "startTime": "11:10",
           "endTime": "11:10",
           "speakers": [
