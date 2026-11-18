@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "lastUpdated": "2026-11-18T04:33:42.789Z",
+  "lastUpdated": "2026-11-18T04:59:34.642Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -10,6 +10,10 @@
       "Name": "อ.กฤษฎา มีมุข",
       "Institute": "รพ.รามาธิบดี",
       "id": "spk_p7r074upi4"
+    },
+    {
+      "Name": "อ.กานต์ วิฑูรชาติ",
+      "Institute": "คณะแพทยศาสตร์ มหาวิทยาลัยธรรมศาสตร์"
     },
     {
       "Name": "อ.ครรชิต ลิขิตธนสมบัติ",
@@ -578,10 +582,11 @@
         "อ.ทศพล ลิ้มพิจารณ์กิจ"
       ],
       "speakers": [
+        "อ.กานต์ วิฑูรชาติ",
         "อ.บัณฑิต นราตรีคูณ",
         "อ.วริษฐา เพชรคุปต์"
       ],
-      "format": "- format: 15 mins/case (12 mins presentation + 3 mins Q/A) \n-- กานต์ (ธรรมศาสตร์), ดนณ (ขอนแก่น), wasan (Police)"
+      "format": "- format: 15 mins/case (12 mins presentation + 3 mins Q/A)"
     },
     {
       "id": 1793241266586,
