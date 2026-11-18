@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "lastUpdated": "2026-11-17T06:59:59.782Z",
+  "lastUpdated": "2026-11-18T01:41:42.183Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -54,6 +54,10 @@
       "Name": "อ.ธีรภัทร ยิ่งชนม์เจริญ",
       "Institute": "รพ.รามาธิบดี",
       "id": "spk_v2muxh4vxp"
+    },
+    {
+      "Name": "อ.นครินทร์ ศันสนยุทธ",
+      "Institute": ""
     },
     {
       "Name": "อ.นรศักดิ์ สุวจิตตานนท์",
@@ -119,6 +123,14 @@
       "Name": "อ.วริษฐา เพชรคุปต์",
       "Institute": "CNMI",
       "id": "spk_fianx7n1f9"
+    },
+    {
+      "Name": "อ.วิชัย เส้นทอง",
+      "Institute": ""
+    },
+    {
+      "Name": "อ.ศริญญา ภูวนันท์",
+      "Institute": ""
     },
     {
       "Name": "อ.สรณ บุญใบชัยพฤกษ์",
@@ -213,7 +225,7 @@
           ]
         },
         {
-          "title": "Heart Failure Case Scenario Quiz - ศริญญา (จุฬา)",
+          "title": "Heart Failure Case Scenario Quiz",
           "startTime": "19:05",
           "endTime": "19:25",
           "speakers": []
@@ -224,7 +236,8 @@
           "endTime": "19:45",
           "speakers": []
         }
-      ]
+      ],
+      "format": ""
     },
     {
       "id": 1793170184329,
@@ -434,10 +447,12 @@
           ]
         },
         {
-          "title": "New HF Re-Classification: Is simpler better? -- ศรีสกุล (SI)",
+          "title": "New HF Re-Classification: Is simpler better?",
           "startTime": "13:33",
           "endTime": "13:51",
-          "speakers": []
+          "speakers": [
+            "อ.ศริญญา ภูวนันท์"
+          ]
         },
         {
           "title": "AF Ablation and New implantable device Option in HFrEF",
@@ -474,21 +489,25 @@
       "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics",
       "subtopicsList": [
         {
-          "title": "LPa: A true driver or just a marker of atherosclerosis --  สิระ / ปริญญ์",
+          "title": "LPa: A true driver or just a marker of atherosclerosis --  Driver: วิชัย / Marker: ปริญญ์",
           "startTime": "15:00",
           "endTime": "15:22",
           "speakers": [
-            "อ.ปริญญ์ วาทีสาธกกิจ"
+            "อ.ปริญญ์ วาทีสาธกกิจ",
+            "อ.วิชัย เส้นทอง"
           ]
         },
         {
-          "title": "Should we use CAC for 1) CAD screening and 2) risk stratification??  --  นครินทร์ / mann, or ณัฐวุฒิ or ไพโรจน์ / ทินกฤต, แมน",
+          "title": "Should we use CAC for 1) CAD screening and 2) risk stratification?  --  Yes: แมน / No: นครินทร์",
           "startTime": "15:22",
           "endTime": "15:44",
-          "speakers": []
+          "speakers": [
+            "อ.นครินทร์ ศันสนยุทธ",
+            "อ.แมน จันทวิมล"
+          ]
         },
         {
-          "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome?",
+          "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome? -- Yes: วรรณวรางค์ / No: ทินกฤต",
           "startTime": "15:44",
           "endTime": "16:06",
           "speakers": [
@@ -497,7 +516,7 @@
           ]
         },
         {
-          "title": "Physical Examination in Asymptomatic Adults: Is it necessary?",
+          "title": "Physical Examination in Asymptomatic Adults: Is it necessary?  -- Yes: ภัทรพงษ์ / No: ธัชพงศ์",
           "startTime": "16:06",
           "endTime": "16:28",
           "speakers": [
