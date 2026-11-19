@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "lastUpdated": "2026-11-17T06:59:59.782Z",
+  "lastUpdated": "2026-11-19T05:04:17.630Z",
   "rooms": [
     "Fidella",
     "Fauna"
@@ -10,6 +10,10 @@
       "Name": "อ.กฤษฎา มีมุข",
       "Institute": "รพ.รามาธิบดี",
       "id": "spk_p7r074upi4"
+    },
+    {
+      "Name": "อ.กานต์ วิฑูรชาติ",
+      "Institute": "คณะแพทยศาสตร์ มหาวิทยาลัยธรรมศาสตร์"
     },
     {
       "Name": "อ.ครรชิต ลิขิตธนสมบัติ",
@@ -41,6 +45,10 @@
       "id": "spk_h4u4dt890z"
     },
     {
+      "Name": "อ.ธนพล โอฬาระชิน",
+      "Institute": "โรงพยาบาลตำรวจ"
+    },
+    {
       "Name": "อ.ธัชพงศ์ งามอุโฆษ",
       "Institute": "รพ.รามาธิบดี",
       "id": "spk_cqpkuf4ews"
@@ -56,13 +64,22 @@
       "id": "spk_v2muxh4vxp"
     },
     {
+      "Name": "อ.นครินทร์ ศันสนยุทธ",
+      "Institute": " ",
+      "id": "spk_8y77fuz70u"
+    },
+    {
+      "Name": "อ.นพณัฐ เตียรถ์สุวรรณ",
+      "Institute": "โรงพยาบาลขอนแก่น"
+    },
+    {
       "Name": "อ.นรศักดิ์ สุวจิตตานนท์",
       "Institute": "โรงพยาบาลสมิติเวช",
       "id": "spk_rytpoj2gp6"
     },
     {
       "Name": "อ.นันทกร ทองแตง",
-      "Institute": "โรงพยาบาลศิริราช",
+      "Institute": "คณะเเพทยศาสตร์ศิริราชพยาบาล",
       "id": "spk_nwbju1fwtm"
     },
     {
@@ -92,7 +109,7 @@
     },
     {
       "Name": "อ.ภัทรพงษ์ มกรเวส",
-      "Institute": "ศูนย์หัวใจสิริกิติ์ฯ มหาวิทยาลัยขอนแก่น",
+      "Institute": "ศูนย์หัวใจสิริกิติ์ มหาวิทยาลัยขอนแก่น",
       "id": "spk_gj8kuiwyzj"
     },
     {
@@ -121,9 +138,27 @@
       "id": "spk_fianx7n1f9"
     },
     {
+      "Name": "อ.วิชัย เส้นทอง",
+      "Institute": "ศูนย์หัวใจสิริกิติ์ มหาวิทยาลัยขอนแก่น",
+      "id": "spk_3g0x1j6q4c"
+    },
+    {
+      "Name": "อ.ศราวุธ ลิ้มประเสริฐ",
+      "Institute": "โรงพยาบาลพระมงกุฎเกล้า"
+    },
+    {
+      "Name": "อ.ศริญญา ภูวนันท์",
+      "Institute": "จุฬาลงกรณ์มหาวิทยาลัย",
+      "id": "spk_1g0j7x3q4c"
+    },
+    {
       "Name": "อ.สรณ บุญใบชัยพฤกษ์",
       "Institute": "รพ.รามาธิบดี",
       "id": "spk_p0zyimd41h"
+    },
+    {
+      "Name": "อ.สาธิต เจนวณิชสถาพร",
+      "Institute": "คณะเเพทยศาสตร์ศิริราชพยาบาล"
     },
     {
       "Name": "อ.สิรินทร์ อภิญาสวัสดิ์",
@@ -139,6 +174,10 @@
       "Name": "อ.สุรชัย คงรัตน์",
       "Institute": "รพ.รามาธิบดี",
       "id": "spk_idze2qbqpt"
+    },
+    {
+      "Name": "อ.อนุรุธ ฮั่นตระกูล",
+      "Institute": "จุฬาลงกรณ์มหาวิทยาลัย"
     },
     {
       "Name": "อ.อรพร สีห์",
@@ -188,7 +227,7 @@
       "room": "Fauna",
       "time": "18:15 - 19:45",
       "title": "Quiz Show",
-      "subTopics": "EGM and CIED Tracings",
+      "subTopics": "คลิกเพื่อเพิ่มหัวข้อย่อย...",
       "moderators": [
         "อ.ธัชพงศ์ งามอุโฆษ"
       ],
@@ -204,7 +243,7 @@
           ]
         },
         {
-          "title": "Number Need To Teach - Essential Stats for Trials Interpretation",
+          "title": "Number Needed To Teach - Essential Stats for Trials Interpretation",
           "startTime": "18:35",
           "endTime": "19:05",
           "speakers": [
@@ -213,18 +252,25 @@
           ]
         },
         {
-          "title": "Heart Failure Case Scenario Quiz - ศริญญา (จุฬา)",
+          "title": "Heart Failure Case Scenario Quiz",
           "startTime": "19:05",
           "endTime": "19:25",
-          "speakers": []
+          "speakers": [
+            "อ.บัณฑิต นราตรีคูณ",
+            "อ.สาธิต เจนวณิชสถาพร"
+          ]
         },
         {
-          "title": "Arrhythmia Case Scenario Quiz - อาจบดินทร์ (SI)",
+          "title": "Arrhythmia Case Scenario Quiz",
           "startTime": "19:25",
           "endTime": "19:45",
-          "speakers": []
+          "speakers": [
+            "อ.ณัฐ ซึ่งสนธิพร",
+            "อ.อนุรุธ ฮั่นตระกูล"
+          ]
         }
-      ]
+      ],
+      "format": ""
     },
     {
       "id": 1793170184329,
@@ -312,7 +358,7 @@
           ]
         },
         {
-          "title": "Why haven't we been replaced by AI (yet)?",
+          "title": "Why Haven't We Been Replaced by AI (yet)?",
           "startTime": "11:30",
           "endTime": "11:45",
           "speakers": [
@@ -333,7 +379,7 @@
       "title": "Subspecialties Update",
       "subtopicsList": [
         {
-          "title": "Diagnostic Uncertainties in Aortic Stenosis (LFLG, pressure recovery, and etc..)",
+          "title": "Diagnostic Uncertainties in Aortic Stenosis (LFLG, pressure recovery, and others)",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
@@ -341,7 +387,7 @@
           ]
         },
         {
-          "title": "Unexplained Syncope: Should we Monitor Longer or early Pacemaker?",
+          "title": "Unexplained Syncope: Should We Monitor Longer or Early Pacemaker?",
           "startTime": "10:45",
           "endTime": "11:00",
           "speakers": [
@@ -349,7 +395,7 @@
           ]
         },
         {
-          "title": "Role of imagings for cardiovascular side effects from modern oncologic treatment",
+          "title": "Role of Imagings for Cardiovascular Side Effects from Modern Oncologic Treatment",
           "startTime": "11:00",
           "endTime": "11:15",
           "speakers": [
@@ -365,7 +411,7 @@
           ]
         },
         {
-          "title": "ฺAdvanced mechanical support for cardiogenic shock",
+          "title": "ฺAdvanced Mechanical Support for Cardiogenic Shock",
           "startTime": "11:30",
           "endTime": "11:45",
           "speakers": [
@@ -414,9 +460,11 @@
         "อ.อัษฎายุธ พูลพิทยาธร"
       ],
       "speakers": [
-        "อ.ธัชพงศ์ งามอุโฆษ"
+        "อ.ธัชพงศ์ งามอุโฆษ",
+        "อ.นพณัฐ เตียรถ์สุวรรณ",
+        "อ.ศราวุธ ลิ้มประเสริฐ"
       ],
-      "format": "-- Guests: แจน, ก็อต (จุฬา), ตั้ม (army), กันนพ (kk)"
+      "format": ""
     },
     {
       "id": 1793239284560,
@@ -426,7 +474,7 @@
       "title": "Guidelines Update: From PDFs to Practice",
       "subtopicsList": [
         {
-          "title": "Preop Troponin or Stress Testing: Who needs them?",
+          "title": "Pre-op Troponin or Stress Testing: Who needs them?",
           "startTime": "13:15",
           "endTime": "13:33",
           "speakers": [
@@ -434,13 +482,15 @@
           ]
         },
         {
-          "title": "New HF Re-Classification: Is simpler better? -- ศรีสกุล (SI)",
+          "title": "New HF Re-Classification: Is Simpler Better?",
           "startTime": "13:33",
           "endTime": "13:51",
-          "speakers": []
+          "speakers": [
+            "อ.ศริญญา ภูวนันท์"
+          ]
         },
         {
-          "title": "AF Ablation and New implantable device Option in HFrEF",
+          "title": "AF Ablation and New Implantable Device Option in HFrEF",
           "startTime": "13:51",
           "endTime": "14:09",
           "speakers": [
@@ -448,16 +498,18 @@
           ]
         },
         {
-          "title": "Lipid Management: Discrepancy between guidelines and evidence -- วิชัย, Sirichai (PSU)",
+          "title": "Lipid Management: Discrepancy between Guidelines and Evidence",
           "startTime": "14:09",
           "endTime": "14:27",
           "speakers": []
         },
         {
-          "title": "Catheter based intervention in acute pulmonary embolism: Mann, Bank, Wiroj",
+          "title": "Catheter-based Intervention in Acute Pulmonary Embolism",
           "startTime": "14:27",
           "endTime": "14:45",
-          "speakers": []
+          "speakers": [
+            "อ.กฤษฎา มีมุข"
+          ]
         }
       ],
       "moderators": [
@@ -474,21 +526,25 @@
       "title": "Cross Talk: Debates on Clinical Relevant, yet Controversial Topics",
       "subtopicsList": [
         {
-          "title": "LPa: A true driver or just a marker of atherosclerosis --  สิระ / ปริญญ์",
+          "title": "LPa: A True Driver or just a Marker of Atherosclerosis --  Pro: วิชัย / Con: ปริญญ์",
           "startTime": "15:00",
           "endTime": "15:22",
           "speakers": [
-            "อ.ปริญญ์ วาทีสาธกกิจ"
+            "อ.ปริญญ์ วาทีสาธกกิจ",
+            "อ.วิชัย เส้นทอง"
           ]
         },
         {
-          "title": "Should we use CAC for 1) CAD screening and 2) risk stratification??  --  นครินทร์ / mann, or ณัฐวุฒิ or ไพโรจน์ / ทินกฤต, แมน",
+          "title": "Should We Use CAC for 1) CAD Screening and 2) Risk Stratification?  --  Yes: แมน / No: นครินทร์",
           "startTime": "15:22",
           "endTime": "15:44",
-          "speakers": []
+          "speakers": [
+            "อ.นครินทร์ ศันสนยุทธ",
+            "อ.แมน จันทวิมล"
+          ]
         },
         {
-          "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome?",
+          "title": "Does Triglycerides Reduction Improve Cardiovascular Outcome? -- Yes: วรรณวรางค์ / No: ทินกฤต",
           "startTime": "15:44",
           "endTime": "16:06",
           "speakers": [
@@ -497,7 +553,7 @@
           ]
         },
         {
-          "title": "Physical Examination in Asymptomatic Adults: Is it necessary?",
+          "title": "Physical Examination in Asymptomatic Adults: Is It Necessary?  -- Yes: ภัทรพงษ์ / No: ธัชพงศ์",
           "startTime": "16:06",
           "endTime": "16:28",
           "speakers": [
@@ -545,10 +601,12 @@
         "อ.ทศพล ลิ้มพิจารณ์กิจ"
       ],
       "speakers": [
+        "อ.กานต์ วิฑูรชาติ",
+        "อ.ธนพล โอฬาระชิน",
         "อ.บัณฑิต นราตรีคูณ",
         "อ.วริษฐา เพชรคุปต์"
       ],
-      "format": "- format: 15 mins/case (12 mins presentation + 3 mins Q/A) \n-- รัญญวรรณ (ตำรวจ), กานต์ (ธรรมศาสตร์), ดนณ (ขอนแก่น), Patita พาธิตา (chula), wasan (Police)"
+      "format": "- format: 15 mins/case (12 mins presentation + 3 mins Q/A)"
     },
     {
       "id": 1793241266586,
@@ -566,7 +624,7 @@
           ]
         },
         {
-          "title": "CT-FFR: a non-invasive physiologic guide to significant CAD",
+          "title": "CT-FFR: A Non-invasive Physiologic Guide to Significant CAD",
           "startTime": "10:30",
           "endTime": "10:45",
           "speakers": [
@@ -574,7 +632,7 @@
           ]
         },
         {
-          "title": "Percutaneous tricuspid valve intervention to improve cardiovascular outcomes",
+          "title": "Percutaneous Tricuspid Valve Intervention to Improve Cardiovascular Outcomes",
           "startTime": "10:50",
           "endTime": "11:00",
           "speakers": [
@@ -582,7 +640,7 @@
           ]
         },
         {
-          "title": "New antihypersive medication class for resistant hypertension",
+          "title": "New Antihypertensive Medication Class for Resistant Hypertension",
           "startTime": "11:10",
           "endTime": "11:10",
           "speakers": [
