@@ -246,7 +246,7 @@
                         <i class="fa-solid fa-users-gear text-indigo-400"></i> สรุปภารกิจวิทยากรและผู้ดำเนินรายการ (Personal Task Summary)
                     </h2>
                 </div>
-                <button onclick="exportSummaryExcel()" class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3.5 py-1.5 rounded-lg text-xs flex items-center justify-center gap-1.5 transition">
+                <button onclick="openSummaryExportModal()" class="bg-indigo-700 hover:bg-indigo-600 text-white font-medium px-3.5 py-1.5 rounded-lg text-xs flex items-center justify-center gap-1.5 transition">
                     <i class="fa-solid fa-file-excel"></i> ส่งออกตารางสรุปภารกิจ Excel
                 </button>
             </div>
@@ -267,6 +267,35 @@
         </div>
 
     </main>
+
+    <!-- Modal: Select Double-Count Sessions Before Summary Excel Export -->
+    <div id="summaryExportModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 transition-opacity">
+        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-6 border border-slate-100 flex flex-col max-h-[85vh]">
+            <div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-indigo-600"></i> ตั้งค่าการนับจำนวน Sessions ก่อนส่งออก Excel
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-0.5">เลือก Session ที่ต้องการให้ <strong class="text-indigo-600">นับเป็น 2 Sessions</strong> (Session อื่นๆ จะนับเป็น 1 Session อัตโนมัติ)</p>
+                </div>
+                <button onclick="closeSummaryExportModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">&times;</button>
+            </div>
+
+            <div id="doubleSessionCheckboxList" class="overflow-y-auto flex-1 space-y-2 pr-1 my-2">
+                <!-- Populated dynamically -->
+            </div>
+
+            <div class="mt-4 flex flex-col sm:flex-row justify-between items-center gap-3 border-t border-slate-100 pt-3">
+                <span id="doubleCountSelectedInfo" class="text-xs text-slate-500">เลือกนับเป็น 2 Sessions: 0 รายการ</span>
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button type="button" onclick="closeSummaryExportModal()" class="px-4 py-2 border border-slate-300 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-50 transition">ยกเลิก</button>
+                    <button type="button" onclick="confirmExportSummaryExcel()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition shadow-sm">
+                        <i class="fa-solid fa-file-excel"></i> ยืนยันและส่งออก Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal: Edit Session -->
     <div id="editSessionModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50 transition-opacity">
@@ -1043,22 +1072,137 @@
             XLSX.writeFile(wb, `Conference_Schedule_Export_${new Date().toISOString().split('T')[0]}.xlsx`);
         }
 
-        function exportSummaryExcel() {
+        /* Personal Task Summary Export Modal & Logic */
+        function openSummaryExportModal() {
+            if (sessions.length === 0) return alert('ไม่มีข้อมูล Session สำหรับส่งออก');
+
+            const listContainer = document.getElementById('doubleSessionCheckboxList');
+            listContainer.innerHTML = '';
+
+            const sortedSessions = [...sessions].sort((a, b) => {
+                if (a.date !== b.date) return a.date.localeCompare(b.date);
+                if (a.time !== b.time) return a.time.localeCompare(b.time);
+                return (a.room || '').localeCompare(b.room || '');
+            });
+
+            sortedSessions.forEach(s => {
+                const label = document.createElement('label');
+                label.className = "flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-indigo-50/50 cursor-pointer transition select-none";
+                label.innerHTML = `
+                    <input type="checkbox" value="${s.id}" onchange="updateDoubleCountSelectedInfo()" class="double-session-checkbox mt-1 h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                    <div class="text-xs flex-1">
+                        <div class="font-bold text-slate-800 text-sm">${escapeHtml(s.title)}</div>
+                        <div class="text-slate-500 mt-0.5">
+                            <span class="font-medium text-indigo-600">${escapeHtml(s.date)}</span> | ${escapeHtml(s.time)} | ห้อง: <span class="font-medium text-slate-700">${escapeHtml(s.room)}</span>
+                        </div>
+                    </div>
+                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 badge-weight">นับ 1 Session</span>
+                `;
+                const checkbox = label.querySelector('input');
+                const badge = label.querySelector('.badge-weight');
+                checkbox.addEventListener('change', () => {
+                    if (checkbox.checked) {
+                        label.classList.add('border-indigo-400', 'bg-indigo-50/70');
+                        badge.textContent = 'นับ 2 Sessions';
+                        badge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-600 text-white badge-weight';
+                    } else {
+                        label.classList.remove('border-indigo-400', 'bg-indigo-50/70');
+                        badge.textContent = 'นับ 1 Session';
+                        badge.className = 'text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 badge-weight';
+                    }
+                });
+                listContainer.appendChild(label);
+            });
+
+            updateDoubleCountSelectedInfo();
+            document.getElementById('summaryExportModal').classList.remove('hidden');
+        }
+
+        function closeSummaryExportModal() {
+            document.getElementById('summaryExportModal').classList.add('hidden');
+        }
+
+        function updateDoubleCountSelectedInfo() {
+            const checkedCount = document.querySelectorAll('.double-session-checkbox:checked').length;
+            document.getElementById('doubleCountSelectedInfo').innerText = `เลือกนับเป็น 2 Sessions: ${checkedCount} รายการ`;
+        }
+
+        function confirmExportSummaryExcel() {
+            const doubleSessionIds = new Set(
+                Array.from(document.querySelectorAll('.double-session-checkbox:checked')).map(cb => String(cb.value))
+            );
+            closeSummaryExportModal();
+            exportSummaryExcel(doubleSessionIds);
+        }
+
+        function exportSummaryExcel(doubleSessionIds = new Set()) {
             const summaryData = [];
-            peopleDatabase.forEach(p => {
-                sessions.forEach(s => {
-                    const matchedSubtopics = (s.subtopicsList || []).filter(st => Array.isArray(st.speakers) ? st.speakers.includes(p.Name) : st.speaker === p.Name);
-                    if ((s.moderators || []).includes(p.Name) || (s.speakers || []).includes(p.Name) || matchedSubtopics.length > 0) {
-                        summaryData.push({
-                            "ชื่อ-นามสกุล": p.Name, "สถาบัน/หน่วยงาน": p.Institute || '',
-                            "วันที่": s.date, "เวลา Session": s.time, "ห้องประชุม": s.room, "หัวข้อ Session": s.title,
-                            "รูปแบบ Session": s.format || '',
-                            "หัวข้อย่อยที่รับผิดชอบ": matchedSubtopics.map(st => `${st.title} (${st.startTime}-${st.endTime})`).join('; ') || '-'
+            const sortedPeople = [...peopleDatabase].sort((a, b) => a.Name.localeCompare(b.Name, 'th'));
+            const sortedSessions = [...sessions].sort((a, b) => {
+                if (a.date !== b.date) return a.date.localeCompare(b.date);
+                return (a.time || '').localeCompare(b.time || '');
+            });
+
+            sortedPeople.forEach(p => {
+                const matchedTasks = [];
+
+                sortedSessions.forEach(s => {
+                    const isMod = (s.moderators || []).includes(p.Name);
+                    const isSpk = (s.speakers || []).includes(p.Name);
+                    const matchedSubtopics = (s.subtopicsList || []).filter(st =>
+                        Array.isArray(st.speakers) ? st.speakers.includes(p.Name) : st.speaker === p.Name
+                    );
+
+                    if (isMod || isSpk || matchedSubtopics.length > 0) {
+                        const weight = doubleSessionIds.has(String(s.id)) ? 2 : 1;
+                        matchedTasks.push({
+                            session: s,
+                            isMod,
+                            isSpk,
+                            subtopics: matchedSubtopics,
+                            weight
                         });
                     }
                 });
+
+                if (matchedTasks.length > 0) {
+                    const totalSessionsCount = matchedTasks.reduce((sum, t) => sum + t.weight, 0);
+
+                    const detailsLines = matchedTasks.map((t, idx) => {
+                        const s = t.session;
+                        const roles = [];
+                        if (t.isMod) roles.push('Moderator');
+                        if (t.isSpk || t.subtopics.length > 0) roles.push('Speaker');
+                        const roleText = roles.length > 0 ? ` [${roles.join(' & ')}]` : '';
+                        const doubleTag = t.weight === 2 ? ' (นับ 2 Sessions)' : '';
+
+                        let line = `${idx + 1}. ${s.date} (${s.time}) [${s.room}] - ${s.title}${roleText}${doubleTag}`;
+                        if (t.subtopics.length > 0) {
+                            const subText = t.subtopics.map(st => `${st.title} (${st.startTime}-${st.endTime})`).join(', ');
+                            line += `\n   • หัวข้อย่อย: ${subText}`;
+                        }
+                        return line;
+                    });
+
+                    summaryData.push({
+                        "ชื่อ-นามสกุล": p.Name,
+                        "สถาบัน/หน่วยงาน": p.Institute || '',
+                        "จำนวน Sessions รวม": totalSessionsCount,
+                        "รายละเอียดภารกิจทั้งหมด": detailsLines.join('\n')
+                    });
+                }
             });
+
+            if (summaryData.length === 0) return alert('ไม่มีข้อมูลภารกิจวิทยากรสำหรับส่งออก');
+
             const ws = XLSX.utils.json_to_sheet(summaryData);
+            ws['!cols'] = [
+                { wch: 30 },
+                { wch: 28 },
+                { wch: 20 },
+                { wch: 75 }
+            ];
+
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Personal Tasks");
             XLSX.writeFile(wb, `Personal_Task_Summary_${new Date().toISOString().split('T')[0]}.xlsx`);
