@@ -221,9 +221,9 @@ IMG_SIZE     = 224
 BATCH_SIZE   = 16
 NUM_WORKERS  = 2
 
-P1_EPOCHS    = 20
+P1_EPOCHS    = 10
 P1_LR        = 1e-3
-P2_EPOCHS    = 40 #20 better than 15
+P2_EPOCHS    = 20 #better than 15
 P2_LR        = 1e-4 #better than 1e-5 
 WEIGHT_DECAY = 1e-4
 
@@ -973,7 +973,7 @@ def main():
                              "→ cv_summary.csv, pooled_per_class_report.csv, pooled_confusion_matrix.csv.")
     parser.add_argument("--n_splits", type=int, default=5)
     parser.add_argument("--init", choices=["pretrained_full", "encoder_newhead", "imagenet_newhead", "scratch"],   # [DATA-EFF] +scratch
-                        default="imagenet_newhead",
+                        default="encoder_newhead",
                         help="[ABLATION] starting weights (see header). Default = original behaviour.")
     parser.add_argument("--summary_phase", default="phase2_finalepoch",   # [DATA-EFF] was "phase2"
                         help="[ABLATION] which val_predictions_<x>.csv --summarize pools: "
