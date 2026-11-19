@@ -221,9 +221,9 @@ IMG_SIZE     = 224
 BATCH_SIZE   = 16
 NUM_WORKERS  = 2
 
-P1_EPOCHS    = 10
+P1_EPOCHS    = 20
 P1_LR        = 1e-3
-P2_EPOCHS    = 20 #better than 15
+P2_EPOCHS    = 40 #20 better than 15
 P2_LR        = 1e-4 #better than 1e-5 
 WEIGHT_DECAY = 1e-4
 
@@ -958,7 +958,7 @@ def main():
     parser.add_argument("--model",      default="C:/CIEDID_data/pkl/classification_manuf.pkl")
     parser.add_argument("--labels_csv", default="C:/CIEDID_data/main_workbook.csv")
     parser.add_argument("--crop_dir",   default="C:/CIEDID_data/Images_crop")
-    parser.add_argument("--output_dir", default="C:/CIEDID_data/Manuf/models/fractions")
+    parser.add_argument("--output_dir", default="C:/CIEDID_data/Manuf/models/fractions/60epochs")
     parser.add_argument("--epochs",  type=int, default=P1_EPOCHS + P2_EPOCHS)
     parser.add_argument("--p1_frac", type=float,
                         default=P1_EPOCHS / (P1_EPOCHS + P2_EPOCHS))
@@ -966,14 +966,14 @@ def main():
                         help="Model path for the single split only; --fold N saves to fold_N/manuf_finetuned.pkl")
     parser.add_argument("--batch",   type=int, default=BATCH_SIZE)
     parser.add_argument("--valid_split", type=float, default=0.2)
-    parser.add_argument("--fold", type=int, default=1,
+    parser.add_argument("--fold", type=int, default=2,
                         help="Run ONE CV fold (0-based). -1 = single stratified split (default).")
     parser.add_argument("--summarize", action="store_true",
                         help="No training: pool the saved fold_N/val_predictions_phase2.csv of all folds "
                              "→ cv_summary.csv, pooled_per_class_report.csv, pooled_confusion_matrix.csv.")
     parser.add_argument("--n_splits", type=int, default=5)
     parser.add_argument("--init", choices=["pretrained_full", "encoder_newhead", "imagenet_newhead", "scratch"],   # [DATA-EFF] +scratch
-                        default="encoder_newhead",
+                        default="imagenet_newhead",
                         help="[ABLATION] starting weights (see header). Default = original behaviour.")
     parser.add_argument("--summary_phase", default="phase2_finalepoch",   # [DATA-EFF] was "phase2"
                         help="[ABLATION] which val_predictions_<x>.csv --summarize pools: "
