@@ -30,9 +30,9 @@ points = np.array([x, y, z]).T.reshape(-1, 1, 3)
 segments = np.concatenate([points[:-1], points[1:]], axis=1)
 
 # 4. ตั้งค่ากราฟพื้นหลังสีดำสนิท
-fig = plt.figure(figsize=(16, 8), facecolor='#050505')
+fig = plt.figure(figsize=(16, 8), facecolor='none')
 ax = fig.add_subplot(111, projection='3d')
-ax.set_facecolor('#050505')
+ax.set_facecolor('none')
 
 # กำหนดค่าสีตามแกน X (ปรับช่วง -20 ถึง 20 เพื่อให้สีขาวอยู่ตรงกลางจุดตัดพอดี)
 norm = plt.Normalize(-20, 20)
@@ -62,5 +62,5 @@ ax.set_axis_off()
 
 plt.tight_layout()
 # บันทึกภาพความละเอียดสูง (พื้นหลังโปร่งใสหรือสีดำ)
-#plt.savefig('playground/xWaves/lorenz_glow.png', dpi=300, bbox_inches='tight', facecolor='#050505')
-plt.show()
+plt.savefig('playground/xWaves/lorenz_glow.png', dpi=300, bbox_inches='tight', facecolor='none')
+#plt.show()

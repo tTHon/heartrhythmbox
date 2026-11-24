@@ -72,7 +72,7 @@ ax_3d.set_zlim(z.min(), z.max())
 
 # ปรับสัดส่วนกล่อง 3D ให้ผายออกแนวนอนรับกับจอ 16:9 และซูมกล้องเข้าใกล้
 ax_3d.set_box_aspect((1.35, 1.35, 1.0), zoom=1.2)
-ax_3d.view_init(elev=12, azim=111)
+ax_3d.view_init(elev=10, azim=90)
 ax_3d.set_axis_off()
 
 # บันทึกภาพความละเอียดสูง (16:9)
